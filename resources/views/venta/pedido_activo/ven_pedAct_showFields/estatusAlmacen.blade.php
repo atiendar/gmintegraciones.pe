@@ -1,0 +1,32 @@
+@switch($pedido->estat_alm)
+  @case(config('app.pendiente'))
+    @php $borde = config('app.color_a'); @endphp
+    @break
+  @case(config('app.asignar_lider_de_pedido'))
+    @php $borde = config('app.color_e'); @endphp
+    @break
+  @case(config('app.en_espera_de_compra'))
+    @php $borde = config('app.color_k'); @endphp
+    @break
+  @case(config('app.en_revision_de_productos'))
+    @php $borde = config('app.color_j'); @endphp
+    @break
+  @case(config('app.en_revision_de_productos_completosParcial'))
+    @php $borde = config('app.color_g'); @endphp
+    @break
+  @case(config('app.productos_completos_terminado'))
+    @php $borde = config('app.color_d'); @endphp
+    @break
+  @default
+    @php $borde = config('app.color_null'); @endphp
+@endswitch
+
+<div class="form-group col-sm btn-sm">
+  <label for="estatus_almacen">{{ __('Estatus almacen') }} {{ $pedido->fech_estat_alm }}</label>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text" style="border-color:{{ $borde }}"><i class="fas fa-text-width"></i></i></span>
+    </div>
+    {!! Form::text('estatus_almacen', $pedido->estat_alm, ['class' => 'form-control disable', 'style' => "border-color:$borde", 'maxlength' => 0, 'placeholder' => __('Estatus almacen'), 'readonly' => 'readonly']) !!}
+  </div>
+</div>

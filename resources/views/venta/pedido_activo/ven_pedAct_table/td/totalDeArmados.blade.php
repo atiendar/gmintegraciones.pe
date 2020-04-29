@@ -1,0 +1,1 @@
+<td width="1rem">{{ $pedido->arm_carg . ' de ' . $pedido->tot_de_arm }}</td>

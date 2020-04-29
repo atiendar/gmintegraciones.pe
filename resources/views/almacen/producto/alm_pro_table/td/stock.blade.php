@@ -1,0 +1,1 @@
+<td>{{ $producto->stock }}</td>

@@ -1,0 +1,1 @@
+<th>{{ __('MONT. DE PAGO') }}</th>

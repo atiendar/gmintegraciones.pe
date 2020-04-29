@@ -1,0 +1,3 @@
+<?php
+/* ===================== [ RUTAS (ALMACÉN) ] ===================== */
+Route::match(['GET', 'HEAD'],'', 'Almacen\AlmacenController@index')->name('almacen.index')->middleware('permission:almacen.producto.index|almacen.producto.create|almacen.producto.show|almacen.producto.edit|almacen.producto.disminuirStock|almacen.producto.destroy|almacen.producto.sustituto.create|almacen.producto.sustituto.destroy|almacen.producto.proveedor.create|almacen.producto.proveedor.edit|almacen.producto.proveedor.destroy');

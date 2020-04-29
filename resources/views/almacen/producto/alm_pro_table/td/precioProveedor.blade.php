@@ -1,0 +1,1 @@
+<td>{{ $producto->prec_prove }}</td>

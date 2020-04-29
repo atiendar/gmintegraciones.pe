@@ -1,0 +1,1 @@
+<td>{{ $pedido->usuario->email_registro }}</td>

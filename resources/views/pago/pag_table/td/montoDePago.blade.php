@@ -1,0 +1,1 @@
+<td>{{ $pago->mont_de_pag }}</td>
