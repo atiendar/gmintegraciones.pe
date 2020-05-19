@@ -58,39 +58,39 @@ return [
     'color_i' => '#58FAAC', // Soft cyan - lime green
     'color_j' => '#FA5882', // Soft pink
     'color_k' => '#ACFA58', // Soft green
-    'color_l' => '#', // 
-    'color_m' => '#', // 
-    'color_n' => '#', // 
+    'color_l' => '#A9D0F5', // 
+    'color_m' => '#FFFF00', // Yellow
+    'color_n' => '#E6E6E6', // 
     'color_o' => '#', // 
     
     # ===================== VENTAS [ PEDIDOS ACTIVOS ] =====================
+    # --- ESTATUS COTIZACIONES
+    'abierta'   => 'Abierta',
+    'cerrada'   => 'Cerrada',
+    'cancelada' => 'Cancelada',
+
     # --- ESTATUS GLOBAL
     'pendiente'                 => 'Pendiente',
     'asignar_lider_de_pedido'   => 'Asignar líder de pedido',
+    'cancelado'             => 'Cancelado',
 
     # --- ESTATUS ARMADO
     'productos_completos'   => 'Productos completos',
     'en_almacen_de_salida'  => 'En almacén de salida',
-    'cancelado'             => 'Cancelado(s)',
-
+    
     # --- ESTATUS FACTURA
     'no_solicitada'         => 'No solicitada',
     'error_del_cliente'     => 'Error del cliente',
     'anticipo_facturado'    => 'Anticipo facturado',
     'facturado'             => 'Facturado',
-    'cancelado'             => 'Cancelado',
     'facturado_eliminado'   => 'Facturado / Eliminado',  
     
     # --- ESTATUS PAGO
-    'anticipo_pendiente'    => 'Anticipo / Pendiente',
-    'anticipo_aprobado'     => 'Anticipo / Aprobado',
-    'anticipo_rechazado'    => 'Anticipo / Rechazado',
-    'pagototal_pendiente'   => 'Pago Total / Pendiente',
-    'pagototal_aprobado'    => 'Pago Total / Aprobado',
-    'pagototal_rechazado'   => 'Pago Total / Rechazado',
-    'pagado'                => 'Pagado',
-    'pagado_eliminados'     => 'Pagado / Eliminados',
-    'pagoseliminados'       => 'Pagos eliminados',
+    'pago_pendiente_de_aprobar'     => 'Pago pendiente de aprobar',
+    'pago_rechazado'                => 'Pago rechazado',
+    'pagado'                        => 'Pagado',
+    'pagado_eliminados'             => 'Pagado / Eliminados',
+    'pagoseliminados'               => 'Pagos eliminados',
 
     # --- ESTATUS VENTAS
     'informacion_general_completa'      => 'Información general completa',
@@ -100,23 +100,24 @@ return [
     'direccion_de_armados_asignado'     => 'Dirección de armados asignado',
     'falta_asignar_direcciones_armados' => 'Falta asignar dirección(es) armado(s)',
     
+    # --- ESTATUS VENTAS (DIRECCIONES)
+    'direcciones_detalladas'    => 'Direcciones detalladas',
+    'falta_detallar_direccion'  => 'Falta detallar dirección',
+
     # --- ESTATUS ALMACÉN
     'en_espera_de_ventas'                       => 'En espera de ventas',
     'en_espera_de_compra'                       => 'En espera de compra',
     'en_revision_de_productos'                  => 'En revisión de productos',
-    'en_revision_de_productos_completosParcial' => 'En revisión de productos (Completos parcial)',
     'productos_completos_terminado'             => 'Productos completos terminado',
 
     # --- ESTATUS PRODUCCIÓN
     'en_espera_de_almacen'                  => 'En espera de almacén',
     'en_produccion'                         => 'En producción',
-    'en_produccion_almacenDeSalidaParcial'  => 'En producción (Almacén de salida parcial)',
     'en_almacen_de_salida_terminado'        => 'En almacén de salida terminado',
     
     # --- ESTATUS LOGÍSTICA
     'en_espera_de_produccion'               => 'En espera de producción',
     'en_ruta'                               => 'En ruta',
-    'en_ruta_parcial'                       => 'En ruta (Parcial)',
     'entregado'                             => 'Entregado',
     'sin_entrega_por_falta_de_informacion'  => 'Sin entrega por falta de información',
     'intento_de_entrega_fallido'            => 'Intento de entrega fallido',

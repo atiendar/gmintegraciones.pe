@@ -5,64 +5,60 @@
     @else 
       <thead>
         <tr>
-          <th>{{ __('ID') }}</th>
-          <th>{{ __('CANT.') }}</th>
           <th>{{ __('TIPO') }}</th>
           <th>{{ __('DESCRIPCIÓN') }}</th>
+          <th>{{ __('CANT.') }}</th>
           <th>{{ __('PRECIO UNIT.') }}</th>
-          <th>{{ __('IMPORTE') }}</th>
-
-          <th>{{ __('SUBTOTAL') }}</th>
+          <th>{{ __('COST. ENVIO') }}</th>
           <th>{{ __('DESCUENTO') }}</th>
-          <th>{{ __('SUBTOTAL DESC.') }}</th>
+          <th>{{ __('SUBTOTAL') }}</th>
           <th>{{ __('IVA') }}</th>
           <th>{{ __('TOTAL') }}</th>
-
-
-
           <th colspan="2">&nbsp</th>
         </tr>
       </thead>
       <tbody> 
         @foreach($armados as $armado)
           <tr title="{{ $armado->nom }}">
-            <td width="1rem">{{ $armado->id }}</td>
-            <td>
-              {!! Form::open(['route' => ['cotizacion.armado.editCantidad', Crypt::encrypt($armado->id)], 'method' => 'patch', 'id' => 'arconProductoEditCantidad']) !!}
-                {!! Form::select('cantidad', config('opcionesSelect.select_cantidad_table_productos_edit'), $armado->cant, ['class' => 'form-control form-control-sm w-75' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'onchange' => 'this.form.submit()']) !!}
-              {!! Form::close() !!}
-            </td>
             <td>{{ $armado->tip }}</td>
             <td>
-              <strong>{{ $armado->nom }} ({{ $armado->sku }})</strong><br>
-              @foreach($armado->productos as $producto)
-                <div class="input-group text-muted ml-4">
-                  {{ $producto->cant }} - {{ $producto->produc }}
-                  {!! Form::open(['route' => ['cotizacion.armado.editUtilidad', Crypt::encrypt($producto->id)], 'method' => 'patch', 'id' => 'arconProductoEditCantidad']) !!}
-                    {!! Form::select('utilidad', config('opcionesSelect.select_utilidad_sin_seleccione'), $producto->utilid, ['class' => 'border-0 p-0' . ($errors->has('utilidad') ? ' is-invalid' : ''), 'style' => 'pacity:1;', 'onchange' => 'this.form.submit()']) !!}
-                  {!! Form::close() !!}
+              <div class="card">
+                <div class="card-header p-0 m-0" id="h{{ $armado->id }}">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#a{{ $armado->id }}" aria-expanded="false" aria-controls="a{{ $armado->id }}">
+                      <strong>{{ $armado->nom }} ({{ $armado->sku }})</strong>
+                    </button>
+                  </h5>
                 </div>
-              @endforeach
+                <div id="a{{ $armado->id }}" class="collapse" aria-labelledby="h{{ $armado->id }}">
+                  <div class="card-body p-1">
+                    @foreach($armado->productos as $producto)
+                      <div class="input-group text-muted ml-4">
+                        {{ $producto->cant }} - {{ $producto->produc }} (${{ Sistema::dosDecimales($producto->prec_clien) }})
+                      </div>
+                    @endforeach
+                  </div>
+                </div>
+              </div>
             </td>
-            <td width="1rem">{{ $armado->prec_unit }}</td>
-            <td width="1rem">{{ $armado->imp }}</td>
-
-
-            <td width="1rem">{{ $armado->imp }}</td>
-            <td width="1rem">{{ $armado->imp }}</td>
-            <td width="1rem">{{ $armado->imp }}</td>
-            <td width="1rem">{{ $armado->imp }}</td>
-            <td width="1rem">{{ $armado->imp }}</td>
-
-
-
-
-
-
-            @include('cotizacion.armado_cotizacion.cot_arm_tableOpciones')
+            <td width="1rem">{{ Sistema::dosDecimales($armado->cant) }}</td>
+            <td width="1rem">${{ Sistema::dosDecimales($armado->prec_redond) }}</td>
+            <td width="1rem">${{ Sistema::dosDecimales($armado->cost_env) }}</td>
+            <td width="1rem">${{ Sistema::dosDecimales($armado->desc) }}</td>
+            <td width="1rem">${{ Sistema::dosDecimales($armado->sub_total) }}</td>
+            <td width="1rem">${{ Sistema::dosDecimales($armado->iva) }}</td>
+            <td width="1rem">${{ Sistema::dosDecimales($armado->tot) }}</td>
+            @if(Request::route()->getName() == 'cotizacion.edit')
+              @include('cotizacion.armado_cotizacion.cot_arm_tableOpciones')
+            @else
+              <td width="1rem"></td>
+              <td width="1rem"></td>
+            @endif
           </tr>
           @endforeach
       </tbody>
     @endif
   </table>
 </div>
+
+

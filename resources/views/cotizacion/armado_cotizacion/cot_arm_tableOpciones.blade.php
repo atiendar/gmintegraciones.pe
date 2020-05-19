@@ -1,3 +1,6 @@
+<td width="1rem" title="Editar: {{ $armado->nom }}">
+  <a href="{{ route('cotizacion.armado.edit', Crypt::encrypt($armado->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-edit"></i></a>
+</td>
 <td width="1rem" title="Eliminar: {{ $armado->nom }}">
   <form method="post" action="{{ route('cotizacion.armado.destroy', Crypt::encrypt($armado->id)) }}" id="cotizacionArmadoDestroy{{ $armado->id }}">
     @method('DELETE')@csrf

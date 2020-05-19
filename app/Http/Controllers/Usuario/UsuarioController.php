@@ -28,8 +28,8 @@ class UsuarioController extends Controller {
   }
   public function create() {
     $roles = $this->rolRepo->getAllRolesPluckMenos(config('app.rol_cliente'));
-    $plantillas = $this->plantillaRepo->getAllPlantillasModuloPluck('Usuarios');
-    $plantilla_default = $this->sistemaRepo->datos('plant_usu');
+    $plantillas = $this->plantillaRepo->getAllPlantillasModuloPluck('Usuarios (Bienvenida)');
+    $plantilla_default = $this->sistemaRepo->datos('plant_usu_bien');
     return view('usuario.usu_create', compact('roles', 'plantillas', 'plantilla_default'));
   }
   public function store(StoreUsuarioRequest $request) {

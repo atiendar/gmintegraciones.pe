@@ -2,6 +2,13 @@
 @section('header')
 <title>@section('title', __('Restablecer contraseña'))</title>
 @endsection
+@section('recapcha')
+{!! htmlScriptTagJsApi([
+  'action' => 'homepage',
+  'callback_then' => 'callbackThen',
+  'callback_catch' => 'callbackCatch'
+]) !!}
+@endsection
 @section('contenido')
 <form method="POST" action="{{ route('password.email') }}" class="login100-form" onsubmit="return checarBotonSubmit('btnsubmit')">
   @csrf

@@ -1,1 +1,1 @@
-<td>{{ $producto->stock }}</td>
+<td>{{ Sistema::dosDecimales($producto->stock) }}</td>

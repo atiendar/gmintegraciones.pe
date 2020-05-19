@@ -29,11 +29,11 @@ class UsuarioRepositories implements UsuarioInterface {
     $this->plantillaRepo              = $plantillaRepositories;
     $this->sistemaRepo                = $sistemaRepositories;
   } 
-  public function usuarioAsignadoFindOrFailById($id_usuario, $acceso) {
+  public function usuarioAsignadoFindOrFailById($id_usuario, $acceso, $relaciones = null) {
     $id_usuario = $this->serviceCrypt->decrypt($id_usuario);
     $usuario = User::asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->where('acceso', $acceso)->with(['roles'=> function ($query) {
       $query->orderBy('nom', 'ASC');
-    }])->findOrFail($id_usuario);
+    }], $relaciones)->findOrFail($id_usuario);
     return $usuario;
   }
   public function getPagination($request, $acceso) {
@@ -155,7 +155,7 @@ class UsuarioRepositories implements UsuarioInterface {
       // FIN (Generar contraseña aleatoria con el rango "longitud_del_password" espesificado en el archivo .env )
       $usuario->password = $this->serviceCrypt->bcrypt($nueva_password);
       $usuario->save();
-      $plantilla = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_usu'));
+      $plantilla = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_usu_bien'));
       $usuario->notify(new NotificacionBienvenidaUsuario($usuario, $nueva_password, $plantilla)); // Envió de correo electrónico
       DB::commit();
       return false;

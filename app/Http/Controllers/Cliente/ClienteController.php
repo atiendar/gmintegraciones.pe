@@ -31,8 +31,8 @@ class ClienteController extends Controller {
   }
   public function create() {
     $roles = $this->rolRepo->getSoloDosRolesPluck(config('app.rol_sin_acceso_al_sistema'), config('app.rol_cliente'));
-    $plantillas = $this->plantillaRepo->getAllPlantillasModuloPluck('Clientes');
-    $plantilla_default = $this->sistemaRepo->datos('plant_cli');
+    $plantillas = $this->plantillaRepo->getAllPlantillasModuloPluck('Clientes (Bienvenida)');
+    $plantilla_default = $this->sistemaRepo->datos('plant_cli_bien');
     return view('cliente.cli_create', compact('roles', 'plantillas', 'plantilla_default'));
   }
   public function store(StoreUsuarioRequest $request) {

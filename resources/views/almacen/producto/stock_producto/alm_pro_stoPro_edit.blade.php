@@ -5,7 +5,7 @@
         <div class="card-body">
           {!! Form::open(['route' => ['almacen.producto.aumentarStock', Crypt::encrypt($producto->id)], 'method' => 'patch', 'id' => 'almacenProductoAumentarStock']) !!}
             <div class="form-group row">
-              <label for="aumentar_stock" class="col-sm-4 col-form-label">{{ __('Aumentar stock') }} ({{ $producto->stock }}) *</label>
+              <label for="aumentar_stock" class="col-sm-4 col-form-label">{{ __('Aumentar stock') }} ({{ Sistema::dosDecimales($producto->stock) }}) *</label>
               <div class="col-sm-8">
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -28,7 +28,7 @@
         <div class="card-body">
           {!! Form::open(['route' => ['almacen.producto.disminuirStock', Crypt::encrypt($producto->id)], 'method' => 'patch', 'id' => 'almacenProductoDisminuirStock']) !!}
             <div class="form-group row">
-              <label for="disminuir_stock" class="col-sm-4 col-form-label">{{ __('Disminuir stock') }} ({{ $producto->stock }}) *</label>
+              <label for="disminuir_stock" class="col-sm-4 col-form-label">{{ __('Disminuir stock') }} ({{ Sistema::dosDecimales($producto->stock) }}) *</label>
               <div class="col-sm-8">
                 <div class="input-group">
                   <div class="input-group-prepend">

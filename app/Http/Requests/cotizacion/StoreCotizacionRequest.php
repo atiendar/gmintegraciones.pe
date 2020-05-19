@@ -8,9 +8,9 @@ class StoreCotizacionRequest extends FormRequest {
   }
   public function rules() {
     return [
-      'serie'               => 'required|exists:series,value',
-      'validez'             => 'required|date|after:tomorrow',
-      'correo_del_cliente'  => 'required|exists:users,email_registro',
+      'validez'                                                     => 'required|date|after:tomorrow',
+      'cliente'                                                     => 'required|exists:users,id',
+      'describe_esta_cotizacion_para_que_sea_mas_facil_encontrarla' => 'required|max:500|string'
     ];
   }
 }

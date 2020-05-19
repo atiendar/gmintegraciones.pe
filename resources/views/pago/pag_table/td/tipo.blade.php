@@ -1,1 +1,0 @@
-<td>{{ $pago->tipo }}</td>

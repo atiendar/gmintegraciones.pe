@@ -36,8 +36,8 @@ class CreateProductosTable extends Migration
             $table->enum('utilid', ['.1','.2','.3','.4','.5','.6','.7','.8','.9'])->nullable()->comment('Utilidad .1 = 10%
             .2 =20%, .3 = 30%, .4= 40%, .5 = 50%, .6 = 60%, .7= 70%, .8 = 80%, .9 = 90%');
             $table->decimal('prec_clien', 20,2)->nullable()->unsigned()->comment('Precio al cliente');
-            $table->string('categ', 100)->comment('Categoria');
-            $table->string('etiq', 100)->comment('Etiqueta');
+            $table->string('categ', 150)->comment('Categoria');
+            $table->string('etiq', 150)->comment('Etiqueta');
             $table->decimal('pes',10,3)->unsigned()->comment('Peso del producto');
             $table->string('cod_barras', 250)->comment('Código de barras');
             $table->text('desc_del_prod')->nullable()->comment('Descripcion del producto');

@@ -26,6 +26,7 @@ Route::group(['prefix' => 'pedido-activo'], function() {
 
     Route::group(['prefix' => 'pago'], function() {
         Route::match(['GET', 'HEAD'],'crear/{id_pedido}', 'Venta\PedidoActivo\PagoPedidoActivo\PagoPedidoActivoController@create')->name('venta.pedidoActivo.pago.create')->middleware('permission:venta.pedidoActivo.pago.create');
+        Route::post('almacenar/{id_pedido}', 'Venta\PedidoActivo\PagoPedidoActivo\PagoPedidoActivoController@store')->name('venta.pedidoActivo.pago.store')->middleware('permission:venta.pedidoActivo.pago.create');
         Route::match(['GET', 'HEAD'],'detalles/{id_pago}', 'Venta\PedidoActivo\PagoPedidoActivo\PagoPedidoActivoController@show')->name('venta.pedidoActivo.pago.show')->middleware('permission:venta.pedidoActivo.pago.show');
         Route::match(['GET', 'HEAD'],'editar/{id_pago}', 'Venta\PedidoActivo\PagoPedidoActivo\PagoPedidoActivoController@edit')->name('venta.pedidoActivo.pago.edit')->middleware('permission:venta.pedidoActivo.pago.edit');
         Route::match(['PUT', 'PATCH'],'actualizar/{id_pago}', 'Venta\PedidoActivo\PagoPedidoActivo\PagoPedidoActivoController@update')->name('venta.pedidoActivo.pago.update')->middleware('permission:venta.pedidoActivo.pago.edit');

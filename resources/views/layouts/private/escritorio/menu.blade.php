@@ -31,6 +31,7 @@
   ])
     <li class="nav-header">{{ __('MÓDULOS') }}</li>
   @endcanany
+  @include('layouts.private.escritorio.menu.pagos')
   @include('layouts.private.escritorio.menu.cotizaciones')
   @include('layouts.private.escritorio.menu.proveedores')
   @include('layouts.private.escritorio.menu.armados')

@@ -68,6 +68,16 @@
       </div>
     <span class="text-danger">{{ $errors->first('destacado') }}</span>
   </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="url_pagina">{{ __('URL página') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-link"></i></span>
+      </div>
+        {!! Form::text('url_pagina', $armado->url_pagina, ['class' => 'form-control' . ($errors->has('url_pagina') ? ' is-invalid' : ''), 'maxlength' => 150, 'placeholder' => __('URL página')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('url_pagina') }}</span>
+  </div>
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
@@ -93,98 +103,10 @@
   </div>
 </div>
 <div class="row">
-  <div class="form-group col-sm btn-sm">
-    <label for="url_pagina">{{ __('URL página') }}</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-link"></i></span>
-      </div>
-        {!! Form::text('url_pagina', $armado->url_pagina, ['class' => 'form-control' . ($errors->has('url_pagina') ? ' is-invalid' : ''), 'maxlength' => 150, 'placeholder' => __('URL página')]) !!}
-    </div>
-    <span class="text-danger">{{ $errors->first('url_pagina') }}</span>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <label for="peso">{{ __('Peso') }} *</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-weight"></i></span>
-      </div>
-      {!! Form::text('peso', $armado->pes, ['class' => 'form-control disabled' . ($errors->has('url_pagina') ? ' is-invalid' : ''), 'maxlength' => 0, 'placeholder' => __('peso'), 'readonly' => 'readonly']) !!}
-      <div class="input-group-prepend">
-        <span class="input-group-text">Kg</span>
-      </div>
-    </div>
-    <span class="text-danger">{{ $errors->first('peso') }}</span>
-  </div>
+  @include('armado.arm_showFields.precioOriginal')
+  @include('armado.arm_showFields.precioRedondeado')
 </div>
-<div class="row">
-  <div class="form-group col-sm btn-sm">
-    <label for="precio_original">{{ __('Precio original') }} *</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-      </div>
-      {!! Form::text('precio_original', $armado->prec_origin, ['class' => 'form-control disabled' . ($errors->has('precio_original') ? ' is-invalid' : ''), 'maxlength' => 0, 'placeholder' => __('Precio original'), 'readonly' => 'readonly']) !!}
-    </div>
-    <span class="text-danger">{{ $errors->first('precio_original') }}</span>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <label for="precio_redondeado">{{ __('Precio redondeado') }} *</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-      </div>
-      {!! Form::text('precio_redondeado', $armado->prec_redond, ['class' => 'form-control disabled' . ($errors->has('precio_redondeado') ? ' is-invalid' : ''), 'maxlength' => 0, 'placeholder' => __('Precio redondeado'), 'readonly' => 'readonly']) !!}
-    </div>
-    <span class="text-danger">{{ $errors->first('precio_redondeado') }}</span>
-  </div>
-</div>
-<label for="redes_sociales">{{ __('MEDIDAS') }}</label>
-<div class="border border-primary rounded p-2">
-  <div class="row">
-    <div class="form-group col-sm btn-sm">
-      <label for="alto">{{ __('Alto') }} *</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-ruler-horizontal"></i></span>
-        </div>
-        {!! Form::text('alto', $armado->alto, ['class' => 'form-control disabled' . ($errors->has('alto') ? ' is-invalid' : ''), 'maxlength' => 0, 'placeholder' => __('Alto'), 'readonly' => 'readonly']) !!}
-        <div class="input-group-prepend">
-          <span class="input-group-text">cm</span>
-        </div>
-      </div>
-      <span class="text-danger">{{ $errors->first('alto') }}</span>
-    </div>
-    <div class="form-group col-sm btn-sm">
-      <label for="ancho">{{ __('Ancho') }} *</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-ruler-horizontal"></i></span>
-        </div>
-        {!! Form::text('ancho', $armado->ancho, ['class' => 'form-control disabled' . ($errors->has('ancho') ? ' is-invalid' : ''), 'maxlength' => 0, 'placeholder' => __('Ancho'), 'readonly' => 'readonly']) !!}
-        <div class="input-group-prepend">
-          <span class="input-group-text">cm</span>
-        </div>
-      </div>
-      <span class="text-danger">{{ $errors->first('ancho') }}</span>
-    </div>
-  </div>
-  <div class="row">
-    <div class="form-group col-sm btn-sm">
-      <label for="largo">{{ __('Largo') }} *</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-ruler-horizontal"></i></span>
-        </div>
-        {!! Form::text('largo', $armado->largo, ['class' => 'form-control disabled' . ($errors->has('largo') ? ' is-invalid' : ''), 'maxlength' => 0, 'placeholder' => __('Largo'), 'readonly' => 'readonly']) !!}
-        <div class="input-group-prepend">
-          <span class="input-group-text">cm</span>
-        </div>
-      </div>
-      <span class="text-danger">{{ $errors->first('largo') }}</span>
-    </div>
-  </div>
-</div>
+@include('armado.arm_showFields.medidas')
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="observaciones">{{ __('Observaciones') }}</label>

@@ -25,6 +25,7 @@ class CreateArchivosGeneradosTable extends Migration
             $table->unsignedBigInteger('user_id')->comment('Id del usuario que solicita la generación del archivo');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('restrict')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

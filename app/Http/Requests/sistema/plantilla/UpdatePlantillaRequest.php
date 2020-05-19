@@ -12,7 +12,7 @@ class UpdatePlantillaRequest extends FormRequest {
     $id_plantilla = Crypt::decrypt($this->id_plantilla);
     return [
       'nombre_de_la_plantilla'	=> 'required|max:100|unique:plantillas,nom,' . $id_plantilla ,
-      'modulo'                  => 'required|in:Cotizaciones,Clientes,Perfil,Sistema,Usuarios,Ventas',
+      'modulo'                  => 'required|in:Clientes (Bienvenida),Perfil (Cambio de contraseña),Sistema (Restablecimiento de contraseña),Usuarios (Bienvenida),Cotizaciones (Enviar cotización),Ventas (Registrar pedido),Ventas (Pedido cancelado),Pagos (Registrar pago),Pagos (Pago rechazado)',
       'asunto'                  => 'required|max:100',
       'diseno_de_la_plantilla'  => 'required',
     ];

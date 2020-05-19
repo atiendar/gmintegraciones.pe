@@ -1,9 +1,9 @@
-<td width="1rem" title="Editar: {{ $pedido->nom }}">
+<td width="1rem" title="Editar: {{ $pedido->num_pedido }}">
   @canany(['venta.pedidoActivo.edit'])
     <a href="{{ route('venta.pedidoActivo.edit', Crypt::encrypt($pedido->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-edit"></i></a>
   @endcanany
 </td>
-<td width="1rem" title="Eliminar: {{ $pedido->nom }}">
+<td width="1rem" title="Eliminar: {{ $pedido->num_pedido }}">
   @can('venta.pedidoActivo.destroy')
     <form method="post" action="{{ route('venta.pedidoActivo.destroy', Crypt::encrypt($pedido->id)) }}" id="ventaPedidoActivoDestroy{{ $pedido->id }}">
       @method('DELETE')@csrf

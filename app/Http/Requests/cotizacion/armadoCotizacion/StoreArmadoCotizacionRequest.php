@@ -14,7 +14,7 @@ class StoreArmadoCotizacionRequest extends FormRequest {
   public function attributes() {
     return [
       // Nombre del campo a mostrar.
-      'id_armado' => 'agregar',
+      'id_armado' => 'agregar armado',
     ];
   }
 }

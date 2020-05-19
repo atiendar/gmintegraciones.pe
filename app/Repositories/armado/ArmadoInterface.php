@@ -2,7 +2,7 @@
 namespace App\Repositories\armado;
 
 interface ArmadoInterface {
-    public function armadoAsignadoFindOrFailById($id_armado, $clon);
+    public function armadoAsignadoFindOrFailById($id_armado, $clon, $relaciones);
     
     public function getPagination($request, $clon);
 
@@ -23,6 +23,4 @@ interface ArmadoInterface {
     public function getAllArmadosPlunk();
 
     public function getAllArmadosPlunkMenos($armados);
-
-    public function calcularNuevosValoresDelArmado($producto, $nuev_alto, $nuev_ancho, $nuev_largo, $nuev_prec_clien, $nuev_pes);
 }

@@ -1,1 +1,1 @@
-<td width="1rem">{{ $armado->regalo }}</td>
+<td width="1rem">{{ $armado->es_de_regalo }}</td>

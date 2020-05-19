@@ -1,6 +1,6 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Editar producto'))</title>
+<title>@section('title', __('Editar producto').' '.$producto->produc)</title>
 <div class="card card-info card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botto tex">
     <h5>
@@ -28,7 +28,7 @@
     </div>
   </div>
 @endcan
-@include('almacen.producto.sustitutos_producto.alm_pro_susPro_index')
 @include('almacen.producto.proveedor_producto.alm_pro_proPro_index')
+@include('almacen.producto.sustitutos_producto.alm_pro_susPro_index')
 @include('layouts.private.plugins.priv_plu_select2')
 @endsection

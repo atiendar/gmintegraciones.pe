@@ -8,8 +8,7 @@
     </ul>
   </div>
   <div class="card-body">
-    @include('layouts.private.generarPassword')
-    {!! Form::open(['route' => 'cotizacion.store', 'onsubmit' => 'return checarBotonSubmit("btnsubmit")', 'files' => true]) !!}
+    {!! Form::open(['route' => 'cotizacion.store', 'onsubmit' => 'return checarBotonSubmit("btnsubmit")']) !!}
       @include('cotizacion.cot_createFields')
     {!! Form::close() !!}
   </div>

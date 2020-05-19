@@ -3,16 +3,16 @@
     @php $borde = config('app.color_a'); @endphp
     @break
   @case(config('app.asignar_lider_de_pedido'))
-    @php $borde = config('app.color_e'); @endphp
+    @php $borde = config('app.color_m'); @endphp
+    @break
+  @case(config('app.en_espera_de_ventas'))
+    @php $borde = config('app.color_a'); @endphp
     @break
   @case(config('app.en_espera_de_compra'))
-    @php $borde = config('app.color_k'); @endphp
+    @php $borde = config('app.color_l'); @endphp
     @break
   @case(config('app.en_revision_de_productos'))
     @php $borde = config('app.color_j'); @endphp
-    @break
-  @case(config('app.en_revision_de_productos_completosParcial'))
-    @php $borde = config('app.color_g'); @endphp
     @break
   @case(config('app.productos_completos_terminado'))
     @php $borde = config('app.color_d'); @endphp

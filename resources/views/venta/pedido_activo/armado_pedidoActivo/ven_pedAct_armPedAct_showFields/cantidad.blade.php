@@ -4,6 +4,6 @@
     <div class="input-group-prepend">
       <span class="input-group-text"><i class="fas fa-text-width"></i></span>
     </div>
-    {!! Form::text('cantidad', $armado->cant, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Cantidad'), 'readonly' => 'readonly']) !!}
+    {!! Form::text('cantidad', Sistema::dosDecimales($armado->cant), ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Cantidad'), 'readonly' => 'readonly']) !!}
   </div>
 </div>

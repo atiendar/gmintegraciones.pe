@@ -20,7 +20,7 @@ class PedidosTableSeeder extends Seeder {
         $pedidos = Pedido::get();
         $hastaC = count($pedidos) - 1;
         for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
-            $pedidos[$contador2]->serie = $this->serieRepo->sumaUnoALaUltimaSerie('Pedidos (Serie)', $pedidos[$contador2]->serie);
+            $pedidos[$contador2]->num_pedido = $this->serieRepo->sumaUnoALaUltimaSerie('Pedidos (Serie)', $pedidos[$contador2]->serie);
             $pedidos[$contador2]->save();
         }
     }

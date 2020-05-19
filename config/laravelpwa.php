@@ -5,20 +5,45 @@ return [
     'manifest' => [
         'name' => env('APP_NAME'),
         'short_name' => env('APP_NAME'),
-        'start_url' => env('APP_URL'),
+        'start_url' => '/',
         'background_color' => '#ffffff',
         'theme_color' => '#000000',
         'display' => 'standalone',
         'orientation'=> 'any',
+        'status_bar'=> 'black',
         'icons' => [
-            '72x72' => '/storage/sistema/icons/icon-72x72.png',
-            '96x96' => '/storage/sistema/icons/icon-96x96.png',
-            '128x128' => '/storage/sistema/icons/icon-128x128.png',
-            '144x144' => '/storage/sistema/icons/icon-144x144.png',
-            '152x152' => '/storage/sistema/icons/icon-152x152.png',
-            '192x192' => '/storage/sistema/icons/icon-192x192.png',
-            '384x384' => '/storage/sistema/icons/icon-384x384.png',
-            '512x512' => '/storage/sistema/icons/icon-512x512.png'
+            '72x72' => [
+                'path' => '/storage/sistema/icons/icon-72x72.png',
+                'purpose' => 'any'
+            ],
+            '96x96' => [
+                'path' => '/storage/sistema/icons/icon-96x96.png',
+                'purpose' => 'any'
+            ],
+            '128x128' => [
+                'path' => '/storage/sistema/icons/icon-128x128.png',
+                'purpose' => 'any'
+            ],
+            '144x144' => [
+                'path' => '/storage/sistema/icons/icon-144x144.png',
+                'purpose' => 'any'
+            ],
+            '152x152' => [
+                'path' => '/storage/sistema/icons/icon-152x152.png',
+                'purpose' => 'any'
+            ],
+            '192x192' => [
+                'path' => '/storage/sistema/icons/icon-192x192.png',
+                'purpose' => 'any'
+            ],
+            '384x384' => [
+                'path' => '/storage/sistema/icons/icon-384x384.png',
+                'purpose' => 'any'
+            ],
+            '512x512' => [
+                'path' => '/storage/sistema/icons/icon-512x512.png',
+                'purpose' => 'any'
+            ],
         ],
         'splash' => [
             '640x1136' => '/storage/sistema/icons/splash-640x1136.png',
@@ -32,6 +57,9 @@ return [
             '1668x2388' => '/storage/sistema/icons/splash-1668x2388.png',
             '2048x2732' => '/storage/sistema/icons/splash-2048x2732.png',
         ],
-        'custom' => []
+        'custom' => [
+            'tag_name' => 'tag_value',
+            'tag_name2' => 'tag_value2',
+        ]
     ]
 ];

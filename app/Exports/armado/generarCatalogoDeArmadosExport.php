@@ -1,12 +1,12 @@
 <?php
 namespace App\Exports\armado;
+use App\Models\Armado;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-// Models
-use App\Models\Armado;
 
 class generarCatalogoDeArmadosExport implements FromView {
     use Exportable;

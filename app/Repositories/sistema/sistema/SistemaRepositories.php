@@ -38,12 +38,18 @@ class SistemaRepositories implements SistemaInterface {
     $sistema->red_tw              = $request->twitter;
     $sistema->red_ins             = $request->instagram;
     $sistema->red_link            = $request->linkedin;
-    $sistema->plant_usu           = $request->plantilla_por_default_modulo_usuarios;
-    $sistema->plant_cli           = $request->plantilla_por_default_modulo_clientes;
-    $sistema->plant_per_camb_pass = $request->plantilla_por_default_modulo_perfil;
-    $sistema->plant_sis_rest_pass = $request->plantilla_por_default_restaurar_password;
-    $sistema->plant_cot           = $request->plantilla_por_default_modulo_cotizaciones;
-    $sistema->plant_vent          = $request->plantilla_por_default_modulo_ventas;
+    $sistema->red_youtube         = $request->youtube;
+    $sistema->ser_cotizaciones    = $request->serie_por_default_cotizaciones;
+    $sistema->ser_pedidos         = $request->serie_por_default_pedidos;
+    $sistema->plant_usu_bien      = $request->plantilla_por_default_bienvenida_usuarios;
+    $sistema->plant_cli_bien      = $request->plantilla_por_default_bienvenida_clientes;
+    $sistema->plant_per_camb_pass = $request->plantilla_por_default_cambio_de_password;
+    $sistema->plant_sis_rest_pass = $request->plantilla_por_default_restablecimiento_de_password;
+    $sistema->plant_cot_env_cot   = $request->plantilla_por_default_enviar_cotizacion;
+    $sistema->plant_vent_reg_ped  = $request->plantilla_por_default_registrar_pedido;
+    $sistema->plant_vent_ped_can  = $request->plantilla_por_default_pedido_cancelado;
+    $sistema->plant_pag_reg_pag   = $request->plantilla_por_default_registrar_pago;
+    $sistema->plant_pag_pag_rech  = $request->plantilla_por_default_pago_rechazado;
     if($sistema->isDirty()) {
       // Dispara el evento registrado en App\Providers\EventServiceProvider.php
       ActividadRegistrada::dispatch(
@@ -51,9 +57,9 @@ class SistemaRepositories implements SistemaInterface {
         'sistema.edit', // Nombre de la ruta
         null, // Id del registro debe ir encriptado
         $request->nombre_de_la_empresa_abreviado, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-        array('Nombre de la empresa', 'Nombre de la empresa abreviado', 'Año de inicio', 'Lada teléfono fijo', 'Teléfono fijo', 'Extensión', 'Lada teléfono móvil', 'Teléfono móvil', 'Dirección uno', 'Dirección dos', 'Dirección tres', 'Correo ventas', 'Correo opción uno', 'Correo opción dos', 'Correo opción tres', 'Página web', 'Facebook', 'Twitter', 'Instagram', 'Linkedin', 'Plantilla por default módulo usuarios', 'Plantilla por default módulo clientes', 'Plantilla por default módulo perfil', 'Plantilla por default restaurar contraseña', 'Plantilla por default módulo cotizaciones', 'Plantilla por default módulo ventas'), // Nombre de los inputs del formulario
-          $sistema, // Request
-        array('emp', 'emp_abrev', 'year_de_ini', 'lad_fij', 'tel_fij', 'ext', 'lad_mov', 'tel_mov', 'direc_uno', 'direc_dos', 'direc_tres', 'corr_vent', 'corr_opc_uno', 'corr_opc_dos', 'corr_opc_tres', 'pag', 'red_fbk', 'red_tw', 'red_ins', 'red_link', 'plant_usu', 'plant_cli', 'plant_per_camb_pass', 'plant_sis_rest_pass', 'plant_cot', 'plant_vent') // Nombre de los campos en la BD
+        array('Nombre de la empresa', 'Nombre de la empresa abreviado', 'Año de inicio', 'Lada teléfono fijo', 'Teléfono fijo', 'Extensión', 'Lada teléfono móvil', 'Teléfono móvil', 'Dirección uno', 'Dirección dos', 'Dirección tres', 'Correo ventas', 'Correo opción uno', 'Correo opción dos', 'Correo opción tres', 'Página web', 'Facebook', 'Twitter', 'Instagram', 'Linkedin', 'Youtube', 'Serie por default "Cotizaciones"', 'Serie por default "Pedidos"', 'Plantilla por default "Bienvenida"', 'Plantilla por default "Bienvenida"', 'Plantilla por default "Cambio de contraseña"', 'Plantilla por default "Restablecimiento de contraseña"', 'Plantilla por default "Enviar cotización"', 'Plantilla por default "Registrar pedido"', 'Plantilla por default "Pedido cancelado"', 'Plantilla por default "Registrar pago"', 'Plantilla por default "Pago rechazado"'), // Nombre de los inputs del formulario
+        $sistema, // Request
+        array('emp', 'emp_abrev', 'year_de_ini', 'lad_fij', 'tel_fij', 'ext', 'lad_mov', 'tel_mov', 'direc_uno', 'direc_dos', 'direc_tres', 'corr_vent', 'corr_opc_uno', 'corr_opc_dos', 'corr_opc_tres', 'pag', 'red_fbk', 'red_tw', 'red_ins', 'red_link', 'red_youtube', 'ser_cotizaciones', 'ser_pedidos', 'plant_usu_bien', 'plant_cli_bien', 'plant_per_camb_pass', 'plant_sis_rest_pass', 'plant_cot_env_cot', 'plant_vent_reg_ped', 'plant_vent_ped_can', 'plant_pag_reg_pag', 'plant_pag_pag_rech') // Nombre de los campos en la BD
       ); 
       $sistema->updated_at_sis  = Auth::user()->email_registro;
     }

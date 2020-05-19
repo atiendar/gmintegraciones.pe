@@ -1,5 +1,7 @@
 <td>
-  @foreach($armado->direcciones as $direccion)
-    {{ $direccion->num_arm }} - {{ $direccion->nom_ref_uno }} ({{ $direccion->col }}) 
-  @endforeach
+  @if($armado->cant == $armado->cant_direc_carg)
+    <span class="badge" style="background:{{ config('app.color_d') }}">{{ config('app.direcciones_detalladas') }}</span>
+  @else
+    <span class="badge" style="background:{{ config('app.color_a') }};color:{{ config('app.color_0') }};">{{ config('app.falta_detallar_direccion') }}</span>
+  @endif
 </td>

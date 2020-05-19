@@ -12,7 +12,7 @@ class ClonArmadoRepositories implements ClonArmadoInterface {
   }
   public function store($id_armado) {
     try { DB::beginTransaction();
-      $armado                  = $this->armadoRepo->armadoAsignadoFindOrFailById($id_armado, '0');
+      $armado                  = $this->armadoRepo->armadoAsignadoFindOrFailById($id_armado, '0', 'productos');
       $armado->num_clon        += 1;
       $clon_armado             = $armado->replicate();
       $clon_armado->img_rut    = null;

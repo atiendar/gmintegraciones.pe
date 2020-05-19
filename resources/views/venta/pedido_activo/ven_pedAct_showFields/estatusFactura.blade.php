@@ -3,10 +3,10 @@
     @php $borde = config('app.color_a'); @endphp
     @break
   @case(config('app.pendiente'))
-    @php $borde = config('app.color_d'); @endphp
+    @php $borde = config('app.color_a'); @endphp
     @break
   @case(config('app.error_del_cliente'))
-    @php $borde = config('app.color_f'); @endphp
+    @php $borde = config('app.color_c'); @endphp
     @break
   @case(config('app.anticipo_facturado'))
     @php $borde = config('app.bfcde6'); @endphp

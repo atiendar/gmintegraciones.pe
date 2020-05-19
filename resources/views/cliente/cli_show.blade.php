@@ -1,6 +1,7 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Detalles cliente'))</title>
+<title>@section('title', __('Detalles cliente').' '.$cliente->nom)</title>
+@include('cliente.show.cli_sho_menu')
 <div class="card card-info card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botton">
     <h5>

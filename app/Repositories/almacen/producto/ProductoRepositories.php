@@ -9,8 +9,9 @@ use App\Events\layouts\ArchivoCargado;
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
 use App\Repositories\papeleraDeReciclaje\PapeleraDeReciclajeRepositories;
-use App\Repositories\armado\ArmadoRepositories;
 use App\Repositories\servicio\calculo\CalculoRepositories;
+use App\Repositories\armado\CalcularValoresArmadoRepositories;
+use App\Repositories\cotizacion\CalcularValoresCotizacionRepositories;
 // Otros
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
@@ -19,17 +20,19 @@ use DB;
 class ProductoRepositories implements ProductoInterface {
   protected $serviceCrypt;
   protected $papeleraDeReciclajeRepo;
-  protected $armadoRepo;
+  protected $calcularValoresArmadoRepo;
   protected $calculoRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories, ArmadoRepositories $armadoRepositories, CalculoRepositories $calculoRepositories) {
-    $this->serviceCrypt             = $serviceCrypt;
-    $this->papeleraDeReciclajeRepo  = $papeleraDeReciclajeRepositories;
-    $this->armadoRepo               = $armadoRepositories;
-    $this->calculoRepo              = $calculoRepositories;
+  protected $calcularValoresCotizacionRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories, CalcularValoresArmadoRepositories $calcularValoresArmadoRepositories, CalculoRepositories $calculoRepositories, CalcularValoresCotizacionRepositories $calcularValoresCotizacionRepositories) {
+    $this->serviceCrypt                         = $serviceCrypt;
+    $this->papeleraDeReciclajeRepo              = $papeleraDeReciclajeRepositories;
+    $this->calcularValoresArmadoRepo            = $calcularValoresArmadoRepositories;
+    $this->calculoRepo                          = $calculoRepositories;
+    $this->calcularValoresCotizacionRepo        = $calcularValoresCotizacionRepositories;
   }
-  public function productoAsignadoFindOrFailById($id_producto) {
+  public function productoAsignadoFindOrFailById($id_producto, $relaciones = null) {
     $id_producto = $this->serviceCrypt->decrypt($id_producto);
-    $producto = Producto::with('sustitutos', 'armados', 'proveedores')->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->findOrFail($id_producto);
+    $producto = Producto::with($relaciones)->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->findOrFail($id_producto);
     return $producto;
   }
   public function getPagination($request){
@@ -79,7 +82,7 @@ class ProductoRepositories implements ProductoInterface {
   }
   public function update($request, $id_producto) {
     DB::transaction(function() use($request, $id_producto) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
-      $producto                 = $this->productoAsignadoFindOrFailById($id_producto);
+      $producto                 = $this->productoAsignadoFindOrFailById($id_producto, ['proveedores', 'armados']);
       $producto->produc         = $request->nombre_del_producto;
       $producto->sku            = $request->sku;
       $producto->marc           = $request->marca;
@@ -93,8 +96,7 @@ class ProductoRepositories implements ProductoInterface {
       $producto->prove          = $request->nombre_del_proveedor;
       $producto->prec_prove     = $pivot->prec_prove;
       $producto->utilid         = $pivot->utilid;
-      $prec_clien               = $this->calculoRepo->getUtilidadProducto($pivot->prec_prove, $pivot->utilid, $producto->cost_arm);
-      $producto->prec_clien     = $prec_clien;
+      $producto->prec_clien     = $this->calculoRepo->getUtilidadProducto($pivot->prec_prove, $pivot->utilid, $producto->cost_arm);
       $producto->categ          = $request->categoria;
       $producto->etiq           = $request->etiqueta;
       $producto->pes            = $request->peso;
@@ -124,14 +126,23 @@ class ProductoRepositories implements ProductoInterface {
         $producto->img_prod_rut  = $archivo[0]['ruta'];
         $producto->img_prod_nom  = $archivo[0]['nombre'];
       }
-      $this->armadoRepo->calcularNuevosValoresDelArmado($producto, $producto->getAttribute('alto'), $producto->getAttribute('ancho'), $producto->getAttribute('largo'), $producto->getAttribute('prec_clien'), $producto->getAttribute('pes'));
       $producto->save();
+
+      // CALCULA LOS NUEVOS PRECIOS Y VALORES DEL ARMADO
+      $armados = $producto->armados()->withTrashed()->with('productos')->get();
+      foreach($armados as $armado) {
+        $this->calcularValoresArmadoRepo->calcularValoresArmado($armado, $armado->productos);
+      }
+      
+      // CALCULA LOS NUEVOS PRECIOS Y VALORES DE LA COTIZACION
+      $this->calcularValoresCotizacionRepo->calculaValoresCotizacionAlModificarProducto($producto);
+
       $this->eliminarCacheAllProductosPlunk();
       return $producto;
     });
   }
   public function aumentarStock($request, $id_producto) {
-    $producto = $this->productoAsignadoFindOrFailById($id_producto);
+    $producto = $this->productoAsignadoFindOrFailById($id_producto, []);
     $producto->stock += $request->aumentar_stock;
     if(strlen($producto->stock) >= 10) {return false;}
     if($producto->isDirty()) {
@@ -151,7 +162,7 @@ class ProductoRepositories implements ProductoInterface {
     return $producto;
   }
   public function disminuirStock($request, $id_producto) {
-    $producto = $this->productoAsignadoFindOrFailById($id_producto);
+    $producto = $this->productoAsignadoFindOrFailById($id_producto, []);
     $producto->stock -= $request->disminuir_stock;
     if($producto->stock < 0) {return false;}
     if($producto->isDirty()) {
@@ -172,10 +183,15 @@ class ProductoRepositories implements ProductoInterface {
   }
   public function destroy($id_producto) {
     try { DB::beginTransaction();
-      $producto = $this->productoAsignadoFindOrFailById($id_producto);
+      $producto = $this->productoAsignadoFindOrFailById($id_producto, 'armados');
       $producto->delete();
-      $this->armadoRepo->calcularNuevosValoresDelArmado($producto, $this->calculoRepo->bcdivDosDecimales(0.00), $this->calculoRepo->bcdivDosDecimales(0.00), $this->calculoRepo->bcdivDosDecimales(0.00), $this->calculoRepo->bcdivDosDecimales(0.00), $this->calculoRepo->bcdivTresDecimales(0.000));
+      $armados = $producto->armados()->withTrashed()->with('productos')->get();
       $producto->armados()->detach();
+
+      // CALCULA LOS NUEVOS PRECIOS Y VALORES DEL ARMADO
+      foreach($armados as $armado) {
+        $this->calcularValoresArmadoRepo->calcularValoresArmado($armado, $armado->productos);
+      }
       $this->eliminarCacheAllProductosPlunk();
       // Manda el registro a la papelera de reciclaje
       $this->papeleraDeReciclajeRepo->store([
@@ -195,9 +211,9 @@ class ProductoRepositories implements ProductoInterface {
     }
     return $producto->sustitutos()->with('sustitutos')->paginate($request->paginador);
   }
-  public function getproductoFindOrFailById($id_producto) {
+  public function getproductoFindOrFailById($id_producto, $relaciones = null) { // 'sustitutos', 'armados', 'proveedores'
     $id_producto = $this->serviceCrypt->decrypt($id_producto);
-    $producto = Producto::with('sustitutos', 'armados', 'proveedores')->findOrFail($id_producto);
+    $producto = Producto::with($relaciones)->findOrFail($id_producto);
     return $producto;
   }
   public function eliminarCacheAllProductosPlunk() {
@@ -210,11 +226,15 @@ class ProductoRepositories implements ProductoInterface {
     return $productos; 
   }
   // Devuelve todos los registros de la tabla productos a excepción de los que se espesifiquen
-  public function getAllSustitutosOrProductosPlunkMenos($sustitutos_o_productos) {
-    return Producto::where(function($query) use($sustitutos_o_productos) {
+  public function getAllSustitutosOrProductosPlunkMenos($sustitutos_o_productos, $opcion) {
+    return Producto::where(function($query) use($sustitutos_o_productos, $opcion) {
       $hastaC = count($sustitutos_o_productos) -1;
       for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
-        $query->where('id', '!=', $sustitutos_o_productos[$contador2]->id);
+        if($opcion == 'original') {
+          $query->where('id', '!=', $sustitutos_o_productos[$contador2]->id);
+        } elseif($opcion == 'copia') {
+          $query->where('id', '!=', $sustitutos_o_productos[$contador2]->id_producto);
+        }
       }
     })->orderBy('produc', 'ASC')->pluck('produc', 'id');
   }

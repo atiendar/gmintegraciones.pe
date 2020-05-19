@@ -98,7 +98,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-ruler-horizontal"></i></span>
             </div>
-            {!! Form::text('alto', $producto->alto, ['id' => 'alto', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Alto'), 'readonly' => 'readonly', 'onChange' => 'getAlto();']) !!}
+            {!! Form::text('alto', Sistema::dosDecimales($producto->alto), ['id' => 'alto', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Alto'), 'readonly' => 'readonly', 'onChange' => 'getAlto();']) !!}
             <div class="input-group-prepend">
               <span class="input-group-text">cm</span>
             </div>
@@ -110,7 +110,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-ruler-horizontal"></i></span>
             </div>
-            {!! Form::text('ancho', $producto->ancho, ['id' => 'ancho', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Ancho'), 'readonly' => 'readonly', 'onChange' => 'getAncho();']) !!}
+            {!! Form::text('ancho', Sistema::dosDecimales($producto->ancho), ['id' => 'ancho', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Ancho'), 'readonly' => 'readonly', 'onChange' => 'getAncho();']) !!}
             <div class="input-group-prepend">
               <span class="input-group-text">cm</span>
             </div>
@@ -124,7 +124,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-ruler-horizontal"></i></span>
             </div>
-            {!! Form::text('largo', $producto->largo, ['id' => 'largo', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Largo'), 'readonly' => 'readonly', 'onChange' => 'getLargo();']) !!}
+            {!! Form::text('largo', Sistema::dosDecimales($producto->largo), ['id' => 'largo', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Largo'), 'readonly' => 'readonly', 'onChange' => 'getLargo();']) !!}
             <div class="input-group-prepend">
               <span class="input-group-text">cm</span>
             </div>
@@ -136,7 +136,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
             </div>
-            {!! Form::text('costo_de_armado', $producto->cost_arm, ['id' => 'costo_de_armado', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Costo de armado'), 'readonly' => 'readonly', 'onChange' => 'getCostoDeArmado();']) !!}
+            {!! Form::text('costo_de_armado', Sistema::dosDecimales($producto->cost_arm), ['id' => 'costo_de_armado', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Costo de armado'), 'readonly' => 'readonly', 'onChange' => 'getCostoDeArmado();']) !!}
           </div>
         </div>
       </div>
@@ -150,7 +150,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
       </div>
-      {!! Form::text('vendidos', $producto->vend, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Vendidos'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('vendidos', Sistema::dosDecimales($producto->vend), ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Vendidos'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>
@@ -161,7 +161,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
       </div>
-      {!! Form::text('cantidad_requerida', $producto->cant_requerida, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Cantidad requerida'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('cantidad_requerida', Sistema::dosDecimales($producto->cant_requerida), ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Cantidad requerida'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
   <div class="form-group col-sm btn-sm">
@@ -170,7 +170,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
       </div>
-      {!! Form::text('stock', $producto->stock, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Stock'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('stock', Sistema::dosDecimales($producto->stock), ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Stock'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>
@@ -181,7 +181,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
       </div>
-      {!! Form::text('faltante', $producto->stock-$producto->cant_requerida, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Faltante'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('faltante', Sistema::dosDecimales($producto->stock-$producto->cant_requerida), ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Faltante'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
   <div class="form-group col-sm btn-sm">
@@ -190,7 +190,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
       </div>
-      {!! Form::text('existencia_equivalente', $existencia_equivalente, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Existencia equivalente'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('existencia_equivalente', Sistema::dosDecimales($existencia_equivalente), ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Existencia equivalente'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>
@@ -210,7 +210,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
       </div>
-      {!! Form::text('precio_proveedor', $producto->prec_prove, ['id' => 'precio_proveedor', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Precio proveedor'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('precio_proveedor', Sistema::dosDecimales($producto->prec_prove), ['id' => 'precio_proveedor', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Precio proveedor'), 'readonly' => 'readonly']) !!}
       <div class="input-group-append">
         <span class="input-group-text">.00</span>
       </div>
@@ -234,7 +234,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
       </div>
-      {!! Form::text('precio_cliente', $producto->prec_clien, ['id' => 'precio_cliente', 'class' => 'form-control disabled', 'placeholder' => __('Precio cliente'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('precio_cliente', Sistema::dosDecimales($producto->prec_clien), ['id' => 'precio_cliente', 'class' => 'form-control disabled', 'placeholder' => __('Precio cliente'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>
@@ -265,7 +265,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-weight"></i></span>
       </div>
-      {!! Form::text('peso', $producto->pes, ['id' => 'peso', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Peso'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('peso', Sistema::tresDecimales($producto->pes), ['id' => 'peso', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Peso'), 'readonly' => 'readonly']) !!}
       <div class="input-group-prepend">
         <span class="input-group-text">Kg</i></span>
       </div>
@@ -277,7 +277,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      {!! Form::text('frecuencia', $producto->armados()->count(), ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Frecuencia'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('frecuencia', Sistema::dosDecimales($producto->armados()->count()), ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Frecuencia'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>

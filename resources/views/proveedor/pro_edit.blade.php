@@ -1,6 +1,6 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Editar proveedor'))</title>
+<title>@section('title', __('Editar proveedor').' '.$proveedor->nom_comerc)</title>
 <div class="card card-info card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botto tex">
     @can('proveedor.edit')
@@ -11,7 +11,7 @@
               <i class="fas fa-archive"></i> {{ __('Archivos') }} <i class="fas fa-sort-down"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <a href="{{ $proveedor->arch_rut.$proveedor->arch_nom }}" class="dropdown-item" title="{{ __('Descargar') }}" download>{{ $proveedor->arch_nom }}</a>
+              <a href="{{ Storage::url($proveedor->arch_rut.$proveedor->arch_nom) }}" class="dropdown-item" title="{{ __('Descargar') }}" download>{{ $proveedor->arch_nom }}</a>
               <div class="dropdown-divider"></div>
               </div>
           </li>

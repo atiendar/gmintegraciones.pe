@@ -38,25 +38,7 @@
         <strong><i class="fas fa-globe"></i> {{ __('Página web') }}</strong>
         <p class="text-muted"><a href="{{ Sistema::datos()->sistemaFindOrFail()->pag }}" target="_blank" title="{{ Sistema::datos()->sistemaFindOrFail()->pag }}">{{ Sistema::datos()->sistemaFindOrFail()->pag }}</a></p>
         <hr>
-        <p class="text-muted"> {{ __('Visita nuestras redes sociales') }}</p>
-        <div class="row justify-content-center">
-          <div class="form-group">
-            <div class="input-group">
-              @if(Sistema::datos()->sistemaFindOrFail()->red_fbk != null)
-                <a class="btn btn-link rounded-circle border m-1" href="{{ Sistema::datos()->sistemaFindOrFail()->red_fbk }}" target="_blank" title="{{ Sistema::datos()->sistemaFindOrFail()->red_fbk }}"><i class="fab fa-facebook"></i></a>
-              @endif
-              @if(Sistema::datos()->sistemaFindOrFail()->red_tw != null)
-              <a class="btn btn-link rounded-circle border m-1" href="{{ Sistema::datos()->sistemaFindOrFail()->red_tw }}" target="_blank" title="{{ Sistema::datos()->sistemaFindOrFail()->red_tw }}"><i class="fab fa-twitter-square"></i></a>
-              @endif
-              @if(Sistema::datos()->sistemaFindOrFail()->red_ins != null)
-                <a class="btn btn-link rounded-circle border m-1" href="{{ Sistema::datos()->sistemaFindOrFail()->red_ins }}" target="_blank" title="{{ Sistema::datos()->sistemaFindOrFail()->red_ins }}"><i class="fab fa-instagram"></i></a>
-              @endif
-              @if(Sistema::datos()->sistemaFindOrFail()->red_link != null)
-                <a class="btn btn-link rounded-circle border m-1" href="{{ Sistema::datos()->sistemaFindOrFail()->red_link }}" target="_blank" title="{{ Sistema::datos()->sistemaFindOrFail()->red_link }}"><i class="fab fa-linkedin"></i></a>
-              @endif
-               </div>
-          </div>
-        </div>
+        @include('layouts.redesSociales')
         <p class="text-muted p-0 m-0 float-right"><strong> {{ __('Versión') }}</strong> {{ config('app.version_del_sistema') }}</p>
       </div>
       <div class="row p-0">

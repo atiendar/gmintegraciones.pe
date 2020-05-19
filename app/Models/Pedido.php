@@ -20,16 +20,16 @@ class Pedido extends Model{
       return $query->where("$opcion_buscador", 'LIKE', "%$buscador%");
     }
   } 
-  public function usuario(){
+  public function usuario() {
     return $this->belongsTo('App\User', 'user_id')->orderBy('id','DESC');
   }
-  public function unificar(){
+  public function unificar() {
     return $this->belongsToMany('App\Models\Pedido', 'pedidos_unificados', 'pedido_id', 'unificado_id')->withPivot('id')->withTimestamps()->orderBy('pedidos_unificados.id', 'DESC');
   }
-  public function armados(){
+  public function armados() {
     return $this->hasMany('App\Models\PedidoArmado')->orderBy('id', 'DESC');
   }  
-  public function pagos(){
-    return $this->hasMany('App\Models\Pago')->orderBy('id', 'DESC');
+  public function pago() {
+    return $this->hasOne('App\Models\Pago')->orderBy('id', 'DESC');
   }
 }

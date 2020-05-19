@@ -18,6 +18,15 @@ class Cotizacion extends Model{
       return $query->where("$opcion_buscador", 'LIKE', "%$buscador%");
     }
   }
+    // Buscador
+    public function scopeEstatus($query, $estatus) {
+      if($estatus != null) {
+        return $query->where('estat', $estatus);
+      }
+    }
+  public function cliente(){
+    return $this->belongsTo('App\User', 'user_id')->orderBy('id', 'DESC');
+  }
   public function armados() {
     return $this->hasMany('App\Models\CotizacionArmado')->orderBy('id', 'DESC');
   }

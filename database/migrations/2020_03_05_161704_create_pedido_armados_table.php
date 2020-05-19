@@ -33,8 +33,8 @@ class CreatePedidoArmadosTable extends Migration
             $table->decimal('alto', 10, 2)->unsigned()->comment('Alto');
             $table->decimal('ancho', 10, 2)->unsigned()->comment('Ancho');
             $table->decimal('largo', 10, 2)->unsigned()->comment('Largo');
-            $table->string('regalo',2)->comment('Regalo');
-            $table->string('autorizado',9)->default('N/A')->comment('Autorizado');
+            $table->enum('es_de_regalo', ['Si','No'])->default('No')->comment('Es de regalo');
+            $table->string('aut',9)->default('N/A')->comment('Autorizado');
             $table->string('tip_tarj_felic',30)->nullable()->comment('Tipo de tarjeta de felicitación');
             $table->text('mens_dedic')->nullable()->comment('Mensaje dedicatoria');
             $table->string('tarj_dise_rut',200)->nullable()->comment('Ruta tarjeta diseñada');

@@ -2,4 +2,3 @@
 @include('pago.pag_showFields.formaDePago')
 @include('pago.pag_showFields.montoDePago')
 @include('pago.pag_showFields.numeroDePedido')
-@include('pago.pag_showFields.tipo')

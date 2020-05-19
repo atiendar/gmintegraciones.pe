@@ -44,27 +44,27 @@
         </div>
       </div>
     </div>
+    @section('js6')
+    <script>
+      function decimal() {
+        // Obtiene los valores de los inputs
+        monto_total = document.getElementById("monto_total"),
+        monto_total = monto_total.value;
+        // ---
+
+        // Verifica si los inputs son de tipo float de lo contrario les asigan el valor de 0
+        if (isNaN(parseFloat(monto_total))) {
+          monto_total = 0;
+        }
+
+        // Agrega o solo deja dos decimales
+        monto_total   = Number.parseFloat(monto_total).toFixed(2);
+        // ---
+      
+        // Pega el resultado en los inputs
+        document.getElementById("monto_total").value = monto_total;
+      }
+    </script>
+    @endsection
   @endcan
 </div>
-@section('js6')
-<script>
-  function decimal() {
-    // Obtiene los valores de los inputs
-    monto_total = document.getElementById("monto_total"),
-    monto_total = monto_total.value;
-    // ---
-
-    // Verifica si los inputs son de tipo float de lo contrario les asigan el valor de 0
-    if (isNaN(parseFloat(monto_total))) {
-      monto_total = 0;
-    }
-
-    // Agrega o solo deja dos decimales
-    monto_total   = Number.parseFloat(monto_total).toFixed(2);
-    // ---
-  
-    // Pega el resultado en los inputs
-    document.getElementById("monto_total").value = monto_total;
-  }
-</script>
-@endsection

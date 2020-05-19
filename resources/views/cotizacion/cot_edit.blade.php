@@ -1,14 +1,19 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Editar cotización'))</title>
+<title>@section('title', __('Editar cotización').' '.$cotizacion->cliente->email_registro )</title>
 <div class="card card-info card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botto tex">
+    @canany(['cotizacion.index', 'cotizacion.show', 'cotizacion.edit'])
+      <div class="float-right mr-5">
+        <a href="{{ route('cotizacion.generarCotizacion', Crypt::encrypt($cotizacion->id)) }}" class='btn btn-light btn-sm border'><i class="fas fa-file-pdf"></i> {{ __('Generar cotización') }}</a>
+      </div>
+    @endcanany
     <h5>
       <strong>{{ __('Editar registro') }}: </strong>
       @can('cotizacion.show')
-        <a href="{{ route('cotizacion.show', Crypt::encrypt($cotizacion->id)) }}">{{ $cotizacion->email_cliente }}</a>
+        <a href="{{ route('cotizacion.show', Crypt::encrypt($cotizacion->id)) }}">{{ $cotizacion->cliente->email_registro }}</a>
       @else
-        {{ $cotizacion->email_cliente }}
+        {{ $cotizacion->cliente->email_registro  }}
       @endcan
     </h5>
   </div>
@@ -18,12 +23,9 @@
     </div>
   </div>
   <div class="card-body">
-    {!! Form::open(['route' => ['cotizacion.update', Crypt::encrypt($cotizacion->id)], 'method' => 'patch', 'id' => 'cotizacionUpdate']) !!}
-      @include('cotizacion.cot_editFields')
-    {!! Form::close() !!}
-    <hr>
-    @include('cotizacion.armado_cotizacion.cot_arm_index')
+    @include('cotizacion.cot_editFields')
   </div>
 </div>
+@include('cotizacion.armado_cotizacion.cot_arm_index')
 @include('layouts.private.plugins.priv_plu_select2')
 @endsection

@@ -13,6 +13,8 @@ class UpdatePedidoRequest extends FormRequest {
         'cotizacion_final_del_cliente'      => 'required|mimes:pdf,jpg,jpeg,png|max:1024',
         'se_puede_entregar_antes'           => 'required|in:Si,No',
         'cuantos_dias_antes'                => 'nullable|required_if:se_puede_entregar_antes,Si|max:999|min:1|integer',
+        'es_entrega_express'                => 'required|in:Si,No',
+        'es_pedido_urgente'                 => 'required|in:Si,No',
         'comentarios_ventas'                => 'nullable|max:65500|string',
       ];
     } elseif($this->cot_fin_de_client_nom != NULL) {
@@ -21,6 +23,8 @@ class UpdatePedidoRequest extends FormRequest {
         'cotizacion_final_del_cliente'      => 'mimes:pdf,jpg,jpeg,png|max:1024',
         'se_puede_entregar_antes'           => 'required|in:Si,No',
         'cuantos_dias_antes'                => 'nullable|required_if:se_puede_entregar_antes,Si|max:999|min:1|integer',
+        'es_entrega_express'                => 'required|in:Si,No',
+        'es_pedido_urgente'                 => 'required|in:Si,No',
         'comentarios_ventas'                => 'nullable|max:65500|string',
       ];
     }

@@ -12,6 +12,7 @@ $factory->define(Pedido::class, function (Faker $faker) {
     $serie = $faker->unique()->randomElement(Serie::where('input', 'Pedidos (Serie)')->pluck('value'));
     return [
         'serie'                 => $serie,
+        'num_pedido'            => $serie,
         'user_id'               => $cliente_id,
         'tot_de_arm'            => $faker->numberBetween(1, 999),
         'mont_tot_de_ped'       => $faker->randomFloat(2, 100, 3000),

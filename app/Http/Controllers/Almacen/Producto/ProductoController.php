@@ -42,15 +42,15 @@ class ProductoController extends Controller {
     return back();
   }
   public function show($id_producto) {
-    $producto               = $this->productoRepo->productoAsignadoFindOrFailById($id_producto);
+    $producto               = $this->productoRepo->productoAsignadoFindOrFailById($id_producto, ['sustitutos', 'proveedores']);
     $sustitutos             = $this->productoRepo->getSustitutosProducto($producto, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $proveedores            = $this->productoRepo->getProveedoresProducto($producto, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $existencia_equivalente = $this->productoRepo->getExistenciaEquivalentePorProducto($sustitutos);
     return view('almacen.producto.alm_pro_show', compact('producto', 'existencia_equivalente', 'sustitutos', 'proveedores'));
   }
   public function edit($id_producto) {
-    $producto               = $this->productoRepo->productoAsignadoFindOrFailById($id_producto);
-    $sustitutos_list        = $this->productoRepo->getAllSustitutosOrProductosPlunkMenos($producto->sustitutos);
+    $producto               = $this->productoRepo->productoAsignadoFindOrFailById($id_producto, ['sustitutos', 'proveedores']);
+    $sustitutos_list        = $this->productoRepo->getAllSustitutosOrProductosPlunkMenos($producto->sustitutos, 'original');
     $sustitutos             = $this->productoRepo->getSustitutosProducto($producto, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $proveedores            = $this->productoRepo->getProveedoresProducto($producto, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $proveedores_list       = $producto->proveedores()->orderBy('nom_comerc', 'ASC')->pluck('nom_comerc', 'nom_comerc');
@@ -105,7 +105,7 @@ class ProductoController extends Controller {
   }
   public function getPrecioProveedor(Request $request) {
     if($request->ajax()) {
-     $producto = $this->productoRepo->productoAsignadoFindOrFailById($request->id_producto);
+      $producto = $this->productoRepo->productoAsignadoFindOrFailById($request->id_producto, 'proveedores');
       $pivot    = $producto->proveedores()->where('nom_comerc', $request->nombre_del_proveedor)->first()->pivot;
       return response()->json($pivot);
     }

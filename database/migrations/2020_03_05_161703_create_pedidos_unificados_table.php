@@ -23,6 +23,7 @@ class CreatePedidosUnificadosTable extends Migration
             $table->foreign('pedido_id')->references('id')->on('pedidos')->onUpdate('restrict')->onDelete('cascade');
             $table->foreign('unificado_id')->references('id')->on('pedidos')->onUpdate('restrict')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -6,6 +6,8 @@ use App\Models\Proveedor;
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
 use App\Repositories\papeleraDeReciclaje\PapeleraDeReciclajeRepositories;
+use App\Repositories\servicio\calculo\CalculoRepositories;
+use App\Repositories\armado\CalcularValoresArmadoRepositories;
 // Events
 use App\Events\layouts\ActividadRegistrada;
 use App\Events\layouts\ArchivoCargado;
@@ -17,13 +19,17 @@ use DB;
 class ProveedorRepositories implements ProveedorInterface {
   protected $serviceCrypt;
   protected $papeleraDeReciclajeRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories) {
-    $this->serviceCrypt             = $serviceCrypt;
-    $this->papeleraDeReciclajeRepo  = $papeleraDeReciclajeRepositories;
+  protected $calculoRepo;
+  protected $calcularValoresArmadoRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories, CalculoRepositories $calculoRepositories, CalcularValoresArmadoRepositories $calcularValoresArmadoRepositories) {
+    $this->serviceCrypt               = $serviceCrypt;
+    $this->papeleraDeReciclajeRepo    = $papeleraDeReciclajeRepositories;
+    $this->calculoRepo                = $calculoRepositories;
+    $this->calcularValoresArmadoRepo  = $calcularValoresArmadoRepositories;
   }
-  public function proveedorAsignadoFindOrFailById($id_proveedor) {
+  public function proveedorAsignadoFindOrFailById($id_proveedor, $relaciones = null) { //'contactos', 'productos'
     $id_proveedor = $this->serviceCrypt->decrypt($id_proveedor);
-    $proveedor = Proveedor::asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->with('contactos', 'productos')->findOrFail($id_proveedor);
+    $proveedor = Proveedor::asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->with($relaciones)->findOrFail($id_proveedor);
     return $proveedor;
   }
   public function getPagination($request) {
@@ -73,7 +79,7 @@ class ProveedorRepositories implements ProveedorInterface {
   }
   public function update($request, $id_proveedor) {
     DB::transaction(function() use($request, $id_proveedor) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
-      $proveedor = $this->proveedorAsignadoFindOrFailById($id_proveedor);
+      $proveedor = $this->proveedorAsignadoFindOrFailById($id_proveedor, 'productos');
       $proveedor->raz_soc         = $request->razon_social;
       $proveedor->nom_comerc      = $request->nombre_comercial;
       $proveedor->fab_distri      = $request->fabricante_distribuidor;
@@ -129,7 +135,7 @@ class ProveedorRepositories implements ProveedorInterface {
   }
   public function destroy($id_proveedor) {
     try { DB::beginTransaction();
-      $proveedor = $this->proveedorAsignadoFindOrFailById($id_proveedor);
+      $proveedor = $this->proveedorAsignadoFindOrFailById($id_proveedor, ['contactos', 'productos']);
       $proveedor->delete();
       $this->eliminarCacheAllProveedoresPlunk();
 
@@ -143,16 +149,22 @@ class ProveedorRepositories implements ProveedorInterface {
         \App\Models\ContactoProveedor::destroy($contactos_id);
       }
 
-      /// Elimina todos los productos relacionados al proveedor
-      $hastaC = count($proveedor->productos) - 1;
+      /// Elimina todos los productos relacionados al proveedor y deja en cero los precios
+      $productos = $proveedor->productos()->withTrashed()->with('armados')->get();
+      $hastaC = count($productos) - 1;
       for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
-        $proveedor->productos[$contador2]->prove      = null;
-        $proveedor->productos[$contador2]->prec_prove = null;
-        $proveedor->productos[$contador2]->utilid     = null;
-        $proveedor->productos[$contador2]->prec_clien = null;
-        $proveedor->productos[$contador2]->save();
+        $productos[$contador2]->prove      = null;
+        $productos[$contador2]->prec_prove = null;
+        $productos[$contador2]->utilid     = null;
+        $productos[$contador2]->prec_clien = null;      
+        $productos[$contador2]->save();
+        
+        // CALCULA LOS NUEVOS PRECIOS Y VALORES DEL ARMADO
+        $armados = $productos[$contador2]->armados()->withTrashed()->with('productos')->get();
+        foreach($armados as $armado) {
+          $this->calcularValoresArmadoRepo->calcularValoresArmado($armado, $armado->productos);
+        }
       }
-
       // Manda el registro a la papelera de reciclaje
       $this->papeleraDeReciclajeRepo->store([
         'modulo'      => 'Proveedores', // Nombre del módulo del sistema
@@ -194,7 +206,7 @@ class ProveedorRepositories implements ProveedorInterface {
     return $proveedor->contactos()->paginate($request->paginador);
   }
   public function cambiarNombreDelProvedorALosProductos($proveedor, $nuevo_nombre_comercial) {
-    $hastaC = count($proveedor->productos) - 1;
+    $hastaC = count($proveedor->productos()->withTrashed()->get()) - 1;
     for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
       $proveedor->productos[$contador2]->prove = $nuevo_nombre_comercial;
       $proveedor->productos[$contador2]->save();

@@ -1,6 +1,6 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Editar plantilla'))</title>
+<title>@section('title', __('Editar plantilla').' '.$plantilla->nom)</title>
 <div class="card card-info card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botto tex">
     <h5>

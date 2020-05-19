@@ -18,13 +18,24 @@ class CreateCotizacionesTable extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
+            $table->string('num_pedido_gen',45)->nullable()->comment('Número de pedido generado');
+            $table->string('ser',45)->comment('Serie');
             $table->string('serie',45)->unique()->comment('Serie');
+            $table->enum('estat', ['Abierta', 'Cerrada', 'Cancelada'])->default('Abierta')->comment('Estatus de la factura');
             $table->date('valid')->comment('Fecha de validez');
-            $table->string('email_cliente',75)->comment('Correo del cliente que solicita la cotización');
+        //    $table->string('email_cliente',75)->comment('Correo del cliente que solicita la cotización');
+            $table->text('desc_cot')->comment('Descripción de la cotización');
+            
+            $table->integer('tot_arm')->unsigned()->default(0)->comment('Total de armados');
+            $table->decimal('cost_env', 20,2)->unsigned()->default(0.00)->comment('Costo de envio');
             $table->decimal('desc',20,2)->unsigned()->default(0.00)->comment('Descuento');
             $table->decimal('sub_total', 20,2)->unsigned()->default(0.00)->comment('Sub total');
             $table->decimal('iva', 20,2)->unsigned()->default(0.00)->comment('IVA');
+            $table->string('con_iva',3)->default('on')->nullable()->comment('¿Con o sin IVA? on=Si, off=No');
             $table->decimal('tot', 20,2)->unsigned()->default(0.00)->comment('Precio total');
+            
+            $table->unsignedBigInteger('user_id')->comment('Foreign Key usuario');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('restrict')->onDelete('cascade');
             $table->string('asignado_cot', 75)->comment('Correo del usuario al qu se le asigno este registro');
             $table->string('created_at_cot',75)->comment('Correo del usuario que realizo el registro');
             $table->string('updated_at_cot',75)->nullable()->comment('Correo del usuario que realizo la última modificación');

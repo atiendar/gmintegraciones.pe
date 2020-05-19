@@ -2,7 +2,7 @@
 
 @section('title', __('Demasiadas solicitudes'))
 @section('code', '429')
-@section('message', __('Demasiadas solicitudes'))
+@section('message', __($exception->getMessage() ?: __('Demasiadas solicitudes')))
 @section('image')
 <img src="{{ Storage::url(Sistema::datos()->sistemaFindOrFail()->error_rut . Sistema::datos()->sistemaFindOrFail()->error) }}">
 @endsection

@@ -1,0 +1,1 @@
+<td>{{ $direccion->est_a_la_q_se_cotiz }}</td>

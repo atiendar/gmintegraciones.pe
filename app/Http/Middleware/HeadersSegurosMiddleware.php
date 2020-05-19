@@ -21,7 +21,7 @@ class HeadersSegurosMiddleware {
         $response->headers->set('X-XSS-Protection', '1; mode=block');
         $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
         $response->headers->set('Strict-Transport-Security', 'max-age:31536000; includeSubDomains');
-        $response->headers->set('Content-Security-Policy', "protected");
+    //    $response->headers->set('Content-Security-Policy', "protected");
         $response->headers->set('Feature-Policy', "protected");
         return $response;
     }

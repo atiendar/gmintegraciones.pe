@@ -7,7 +7,7 @@
 ]) !!}
 @endsection
 @section('contenido')
-<title>@section('title', __('Editar usuario'))</title>
+<title>@section('title', __('Editar usuario').' '.$usuario->nom)</title>
 <div class="card card-info card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botto tex">
     <h5>

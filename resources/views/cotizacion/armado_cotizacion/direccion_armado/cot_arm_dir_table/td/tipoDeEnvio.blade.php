@@ -1,0 +1,1 @@
+<td>{{ $direccion->tip_env }}</td>

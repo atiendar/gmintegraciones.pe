@@ -21,6 +21,9 @@
       {{ __('Contacto') }}
     </a>
   </li>
+  <li class="nav-item">
+    <a href="javascript:location.reload()" class="nav-link" title="{{ __('Recargar') }}"><i class="fas fa-sync"></i></a>
+  </li>
 </ul>
 <ul class="navbar-nav ml-auto">
   @include('layouts.private.menuHeaderNotificaciones')

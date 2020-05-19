@@ -4,19 +4,19 @@
       <span class="badge" style="background:{{ config('app.color_a') }};color:{{ config('app.color_0') }};">{{ $armado->estat }}</span>
       @break
     @case(config('app.en_espera_de_compra'))
-      <span class="badge" style="background:{{ config('app.color_k') }}">{{ $armado->estat }}</span>
+      <span class="badge" style="background:{{ config('app.color_l') }}">{{ $armado->estat }}</span>
       @break
     @case(config('app.en_revision_de_productos'))
       <span class="badge" style="background:{{ config('app.color_j') }}">{{ $armado->estat }}</span>
       @break
     @case(config('app.productos_completos'))
-      <span class="badge" style="background:{{ config('app.color_g') }}">{{ $armado->estat }}</span>
+      <span class="badge" style="background:{{ config('app.color_n') }}">{{ $armado->estat }}</span>
       @break
     @case(config('app.en_produccion'))
-      <span class="badge" style="background:{{ config('app.color_i') }}">{{ $armado->estat }}</span>
+      <span class="badge" style="background:{{ config('app.color_m') }}">{{ $armado->estat }}</span>
       @break
     @case(config('app.en_almacen_de_salida'))
-      <span class="badge" style="background:{{ config('app.color_g') }}">{{ $armado->estat }}</span>
+      <span class="badge" style="background:{{ config('app.color_h') }}">{{ $armado->estat }}</span>
       @break
     @case(config('app.en_ruta'))
       <span class="badge" style="background:{{ config('app.color_g') }}">{{ $armado->estat }}</span>

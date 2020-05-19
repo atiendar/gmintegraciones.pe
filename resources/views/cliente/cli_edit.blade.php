@@ -7,7 +7,8 @@
 ]) !!}
 @endsection
 @section('contenido')
-<title>@section('title', __('Editar cliente'))</title>
+@include('cliente.show.cli_sho_menu')
+<title>@section('title', __('Editar cliente').' '.$cliente->nom)</title>
 <div class="card card-info card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botto tex">
     <h5>

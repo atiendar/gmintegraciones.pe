@@ -1,1 +1,1 @@
-<td>{{ $producto->prec_clien }}</td>
+<td>${{ Sistema::dosDecimales($producto->prec_clien) }}</td>

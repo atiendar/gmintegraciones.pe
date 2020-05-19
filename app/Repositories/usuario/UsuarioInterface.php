@@ -2,7 +2,7 @@
 namespace App\Repositories\usuario;
 
 interface UsuarioInterface {
-  public function usuarioAsignadoFindOrFailById($id_usuario, $acceso);
+  public function usuarioAsignadoFindOrFailById($id_usuario, $acceso, $relaciones);
 
   public function getPagination($request, $acceso);
 

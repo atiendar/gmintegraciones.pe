@@ -3,5 +3,5 @@
     @foreach($producto->sustitutos as $sustituto)
       @php $suma += $sustituto->stock @endphp
     @endforeach
-    {{ $suma }}
+    {{ Sistema::dosDecimales($suma) }}
   </td>

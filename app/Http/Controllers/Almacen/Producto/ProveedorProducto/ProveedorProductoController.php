@@ -20,7 +20,7 @@ class ProveedorProductoController extends Controller {
     $this->proveedorProductoRepo  = $proveedorProductoRepositories;
   }
   public function create($id_producto) {
-    $producto           = $this->productoRepo->productoAsignadoFindOrFailById($id_producto);
+    $producto           = $this->productoRepo->productoAsignadoFindOrFailById($id_producto, 'proveedores');
     $proveedores_list   = $this->proveedorRepo->getAllProveedoresPlunkMenos($producto->proveedores);
     return view('almacen.producto.proveedor_producto.alm_pro_proPro_create', compact('producto', 'proveedores_list'));
   }
@@ -30,7 +30,7 @@ class ProveedorProductoController extends Controller {
     return back();
   }
   public function edit($id_producto, $id_proveedor) {
-    $producto           = $this->productoRepo->getproductoFindOrFailById($id_producto);
+    $producto           = $this->productoRepo->getproductoFindOrFailById($id_producto, 'proveedores');
     $proveedor_producto = $producto->proveedores()->where('proveedor_id', \Illuminate\Support\Facades\Crypt::decrypt($id_proveedor))->first();
     if ($proveedor_producto === null) { return abort(404); }
     return view('almacen.producto.proveedor_producto.alm_pro_proPro_edit', compact('producto', 'proveedor_producto'));

@@ -24,6 +24,7 @@ class CreateArmadoTieneImagenesTable extends Migration
             $table->foreign('armado_id')->references('id')->on('armados')->onUpdate('restrict')->onDelete('cascade');
             $table->string('created_at_img', 75)->comment('Correo del usuario que realizo el registro');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

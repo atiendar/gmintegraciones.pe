@@ -5,7 +5,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-weight"></i></span>
       </div>
-      {!! Form::text('peso', $armado->pes, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Peso'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('peso', Sistema::tresDecimales($armado->pes), ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Peso'), 'readonly' => 'readonly']) !!}
       <div class="input-group-prepend">
         <span class="input-group-text">Kg</span>
       </div>
@@ -17,7 +17,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-ruler-horizontal"></i></span>
       </div>
-      {!! Form::text('alto', $armado->alto, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Alto'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('alto', Sistema::dosDecimales($armado->alto), ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Alto'), 'readonly' => 'readonly']) !!}
       <div class="input-group-prepend">
         <span class="input-group-text">cm</span>
       </div>
@@ -31,7 +31,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-ruler-horizontal"></i></span>
       </div>
-      {!! Form::text('ancho', $armado->ancho, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Ancho'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('ancho', Sistema::dosDecimales($armado->ancho), ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Ancho'), 'readonly' => 'readonly']) !!}
       <div class="input-group-prepend">
         <span class="input-group-text">cm</span>
       </div>
@@ -43,7 +43,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-ruler-horizontal"></i></span>
       </div>
-      {!! Form::text('largo', $armado->largo, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Largo'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('largo', Sistema::dosDecimales($armado->largo), ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Largo'), 'readonly' => 'readonly']) !!}
       <div class="input-group-prepend">
         <span class="input-group-text">cm</span>
       </div>

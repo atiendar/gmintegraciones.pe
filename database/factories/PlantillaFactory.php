@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(App\Models\Plantilla::class, function (Faker $faker) {
-    $modulos = array('Cotizaciones', 'Clientes', 'Perfil', 'Sistema', 'Usuarios', 'Ventas');
+    $modulos = array('Clientes (Bienvenida)', 'Perfil (Cambio de contraseña)', 'Sistema (Restablecimiento de contraseña)', 'Usuarios (Bienvenida)', 'Cotizaciones (Enviar cotización)', 'Ventas (Registrar pedido)', 'Ventas (Pedido cancelado)', 'Pagos (Registrar pago)', 'Pagos (Pago rechazado)');
     $usuario = $faker->randomElement(User::where('acceso', '1')->get()->pluck('email_registro'));
     
     return [

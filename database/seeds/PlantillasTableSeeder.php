@@ -10,8 +10,8 @@ class PlantillasTableSeeder extends Seeder {
     public function run() {
         App\Models\Plantilla::create([
             'id'               => 1,
-            'nom'			   => 'Bienvenida Usuarios',
-            'mod'              => 'Usuarios',
+            'nom'			   => 'Bienvenida Usuarios CYA',
+            'mod'              => 'Usuarios (Bienvenida)',
             'asunt'            => 'Bienvenido/a',
             'dis_de_la_plant'  => '        
                                 
@@ -43,8 +43,8 @@ class PlantillasTableSeeder extends Seeder {
         ]);
     	App\Models\Plantilla::create([
             'id'               => 2,
-            'nom'			   => 'Bienvenida Clientes',
-            'mod'              => 'Clientes',
+            'nom'			   => 'Bienvenida Clientes CYA',
+            'mod'              => 'Clientes (Bienvenida)',
             'asunt'            => 'Bienvenido/a',
             'dis_de_la_plant'  => '
 
@@ -75,8 +75,8 @@ class PlantillasTableSeeder extends Seeder {
         ]);
     	App\Models\Plantilla::create([
             'id'               => 3,
-            'nom'			   => 'Cambio de contraseña',
-            'mod'              => 'Perfil',
+            'nom'			   => 'Cambio de contraseña CYA',
+            'mod'              => 'Perfil (Cambio de contraseña)',
             'asunt'            => 'Cambio de contraseña',
             'dis_de_la_plant'  => '
             
@@ -104,8 +104,8 @@ class PlantillasTableSeeder extends Seeder {
         ]);
         App\Models\Plantilla::create([
             'id'               => 4,
-            'nom'			   => 'Solicitud de restablecimiento de contraseña',
-            'mod'              => 'Sistema',
+            'nom'			   => 'Solicitud de restablecimiento de contraseña CYA',
+            'mod'              => 'Sistema (Restablecimiento de contraseña)',
             'asunt'            => 'Solicitud de restablecimiento de contraseña',
             'dis_de_la_plant'  => '   
                
@@ -130,8 +130,8 @@ class PlantillasTableSeeder extends Seeder {
         ]);
         App\Models\Plantilla::create([
             'id'               => 5,
-            'nom'			   => 'Propuesta de cotización',
-            'mod'              => 'Cotizaciones',
+            'nom'			   => 'Enviar cotización CYA',
+            'mod'              => 'Cotizaciones (Enviar cotización)',
             'asunt'            => 'Propuesta de cotización',
             'dis_de_la_plant'  => '                 
                   
@@ -158,8 +158,8 @@ class PlantillasTableSeeder extends Seeder {
         ]);
         App\Models\Plantilla::create([
             'id'               => 6,
-            'nom'			   => 'Alta de pedido',
-            'mod'              => 'Ventas',
+            'nom'			   => 'Alta de pedido CYA',
+            'mod'              => 'Ventas (Registrar pedido)',
             'asunt'            => 'Alta de pedido',
             'dis_de_la_plant'  => '                 
                                 
@@ -179,6 +179,45 @@ class PlantillasTableSeeder extends Seeder {
             {!! $nombre_de_la_empresa !!} - Copyright © {!! $year_de_inicio_de_la_empresa !!} - {!! $year_actual !!}. Todos los derechos reservados.</span>
             </footer>
             </div>
+            
+            ',
+            'asignado_plan'    => 'desarrolloweb.ewmx@gmail.com',
+        	'created_at_plan'  => 'desarrolloweb.ewmx@gmail.com',
+        ]);
+        App\Models\Plantilla::create([
+            'id'               => 7,
+            'nom'			   => 'Pedido cancelado CYA',
+            'mod'              => 'Ventas (Pedido cancelado)',
+            'asunt'            => 'Pedido cancelado',
+            'dis_de_la_plant'  => '                 
+            
+            ',
+            'asignado_plan'    => 'desarrolloweb.ewmx@gmail.com',
+        	'created_at_plan'  => 'desarrolloweb.ewmx@gmail.com',
+        ]);
+        App\Models\Plantilla::create([
+            'id'               => 8,
+            'nom'			   => 'Pago registrado CYA',
+            'mod'              => 'Pagos (Registrar pago)',
+            'asunt'            => 'Pago registrado',
+            'dis_de_la_plant'  => '        
+                                
+                Pago registrado este es un codigo para poder facturar su pago. 
+       
+            
+            ',
+            'asignado_plan'    => 'desarrolloweb.ewmx@gmail.com',
+        	'created_at_plan'  => 'desarrolloweb.ewmx@gmail.com',
+        ]);
+        App\Models\Plantilla::create([
+            'id'               => 9,
+            'nom'			   => 'Pago rechazado CYA',
+            'mod'              => 'Pagos (Pago rechazado)',
+            'asunt'            => 'Pago rechazado',
+            'dis_de_la_plant'  => '        
+                                
+                Su pago a sido rechazado por el siguiente motivo. 
+       
             
             ',
             'asignado_plan'    => 'desarrolloweb.ewmx@gmail.com',

@@ -1,0 +1,1 @@
+<td>{{ $pago->cod_fact }}</td>

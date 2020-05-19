@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             PedidosTableSeeder::class,
             PedidoArmadosTableSeeder::class,
             PagosTableSeeder::class,
+            SubPagoTableSeeder::class,
             FacturasTableSeeder::class,
         ]);
     }

@@ -4,6 +4,6 @@
     <div class="input-group-prepend">
       <span class="input-group-text"><i class="fas fa-text-width"></i></span>
     </div>
-    {!! Form::text('total_de_armados', $pedido->arm_carg . ' de ' . $pedido->tot_de_arm, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Total de armados'), 'readonly' => 'readonly']) !!}
+    {!! Form::text('total_de_armados', Sistema::dosDecimales($pedido->arm_carg) . ' de ' . Sistema::dosDecimales($pedido->tot_de_arm), ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Total de armados'), 'readonly' => 'readonly']) !!}
   </div>
 </div>

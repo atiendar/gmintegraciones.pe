@@ -1,1 +1,1 @@
-<td>{{ $pago->mont_de_pag }}</td>
+<td>${{ Sistema::dosDecimales($pago->mont_de_pag) }}</td>

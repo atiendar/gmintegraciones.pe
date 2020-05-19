@@ -128,81 +128,34 @@
 </ul>
 </li>
 @endcanany
-@canany(['cotizacion.index', 'cotizacion.create', 'cotizacion.show', 'cotizacion.edit', 'cotizacion.destroy'])
-<li class="nav-item has-treeview {{ Request::is('cotizacion*') ? 'menu-open' : '' }}">
-<a href="#" class="nav-link {{ Request::is('cotizacion*') ? 'active' : '' }}">
-  <i class="nav-icon fas fa-folder-minus"></i>
-  <p>
-    {{ __('Cotizaciones') }}
-    <i class="right fas fa-angle-left"></i>
-  </p>
-</a>
-<ul class="nav nav-treeview">
-  <li class="nav-item">
-    <a href="{{ route('cotizacion.index') }}" class="nav-link {{ Request::is('cotizacion') ? 'active' : '' }}">
-      <i class="nav-icon fas fa-list"></i>
-      <p>{{ __('Lista de cotizaciones') }}</p>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="{{ route('cotizacion.create') }}" class="nav-link {{ Request::is('cotizacion/crear') ? 'active' : '' }}">
-      <i class="nav-icon far fa-plus-square"></i>
-      <p>{{ __('Registrar cotización') }}</p>
-    </a>
-  </li>
-</ul>
-</li>
-@endcanany
+
 @canany(['pruebaaaa'])
-<li class="nav-item has-treeview {{ Request::is('arcon-de-regalo*') ? 'menu-open' : '' }}">
-<a href="#" class="nav-link {{ Request::is('arcon-de-regalo*') ? 'active' : '' }}">
+<li class="nav-item has-treeview {{ Request::is('armado-de-regalo*') ? 'menu-open' : '' }}">
+<a href="#" class="nav-link {{ Request::is('armado-de-regalo*') ? 'active' : '' }}">
   <i class="nav-icon fas fa-gifts"></i>
   <p>
-    {{ __('Arcones de regalo') }}
+    {{ __('Armados de regalo') }}
     <i class="right fas fa-angle-left"></i>
     <span class="badge badge-info right">10</span>
   </p>
 </a>
 <ul class="nav nav-treeview">
   <li class="nav-item">
-    <a href="#" class="nav-link {{ Request::is('arcon-de-regalo') ? 'active' : '' }}">
+    <a href="#" class="nav-link {{ Request::is('armado-de-regalo') ? 'active' : '' }}">
       <i class="nav-icon fas fa-list"></i>
-      <p>{{ __('Lista de arcones de regalo') }}</p>
+      <p>{{ __('Lista de armados de regalo') }}</p>
     </a>
   </li>
   <li class="nav-item">
-    <a href="#" class="nav-link {{ Request::is('arcon-de-regalo') ? 'active' : '' }}">
+    <a href="#" class="nav-link {{ Request::is('armado-de-regalo') ? 'active' : '' }}">
       <i class="nav-icon far fa-plus-square"></i>
-      <p>{{ __('Registrar arcón de regalo') }}</p>
+      <p>{{ __('Registrar armado de regalo') }}</p>
     </a>
   </li>
 </ul>
 </li>
 @endcanany
 @canany(['pruebaaaa'])
-<li class="nav-item has-treeview {{ Request::is('pago*') ? 'menu-open' : '' }}">
-<a href="#" class="nav-link {{ Request::is('pago*') ? 'active' : '' }}">
-  <i class="nav-icon far fa-money-bill-alt"></i>
-  <p>
-    {{ __('Pagos') }}
-    <i class="right fas fa-angle-left"></i>
-  </p>
-</a>
-<ul class="nav nav-treeview">
-  <li class="nav-item">
-    <a href="#" class="nav-link {{ Request::is('pago') ? 'active' : '' }}">
-      <i class="nav-icon fas fa-list"></i>
-      <p>{{ __('Lista de pagos') }}</p>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="#" class="nav-link {{ Request::is('pago') ? 'active' : '' }}">
-      <i class="nav-icon far fa-plus-square"></i>
-      <p>{{ __('Registrar pago') }}</p>
-    </a>
-  </li>
-</ul>
-</li>
 <li class="nav-item has-treeview {{ Request::is('logistica*') ? 'menu-open' : '' }}">
 <a href="#" class="nav-link {{ Request::is('logistica*') ? 'active' : '' }}">
   <i class="nav-icon fas fa-shipping-fast"></i>

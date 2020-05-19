@@ -6,7 +6,7 @@ use App\Http\Requests\perfil\UpdatePerfilRequest;
 // Repositories
 use App\Repositories\perfil\perfil\perfil\PerfilRepositories;
 
-class perfilController extends Controller {
+class PerfilController extends Controller {
   protected $perfilRepo;
   public function __construct(PerfilRepositories $perfilRepositories) { // Interfaz para implementar solo [metodos] o [metodos y cache] definido en AppServiceProvider
     $this->perfilRepo = $perfilRepositories;

@@ -56,4 +56,16 @@
       <span class="text-danger">{{ $errors->first('linkedin') }}</span>
     </div>
   </div>
+  <div class="row">
+    <div class="form-group col-sm btn-sm">
+      <label for="youtube">{{ __('Youtube') }} </label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fab fa-youtube"></i></span>
+        </div>
+        {!! Form::text('youtube', Sistema::datos()->sistemaFindOrFail()->red_youtube, ['class' => 'form-control' . ($errors->has('youtube') ? ' is-invalid' : ''), 'maxlength' => 100, 'placeholder' => __('Youtube')]) !!}
+      </div>
+      <span class="text-danger">{{ $errors->first('youtube') }}</span>
+    </div>
+  </div>
 </div>

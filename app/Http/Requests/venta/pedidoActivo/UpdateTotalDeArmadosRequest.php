@@ -10,7 +10,7 @@ class UpdateTotalDeArmadosRequest extends FormRequest {
   public function rules() {
     $id_pedido = Crypt::decrypt($this->id_pedido);
     $pedido = \App\Models\Pedido::select('id')->with('armados')->findOrFail($id_pedido);
-    $min_armados = $pedido->armados()->sum('cant');
+    $min_armados = $pedido->armados()->where('estat', '!=', config('app.cancelado'))->sum('cant');
     return [
       'total_de_armados'  => 'required|min:'.$min_armados.'|max:99999999999|numeric',
     ];

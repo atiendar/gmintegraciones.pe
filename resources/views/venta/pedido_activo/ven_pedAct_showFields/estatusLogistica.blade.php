@@ -3,15 +3,15 @@
     @php $borde = config('app.color_a'); @endphp
     @break
   @case(config('app.asignar_lider_de_pedido'))
-    @php $borde = config('app.color_e'); @endphp
+    @php $borde = config('app.color_m'); @endphp
     @break
   @case(config('app.en_espera_de_produccion'))
-    @php $borde = config('app.color_f'); @endphp
+    @php $borde = config('app.color_a'); @endphp
+    @break
+  @case(config('app.en_almacen_de_salida'))
+    @php $borde = config('app.color_h'); @endphp
     @break
   @case(config('app.en_ruta'))
-    @php $borde = config('app.color_g'); @endphp
-    @break
-  @case(config('app.en_ruta_parcial'))
     @php $borde = config('app.color_g'); @endphp
     @break
   @case(config('app.entregado'))

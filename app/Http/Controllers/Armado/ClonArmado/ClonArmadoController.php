@@ -35,16 +35,16 @@ class ClonArmadoController extends Controller {
     return back();
   }
   public function show(Request $request, $id_armado) {
-    $armado      = $this->armadoRepo->armadoAsignadoFindOrFailById($id_armado, '1');
+    $armado      = $this->armadoRepo->armadoAsignadoFindOrFailById($id_armado, '1', ['imagenes', 'productos']);
     $imagenes = $this->armadoRepo->getImagenesArmado($armado);
     $productos  = $this->armadoRepo->getProductosProveedor($armado, $request);
     return view('armado.clon_armado.arm_cloArm_show', compact('armado', 'productos', 'imagenes'));
   }
   public function edit(Request $request, $id_armado) {
-    $armado          = $this->armadoRepo->armadoAsignadoFindOrFailById($id_armado, '1');
+    $armado          = $this->armadoRepo->armadoAsignadoFindOrFailById($id_armado, '1', ['imagenes', 'productos']);
     $imagenes = $this->armadoRepo->getImagenesArmado($armado);
     $productos      = $this->armadoRepo->getProductosProveedor($armado, $request);
-    $productos_list = $this->productoRepo->getAllSustitutosOrProductosPlunkMenos($armado->productos);
+    $productos_list = $this->productoRepo->getAllSustitutosOrProductosPlunkMenos($armado->productos, 'original');
     $gamas_list = $this->catalogoRepo->getAllInputCatalogosPlunk('Armados (Gama)');
     $gamas_list[$armado->gama] = $armado->gama;
     $tipo_list = $this->catalogoRepo->getAllInputCatalogosPlunk('Armados (Tipo)');

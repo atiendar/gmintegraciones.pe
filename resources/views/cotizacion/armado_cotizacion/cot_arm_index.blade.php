@@ -1,44 +1,76 @@
-@include('cotizacion.armado_cotizacion.cot_arm_create')
-<br><br>
-@include('cotizacion.armado_cotizacion.cot_arm_table')
-
-<div class="form-group row justify-content-end p-0 m-0">
-  <label for="sub_total">{{ __('SUBTOTAL') }}</label>
-  <div class="col-sm-1">
-    <div class="input-group">
-      $ {{ $cotizacion->sub_total }}
-    </div>
+<div class="card card-info card-outline">
+  <div class="card-header p-1 border-botto">
+    @if(Request::route()->getName() == 'cotizacion.edit')
+      @include('cotizacion.armado_cotizacion.cot_arm_create')
+      <br><br>
+    @endif
   </div>
-</div>
-<div class="form-group row justify-content-end p-0 m-0">
-  <label for="descuento">{{ __('DESCUENTO') }}</label>
-  <div class="col-sm-1">
-    <div class="input-group">
-      {!! Form::text('descuento', $cotizacion->desc, ['class' => 'form-control form-control-sm p-0 m-0' . ($errors->has('descuento') ? ' is-invalid' : ''), 'maxlength' => 15]) !!}
+  <div class="card-body">
+    @include('cotizacion.armado_cotizacion.cot_arm_table')
+    <div class="form-group row justify-content-end p-0 m-0">
+      <label for="sub_total">{{ __('CANT. TOTAL') }}</label>
+      <div class="col-sm-1">
+        <div class="input-group">
+          {{ Sistema::dosDecimales($cotizacion->tot_arm) }}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-<div class="form-group row justify-content-end p-0 m-0">
-  <label for="sub_total_descuento">{{ __('SUBTOTAL DESC.') }}</label>
-  <div class="col-sm-1">
-    <div class="input-group">
-      $ {{ bcdiv($cotizacion->sub_total - $cotizacion->desc, '1', 2) }}
+    <div class="form-group row justify-content-end p-0 m-0">
+      <label for="sub_total">{{ __('COST. ENVIO') }}</label>
+      <div class="col-sm-1">
+        <div class="input-group">
+          ${{ Sistema::dosDecimales($cotizacion->cost_env) }}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-<div class="form-group row justify-content-end p-0 m-0">
-  <label for="iva">{{ __('IVA') }}</label>
-  <div class="col-sm-1">
-    <div class="input-group">
-      $ {{ $cotizacion->iva }}
+    <div class="form-group row justify-content-end p-0 m-0">
+      <label for="descuento">{{ __('DESCUENTO') }}</label>
+      <div class="col-sm-1">
+        <div class="input-group">
+          ${{ Sistema::dosDecimales($cotizacion->desc) }}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-<div class="form-group row justify-content-end p-0 m-0">
-  <label for="total">{{ __('TOTAL') }}</label>
-  <div class="col-sm-1">
-    <div class="input-group">
-      $ {{ $cotizacion->tot }}
+    <div class="form-group row justify-content-end p-0 m-0">
+      <label for="sub_total">{{ __('SUBTOTAL') }}</label>
+      <div class="col-sm-1">
+        <div class="input-group">
+          ${{ Sistema::dosDecimales($cotizacion->sub_total) }}
+        </div>
+      </div>
+    </div>
+    @if(Request::route()->getName() == 'cotizacion.edit')
+      {!! Form::open(['route' => ['cotizacion.updateIva', Crypt::encrypt($cotizacion->id)], 'method' => 'patch', 'id' => 'cotizacionUpdateIva']) !!}
+        <div class="form-group row justify-content-end p-0 m-0">    
+          <div class="custom-control custom-switch">
+            {!! Form::checkbox('iva', 'on', $cotizacion->con_iva, ['id' => 'iva', 'class' => 'custom-control-input' . ($errors->has('iva') ? ' is-invalid' : ''), 'onchange' => 'this.form.submit()']) !!}
+            <label class="custom-control-label" for="iva">{{ __('IVA') }}</label>
+          </div>
+          <div class="col-sm-1">
+            <div class="input-group">
+              ${{ Sistema::dosDecimales($cotizacion->iva) }}
+            </div>
+          </div>      
+        </div>
+        <span class="text-danger">{{ $errors->first('iva') }}</span>
+      {!! Form::close() !!}
+    @else
+      <div class="form-group row justify-content-end p-0 m-0">   
+        <label for="total">{{ __('IVA') }}</label>
+        <div class="col-sm-1">
+          <div class="input-group">
+            ${{ Sistema::dosDecimales($cotizacion->iva) }}
+          </div>
+        </div>
+      </div>
+    @endif
+    <div class="form-group row justify-content-end p-0 m-0">
+      <label for="total">{{ __('TOTAL') }}</label>
+      <div class="col-sm-1">
+        <div class="input-group">
+          ${{ Sistema::dosDecimales($cotizacion->tot) }}
+        </div>
+      </div>
     </div>
   </div>
 </div>

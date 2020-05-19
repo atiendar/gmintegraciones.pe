@@ -4,21 +4,21 @@
     @break
   <!-- ESTATUS AlMACÉN -->
   @case(config('app.en_espera_de_compra'))
-    @php $borde = config('app.color_k'); @endphp
+    @php $borde = config('app.color_l'); @endphp
     @break
   @case(config('app.en_revision_de_productos'))
     @php $borde = config('app.color_j'); @endphp
     @break
   <!-- ESTATUS PRODUCCIÓN -->
   @case(config('app.productos_completos'))
-    @php $borde = config('app.color_g'); @endphp
+    @php $borde = config('app.color_n'); @endphp
     @break
   @case(config('app.en_produccion'))
-    @php $borde = config('app.color_i'); @endphp
+    @php $borde = config('app.color_m'); @endphp
     @break
   <!-- ESTATUS ESTATUS LOGÍSTICA -->
   @case(config('app.en_almacen_de_salida'))
-    @php $borde = config('app.color_g'); @endphp
+    @php $borde = config('app.color_h'); @endphp
     @break
   @case(config('app.en_ruta'))
     @php $borde = config('app.color_g'); @endphp

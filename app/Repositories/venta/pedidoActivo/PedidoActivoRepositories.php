@@ -15,7 +15,6 @@ use App\Repositories\sistema\plantilla\PlantillaRepositories;
 use App\Repositories\sistema\sistema\SistemaRepositories;
 use App\Repositories\sistema\serie\SerieRepositories;
 use App\Repositories\usuario\UsuarioRepositories;
-use App\Repositories\pago\PagoRepositories;
 // Otros
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -27,28 +26,27 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   protected $sistemaRepo;
   protected $serieRepo;
   protected $usuarioRepo;
-  protected $pagoRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories, PlantillaRepositories $plantillaRepositories, SistemaRepositories $sistemaRepositories, SerieRepositories $serieRepositories, UsuarioRepositories $usuarioRepositories, PagoRepositories $pagoRepositories) {
+  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories, PlantillaRepositories $plantillaRepositories, SistemaRepositories $sistemaRepositories, SerieRepositories $serieRepositories, UsuarioRepositories $usuarioRepositories) {
     $this->serviceCrypt             = $serviceCrypt;
     $this->papeleraDeReciclajeRepo  = $papeleraDeReciclajeRepositories;
     $this->plantillaRepo            = $plantillaRepositories;
     $this->sistemaRepo              = $sistemaRepositories;
     $this->serieRepo                = $serieRepositories;
     $this->usuarioRepo              = $usuarioRepositories;
-    $this->pagoRepo                 = $pagoRepositories;
   } 
-  public function pedidoAsignadoFindOrFailById($id_pedido) {
+  public function pedidoAsignadoFindOrFailById($id_pedido, $relaciones) { // 'usuario', 'unificar', 'armados', 'pago'
     $id_pedido = $this->serviceCrypt->decrypt($id_pedido);
-    $pedido = Pedido::with('usuario', 'unificar', 'armados', 'pagos')->where('estat_log', '!=', config('app.entregado'))->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->findOrFail($id_pedido);
+    $pedido = Pedido::with($relaciones)->where('estat_log', '!=', config('app.entregado'))->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->findOrFail($id_pedido);
     return $pedido;
   }
   public function getPagination($request) {
-    return Pedido::with('usuario', 'unificar')->select('id', 'user_id', 'serie', 'entr_xprs', 'fech_de_entreg', 'estat_vent_gen', 'estat_vent_arm', 'estat_vent_dir', 'estat_pag', 'tot_de_arm', 'arm_carg')->where('estat_log', '!=', config('app.entregado'))->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
+    return Pedido::with('usuario', 'unificar')->select('id', 'user_id', 'serie', 'num_pedido', 'entr_xprs', 'fech_de_entreg', 'estat_vent_gen', 'estat_vent_arm', 'estat_vent_dir', 'estat_fact', 'estat_pag', 'estat_alm', 'estat_produc', 'estat_log', 'tot_de_arm', 'arm_carg')->where('estat_log', '!=', config('app.entregado'))->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
   }
   public function store($request) {
     try { DB::beginTransaction();
       $pedido = new Pedido();
-      $pedido->serie            = $this->serieRepo->sumaUnoALaUltimaSerie('Pedidos (Serie)', $request->serie);
+      $pedido->serie            = $request->serie;
+      $pedido->num_pedido       = $this->serieRepo->sumaUnoALaUltimaSerie('Pedidos (Serie)', $request->serie);
       $pedido->user_id          = $request->cliente;
       $pedido->tot_de_arm       = $request->total_de_armados;
       $pedido->mont_tot_de_ped  = $request->monto_total;
@@ -129,6 +127,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       }
       $pedido->save();
       $this->getEstatusVentas($pedido);
+      $this->getEstatusPedido($pedido, 'Todos');
       DB::commit();
       return $pedido;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
@@ -151,55 +150,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
         $pedido->updated_at_ped  = Auth::user()->email_registro;
       }
       $pedido->save();
-
-
-
-
-
-
-      //  dd($pedido);
-      /*
-      *
-      * FALTA ACTUALIZAR ESTATUS DE PAGO
-      *
-      */
-      dd($pedido->pagos);
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      $this->getEstatusPagoPedido($pedido);
       DB::commit();
       return $pedido;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
@@ -209,21 +160,24 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   }
   public function getArmadosPedidoPagination($pedido, $request) {
     if($request->opcion_buscador != null) {
-      return $pedido->armados()->with('direcciones')->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
+      return $pedido->armados()->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
     }
-    return $pedido->armados()->with('direcciones')->paginate($request->paginador);
+    return $pedido->armados()->paginate($request->paginador);
+  }
+  public function getMontoDePagosAprobados($pedido) {
+    return $pedido->pago->subPagos()->where('estat_pag', config('app.aprobado'))->sum('mont_de_pag');
   }
   public function getPagosPedidoPagination($pedido, $request) {
     if($request->opcion_buscador != null) {
-      return $pedido->pagos()->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
+      return $pedido->pago->subPagos()->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
     }
-    return $pedido->pagos()->paginate($request->paginador);
+    return $pedido->pago->subPagos()->paginate($request->paginador);
   }
   public function sumaUnoALaUltimaLetraYArmadosCargados($pedido, $cantidad) {
-    $pedido->ult_let = ++$pedido->ult_let;
+    $pedido->ult_let  = ++ $pedido->ult_let;
     $pedido->arm_carg += $cantidad;
     $pedido->save();
-    return $pedido->serie.'-'.$pedido->ult_let;
+    return $pedido->num_pedido.'-'.$pedido->ult_let;
   }
   public function getPedidoFindOrFail($id_pedido) {
     $id_pedido = $this->serviceCrypt->decrypt($id_pedido);
@@ -256,6 +210,145 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
 
     $pedido->save();
     return $pedido;
+  }
+  public function getEstatusPagoPedido($pedido) {
+  //  dd($pedido->pagos);
+    $pagos_rechazado      = $pedido->pagos()->where('estat_pag', config('app.rechazado'))->get();
+    $pagos_pendientes     = $pedido->pagos()->where('estat_pag', config('app.pendiente'))->get();
+    $sum_pagos_aprobados  = $pedido->pagos()->where('estat_pag', config('app.aprobado'))->sum('mont_de_pag');
+    
+    $count_pagos_rechazado  = count($pagos_rechazado);
+    $count_pagos_pendientes = count($pagos_pendientes);
+
+    // ESTATUS PENDIENTE
+    if($count_pagos_pendientes > 0) {
+      $pedido->estat_pag = config('app.pago_pendiente_de_aprobar');
+    }
+
+    // ESTATUS RECHAZADO
+    if($count_pagos_rechazado > 0) {
+      $pedido->estat_pag = config('app.pago_rechazado');
+    }
+
+    // ESTATUS PAGADO
+    if($sum_pagos_aprobados == $pedido->mont_tot_de_ped) {
+      $pedido->estat_pag = config('app.pagado');
+    }
+    $pedido->save();
+  }
+  public function getEstatusPedido($pedido, $modulo) {
+    $consulta = DB::table('pedido_armados')->select(
+      // ESTATUS VENTAS
+      DB::raw("(SELECT COUNT(*) FROM pedido_armados WHERE pedido_id = '$pedido->id' AND estat = '".config('app.pendiente')."') as pendiente"),
+      // ESTATUS AlMACÉN
+      DB::raw("(SELECT COUNT(*) FROM pedido_armados WHERE pedido_id = '$pedido->id' AND estat = '".config('app.en_espera_de_compra')."') as en_espera_de_compra"),
+      DB::raw("(SELECT COUNT(*) FROM pedido_armados WHERE pedido_id = '$pedido->id' AND estat = '".config('app.en_revision_de_productos')."') as en_revision_de_productos"),
+      // ESTATUS PRODUCCIÓN
+      DB::raw("(SELECT COUNT(*) FROM pedido_armados WHERE pedido_id = '$pedido->id' AND estat = '".config('app.productos_completos')."') as productos_completos"),
+      DB::raw("(SELECT COUNT(*) FROM pedido_armados WHERE pedido_id = '$pedido->id' AND estat = '".config('app.en_produccion')."') as en_produccion"),
+      // ESTATUS ESTATUS LOGÍSTICA
+      DB::raw("(SELECT COUNT(*) FROM pedido_armados WHERE pedido_id = '$pedido->id' AND estat = '".config('app.en_almacen_de_salida')."') as en_almacen_de_salida"),
+      DB::raw("(SELECT COUNT(*) FROM pedido_armados WHERE pedido_id = '$pedido->id' AND estat = '".config('app.en_ruta')."') as en_ruta"),
+      DB::raw("(SELECT SUM(cant) FROM pedido_armados WHERE pedido_id = '$pedido->id' AND estat = '".config('app.entregado')."') as suma_entregado"),
+      DB::raw("(SELECT COUNT(*) FROM pedido_armados WHERE pedido_id = '$pedido->id' AND estat = '".config('app.sin_entrega_por_falta_de_informacion')."') as sin_entrega_por_falta_de_informacion"),
+      DB::raw("(SELECT COUNT(*) FROM pedido_armados WHERE pedido_id = '$pedido->id' AND estat = '".config('app.intento_de_entrega_fallido')."') as intento_de_entrega_fallido"),
+    )->first();
+
+    if($modulo == 'Almacén' OR $modulo == 'Todos' AND $pedido->fech_estat_alm != null) {
+      $pedido->estat_alm = $this->getEstatusAlmacen($consulta, $pedido->tot_de_arm, $pedido->arm_carg, $pedido->lid_de_ped_alm);
+    }
+    if($modulo == 'Producción' OR $modulo == 'Todos' AND $pedido->fech_estat_produc != null) {
+      $pedido->estat_produc = $this->getEstatusProduccion($consulta, $pedido->tot_de_arm, $pedido->arm_carg, $pedido->lid_de_ped_produc);
+    }
+    if($modulo == 'Logística' OR $modulo == 'Todos' AND $pedido->fech_estat_log != null) {
+      $pedido->estat_log = $this->getEstatusLogistica($consulta, $pedido->tot_de_arm, $pedido->arm_carg, $pedido->lid_de_ped_log);
+    }
+    $estatus = [$pedido->estat_alm,$pedido->estat_produc,$pedido->estat_log,$pedido];
+    $pedido->save();
+  }
+  public function getEstatusAlmacen($consulta, $tot_de_arm, $arm_carg, $lid_de_ped_alm) {
+    $anteriores = $consulta->pendiente;
+
+    if($tot_de_arm != $arm_carg) {
+      $estat_alm = config('app.en_espera_de_ventas');
+    }
+    if($lid_de_ped_alm != NULL AND $tot_de_arm == $arm_carg) {
+      $estat_alm = config('app.productos_completos_terminado');
+    }
+    if($lid_de_ped_alm != NULL AND $consulta->en_revision_de_productos > 0) {
+      $estat_alm = config('app.en_revision_de_productos');
+    }
+    if($lid_de_ped_alm != NULL AND $consulta->en_espera_de_compra > 0) {
+      $estat_alm = config('app.en_espera_de_compra');
+    }
+    if($lid_de_ped_alm != NULL AND $anteriores > 0 AND $consulta->en_espera_de_compra == 0 AND $consulta->en_revision_de_productos == 0) {
+      $estat_alm = config('app.en_espera_de_ventas');
+    }
+    if($lid_de_ped_alm == NULL) {
+      $estat_alm = config('app.asignar_lider_de_pedido');
+    }
+    if(empty($estat_alm)) {
+      return abort(500, 'Algo salio mal en el estatus de almacén');
+    }
+    return $estat_alm;
+  }
+  public function getEstatusProduccion($consulta, $tot_de_arm, $arm_carg, $lid_de_ped_produc) {
+    $anteriores = $consulta->pendiente + $consulta->en_espera_de_compra + $consulta->en_revision_de_productos;
+
+    if($tot_de_arm != $arm_carg) {
+      $estat_produc = config('app.en_espera_de_almacen');
+    }
+    if($lid_de_ped_produc != NULL AND $tot_de_arm == $arm_carg) {
+      $estat_produc = config('app.en_almacen_de_salida_terminado');
+    }
+    if($lid_de_ped_produc != NULL AND $consulta->en_produccion > 0) {
+      $estat_produc = config('app.en_produccion');
+    }
+    if($lid_de_ped_produc != NULL AND $consulta->productos_completos > 0) {
+      $estat_produc = config('app.productos_completos');
+    }
+    if($lid_de_ped_produc != NULL AND $anteriores > 0 AND $consulta->productos_completos == 0 AND $consulta->en_produccion == 0) {
+      $estat_produc = config('app.en_espera_de_almacen');
+    }
+    if($lid_de_ped_produc == NULL) {
+      $estat_produc = config('app.asignar_lider_de_pedido');
+    }
+    if(empty($estat_produc)) {
+      return abort(500, 'Algo salio mal en el estatus de producción');
+    }
+    return $estat_produc;
+  }
+  public function getEstatusLogistica($consulta, $tot_de_arm, $arm_carg, $lid_de_ped_log) {
+    $anteriores = $consulta->pendiente + $consulta->en_espera_de_compra + $consulta->en_revision_de_productos + $consulta->productos_completos + $consulta->en_produccion;
+    
+    if($tot_de_arm != $arm_carg) {
+      $estat_log = config('app.en_espera_de_produccion');
+    }
+    if($lid_de_ped_log != NULL AND $anteriores == 0 AND $consulta->suma_entregado == $tot_de_arm) {
+      $estat_log = config('app.entregado');
+    }
+    if($lid_de_ped_log != NULL AND $consulta->en_ruta > 0) {
+      $estat_log = config('app.en_ruta');
+    }
+    if($lid_de_ped_log != NULL AND $consulta->en_almacen_de_salida > 0) {
+      $estat_log = config('app.en_almacen_de_salida');
+    }
+    if($lid_de_ped_log != NULL AND $consulta->intento_de_entrega_fallido > 0) {
+      $estat_log = config('app.intento_de_entrega_fallido');
+    }
+    if($lid_de_ped_log != NULL AND $consulta->sin_entrega_por_falta_de_informacion > 0) {
+      $estat_log = config('app.sin_entrega_por_falta_de_informacion');
+    }
+    if($lid_de_ped_log != NULL AND $anteriores > 0  AND $consulta->sin_entrega_por_falta_de_informacion == 0 AND $consulta->intento_de_entrega_fallido == 0 AND $consulta->en_almacen_de_salida == 0 AND $consulta->en_ruta == 0) {
+      $estat_log = config('app.en_espera_de_produccion');
+    }
+    if($lid_de_ped_log == NULL) {
+      $estat_log = config('app.asignar_lider_de_pedido');
+    }
+    if(empty($estat_log)) {
+      return abort(500, 'Algo salio mal en el estatus de logística');
+    }
+    return $estat_log;
   }
   public function unificarPedido($pedido, $fecha_original, $fecha_nueva) {
     if($fecha_original != $fecha_nueva) {

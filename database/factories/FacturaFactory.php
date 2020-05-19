@@ -2,17 +2,15 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\User;
-use App\Models\Pago;
+use App\Models\SubPago;
 use App\Models\Factura;
-use App\Models\Serie;
 use Faker\Generator as Faker;
 
 $factory->define(Factura::class, function (Faker $faker) {
     $cliente = $faker->randomElement(User::where('acceso', '2')->get());
-    $pago = $faker->unique()->randomElement(Pago::get());
+    $pago = $faker->unique()->randomElement(SubPago::get());
     $consepto = array('Arcon Navideño','Canastas Navideñas','Despensas','Regalo de fin de año');
     return [
-        'serie'             => $pago->serie,
         'nom_o_raz_soc'     => $faker->name,
         'rfc'               => $faker->numberBetween(1, 9999),
         'lad_mov'           => $faker->numberBetween(1, 9999),

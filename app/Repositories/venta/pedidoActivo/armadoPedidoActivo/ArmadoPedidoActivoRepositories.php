@@ -56,11 +56,15 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
         $this->storeFiles($pedido, $request, $armado);
       }
       $this->pedidoActivoRepo->getEstatusVentas($pedido);
+      $this->pedidoActivoRepo->getEstatusPedido($pedido, 'Todos');
     });
   }
   public function storeFiles($pedido, $request, $armado) {   
     $armado_pedido               = new PedidoArmado();
     $armado_pedido->cod          = $this->pedidoActivoRepo->sumaUnoALaUltimaLetraYArmadosCargados($pedido, $request->cantidad);
+    if($pedido->fech_estat_alm != null) {
+      $armado_pedido->estat      = config('app.en_espera_de_compra'); 
+    }
     $armado_pedido->cant         = $request->cantidad;
     $armado_pedido->tip          = $armado->tip;
     $armado_pedido->nom          = $armado->nom;

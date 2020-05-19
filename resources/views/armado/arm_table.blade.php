@@ -25,7 +25,7 @@
                 @include('armado.clon_armado.arm_cloArm_tableOpcionShow') 
               @endif
             </td>
-            <td>{{ '$ ' . $armado->prec_redond }}</td>
+            <td>${{ Sistema::dosDecimales($armado->prec_redond) }}</td>
             <td>{{ $armado->gama  }}</td>
             @if(Request::route()->getName() == 'armado.index')
               @include('armado.arm_tableOpciones') 

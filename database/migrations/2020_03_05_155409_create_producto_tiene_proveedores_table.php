@@ -24,6 +24,7 @@ class CreateProductoTieneProveedoresTable extends Migration
             $table->foreign('proveedor_id')->references('id')->on('proveedores')->onUpdate('restrict')->onDelete('cascade');
             $table->foreign('producto_id')->references('id')->on('productos')->onUpdate('restrict')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

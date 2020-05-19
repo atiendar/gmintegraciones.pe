@@ -142,7 +142,7 @@ class ClienteRepositories implements ClienteInterface {
       // FIN (Generar contraseña aleatoria con el rango "longitud_del_password" espesificado en el archivo .env )
       $cliente->password = $this->serviceCrypt->bcrypt($nueva_password);
       $cliente->save();
-      $plantilla = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_cli'));
+      $plantilla = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_cli_bien'));
       $cliente->notify(new NotificacionBienvenidaCliente($cliente, $nueva_password, $plantilla)); // Envió de correo electrónico
       DB::commit();
       return false;

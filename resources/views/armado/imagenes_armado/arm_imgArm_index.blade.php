@@ -7,5 +7,11 @@
   </div>
   <div class="card-body">
     @include('armado.imagenes_armado.arm_imgArm_table')
+    <div class="pt-2">
+      <div style="float: right;">
+        {!! $imagenes->appends(Request::all())->links() !!}  
+      </div>
+      {{ __('Mostrando desde') . ' '. $imagenes->firstItem() . ' ' . __('hasta') . ' '. $imagenes->lastItem() . ' ' . __('de') . ' '. $imagenes->total() . ' ' . __('registros') }}.
+    </div>
   </div>
 </div>

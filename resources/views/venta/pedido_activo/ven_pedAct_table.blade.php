@@ -4,7 +4,7 @@
       @include('layouts.private.busquedaSinResultados')
     @else 
       <thead>
-        <tr> 
+        <tr>
           @include('venta.pedido_activo.ven_pedAct_table.th.numeroDePedido')
           @include('venta.pedido_activo.ven_pedAct_table.th.numeroDePedidoUnificado')
           @include('venta.pedido_activo.ven_pedAct_table.th.fechaDeEntrega')
@@ -17,7 +17,7 @@
       </thead>
       <tbody> 
         @foreach($pedidos as $pedido)
-          <tr title="{{ $pedido->serie.$pedido->id }}">
+          <tr title="{{ $pedido->num_pedido }}">
             @include('venta.pedido_activo.ven_pedAct_tableOpcionShow')
             @include('venta.pedido_activo.ven_pedAct_table.td.numeroDePedidoUnificado')
             @include('venta.pedido_activo.ven_pedAct_table.td.fechaDeEntrega')

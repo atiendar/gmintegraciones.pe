@@ -19,11 +19,11 @@
             <td width="1rem">{{ $proveedor->id }}</td>
             <td>{{ $proveedor->nom_comerc }}</td>
             <td>{{ $proveedor->fab_distri }}</td>
-            <td>{{ $proveedor->pivot->prec_prove }}</td>
+            <td>${{ Sistema::dosDecimales($proveedor->pivot->prec_prove) }}</td>
             <td>
               {!! Form::select('utilidad', config('opcionesSelect.select_utilidad'), $proveedor->pivot->utilid, ['class' => 'form-control form-control-sm disable' . ($errors->has('utilidad') ? ' is-invalid' : ''), 'disabled']) !!}
             </td>
-            <td>{{ $proveedor->pivot->prec_clien }}</td>
+            <td>${{ Sistema::dosDecimales($proveedor->pivot->prec_clien) }}</td>
             @if(Request::route()->getName() == 'almacen.producto.edit')
               @include('almacen.producto.proveedor_producto.alm_pro_proPro_tableOpciones')
             @else

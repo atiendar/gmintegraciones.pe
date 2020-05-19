@@ -2,7 +2,7 @@
 namespace App\Repositories\proveedor;
 
 interface ProveedorInterface {
-    public function proveedorAsignadoFindOrFailById($id_proveedor);
+    public function proveedorAsignadoFindOrFailById($id_proveedor, $relaciones);
     
     public function getPagination($request);
 

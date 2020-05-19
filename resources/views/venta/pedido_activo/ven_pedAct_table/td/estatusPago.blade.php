@@ -3,22 +3,10 @@
     @case(config('app.pendiente'))
       <span class="badge" style="background:{{ config('app.color_a') }};color:{{ config('app.color_0') }};">{{ $pedido->estat_pag }}</span>
       @break
-    @case(config('app.anticipo_pendiente'))
+    @case(config('app.pago_pendiente_de_aprobar'))
       <span class="badge" style="background:{{ config('app.color_a') }};color:{{ config('app.color_0') }};">{{ $pedido->estat_pag }}</span>
       @break
-    @case(config('app.anticipo_aprobado'))
-      <span class="badge" style="background:{{ config('app.color_b') }};">{{ $pedido->estat_pag }}</span>
-      @break
-    @case(config('app.anticipo_rechazado'))
-      <span class="badge" style="background:{{ config('app.color_c') }};color:{{ config('app.color_0') }};">{{ $pedido->estat_pag }}</span>
-      @break
-    @case(config('app.pagototal_pendiente'))
-      <span class="badge" style="background:{{ config('app.color_a') }};color:{{ config('app.color_0') }};">{{ $pedido->estat_pag }}</span>
-      @break
-    @case(config('app.pagototal_aprobado'))
-      <span class="badge" style="background:{{ config('app.color_b') }};">{{ $pedido->estat_pag }}</span>
-      @break
-    @case(config('app.pagototal_rechazado'))
+    @case(config('app.pago_rechazado'))
       <span class="badge" style="background:{{ config('app.color_c') }};color:{{ config('app.color_0') }};">{{ $pedido->estat_pag }}</span>
       @break
     @case(config('app.pagado'))

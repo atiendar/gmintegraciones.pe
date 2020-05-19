@@ -1,1 +1,1 @@
-<td>{{ $pago->pedido->id  }}</td>
+<td>{{ $pago->pedido->num_pedido  }}</td>

@@ -20,7 +20,6 @@ class User extends Authenticatable {
   protected $hidden = [
     'password', 'remember_token', 'created_at_us', 'updated_at_us',
   ];
-
   protected $casts = [
     'email_verified_at' => 'datetime',
   ];
@@ -41,4 +40,7 @@ class User extends Authenticatable {
     $plantilla = \App\Repositories\sistema\plantilla\PlantillaRepositories::accesoModelPlantillaFindOrFailById(Sistema::datos()->sistemaFindOrFail()->plant_sis_rest_pass);
     $this->notify(new ResetPasswordNotification($token, $plantilla));
   }
+  public function cotizaciones(){
+    return $this->hasMany('App\Models\Cotizacion')->orderBy('id', 'DESC');
+  } 
 }

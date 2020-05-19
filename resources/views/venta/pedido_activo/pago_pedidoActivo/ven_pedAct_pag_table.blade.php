@@ -7,7 +7,7 @@
         <tr> 
           @include('pago.pag_table.th.#')
           @include('pago.pag_table.th.estatusPago')
-          @include('pago.pag_table.th.tipo')
+          @include('pago.pag_table.th.codigoDeFacturacion')
           @include('pago.pag_table.th.formaDePago')
           @include('pago.pag_table.th.montoDePago')
           <th colspan="2">&nbsp</th>
@@ -18,10 +18,15 @@
           <tr title="{{ $pago->id }}">
             @include('venta.pedido_activo.pago_pedidoActivo.ven_pedAct_pag_tableOpcionShow')
             @include('pago.pag_table.td.estatusPago')
-            @include('pago.pag_table.td.tipo')
+            @include('pago.pag_table.td.codigoDeFacturacion')
             @include('pago.pag_table.td.formaDePago')
             @include('pago.pag_table.td.montoDePago')
-            @include('venta.pedido_activo.pago_pedidoActivo.ven_pedAct_pag_tableOpciones')
+            @if(Request::route()->getName() == 'venta.pedidoActivo.edit')
+              @include('venta.pedido_activo.pago_pedidoActivo.ven_pedAct_pag_tableOpciones')
+            @else
+              <td width="1rem"></td>
+              <td width="1rem"></td>
+            @endif
           </tr>
         @endforeach
       </tbody>

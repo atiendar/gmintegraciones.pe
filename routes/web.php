@@ -2,6 +2,10 @@
 Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
   require_once __DIR__ . '/public/authRoutes.php';
 
+  Route::get('/offline', function() {
+    return view('vendor.laravelpwa.offline');
+  });
+  
   Route::group(['middleware' => ['sinAccesoAlSistema', 'auth', 'idiomaSistema', 'primerAcceso']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     
@@ -17,6 +21,7 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
     require_once __DIR__ . '/papeleraDeReciclaje/papeleraDeReciclajeRoutes.php';
     require_once __DIR__ . '/proveedor/proveedorRoutes.php';
     require_once __DIR__ . '/armado/armadoRoutes.php';
+    require_once __DIR__ . '/pago/pagoRoutes.php';
     require_once __DIR__ . '/cotizacion/cotizacionRoutes.php';
 
     Route::group(['prefix' => 'perfil'], function() {

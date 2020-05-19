@@ -13,6 +13,7 @@
       @include('sistema.sistema.sis_sis_editFieldsDirecciones')
       @include('sistema.sistema.sis_sis_editFieldsCorreos')
       @include('sistema.sistema.sis_sis_editFieldsRedesSociales')
+      @include('sistema.sistema.sis_sis_editFieldsSeries')
       @include('sistema.sistema.sis_sis_editFieldsPlantillas')
       @include('sistema.sistema.sis_sis_editFieldsImagenes')
       <hr>

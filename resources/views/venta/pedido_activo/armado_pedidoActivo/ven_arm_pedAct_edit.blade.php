@@ -1,28 +1,25 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Editar armado'))</title>
+<title>@section('title', __('Editar armado').' '.$armado->cod)</title>
 <div class="card card-info card-outline card-tabs position-relative bg-white">
-  <div class="card-header p-1 border-botto tex">
+  <div class="card-header p-1 border-botton">
     <h5>
-      <strong>{{ __('Editar registro') }}:</strong>
-      @can('almacen.pedidoAlmacen.ArmadoPedido.show')
-        <a href="{{ route('almacen.pedidoAlmacen.ArmadoPedido.show', Crypt::encrypt($armado->id)) }}">{{ $armado->id }}</a>
+      <strong>{{ __('Editar armado') }}:</strong>
+      @can('venta.pedidoActivo.armado.show')
+        <a href="{{ route('venta.pedidoActivo.armado.show', Crypt::encrypt($armado->id)) }}">{{ $armado->cod }}</a>,
       @else
-        {{ $armado->id }}
+        {{ $armado->cod }},
       @endcan
-      <strong>{{ __('del pedido') }}:</strong> {{ $armado->pedido->num_ped_unif }}
+     <strong>{{ __('del pedido') }}:</strong> {{ $armado->pedido->num_pedido }}
     </h5>
   </div>
   <div class="ribbon-wrapper">
     <div class="ribbon bg-info">
-      <small>{{ $armado->id }}</small>
+      <small>{{ $armado->cod }}</small>
     </div>
   </div>
   <div class="card-body">
-    {!! Form::open(['route' => ['almacen.pedidoAlmacen.ArmadoPedido.update', Crypt::encrypt($armado->id)], 'method' => 'patch', 'id' => 'armadoPedidoUpdate', 'files' => true]) !!}
-      @include('venta.pedido_activo.armado_pedidoActivo.arm_pedAct_editFields')
-    {!! Form::close() !!}
+    @include('venta.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_editFields')
   </div>
 </div>
 @endsection
-

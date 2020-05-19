@@ -235,7 +235,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      {!! Form::text('frecuencia', $producto->armados()->count(), ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Frecuencia'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('frecuencia', Sistema::dosDecimales($producto->armados()->count()), ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Frecuencia'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>

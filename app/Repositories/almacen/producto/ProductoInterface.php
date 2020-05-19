@@ -2,7 +2,7 @@
 namespace App\Repositories\almacen\producto;
 
 interface ProductoInterface {
-    public function productoAsignadoFindOrFailById($id_producto);
+    public function productoAsignadoFindOrFailById($id_producto, $relaciones);
 
     public function getPagination($request);
 
@@ -18,13 +18,13 @@ interface ProductoInterface {
 
     public function getSustitutosProducto($producto, $request);
 
-    public function getproductoFindOrFailById($id_producto);
+    public function getproductoFindOrFailById($id_producto, $relaciones);
 
     public function eliminarCacheAllProductosPlunk();
 
     public function getAllProductosPlunk();
 
-    public function getAllSustitutosOrProductosPlunkMenos($sustitutos_o_productos);
+    public function getAllSustitutosOrProductosPlunkMenos($sustitutos_o_productos, $opcion);
 
     public function getProductosFindOrFail($ids_productos, $hastaC);
 

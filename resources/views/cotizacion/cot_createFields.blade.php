@@ -1,18 +1,5 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="serie">{{ __('Serie') }} *</label>
-    @can('sistema.serie.create')
-      <a href="{{ route('sistema.serie.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar serie') }}</a>
-    @endcan
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-list"></i></span>
-      </div>
-      {!! Form::select('serie', $series_list, null, ['class' => 'form-control select2' . ($errors->has('serie') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
-    </div>
-    <span class="text-danger">{{ $errors->first('serie') }}</span>
-  </div>
-  <div class="form-group col-sm btn-sm">
     <label for="validez">{{ __('Validez') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
@@ -22,10 +9,8 @@
     </div>
     <span class="text-danger">{{ $errors->first('validez') }}</span>
   </div>
-</div>
-<div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="correo_del_cliente">{{ __('Correo del cliente') }} *</label>
+    <label for="cliente">{{ __('Cliente') }} *</label>
     @can('cliente.create')
       <a href="{{ route('cliente.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar cliente') }}</a>
     @endcan
@@ -33,9 +18,21 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
       </div>
-      {!! Form::select('correo_del_cliente', $clientes_list, null, ['class' => 'form-control select2' . ($errors->has('correo_del_cliente') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+      {!! Form::select('cliente', $clientes_list, null, ['class' => 'form-control select2' . ($errors->has('cliente') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
       </div>
-    <span class="text-danger">{{ $errors->first('correo_del_cliente') }}</span>
+    <span class="text-danger">{{ $errors->first('cliente') }}</span>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
+    <label for="describe_esta_cotizacion_para_que_sea_mas_facil_encontrarla">{{ __('Describe esta cotización para que sea mas fácil encontrarla') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+      </div>
+      {!! Form::textarea('describe_esta_cotizacion_para_que_sea_mas_facil_encontrarla', null, ['class' => 'form-control' . ($errors->has('describe_esta_cotizacion_para_que_sea_mas_facil_encontrarla') ? ' is-invalid' : ''), 'maxlength' => 500, 'placeholder' => __('Describe esta cotización para que sea mas fácil encontrarla'), 'rows' => 4, 'cols' => 4]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('describe_esta_cotizacion_para_que_sea_mas_facil_encontrarla') }}</span>
   </div>
 </div>
 <div class="row">

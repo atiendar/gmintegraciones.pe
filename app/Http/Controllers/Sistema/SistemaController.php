@@ -6,22 +6,30 @@ use App\Http\Requests\sistema\sistema\UpdateSistemaRequest;
 // Repositories
 use App\Repositories\sistema\sistema\SistemaRepositories;
 use App\Repositories\sistema\plantilla\PlantillaRepositories;
+use App\Repositories\sistema\serie\SerieRepositories;
 
 class SistemaController extends Controller {
   protected $sistemaRepo;
   protected $plantillaRepo;
-  public function __construct(SistemaRepositories $sistemaRepositories, PlantillaRepositories $plantillaRepositories) { // Interfaz para implementar solo [metodos]
-    $this->sistemaRepo = $sistemaRepositories;
-    $this->plantillaRepo = $plantillaRepositories;
+  protected $serieRepo;
+  public function __construct(SistemaRepositories $sistemaRepositories, PlantillaRepositories $plantillaRepositories, SerieRepositories $serieRepositories) { // Interfaz para implementar solo [metodos]
+    $this->sistemaRepo    = $sistemaRepositories;
+    $this->plantillaRepo  = $plantillaRepositories;
+    $this->serieRepo      = $serieRepositories;
   }
   public function edit() {
-    $plantillas_usu =  $this->plantillaRepo->getAllPlantillasModuloPluck('Usuarios');
-    $plantillas_cli = $this->plantillaRepo->getAllPlantillasModuloPluck('Clientes');
-    $plantillas_per_camb_pass = $this->plantillaRepo->getAllPlantillasModuloPluck('Perfil');
-    $plantillas_sis_rest_pass =$this->plantillaRepo->getAllPlantillasModuloPluck('Sistema');
-    $plantillas_cotizaciones =$this->plantillaRepo->getAllPlantillasModuloPluck('Cotizaciones');
-    $plantillas_ventas =$this->plantillaRepo->getAllPlantillasModuloPluck('Ventas');
-    return view('sistema.sistema.sis_sis_index', compact('plantillas_usu', 'plantillas_cli', 'plantillas_per_camb_pass', 'plantillas_sis_rest_pass', 'plantillas_cotizaciones', 'plantillas_ventas'));
+    $ser_cotizaciones         = $this->serieRepo->getAllInputSeriesPlunk('Cotizaciones (Serie)');
+    $ser_pedidos              = $this->serieRepo->getAllInputSeriesPlunk('Pedidos (Serie)');
+    $plantillas_usu_bien      = $this->plantillaRepo->getAllPlantillasModuloPluck('Usuarios (Bienvenida)');
+    $plantillas_cli_bien      = $this->plantillaRepo->getAllPlantillasModuloPluck('Clientes (Bienvenida)');
+    $plantillas_per_camb_pass = $this->plantillaRepo->getAllPlantillasModuloPluck('Perfil (Cambio de contraseña)');
+    $plantillas_sis_rest_pass = $this->plantillaRepo->getAllPlantillasModuloPluck('Sistema (Restablecimiento de contraseña)');
+    $plantillas_cot_env_cot   = $this->plantillaRepo->getAllPlantillasModuloPluck('Cotizaciones (Enviar cotización)');
+    $plantillas_vent_reg_ped  = $this->plantillaRepo->getAllPlantillasModuloPluck('Ventas (Registrar pedido)');
+    $plantillas_vent_ped_can  = $this->plantillaRepo->getAllPlantillasModuloPluck('Ventas (Pedido cancelado)');
+    $plantillas_pag_reg_pag   = $this->plantillaRepo->getAllPlantillasModuloPluck('Pagos (Registrar pago)');
+    $plantillas_pag_pag_rech  = $this->plantillaRepo->getAllPlantillasModuloPluck('Pagos (Pago rechazado)');
+    return view('sistema.sistema.sis_sis_index', compact('ser_cotizaciones', 'ser_pedidos', 'plantillas_usu_bien', 'plantillas_cli_bien', 'plantillas_per_camb_pass', 'plantillas_sis_rest_pass', 'plantillas_cot_env_cot', 'plantillas_vent_reg_ped', 'plantillas_vent_ped_can', 'plantillas_pag_reg_pag', 'plantillas_pag_pag_rech'));
   }
   public function update(UpdateSistemaRequest $request) {
     $this->sistemaRepo->update($request);

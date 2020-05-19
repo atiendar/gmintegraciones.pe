@@ -24,7 +24,7 @@ class ProductoArmadoController extends Controller {
   }
   public function editCantidad(UpdateCantidadRequest $request, $id_producto, $id_armado) {
     $this->productoArmadoRepo->editCantidad($request, $id_producto, $id_armado);
-    toastr()->success('¡Cantidad actualizada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    toastr()->success('¡Cantidad de productos actualizada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
 }

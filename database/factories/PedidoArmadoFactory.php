@@ -23,7 +23,6 @@ $factory->define(PedidoArmado::class, function (Faker $faker) {
         'alto'                  => $armado->alto,
         'ancho'                 => $armado->ancho,
         'largo'                 => $armado->largo,
-        'regalo'                => 'No',
         'pedido_id'             => $pedido->id,
         'created_at_ped_arm'    => $usuario,
     ];

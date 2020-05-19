@@ -1,6 +1,6 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Registrar proveedor'))</title>
+<title>@section('title', __('Registrar proveedor al producto').' '.$producto->produc)</title>
 <div class="card card-info card-outline">
   <div class="card-header p-1 border-botto tex">
     <h5>

@@ -1,1 +1,1 @@
-<td width="1rem">{{ $armado->autorizado }}</td>
+<td width="1rem">{{ $armado->aut }}</td>

@@ -10,6 +10,6 @@ class ProductosTableSeeder extends Seeder
      * @return void
      */
     public function run() {
-        factory(App\Models\Producto::class, 1100)->create(); // Nota no puede haber mas arcones que productos o fallaran los seeds
+        factory(App\Models\Producto::class, 1100)->create(); // Nota no puede haber mas armados que productos o fallaran los seeds
     }
 }

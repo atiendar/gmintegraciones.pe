@@ -9,7 +9,7 @@
   </div>
   <div class="card-body">
     <div class="pb-1">
-      {!! Form::model(Request::all(), ['route' => 'usuario.index', 'method' => 'GET']) !!}
+      {!! Form::model(Request::all(), ['route' => 'cotizacion.index', 'method' => 'GET']) !!}
       <div style="float: right;">
         <div class="input-group input-group-sm" style="width: 25em;">
           {!! Form::select('opcion_buscador', config('opcionesSelect.select_cotizacion_index'), null, ['class' => 'form-control float-right']) !!}

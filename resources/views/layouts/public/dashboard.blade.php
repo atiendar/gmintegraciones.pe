@@ -12,11 +12,7 @@
   <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
   <link rel="stylesheet" href="{{ asset('plugins/pace-progress/themes/silver/pace-theme-minimal.css') }}">
   @laravelPWA
-  {!! htmlScriptTagJsApi([
-    'action' => 'homepage',
-    'callback_then' => 'callbackThen',
-    'callback_catch' => 'callbackCatch'
-  ]) !!}
+  @yield('recapcha')
   @yield('css')
   @yield('css1')
   @yield('css2')

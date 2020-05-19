@@ -14,4 +14,10 @@ class Sistema extends Model {
   public static function datos() {
     return new SistemaRepositories; // Retorna la información del sistema
   }
+  public static function dosDecimales($numero) {
+    return number_format($numero, 2, '.', ',');
+  }
+  public static function tresDecimales($numero) {
+    return number_format($numero, 3, '.', ',');
+  }
 }

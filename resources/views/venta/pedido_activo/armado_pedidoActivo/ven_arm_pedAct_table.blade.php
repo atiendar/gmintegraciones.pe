@@ -29,7 +29,12 @@
             @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.armado')
             @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.tipoDeTarjeta')
             @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.direcciones')
-            @include('venta.pedido_activo.armado_pedidoActivo.vev_arm_pedAct_tableOpciones')
+            @if(Request::route()->getName() == 'venta.pedidoActivo.edit')
+              @include('venta.pedido_activo.armado_pedidoActivo.vev_arm_pedAct_tableOpciones')
+            @else
+              <td width="1rem"></td>
+              <td width="1rem"></td>
+            @endif
           </tr>
         @endforeach
       </tbody>

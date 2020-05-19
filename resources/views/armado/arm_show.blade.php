@@ -1,6 +1,6 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Detalles armado'))</title>
+<title>@section('title', __('Detalles armado').' '.$armado->nom)</title>
 <div class="card card-info card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botton">
     <h5>

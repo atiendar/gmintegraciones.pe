@@ -23,6 +23,7 @@ class CreateProductoTieneSustitutosTable extends Migration
             $table->foreign('producto_id')->references('id')->on('productos')->onUpdate('restrict')->onDelete('cascade');
             $table->foreign('sustituto_id')->references('id')->on('productos')->onUpdate('restrict')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

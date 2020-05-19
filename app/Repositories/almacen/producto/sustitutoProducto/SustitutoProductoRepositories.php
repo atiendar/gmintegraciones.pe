@@ -15,14 +15,14 @@ class SustitutoProductoRepositories implements SustitutoProductoInterface {
   }
   public function store($request, $id_producto) {
     DB::transaction(function() use($request, $id_producto) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
-      $producto = $this->productoRepo->getproductoFindOrFailById($id_producto);
+      $producto = $this->productoRepo->getproductoFindOrFailById($id_producto, 'sustitutos');
       $producto->sustitutos()->attach($request->ids_sustituto);
       return $producto;
     });
   }
   public function destroy($id_producto, $id_sustituto) {
     DB::transaction(function() use($id_producto, $id_sustituto) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
-      $producto = $this->productoRepo->getproductoFindOrFailById($id_producto);
+      $producto = $this->productoRepo->getproductoFindOrFailById($id_producto, 'sustitutos');
       $producto->sustitutos()->detach($this->serviceCrypt->decrypt($id_sustituto));
       return $producto;
     });

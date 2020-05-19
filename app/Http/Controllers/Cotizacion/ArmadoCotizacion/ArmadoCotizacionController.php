@@ -3,18 +3,34 @@ namespace App\Http\Controllers\Cotizacion\ArmadoCotizacion;
 use App\Http\Controllers\Controller;
 // Request
 use App\Http\Requests\cotizacion\armadoCotizacion\StoreArmadoCotizacionRequest;
-use App\Http\Requests\cotizacion\armadoCotizacion\UpdateCantidadRequest;
+use App\Http\Requests\cotizacion\armadoCotizacion\UpdateArmadoCotizacionRequest;
 // Repositories
 use App\Repositories\cotizacion\armadoCotizacion\ArmadoCotizacionRepositories;
+use App\Repositories\almacen\producto\ProductoRepositories;
 
 class ArmadoCotizacionController extends Controller {
   protected $armadoCotizacionRepo;
-  public function __construct(ArmadoCotizacionRepositories $armadoCotizacionRepositories) {
-    $this->armadoCotizacionRepo  = $armadoCotizacionRepositories;
+  protected $productoRepo;
+  public function __construct(ArmadoCotizacionRepositories $armadoCotizacionRepositories, ProductoRepositories $productoRepositories) {
+    $this->armadoCotizacionRepo = $armadoCotizacionRepositories;
+    $this->productoRepo         = $productoRepositories;
   }
   public function store(StoreArmadoCotizacionRequest $request, $id_cotizacion) {
     $this->armadoCotizacionRepo->store($request, $id_cotizacion);
     toastr()->success('¡Armado registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
+  }
+  public function edit($id_armado) {
+    $armado       = $this->armadoCotizacionRepo->armadoFindOrFailById($id_armado, ['direcciones', 'productos', 'cotizacion']);
+    $this->armadoCotizacionRepo->verificarElEstatusDeLaCotizacion($armado->cotizacion->estat);
+    $direcciones  = $armado->direcciones()->paginate(99999999);
+    $productos    = $armado->productos()->paginate(99999999);
+    $productos_list = $this->productoRepo->getAllSustitutosOrProductosPlunkMenos($armado->productos, 'copia');
+    return view('cotizacion.armado_cotizacion.cot_arm_edit', compact('armado', 'direcciones', 'productos', 'productos_list'));
+  }
+  public function update(UpdateArmadoCotizacionRequest $request, $id_armado) {
+    $this->armadoCotizacionRepo->update($request, $id_armado);
+    toastr()->success('¡Armado actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
   public function destroy($id_cotizacion) {

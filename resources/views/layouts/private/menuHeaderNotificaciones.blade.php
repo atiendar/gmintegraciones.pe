@@ -66,7 +66,7 @@
         </a>
         <div class="dropdown-divider"></div>
         <a href="#" class="dropdown-item">
-          <i class="fas fa-stopwatch"></i> Arcones Pedro
+          <i class="fas fa-stopwatch"></i> Pedro
           <span class="float-right text-muted text-sm">8-01-2020</span>
         </a>
         <div class="dropdown-divider"></div>

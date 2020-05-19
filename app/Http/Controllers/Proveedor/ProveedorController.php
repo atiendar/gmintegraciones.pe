@@ -26,12 +26,12 @@ class ProveedorController extends Controller {
     return back();
   }
   public function show(Request $request, $id_proveedor) {
-    $proveedor = $this->proveedorRepo->proveedorAsignadoFindOrFailById($id_proveedor);
+    $proveedor = $this->proveedorRepo->proveedorAsignadoFindOrFailById($id_proveedor, 'contactos');
     $contactos = $this->proveedorRepo->getContactosProveedor($proveedor, $request);
     return view('proveedor.pro_show', compact('proveedor', 'contactos'));
   }
   public function edit(Request $request, $id_proveedor) {
-    $proveedor = $this->proveedorRepo->proveedorAsignadoFindOrFailById($id_proveedor);
+    $proveedor = $this->proveedorRepo->proveedorAsignadoFindOrFailById($id_proveedor, 'contactos');
     $contactos = $this->proveedorRepo->getContactosProveedor($proveedor, $request);
     return view('proveedor.pro_edit', compact('proveedor', 'contactos'));
   }
