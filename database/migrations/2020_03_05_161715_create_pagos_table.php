@@ -18,10 +18,25 @@ class CreatePagosTable extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
+            $table->string('cod_fact',50)->unique()->comment('Código de facturación');
+            $table->string('comp_de_pag_rut',200)->comment('Ruta de comprobante de pagos');
+            $table->string('comp_de_pag_nom',200)->comment('Nombre de comprobante de pagos');
+            $table->string('cop_de_indent_rut',200)->nullable()->comment('Ruta de la copia de identificación');
+            $table->string('cop_de_indent_nom',200)->nullable()->comment('Nombre de la copia de identificación');
+            $table->enum('estat_pag',['Pendiente', 'Aprobado', 'Rechazado'])->default('Pendiente')->nullable()->comment('Estatus de pago');
+            $table->decimal('mont_de_pag',20,2)->unsigned()->comment('Monto de pago');
+            $table->string('form_de_pag',40)->comment('Forma de pago');
+            $table->text('coment_pag')->nullable()->comment('Comentarios pagos');
             $table->unsignedBigInteger('pedido_id')->comment('Foreign Key del código de factura');
             $table->foreign('pedido_id')->references('id')->on('pedidos')->onUpdate('restrict')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->comment('Foreign Key usuario');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('restrict')->onDelete('cascade');
+            $table->string('created_at_pag',75)->nullable()->comment('Correo del usuario que realizo el registro');
+            $table->string('updated_at_pag',75)->nullable()->comment('Correo del usuario que realizo la última modificación');
             $table->timestamps();
             $table->softDeletes();
+
+
         });
     }
 

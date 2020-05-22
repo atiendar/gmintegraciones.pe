@@ -40,7 +40,28 @@ class User extends Authenticatable {
     $plantilla = \App\Repositories\sistema\plantilla\PlantillaRepositories::accesoModelPlantillaFindOrFailById(Sistema::datos()->sistemaFindOrFail()->plant_sis_rest_pass);
     $this->notify(new ResetPasswordNotification($token, $plantilla));
   }
+  public function actividades(){
+    return $this->hasMany('App\Models\Actividades')->orderBy('id', 'DESC');
+  }
+  public function quejasYSugerencias(){
+    return $this->hasMany('App\Models\QuejaYSugerencia')->orderBy('id', 'DESC');
+  }
   public function cotizaciones(){
     return $this->hasMany('App\Models\Cotizacion')->orderBy('id', 'DESC');
+  }
+  public function datosFiscales(){
+    return $this->hasMany('App\Models\DatoFiscal')->orderBy('id', 'DESC');
+  }
+  public function direcciones(){
+    return $this->hasMany('App\Models\Direccion')->orderBy('id', 'DESC');
+  }
+  public function pedidos(){
+    return $this->hasMany('App\Models\Pedido')->orderBy('id', 'DESC');
   } 
+  public function facturas(){
+    return $this->hasMany('App\Models\Factura')->orderBy('id', 'DESC');
+  }
+  public function pagos(){
+    return $this->hasMany('App\Models\Pago')->orderBy('id', 'DESC');
+  }
 }

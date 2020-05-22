@@ -38,11 +38,11 @@ class UsuarioController extends Controller {
     return back();
   }
   public function show($id_usuario) {
-    $usuario = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_usuario, '1');
+    $usuario = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_usuario, '1', []);
     return view('usuario.usu_show', compact('usuario'));
   }
   public function edit($id_usuario) {
-    $usuario = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_usuario, '1');
+    $usuario = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_usuario, '1', []);
     $roles = $this->rolRepo->getAllRolesPluckMenos(config('app.rol_cliente'));
     return view('usuario.usu_edit', compact('usuario', 'roles'));
   }

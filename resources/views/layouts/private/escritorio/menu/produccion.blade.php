@@ -62,12 +62,7 @@
 
 {{--
 @canany(['pruebaaaa'])
-<li class="nav-item">
-<a href="" class="nav-link {{ Request::is('ti*') ? 'active' : '' }}">
-  <i class="nav-icon fas fa-desktop"></i>
-  <p>{{ __('Tecnologías de la información') }}</p>
-</a>
-</li>
+
 <li class="nav-item">
 <a href="" class="nav-link {{ Request::is('nomina*') ? 'active' : '' }}">
   <i class="nav-icon fas fa-money-check"></i>
@@ -79,29 +74,6 @@
   <i class="nav-icon fas fa-search"></i>
   <p>{{ __('Rastrear pedido') }}</p>
 </a>
-</li>
-<li class="nav-item has-treeview {{ Request::is('queja-o-sugerencia*') ? 'menu-open' : '' }}">
-<a href="#" class="nav-link {{ Request::is('queja-o-sugerencia*') ? 'active' : '' }}">
-  <i class="nav-icon fas fa-inbox"></i>
-  <p>
-    {{ __('Quejas o sugerencias') }}
-    <i class="right fas fa-angle-left"></i>
-  </p>
-</a>
-<ul class="nav nav-treeview">
-  <li class="nav-item">
-    <a href="#" class="nav-link {{ Request::is('queja-o-sugerencia') ? 'active' : '' }}">
-      <i class="nav-icon fas fa-list"></i>
-      <p>{{ __('Lista de quejas o sugerencias') }}</p>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="#" class="nav-link {{ Request::is('queja-o-sugerencia') ? 'active' : '' }}">
-      <i class="nav-icon far fa-plus-square"></i>
-      <p>{{ __('Registrar queja o sugerencia') }}</p>
-    </a>
-  </li>
-</ul>
 </li>
 <li class="nav-item has-treeview {{ Request::is('servicios*') ? 'menu-open' : '' }}">
 <a href="#" class="nav-link {{ Request::is('servicios*') ? 'active' : '' }}">
@@ -175,29 +147,6 @@
     <a href="#" class="nav-link" data-toggle="modal" data-target="#log_create" data-backdrop="static" data-keyboard="false">
       <i class="nav-icon far fa-plus-square"></i>
       <p>{{ __('Registrar') }}</p>
-    </a>
-  </li>
-</ul>
-</li>
-<li class="nav-item has-treeview {{ Request::is('factura*') ? 'menu-open' : '' }}">
-<a href="#" class="nav-link {{ Request::is('factura*') ? 'active' : '' }}">
-  <i class="nav-icon fas fa-file-invoice"></i>
-  <p>
-    {{ __('Facturación') }}
-    <i class="right fas fa-angle-left"></i>
-  </p>
-</a>
-<ul class="nav nav-treeview">
-  <li class="nav-item">
-    <a href="#" class="nav-link {{ Request::is('factura') ? 'active' : '' }}">
-      <i class="nav-icon fas fa-list"></i>
-      <p>{{ __('Lista de facturas') }}</p>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="#" class="nav-link" data-toggle="modal" data-target="#log_create" data-backdrop="static" data-keyboard="false">
-      <i class="nav-icon far fa-plus-square"></i>
-      <p>{{ __('Registrar factura') }}</p>
     </a>
   </li>
 </ul>

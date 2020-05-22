@@ -39,8 +39,8 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     $pedido = Pedido::with($relaciones)->where('estat_log', '!=', config('app.entregado'))->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->findOrFail($id_pedido);
     return $pedido;
   }
-  public function getPagination($request) {
-    return Pedido::with('usuario', 'unificar')->select('id', 'user_id', 'serie', 'num_pedido', 'entr_xprs', 'fech_de_entreg', 'estat_vent_gen', 'estat_vent_arm', 'estat_vent_dir', 'estat_fact', 'estat_pag', 'estat_alm', 'estat_produc', 'estat_log', 'tot_de_arm', 'arm_carg')->where('estat_log', '!=', config('app.entregado'))->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
+  public function getPagination($request, $relaciones) { // 'usuario', 'unificar'
+    return Pedido::with($relaciones)->select('id', 'user_id', 'serie', 'num_pedido', 'entr_xprs', 'fech_de_entreg', 'estat_vent_gen', 'estat_vent_arm', 'estat_vent_dir', 'estat_fact', 'estat_pag', 'estat_alm', 'estat_produc', 'estat_log', 'tot_de_arm', 'arm_carg')->where('estat_log', '!=', config('app.entregado'))->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
   }
   public function store($request) {
     try { DB::beginTransaction();
@@ -66,7 +66,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   }
   public function update($request, $id_pedido) {
     try { DB::beginTransaction();
-      $pedido = $this->pedidoAsignadoFindOrFailById($id_pedido);
+      $pedido = $this->pedidoAsignadoFindOrFailById($id_pedido, ['armados']);
       $pedido->fech_de_entreg     = $request->fecha_de_entrega;
       $pedido->se_pued_entreg_ant = $request->se_puede_entregar_antes;
       if($pedido->se_pued_entreg_ant == 'Si') {
@@ -165,13 +165,13 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     return $pedido->armados()->paginate($request->paginador);
   }
   public function getMontoDePagosAprobados($pedido) {
-    return $pedido->pago->subPagos()->where('estat_pag', config('app.aprobado'))->sum('mont_de_pag');
+    return $pedido->pagos()->where('estat_pag', config('app.aprobado'))->sum('mont_de_pag');
   }
   public function getPagosPedidoPagination($pedido, $request) {
     if($request->opcion_buscador != null) {
-      return $pedido->pago->subPagos()->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
+      return $pedido->pagos()->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
     }
-    return $pedido->pago->subPagos()->paginate($request->paginador);
+    return $pedido->pagos()->paginate($request->paginador);
   }
   public function sumaUnoALaUltimaLetraYArmadosCargados($pedido, $cantidad) {
     $pedido->ult_let  = ++ $pedido->ult_let;

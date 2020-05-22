@@ -5,6 +5,6 @@ use App\Models\Actividades;
 
 class ActividadRepositories implements ActividadInterface {
   public function getPagination($request) {
-    return Actividades::buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
+    return Actividades::with('usuario')->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
   }
 }

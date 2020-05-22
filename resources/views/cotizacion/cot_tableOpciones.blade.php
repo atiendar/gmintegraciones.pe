@@ -11,26 +11,26 @@
   </td>
   <td width="1rem" title="Clonar cotización: {{ $cotizacion->serie }}">
     @can('cotizacion.edit')
-    <form action="{{ route('cotizacion.clonar', Crypt::encrypt($cotizacion->id)) }}" id="cotizacionClonar{{ $cotizacion->id }}">
-      @method('POST')@csrf
-      {!! Form::button('<i class="far fa-clone"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-sm', 'id' => "btnClo$cotizacion->id", 'onclick' => "return check('btnClo$cotizacion->id', 'cotizacionClonar$cotizacion->id', '¡Alerta!', '¿Estás seguro quieres clonar la cotización, $cotizacion->serie (".$cotizacion->cliente->email_registro.") ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
-    </form>
+      <form action="{{ route('cotizacion.clonar', Crypt::encrypt($cotizacion->id)) }}" id="cotizacionClonar{{ $cotizacion->id }}">
+        @method('POST')@csrf
+        {!! Form::button('<i class="far fa-clone"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-sm', 'id' => "btnClo$cotizacion->id", 'onclick' => "return check('btnClo$cotizacion->id', 'cotizacionClonar$cotizacion->id', '¡Alerta!', '¿Estás seguro quieres clonar la cotización, $cotizacion->serie (".$cotizacion->cliente->email_registro.") ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+      </form>
     @endcan
   </td>
   <td width="1rem" title="Aprobar cotización: {{ $cotizacion->serie }}">
     @can('cotizacion.edit')
-    <form action="{{ route('cotizacion.aprobar', Crypt::encrypt($cotizacion->id)) }}" id="cotizacionAprobar{{ $cotizacion->id }}">
-      @method('POST')@csrf
-      {!! Form::button('<i class="fas fa-check"></i>', ['type' => 'submit', 'class' => 'btn btn-success btn-sm', 'id' => "btnApro$cotizacion->id", 'onclick' => "return check('btnApro$cotizacion->id', 'cotizacionAprobar$cotizacion->id', '¡Alerta!', '¿Estás seguro quieres aprobar la cotización, $cotizacion->serie (".$cotizacion->cliente->email_registro.") ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
-    </form>
+      <form action="{{ route('cotizacion.aprobar', Crypt::encrypt($cotizacion->id)) }}" id="cotizacionAprobar{{ $cotizacion->id }}">
+        @method('POST')@csrf
+        {!! Form::button('<i class="fas fa-check"></i>', ['type' => 'submit', 'class' => 'btn btn-success btn-sm', 'id' => "btnApro$cotizacion->id", 'onclick' => "return check('btnApro$cotizacion->id', 'cotizacionAprobar$cotizacion->id', '¡Alerta!', '¿Estás seguro quieres aprobar la cotización, $cotizacion->serie (".$cotizacion->cliente->email_registro.") ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+      </form>
     @endcan
   </td>
   <td width="1rem" title="Cancelar cotización: {{ $cotizacion->serie }}">
     @can('cotizacion.edit')
-    <form action="{{ route('cotizacion.cancelar', Crypt::encrypt($cotizacion->id)) }}" id="cotizacionCancelar{{ $cotizacion->id }}">
-      @method('POST')@csrf
-      {!! Form::button('<i class="fas fa-ban"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnCan$cotizacion->id", 'onclick' => "return check('btnCan$cotizacion->id', 'cotizacionCancelar$cotizacion->id', '¡Alerta!', '¿Estás seguro quieres cancelar la cotización, $cotizacion->serie (".$cotizacion->cliente->email_registro.") ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
-    </form>
+      <form action="{{ route('cotizacion.cancelar', Crypt::encrypt($cotizacion->id)) }}" id="cotizacionCancelar{{ $cotizacion->id }}">
+        @method('POST')@csrf
+        {!! Form::button('<i class="fas fa-ban"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnCan$cotizacion->id", 'onclick' => "return check('btnCan$cotizacion->id', 'cotizacionCancelar$cotizacion->id', '¡Alerta!', '¿Estás seguro quieres cancelar la cotización, $cotizacion->serie (".$cotizacion->cliente->email_registro.") ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+      </form>
     @endcan
   </td>
 @else

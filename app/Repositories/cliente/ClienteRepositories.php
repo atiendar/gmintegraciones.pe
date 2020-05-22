@@ -70,7 +70,7 @@ class ClienteRepositories implements ClienteInterface {
   }
   public function update($request, $id_cliente) {
     DB::transaction(function() use($request, $id_cliente) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
-      $cliente = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_cliente, '2');
+      $cliente = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_cliente, '2', []);
       $cliente->nom               = $request->nombre;
       $cliente->apell             = $request->apellidos;
       $cliente->email             = $request->correo_de_acceso;
@@ -113,7 +113,7 @@ class ClienteRepositories implements ClienteInterface {
   }
   public function destroy($id_cliente) {
     try { DB::beginTransaction();
-      $cliente = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_cliente, '2');
+      $cliente = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_cliente, '2', []);
       $cliente->delete();
       $this->papeleraDeReciclajeRepo->store([
         'modulo'      => 'Clientes', // Nombre del módulo del sistema
@@ -128,7 +128,7 @@ class ClienteRepositories implements ClienteInterface {
   }
   public function reEnviarCorreoBienvenida($id_cliente) {
     try { DB::beginTransaction();
-      $cliente = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_cliente, '2');
+      $cliente = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_cliente, '2', []);
       if($cliente->email_verified_at != null) { // Si el usuario ya accedio una vez al sistema ya no dejara enviar correo de bienvenida
         DB::commit();
         return true;

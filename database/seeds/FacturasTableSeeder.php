@@ -8,6 +8,6 @@ class FacturasTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        factory(App\Models\Factura::class, 100)->create();
+        factory(App\Models\Factura::class, 350)->create();
     }
 }

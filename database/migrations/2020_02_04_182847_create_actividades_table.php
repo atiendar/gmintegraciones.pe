@@ -23,9 +23,10 @@ class CreateactividadesTable extends Migration
             $table->text('id_reg')->nullable()->comment('Id del registro que se modifico');
             $table->string('reg', 100)->comment('Registro que se modifico');
             $table->string('inpu', 200)->comment('Nombre del input que se modifico');
-            $table->string('usu', 75)->comment('Correo del usuario que realizo la modificación');
             $table->longtext('ant')->nullable()->comment('Valor del campo antes de ser modificado');
             $table->longtext('nuev')->nullable()->comment('Nuevo valor del campo después de ser modificado');
+            $table->unsignedBigInteger('user_id')->comment('Foreign Key usuario');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('restrict')->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();

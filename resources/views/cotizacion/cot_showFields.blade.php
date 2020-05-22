@@ -49,8 +49,6 @@
     </div>
   </div>
   @include('cotizacion.cot_showFields.validez')
-
-
   <div class="form-group col-sm btn-sm">
     <label for="numeor_de_pedido_generado">{{ __('Núm. pedido generado') }}</label>
     <div class="input-group">
@@ -60,8 +58,6 @@
       {!! Form::text('numeor_de_pedido_generado', $cotizacion->num_pedido_gen, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Núm. pedido generado'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
-
-
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">

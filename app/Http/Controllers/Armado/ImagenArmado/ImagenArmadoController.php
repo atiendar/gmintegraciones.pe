@@ -13,7 +13,7 @@ class ImagenArmadoController extends Controller {
   }
   public function store(StoreImagenArmadoRequest $request, $id_armado) {
     $this->imagenArmadoRepo->store($request, $id_armado);
-    toastr()->success('¡Imagen(es) registrado(s) exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    toastr()->success('¡Imagen(es) registrada(s) exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
   public function destroy($id_imagen) {

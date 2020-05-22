@@ -127,7 +127,7 @@
     <span class="text-danger">{{ $errors->first('archivo') }}</span>
   </div>
 </div>
-<label for="redes_sociales">{{ __('DIRECCION') }}</label>
+<label for="redes_sociales">{{ __('DIRECCIÓN') }}</label>
 <div class="border border-primary rounded p-2">
   <div class="row">
     <div class="form-group col-sm btn-sm">
@@ -163,12 +163,12 @@
   </div>
   <div class="row">
     <div class="form-group col-sm btn-sm">
-      <label for="pais">{{ __('Pais') }}</label>
+      <label for="pais">{{ __('País') }}</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-text-width"></i></span>
         </div>
-        {!! Form::text('pais', null, ['class' => 'form-control' . ($errors->has('pais') ? ' is-invalid' : ''), 'maxlength' => 40, 'placeholder' => __('Pais')]) !!}
+        {!! Form::text('pais', null, ['class' => 'form-control' . ($errors->has('pais') ? ' is-invalid' : ''), 'maxlength' => 40, 'placeholder' => __('País')]) !!}
       </div>
       <span class="text-danger">{{ $errors->first('pais') }}</span>
     </div>
@@ -210,7 +210,7 @@
       <label for="codigo_postal">{{ __('Código postal') }} *</label>
       <div class="input-group">
         <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+          <span class="input-group-text"><i class="fas fa-mail-bulk"></i></span>
         </div>
         {!! Form::text('codigo_postal', null, ['class' => 'form-control' . ($errors->has('codigo_postal') ? ' is-invalid' : ''), 'maxlength' => 6, 'placeholder' => __('Código postal')]) !!}
       </div>

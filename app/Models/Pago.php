@@ -13,14 +13,14 @@ class Pago extends Model{
     if($opcion_buscador != null) {
       return $query->where("$opcion_buscador", 'LIKE', "%$buscador%");
     }
+  }
+  public function usuario(){
+    return $this->belongsTo('App\Models\User')->orderBy('id','DESC');
   } 
   public function pedido(){
     return $this->belongsTo('App\Models\Pedido')->orderBy('id','DESC');
   }
   public function factura(){
     return $this->hasOne('App\Models\Factura');
-  }
-  public function subPagos(){
-    return $this->hasMany('App\Models\SubPago');
-  }  
+  } 
 }

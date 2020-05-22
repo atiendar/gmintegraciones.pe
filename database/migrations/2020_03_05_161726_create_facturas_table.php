@@ -101,7 +101,9 @@ class CreateFacturasTable extends Migration
             $table->string('ppd_xlm_nom',200)->nullable()->comment('Nombre de Pago en Parcialidades o Diferido XLM');
 
             $table->unsignedBigInteger('pago_id')->comment('Foreign Key del código de pago');
-            $table->foreign('pago_id')->references('id')->on('sub_pagos')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign('pago_id')->references('id')->on('pagos')->onUpdate('restrict')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->comment('Foreign Key del código de pago');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('restrict')->onDelete('cascade');
             $table->string('created_at_fact',75)->comment('Correo del usuario que realizo el registro');
             $table->string('updated_at_fact',75)->nullable()->comment('Correo del usuario que realizo la última modificación');
             $table->timestamps();

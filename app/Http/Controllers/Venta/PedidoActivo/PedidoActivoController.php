@@ -34,15 +34,15 @@ class PedidoActivoController extends Controller {
     $this->sistemaRepo      = $sistemaRepositories;
   }
   public function index(Request $request) {
-    $pedidos = $this->pedidoActivoRepo->getPagination($request);
-    return view('venta.pedido_activo.ven_pedAct_index', compact('pedidos'));
+    $pedidos = $this->pedidoActivoRepo->getPagination($request, ['usuario', 'unificar']);
+    return view('venta.pedido.pedido_activo.ven_pedAct_index', compact('pedidos'));
   }
   public function create() {
     $series_list = $this->serieRepo->getAllInputSeriesPlunk('Pedidos (Serie)');
     $clientes_list = $this->usuarioRepo->getAllClientesIdPlunk();
     $plantillas = $this->plantillaRepo->getAllPlantillasModuloPluck('Ventas (Registrar pedido)');
     $plantilla_default = $this->sistemaRepo->datos('plant_vent_reg_ped');
-    return view('venta.pedido_activo.ven_pedAct_create', compact('clientes_list', 'series_list', 'plantillas', 'plantilla_default'));
+    return view('venta.pedido.pedido_activo.ven_pedAct_create', compact('clientes_list', 'series_list', 'plantillas', 'plantilla_default'));
   }
   public function store(StorePedidoRequest $request) {
     $pedido = $this->pedidoActivoRepo->store($request);
@@ -54,18 +54,18 @@ class PedidoActivoController extends Controller {
     return back();
   }
   public function show($id_pedido) {
-    $pedido = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['usuario', 'unificar', 'armados', 'pago']);
-    $armados = $this->pedidoActivoRepo->getArmadosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
-    $pagos = $this->pedidoActivoRepo->getPagosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
+    $pedido         = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['usuario', 'unificar', 'armados', 'pagos']);
+    $armados        = $this->pedidoActivoRepo->getArmadosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
+    $pagos          = $this->pedidoActivoRepo->getPagosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $mont_pag_aprov =  $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
-    return view('venta.pedido_activo.ven_pedAct_show', compact('pedido', 'armados', 'pagos', 'mont_pag_aprov'));
+    return view('venta.pedido.pedido_activo.ven_pedAct_show', compact('pedido', 'armados', 'pagos', 'mont_pag_aprov'));
   }
   public function edit($id_pedido) {
-    $pedido = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['unificar', 'armados', 'pago']);
-    $armados = $this->pedidoActivoRepo->getArmadosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
-    $pagos = $this->pedidoActivoRepo->getPagosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
+    $pedido         = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['unificar', 'armados', 'pagos']);
+    $armados        = $this->pedidoActivoRepo->getArmadosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
+    $pagos          = $this->pedidoActivoRepo->getPagosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $mont_pag_aprov =  $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
-    return view('venta.pedido_activo.ven_pedAct_edit', compact('pedido', 'armados', 'pagos', 'mont_pag_aprov'));
+    return view('venta.pedido.pedido_activo.ven_pedAct_edit', compact('pedido', 'armados', 'pagos', 'mont_pag_aprov'));
   }
   public function update(UpdatePedidoRequest $request, $id_pedido) {
     $pedido = $this->pedidoActivoRepo->update($request, $id_pedido);

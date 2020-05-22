@@ -1,0 +1,1 @@
+<td width="1rem">{{ $cotizacion->tot }}</td>

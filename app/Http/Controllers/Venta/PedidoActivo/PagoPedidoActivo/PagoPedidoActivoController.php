@@ -20,10 +20,10 @@ class PagoPedidoActivoController extends Controller {
     $this->pagoRepo         = $pagoRepositories;
   }
   public function create($id_pedido) {
-    $pedido = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido);
+    $pedido = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['pagos']);
     $pagos = $this->pedidoActivoRepo->getPagosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $mont_pag_aprov =  $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
-    return view('venta.pedido_activo.pago_pedidoActivo.ven_pedAct_pag_create', compact('pedido', 'pagos', 'mont_pag_aprov'));
+    return view('venta.pedido.pedido_activo.pago_pedidoActivo.ven_pedAct_pag_create', compact('pedido', 'pagos', 'mont_pag_aprov'));
   }
   public function store(StorePagoRequest $request, $id_pedido) {
     $request['id_pedido'] =  $this->serviceCrypt->decrypt($id_pedido);
@@ -33,6 +33,6 @@ class PagoPedidoActivoController extends Controller {
   }
   public function show($id_pago) {
     $pago = $this->pagoRepo->getPagoFindOrFailById($id_pago);
-    return view('venta.pedido_activo.pago_pedidoActivo.ven_pedAct_pag_show', compact('pago'));
+    return view('venta.pedido.pedido_activo.pago_pedidoActivo.ven_pedAct_pag_show', compact('pago'));
   }
 }

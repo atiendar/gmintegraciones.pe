@@ -41,11 +41,11 @@ class ClienteController extends Controller {
     return back();
   }
   public function show($id_cliente) {
-    $cliente = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_cliente, '2');
+    $cliente = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_cliente, '2', []);
     return view('cliente.cli_show', compact('cliente'));
   }
   public function edit($id_cliente) {
-    $cliente = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_cliente, '2');
+    $cliente = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_cliente, '2', []);
     $roles = $this->rolRepo->getSoloDosRolesPluck(config('app.rol_sin_acceso_al_sistema'), config('app.rol_cliente'));
     return view('cliente.cli_edit', compact('cliente', 'roles'));
   }

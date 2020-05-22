@@ -6,7 +6,7 @@
       <thead>
         <tr>
           <th>{{ __('ID') }}</th>
-          <th>{{ __('RAZON SOCIAL') }}</th>
+          <th>{{ __('RAZÓN SOCIAL') }}</th>
           <th>{{ __('NOMBRE COMERCIAL') }}</th>
           <th>{{ __('NOMBRE DEL REPRESENTANTE LEGAL') }}</th>
           <th colspan="2">&nbsp</th>

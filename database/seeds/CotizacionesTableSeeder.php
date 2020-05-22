@@ -20,7 +20,7 @@ class CotizacionesTableSeeder extends Seeder {
         $cotizaciones = Cotizacion::get();
         $hastaC = count($cotizaciones) - 1;
         for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
-            $cotizaciones[$contador2]->serie = $this->serieRepo->sumaUnoALaUltimaSerie('Cotizaciones (Serie)', $cotizaciones[$contador2]->serie);
+            $cotizaciones[$contador2]->serie = $this->serieRepo->sumaUnoALaUltimaSerie('Cotizaciones (Serie)', $cotizaciones[$contador2]->ser);
             $cotizaciones[$contador2]->save();
         }
     }

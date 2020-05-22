@@ -3,11 +3,6 @@
 <title>@section('title', __('Detalles cotizacion').' '.$cotizacion->cliente->email_registro )</title>
 <div class="card card-info card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botton">
-    @canany(['cotizacion.index', 'cotizacion.show', 'cotizacion.edit'])
-      <div class="float-right mr-5">
-        <a href="{{ route('cotizacion.generarCotizacion', Crypt::encrypt($cotizacion->id)) }}" class='btn btn-light btn-sm border'><i class="fas fa-file-pdf"></i> {{ __('Generar cotización') }}</a>
-      </div>
-    @endcanany
     <h5>
       <strong>{{ __('Detalles del registro') }}:</strong>
       @can('cotizacion.edit')

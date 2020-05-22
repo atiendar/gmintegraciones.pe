@@ -6,9 +6,21 @@ Route::group(['prefix' => 'cliente'], function() {
     Route::post('almacenar', 'Cliente\ClienteController@store')->name('cliente.store')->middleware('permission:cliente.create');
     
     Route::group(['prefix' => 'detalles'], function() {
-        Route::match(['GET', 'HEAD'],'{id_cliente}', 'Cliente\ClienteController@show')->name('cliente.show')->middleware('permission:cliente.show');
-        Route::match(['GET', 'HEAD'],'direccion/{id_cliente}', 'Cliente\Show\DireccionController@index')->name('cliente.show.direccion.index')->middleware('permission:cliente.show');
-        Route::match(['GET', 'HEAD'],'dato-fiscal/{id_cliente}', 'Cliente\Show\DatoFiscalController@index')->name('cliente.show.datoFiscal.index')->middleware('permission:cliente.show');
+        Route::match(['GET', 'HEAD'],'actividad/{id_cliente}', 'Cliente\Show\ActividadController@index')->name('cliente.show.actividad.index')->middleware('permission:cliente.show');
+        Route::match(['GET', 'HEAD'],'d/{id_cliente}', 'Cliente\ClienteController@show')->name('cliente.show')->middleware('permission:cliente.show');
+
+        Route::group(['prefix' => 'direccion'], function() {
+            Route::match(['GET', 'HEAD'],'{id_cliente}', 'Cliente\Show\DireccionController@index')->name('cliente.show.direccion.index')->middleware('permission:cliente.show|cliente.edit');
+            Route::post('almacenar/{id_cliente}', 'Cliente\Show\DireccionController@store')->name('cliente.show.direccion.store')->middleware('permission:cliente.edit');
+            Route::match(['GET', 'HEAD'],'detalles/{id_cliente}', 'Cliente\Show\DireccionController@show')->name('cliente.show.direccion.show')->middleware('permission:cliente.show|cliente.edit');
+        });
+
+        Route::group(['prefix' => 'dato-fiscal'], function() {
+            Route::match(['GET', 'HEAD'],'{id_cliente}', 'Cliente\Show\DatoFiscalController@index')->name('cliente.show.datoFiscal.index')->middleware('permission:cliente.show|cliente.edit');
+            Route::post('almacenar/{id_cliente}', 'Cliente\Show\DatoFiscalController@store')->name('cliente.show.datoFiscal.store')->middleware('permission:cliente.edit');
+            Route::match(['GET', 'HEAD'],'detalles/{id_cliente}', 'Cliente\Show\DatoFiscalController@show')->name('cliente.show.datoFiscal.show')->middleware('permission:cliente.show|cliente.edit');
+        });
+        
         Route::match(['GET', 'HEAD'],'cotizacion/{id_cliente}', 'Cliente\Show\CotizacionController@index')->name('cliente.show.cotizacion.index')->middleware('permission:cliente.show');
         Route::match(['GET', 'HEAD'],'pedido/{id_cliente}', 'Cliente\Show\PedidoController@index')->name('cliente.show.pedido.index')->middleware('permission:cliente.show');
         Route::match(['GET', 'HEAD'],'factura/{id_cliente}', 'Cliente\Show\FacturaController@index')->name('cliente.show.factura.index')->middleware('permission:cliente.show');

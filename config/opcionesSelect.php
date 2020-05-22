@@ -199,6 +199,22 @@ return array(
     'Cotizaciones (Serie)'  => 'Cotizaciones (Serie)',
     'Pedidos (Serie)'       => 'Pedidos (Serie)',
   ],
+  /* ===================== [ QUEJAS Y SUGERENCIAS ] ===================== */
+  'select_qys_index'  => [
+    ''                        => 'Buscar por. . .',
+    'usuario.email_registro'  => 'Correo usuario',
+    'depto'                   => 'Departamento',
+    'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+  'select_departamento' => [
+    ''            => 'Seleccione . . .',
+    'Ventas'      => 'Ventas',
+    'Producción'  => 'Producción',
+    'Logística'   => 'Logística',
+    'Facturación' => 'Facturación',
+    'Sistema'     => 'Sistema',
+    'Otro'        => 'Otro',
+  ],
 /* ===================== [ USUARIOS ] ===================== */
   'select_usuario_index'  => [
     ''                    => 'Buscar por. . .',
@@ -217,6 +233,34 @@ return array(
     'email'               => 'Correo para acceder',
     'emp'                 => 'Empresa',
     'created_at'          => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+  /* ===================== CLIENTES [ COTIZACIONES ] ===================== */
+  'select_cliente_cotizacion_index'  => [
+    ''                        => 'Buscar por. . .',
+    'serie'                   => 'Serie',
+    'estat'                   => 'Estatus',
+    'valid'                   => 'Validez',
+    'tot'                     => 'Total',
+    'created_at'              => 'Fecha de creación (YYYY-MM-DD)',
+  ],
+/* ===================== CLIENTES [ PEDIDOS ] ===================== */
+  'select_cliente_pedido_index'  => [
+    ''                        => 'Buscar por. . .',
+    'estat_pag'               => 'Estatus pago',
+    'estat_vent_gen'          => 'Estatus venta general',
+    'estat_vent_arm'          => 'Estatus venta armado(s)',
+    'estat_vent_dir'          => 'Estatus venta dirección(es)',
+    'fech_de_entreg'          => 'Fecha de entrega',
+    'num_pedido'              => 'Número de pedido',
+    'tot_de_arm'              => 'Total de armados',    
+    'entr_xprs'               => '¿Express?',
+    'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+/* ===================== CLIENTES [ QUEJAS Y SUGERENCIAS ] ===================== */
+  'select_cliente_qys_index'  => [
+    ''                        => 'Buscar por. . .',
+    'depto'                   => 'Departamento',
+    'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
 /* ===================== [ ROLES ] ===================== */
   'select_rol_index'      => [
@@ -239,7 +283,26 @@ return array(
     'mod'                 => 'Módulo',
     'reg'                 => 'Registro',
     'created_at'          => 'Fecha de registro (YYYY-MM-DD)',
-  ], 
+  ],
+/* ===================== ROL CLIENTE [ DATOS FISCALES ] ===================== */
+  'select_datos_fiscales_index'      => [
+    ''                    => 'Buscar por. . .',
+    'id'                  => 'ID',
+    'rfc'                 => 'RFC',
+    'nom_o_raz_soc'       => 'Razón social',
+    'created_at'          => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+/* ===================== ROL CLIENTE [ DIRECCIONES ] ===================== */
+  'select_direcciones_index'      => [
+    ''              => 'Buscar por. . .',
+    'id'            => 'ID',
+    'nom_ref_uno'   => 'Nombre de referencia uno',
+    'nom_ref_dos'   => 'Nombre de referencia dos',
+    'pais'          => 'País',
+    'ciudad'        => 'Ciudad',
+    'col'           => 'Colonia',
+    'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
+  ],
 /* ===================== [ PROVEEDOR ] ===================== */
   'select_proveedor_index'      => [
     ''              => 'Buscar por. . .',
@@ -434,18 +497,13 @@ return array(
   ],
 /* ===================== [ COTIZACIONES ] ===================== */
   'select_cotizacion_index'  => [
-    ''                    => 'Buscar por. . .',
-    'serie'               => 'Serie',
-    'estat'               => 'Estatus',
-    'valid'               => 'Validez',
-    'email_cliente'       => 'Correo cliente',
-    'tot'                 => 'Total',
-    'created_at'          => 'Fecha de creación (YYYY-MM-DD)',
-  ],
-  'select_con_o_sin_iva' => [
-    ''        => 'Seleccione. . .',
-    'Con IVA' => 'Con IVA',
-    'Sin IVA' => 'Sin IVA',
+    ''                        => 'Buscar por. . .',
+    'serie'                   => 'Serie',
+    'estat'                   => 'Estatus',
+    'valid'                   => 'Validez',
+    'cliente.email_registro'  => 'Correo cliente',
+    'tot'                     => 'Total',
+    'created_at'              => 'Fecha de creación (YYYY-MM-DD)',
   ],
 /* ===================== COTIZACIONES/ARMADO [ DIRECCIONES ] ===================== */
   'select_metodo_de_entrega'  => [
@@ -517,4 +575,49 @@ return array(
     'Transferencia'               => 'Transferencia',
     'Otro'                        => 'Otro',
   ],
+/* ===================== ALMACEN [ PRODUCTOS ] ===================== */
+     'select_pedido_activo_index'  => [
+      ''                 => 'Buscar por. . .',
+      'arc_carg'         => 'Arcones cargados',
+      'user_id'          => 'Cliente',
+      'entr_xprs'        => 'Entrega express',
+      'estat_alm'        => 'Estatus almacen',
+      'estat_pag'        => 'Estatus pago',
+      'fech_de_entreg'   => 'Fecha de entrega',
+      'num_ped_unif'     => 'Número pedido unificado',
+      'tot_de_arc'       => 'Total de Arcones',
+      'created_at'       => 'Fecha de registro (YYYY-MM-DD)',
+    ],
+    'select_entrega_express' => [
+      ''             => 'Seleccione. . .',
+      'Si'           => 'Sí',
+      'No'           => 'No',
+    ],
+    'select_se_puede_entregar_antes' => [
+      ''             => 'Seleccione. . .',
+      'Si'           => 'Sí',
+      'No'           => 'No',
+    ],
+/* ===================== ALMAÉN [ ARMADOS ] ===================== */
+    'select_pedido_armados_index' => [
+      ''                           => 'Buscar por. . .',
+      'pedido_armados.nom'         => 'Armado',
+      'pedido_armados.cant'        => 'Cantidad',
+      'pedido_armados.estat'       => 'Estatus',
+      'pedido_armados.tip'         => 'Tipo',
+      'pedido_armados.created_at'  => 'Fecha de registro (YYYY-MM-DD)',
+    ],
+    'select_estatus_armado' => [
+      ''                           => 'Seleccione. . .',
+      'En espera de compra'        => 'En espera de compra',
+      'En revisión de productos'   => 'En revisión de productos',
+      'Cancelado'                  => 'Cancelado',
+    ],
+    'select_productos_armado_index' => [
+      ''                                          => 'Buscar por. . .',
+      'pedido_armado_tiene_productos.cant'        => 'Cantidad',
+      'pedido_armado_tiene_productos.produc'      => 'Producto',
+      'pedido_armado_tiene_productos.sku'         => 'SKU',
+      'pedido_armado_tiene_productos.created_at'  => 'Fecha de registro (YYYY-MM-DD)',
+    ],
 );

@@ -1,1 +1,1 @@
-<th>{{ __('CATEGORIA') }}</th>
+<th>{{ __('CATEGORÍA') }}</th>

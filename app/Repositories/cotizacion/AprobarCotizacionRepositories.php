@@ -110,12 +110,6 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
         \App\Models\PedidoArmadoTieneDireccion::insert($direcciones);
       }
 
-      // REGISTRA EL PAGO TOTAL A PAGAR
-      $pago = new \App\Models\Pago();
-      $pago->pedido_id    = $pedido->id;
-      $pago->save();
-
-
       // CORREO ALTA DE PEDIDO
       $cliente    = $this->usuarioRepo->getUsuarioFindOrFail($pedido->user_id);
       $plantilla  = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_vent_reg_ped'));

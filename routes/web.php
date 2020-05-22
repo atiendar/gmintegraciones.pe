@@ -17,6 +17,7 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
 
     require_once __DIR__ . '/layouts/layoutsRoutes.php';
     require_once __DIR__ . '/usuario/usuarioRoutes.php';
+    require_once __DIR__ . '/quejasYSugerencias/quejasYSugerenciasRoutes.php';
     require_once __DIR__ . '/cliente/clienteRoutes.php';
     require_once __DIR__ . '/papeleraDeReciclaje/papeleraDeReciclajeRoutes.php';
     require_once __DIR__ . '/proveedor/proveedorRoutes.php';
@@ -54,6 +55,8 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
 
     Route::group(['prefix' => 'almacen'], function() {
       require_once __DIR__ . '/almacen/almacenRoutes.php';
+      require_once __DIR__ . '/almacen/pedidoActivoRoutes.php';
+      require_once __DIR__ . '/almacen/pedidoTerminadoRoutes.php';
       require_once __DIR__ . '/almacen/productoRoutes.php';
     });
   });

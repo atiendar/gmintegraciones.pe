@@ -8,6 +8,6 @@ class PedidoArmadoTieneProducto extends Model{
   protected $table='pedido_armado_tiene_productos';
   protected $primaryKey='id';
   public function armados(){
-    return $this->belongsTo('App\Models\PedidoArmado', 'pedido_id')->orderBy('id', 'DESC');
+    return $this->belongsTo('App\Models\PedidoArmado', 'pedido_armado_id')->orderBy('id', 'DESC');
   } 
 }

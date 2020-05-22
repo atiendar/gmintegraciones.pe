@@ -2,7 +2,7 @@
   <div class="card-header p-1 border-botto tex">
     @include('armado.imagenes_armado.arm_imgArm_create')
     <h5>
-      <strong>{{ __('Galeria de imagenes') }}</strong>
+      <strong>{{ __('Galería de imágenes') }}</strong>
     </h5>
   </div>
   <div class="card-body">

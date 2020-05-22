@@ -27,7 +27,7 @@ class RegistrarActividad { // No implementar ShouldQueue
    */
   public function handle(ActividadRegistrada $event) {
     // Crea un arreglo bidimensional con la información de los campos que fueron modificados y los guarda con una sola consulta
-    $camposBD = array('mod', 'rut', 'id_reg', 'reg', 'inpu', 'usu', 'ant', 'nuev');
+    $camposBD = array('mod', 'rut', 'id_reg', 'reg', 'inpu', 'ant', 'nuev', 'user_id');
     $hastaC = count($event->campos) - 1;
     $datos = null;
     $contador3 = 0;
@@ -43,11 +43,11 @@ class RegistrarActividad { // No implementar ShouldQueue
         $contador3 += 1;
         $datos[$contador2][$camposBD[$contador3]] = $event->inputs[$contador2]; // 'inpu'
         $contador3 += 1;
-        $datos[$contador2][$camposBD[$contador3]] = Auth::user()->email_registro; // 'usu'
-        $contador3 += 1;
         $datos[$contador2][$camposBD[$contador3]] = $event->modelo->getOriginal($event->campos[$contador2]); // 'ant'
         $contador3 += 1;
         $datos[$contador2][$camposBD[$contador3]] = $event->modelo->getAttribute($event->campos[$contador2]); // 'nuev'
+        $contador3 += 1;
+        $datos[$contador2][$camposBD[$contador3]] = Auth::user()->id; // 'user_id'
         $contador3 = 0;
       }
     }

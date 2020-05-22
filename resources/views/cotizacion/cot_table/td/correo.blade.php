@@ -1,0 +1,1 @@
+<td>{{ $cotizacion->cliente->email_registro }}</td>

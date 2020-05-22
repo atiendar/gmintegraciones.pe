@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
             PermisosTableSeeder::class,
             RolesTableSeeder::class,
             UsersTableSeeder::class,
+            QuejasYSugerenciasTableSeeder::class,
+            QuejaYSugerenciaArchivoTableSeeder::class,
             CatalogosTableSeeder::class,
             SeriesTableSeeder::class,
             PlantillasTableSeeder::class,
@@ -32,7 +34,6 @@ class DatabaseSeeder extends Seeder
             PedidosTableSeeder::class,
             PedidoArmadosTableSeeder::class,
             PagosTableSeeder::class,
-            SubPagoTableSeeder::class,
             FacturasTableSeeder::class,
         ]);
     }

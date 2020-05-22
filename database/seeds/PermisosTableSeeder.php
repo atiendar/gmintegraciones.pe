@@ -1,6 +1,5 @@
 <?php
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
 
 class PermisosTableSeeder extends Seeder {
   /**
@@ -142,37 +141,59 @@ class PermisosTableSeeder extends Seeder {
       'desc'            => "Eliminar cualquier registro del módulo Sistema 'Series'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
-// PERMISOS DEL MÓDULO USUARIO
+// PERMISOS DEL MÓDULO QUEJAS Y SUGERENCIAS
     Spatie\Permission\Models\Permission::create([
       'id'              => 19,
+      'nom'             => "Navegar por tabla 'Quejas y sugerencias'",
+      'name'				    => 'qys.index',
+      'desc'            => "Lista y navega por todos los registros del módulo 'Quejas y sugerencias'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 20,
+      'nom'             => "Registrar nuevo 'Quejas y sugerencias'",
+      'name'				    => 'qys.create',
+      'desc'            => "Crear nuevo registro en el módulo 'Quejas y sugerencias'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 21,
+      'nom'             => "Ver detalles 'Quejas y sugerencias'",
+      'name'				    => 'qys.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo 'Quejas y sugerencias'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+// PERMISOS DEL MÓDULO USUARIO
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 22,
       'nom'             => "Navegar por tabla 'Usuarios'",
       'name'				    => 'usuario.index',
       'desc'            => "Lista y navega por todos los registros del módulo 'Usuarios'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 20,
+      'id'              => 23,
       'nom'             => "Registrar nuevo 'Usuarios'",
       'name'				    => 'usuario.create',
       'desc'            => "Crear nuevo registro en el módulo 'Usuarios'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 21,
+      'id'              => 24,
       'nom'             => "Ver detalles 'Usuarios'",
       'name'				    => 'usuario.show',
       'desc'            => "Ver detalles de cualquier registro del módulo 'Usuarios'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 22,
+      'id'              => 25,
       'nom'             => "Editar registro 'Usuarios'",
       'name'				    => "usuario.edit",
       'desc'            => "Editar cualquier dato de un registro del módulo 'Usuarios'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 23,
+      'id'              => 26,
       'nom'             => "Eliminar registro 'Usuarios'",
       'name'				    => "usuario.destroy",
       'desc'            => "Eliminar cualquier registro del módulo 'Usuarios'",
@@ -180,35 +201,35 @@ class PermisosTableSeeder extends Seeder {
     ]);
 // PERMISOS DEL MÓDULO CLIENTE
     Spatie\Permission\Models\Permission::create([
-      'id'              => 24,
+      'id'              => 27,
       'nom'             => "Navegar por tabla 'Clientes'",
       'name'				    => 'cliente.index',
       'desc'            => "Lista y navega por todos los registros del módulo 'Clientes'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 25,
+      'id'              => 28,
       'nom'             => "Registrar nuevo 'Clientes'",
       'name'				    => 'cliente.create',
       'desc'            => "Crear nuevo registro en el módulo 'Clientes'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 26,
+      'id'              => 29,
       'nom'             => "Ver detalles 'Clientes'",
       'name'				    => 'cliente.show',
       'desc'            => "Ver detalles de cualquier registro del módulo 'Clientes'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 27,
+      'id'              => 30,
       'nom'             => "Editar registro 'Clientes'",
       'name'				    => "cliente.edit",
       'desc'            => "Editar cualquier dato de un registro del módulo 'Clientes'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 28,
+      'id'              => 31,
       'nom'             => "Eliminar registro 'Clientes'",
       'name'				    => "cliente.destroy",
       'desc'            => "Eliminar cualquier registro del módulo 'Clientes'",
@@ -216,35 +237,35 @@ class PermisosTableSeeder extends Seeder {
     ]);
 // PERMISOS DEL MÓDULO ROLES
     Spatie\Permission\Models\Permission::create([
-      'id'              => 29,
+      'id'              => 32,
       'nom'             => "Navegar por tabla 'Roles'",
       'name'				    => 'rol.index',
       'desc'            => "Lista y navega por todos los registros del módulo 'Roles'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 30,
+      'id'              => 33,
       'nom'             => "Registrar nuevo 'Roles'",
       'name'				    => 'rol.create',
       'desc'            => "Crear nuevo registro en el módulo 'Roles'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 31,
+      'id'              => 34,
       'nom'             => "Ver detalles 'Roles'",
       'name'				    => 'rol.show',
       'desc'            => "Ver detalles de cualquier registro del módulo 'Roles'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 32,
+      'id'              => 35,
       'nom'             => "Editar registro 'Roles'",
       'name'				    => "rol.edit",
       'desc'            => "Editar cualquier dato de un registro del módulo 'Roles'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 33,
+      'id'              => 36,
       'nom'             => "Eliminar registro 'Roles'",
       'name'				    => "rol.destroy",
       'desc'            => "Eliminar cualquier registro del módulo 'Roles'",
@@ -252,7 +273,7 @@ class PermisosTableSeeder extends Seeder {
     ]);
 // PERMISOS DEL MÓDULO ROLES (PERMISOS)
     Spatie\Permission\Models\Permission::create([
-      'id'              => 34,
+      'id'              => 37,
       'nom'             => "Navegar por tabla 'Roles (Permisos)'",
       'name'				    => 'rol.permiso.index',
       'desc'            => "Lista y navega por todos los registros del módulo 'Roles (Permisos)'",
@@ -260,57 +281,64 @@ class PermisosTableSeeder extends Seeder {
     ]);
 // PERMISOS DEL MÓDULO (PAPELERA DE RECICLAJE)
     Spatie\Permission\Models\Permission::create([
-      'id'              => 35,
+      'id'              => 38,
       'nom'             => "Navegar por tabla 'Papelera de reciclaje'",
       'name'				    => 'papeleraDeReciclaje.index',
       'desc'            => "Lista y navega por todos los registros del módulo 'Papelera de reciclaje'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 36,
+      'id'              => 39,
       'nom'             => "Eliminar permanentemente un registro 'Papelera de reciclaje'",
       'name'				    => "papeleraDeReciclaje.destroy",
       'desc'            => "Eliminar cualquier registro permanentemente del módulo 'Papelera de reciclaje'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 37,
+      'id'              => 40,
       'nom'             => "Restaurar un registro 'Papelera de reciclaje'",
       'name'				    => 'papeleraDeReciclaje.restore',
       'desc'            => "Restaura cualquier registro del módulo 'Papelera de reciclaje'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+
+/*
+* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+* +++++++++++++++++++++++++++++++++++++++++ MÓDULOS
+* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*/
+
 // PERMISOS DEL MÓDULO (PROVEEDORES)
     Spatie\Permission\Models\Permission::create([
-      'id'              => 38,
+      'id'              => 41,
       'nom'             => "Navegar por tabla 'Proveedores'",
       'name'				    => 'proveedor.index',
       'desc'            => "Lista y navega por todos los registros del módulo 'Proveedores'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 39,
+      'id'              => 42,
       'nom'             => "Registrar nuevo 'Proveedores'",
       'name'				    => 'proveedor.create',
       'desc'            => "Crear nuevo registro en el módulo 'Proveedores'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 40,
+      'id'              => 43,
       'nom'             => "Ver detalles 'Proveedores'",
       'name'				    => 'proveedor.show',
       'desc'            => "Ver detalles de cualquier registro del módulo 'Proveedores'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 41,
+      'id'              => 44,
       'nom'             => "Editar registro 'Proveedores'",
       'name'				    => "proveedor.edit",
       'desc'            => "Editar cualquier dato de un registro del módulo 'Proveedores'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 42,
+      'id'              => 45,
       'nom'             => "Eliminar registro 'Proveedores'",
       'name'				    => "proveedor.destroy",
       'desc'            => "Eliminar cualquier registro del módulo 'Proveedores'",
@@ -318,35 +346,35 @@ class PermisosTableSeeder extends Seeder {
     ]);
 // PERMISOS DEL MÓDULO PROVEEDORES (CONTACTOS)
     Spatie\Permission\Models\Permission::create([
-      'id'              => 43,
+      'id'              => 46,
       'nom'             => "Navegar por tabla Proveedores 'Contactos'",
       'name'				    => 'proveedor.contacto.index',
       'desc'            => "Lista y navega por todos los registros del módulo Proveedores 'Contactos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 44,
+      'id'              => 47,
       'nom'             => "Registrar nuevo Proveedores 'Contactos'",
       'name'				    => 'proveedor.contacto.create',
       'desc'            => "Crear nuevo registro en el módulo Proveedores 'Contactos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 45,
+      'id'              => 48,
       'nom'             => "Ver detalles Proveedores 'Contactos'",
       'name'				    => 'proveedor.contacto.show',
       'desc'            => "Ver detalles de cualquier registro del módulo Proveedores 'Contactos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 46,
+      'id'              => 49,
       'nom'             => "Editar registro Proveedores 'Contactos'",
       'name'				    => "proveedor.contacto.edit",
       'desc'            => "Editar cualquier dato de un registro del módulo Proveedores 'Contactos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 47,
+      'id'              => 50,
       'nom'             => "Eliminar registro Proveedores 'Contactos'",
       'name'				    => "proveedor.contacto.destroy",
       'desc'            => "Eliminar cualquier registro del módulo Proveedores 'Contactos'",
@@ -354,35 +382,35 @@ class PermisosTableSeeder extends Seeder {
     ]);
 // PERMISOS DEL MÓDULO (ARMADOS)
     Spatie\Permission\Models\Permission::create([
-      'id'              => 48,
+      'id'              => 51,
       'nom'             => "Navegar por tabla 'Armados'",
       'name'				    => 'armado.index',
       'desc'            => "Lista y navega por todos los registros del módulo 'Armados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 49,
+      'id'              => 52,
       'nom'             => "Registrar nuevo 'Armados'",
       'name'				    => 'armado.create',
       'desc'            => "Crear nuevo registro en el módulo 'Armados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 50,
+      'id'              => 53,
       'nom'             => "Ver detalles 'Armados'",
       'name'				    => 'armado.show',
       'desc'            => "Ver detalles de cualquier registro del módulo 'Armados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 51,
+      'id'              => 54,
       'nom'             => "Editar registro 'Armados'",
       'name'				    => "armado.edit",
       'desc'            => "Editar cualquier dato de un registro del módulo 'Armados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 52,
+      'id'              => 55,
       'nom'             => "Eliminar registro 'Armados'",
       'name'				    => "armado.destroy",
       'desc'            => "Eliminar cualquier registro del módulo 'Armados'",
@@ -390,21 +418,21 @@ class PermisosTableSeeder extends Seeder {
     ]);
 // PERMISOS DEL MÓDULO ARMADOS (PRODUCTOS)
     Spatie\Permission\Models\Permission::create([
-      'id'              => 53,
+      'id'              => 56,
       'nom'             => "Registrar nuevo Armados 'Productos'",
       'name'				    => 'armado.producto.create',
       'desc'            => "Crear nuevo registro en el módulo Armados 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 54,
+      'id'              => 57,
       'nom'             => "Eliminar registro Armados 'Productos'",
       'name'				    => "armado.producto.destroy",
       'desc'            => "Eliminar cualquier registro del módulo Armados 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 55,
+      'id'              => 58,
       'nom'             => "Editar campo (Cantidad) Armados 'Productos'",
       'name'				    => "armado.producto.editCantidad",
       'desc'            => "Editar el campo (Cantidad) de un registro del módulo Armados 'Productos'",
@@ -412,35 +440,35 @@ class PermisosTableSeeder extends Seeder {
     ]); 
 // PERMISOS DEL MÓDULO ARMADOS (ARMADOS CLONADOS)
     Spatie\Permission\Models\Permission::create([
-      'id'              => 56,
+      'id'              => 59,
       'nom'             => "Navegar por tabla Armados 'Armados clonados'",
       'name'				    => 'armado.clon.index',
       'desc'            => "Lista y navega por todos los registros del módulo Armados 'Armados clonados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 57,
+      'id'              => 60,
       'nom'             => "Registrar nuevo Armados 'Armados clonados'",
       'name'				    => 'armado.clon.create',
       'desc'            => "Crear nuevo registro en el módulo Armados 'Armados clonados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 58,
+      'id'              => 61,
       'nom'             => "Ver detalles Armados 'Armados clonados'",
       'name'				    => 'armado.clon.show',
       'desc'            => "Ver detalles de cualquier registro del módulo Armados 'Armados clonados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 59,
+      'id'              => 62,
       'nom'             => "Editar registro Armados 'Armados clonados'",
       'name'				    => "armado.clon.edit",
       'desc'            => "Editar cualquier dato de un registro del módulo Armados 'Armados clonados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 60,
+      'id'              => 63,
       'nom'             => "Eliminar registro Armados 'Armados clonados'",
       'name'				    => "armado.clon.destroy",
       'desc'            => "Eliminar cualquier registro del módulo Armados 'Armados clonados'",
@@ -448,64 +476,109 @@ class PermisosTableSeeder extends Seeder {
     ]);
 // PERMISOS DEL MÓDULO ARMADOS/ARMADOS CLONADOS (PRODUCTOS)
     Spatie\Permission\Models\Permission::create([
-      'id'              => 61,
+      'id'              => 64,
       'nom'             => "Registrar nuevo Armados clonados 'Productos'",
       'name'				    => 'armado.clon.producto.create',
       'desc'            => "Crear nuevo registro en el módulo Armados clonados 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 62,
+      'id'              => 65,
       'nom'             => "Eliminar registro Armados clonados 'Productos'",
       'name'				    => "armado.clon.producto.destroy",
       'desc'            => "Eliminar cualquier registro del módulo Armados clonados 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 63,
+      'id'              => 66,
       'nom'             => "Editar campo (Cantidad) Armados clonados 'Productos'",
       'name'				    => "armado.clon.producto.editCantidad",
       'desc'            => "Editar el campo (Cantidad) de un registro del módulo Armados clonados 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]); 
+//PERMISOS DEL MÓDULO ALMACÉN (PEDIDO ACTIVO)
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 67,
+      'nom'             => "Navegar por tabla Almacén 'Pedidos activos'",
+      'name'				    => 'almacen.pedidoActivo.index',
+      'desc'            => "Lista y navega por todos los registros del módulo Almacén 'Pedidos activos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 68,
+      'nom'             => "Ver detalles Almacén 'Pedidos activos'",
+      'name'				    => 'almacen.pedidoActivo.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo Almacén 'Pedidos activos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 69,
+      'nom'             => "Editar registro Almacén 'Pedidos activos'",
+      'name'				    => "almacen.pedidoActivo.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo Almacén 'Pedidos activos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 70,
+      'nom'             => "Generar orden de producción Almacén 'Pedidos activos'",
+      'name'				    => "almacen.pedidoActivo.pdf",
+      'desc'            => "Generar orden de producción de cualquier registro del módulo Almacén 'Pedidos activos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+//PERMISOS DEL MÓDULO ALMACÉN/PEDIDO ACTIVO (ARMADOS)
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 71,
+      'nom'             => "Ver detalles Almacén/Pedido Activo 'Armados'",
+      'name'				    => 'almacen.pedidoActivo.armadoPedidoActivo.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo Almacén/Pedido Activo 'Armados'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 72,
+      'nom'             => "Editar registro Almacén/Pedido Activo 'Armados'",
+      'name'				    => "almacen.pedidoActivo.armadoPedidoActivo.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo Almacén/Pedido Activo 'Armados'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
 // PERMISOS DEL MÓDULO ALMACÉN (PRODUCTOS)
     Spatie\Permission\Models\Permission::create([
-      'id'              => 64,
+      'id'              => 73,
       'nom'             => "Navegar por tabla Almacén 'Productos'",
       'name'				    => 'almacen.producto.index',
       'desc'            => "Lista y navega por todos los registros del módulo Almacén 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 65,
+      'id'              => 74,
       'nom'             => "Registrar nuevo Almacén 'Productos'",
       'name'				    => 'almacen.producto.create',
       'desc'            => "Crear nuevo registro en el módulo Almacén 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 66,
+      'id'              => 75,
       'nom'             => "Ver detalles Almacén 'Productos'",
       'name'				    => 'almacen.producto.show',
       'desc'            => "Ver detalles de cualquier registro del módulo Almacén 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 67,
+      'id'              => 76,
       'nom'             => "Editar registro Almacén 'Productos'",
       'name'				    => "almacen.producto.edit",
       'desc'            => "Editar cualquier dato de un registro del módulo Almacén 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 68,
+      'id'              => 71,
       'nom'             => "Editar campo (Disminuir stock) Almacén 'Productos'",
       'name'				    => "almacen.producto.disminuirStock",
       'desc'            => "Editar el campo (Disminuir stock) de un registro del módulo Almacén 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 69,
+      'id'              => 77,
       'nom'             => "Eliminar registro Almacén 'Productos'",
       'name'				    => "almacen.producto.destroy",
       'desc'            => "Eliminar cualquier registro del módulo Almacén 'Productos'",
@@ -513,14 +586,14 @@ class PermisosTableSeeder extends Seeder {
     ]);
 // PERMISOS DEL MÓDULO ALMACÉN/PRODUCTOS (SUSTITUTOS)
     Spatie\Permission\Models\Permission::create([
-      'id'              => 70,
+      'id'              => 78,
       'nom'             => "Registrar nuevo Almacén/Productos 'Sustitutos'",
       'name'				    => 'almacen.producto.sustituto.create',
       'desc'            => "Crear nuevo registro en el módulo Almacén/Productos 'Sustitutos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 71,
+      'id'              => 79,
       'nom'             => "Eliminar registro Almacén/Productos 'Sustitutos'",
       'name'				    => "almacen.producto.sustituto.destroy",
       'desc'            => "Eliminar cualquier registro del módulo Almacén/Productos 'Sustitutos'",
@@ -528,21 +601,21 @@ class PermisosTableSeeder extends Seeder {
     ]);
 // PERMISOS DEL MÓDULO ALMACÉN/PRODUCTOS (PROVEEDORES)
     Spatie\Permission\Models\Permission::create([
-      'id'              => 72,
+      'id'              => 80,
       'nom'             => "Registrar nuevo Almacén/Productos 'Proveedores'",
       'name'				    => 'almacen.producto.proveedor.create',
       'desc'            => "Crear nuevo registro en el módulo Almacén/Productos 'Proveedores'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 73,
+      'id'              => 81,
       'nom'             => "Editar registro Almacén/Productos 'Proveedores'",
       'name'				    => "almacen.producto.proveedor.edit",
       'desc'            => "Editar cualquier dato de un registro del módulo Almacén/Productos 'Proveedores'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 74,
+      'id'              => 82,
       'nom'             => "Eliminar registro Almacén/Productos 'Proveedores'",
       'name'			      => "almacen.producto.proveedor.destroy",
       'desc'            => "Eliminar cualquier registro del módulo Almacén/Productos 'Proveedores'",
@@ -550,35 +623,35 @@ class PermisosTableSeeder extends Seeder {
     ]);
 // PERMISOS DEL MÓDULO VETAS (PEDIDOS ACTIVOS)
     Spatie\Permission\Models\Permission::create([
-      'id'              => 75,
+      'id'              => 83,
       'nom'             => "Navegar por tabla Ventas 'Pedidos activos'",
       'name'				    => 'venta.pedidoActivo.index',
       'desc'            => "Lista y navega por todos los registros del módulo Ventas 'Pedidos activos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 76,
+      'id'              => 84,
       'nom'             => "Registrar nuevo Ventas 'Pedidos activos'",
       'name'				    => 'venta.pedidoActivo.create',
       'desc'            => "Crear nuevo registro en el módulo Ventas 'Pedidos activos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 77,
+      'id'              => 85,
       'nom'             => "Ver detalles Ventas 'Pedidos activos'",
       'name'				    => 'venta.pedidoActivo.show',
       'desc'            => "Ver detalles de cualquier registro del módulo Ventas 'Pedidos activos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 78,
+      'id'              => 86,
       'nom'             => "Editar registro Ventas 'Pedidos activos'",
       'name'				    => "venta.pedidoActivo.edit",
       'desc'            => "Editar cualquier dato de un registro del módulo Ventas 'Pedidos activos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-      'id'              => 79,
+      'id'              => 87,
       'nom'             => "Eliminar registro Ventas 'Pedidos activos'",
       'name'				    => "venta.pedidoActivo.destroy",
       'desc'            => "Eliminar cualquier registro del módulo Ventas 'Pedidos activos'",
@@ -586,7 +659,7 @@ class PermisosTableSeeder extends Seeder {
     ]);
 // PERMISOS DEL MÓDULO VETAS (PEDIDOS TERMINADOS)
     Spatie\Permission\Models\Permission::create([
-      'id'              => 80,
+      'id'              => 88,
       'nom'             => "Navegar por tabla Ventas 'Pedidos terminados'",
       'name'				    => 'venta.pedidoTerminado.index',
       'desc'            => "Lista y navega por todos los registros del módulo Ventas 'Pedidos terminados'",

@@ -19,7 +19,7 @@ class Pedido extends Model{
     if($opcion_buscador != null) {
       return $query->where("$opcion_buscador", 'LIKE', "%$buscador%");
     }
-  } 
+  }
   public function usuario() {
     return $this->belongsTo('App\User', 'user_id')->orderBy('id','DESC');
   }
@@ -27,9 +27,9 @@ class Pedido extends Model{
     return $this->belongsToMany('App\Models\Pedido', 'pedidos_unificados', 'pedido_id', 'unificado_id')->withPivot('id')->withTimestamps()->orderBy('pedidos_unificados.id', 'DESC');
   }
   public function armados() {
-    return $this->hasMany('App\Models\PedidoArmado')->orderBy('id', 'DESC');
+    return $this->hasMany('App\Models\PedidoArmado', 'pedido_id')->orderBy('id', 'DESC');
   }  
-  public function pago() {
-    return $this->hasOne('App\Models\Pago')->orderBy('id', 'DESC');
+  public function pagos() {
+    return $this->hasMany('App\Models\Pago')->orderBy('id', 'DESC');
   }
 }

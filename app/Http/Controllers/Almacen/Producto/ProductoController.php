@@ -72,7 +72,7 @@ class ProductoController extends Controller {
     if($respuesta == false) {
       toastr()->error('¡El valor que se ingreso no fue aceptado!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     } else {
-      toastr()->success('Stock aumentado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+      toastr()->success('¡Stock aumentado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     }
     return back();
   }
@@ -81,7 +81,7 @@ class ProductoController extends Controller {
     if($respuesta == false) {
       toastr()->error('¡El valor que se ingreso no fue aceptado!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     } else {
-      toastr()->success('Stock disminuido exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+      toastr()->success('¡Stock disminuido exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     }
     return back();
   }
@@ -100,7 +100,7 @@ class ProductoController extends Controller {
     ];
     $tipo = 'generarReporteDeCompraExport'; // Nombre del archivo App\Exports\...
     $archivoGeneradoRepo->store($info_archivo, $tipo);
-    toastr()->success('¡El reporte se esta generando una vez que haya terminado se mostrara en la barra superior!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    toastr()->success('¡El reporte se esta generando una vez que haya terminado se mostrará en la barra superior!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
   public function getPrecioProveedor(Request $request) {

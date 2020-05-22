@@ -20,18 +20,22 @@ class PagoRepositories implements PagoInterface {
     $this->serviceCrypt = $serviceCrypt;
     $this->pedidoActivoRepo = $pedidoActivoRepositories;
   }
+  public function getPagoFindOrFailById($id_pago) {
+    $id_pago = $this->serviceCrypt->decrypt($id_pago);
+    return Pago::with('pedido')->findOrFail($id_pago);
+  }
   public function getPagination($request) {
-    return Pago::with('pedido')->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
+    return Pago::with('pedido')->buscar($request->opcion_buscador, $request->buscador)->orderBy('estat_pag', 'ASC')->paginate($request->paginador);
   }
   public function store($request) {
     try { DB::beginTransaction();
       $pedido = $this->pedidoActivoRepo->getPedidoFindOrFail($this->serviceCrypt->encrypt($request->id_pedido));
       $pago = new Pago();
-      $pago->serie          = $pedido->serie;
-      $pago->cod_fact       = $pedido->serie;
+      $pago->cod_fact       = $this->generateRandomString();
       $pago->form_de_pag    = $request->forma_de_pago;
       $pago->mont_de_pag    = $request->monto_del_pago;
-      $pago->pedido_id      = $request->id_pedido;      
+      $pago->pedido_id      = $request->id_pedido;   
+      $pago->user_id        = $pedido->user_id; 
       $pago->created_at_pag = Auth::user()->email_registro;
 
       if($request->hasfile('comprobante_de_pago')) {
@@ -71,8 +75,10 @@ class PagoRepositories implements PagoInterface {
       return $pago;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
-  public function getPagoFindOrFailById($id_pago) {
-    $id_pago = $this->serviceCrypt->decrypt($id_pago);
-    return Pago::with('pedido')->findOrFail($id_pago);
+  public function destroy($id_pago) {
+    dd('destroy');
   }
+  public function generateRandomString($length = 4) { 
+    return substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length); 
+  } 
 }

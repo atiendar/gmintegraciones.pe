@@ -33,7 +33,7 @@ class UsuarioRepositories implements UsuarioInterface {
     $id_usuario = $this->serviceCrypt->decrypt($id_usuario);
     $usuario = User::asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->where('acceso', $acceso)->with(['roles'=> function ($query) {
       $query->orderBy('nom', 'ASC');
-    }], $relaciones)->findOrFail($id_usuario);
+    }])->with($relaciones)->findOrFail($id_usuario);
     return $usuario;
   }
   public function getPagination($request, $acceso) {
@@ -81,7 +81,7 @@ class UsuarioRepositories implements UsuarioInterface {
   }
   public function update($request, $id_usuario) {
     DB::transaction(function() use($request, $id_usuario) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
-      $usuario = $this->usuarioAsignadoFindOrFailById($id_usuario, '1');
+      $usuario = $this->usuarioAsignadoFindOrFailById($id_usuario, '1', []);
       $usuario->nom                 = $request->nombre;
       $usuario->apell               = $request->apellidos;
       $usuario->email               = $request->correo_de_acceso;
@@ -126,7 +126,7 @@ class UsuarioRepositories implements UsuarioInterface {
   }
   public function destroy($id_usuario) {
     try { DB::beginTransaction();
-      $usuario = $this->usuarioAsignadoFindOrFailById($id_usuario, '1');
+      $usuario = $this->usuarioAsignadoFindOrFailById($id_usuario, '1', []);
       $usuario->delete();
       $this->papeleraDeReciclajeRepo->store([
         'modulo'      => 'Usuarios', // Nombre del módulo del sistema
@@ -141,7 +141,7 @@ class UsuarioRepositories implements UsuarioInterface {
   }
   public function reEnviarCorreoBienvenida($id_usuario) {
     try { DB::beginTransaction();
-      $usuario = $this->usuarioAsignadoFindOrFailById($id_usuario, '1');
+      $usuario = $this->usuarioAsignadoFindOrFailById($id_usuario, '1', []);
       if($usuario->email_verified_at != null) { // Si el usuario ya accedio una vez al sistema ya no dejara enviar correo de bienvenida
         DB::commit();
         return true;

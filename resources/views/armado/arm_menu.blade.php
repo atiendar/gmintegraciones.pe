@@ -22,7 +22,7 @@
 @can('armado.index')
   <li class="nav-item ml-auto">
     {!! Form::open(['route' => 'armado.generarCatalogoDeArmados', 'method' => 'get', 'onsubmit' => 'return checarBotonSubmit("btnsubmit1")']) !!}
-      <button type="submit" id="btnsubmit1" class="btn btn-info btn-sm"><i class="fas fa-file-pdf"></i> {{ __('Generar catalogo de armados') }}</button>
+      <button type="submit" id="btnsubmit1" class="btn btn-info btn-sm"><i class="fas fa-file-pdf"></i> {{ __('Generar catálogo de armados') }}</button>
     {!! Form::close() !!}
   </li>
 @endcan

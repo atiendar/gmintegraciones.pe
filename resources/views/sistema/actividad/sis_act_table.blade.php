@@ -18,7 +18,12 @@
               <strong>{{ __('Módulo') }}:</strong> {{ __($actividad->mod) }}
               <strong>{{ __('Registro') }}:</strong> <a href="{{ route($actividad->rut, $actividad->id_reg) }}" target="_blank">{{ $actividad->reg }}</a>
               <strong>Input:</strong> [{{ __($actividad->inpu) }}]
-              <strong>{{ __('Usuario') }}:</strong> {{ $actividad->usu }}
+              <strong>{{ __('Usuario') }}:</strong> 
+              @if($actividad->usuario->acceso == '1') <!-- 1 = Usuario 2= Cliente -->
+                <a href="{{ route('usuario.show', Crypt::encrypt($actividad->usuario->id)) }}" target="_blank">{{ $actividad->usuario->email_registro }}</a>
+              @elseif($actividad->usuario->acceso == '2') <!-- 1 = Usuario 2= Cliente -->
+                <a href="{{ route('cliente.show', Crypt::encrypt($actividad->usuario->id)) }}" target="_blank">{{ $actividad->usuario->email_registro }}</a>
+              @endif
             </h3>
             <div class="timeline-body p-1">
               <div class="row">

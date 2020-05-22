@@ -5,15 +5,17 @@
     @else 
       <thead>
         <tr>
-          <th>{{ __('ID') }}</th>
-          <th>{{ __('RFC') }}</th>
+          @include('rolCliente.datoFiscal.dfi_table.th.id')
+          @include('rolCliente.datoFiscal.dfi_table.th.rfc')
+          @include('rolCliente.datoFiscal.dfi_table.th.nombleRazonSocial')
         </tr>
       </thead>
       <tbody> 
         @foreach($datos_fiscales as $dato_fiscal)
           <tr title="{{ $dato_fiscal->id }}">
-            <td>{{ $dato_fiscal->id }}</td>
-            <td>{{ $dato_fiscal->rfc }}</td>
+            <td><a href="{{ route('cliente.show.datoFiscal.show', Crypt::encrypt($dato_fiscal->id)) }}" title="Detalles: {{ $dato_fiscal->id }}">{{ $dato_fiscal->id }}</a></td>
+            @include('rolCliente.datoFiscal.dfi_table.td.rfc')
+            @include('rolCliente.datoFiscal.dfi_table.td.nombleRazonSocial')
           </tr>
           @endforeach
       </tbody>
