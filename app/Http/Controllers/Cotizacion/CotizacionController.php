@@ -89,7 +89,7 @@ class CotizacionController extends Controller {
       toastr()->success('¡Pedido registrado exitosamente ahora puedes completar la información faltante!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
       return redirect(route('venta.pedidoActivo.edit', $this->serviceCrypt->encrypt($info->pedido->id))); 
     }
-    toastr()->success('¡Se ha generado un pedido de esta cotización!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    toastr()->success('¡Se ha generado un pedido de esta cotización exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     toastr()->success('¡Cotización cerrada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }

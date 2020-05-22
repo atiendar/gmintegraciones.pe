@@ -60,5 +60,3 @@
     @endif
   </table>
 </div>
-
-

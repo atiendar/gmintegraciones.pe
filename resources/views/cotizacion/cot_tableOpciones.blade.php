@@ -6,7 +6,7 @@
   </td>
   <td width="1rem" title="Generar: {{ $cotizacion->serie }}">
     @can('cotizacion.index', 'cotizacion.show', 'cotizacion.edit')
-      <a href="{{ route('cotizacion.generarCotizacion', Crypt::encrypt($cotizacion->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-file-pdf"></i></a>
+      <a href="{{ route('cotizacion.generarCotizacion', Crypt::encrypt($cotizacion->id)) }}" class='btn btn-light btn-sm' target="_blank"><i class="fas fa-file-pdf"></i></a>
     @endcan
   </td>
   <td width="1rem" title="Clonar cotización: {{ $cotizacion->serie }}">

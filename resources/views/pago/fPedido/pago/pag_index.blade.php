@@ -7,8 +7,8 @@
     @endif
     <div class="float-right">
       <h5>
-        {{ __('Estatus pago') }}: @include('venta.pedido_activo.ven_pedAct_table.td.estatusPago') | 
-        {{ __('Monto total del pedido') }}: @include('venta.pedido_activo.ven_pedAct_showFields.montoTotalDelPedido')
+        {{ __('Estatus pago') }}: @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusPago') | 
+        {{ __('Monto total del pedido') }}: @include('venta.pedido.pedido_activo.ven_pedAct_showFields.montoTotalDelPedido')
       </h5> 
     </div>
   </div>

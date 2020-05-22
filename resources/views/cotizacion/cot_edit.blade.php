@@ -10,7 +10,7 @@
             {{ __('Acciones') }}
           </button>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{ route('cotizacion.generarCotizacion', Crypt::encrypt($cotizacion->id)) }}"><i class="fas fa-file-pdf"></i> {{ __('Generar') }}</a>
+            <a class="dropdown-item" href="{{ route('cotizacion.generarCotizacion', Crypt::encrypt($cotizacion->id)) }}" target="_blank"><i class="fas fa-file-pdf"></i> {{ __('Generar') }}</a>
             <form action="{{ route('cotizacion.clonar', Crypt::encrypt($cotizacion->id)) }}" id="cotizacionClonar{{ $cotizacion->id }}">
               @method('POST')@csrf
               {!! Form::button('<i class="far fa-clone"></i> Clonar', ['type' => 'submit', 'class' => 'dropdown-item', 'id' => "btnClo$cotizacion->id", 'onclick' => "return check('btnClo$cotizacion->id', 'cotizacionClonar$cotizacion->id', '¡Alerta!', '¿Estás seguro quieres clonar la cotización, $cotizacion->serie (".$cotizacion->cliente->email_registro.") ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}

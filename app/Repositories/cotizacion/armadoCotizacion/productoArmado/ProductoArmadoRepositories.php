@@ -49,13 +49,13 @@ class ProductoArmadoRepositories implements ProductoArmadoInterface {
       $cotizacion = $armado->cotizacion()->with('cliente')->first();
       
       // GUARDA EL PRODUCTO AL ARMADO
-      $producto   = $this->productoRepo->getproductoFindOrFailById($this->serviceCrypt->encrypt($request->id_producto), []);
+      $producto = $this->productoRepo->getproductoFindOrFailById($this->serviceCrypt->encrypt($request->id_producto), []);
       $this->storeFilesRepo->storeProductos([0 => $producto], $armado->id);
 
       // GENERA LOS NUEVOS VALORES PARA EL ARMADO
-      $armado             = $this->armadoCotizacionRepo->verificarSiYaFueModificado($armado, $cotizacion);
-      $armado             = $this->calcularValoresArmadoRepo->calcularValoresArmado($armado, $armado->productos()->get());
-      $armado             = $this->calcularValoresArmadoCotizacionRepo->sumaValoresArmadoCotizacion($armado);
+      $armado = $this->armadoCotizacionRepo->verificarSiYaFueModificado($armado, $cotizacion);
+      $armado = $this->calcularValoresArmadoRepo->calcularValoresArmado($armado, $armado->productos()->get());
+      $armado = $this->calcularValoresArmadoCotizacionRepo->sumaValoresArmadoCotizacion($armado);
       $armado->save();
       
       // GENERA LOS NUEVOS VALORES PARA LA COTIZACIÓN

@@ -10,7 +10,13 @@ interface CotizacionInterface {
 
     public function destroy($id_cotizacion);
 
+    public function updateIva($request, $id_cotizacion);
+
     public function getAllCotizacionesValidasPlunk();
 
     public function getCotizacionFindOrFail($id_cotizacion);
+
+    public function clonar($id_cotizacion);
+
+    public function cancelar($id_cotizacion);
 }

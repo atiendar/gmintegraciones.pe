@@ -17,7 +17,6 @@ use DB;
 
 class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
   protected $cotizacionRepo;
-  protected $papeleraDeReciclajeRepo;
   protected $serieRepo;
   protected $usuarioRepo;
   protected $sistemaRepo;

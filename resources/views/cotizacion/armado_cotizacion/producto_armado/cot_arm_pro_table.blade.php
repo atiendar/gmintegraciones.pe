@@ -11,12 +11,10 @@
           @include('almacen.producto.alm_pro_table.th.precioProveedor')
           <th>{{ __('UTIL.') }}</th>
           @include('almacen.producto.alm_pro_table.th.precioCliente')
-
           @include('almacen.producto.alm_pro_table.th.alto')
           @include('almacen.producto.alm_pro_table.th.ancho')
           @include('almacen.producto.alm_pro_table.th.largo')
           @include('almacen.producto.alm_pro_table.th.peso')
-
           <th colspan="1">&nbsp</th>
         </tr>
       </thead>
@@ -37,12 +35,10 @@
               {!! Form::close() !!}
             </td>
             @include('almacen.producto.alm_pro_table.td.precioCliente')
-
             @include('almacen.producto.alm_pro_table.td.alto')
             @include('almacen.producto.alm_pro_table.td.ancho')
             @include('almacen.producto.alm_pro_table.td.largo')
             @include('almacen.producto.alm_pro_table.td.peso')
-            
             @include('cotizacion.armado_cotizacion.producto_armado.cot_arm_pro_tableOpciones')
           </tr>
           @endforeach

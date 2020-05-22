@@ -19,6 +19,6 @@ class PagoPedidoController extends Controller {
     $pedido         = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['pagos']);
     $pagos          = $this->pedidoActivoRepo->getPagosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $mont_pag_aprov =  $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
-    return view('pago.fPedido.pago.fpe_edit', compact('pedido', 'pagos', 'mont_pag_aprov'));
+    return view('pago.fPedido.fpe_edit', compact('pedido', 'pagos', 'mont_pag_aprov'));
   }
 }

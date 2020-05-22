@@ -131,9 +131,9 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
     }
     if($registro->tab == 'cotizaciones') {
       $consulta = \App\Models\Cotizacion::with('armados')->withTrashed()->findOrFail($registro->id_reg);
-      if($metodo == 'restore') {
-        $consulta->armados()->restore();
-      }
+    //  if($metodo == 'restore') {
+    //    $consulta->armados()->restore();
+    //  }
     }
     return [
       'consulta'              => $consulta,

@@ -17,7 +17,6 @@ use DB;
 class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
   protected $serviceCrypt;
   protected $armadoRepo;
-  protected $calculoRepo;
   protected $cotizacionRepo;
   protected $calcularValoresCotizacionRepo;
   protected $storeFilesRepo;
