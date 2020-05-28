@@ -34,6 +34,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
     try { DB::beginTransaction();
       $cotizacion = $this->cotizacionRepo->cotizacionAsignadoFindOrFailById($id_cotizacion, 'armados', config('app.abierta'));
       $armados = $cotizacion->armados()->with('productos', 'direcciones')->get();
+      $nom_tabla = (new \App\Models\Producto())->getTable();
 
       // CREA EL PEDIDO
       $pedido = new \App\Models\Pedido();
@@ -48,10 +49,13 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       $pedido->created_at_ped   = Auth::user()->email_registro;
       $pedido->save();
 
-      $contador2    = 0;
-      $contador3    = 0;
-      $productos    = null;
-      $direcciones  = null;
+      $contador2              = 0;
+      $contador3              = 0;
+      $productos_armado       = NULL;
+      $up_stock_productos     = NULL;
+      $up_vendidos_productos  = NULL;
+      $ids                    = NULL;
+      $direcciones            = NULL;
       foreach($armados as $armado) {
         if($armado->cant != $armado->cant_direc_carg) {
           return abort(500, 'No se han registrado todas las direcciones al armado '.$armado->nom);
@@ -81,13 +85,28 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
 
         // REGISTRA LOS PRODUCTOS AL ARMADO
         foreach($armado->productos as $producto) {
-          $productos_armado[$contador2]['id_producto']      = $producto->id;
+          // PREPARA LA CONSULTA UPDATE MASIVA PARA DISMINUIR EL STOCK DEL PRODUCTO QUE TIENE EL ARMADO
+          $up_stock_productos     .= ' WHEN '. $producto->id_producto. ' THEN stock-'. $producto->cant * $armado_pedido->cant;
+          $up_vendidos_productos  .= ' WHEN '. $producto->id_producto. ' THEN vend+'. $producto->cant * $armado_pedido->cant;
+          $ids .= $producto->id_producto.',';
+
+          // REGISTRA LOS PRODUCTOS AL ARMADO
+          $productos_armado[$contador2]['id_producto']      = $producto->id_producto;
           $productos_armado[$contador2]['cant']             = $producto->cant;
           $productos_armado[$contador2]['produc']           = $producto->produc;
           $productos_armado[$contador2]['sku']              = $producto->sku;
           $productos_armado[$contador2]['pedido_armado_id'] = $armado_pedido->id;
           $contador2 +=1;
         }
+
+        // DISMINUYE EL STOCK DEL PRODUCTO QUE TIENE EL ARMADO
+        if($up_stock_productos != NULL) {
+          $ids = substr($ids, 0, -1);
+          DB::UPDATE("UPDATE ".$nom_tabla." SET stock = CASE id". $up_stock_productos." END, vend = CASE id".$up_vendidos_productos." END WHERE id IN (".$ids.")");
+        }
+        $up_stock_productos     = NULL;
+        $up_vendidos_productos  = NULL;
+        $ids = NULL;
 
         // REGISTRA LAS DIRECCIONES AL ARMADO
         foreach($armado->direcciones as $direccion) {
@@ -102,8 +121,8 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
           $contador3 +=1;
         }
       }
-      if($productos != null) {
-        \App\Models\PedidoArmadoTieneProducto::insert($productos);
+      if($productos_armado != null) {
+        \App\Models\PedidoArmadoTieneProducto::insert($productos_armado);
       }
       if($direcciones != null) {
         \App\Models\PedidoArmadoTieneDireccion::insert($direcciones);
@@ -115,7 +134,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       $cliente->notify(new NotificacionRegistrarPedido($cliente, $pedido, $plantilla)); // Envió de correo electrónico
 
       // CIERRA LA COTIZACIÓN
-      $cotizacion->estat = config('app.cerrada');
+      $cotizacion->estat = config('app.aprobada');
       $cotizacion->num_pedido_gen = $pedido->num_pedido;
       $cotizacion->save();
 

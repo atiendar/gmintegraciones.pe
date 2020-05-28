@@ -1845,10 +1845,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     sidebar: function sidebar() {
-      axios.get('/layouts').then(function (res) {
-        location.reload(); // Recarga la pagina para visualizar los cambios
+      axios.get('/layouts').then(function (res) {//location.reload(); // Recarga la pagina para visualizar los cambios
       })["catch"](function (err) {
-        console.log(err.response.data);
+        Swal.fire({
+          icon: 'error',
+          title: 'Algo salio mal',
+          text: 'Error: ' + err.response.data
+        });
       });
     }
   }
@@ -20092,7 +20095,7 @@ var render = function() {
     "a",
     {
       staticClass: "nav-link",
-      attrs: { href: "" },
+      attrs: { href: "", "data-widget": "pushmenu" },
       on: {
         click: function($event) {
           $event.preventDefault()

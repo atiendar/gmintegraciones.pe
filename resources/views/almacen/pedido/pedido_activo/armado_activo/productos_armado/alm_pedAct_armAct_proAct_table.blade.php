@@ -19,7 +19,7 @@
               <td>{{ $productos->sku }}</td>
               <td>{{ $productos->cant }}</td>
               <td>{{ $productos->produc }}</td>
-              @include('almacen.pedido_activo.armado_activo.productos_armado.alm_pedAct_armAct_proAct_tableOpciones')
+              @include('almacen.pedido.pedido_activo.armado_activo.productos_armado.alm_pedAct_armAct_proAct_tableOpciones')
             </tr>
             @endforeach
         </tbody>

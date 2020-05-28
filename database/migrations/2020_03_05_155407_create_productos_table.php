@@ -30,7 +30,7 @@ class CreateProductosTable extends Migration
             $table->decimal('cost_arm', 20, 2)->default(0.00)->unsigned()->comment('Costo de armado');
             $table->integer('vend')->default(0)->unsigned()->comment('Productos vendidos');
             $table->integer('cant_requerida')->default(0)->unsigned()->comment('Cantidad requerida');
-            $table->integer('stock')->default(0)->unsigned()->comment('Stock del producto');
+            $table->integer('stock')->default(0)->comment('Stock del producto');
             $table->string('prove', 130)->nullable()->comment('Nombre del proveedor');
             $table->decimal('prec_prove', 20,2)->nullable()->unsigned()->comment('Precio del proveedor');
             $table->enum('utilid', ['.1','.2','.3','.4','.5','.6','.7','.8','.9'])->nullable()->comment('Utilidad .1 = 10%

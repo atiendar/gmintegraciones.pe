@@ -1,5 +1,5 @@
-<div class="card card-info card-outline card-tabs position-relative bg-white">
-  <div class="card-header p-1 border-botto tex">
+<div class="card {{ config('app.color_card_terciario') }} card-outline card-tabs position-relative bg-white">
+  <div class="card-header p-1 border-bottom {{ config('app.color_bg_terciario') }}">
     @include('armado.imagenes_armado.arm_imgArm_create')
     <h5>
       <strong>{{ __('Galería de imágenes') }}</strong>
@@ -7,11 +7,6 @@
   </div>
   <div class="card-body">
     @include('armado.imagenes_armado.arm_imgArm_table')
-    <div class="pt-2">
-      <div style="float: right;">
-        {!! $imagenes->appends(Request::all())->links() !!}  
-      </div>
-      {{ __('Mostrando desde') . ' '. $imagenes->firstItem() . ' ' . __('hasta') . ' '. $imagenes->lastItem() . ' ' . __('de') . ' '. $imagenes->total() . ' ' . __('registros') }}.
-    </div>
+    @include('global.paginador.paginador', ['paginar' => $imagenes])
   </div>
 </div>

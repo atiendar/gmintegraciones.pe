@@ -24,12 +24,12 @@ class SistemaController extends Controller {
     $plantillas_cli_bien      = $this->plantillaRepo->getAllPlantillasModuloPluck('Clientes (Bienvenida)');
     $plantillas_per_camb_pass = $this->plantillaRepo->getAllPlantillasModuloPluck('Perfil (Cambio de contraseña)');
     $plantillas_sis_rest_pass = $this->plantillaRepo->getAllPlantillasModuloPluck('Sistema (Restablecimiento de contraseña)');
-    $plantillas_cot_env_cot   = $this->plantillaRepo->getAllPlantillasModuloPluck('Cotizaciones (Enviar cotización)');
+    $plantillas_cot_term_cond = $this->plantillaRepo->getAllPlantillasModuloPluck('Cotizaciones (Términos y condiciones)');
     $plantillas_vent_reg_ped  = $this->plantillaRepo->getAllPlantillasModuloPluck('Ventas (Registrar pedido)');
     $plantillas_vent_ped_can  = $this->plantillaRepo->getAllPlantillasModuloPluck('Ventas (Pedido cancelado)');
     $plantillas_pag_reg_pag   = $this->plantillaRepo->getAllPlantillasModuloPluck('Pagos (Registrar pago)');
     $plantillas_pag_pag_rech  = $this->plantillaRepo->getAllPlantillasModuloPluck('Pagos (Pago rechazado)');
-    return view('sistema.sistema.sis_sis_index', compact('ser_cotizaciones', 'ser_pedidos', 'plantillas_usu_bien', 'plantillas_cli_bien', 'plantillas_per_camb_pass', 'plantillas_sis_rest_pass', 'plantillas_cot_env_cot', 'plantillas_vent_reg_ped', 'plantillas_vent_ped_can', 'plantillas_pag_reg_pag', 'plantillas_pag_pag_rech'));
+    return view('sistema.sistema.sis_sis_index', compact('ser_cotizaciones', 'ser_pedidos', 'plantillas_usu_bien', 'plantillas_cli_bien', 'plantillas_per_camb_pass', 'plantillas_sis_rest_pass', 'plantillas_cot_term_cond', 'plantillas_vent_reg_ped', 'plantillas_vent_ped_can', 'plantillas_pag_reg_pag', 'plantillas_pag_pag_rech'));
   }
   public function update(UpdateSistemaRequest $request) {
     $this->sistemaRepo->update($request);

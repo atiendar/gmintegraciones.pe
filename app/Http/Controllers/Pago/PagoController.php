@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Pago;
 use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
+use App\Http\Requests\pago\StorePagoRequest;
 // Repositories
 use App\Repositories\pago\PagoRepositories;
 
@@ -15,19 +16,13 @@ class PagoController extends Controller {
     $pagos =  $this->pagoRepo->getPagination($request);
     return view('pago.individual.ind_index', compact('pagos'));
   }
-  /*
-  public function create() {
-    $roles = $this->rolRepo->getAllRolesPluckMenos(config('app.rol_cliente'));
-    $plantillas = $this->plantillaRepo->getAllPlantillasModuloPluck('Usuarios (Bienvenida)');
-    $plantilla_default = $this->sistemaRepo->datos('plant_usu_bien');
-    return view('usuario.usu_create', compact('roles', 'plantillas', 'plantilla_default'));
-  }
-  public function store(StoreUsuarioRequest $request) {
-    $this->usuarioRepo->store($request);
-    toastr()->success('¡Usuario registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+  
+  public function store(StorePagoRequest $request, $id_pedido) {
+    $this->pagoRepo->store($request, $id_pedido);
+    toastr()->success('¡Pago registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
-  */
+  
   public function show($id_pago) {
     $pago = $this->pagoRepo->getPagoFindOrFailById($id_pago);
     return view('pago.individual.ind_show', compact('pago'));

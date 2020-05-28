@@ -28,6 +28,7 @@
 
 <!-- ****************************************************************************************** -->
 @canany([
+  'cotizacion.index', 'cotizacion.create', 'cotizacion.show', 'cotizacion.edit', 'cotizacion.destroy',
   'proveedor.index', 'proveedor.create', 'proveedor.show', 'proveedor.edit', 'proveedor.destroy', 'proveedor.contacto.index', 'proveedor.contacto.create', 'proveedor.contacto.show', 'proveedor.contacto.edit', 'proveedor.contacto.destroy',
   'armado.index', 'armado.create', 'armado.show', 'armado.edit', 'armado.destroy', 'armado.clon.index', 'armado.clon.create', 'armado.clon.show', 'armado.clon.edit', 'armado.clon.destroy', 'armado.producto.store', 'armado.producto.destroy', 'armado.producto.editCantidad', 'armado.clon.producto.store', 'armado.clon.producto.destroy', 'armado.clon.producto.editCantidad',
   'almacen.producto.index', 'almacen.producto.create', 'almacen.producto.show', 'almacen.producto.edit', 'almacen.producto.disminuirStock', 'almacen.producto.destroy', 'almacen.producto.sustituto.create', 'almacen.producto.sustituto.destroy', 'almacen.producto.proveedor.create', 'almacen.producto.proveedor.destroy'

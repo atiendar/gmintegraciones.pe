@@ -1,8 +1,8 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
 <title>@section('title', __('Registrar contacto'))</title>
-<div class="card card-info card-outline">
-  <div class="card-header p-1 border-botto tex">
+<div class="card {{ config('app.color_card_primario') }} card-outline">
+  <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     <h5>
       <strong>{{ __('Registrar contacto al proveedor') }}:</strong> {{ $proveedor->nom_comerc }}
     </h5>

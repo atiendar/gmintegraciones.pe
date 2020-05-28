@@ -29,6 +29,7 @@ class CalcularValoresCotizacionRepositories implements CalcularValoresCotizacion
       $producto_cotizacion->alto        = $producto->alto;
       $producto_cotizacion->ancho       = $producto->ancho;
       $producto_cotizacion->largo       = $producto->largo;
+      $producto_cotizacion->cost_arm    = $producto->cost_arm;
       $producto_cotizacion->pes         = $producto->pes;
       $producto_cotizacion->prove       = $producto->prove;
       $producto_cotizacion->prec_prove  = $producto->prec_prove;

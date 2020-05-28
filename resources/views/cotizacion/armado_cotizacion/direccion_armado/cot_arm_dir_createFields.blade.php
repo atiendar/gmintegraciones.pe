@@ -75,6 +75,32 @@
 @include('layouts.private.plugins.priv_plu_select2')
 @section('js6')
 <script>
+  /*
+  const app = new Vue({
+    el: '#dashboard',
+    created: function() {
+      this.getCostos();
+    },
+    data: {
+      costos: []
+    },
+    methods: {
+      getCostos: function() {
+        var urlCostos = '/costo-de-envio';
+        axios.get(urlCostos).then(response => {
+          this.costos = response.data
+          console.log(this.costos)
+        }).catch(error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Algo salio mal',
+            text: 'Error: ' + error.response.data.message,
+          })
+        });
+      }
+    }
+  });
+  */
   function getCostoDeEnvioDecimal() {
     // Obtiene los valores de los inputs
     costo_de_envio = document.getElementById("costo_de_envio").value;

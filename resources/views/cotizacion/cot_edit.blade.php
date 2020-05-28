@@ -1,8 +1,8 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
 <title>@section('title', __('Editar cotización').' '.$cotizacion->cliente->email_registro )</title>
-<div class="card card-info card-outline card-tabs position-relative bg-white">
-  <div class="card-header p-1 border-botto tex">
+<div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
+  <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     @canany(['cotizacion.index', 'cotizacion.show', 'cotizacion.edit'])
       <div class="float-right mr-5">
         <div class="btn-group dropleft">
@@ -30,14 +30,14 @@
     <h5>
       <strong>{{ __('Editar registro') }}: </strong>
       @can('cotizacion.show')
-        <a href="{{ route('cotizacion.show', Crypt::encrypt($cotizacion->id)) }}">{{ $cotizacion->cliente->email_registro }}</a>
+        <a href="{{ route('cotizacion.show', Crypt::encrypt($cotizacion->id)) }}" class="text-white">{{ $cotizacion->cliente->email_registro }}</a>
       @else
         {{ $cotizacion->cliente->email_registro  }}
       @endcan
     </h5>
   </div>
   <div class="ribbon-wrapper">
-    <div class="ribbon bg-info"> 
+    <div class="ribbon {{ config('app.color_bg_primario') }}"> 
       <small>{{ $cotizacion->serie }}</small>
     </div>
   </div>

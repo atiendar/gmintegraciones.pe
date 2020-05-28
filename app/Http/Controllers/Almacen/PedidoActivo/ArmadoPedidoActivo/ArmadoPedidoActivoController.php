@@ -9,8 +9,8 @@ use App\Http\Requests\almacen\pedidoActivo\armadoPedidoActivo\UpdateArmadoPedido
 use App\Repositories\almacen\pedidoActivo\armadoPedidoActivo\ArmadoPedidoActivoRepositories;
 
 class ArmadoPedidoActivoController extends Controller {
-    protected $pedido_almacenRepo;
-    protected $armadoPedidoActivoRepo;
+  protected $pedido_almacenRepo;
+  protected $armadoPedidoActivoRepo;
   public function __construct(ArmadoPedidoActivoRepositories $armadoPedidoActivoRepositories, PedidoActivoRepositories $PedidoActivoRepositories) {
     $this->armadoPedidoActivoRepo = $armadoPedidoActivoRepositories;
     $this->pedidoActivoRepo = $PedidoActivoRepositories;
@@ -18,17 +18,16 @@ class ArmadoPedidoActivoController extends Controller {
   public function show(Request $request, $id_armado) {
     $armado = $this->armadoPedidoActivoRepo->armadoPedidoActivoFindOrFailById($id_armado);
     $productos = $this->pedidoActivoRepo->getArmadoPedidoTieneProductosPaginate($armado, $request);
-    return view('almacen.pedido_activo.armado_activo.alm_pedAct_armAct_show', compact('armado', 'productos'));
+    return view('almacen.pedido.pedido_activo.armado_activo.alm_pedAct_armAct_show', compact('armado', 'productos'));
   }
   public function edit(Request $request, $id_armado) { 
     $armado = $this->armadoPedidoActivoRepo->armadoPedidoActivoFindOrFailById($id_armado);
     $productos = $this->pedidoActivoRepo->getArmadoPedidoTieneProductosPaginate($armado, $request);
-    return view('venta.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_edit', compact('armado', 'productos'));
+    return view('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_edit', compact('armado', 'productos'));
   }
   public function update(UpdateArmadoPedidoActivoRequest $request, $id_armado) {
     $this->armadoPedidoActivoRepo->update($request, $id_armado);
     toastr()->success('¡Armado actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
-
 }

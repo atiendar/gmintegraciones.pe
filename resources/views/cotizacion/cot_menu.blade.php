@@ -8,7 +8,7 @@
 @can('cotizacion.create')
   <li class="nav-item">
     <a href="{{ route('cotizacion.create') }}" class="nav-link {{ Request::is('cotizacion/crear') ? 'active' : '' }}">
-      <i class="fas fa-plus-square"></i> {{ __('Crear cotizacion') }}
+      <i class="fas fa-plus-square"></i> {{ __('Crear cotización') }}
     </a>
   </li>
 @endcan

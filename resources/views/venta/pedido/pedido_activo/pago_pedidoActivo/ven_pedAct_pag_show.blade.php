@@ -1,20 +1,20 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
 <title>@section('title', __('Detalles pago').' '.$pago->id)</title>
-<div class="card card-info card-outline card-tabs position-relative bg-white">
-  <div class="card-header p-1 border-botton">
+<div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
+  <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
     <h5>
       <strong>{{ __('Detalles del registro') }}:</strong>
       @can('venta.pedidoActivo.pago.edit')
-        <a href="{{ route('venta.pedidoActivo.pago.edit', Crypt::encrypt($pago->id)) }}">{{ $pago->id }}</a>
+        <a href="{{ route('venta.pedidoActivo.pago.edit', Crypt::encrypt($pago->id)) }}" class="text-white">{{ $pago->cod_fact }}</a>
       @else
-        {{ $pago->id }}
+        {{ $pago->cod_fact }}
       @endcan
     </h5>
   </div>
   <div class="ribbon-wrapper">
-    <div class="ribbon bg-info">
-      <small>{{ $pago->id }}</small>
+    <div class="ribbon {{ config('app.color_bg_primario') }}">
+      <small>{{ $pago->cod_fact }}</small>
     </div>
   </div>
   <div class="card-body">

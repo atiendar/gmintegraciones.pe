@@ -1,7 +1,7 @@
-<div class="card {{ empty($errors->first()) ? 'card-info' : 'card-danger border border-danger' }} card-outline card-tabs position-relative bg-white">
-  <div class="card-header p-0 m-0" id="hcollapse">
+<div class="card {{ empty($errors->first()) ? config('app.color_card_primario') : config('app.color_card_danger') }} card-outline card-tabs position-relative bg-white">
+  <div class="card-header p-0 border-bottom {{ empty($errors->first()) ? config('app.color_bg_primario') : config('app.color_bg_danger') }}" id="hcollapse">
     <h5>
-      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#acollapse" aria-expanded="false" aria-controls="acollapse">
+      <button class="btn btn-link collapsed text-white" data-toggle="collapse" data-target="#acollapse" aria-expanded="false" aria-controls="acollapse">
         <strong>{{ __('Registrar dato fiscal') }}</strong>
       </button>
     </h5>

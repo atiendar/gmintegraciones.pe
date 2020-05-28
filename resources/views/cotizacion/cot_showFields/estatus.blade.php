@@ -2,7 +2,7 @@
   @case(config('app.abierta'))
     @php $borde = config('app.color_a'); @endphp
     @break
-  @case(config('app.cerrada'))
+  @case(config('app.aprobada'))
     @php $borde = config('app.color_d'); @endphp
     @break
   @case(config('app.cancelada'))

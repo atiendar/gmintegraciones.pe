@@ -5,7 +5,6 @@ use App\Models\CotizacionArmadoTieneDirecciones;
 // Events
 use App\Events\layouts\ActividadRegistrada;
 // Repositories
-use App\Repositories\almacen\producto\ProductoRepositories;
 use App\Repositories\cotizacion\CotizacionRepositories;
 use App\Repositories\cotizacion\CalcularValoresCotizacionRepositories;
 use App\Repositories\cotizacion\armadoCotizacion\ArmadoCotizacionRepositories;
@@ -18,14 +17,12 @@ use DB;
 
 class DireccionArmadoRepositories implements DireccionArmadoInterface {
   protected $serviceCrypt;
-  protected $productoRepo;
   protected $cotizacionRepo;
   protected $calcularValoresCotizacionRepo;
   protected $armadoCotizacionRepo;
   protected $calcularValoresArmadoCotizacionRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, ProductoRepositories $productoRepositories, CotizacionRepositories $cotizacionRepositories, CalcularValoresCotizacionRepositories $calcularValoresCotizacionRepositories, ArmadoCotizacionRepositories $armadoCotizacionRepositories, CalcularValoresArmadoCotizacionRepositories $calcularValoresArmadoCotizacionRepositories) {
+  public function __construct(ServiceCrypt $serviceCrypt, CotizacionRepositories $cotizacionRepositories, CalcularValoresCotizacionRepositories $calcularValoresCotizacionRepositories, ArmadoCotizacionRepositories $armadoCotizacionRepositories, CalcularValoresArmadoCotizacionRepositories $calcularValoresArmadoCotizacionRepositories) {
     $this->serviceCrypt                         = $serviceCrypt;
-    $this->productoRepo                         = $productoRepositories;
     $this->cotizacionRepo                       = $cotizacionRepositories;
     $this->calcularValoresCotizacionRepo        = $calcularValoresCotizacionRepositories;
     $this->armadoCotizacionRepo                 = $armadoCotizacionRepositories;

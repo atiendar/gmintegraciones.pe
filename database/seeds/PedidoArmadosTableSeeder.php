@@ -8,6 +8,6 @@ class PedidoArmadosTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        factory(App\Models\PedidoArmado::class, 100)->create();
+        factory(App\Models\PedidoArmado::class, 1200)->create();
     }
 }

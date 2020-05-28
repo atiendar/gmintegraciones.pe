@@ -208,8 +208,10 @@ class ProveedorRepositories implements ProveedorInterface {
   public function cambiarNombreDelProvedorALosProductos($proveedor, $nuevo_nombre_comercial) {
     $hastaC = count($proveedor->productos()->withTrashed()->get()) - 1;
     for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
-      $proveedor->productos[$contador2]->prove = $nuevo_nombre_comercial;
-      $proveedor->productos[$contador2]->save();
+      if($proveedor->productos[$contador2]->prove == $proveedor->getOriginal('nom_comerc')) {
+        $proveedor->productos[$contador2]->prove = $nuevo_nombre_comercial;
+        $proveedor->productos[$contador2]->save();
+      }
     }
   }
 }

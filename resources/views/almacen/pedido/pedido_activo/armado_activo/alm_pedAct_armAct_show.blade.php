@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="card-body">
-    @include('almacen.pedido_activo.armado_activo.alm_pedAct_armAct_showFields')
+    @include('almacen.pedido.pedido_activo.armado_activo.alm_pedAct_armAct_showFields')
   </div>
 </div>
 @endsection

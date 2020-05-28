@@ -1,5 +1,5 @@
-<div class="card card-info card-outline">
-  <div class="card-header p-1 border-botto">
+<div class="card card-secondary card-outline">
+  <div class="card-header p-1 border-bottom bg-secondary">
     @if(Request::route()->getName() == 'cotizacion.edit')
       @include('cotizacion.armado_cotizacion.cot_arm_create')
       <br><br>
@@ -16,18 +16,18 @@
       </div>
     </div>
     <div class="form-group row justify-content-end p-0 m-0">
-      <label for="sub_total">{{ __('COST. ENVIO') }}</label>
-      <div class="col-sm-1">
-        <div class="input-group">
-          ${{ Sistema::dosDecimales($cotizacion->cost_env) }}
-        </div>
-      </div>
-    </div>
-    <div class="form-group row justify-content-end p-0 m-0">
       <label for="descuento">{{ __('DESCUENTO') }}</label>
       <div class="col-sm-1">
         <div class="input-group">
           ${{ Sistema::dosDecimales($cotizacion->desc) }}
+        </div>
+      </div>
+    </div>
+    <div class="form-group row justify-content-end p-0 m-0">
+      <label for="sub_total">{{ __('COST. ENVIO') }}</label>
+      <div class="col-sm-1">
+        <div class="input-group">
+          ${{ Sistema::dosDecimales($cotizacion->cost_env) }}
         </div>
       </div>
     </div>

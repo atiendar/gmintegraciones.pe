@@ -1,33 +1,33 @@
- @include('venta.pedido_activo.ven_pedAct_showFields.created')
+ @include('venta.pedido.pedido_activo.ven_pedAct_showFields.created')
 <div class="row">
-  @include('venta.pedido_activo.ven_pedAct_showFields.numeroDePedidoUnificado')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.numeroDePedidoUnificado')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.ven_pedAct_showFields.cliente')
-  @include('venta.pedido_activo.ven_pedAct_showFields.fechaDeEntrega')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cliente')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.fechaDeEntrega')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.ven_pedAct_showFields.entregaExpress')
-  @include('venta.pedido_activo.ven_pedAct_showFields.sePuedeEntregarAntes')
-  @include('venta.pedido_activo.ven_pedAct_showFields.cuantosDiasAntes')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.entregaExpress')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.sePuedeEntregarAntes')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cuantosDiasAntes')
 </div>  
 <div class="row">
-  @include('venta.pedido_activo.ven_pedAct_showFields.estatusAlmacen')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusAlmacen')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.ven_pedAct_showFields.estatusProduccion')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusProduccion')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.ven_pedAct_showFields.comentariosCliente')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosCliente')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.ven_pedAct_showFields.comentariosVenta')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosVenta')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.ven_pedAct_showFields.comentariosAlmacen')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosAlmacen')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.ven_pedAct_showFields.comentariosProduccion')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosProduccion')
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">

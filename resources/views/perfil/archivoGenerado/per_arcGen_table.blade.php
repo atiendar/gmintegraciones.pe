@@ -17,7 +17,7 @@
               </a>
             </td>
             <td>
-              <span class="text-muted text-sm">{{ $archivo_generado->created_at }} ({{ $archivo_generado->created_at->diffForHumans() }})</span>
+              <span class="text-muted text-sm pantallaMax985px">{{ $archivo_generado->created_at }} ({{ $archivo_generado->created_at->diffForHumans() }})</span>
             </td>
           </tr>
           @endforeach

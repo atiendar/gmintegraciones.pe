@@ -10,15 +10,14 @@
     <span class="text-danger">{{ $errors->first('nombre_de_la_plantilla') }}</span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="modulo">{{ __('Módulo') }} *</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      <label for="modulo">{{ __('Módulo') }} *</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-list"></i></span>
+        </div>
+        {!! Form::select('modulo', config('opcionesSelect.select_modulo'), $plantilla->mod, ['class' => 'form-control disabled', 'disabled']) !!}
       </div>
-      {!! Form::select('modulo', config('opcionesSelect.select_modulo'), $plantilla->mod, ['class' => 'form-control']) !!}
     </div>
-    <span class="text-danger">{{ $errors->first('modulo') }}</span>
-  </div>
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
@@ -54,25 +53,64 @@
 @section('js1')
 <script>  
   otros = [
-    'nombre_completo_del_usuario !', 
-    'nombre_del_usuario !', 
-    'apellido_del_usuario !', 
-    'email_registro_del_usuario !', 
-    'nombre_de_la_empresa !', 
-    'year_de_inicio_de_la_empresa !', 
-    'pagina_web_de_la_empresa !', 
-    'pagina_de_inicio_del_sistema !', 
-    'year_actual !'
-  ]
-  $(document).ready(function(){
-    $(".modulo").change(function(){
-      var selectedCountry = $(this).children("option:selected").val();
-      if(selectedCountry == 'Clientes') {
-        otros.push(['aaa !', 'bbb !', 'cccc !']);
-        alert(otros);
-      }
-    });
-  });
+    // SISTEMA
+    '$nombre_de_la_empresa !', 
+    '$nombre_de_la_empresa_abreviado !', 
+    '$telefono_fijo !',
+    '$extension !', 
+    '$telefono_movil !', 
+    '$direccion_uno !', 
+    '$correo_ventas !', 
+    '$year_de_inicio_de_la_empresa !', 
+    '$pagina_web_de_la_empresa !', 
+    '$pagina_de_inicio_del_sistema !', 
+    '$year_actual !',
+  ];
+
+  @if($plantilla->mod == 'Usuarios (Bienvenida)' OR $plantilla->mod == 'Clientes (Bienvenida)')
+    otros.push('$nombre_completo_del_usuario !', 
+                '$nombre_del_usuario !', 
+                '$apellido_del_usuario !', 
+                '$email_registro_del_usuario !',
+                '$password !');
+  @endif
+
+  @if($plantilla->mod == 'Sistema (Restablecimiento de contraseña)')
+    otros.push('$nombre_completo_del_usuario !', 
+                '$nombre_del_usuario !', 
+                '$apellido_del_usuario !', 
+                '$email_registro_del_usuario !',
+                '$minutos !',
+                '$url_cambio_de_password !');
+  @endif
+
+  @if($plantilla->mod == 'Perfil (Cambio de contraseña)')
+    otros.push('$nombre_completo_del_usuario !', 
+                '$nombre_del_usuario !', 
+                '$apellido_del_usuario !', 
+                '$email_registro_del_usuario !');
+  @endif
+
+  @if($plantilla->mod == 'Cotizaciones (Términos y condiciones)')
+  //  otros.push(); // ESTE MÓDULO NO CUENTA CON OPCIONES EXTRAS
+  @endif
+
+  @if($plantilla->mod == 'Ventas (Registrar pedido)')
+    otros.push('$numero_de_pedido !');
+  @endif
+
+  @if($plantilla->mod == 'Ventas (Pedido cancelado)')
+  //  otros.push();
+  @endif
+
+  @if($plantilla->mod == 'Pagos (Registrar pago)')
+  //  otros.push();
+  @endif
+
+  @if($plantilla->mod == 'Pagos (Pago rechazado)')
+  //  otros.push();
+  @endif
+
   $('.textarea').summernote({
     tabsize: 4,
     height: 500,
@@ -86,7 +124,7 @@
         }));
       },
       content: function (item) {
-        return '{!! $' + item + '!}';
+        return ' {!! ' + item + '!} ';
       }    
     }
   });

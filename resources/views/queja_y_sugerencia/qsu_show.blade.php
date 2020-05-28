@@ -4,14 +4,14 @@
 <div class="row">
   <div class="col-md-8">
     <div class="pad">
-      <div class="card card-info card-outline card-tabs position-relative bg-white">
-        <div class="card-header p-1 border-botton">
+      <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
+        <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
           <h5>
             <strong>{{ __('Detalles del registro') }}: </strong>{{ $queja_y_sugerencia->id }}
           </h5>
         </div>
         <div class="ribbon-wrapper">
-          <div class="ribbon bg-info">
+          <div class="ribbon {{ config('app.color_bg_primario') }}">
             <small>{{ $queja_y_sugerencia->id }}</small>
           </div>
         </div>

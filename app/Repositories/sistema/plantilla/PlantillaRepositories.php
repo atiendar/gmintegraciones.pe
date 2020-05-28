@@ -36,7 +36,7 @@ class PlantillaRepositories implements PlantillaInterface {
     return Plantilla::asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
   }
   public function store($request) {
-    DB::transaction(function() use($request) { // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
+    try { DB::beginTransaction();
       $plantilla = new Plantilla();
       $plantilla->nom 			      = $request->nombre_de_la_plantilla;
       $plantilla->mod             = $request->modulo;
@@ -46,14 +46,14 @@ class PlantillaRepositories implements PlantillaInterface {
       $plantilla->created_at_plan	= Auth::user()->email_registro;
       $plantilla->save();
       $this->serviceFopen->fopen('resources\views\correo\\', $plantilla->id, $plantilla->dis_de_la_plant);
+      DB::commit();
       return $plantilla;
-    });
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function update($request, $id_plantilla) {
     DB::transaction(function() use($request, $id_plantilla) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
       $plantilla = $this->plantillaAsignadoFindOrFailById($id_plantilla);
       $plantilla->nom             = $request->nombre_de_la_plantilla;
-      $plantilla->mod             = $request->modulo;
       $plantilla->asunt           = $request->asunto;
       $plantilla->dis_de_la_plant = $request->diseno_de_la_plantilla;
       if($plantilla->isDirty()) {
@@ -63,9 +63,9 @@ class PlantillaRepositories implements PlantillaInterface {
           'sistema.plantilla.show', // Nombre de la ruta
           $id_plantilla, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_plantilla), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Nombre de la plantilla', 'Módulo', 'Asunto', 'Diseño de la plantilla'), // Nombre de los inputs del formulario
+          array('Nombre de la plantilla', 'Asunto', 'Diseño de la plantilla'), // Nombre de los inputs del formulario
           $plantilla, // Request
-          array('nom', 'mod', 'asunt', 'dis_de_la_plant') // Nombre de los campos en la BD
+          array('nom', 'asunt', 'dis_de_la_plant') // Nombre de los campos en la BD
         ); 
         $plantilla->updated_at_plan  = Auth::user()->email_registro;
       }

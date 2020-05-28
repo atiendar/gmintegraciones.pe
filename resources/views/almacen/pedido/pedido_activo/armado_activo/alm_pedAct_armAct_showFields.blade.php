@@ -1,46 +1,46 @@
-@include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.created')
+@include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.created')
 <div class="row">
-  @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.estatus')
-  @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.codigo')
-  @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.gama')
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.estatus')
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.codigo')
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.gama')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.regalo')
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.regalo')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.cantidad')
-  @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.tipo')
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.cantidad')
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.tipo')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.nombreDeArmado')
-  @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.sku')
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.nombreDeArmado')
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.sku')
 </div>
-@include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.productosArmado')
+@include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.productosArmado')
 <div class="row">
   <div class="col-md-7">
     <div class="pad">
-      @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.medidas')    
+      @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.medidas')    
     </div>
   </div>
-@include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.tarjetaDisenada')
+@include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.tarjetaDisenada')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.tipoDetarjetaDeFelicitacion')
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.tipoDetarjetaDeFelicitacion')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.mensajeDedicatoria')
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.mensajeDedicatoria')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.ComentariosCliente')
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.ComentariosCliente')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.ComentariosVentas')
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.ComentariosVentas')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.comentariosAlmacen')
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.comentariosAlmacen')
 </div>
 <div class="row">
-  @include('venta.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.comentariosProduccion')
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.comentariosProduccion')
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">

@@ -1,1 +1,1 @@
-<td width="1rem">{{ $cotizacion->tot }}</td>
+<td width="1rem">${{ Sistema::dosDecimales($cotizacion->tot) }}</td>

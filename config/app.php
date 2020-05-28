@@ -45,6 +45,17 @@ return [
 
     # =====================  [ MÓDULOS ] =====================
     # --- COLORES
+    'color_card_primario'   => 'card-primary',
+    'color_bg_primario'     => 'bg-primary',
+    'color_card_secundario' => 'card-secondary',
+    'color_bg_secundario'   => 'bg-secondary',
+    'color_card_terciario'  => 'card-info',
+    'color_bg_terciario'    => 'bg-info',
+    'color_card_danger'     => 'card-danger',
+    'color_bg_danger'       => 'bg-danger',
+    'color_card_warning'     => 'card-warning',
+    'color_bg_warning'       => 'bg-warning',
+
     'color_null' => '', // Sin color
     'color_0' => '#FFF', // White
     'color_a' => '#6C757D', // Dark grayish blue - Debe ir con letra color blanco
@@ -64,15 +75,18 @@ return [
     'color_o' => '#', // 
     
     # ===================== VENTAS [ PEDIDOS ACTIVOS ] =====================
+    # --- PRODUCTOS
+    'cantidad_stock_minimo_producto' => 100,
+
     # --- ESTATUS COTIZACIONES
     'abierta'   => 'Abierta',
-    'cerrada'   => 'Cerrada',
+    'aprobada'   => 'Aprobada',
     'cancelada' => 'Cancelada',
 
     # --- ESTATUS GLOBAL
     'pendiente'                 => 'Pendiente',
     'asignar_lider_de_pedido'   => 'Asignar líder de pedido',
-    'cancelado'             => 'Cancelado',
+    'cancelado'                 => 'Cancelado',
 
     # --- ESTATUS ARMADO
     'productos_completos'   => 'Productos completos',

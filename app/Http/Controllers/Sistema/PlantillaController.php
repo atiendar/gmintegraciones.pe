@@ -5,13 +5,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\sistema\plantilla\StorePlantillaRequest;
 use App\Http\Requests\sistema\plantilla\UpdatePlantillaRequest;
+// Servicios
+use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
 use App\Repositories\sistema\plantilla\PlantillaRepositories;
 
 class PlantillaController extends Controller {
+  protected $serviceCrypt;
   protected $plantillaRepo;
-  public function __construct(PlantillaRepositories $plantillaRepositories) { // Interfaz para implementar solo [metodos] o [metodos y cache] definido en AppServiceProvider
-    $this->plantillaRepo = $plantillaRepositories;
+  public function __construct(ServiceCrypt $serviceCrypt, PlantillaRepositories $plantillaRepositories) { // Interfaz para implementar solo [metodos] o [metodos y cache] definido en AppServiceProvider
+    $this->serviceCrypt   = $serviceCrypt;
+    $this->plantillaRepo  = $plantillaRepositories;
   }
   public function index(Request $request) {
     $plantillas = $this->plantillaRepo->getPagination($request);
@@ -21,9 +25,13 @@ class PlantillaController extends Controller {
   	return view('sistema.plantilla.sis_pla_create');
   }
   public function store(StorePlantillaRequest $request) {
-    $this->plantillaRepo->store($request);
+    $plantilla = $this->plantillaRepo->store($request);
+    if(auth()->user()->can('sistema.plantilla.edit')) {
+      toastr()->success('¡Plantilla registrada exitosamente ahora puedes realizar el diseño!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+      return redirect(route('sistema.plantilla.edit', $this->serviceCrypt->encrypt($plantilla->id))); 
+    }
     toastr()->success('¡Plantilla registrada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-	  return back();
+    return back();
   }
   public function show($id_plantilla) {
     $plantilla = $this->plantillaRepo->plantillaAsignadoFindOrFailById($id_plantilla);

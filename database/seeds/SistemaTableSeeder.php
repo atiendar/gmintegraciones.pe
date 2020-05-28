@@ -46,7 +46,7 @@ class SistemaTableSeeder extends Seeder {
             'plant_cli_bien'        => 2,
             'plant_per_camb_pass'   => 3,
             'plant_sis_rest_pass'   => 4,
-            'plant_cot_env_cot'     => 5,
+            'plant_cot_term_cond'   => 5,
             'plant_vent_reg_ped'    => 6,
             'plant_vent_ped_can'    => 7,
             'plant_pag_reg_pag'     => 8,

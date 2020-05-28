@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Requests\venta\pedidoActivo\pagoPedidoActivo;
+namespace App\Http\Requests\pago;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Crypt;
 

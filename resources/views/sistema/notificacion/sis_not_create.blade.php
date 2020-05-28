@@ -2,11 +2,7 @@
 @section('contenido')
 <title>@section('title', __('Enviar notificación'))</title>
 <div class="card">
-  <div class="card-header p-1">
-    <ul class="nav nav-pills">
-      @include('sistema.sis_menu')
-    </ul>
-  </div>
+  @include('sistema.sis_menu')
   <div class="card-body">
     {!! Form::open(['route' => 'sistema.notificacion.store', 'onsubmit' => 'return checarBotonSubmit("btnsubmit")', 'files' => true]) !!}
       @include('sistema.notificacion.sis_not_createFields')

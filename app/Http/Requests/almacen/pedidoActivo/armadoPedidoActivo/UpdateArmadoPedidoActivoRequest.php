@@ -9,7 +9,7 @@ class UpdateArmadoPedidoActivoRequest extends FormRequest {
   }
   public function rules() {
     return [
-        'estatus'              => 'required|in:En espera de compra,En revisión de productos,Cancelado',
+      'estatus'              => 'required|in:En espera de compra,En revisión de productos,Cancelado',
     ];
   }
 }

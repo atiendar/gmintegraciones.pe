@@ -19,7 +19,7 @@
             </td>
             <td>
               <a href="{{ route($notificacion->data['rut'], array($notificacion->data['id_reg'], Crypt::encrypt($notificacion->id))) }}">
-                <span class="text-muted text-sm">{{ $notificacion->created_at }} ({{ $notificacion->created_at->diffForHumans() }})</span>
+                <span class="text-muted text-sm pantallaMax985px">{{ $notificacion->created_at }} ({{ $notificacion->created_at->diffForHumans() }})</span>
               </a>
             </td>
           </tr>

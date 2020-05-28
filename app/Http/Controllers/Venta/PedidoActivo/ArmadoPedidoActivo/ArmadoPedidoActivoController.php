@@ -1,9 +1,6 @@
 <?php
 namespace App\Http\Controllers\Venta\PedidoActivo\ArmadoPedidoActivo;
 use App\Http\Controllers\Controller;
-// Request
-use Illuminate\Http\Request;
-use App\Http\Requests\venta\pedidoActivo\armadoPedidoActivo\StoreArmadoRequest;
 // Repositories
 use App\Repositories\venta\pedidoActivo\PedidoActivoRepositories;
 use App\Repositories\venta\pedidoActivo\armadoPedidoActivo\ArmadoPedidoActivoRepositories;
@@ -21,25 +18,10 @@ class ArmadoPedidoActivoController extends Controller {
     $this->armadoRepo             = $armadoRepositories;
     $this->cotizacionRepo         = $cotizacionRepositories;
   }
-  public function create($id_pedido) {
-    $pedido             = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['armados']);
-    $armados            = $this->pedidoActivoRepo->getArmadosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
-    $armados_list       = $this->armadoRepo->getAllArmadosPlunkMenos($pedido->armados);
-    $cotizaciones_list  = $this->cotizacionRepo->getAllCotizacionesValidasPlunk();
-    return view('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_create', compact('pedido', 'armados', 'armados_list', 'cotizaciones_list'));
-  }
-  public function store(StoreArmadoRequest $request, $id_pedido) {
-    $this->armadoPedidoActivoRepo->store($request, $id_pedido);
-    toastr()->success('¡Armado registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-    return back();
-  }
-
   public function show($id_armado) {
     $armado = $this->armadoPedidoActivoRepo->armadoFindOrFailById($id_armado);
   
     $direcciones = $armado->direcciones()->paginate(9);
-
-   
 
     return view('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_show', compact('armado', 'direcciones'));
   }

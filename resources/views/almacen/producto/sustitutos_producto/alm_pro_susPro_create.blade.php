@@ -1,7 +1,7 @@
 @can('almacen.producto.sustituto.create')
   @if(Request::route()->getName() == 'almacen.producto.edit')
     {!! Form::open(['route' => ['almacen.producto.sustituto.store', Crypt::encrypt($producto->id)], 'onsubmit' => 'return checarBotonSubmit("btnAlmacenProductoSustitutoStore")', 'class' => 'col-sm-6 float-right']) !!}
-      <div class="form-group row">
+      <div class="form-group row p-0 m-0">
         <label for="sustitutos" class="col-sm-3 col-form-label">{{ __('Registrar sustitutos') }} *</label>
         <div class="col-sm-9">
           <div class="input-group-append">

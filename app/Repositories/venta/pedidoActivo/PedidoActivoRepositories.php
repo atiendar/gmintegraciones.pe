@@ -42,28 +42,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   public function getPagination($request, $relaciones) { // 'usuario', 'unificar'
     return Pedido::with($relaciones)->select('id', 'user_id', 'serie', 'num_pedido', 'entr_xprs', 'fech_de_entreg', 'estat_vent_gen', 'estat_vent_arm', 'estat_vent_dir', 'estat_fact', 'estat_pag', 'estat_alm', 'estat_produc', 'estat_log', 'tot_de_arm', 'arm_carg')->where('estat_log', '!=', config('app.entregado'))->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
   }
-  public function store($request) {
-    try { DB::beginTransaction();
-      $pedido = new Pedido();
-      $pedido->serie            = $request->serie;
-      $pedido->num_pedido       = $this->serieRepo->sumaUnoALaUltimaSerie('Pedidos (Serie)', $request->serie);
-      $pedido->user_id          = $request->cliente;
-      $pedido->tot_de_arm       = $request->total_de_armados;
-      $pedido->mont_tot_de_ped  = $request->monto_total;
-      $pedido->entr_xprs	      = $request->es_entrega_express;
-      $pedido->urg              = $request->es_pedido_urgente;
-      $pedido->asignado_ped     = Auth::user()->email_registro;
-      $pedido->created_at_ped   = Auth::user()->email_registro;
-      $pedido->save();
-      if($request->checkbox_correo == 'on') {
-        $cliente = $this->usuarioRepo->getUsuarioFindOrFail($pedido->user_id);
-        $plantilla = $this->plantillaRepo->plantillaFindOrFailById($request->plantilla);
-        $cliente->notify(new NotificacionRegistrarPedido($cliente, $pedido, $plantilla)); // Envió de correo electrónico
-      }
-      DB::commit();
-      return $pedido;
-    } catch(\Exception $e) { DB::rollback(); throw $e; }
-  }
+
   public function update($request, $id_pedido) {
     try { DB::beginTransaction();
       $pedido = $this->pedidoAsignadoFindOrFailById($id_pedido, ['armados']);
@@ -108,53 +87,6 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       return $pedido;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
-  public function updateTotalDeArmados($request, $id_pedido) {
-    try { DB::beginTransaction();
-      $pedido = $this->pedidoAsignadoFindOrFailById($id_pedido);
-      $pedido->tot_de_arm  = $request->total_de_armados;
-      if($pedido->isDirty()) {
-        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
-        ActividadRegistrada::dispatch(
-          'Pedidos activos', // Módulo
-          'venta.pedidoActivo.show', // Nombre de la ruta
-          $id_pedido, // Id del registro debe ir encriptado
-          $pedido->serie, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Total de armados)'), // Nombre de los inputs del formulario
-          $pedido, // Request
-          array('tot_de_arm') // Nombre de los campos en la BD
-        ); 
-        $pedido->updated_at_ped  = Auth::user()->email_registro;
-      }
-      $pedido->save();
-      $this->getEstatusVentas($pedido);
-      $this->getEstatusPedido($pedido, 'Todos');
-      DB::commit();
-      return $pedido;
-    } catch(\Exception $e) { DB::rollback(); throw $e; }
-  }
-  public function updateMontoTotal($request, $id_pedido) {
-    try { DB::beginTransaction();
-      $pedido = $this->pedidoAsignadoFindOrFailById($id_pedido);
-      $pedido->mont_tot_de_ped  = $request->monto_total;
-      if($pedido->isDirty()) {
-        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
-        ActividadRegistrada::dispatch(
-          'Pedidos activos', // Módulo
-          'venta.pedidoActivo.show', // Nombre de la ruta
-          $id_pedido, // Id del registro debe ir encriptado
-          $pedido->serie, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Monto total (Con IVA y envió)'), // Nombre de los inputs del formulario
-          $pedido, // Request
-          array('mont_tot_de_ped') // Nombre de los campos en la BD
-        ); 
-        $pedido->updated_at_ped  = Auth::user()->email_registro;
-      }
-      $pedido->save();
-      $this->getEstatusPagoPedido($pedido);
-      DB::commit();
-      return $pedido;
-    } catch(\Exception $e) { DB::rollback(); throw $e; }
-  }
   public function destroy($id_pedido) {
     dd('destroy');
   }
@@ -179,9 +111,9 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     $pedido->save();
     return $pedido->num_pedido.'-'.$pedido->ult_let;
   }
-  public function getPedidoFindOrFail($id_pedido) {
+  public function getPedidoFindOrFail($id_pedido, $relaciones) {// 'armados', 'unificar'
     $id_pedido = $this->serviceCrypt->decrypt($id_pedido);
-    $pedido = Pedido::with('armados', 'unificar')->findOrFail($id_pedido);
+    $pedido = Pedido::with($relaciones)->findOrFail($id_pedido);
     return $pedido;
   }
   public function getEstatusVentas($pedido) {

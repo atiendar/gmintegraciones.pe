@@ -17,6 +17,12 @@ $factory->define(Pedido::class, function (Faker $faker) {
         'tot_de_arm'            => $faker->numberBetween(1, 999),
         'mont_tot_de_ped'       => $faker->randomFloat(2, 100, 3000),
         'entr_xprs'             => $faker->randomElement(array('Si', 'No')),
+        'estat_alm'             => 'En espera de compra',
+        'fech_estat_alm'        => date('Y-m-d h:i:s'),
+        'estat_produc'          => 'En producción',
+        'fech_estat_produc'     => date('Y-m-d h:i:s'),
+        'estat_log'             => 'En ruta',
+        'fech_estat_log'        => date('Y-m-d h:i:s'),
         'asignado_ped'  	    => $usuario,
         'created_at_ped'        => $usuario,
     ];

@@ -1,8 +1,8 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
 <title>@section('title', __('Registrar catálogo'))</title>
-<div class="card card-info card-outline card-tabs">
-  <div class="card-header p-1 border-bottom">
+<div class="card {{ config('app.color_card_primario') }} card-outline card-tabs">
+  <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     <h5 class="box-title">{{ __('Registrar catálogo') }}</h5>
   </div>
   <div class="card-body">

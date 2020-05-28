@@ -18,7 +18,7 @@
       @endcanany
       @can('qys.create')
         <li class="nav-item">
-          <a href="{{ route('qys.create') }}" class="nav-link {{ Request::is('qys/crear') ? 'active' : '' }}">
+          <a href="{{ route('qys.create') }}" class="nav-link {{ Request::is('qys/registrar') ? 'active' : '' }}">
             <i class="nav-icon far fa-plus-square"></i>
             <p>{{ __('Registrar') }}</p>
           </a>

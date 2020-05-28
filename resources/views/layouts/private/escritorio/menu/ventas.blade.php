@@ -1,4 +1,4 @@
-@canany(['venta.pedidoActivo.index', 'venta.pedidoActivo.create'])
+@canany(['venta.pedidoActivo.index'])
   <li class="nav-item has-treeview {{ Request::is('venta*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link {{ Request::is('venta*') ? 'active' : '' }}">
       <i class="nav-icon fas fa-money-check-alt"></i>
@@ -39,14 +39,6 @@
               </a>
             </li>
           @endcanany
-          @can('venta.pedidoActivo.create')
-            <li class="nav-item">
-              <a href="{{ route('venta.pedidoActivo.create') }}" class="nav-link {{ Request::is('venta/pedido-activo/crear') ? 'active' : '' }}">
-                <i class="nav-icon far fa-plus-square"></i>
-                <p>{{ __('Registrar pedido') }}</p>
-              </a>
-            </li>
-          @endcan
         </ul>
       </li>
     </ul>

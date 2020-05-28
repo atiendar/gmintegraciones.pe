@@ -6,7 +6,7 @@
     <div class="col-lg-3">
       <div class="small-box bg-info">
         <div class="inner">
-          <h3>{{ __('Pedidos almacén') }}</h3>
+          <h3>{{ __('Pedidos') }}</h3>
           <div class="btn-group">
             <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{ __('Ver más') }}

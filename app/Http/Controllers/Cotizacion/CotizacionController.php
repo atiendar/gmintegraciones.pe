@@ -85,17 +85,17 @@ class CotizacionController extends Controller {
   public function aprobar($id_cotizacion) {
     $info = $this->aprobarCotizacionRepo->aprobar($id_cotizacion);
     if(auth()->user()->can('venta.pedidoActivo.edit')) {
-      toastr()->success('¡Cotización cerrada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+      toastr()->success('¡Cotización aprobada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
       toastr()->success('¡Pedido registrado exitosamente ahora puedes completar la información faltante!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
       return redirect(route('venta.pedidoActivo.edit', $this->serviceCrypt->encrypt($info->pedido->id))); 
     }
     toastr()->success('¡Se ha generado un pedido de esta cotización exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-    toastr()->success('¡Cotización cerrada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-    return back();
+    toastr()->success('¡Cotización aprobada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return redirect(route('cotizacion.index')); 
   }
   public function cancelar($id_cotizacion) {
     $this->cotizacionRepo->cancelar($id_cotizacion);
     toastr()->success('¡Cotización cancelada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-    return back();
+    return redirect(route('cotizacion.index')); 
   }
 }

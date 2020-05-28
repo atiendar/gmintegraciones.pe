@@ -64,14 +64,14 @@
   <div class="border border-secondary rounded p-2">
     <div class="row">
       <div class="form-group col-sm btn-sm">
-        <label for="plantilla_por_default_enviar_cotizacion">{{ __('Plantilla por default "Enviar cotización"') }} *</label>
+        <label for="plantilla_por_default_terminos_y_condiciones">{{ __('Plantilla por default "Términos y condiciones"') }} *</label>
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-brush"></i></span>
           </div>
-          {!! Form::select('plantilla_por_default_enviar_cotizacion', $plantillas_cot_env_cot, Sistema::datos()->sistemaFindOrFail()->plant_cot_env_cot, ['class' => 'form-control select2' . ($errors->has('plantilla_por_default_enviar_cotizacion') ? ' is-invalid' : ''), 'placeholder' => __('Seleccione. . .')]) !!}
+          {!! Form::select('plantilla_por_default_terminos_y_condiciones', $plantillas_cot_term_cond, Sistema::datos()->sistemaFindOrFail()->plant_cot_term_cond, ['class' => 'form-control select2' . ($errors->has('plantilla_por_default_terminos_y_condiciones') ? ' is-invalid' : ''), 'placeholder' => __('Seleccione. . .')]) !!}
         </div>
-        <span class="text-danger">{{ $errors->first('plantilla_por_default_enviar_cotizacion') }}</span>
+        <span class="text-danger">{{ $errors->first('plantilla_por_default_terminos_y_condiciones') }}</span>
       </div>
     </div>
   </div>

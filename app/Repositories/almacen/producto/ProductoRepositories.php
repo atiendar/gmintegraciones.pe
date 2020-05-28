@@ -128,13 +128,13 @@ class ProductoRepositories implements ProductoInterface {
       }
       $producto->save();
 
-      // CALCULA LOS NUEVOS PRECIOS Y VALORES DEL ARMADO
+      // CALCULA LOS NUEVOS PRECIOS Y VALORES DEL ARMADO DE LA TABLA ARMADOS
       $armados = $producto->armados()->withTrashed()->with('productos')->get();
       foreach($armados as $armado) {
         $this->calcularValoresArmadoRepo->calcularValoresArmado($armado, $armado->productos);
       }
       
-      // CALCULA LOS NUEVOS PRECIOS Y VALORES DE LA COTIZACION
+      // CALCULA LOS NUEVOS PRECIOS Y VALORES DEL ARMNADO Y LA COTIZACIÓN
       $this->calcularValoresCotizacionRepo->calculaValoresCotizacionAlModificarProducto($producto);
 
       $this->eliminarCacheAllProductosPlunk();

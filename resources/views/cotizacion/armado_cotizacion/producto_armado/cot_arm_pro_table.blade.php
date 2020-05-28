@@ -1,3 +1,4 @@
+<span class="text-danger">{{ $errors->first('cantidad_producto') }}</span>
 <div class="card-body table-responsive p-0" id="div-tabla-scrollbar" style="height: 25em;">
   <table class="table table-head-fixed table-hover table-striped table-sm table-bordered">
     @if(sizeof($productos) == 0)
@@ -23,7 +24,7 @@
           <tr title="{{ $producto->sku }}">
             <td>
               {!! Form::open(['route' => ['cotizacion.armado.producto.updateCantidad', Crypt::encrypt($producto->id), Crypt::encrypt($armado->id)  ], 'method' => 'patch', 'id' => 'cotizacionArmadoProductoUpdateCantidad']) !!}
-                {!! Form::select('cantidad_producto', config('opcionesSelect.select_cantidad_table_productos_edit'), $producto->cant, ['class' => 'form-control form-control-sm' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'onchange' => 'this.form.submit()']) !!}
+                {!! Form::select('cantidad_producto', config('opcionesSelect.select_cantidad_table_productos_edit'), $producto->cant, ['class' => 'form-control form-control-sm' . ($errors->has('cantidad_producto') ? ' is-invalid' : ''), 'onchange' => 'this.form.submit()']) !!}
               {!! Form::close() !!}
             </td>
             @include('almacen.producto.alm_pro_table.td.sku')

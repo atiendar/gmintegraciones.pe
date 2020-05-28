@@ -13,7 +13,7 @@ class DireccionArmadoController extends Controller {
   protected $armadoCotizacionRepo;
   public function __construct(DireccionArmadoRepositories $direccionArmadoRepositories, ArmadoCotizacionRepositories $armadoCotizacionRepositories) {
     $this->direccionArmadoRepo  = $direccionArmadoRepositories;
-    $this->armadoCotizacionRepo  = $armadoCotizacionRepositories;
+    $this->armadoCotizacionRepo = $armadoCotizacionRepositories;
   }
   public function create($id_armado) {
     $armado       = $this->armadoCotizacionRepo->armadoFindOrFailById($id_armado, 'direcciones');

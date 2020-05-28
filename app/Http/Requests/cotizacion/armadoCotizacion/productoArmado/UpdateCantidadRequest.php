@@ -14,7 +14,7 @@ class UpdateCantidadRequest extends FormRequest {
   public function attributes() {
     return [
     // Nombre del campo a mostrar.
-      'cantidad_producto'  => 'cant',
+      'cantidad_producto'  => 'CANT.',
     ];
   }
 }

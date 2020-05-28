@@ -15,6 +15,17 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
       });
     });
 
+/*
+    Route::get('costo-de-envio', function(\Illuminate\Http\Request $request) {
+      if($request->ajax()) {
+        $data = \App\Models\CostoDeEnvio::estado($request->estado)->metodoDeEntrega($request->metodo_de_entrega)->tipoDeEnvio($request->tipo_de_envio)->paginate(99999999999);
+        return $data;
+      } else {
+        return view('home');
+      }
+    });
+*/
+
     require_once __DIR__ . '/layouts/layoutsRoutes.php';
     require_once __DIR__ . '/usuario/usuarioRoutes.php';
     require_once __DIR__ . '/quejasYSugerencias/quejasYSugerenciasRoutes.php';

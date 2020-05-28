@@ -3,7 +3,7 @@
     @case(config('app.abierta'))
       <span class="badge" style="background:{{ config('app.color_a') }};color:{{ config('app.color_0') }};">{{ $cotizacion->estat }}</span>
       @break
-    @case(config('app.cerrada'))
+    @case(config('app.aprobada'))
       <span class="badge" style="background:{{ config('app.color_d') }}">{{ $cotizacion->estat }}</span>
       @break
     @case(config('app.cancelada'))

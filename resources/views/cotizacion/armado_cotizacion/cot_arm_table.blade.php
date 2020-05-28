@@ -9,8 +9,8 @@
           <th>{{ __('DESCRIPCIÓN') }}</th>
           <th>{{ __('CANT.') }}</th>
           <th>{{ __('PRECIO UNIT.') }}</th>
-          <th>{{ __('COST. ENVIO') }}</th>
           <th>{{ __('DESCUENTO') }}</th>
+          <th>{{ __('COST. ENVIO') }}</th>
           <th>{{ __('SUBTOTAL') }}</th>
           <th>{{ __('IVA') }}</th>
           <th>{{ __('TOTAL') }}</th>
@@ -20,7 +20,12 @@
       <tbody> 
         @foreach($armados as $armado)
           <tr title="{{ $armado->nom }}">
-            <td>{{ $armado->tip }}</td>
+            <td>
+              {{ $armado->tip }}
+              @if($armado->cant == $armado->cant_direc_carg)
+                <i class="fas fa-check"></i>
+              @endif
+            </td>
             <td>
               <div class="card">
                 <div class="card-header p-0 m-0" id="h{{ $armado->id }}">
@@ -43,8 +48,8 @@
             </td>
             <td width="1rem">{{ Sistema::dosDecimales($armado->cant) }}</td>
             <td width="1rem">${{ Sistema::dosDecimales($armado->prec_redond) }}</td>
-            <td width="1rem">${{ Sistema::dosDecimales($armado->cost_env) }}</td>
             <td width="1rem">${{ Sistema::dosDecimales($armado->desc) }}</td>
+            <td width="1rem">${{ Sistema::dosDecimales($armado->cost_env) }}</td>
             <td width="1rem">${{ Sistema::dosDecimales($armado->sub_total) }}</td>
             <td width="1rem">${{ Sistema::dosDecimales($armado->iva) }}</td>
             <td width="1rem">${{ Sistema::dosDecimales($armado->tot) }}</td>

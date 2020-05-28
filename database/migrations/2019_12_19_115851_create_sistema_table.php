@@ -61,7 +61,7 @@ class CreateSistemaTable extends Migration
             $table->unsignedBigInteger('plant_cli_bien')->nullable()->comment('Id de la plantilla por default para el módulo Clientes (Bienvenida)');
             $table->unsignedBigInteger('plant_per_camb_pass')->nullable()->comment('Id de la plantilla por default para el módulo Perfil (Cambio de contraseña)');
             $table->unsignedBigInteger('plant_sis_rest_pass')->nullable()->comment('Id de la plantilla por default para el módulo Sistema (Restablecimiento de contraseña)');
-            $table->unsignedBigInteger('plant_cot_env_cot')->nullable()->comment('Id de la plantilla por default para el módulo Cotizaciones (Enviar cotización)');
+            $table->unsignedBigInteger('plant_cot_term_cond')->nullable()->comment('Id de la plantilla por default para el módulo Cotizaciones (Términos y condiciones)');
             $table->unsignedBigInteger('plant_vent_reg_ped')->nullable()->comment('Id de la plantilla por default para el módulo Ventas (Registrar pedido)');
             $table->unsignedBigInteger('plant_vent_ped_can')->nullable()->comment('Id de la plantilla por default para el módulo Ventas (Pedido cancelado)');
             $table->unsignedBigInteger('plant_pag_reg_pag')->nullable()->comment('Id de la plantilla por default para el módulo Pagos (Registrar pago)');

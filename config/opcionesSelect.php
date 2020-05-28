@@ -12,6 +12,7 @@ return array(
     'Coahuila de Zaragoza'  => 'Coahuila de Zaragoza',
     'Colima'                => 'Colima',
     'Durango'               => 'Durango',
+    'Estado de México'      => 'Estado de México',
     'Guanajuato'            => 'Guanajuato',
     'Guerrero'              => 'Guerrero',
     'Hidalgo'               => 'Hidalgo',
@@ -151,7 +152,7 @@ return array(
   ],
   'select_modulo' => [
     ''                                          => 'Seleccione . . .',
-    'Cotizaciones (Enviar cotización)'          => 'Cotizaciones (Enviar cotización)',
+    'Cotizaciones (Términos y condiciones)'     => 'Cotizaciones (Términos y condiciones)',
     'Clientes (Bienvenida)'                     => 'Clientes (Bienvenida)',
     'Pagos (Registrar pago)'                    => 'Pagos (Registrar pago)',
     'Pagos (Pago rechazado)'                    => 'Pagos (Pago rechazado)',

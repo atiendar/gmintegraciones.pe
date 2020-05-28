@@ -1,7 +1,7 @@
 @canany(['armado.producto.create', 'armado.clon.producto.create'])
   @if(Request::route()->getName() == 'armado.edit' OR Request::route()->getName() == 'armado.clon.edit')
     {!! Form::open(['route' => ['armado.producto.store', Crypt::encrypt($armado->id)], 'onsubmit' => 'return checarBotonSubmit("btnArmadoProductoStore")', 'class' => 'col-sm-6 float-right']) !!}
-      <div class="form-group row">
+      <div class="form-group row p-0 m-0">
         <label for="productos" class="col-sm-3 col-form-label">{{ __('Registrar productos') }} *</label>
         <div class="col-sm-9">
           <div class="input-group-append">

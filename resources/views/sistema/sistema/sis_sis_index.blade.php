@@ -2,11 +2,7 @@
 @section('contenido')
 <title>@section('title', Sistema::datos()->sistemaFindOrFail()->emp_abrev)</title>
 <div class="card">
-  <div class="card-header p-1">
-    <ul class="nav nav-pills">
-      @include('sistema.sis_menu')
-    </ul>
-  </div>
+  @include('sistema.sis_menu')
   <div class="card-body">
     {!! Form::model(Sistema::datos(), ['route' => ['sistema.update'], 'method' => 'patch', 'id' => 'sistemaUpdate', 'files' => true]) !!}
       @include('sistema.sistema.sis_sis_editFieldsEmpresa')
@@ -26,3 +22,4 @@
   </div>
 </div>
 @endsection
+@include('layouts.private.plugins.priv_plu_select2')

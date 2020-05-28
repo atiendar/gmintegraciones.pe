@@ -61,17 +61,24 @@ class ResetPasswordNotification extends Notification {
         ->subject($this->plantilla->asunt)
         ->view(
             'correo.' . $this->plantilla->id, [
-                // General
+                // SISTEMA
+                'nombre_de_la_empresa'              => Sistema::datos()->sistemaFindOrFail()->emp, 
+                'nombre_de_la_empresa_abreviado'    => Sistema::datos()->sistemaFindOrFail()->emp_abrev,
+                'telefono_fijo'                     => Sistema::datos()->sistemaFindOrFail()->lad_fij.Sistema::datos()->sistemaFindOrFail()->tel_fij,
+                'extension'                         => Sistema::datos()->sistemaFindOrFail()->ext, 
+                'telefono_movil'                    => Sistema::datos()->sistemaFindOrFail()->lad_mov.Sistema::datos()->sistemaFindOrFail()->tel_mov, 
+                'direccion_uno'                     => Sistema::datos()->sistemaFindOrFail()->direc_uno,
+                'correo_ventas'                     => Sistema::datos()->sistemaFindOrFail()->corr_vent,
+                'year_de_inicio_de_la_empresa'      => $year->year, 
+                'pagina_web_de_la_empresa'          => Sistema::datos()->sistemaFindOrFail()->pag,
+                'pagina_de_inicio_del_sistema'      => url(config('app.url')),
+                'year_actual'                       => date("Y"),
+                
+                // OTROS
                 'nombre_completo_del_usuario'       => $notifiable->nom . ' ' . $notifiable->apell,
                 'nombre_del_usuario'                => $notifiable->nom,
                 'apellido_del_usuario'              => $notifiable->apell,
                 'email_registro_del_usuario'        => $notifiable->email_registro,
-                'nombre_de_la_empresa'              => Sistema::datos()->sistemaFindOrFail()->emp_abrev,
-                'year_de_inicio_de_la_empresa'      => $year->year,
-                'pagina_web_de_la_empresa'          => Sistema::datos()->sistemaFindOrFail()->pag,
-                'pagina_de_inicio_del_sistema'      => url(config('app.url')),
-                'year_actual'                       => date("Y"),
-                // Otros
                 'minutos'                           => config('auth.passwords.'.config('auth.defaults.passwords').'.expire'),
                 'url_cambio_de_password'            => url(config('app.url').route('password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false)),
             ]

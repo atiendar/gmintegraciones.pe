@@ -35,7 +35,7 @@ class CalcularValoresArmadoCotizacionRepositories implements CalcularValoresArma
           $armado->desc = 0.00;
         }
       } elseif($armado->getOriginal('es_de_regalo') != $armado->getAttribute('es_de_regalo')) {
-        $armado->tip_desc = null;
+        $armado->tip_desc = 'Sin descuento';
         $armado->porc     = null;
         $armado->manu     = 0;
         $armado->desc     = 0;

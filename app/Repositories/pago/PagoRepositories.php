@@ -27,14 +27,17 @@ class PagoRepositories implements PagoInterface {
   public function getPagination($request) {
     return Pago::with('pedido')->buscar($request->opcion_buscador, $request->buscador)->orderBy('estat_pag', 'ASC')->paginate($request->paginador);
   }
-  public function store($request) {
+  public function store($request, $id_pedido) {
+   
     try { DB::beginTransaction();
-      $pedido = $this->pedidoActivoRepo->getPedidoFindOrFail($this->serviceCrypt->encrypt($request->id_pedido));
+      $pedido = $this->pedidoActivoRepo->getPedidoFindOrFail($id_pedido, []);
+     
+      
       $pago = new Pago();
       $pago->cod_fact       = $this->generateRandomString();
       $pago->form_de_pag    = $request->forma_de_pago;
       $pago->mont_de_pag    = $request->monto_del_pago;
-      $pago->pedido_id      = $request->id_pedido;   
+      $pago->pedido_id      = $pedido->id;   
       $pago->user_id        = $pedido->user_id; 
       $pago->created_at_pag = Auth::user()->email_registro;
 

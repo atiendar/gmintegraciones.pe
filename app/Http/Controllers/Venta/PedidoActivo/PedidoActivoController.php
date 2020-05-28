@@ -37,22 +37,6 @@ class PedidoActivoController extends Controller {
     $pedidos = $this->pedidoActivoRepo->getPagination($request, ['usuario', 'unificar']);
     return view('venta.pedido.pedido_activo.ven_pedAct_index', compact('pedidos'));
   }
-  public function create() {
-    $series_list = $this->serieRepo->getAllInputSeriesPlunk('Pedidos (Serie)');
-    $clientes_list = $this->usuarioRepo->getAllClientesIdPlunk();
-    $plantillas = $this->plantillaRepo->getAllPlantillasModuloPluck('Ventas (Registrar pedido)');
-    $plantilla_default = $this->sistemaRepo->datos('plant_vent_reg_ped');
-    return view('venta.pedido.pedido_activo.ven_pedAct_create', compact('clientes_list', 'series_list', 'plantillas', 'plantilla_default'));
-  }
-  public function store(StorePedidoRequest $request) {
-    $pedido = $this->pedidoActivoRepo->store($request);
-    if(auth()->user()->can('venta.pedidoActivo.edit')) {
-      toastr()->success('¡Pedido registrado exitosamente ahora puedes completar la información faltante!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-      return redirect(route('venta.pedidoActivo.edit', $this->serviceCrypt->encrypt($pedido->id))); 
-    }
-    toastr()->success('¡Pedido registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-    return back();
-  }
   public function show($id_pedido) {
     $pedido         = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['usuario', 'unificar', 'armados', 'pagos']);
     $armados        = $this->pedidoActivoRepo->getArmadosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
@@ -72,20 +56,9 @@ class PedidoActivoController extends Controller {
     toastr()->success('¡Pedido actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
-  public function updateTotalDeArmados(UpdateTotalDeArmadosRequest $request, $id_pedido) {
-    $this->pedidoActivoRepo->updateTotalDeArmados($request, $id_pedido);
-    toastr()->success('¡Total de armados actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-    return back();
-  }
-  public function updateMontoTotal(UpdateMontoTotalRequest $request, $id_pedido) {
-    $pedido = $this->pedidoActivoRepo->updateMontoTotal($request, $id_pedido);
-    toastr()->success('¡Monto total actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-    return back();
-  }
   public function destroy($id_pedido) {
     $this->pedidoActivoRepo->destroy($id_pedido);
     toastr()->success('¡Pedido eliminado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
-
 }

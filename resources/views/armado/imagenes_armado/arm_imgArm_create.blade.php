@@ -1,6 +1,6 @@
 @if(Request::route()->getName() == 'armado.edit' OR Request::route()->getName() == 'armado.clon.edit')
   {!! Form::open(['route' => ['armado.imagen.store', Crypt::encrypt($armado->id)], 'onsubmit' => 'return checarBotonSubmit("btnArmadoImagenStore")', 'class' => 'col-sm-6 float-right', 'files' => true]) !!}
-    <div class="form-group row">
+    <div class="form-group row p-0 m-0">
       <label for="productos" class="col-sm-4 col-form-label">{{ __('Cargar imágenes') }} *</label>
       <div class="col-sm-8">
         <div class="input-group-append">

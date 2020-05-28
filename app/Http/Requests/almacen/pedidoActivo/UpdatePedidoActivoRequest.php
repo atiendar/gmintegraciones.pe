@@ -11,7 +11,7 @@ class UpdatePedidoActivoRequest extends FormRequest {
   public function rules() {
     $id_pedido = Crypt::decrypt($this->id_pedido);
     return [
-        'lider_de_pedido_almacen'    => 'required|max:80'. $id_pedido,
+      'lider_de_pedido_almacen'    => 'required|max:80'. $id_pedido,
     ];
   }
 }
