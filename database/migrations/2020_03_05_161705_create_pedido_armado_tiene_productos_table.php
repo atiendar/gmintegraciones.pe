@@ -22,7 +22,7 @@ class CreatePedidoArmadoTieneProductosTable extends Migration
             $table->integer('cant')->unsigned()->comment('Cantidad de productos');
             $table->string('produc', 70)->comment('Nombre del producto');
             $table->string('sku',30)->comment('SKU');
-            $table->string('sustituto', 70)->nullable()->comment('Sustituto');
+            
             $table->unsignedBigInteger('pedido_armado_id')->comment('Foreign Key armados pedidos');
             $table->foreign('pedido_armado_id')->references('id')->on('pedido_armados')->onUpdate('restrict')->onDelete('cascade');
             $table->timestamps();

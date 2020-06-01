@@ -4,7 +4,7 @@
 <div class="card {{ empty($pedido->fech_de_entreg) ? config('app.color_card_danger') : config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botton {{ empty($pedido->fech_de_entreg) ? config('app.color_bg_danger') : config('app.color_bg_primario') }}">
     <div class="float-right mr-5">
-      <strong>{{ __('Estatus ventas') }}: </strong> @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusVentas')
+      @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusVentasHeader')
     </div>
     <h5>
       <strong>{{ __('Datos generales, estas en el pedido') }}:</strong>
@@ -13,6 +13,7 @@
       @else
         {{ $pedido->num_pedido }}
       @endcan
+      @include('venta.pedido.pedido_activo.ven_pedAct_showFields.entr_xprs_urg_foraneo_gratis')
     </h5>
   </div>
   <div class="ribbon-wrapper">

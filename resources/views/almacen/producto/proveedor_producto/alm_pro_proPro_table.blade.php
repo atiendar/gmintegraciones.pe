@@ -17,7 +17,13 @@
       @foreach($proveedores as $proveedor)
         <tr title="{{ $proveedor->nom_comerc  }}">
             <td width="1rem">{{ $proveedor->id }}</td>
-            <td>{{ $proveedor->nom_comerc }}</td>
+            <td>
+              @can('proveedor.show')
+                <a href="{{ route('proveedor.show', Crypt::encrypt($proveedor->id)) }}" target="_blank">{{ $proveedor->nom_comerc }}</a>
+              @else
+                {{ $proveedor->nom_comerc }}
+              @endcan
+            </td>
             <td>{{ $proveedor->fab_distri }}</td>
             <td>${{ Sistema::dosDecimales($proveedor->pivot->prec_prove) }}</td>
             <td>

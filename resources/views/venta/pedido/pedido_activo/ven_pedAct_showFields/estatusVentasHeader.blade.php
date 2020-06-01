@@ -1,3 +1,4 @@
+<strong>{{ __('Estatus ventas') }}: </strong>
 @switch($pedido->estat_vent_gen)
   @case(config('app.informacion_general_completa'))
     <span class="badge" style="background:{{ config('app.color_d') }};">{{ $pedido->estat_vent_gen }}</span> 

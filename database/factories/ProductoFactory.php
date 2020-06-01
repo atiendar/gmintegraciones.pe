@@ -47,7 +47,7 @@ $factory->define(Producto::class, function (Faker $faker) {
         'etiq'              => $etiq,
         'pes'               => $faker->randomFloat(3, 1, 5),
         'cod_barras'        => $faker->ean13,
-        'asignado_prod'  	=> $usuario,
+        'asignado_prod'  	  => $usuario,
         'created_at_prod'   => $usuario,
     ];
 });

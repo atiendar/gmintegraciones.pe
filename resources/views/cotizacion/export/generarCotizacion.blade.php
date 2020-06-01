@@ -11,28 +11,22 @@
   <table class="table table-sm table-bordered" style="font-size:10px;">
     <tr>
       <td style="text-align:center">
-        <dl>
-          <dt><img src="{{ substr(\Storage::url(Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg), 1)  }}" class="brand-image rounded elevation-0" style="width:10rem;"></dt>
-          <dt><strong><a href="{{ Sistema::datos()->sistemaFindOrFail()->pag }}" target="_blank">{{ Sistema::datos()->sistemaFindOrFail()->pag }}</a></strong></dt>
-          <dt>¡Fortalecemos tus Relaciones Comerciales!</dt>
-        </dl>
+        <dt><img src="{{ substr(\Storage::url(Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg), 1)  }}" class="brand-image rounded elevation-0" style="width:10rem;"></dt>
+        <dt><a href="{{ Sistema::datos()->sistemaFindOrFail()->pag }}" target="_blank">{{ Sistema::datos()->sistemaFindOrFail()->pag }}</a></dt>
+        <dt>¡Fortalecemos tus Relaciones Comerciales!</dt>
       </td>
       <td>
-        <dl>
-          <dt>{{ Sistema::datos()->sistemaFindOrFail()->emp }}</dt>
-          <dt>{{ Sistema::datos()->sistemaFindOrFail()->direc_uno }}</dt>
-          <dt>{{ Sistema::datos()->sistemaFindOrFail()->corr_vent }}</dt>
-          <dt>{{ Sistema::datos()->sistemaFindOrFail()->lad_fij }} {{ Sistema::datos()->sistemaFindOrFail()->tel_fij }} ext. {{ Sistema::datos()->sistemaFindOrFail()->ext }}</dt>
-          <dt>{{ Sistema::datos()->sistemaFindOrFail()->lad_mov }} {{ Sistema::datos()->sistemaFindOrFail()->tel_mov }}</dt>
-        </dl>
+        <dt>{{ Sistema::datos()->sistemaFindOrFail()->emp }}</dt>
+        <dt>{{ Sistema::datos()->sistemaFindOrFail()->direc_uno }}</dt>
+        <dt>{{ Sistema::datos()->sistemaFindOrFail()->corr_vent }}</dt>
+        <dt>{{ Sistema::datos()->sistemaFindOrFail()->lad_fij }} {{ Sistema::datos()->sistemaFindOrFail()->tel_fij }} ext. {{ Sistema::datos()->sistemaFindOrFail()->ext }}</dt>
+        <dt>{{ Sistema::datos()->sistemaFindOrFail()->lad_mov }} {{ Sistema::datos()->sistemaFindOrFail()->tel_mov }}</dt>
       </td>
       <td>
-        <dl>
-          <dt>{{ $cotizacion->serie }}</dt>
-          <dt>Validez: {{ $cotizacion->valid }}</dt>
-          <dt>Atención a: {{ $cotizacion->cliente->nom }} ({{ $cotizacion->cliente->email_registro }})</dt>
-          <dt>Fecha de Cotización: {{ $cotizacion->created_at }}</dt>
-        </dl>
+        <dt><h5>{{ $cotizacion->serie }}</h5></dt>
+        <dt>Validez: {{ $cotizacion->valid }}</dt>
+        <dt>Atención a: {{ $cotizacion->cliente->nom }} ({{ $cotizacion->cliente->email_registro }})</dt>
+        <dt>Fecha de Cotización: {{ $cotizacion->created_at }}</dt>
       </td>
     </tr>
   </table>

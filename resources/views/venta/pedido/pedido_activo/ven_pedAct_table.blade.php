@@ -18,7 +18,7 @@
       <tbody> 
         @foreach($pedidos as $pedido)
           <tr title="{{ $pedido->num_pedido }}">
-            @include('venta.pedido.pedido_activo.ven_pedAct_tableOpcionShow')
+            @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['venta.pedidoActivo.show'], 'ruta' => route('venta.pedidoActivo.show', Crypt::encrypt($pedido->id))])
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.numeroDePedidoUnificado')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.fechaDeEntrega')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusPago')

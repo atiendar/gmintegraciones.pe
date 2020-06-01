@@ -10,7 +10,7 @@ class UpdateArmadoCotizacionRequest extends FormRequest {
   public function rules() {
     $id_armado = Crypt::decrypt($this->id_armado);
     $armado = \App\Models\CotizacionArmado::select('cant_direc_carg', 'prec_redond')->findOrFail($id_armado);
-    if( is_numeric($this->cantidad)) {
+    if(is_numeric($this->cantidad)) {
       $max_desc = $this->cantidad * $armado->prec_redond;
     } else {
       $max_desc = 0;

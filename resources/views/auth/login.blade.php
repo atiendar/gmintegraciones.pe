@@ -13,9 +13,9 @@
 <form method="POST" action="{{ route('login') }}" class="login100-form" onsubmit="return checarBotonSubmit('btnsubmit')">
   @csrf
   @include('layouts.public.logo')
-  <div class="shadow-lg p-3">
+  <div class="card-body shadow-lg">
     <div class="row">
-      <div class="form-group col-sm btn-sm">
+      <div class="form-group col-sm">
         <label for="email">{{ __('Correo electrónico') }}</label>
         <div class="input-group">
           <div class="input-group-prepend">
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-sm btn-sm">
+      <div class="form-group col-sm">
         <label for="email">{{ __('Contraseña') }}</label>
         <div class="input-group">
           <div class="input-group-prepend">

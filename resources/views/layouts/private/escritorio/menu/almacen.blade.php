@@ -1,6 +1,6 @@
 @canany([
   'almacen.producto.index', 'almacen.producto.create', 'almacen.producto.show', 'almacen.producto.edit', 'almacen.producto.disminuirStock', 'almacen.producto.destroy', 'almacen.producto.sustituto.create', 'almacen.producto.sustituto.destroy', 'almacen.producto.proveedor.create', 'almacen.producto.proveedor.edit', 'almacen.producto.proveedor.destroy',
-  'almacen.pedidoActivo.index', 'almacen.pedidoActivo.show', 'almacen.pedidoActivo.edit', 'almacen.pedidoActivo.pdf', 'almacen.pedidoActivo.armadoPedidoActivo.show', 'almacen.pedidoActivo.armadoPedidoActivo.edit', 'almacen.pedidoTerminado.index'
+  'almacen.pedidoActivo.index', 'almacen.pedidoActivo.show', 'almacen.pedidoActivo.edit', 'almacen.pedidoActivo.armado.show', 'almacen.pedidoActivo.armado.edit', 'almacen.pedidoTerminado.index'
 ])
   <li class="nav-item has-treeview {{ Request::is('almacen*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link {{ Request::is('almacen*') ? 'active' : '' }}">
@@ -17,7 +17,7 @@
           <p>{{ __('Inicio almacén') }}</p>
         </a>
       </li>
-      @canany(['almacen.pedidoActivo.index','almacen.pedidoActivo.show','almacen.pedidoActivo.edit', 'almacen.pedidoActivo.pdf', 'almacen.pedidoActivo.armadoPedidoActivo.show', 'almacen.pedidoActivo.armadoPedidoActivo.edit'])
+      @canany(['almacen.pedidoActivo.index','almacen.pedidoActivo.show','almacen.pedidoActivo.edit', 'almacen.pedidoActivo.armado.show', 'almacen.pedidoActivo.armado.edit'])
         <li class="nav-item has-treeview {{ Request::is('almacen/pedido*') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ Request::is('almacen/pedido*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-shopping-bag"></i>
@@ -27,7 +27,7 @@
             </p>
           </a>
           <ul class="nav nav-treeview ">
-            @canany(['almacen.pedidoActivo.index','almacen.pedidoActivo.show','almacen.pedidoActivo.edit', 'almacen.pedidoActivo.pdf', 'almacen.pedidoActivo.armadoPedidoActivo.show', 'almacen.pedidoActivo.armadoPedidoActivo.edit'])
+            @canany(['almacen.pedidoActivo.index','almacen.pedidoActivo.show','almacen.pedidoActivo.edit', 'almacen.pedidoActivo.armado.show', 'almacen.pedidoActivo.armado.edit'])
               <li class="nav-item">
                 <a href="{{ route('almacen.pedidoActivo.index') }}" class="nav-link {{ Request::is('almacen/pedido-activo') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-list"></i>

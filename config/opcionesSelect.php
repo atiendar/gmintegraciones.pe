@@ -164,15 +164,15 @@ return array(
   ],
 /* ===================== SISTEMA [ ACTIVIDAD ] ===================== */
   'select_sistema_actividad_index'  => [
-    ''                    => 'Buscar por. . .',
-    'id'                  => 'ID',
-    'mod'                 => 'Módulo',
-    'reg'                 => 'Registro',
-    'inpu'                => 'Input',
-    'usu'                 => 'Usuario',
-    'ant'                 => 'Valor anterior',
-    'nuev'                => 'Nuevo valor',
-    'created_at'          => 'Fecha de modificación (YYYY-MM-DD)',
+    ''                        => 'Buscar por. . .',
+    'id'                      => 'ID',
+    'mod'                     => 'Módulo',
+    'reg'                     => 'Registro',
+    'inpu'                    => 'Input',
+  //  'usuario.email_registro'  => 'Usuario',
+    'ant'                     => 'Valor anterior',
+    'nuev'                    => 'Nuevo valor',
+    'created_at'              => 'Fecha de modificación (YYYY-MM-DD)',
   ],
 /* ===================== SISTEMA [ CATÁLOGOS ] ===================== */
   'select_catalogo_index'  => [
@@ -203,7 +203,7 @@ return array(
   /* ===================== [ QUEJAS Y SUGERENCIAS ] ===================== */
   'select_qys_index'  => [
     ''                        => 'Buscar por. . .',
-    'usuario.email_registro'  => 'Correo usuario',
+  //  'usuario.email_registro'  => 'Correo usuario',
     'depto'                   => 'Departamento',
     'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
@@ -336,21 +336,21 @@ return array(
     'gama'        => 'Gama',
     'created_at'  => 'Fecha de registro (YYYY-MM-DD)',
   ],
-  'select_tipo'  => [
+  'select_tipo'   => [
     ''            => 'Seleccione. . .',
     'Producto'    => 'Producto',
     'Canasta'     => 'Canasta',
   ],
   'select_producto_armado_index'  => [
     ''                        => 'Buscar por. . .',
-    'productos.categ'         => 'Categoría',
-    'productos.cod_barras'    => 'Código de barras',
-    'productos.etiq'          => 'Etiqueta',
-    'productos.id'            => 'ID',
-    'productos.prec_clien'    => 'Precio cliente',
-    'productos.produc'        => 'Producto',
-    'productos.prove'         => 'Proveedor',
-    'productos.sku'           => 'SKU',
+    'categ'         => 'Categoría',
+    'cod_barras'    => 'Código de barras',
+    'etiq'          => 'Etiqueta',
+    'id'            => 'ID',
+    'prec_clien'    => 'Precio cliente',
+    'produc'        => 'Producto',
+    'prove'         => 'Proveedor',
+    'sku'           => 'SKU',
   ],
   'select_cantidad_table_productos_edit'  => [
     '1' => 1,
@@ -379,7 +379,7 @@ return array(
     'Si'          => 'Si',
     'No'          => 'No',
   ],
-/* ===================== [ PRODUCTOS ] ===================== */
+/* ===================== ALMACÉN [ PRODUCTOS ] ===================== */
   'select_producto_index'  => [
     ''              => 'Buscar por. . .',
     'categ'         => 'Categoría',
@@ -496,13 +496,47 @@ return array(
     '.89'          => '89%',
     '.9'           => '90%',
   ],
+/* ===================== ALMACEN [ PEDIDO ACTIVO ] ===================== */
+  'select_almacen_pedido_activo_index'  => [
+    ''                        => 'Buscar por. . .',
+  //  'usuario.email_registro'  => 'Cliente',
+    'entr_xprs'               => 'Entrega express',
+    'estat_alm'               => 'Estatus almacen',
+    'estat_pag'               => 'Estatus pago',
+    'fech_de_entreg'          => 'Fecha de entrega (YYYY-MM-DD)',
+    'num_pedido'              => 'Número de pedido',
+    'tot_de_arm'              => 'Total de armados',
+    'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+/* ===================== ALMAÉN PEDIDO ACTIVO [ ARMADOS ] ===================== */
+  'select_pedido_armados_index' => [
+    ''            => 'Buscar por. . .',
+    'nom'         => 'Armado',
+    'cant'        => 'Cantidad',
+    'estat'       => 'Estatus',
+    'tip'         => 'Tipo',
+    'created_at'  => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+  'select_estatus_armado_almacen' => [
+    ''                                      => 'Seleccione. . .',
+    config('app.en_espera_de_compra')       => config('app.en_espera_de_compra'),
+    config('app.en_revision_de_productos')  => config('app.en_revision_de_productos'),
+    config('app.productos_completos')       => config('app.productos_completos'),
+  ],
+  'select_productos_armado_index' => [
+    ''            => 'Buscar por. . .',
+    'cant'        => 'Cantidad',
+    'produc'      => 'Producto',
+    'sku'         => 'SKU',
+    'created_at'  => 'Fecha de registro (YYYY-MM-DD)',
+  ],
 /* ===================== [ COTIZACIONES ] ===================== */
   'select_cotizacion_index'  => [
     ''                        => 'Buscar por. . .',
     'serie'                   => 'Serie',
     'estat'                   => 'Estatus',
     'valid'                   => 'Validez',
-    'cliente.email_registro'  => 'Correo cliente',
+  //  'cliente.email_registro'  => 'Correo cliente',
     'tot'                     => 'Total',
     'created_at'              => 'Fecha de creación (YYYY-MM-DD)',
   ],
@@ -530,7 +564,7 @@ return array(
 /* ===================== VENTAS [ PEDIDO ACTIVO ] ===================== */
   'select_venta_pedidoActivo_index'  => [
     ''                        => 'Buscar por. . .',
-    'usuario.email_registro'  => 'Cliente', // este marca error
+  //  'usuario.email_registro'  => 'Cliente', // este marca error
     'estat_pag'               => 'Estatus pago',
     'estat_vent_gen'          => 'Estatus venta general',
     'estat_vent_arm'          => 'Estatus venta armado(s)',
@@ -576,49 +610,4 @@ return array(
     'Transferencia'               => 'Transferencia',
     'Otro'                        => 'Otro',
   ],
-/* ===================== ALMACEN [ PRODUCTOS ] ===================== */
-     'select_pedido_activo_index'  => [
-      ''                 => 'Buscar por. . .',
-      'arc_carg'         => 'Arcones cargados',
-      'user_id'          => 'Cliente',
-      'entr_xprs'        => 'Entrega express',
-      'estat_alm'        => 'Estatus almacen',
-      'estat_pag'        => 'Estatus pago',
-      'fech_de_entreg'   => 'Fecha de entrega',
-      'num_ped_unif'     => 'Número pedido unificado',
-      'tot_de_arc'       => 'Total de Arcones',
-      'created_at'       => 'Fecha de registro (YYYY-MM-DD)',
-    ],
-    'select_entrega_express' => [
-      ''             => 'Seleccione. . .',
-      'Si'           => 'Sí',
-      'No'           => 'No',
-    ],
-    'select_se_puede_entregar_antes' => [
-      ''             => 'Seleccione. . .',
-      'Si'           => 'Sí',
-      'No'           => 'No',
-    ],
-/* ===================== ALMAÉN [ ARMADOS ] ===================== */
-    'select_pedido_armados_index' => [
-      ''                           => 'Buscar por. . .',
-      'pedido_armados.nom'         => 'Armado',
-      'pedido_armados.cant'        => 'Cantidad',
-      'pedido_armados.estat'       => 'Estatus',
-      'pedido_armados.tip'         => 'Tipo',
-      'pedido_armados.created_at'  => 'Fecha de registro (YYYY-MM-DD)',
-    ],
-    'select_estatus_armado' => [
-      ''                           => 'Seleccione. . .',
-      'En espera de compra'        => 'En espera de compra',
-      'En revisión de productos'   => 'En revisión de productos',
-      'Cancelado'                  => 'Cancelado',
-    ],
-    'select_productos_armado_index' => [
-      ''                                          => 'Buscar por. . .',
-      'pedido_armado_tiene_productos.cant'        => 'Cantidad',
-      'pedido_armado_tiene_productos.produc'      => 'Producto',
-      'pedido_armado_tiene_productos.sku'         => 'SKU',
-      'pedido_armado_tiene_productos.created_at'  => 'Fecha de registro (YYYY-MM-DD)',
-    ],
 );

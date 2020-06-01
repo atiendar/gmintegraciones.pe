@@ -9,12 +9,16 @@ use App\Http\Requests\almacen\producto\proveedorProducto\UpdateProveedorProducto
 use App\Repositories\almacen\producto\ProductoRepositories;
 use App\Repositories\proveedor\ProveedorRepositories;
 use App\Repositories\almacen\producto\proveedorProducto\ProveedorProductoRepositories;
+// Servicios
+use App\Repositories\servicio\crypt\ServiceCrypt;
 
 class ProveedorProductoController extends Controller {
+  protected $serviceCrypt;
   protected $productoRepo;
   protected $proveedorRepo;
   protected $proveedorProductoRepo;
-  public function __construct(ProductoRepositories $productoRepositories, ProveedorRepositories $proveedorRepositories, ProveedorProductoRepositories $proveedorProductoRepositories) {
+  public function __construct(ServiceCrypt $serviceCrypt, ProductoRepositories $productoRepositories, ProveedorRepositories $proveedorRepositories, ProveedorProductoRepositories $proveedorProductoRepositories) {
+    $this->serviceCrypt           = $serviceCrypt;
     $this->productoRepo           = $productoRepositories;
     $this->proveedorRepo          = $proveedorRepositories;
     $this->proveedorProductoRepo  = $proveedorProductoRepositories;
@@ -31,7 +35,7 @@ class ProveedorProductoController extends Controller {
   }
   public function edit($id_producto, $id_proveedor) {
     $producto           = $this->productoRepo->getproductoFindOrFailById($id_producto, 'proveedores');
-    $proveedor_producto = $producto->proveedores()->where('proveedor_id', \Illuminate\Support\Facades\Crypt::decrypt($id_proveedor))->first();
+    $proveedor_producto = $producto->proveedores()->where('proveedor_id', $this->serviceCrypt->decrypt($id_proveedor))->first();
     if ($proveedor_producto === null) { return abort(404); }
     return view('almacen.producto.proveedor_producto.alm_pro_proPro_edit', compact('producto', 'proveedor_producto'));
   }

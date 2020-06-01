@@ -71,11 +71,11 @@ class CotizacionController extends Controller {
   //  toastr()->success('¡La cotización se esta generando una vez que haya terminado se mostrara en la barra superior!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
   //  return back();
 
-    $cotizacion   = $this->cotizacionRepo->cotizacionAsignadoFindOrFailById($id_cotizacion, ['armados', 'cliente'], config('app.abierta'));
-    $armados      = $cotizacion->armados()->with('productos')->paginate(99999999);
-    $pdf          = \PDF::loadView('cotizacion.export.generarCotizacion', compact('cotizacion', 'armados'));
-    return $pdf->stream(); // Visualizar
-  //  return $pdf->download('Cotización-'.date('Y-m-d').'-'.time().'.pdf'); // Descargar
+    $cotizacion     = $this->cotizacionRepo->cotizacionAsignadoFindOrFailById($id_cotizacion, ['armados', 'cliente'], config('app.abierta'));
+    $armados        = $cotizacion->armados()->with('productos')->get();
+    $corizacion_pdf = \PDF::loadView('cotizacion.export.generarCotizacion', compact('cotizacion', 'armados'));
+    return $corizacion_pdf->stream(); // Visualizar
+  //  return $corizacion_pdf->download('Cotización-'$cotizacion->serie.'.pdf'); // Descargar
   }
   public function clonar($id_cotizacion) {
     $this->cotizacionRepo->clonar($id_cotizacion);

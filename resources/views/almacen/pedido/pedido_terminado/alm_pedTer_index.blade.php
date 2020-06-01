@@ -4,7 +4,7 @@
 <div class="card">
   <div class="card-header p-1">
     <ul class="nav nav-pills">
-      @include('almacen.pedido.pedido_activo.alm_pedAct_menu')
+      @include('almacen.pedido.alm_ped_menu')
     </ul>
   </div>
   <div class="card-body">

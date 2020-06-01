@@ -28,8 +28,6 @@ class CreatePedidosTable extends Migration
             $table->enum('urg',['Si','No'])->default('No')->comment('Urgente');
             $table->enum('foraneo',['Si','No'])->default('No')->comment('¿Es foráneo?');
             $table->enum('gratis',['Si','No'])->default('No')->comment('¿Sera gratis?'); 
-            $table->string('cot_fin_de_client_rut',200)->nullable()->comment('Ruta de la cotizacion final del cliente');
-            $table->string('cot_fin_de_client_nom',200)->nullable()->comment('Nombre de la cotizacion final del cliente');
             $table->date('fech_de_entreg')->nullable()->comment('Fecha de entrega');
             $table->enum('se_pued_entreg_ant',['Si','No'])->nullable()->comment('¿Se puede entregar antes?');
             $table->integer('cuant_dia_ant')->unsigned()->nullable()->comment('¿Cuántos días antes?'); 

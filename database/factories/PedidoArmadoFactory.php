@@ -12,9 +12,9 @@ $factory->define(PedidoArmado::class, function (Faker $faker) {
     $pedido = $faker->randomElement(Pedido::all());
     $usuario = $faker->randomElement(User::where('acceso', '1')->get()->pluck('email_registro'));
     return [
-        'cod'                   => $pedido->serie.$pedido->id.'-'.$faker->stateAbbr,
-        'estat'                 =>  $faker->randomElement(['Pendiente', 'En espera de compra', 'En revisión de productos', 'Productos completos', 'En producción', 'En almacén de salida', 'En ruta', 'Entregado', 'Sin entrega por falta de información', 'Intento de entrega fallido', 'Cancelado']),
-        'cant'                  => '1',
+        'cod'                   => $pedido->num_pedido.'-'.$faker->stateAbbr,
+        'estat'                 =>  $faker->randomElement(['En espera de compra', 'En revisión de productos', 'Productos completos', 'En producción', 'En almacén de salida', 'En ruta', 'Entregado', 'Sin entrega por falta de información', 'Intento de entrega fallido', 'Cancelado']),
+        'cant'                  => '100',
         'tip'                   => $armado->tip,
         'nom'                   => $armado->nom,
         'sku'                   => $armado->sku,

@@ -1,21 +1,31 @@
- @include('venta.pedido.pedido_activo.ven_pedAct_showFields.created')
-<div class="row">
-  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.numeroDePedidoUnificado')
-</div>
+@include('venta.pedido.pedido_activo.ven_pedAct_showFields.created')
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cliente')
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.fechaDeEntrega')
 </div>
 <div class="row">
-  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.entregaExpress')
-  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.sePuedeEntregarAntes')
-  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cuantosDiasAntes')
-</div>  
-<div class="row">
-  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusAlmacen')
+  <div class="col-md-8">
+    <div class="pad">
+      <div class="row">
+        @include('venta.pedido.pedido_activo.ven_pedAct_showFields.sePuedeEntregarAntes')
+        @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cuantosDiasAntes')
+      </div>
+      <div class="row">
+        @include('venta.pedido.pedido_activo.ven_pedAct_showFields.liderDePedidoAlmacen')
+      </div>
+      <div class="row">
+        @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusAlmacen')
+      </div>
+    </div>
+  </div>
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.numeroDePedidoUnificado', ['alto' => 'height: 10em;'])
 </div>
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusProduccion')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusLogistica')
+</div>
+<div class="row">
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusPago')
 </div>
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosCliente')
@@ -28,6 +38,9 @@
 </div>
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosProduccion')
+</div>
+<div class="row">
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosLogistica')
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">

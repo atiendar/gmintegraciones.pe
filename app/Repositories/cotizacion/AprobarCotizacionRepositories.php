@@ -58,7 +58,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       $direcciones            = NULL;
       foreach($armados as $armado) {
         if($armado->cant != $armado->cant_direc_carg) {
-          return abort(500, 'No se han registrado todas las direcciones al armado '.$armado->nom);
+          return abort(403, 'No se han registrado todas las direcciones al armado '.$armado->nom);
         }
 
         // REGISTRA LOS ARMADOS AL PEDIDO

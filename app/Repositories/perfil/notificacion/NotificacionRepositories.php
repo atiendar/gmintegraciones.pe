@@ -89,7 +89,7 @@ class NotificacionRepositories implements NotificacionInterface {
       $hasta1 = count($request->ids_seleccionados)-1;
       for($contador2 = 0; $contador2 <= $hasta1; $contador2++) {
         $marcar_como_leido = DatabaseNotification::where('notifiable_id', Auth::user()->id)->find($request->ids_seleccionados[$contador2]);
-        if(empty($marcar_como_leido)) { return abort(500); } // Verifica si el registro existe en caso contrario aborta
+        if(empty($marcar_como_leido)) { return abort(404); } // Verifica si el registro existe en caso contrario aborta
         $marcar_como_leido->markAsRead(); // Marca como leida la notificación
       }
       return $marcar_como_leido;
@@ -100,7 +100,7 @@ class NotificacionRepositories implements NotificacionInterface {
       $hasta1 = count($request->ids_seleccionados)-1;
       for($contador2 = 0; $contador2 <= $hasta1; $contador2++) {
         $marcar_como_no_leido = DatabaseNotification::where('notifiable_id', Auth::user()->id)->find($request->ids_seleccionados[$contador2]);
-        if(empty($marcar_como_no_leido)) { return abort(500); } // Verifica si el registro existe en caso contrario aborta
+        if(empty($marcar_como_no_leido)) { return abort(404); } // Verifica si el registro existe en caso contrario aborta
         $marcar_como_no_leido->read_at = null; // Marca como no leida la notificación
         $marcar_como_no_leido->save();
       }

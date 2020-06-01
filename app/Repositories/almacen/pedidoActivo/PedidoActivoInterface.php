@@ -2,16 +2,13 @@
 namespace App\Repositories\almacen\pedidoActivo;
 
 interface PedidoActivoInterface {
-    public function pedidoActivoAsignadoFindOrFailById($id_pedido);
+  public function pedidoActivoAlmacenFindOrFailById($id_pedido, $relaciones);
 
-    public function getPagination($request);
+  public function getPagination($request, $relaciones);
 
-    public function update($request, $id_pedido);
+  public function update($request, $id_pedido);
 
-    public function getArmadosPedidoPaginate($pedido, $request);
+  public function getArmadosPedidoPaginate($pedido, $request);
 
-    public function getArmadosPedido($pedido);
-
-    public function getArmadoPedidoTieneProductosPaginate($pedido, $request);
-
+  public function marcarTodoCompleto($id_pedido);
 }

@@ -1,10 +1,10 @@
-<td width="1rem" title="Editar: {{ $pedido->num_ped_unif }}">
- @canany(['almacen.pedidoActivo.edit', 'almacen.pedidoActivo.armadoPedidoActivo.show', 'almacen.pedidoActivo.armadoPedidoActivo.edit'])
-   <a href="{{ route('almacen.pedidoActivo.edit', Crypt::encrypt($pedido->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-edit"></i></a>
- @endcanany
+<td width="1rem" title="Editar: {{ $pedido->num_pedido }}">
+  @canany(['almacen.pedidoActivo.edit', 'almacen.pedidoActivo.armado.show', 'almacen.pedidoActivo.armado.edit'])
+    <a href="{{ route('almacen.pedidoActivo.edit', Crypt::encrypt($pedido->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-edit"></i></a>
+  @endcanany
 </td>
-<td width="1rem" title="Generar PDF: {{ $pedido->num_ped_unif }}">
- @can('almacen.pedidoActivo.pdf')
-   <a href="{{ route('almacen.pedidoActivo.pdf', Crypt::encrypt($pedido->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-file-pdf"></i></a>
- @endcan
+<td width="1rem" title="Generar PDF: {{ $pedido->num_pedido }}">
+  @can('almacen.pedidoActivo.index')
+    <a href="{{ route('almacen.pedidoActivo.generarOrdenDeProduccion', Crypt::encrypt($pedido->id)) }}" class='btn btn-light btn-sm' target="_blank"><i class="fas fa-file-pdf"></i></a>
+  @endcan
 </td>

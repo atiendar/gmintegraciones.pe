@@ -1,20 +1,16 @@
 <div class="row">
-  <div class="col-md-7">
+  <div class="col-md-8">
     <div class="pad">
       @include('venta.pedido.pedido_activo.ven_pedAct_showFields.created')
-      <div class="row">
-        @include('venta.pedido.pedido_activo.ven_pedAct_showFields.numeroDePedidoUnificado')
-      </div>      
       <div class="row">
         @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cliente')
         @include('venta.pedido.pedido_activo.ven_pedAct_showFields.fechaDeEntrega')
       </div>
     </div>
   </div>
-  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cotizacionFinalDelCliente')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.numeroDePedidoUnificado', ['alto' => 'height: 10em;'])
 </div>
 <div class="row">
-  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.entregaExpress')
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.sePuedeEntregarAntes')
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cuantosDiasAntes')
 </div>

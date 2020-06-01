@@ -518,26 +518,18 @@ class PermisosTableSeeder extends Seeder {
       'desc'            => "Editar cualquier dato de un registro del módulo Almacén 'Pedidos activos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
-
-    Spatie\Permission\Models\Permission::create([
-      'id'              => 70,
-      'nom'             => "Generar orden de producción Almacén 'Pedidos activos'",
-      'name'				    => "almacen.pedidoActivo.pdf",
-      'desc'            => "Generar orden de producción de cualquier registro del módulo Almacén 'Pedidos activos'",
-      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
-    ]);
 //PERMISOS DEL MÓDULO ALMACÉN/PEDIDO ACTIVO (ARMADOS)
     Spatie\Permission\Models\Permission::create([
       'id'              => 71,
       'nom'             => "Ver detalles Almacén/Pedido Activo 'Armados'",
-      'name'				    => 'almacen.pedidoActivo.armadoPedidoActivo.show',
+      'name'				    => 'almacen.pedidoActivo.armado.show',
       'desc'            => "Ver detalles de cualquier registro del módulo Almacén/Pedido Activo 'Armados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
       'id'              => 72,
       'nom'             => "Editar registro Almacén/Pedido Activo 'Armados'",
-      'name'				    => "almacen.pedidoActivo.armadoPedidoActivo.edit",
+      'name'				    => "almacen.pedidoActivo.armado.edit",
       'desc'            => "Editar cualquier dato de un registro del módulo Almacén/Pedido Activo 'Armados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);

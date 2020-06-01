@@ -2,10 +2,11 @@
 namespace App\Repositories\almacen\pedidoActivo\armadoPedidoActivo;
 
 interface ArmadoPedidoActivoInterface {
-    public function armadoPedidoActivoFindOrFailById($id_armado);
+  public function armadoPedidoActivoFindOrFailById($id_armado, $relaciones, $accion);
 
-    public function update($request, $id_armado);
+  public function update($request, $id_armado);
 
-    public function armadosTerminadosAlmacen($id_pedido);
+  public function getArmadoPedidoTieneProductosPaginate($pedido, $request);
 
+  public function armadosTerminadosAlmacen($id_pedido, $estatus);
 }

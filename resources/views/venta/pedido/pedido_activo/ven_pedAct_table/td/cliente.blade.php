@@ -1,1 +1,1 @@
-<td>{{ $pedido->usuario->email_registro }}</td>
+<td>{{ $pedido->usuario->nom }} ({{ $pedido->usuario->email_registro }})</td>

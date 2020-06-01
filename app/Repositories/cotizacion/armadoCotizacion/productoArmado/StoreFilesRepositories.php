@@ -14,8 +14,8 @@ class StoreFilesRepositories implements StoreFilesInterface {
       $fecha = date('Y-m-d h:i:s');
       for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
         // Aborta el proceso si el producto relacionado al armado no tiene un proveedor asignado ya que se utiliza el precio del proveedor para hcaer los calculos
-        if($productos[$contador2]->prec_prove == null) { 
-          return abort(500, 'El producto: ' . $productos[$contador2]->produc . ' no tiene un proveedor asignado.');
+        if($productos[$contador2]->prec_prove == NULL OR $productos[$contador2]->prove == NULL) { 
+          return abort(403, 'El producto: ' . $productos[$contador2]->produc . ' no tiene un proveedor asignado.');
         }
         $datos[$contador2][$camposBD[$contador3]] = $productos[$contador2]->id;
         $contador3 += 1;

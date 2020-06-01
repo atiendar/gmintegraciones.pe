@@ -14,7 +14,7 @@ $factory->define(Proveedor::class, function (Faker $faker) {
         'fab_distri'        => $faker->randomElement($fab_distri),
         'rfc'               => $faker->name,
         'nom_rep_legal'     => $faker->name,
-        'lad_mov'  			=> '55',
+        'lad_mov'  			    => '55',
         'tel_mov'           => '56105713',
         'call'              => $faker->name,
         'no_ext'            => $faker->numberBetween(1,9999),

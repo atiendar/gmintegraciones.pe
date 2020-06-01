@@ -31,7 +31,7 @@ class UsuarioRepositories implements UsuarioInterface {
   } 
   public function usuarioAsignadoFindOrFailById($id_usuario, $acceso, $relaciones = null) {
     $id_usuario = $this->serviceCrypt->decrypt($id_usuario);
-    $usuario = User::asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->where('acceso', $acceso)->with(['roles'=> function ($query) {
+    $usuario = User::asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->where('acceso', $acceso)->where('id', '!=', Auth::user()->id)->with(['roles'=> function ($query) {
       $query->orderBy('nom', 'ASC');
     }])->with($relaciones)->findOrFail($id_usuario);
     return $usuario;

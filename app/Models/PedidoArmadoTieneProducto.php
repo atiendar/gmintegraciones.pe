@@ -7,7 +7,10 @@ class PedidoArmadoTieneProducto extends Model{
   use SoftDeletes;
   protected $table='pedido_armado_tiene_productos';
   protected $primaryKey='id';
-  public function armados(){
+  public function armado(){
     return $this->belongsTo('App\Models\PedidoArmado', 'pedido_armado_id')->orderBy('id', 'DESC');
-  } 
+  }
+  public function sustitutos(){
+    return $this->hasMany('App\Models\PedidoArmadoProductoTieneSustituto', 'producto_id')->orderBy('id', 'DESC');
+  }
 }

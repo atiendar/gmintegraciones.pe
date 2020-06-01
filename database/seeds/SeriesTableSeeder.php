@@ -13,16 +13,16 @@ class SeriesTableSeeder extends Seeder {
             'input'             => 'Cotizaciones (Serie)',
             'value'             => 'COT-CYA-',
             'vista'             => 'COT-CYA-',
-            'asignado_ser'  	=> 'desarrolloweb.ewmx@gmail.com',
+            'asignado_ser'  	  => 'desarrolloweb.ewmx@gmail.com',
             'created_at_ser'    => 'desarrolloweb.ewmx@gmail.com',
         ]);
         Serie::create([
             'input'             => 'Pedidos (Serie)',
             'value'             => 'PED-CYA-',
             'vista'             => 'PED-CYA-',
-            'asignado_ser'  	=> 'desarrolloweb.ewmx@gmail.com',
+            'asignado_ser'  	  => 'desarrolloweb.ewmx@gmail.com',
             'created_at_ser'    => 'desarrolloweb.ewmx@gmail.com',
         ]);
-        factory(Serie::class, 1500)->create();
+        factory(Serie::class, 300)->create();
     }
 }
