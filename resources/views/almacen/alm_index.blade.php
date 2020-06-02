@@ -13,10 +13,10 @@
             </a>
             <div class="dropdown-menu">
               @canany(['almacen.pedidoActivo.index'])
-                <a href="" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos activos') }}</a>
+                <a href="{{ route('almacen.pedidoActivo.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos activos') }}</a>
               @endcanany
               @canany(['almacen.pedidoTerminado.index'])
-                <a href="" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos terminados') }}</a>
+                <a href="{{ route('almacen.pedidoTerminado.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos terminados') }}</a>
               @endcanany
             </div>
           </div>

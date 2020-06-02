@@ -28,7 +28,7 @@
               {!! Form::close() !!}
             </td>
             @include('almacen.producto.alm_pro_table.td.sku')
-            @include('almacen.producto.alm_pro_table.td.producto')
+            @include('almacen.producto.alm_pro_table.td.producto', ['id_producto' => Crypt::encrypt($producto->id_producto), 'target' => '_blank'])
             @include('almacen.producto.alm_pro_table.td.precioProveedor')
             <td>
               {!! Form::open(['route' => ['cotizacion.armado.producto.updateUtilidad', Crypt::encrypt($producto->id), Crypt::encrypt($armado->id)  ], 'method' => 'patch', 'id' => 'cotizacionArmadoProductoUpdateUtilidad']) !!}

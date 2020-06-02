@@ -216,6 +216,11 @@ class ProductoRepositories implements ProductoInterface {
     $producto = Producto::with($relaciones)->findOrFail($id_producto);
     return $producto;
   }
+  public function getproductoFindById($id_producto, $relaciones = null) { // 'sustitutos', 'armados', 'proveedores'
+    $id_producto = $this->serviceCrypt->decrypt($id_producto);
+    $producto = Producto::with($relaciones)->find($id_producto);
+    return $producto;
+  }
   public function eliminarCacheAllProductosPlunk() {
     Cache::pull('allProductosPlunk'); // Elimina la cache con el nombre espesificado
   }

@@ -1,6 +1,6 @@
 <td>
   @can('almacen.producto.show')
-    <a href="{{ route('almacen.producto.show', Crypt::encrypt($producto->id)) }}" target="_blank">{{ $producto->produc }}</a>
+    <a href="{{ route('almacen.producto.show', $id_producto) }}" target="{{ empty($target) ? __('') :  $target }}">{{ $producto->produc }}</a>
   @else
     {{ $producto->produc }}
   @endcan

@@ -33,7 +33,7 @@
                 {{ $producto->pivot->cant }}
               @endcanany
             </td>
-            @include('almacen.producto.alm_pro_table.td.producto')
+            @include('almacen.producto.alm_pro_table.td.producto', ['id_producto' => Crypt::encrypt($producto->id), 'target' => '_blank'])
             @include('almacen.producto.alm_pro_table.td.proveedor')
             @include('almacen.producto.alm_pro_table.td.precioProveedor')
             <td>

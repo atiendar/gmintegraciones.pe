@@ -22,8 +22,8 @@
         @foreach($productos as $producto)
           <tr title="{{ $producto->sku }}" class="{{ empty($producto->stock < config('app.cantidad_stock_minimo_producto')) ? '' : 'bg-warning' }}">
             @include('almacen.producto.alm_pro_table.td.id')
-            @include('almacen.producto.alm_pro_tableOpcionShow')
-            @include('almacen.producto.alm_pro_table.td.producto')
+            @include('almacen.producto.alm_pro_table.td.sku')
+            @include('almacen.producto.alm_pro_table.td.producto', ['id_producto' => Crypt::encrypt($producto->id)])
             @include('almacen.producto.alm_pro_table.td.stock')
             @include('almacen.producto.alm_pro_table.td.proveedor')
             @include('almacen.producto.alm_pro_table.td.precioProveedor')
