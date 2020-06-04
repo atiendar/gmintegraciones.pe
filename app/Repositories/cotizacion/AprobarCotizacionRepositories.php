@@ -44,6 +44,25 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       $pedido->user_id          = $cotizacion->user_id;
       $pedido->tot_de_arm       = $cotizacion->tot_arm;
       $pedido->mont_tot_de_ped  = $cotizacion->tot;
+
+
+
+
+      
+      
+
+
+    //  $pedido->foraneo
+    //  $pedido->gratis
+
+
+
+
+
+
+
+
+    
       $pedido->estat_vent_arm   = config('app.armados_cargados');
       $pedido->asignado_ped     = Auth::user()->email_registro;
       $pedido->created_at_ped   = Auth::user()->email_registro;

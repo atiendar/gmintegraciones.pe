@@ -693,5 +693,20 @@ class PermisosTableSeeder extends Seeder {
       'desc'            => "Eliminar cualquier registro del módulo 'Cotizaciones'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+// PERMISOS DEL MÓDULO COTIZACIONES
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 95,
+      'nom'             => "Ver detalles Rastrear 'Pedido'",
+      'name'				    => 'rastrea.pedido.show',
+      'desc'            => "Ver detalles de cualquier registro a excepción de los pagos del módulo Rastrear 'Pedido'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 96,
+      'nom'             => "Ver detalles FULL Rastrear 'Pedido'",
+      'name'				    => 'rastrea.pedido.showFull',
+      'desc'            => "Ver detalles de cualquier registro del módulo Rastrear 'Pedido'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
   }
 }

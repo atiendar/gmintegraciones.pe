@@ -14,17 +14,24 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
         return 'exito';
       });
     });
+ 
 
-/*
+
+
+
     Route::get('costo-de-envio', function(\Illuminate\Http\Request $request) {
       if($request->ajax()) {
-        $data = \App\Models\CostoDeEnvio::estado($request->estado)->metodoDeEntrega($request->metodo_de_entrega)->tipoDeEnvio($request->tipo_de_envio)->paginate(99999999999);
-        return $data;
+        $datos = \App\Models\CostoDeEnvio::metodoDeEntrega($request->metodo_de_entrega)->estado($request->estado)->tipoDeEnvio($request->tipo_de_envio)->get();
+        return $datos;
       } else {
         return view('home');
       }
     });
-*/
+
+
+
+
+
 
     require_once __DIR__ . '/layouts/layoutsRoutes.php';
     require_once __DIR__ . '/usuario/usuarioRoutes.php';
@@ -36,6 +43,10 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
     require_once __DIR__ . '/pago/pagoRoutes.php';
     require_once __DIR__ . '/cotizacion/cotizacionRoutes.php';
 
+    Route::group(['prefix' => 'rastrea'], function() {
+      require_once __DIR__ . '/rastrea/rastreaPedidoRoutes.php';
+    });
+    
     Route::group(['prefix' => 'perfil'], function() {
       require_once __DIR__ . '/perfil/perfilRoutes.php';
       require_once __DIR__ . '/perfil/notificacionRoutes.php';
@@ -61,7 +72,6 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
       require_once __DIR__ . '/venta/ventaRoutes.php';
       require_once __DIR__ . '/venta/pedidoActivoRoutes.php';
       require_once __DIR__ . '/venta/pedidoTerminadoRoutes.php';
-      require_once __DIR__ . '/venta/rastrearPedidoRoutes.php';
     });
 
     Route::group(['prefix' => 'almacen'], function() {

@@ -8,19 +8,25 @@ class CostoDeEnvio extends Model {
   protected $table='costos_de_envio';
   protected $primaryKey='id';
 
-  public function scopeEstado($query, $estado) {
-    if($estado != null) {
-      return $query->where('tip_env', 'LIKE', "%$estado%");
-    }
-  }
   public function scopeMetodoDeEntrega($query, $metodo_de_entrega) {
     if($metodo_de_entrega != null) {
-      return $query->where('tip_env', 'LIKE', "%$metodo_de_entrega%");
+      return $query->orWhere('met_de_entreg', 'LIKE', "%$metodo_de_entrega%");
+    } else {
+      return $query->orWhere('id', '!"#$%&/()(/&%$');
+    }
+  }
+  public function scopeEstado($query, $estado) {
+    if($estado != null) {
+      return $query->orWhere('est', 'LIKE', "%$estado%");
+    } else {
+      return $query->orWhere('id', '!"#$%&/()(/&%$');
     }
   }
   public function scopeTipoDeEnvio($query, $tipo_de_envio) {
     if($tipo_de_envio != null) {
-      return $query->where('tip_env', 'LIKE', "%$tipo_de_envio%");
+      return $query->orWhere('tip_env', 'LIKE', "%$tipo_de_envio%");
+    } else {
+      return $query->orWhere('id', '!"#$%&/()(/&%$');
     }
   }
 }

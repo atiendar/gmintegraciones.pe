@@ -43,7 +43,7 @@ class CreateProductosTable extends Migration
             $table->text('desc_del_prod')->nullable()->comment('Descripcion del producto');
             $table->string('asignado_prod', 75)->comment('Correo del usuario al que se le asigno este registro');
             $table->string('created_at_prod', 75)->nullable()->comment('correo del usuario que realizo el registro');
-            $table->string('updated_at_prod', 75)->nullable()->comment('correo del usuario que realizo la ultima modificacion');
+            $table->string('updated_at_prod', 75)->nullable()->comment('correo del usuario que realizo la última modificacion');
             $table->timestamps();
             $table->softDeletes();   
         });

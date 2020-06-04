@@ -20,10 +20,10 @@ class ArmadoPedidoActivoController extends Controller {
   }
   public function show($id_armado) {
     $armado = $this->armadoPedidoActivoRepo->armadoFindOrFailById($id_armado);
-  
+    $productos  = $armado->productos()->with('sustitutos')->get();
     $direcciones = $armado->direcciones()->paginate(9);
 
-    return view('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_show', compact('armado', 'direcciones'));
+    return view('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_show', compact('armado', 'productos', 'direcciones'));
   }
   public function edit($id_armado) {
     $armado = $this->armadoPedidoActivoRepo->armadoFindOrFailById($id_armado);

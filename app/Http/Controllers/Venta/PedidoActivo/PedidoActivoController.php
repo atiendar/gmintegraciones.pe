@@ -3,35 +3,14 @@ namespace App\Http\Controllers\Venta\PedidoActivo;
 use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
-use App\Http\Requests\venta\pedidoActivo\StorePedidoRequest;
 use App\Http\Requests\venta\pedidoActivo\UpdatePedidoRequest;
-use App\Http\Requests\venta\pedidoActivo\UpdateTotalDeArmadosRequest;
-use App\Http\Requests\venta\pedidoActivo\UpdateMontoTotalRequest;
-// Notifications
-// use App\Notifications\cliente\NotificacionBienvenidaCliente;
-// Servicios
-use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
 use App\Repositories\venta\pedidoActivo\PedidoActivoRepositories;
-use App\Repositories\usuario\UsuarioRepositories;
-use App\Repositories\sistema\serie\SerieRepositories;
-use App\Repositories\sistema\plantilla\PlantillaRepositories;
-use App\Repositories\sistema\sistema\SistemaRepositories;
 
 class PedidoActivoController extends Controller {
-  protected $serviceCrypt;
   protected $pedidoActivoRepo;
-  protected $usuarioRepo;
-  protected $serieRepo;
-  protected $plantillaRepo;
-  protected $sistemaRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, PedidoActivoRepositories $pedidoActivoRepositories, UsuarioRepositories $usuarioRepositories, SerieRepositories $serieRepositories, PlantillaRepositories $plantillaRepositories, SistemaRepositories $sistemaRepositories) {
-    $this->serviceCrypt     = $serviceCrypt;
+  public function __construct(PedidoActivoRepositories $pedidoActivoRepositories) {
     $this->pedidoActivoRepo = $pedidoActivoRepositories;
-    $this->usuarioRepo      = $usuarioRepositories;
-    $this->serieRepo        = $serieRepositories;
-    $this->plantillaRepo    = $plantillaRepositories;
-    $this->sistemaRepo      = $sistemaRepositories;
   }
   public function index(Request $request) {
     $pedidos = $this->pedidoActivoRepo->getPagination($request, ['usuario', 'unificar']);

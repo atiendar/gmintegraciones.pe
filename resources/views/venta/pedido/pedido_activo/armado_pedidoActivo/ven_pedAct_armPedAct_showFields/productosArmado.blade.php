@@ -6,7 +6,12 @@
         @foreach($productos as $producto)
           <tr>
             <td>
-              {{ $producto->cant }} - {{ $producto->produc }}
+              {{ $producto->cant }} -
+              @if($producto->sustitutos()->sum('cant') == $producto->cant * $armado->cant)
+                <del>{{ $producto->produc }}</del>
+              @else
+                {{ $producto->produc }}
+              @endif
               @foreach($producto->sustitutos as $sustituto)
                 <div class="input-group text-muted ml-4">
                   {{ $sustituto->cant }} - {{ $sustituto->produc }}

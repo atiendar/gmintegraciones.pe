@@ -2,7 +2,10 @@
 @section('contenido')
 <title>@section('title', __('Inicio almacén'))</title>
 <div class="row">
-  @canany(['almacen.pedidoActivo.index'])
+  @canany([
+    'almacen.pedidoActivo.index', 'almacen.pedidoActivo.show', 'almacen.pedidoActivo.edit', 'almacen.pedidoActivo.armado.show', 'almacen.pedidoActivo.armado.edit',
+    'almacen.pedidoTerminado.index'
+  ])
     <div class="col-lg-3">
       <div class="small-box bg-info">
         <div class="inner">
@@ -12,7 +15,7 @@
               {{ __('Ver más') }}
             </a>
             <div class="dropdown-menu">
-              @canany(['almacen.pedidoActivo.index'])
+              @canany(['almacen.pedidoActivo.index', 'almacen.pedidoActivo.show', 'almacen.pedidoActivo.edit', 'almacen.pedidoActivo.armado.show', 'almacen.pedidoActivo.armado.edit',])
                 <a href="{{ route('almacen.pedidoActivo.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos activos') }}</a>
               @endcanany
               @canany(['almacen.pedidoTerminado.index'])

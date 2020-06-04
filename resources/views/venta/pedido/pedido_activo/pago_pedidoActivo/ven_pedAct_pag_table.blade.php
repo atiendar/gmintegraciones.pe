@@ -15,7 +15,7 @@
       <tbody> 
         @foreach($pagos as $pago)
           <tr title="{{ $pago->cod_fact }}">
-            @include('venta.pedido.pedido_activo.pago_pedidoActivo.ven_pedAct_pag_tableOpcionShow')
+            @include('pago.pag_table.td.codigoDeFacturacion', ['show' => true, 'canany' => ['venta.pedidoActivo.pago.show'], 'ruta' => 'venta.pedidoActivo.pago.show'])
             @include('pago.pag_table.td.estatusPago')
             @include('pago.pag_table.td.formaDePago')
             @include('pago.pag_table.td.montoDePago')

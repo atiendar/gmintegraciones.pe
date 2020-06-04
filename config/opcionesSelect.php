@@ -610,4 +610,10 @@ return array(
     'Transferencia'               => 'Transferencia',
     'Otro'                        => 'Otro',
   ],
+  /* =====================  RASTREAR [ RASTREAR PEDIDO ] ===================== */
+  'select_rastrear_pedido_index'  => [
+    ''                        => 'Buscar por. . .',
+  //  'usuario.email_registro'  => 'Cliente', // este marca error
+    'num_pedido'              => 'Número de pedido',
+  ],
 );

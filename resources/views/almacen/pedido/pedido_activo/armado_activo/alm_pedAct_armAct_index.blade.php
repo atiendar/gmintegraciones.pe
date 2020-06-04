@@ -1,6 +1,6 @@
 <div class="card {{ config('app.color_card_secundario') }} card-outline">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_secundario') }}">
-    @can('almacen.pedidoActivo.edit')
+    @can('almacen.pedidoActivo.armado.edit')
       @if($pedido->lid_de_ped_alm != null)
         <div class="float-right">
           {!! Form::open(['route' => ['almacen.pedidoActivo.marcarTodoCompleto.update', Crypt::encrypt($pedido->id)], 'method' => 'patch', 'id' => 'almacenPedidoActivoMarcarTodoCompletoUpdate']) !!}
@@ -10,7 +10,7 @@
       @endif
     @endcan
     <h5>
-      <strong>{{ __('Armado registrado') }}: </strong> {{ $pedido->arm_carg }}  <strong>{{('de')}} </strong> {{ $pedido->tot_de_arm }},
+      <strong>{{ __('Armados registrados') }}: </strong>@include('venta.pedido.pedido_activo.ven_pedAct_table.td.totalDeArmados'),
       <strong>{{ __('Terminados') }}: </strong>
       {{ $armados_terminados_almacen }}
     </h5>

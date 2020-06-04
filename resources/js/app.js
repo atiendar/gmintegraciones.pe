@@ -20,16 +20,9 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 
-window.EventBus = new Vue(); // Evento para mostrar en lista el usuario recién creado
 
 /* ===================== [ COMPONENTES (USUARIO) ] ===================== */
-Vue.component('usuario', require('./components/usuario/UsuarioForm.vue').default);
 Vue.component('usuarios-lista', require('./components/usuario/UsuariosLista.vue').default);
-Vue.component('usuario-menu', require('./components/usuario/UsuarioMenu.vue').default);
-Vue.component('usuario-show', require('./components/usuario/UsuarioShow.vue').default);
-
-/* ===================== [ COMPONENTES (SISTEMA) ] ===================== */
-Vue.component('ladas-lista', require('./components/sistema/lada/LadasLista.vue').default);
 
 /* ===================== [ COMPONENTES (LAYOUTS) ] ===================== */
 Vue.component('layouts-menu-header', require('./components/layouts/MenuHeader.vue').default);
@@ -41,6 +34,8 @@ Vue.component('layouts-menu-header', require('./components/layouts/MenuHeader.vu
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+/*
 const app = new Vue({
     el: '#dashboard',
 });
+*/
