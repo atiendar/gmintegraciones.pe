@@ -22,11 +22,11 @@
 @endswitch
 
 <div class="form-group col-sm btn-sm">
-  <label for="estatus_almacen">{{ __('Estatus almacen') }} {{ $pedido->fech_estat_alm }}</label>
+  <label for="estatus_almacen">{{ __('Estatus almacén') }} {{ $pedido->fech_estat_alm }}</label>
   <div class="input-group">
     <div class="input-group-prepend">
       <span class="input-group-text" style="border-color:{{ $borde }}"><i class="fas fa-text-width"></i></i></span>
     </div>
-    {!! Form::text('estatus_almacen', $pedido->estat_alm, ['class' => 'form-control disable', 'style' => "border-color:$borde", 'maxlength' => 0, 'placeholder' => __('Estatus almacen'), 'readonly' => 'readonly']) !!}
+    {!! Form::text('estatus_almacen', $pedido->estat_alm, ['class' => 'form-control disable', 'style' => "border-color:$borde", 'maxlength' => 0, 'placeholder' => __('Estatus almacén'), 'readonly' => 'readonly']) !!}
   </div>
 </div>

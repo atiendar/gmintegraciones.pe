@@ -19,7 +19,7 @@ class CreateProveedoresTable extends Migration
             $table->string('arch_nom', 200)->nullable()->comment('Nombre del archivo');
             $table->string('raz_soc', 60)->unique()->comment('Razón social');
             $table->string('nom_comerc', 100)->unique()->comment('Nombre comercial');
-            $table->enum('fab_distri', ['Fabricante', 'Distribuidor'])->comment('Fabricante o distribuidor');
+            $table->enum('fab_distri', config('opcionesSelect.select_fabricante_distribuidor_index'))->comment('Fabricante o distribuidor');
             $table->string('rfc', 40)->comment('RFC');
             $table->string('nom_rep_legal', 80)->nullable()->comment('Nombre del representante legal');
             $table->string('pag_web', 100)->nullable()->comment('Página web');

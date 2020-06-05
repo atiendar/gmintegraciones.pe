@@ -15,7 +15,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('metodo_de_entrega', config('opcionesSelect.select_metodo_de_entrega'), $direccion->met_de_entreg_de_vent, ['class' => 'form-control select2' . ($errors->has('metodo_de_entrega') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}   
+      {!! Form::select('metodo_de_entrega', config('opcionesSelect.select_metodo_de_entrega'), $direccion->met_de_entreg, ['class' => 'form-control select2' . ($errors->has('metodo_de_entrega') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}   
     </div>
     <span class="text-danger">{{ $errors->first('metodo_de_entrega') }}</span>
   </div>
@@ -27,7 +27,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('estado_al_que_se_cotizo', config('opcionesSelect.select_estado'), $direccion->est_a_la_q_se_cotiz, ['class' => 'form-control select2' . ($errors->has('estado_al_que_se_cotizo') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}   
+      {!! Form::select('estado_al_que_se_cotizo', config('opcionesSelect.select_estado'), $direccion->est, ['class' => 'form-control select2' . ($errors->has('estado_al_que_se_cotizo') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}   
     </div>
     <span class="text-danger">{{ $errors->first('estado_al_que_se_cotizo') }}</span>
   </div>
@@ -59,7 +59,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-        {!! Form::text('costo_de_envio', $direccion->cost_por_env_vent, ['id' => 'costo_de_envio', 'class' => 'form-control' . ($errors->has('costo_de_envio') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Costo de envío'), 'onChange' => 'getCostoDeEnvioDecimal();']) !!}
+        {!! Form::text('costo_de_envio', $direccion->cost_por_env, ['id' => 'costo_de_envio', 'class' => 'form-control' . ($errors->has('costo_de_envio') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Costo de envío'), 'onChange' => 'getCostoDeEnvioDecimal();']) !!}
     </div>
     <span class="text-danger">{{ $errors->first('costo_de_envio') }}</span>
   </div>

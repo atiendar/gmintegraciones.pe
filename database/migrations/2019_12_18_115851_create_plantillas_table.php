@@ -19,7 +19,7 @@ class CreatePlantillasTable extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
             $table->string('nom', 100)->unique()->comment('Nombre de la plantilla que asigna el usuario');
-            $table->string('mod', 50)->comment('Modulo al que pertenece la plantilla');
+            $table->enum('mod', config('opcionesSelect.select_modulo'))->comment('Modulo al que pertenece la plantilla');
             $table->string('asunt', 100)->comment('Asunto');
             $table->longtext('dis_de_la_plant')->nullable()->comment('Diseño de la plantilla');
             $table->string('asignado_plan', 75)->comment('Correo del usuario al que se le asigno este registro');

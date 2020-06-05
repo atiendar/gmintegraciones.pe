@@ -13,14 +13,7 @@
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.sePuedeEntregarAntes')
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cuantosDiasAntes')
-</div>
-<div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusFactura')
-  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusAlmacen')
-</div>
-<div class="row">
-  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusProduccion')
-  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusLogistica')
 </div>
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosCliente')
@@ -29,10 +22,22 @@
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosVenta')
 </div>
 <div class="row">
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusAlmacen')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.liderDePedidoAlmacen')
+</div>
+<div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosAlmacen')
 </div>
 <div class="row">
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusProduccion')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.liderDePedidoProduccion')
+</div>
+<div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosProduccion')
+</div>
+<div class="row">
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusLogistica')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.liderDePedidoLogistica')
 </div>
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosLogistica')

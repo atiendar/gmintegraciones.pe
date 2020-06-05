@@ -24,7 +24,7 @@ class CreatePedidoArmadosTable extends Migration
             $table->integer('cant_direc_carg')->default(0)->unsigned()->comment('Cantidad de direcciones cargadas');
             $table->string('img_rut',200)->nullable()->comment('Ruta imágen');
             $table->string('img_nom',200)->nullable()->comment('Nombre imágen');
-            $table->string('tip', 150)->comment('Tipo');
+            $table->enum('tip', config('opcionesSelect.select_tipo'))->comment('Tipo');
             $table->string('nom',90)->comment('Nombre');
             $table->string('sku',60)->comment('SKU');
             $table->string('gama', 150)->comment('Gama');
@@ -33,7 +33,7 @@ class CreatePedidoArmadosTable extends Migration
             $table->decimal('alto', 10, 2)->unsigned()->comment('Alto');
             $table->decimal('ancho', 10, 2)->unsigned()->comment('Ancho');
             $table->decimal('largo', 10, 2)->unsigned()->comment('Largo');
-            $table->enum('es_de_regalo', ['Si','No'])->default('No')->comment('Es de regalo');
+            $table->enum('es_de_regalo', config('opcionesSelect.select_si_no'))->default('No')->comment('Es de regalo');
             $table->string('aut',9)->default('N/A')->comment('Autorizado');
             $table->string('tip_tarj_felic',30)->nullable()->comment('Tipo de tarjeta de felicitación');
             $table->text('mens_dedic')->nullable()->comment('Mensaje dedicatoria');

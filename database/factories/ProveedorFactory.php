@@ -5,13 +5,12 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(Proveedor::class, function (Faker $faker) {
-    $usuario = $faker->randomElement(User::where('acceso', '1')->get()->pluck('email_registro'));
-    $fab_distri = array('Fabricante','Distribuidor');
+    $usuario = $faker->randomElement(User::where('acceso', '1')->pluck('email_registro'));
     
     return [
         'raz_soc'           => $faker->unique()->safeEmail,
         'nom_comerc'        => $faker->unique()->catchPhrase,
-        'fab_distri'        => $faker->randomElement($fab_distri),
+        'fab_distri'        => $faker->randomElement(config('opcionesSelect.select_fabricante_distribuidor_index')),
         'rfc'               => $faker->name,
         'nom_rep_legal'     => $faker->name,
         'lad_mov'  			    => '55',

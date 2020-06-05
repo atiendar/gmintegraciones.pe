@@ -27,13 +27,13 @@ class CreateCotizacionTieneArmadosTable extends Migration
             $table->enum('ya_mod',['0', '1'])->default('0')->comment('¿Armado ya modificado? 0= No, 1=Si');
             $table->string('sku',60)->comment('SKU');
             $table->string('gama', 150)->comment('Gama');
-            $table->enum('dest', ['Si','No'])->comment('Destacado');
+            $table->enum('dest', config('opcionesSelect.select_destacado'))->comment('Destacado');
             
             $table->decimal('pes',10,3)->unsigned()->comment('Peso');
             $table->decimal('alto', 10, 2)->unsigned()->comment('Alto');
             $table->decimal('ancho', 10, 2)->unsigned()->comment('Ancho');
             $table->decimal('largo', 10, 2)->unsigned()->comment('Largo');
-            $table->enum('es_de_regalo', ['Si','No'])->default('No')->comment('Es de regalo');
+            $table->enum('es_de_regalo', config('opcionesSelect.select_si_no'))->default('No')->comment('Es de regalo');
 
             $table->integer('cant')->unsigned()->default(1)->comment('Cantidad');
             $table->integer('cant_direc_carg')->unsigned()->default(0)->comment('Cantidad de direcciones cargadas');
@@ -41,7 +41,7 @@ class CreateCotizacionTieneArmadosTable extends Migration
             $table->decimal('prec_redond',20,2)->unsigned()->default(0.00)->comment('Precio redondeado');
             $table->decimal('cost_env', 20,2)->unsigned()->default(0.00)->comment('Costo de envio');
 
-            $table->enum('tip_desc', ['Sin descuento', 'Manual','Porcentaje'])->default('Sin descuento')->comment('Tipo de descuento');
+            $table->enum('tip_desc', config('opcionesSelect.select_tipo_de_descuento'))->default('Sin descuento')->comment('Tipo de descuento');
             $table->decimal('manu',20,2)->nullable()->unsigned()->default(0.00)->comment('Descuento manual');
             $table->string('porc', 150)->nullable()->comment('Porcentaje');
             $table->decimal('desc',20,2)->unsigned()->default(0.00)->comment('Descuento');

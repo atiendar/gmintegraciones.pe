@@ -24,30 +24,33 @@ class CreatePedidosTable extends Migration
             $table->integer('tot_de_arm')->default(0)->unsigned()->comment('Total de armados');
             $table->integer('arm_carg')->default(0)->unsigned()->comment('Armados cargados');
             $table->decimal('mont_tot_de_ped',20, 2)->unsigned()->comment('Monto total del pedido');
-            $table->enum('entr_xprs',['Si','No'])->default('No')->comment('Entrega express');
-            $table->enum('urg',['Si','No'])->default('No')->comment('Urgente');
-            $table->enum('foraneo',['Si','No'])->default('No')->comment('¿Es foráneo?');
-            $table->enum('gratis',['Si','No'])->default('No')->comment('¿Sera gratis?'); 
+            $table->enum('entr_xprs',config('opcionesSelect.select_entrega_express'))->default('No')->comment('Entrega express');
+            $table->enum('urg',config('opcionesSelect.es_pedido_urgente'))->default('No')->comment('Urgente');
+            $table->enum('foraneo',config('opcionesSelect.select_si_no'))->default('No')->comment('¿Es foráneo?');
+            $table->enum('gratis',config('opcionesSelect.select_si_no'))->default('No')->comment('¿Sera gratis?'); 
             $table->date('fech_de_entreg')->nullable()->comment('Fecha de entrega');
-            $table->enum('se_pued_entreg_ant',['Si','No'])->nullable()->comment('¿Se puede entregar antes?');
+            $table->enum('se_pued_entreg_ant',config('opcionesSelect.select_se_puede_entregar_antes'))->nullable()->comment('¿Se puede entregar antes?');
             $table->integer('cuant_dia_ant')->unsigned()->nullable()->comment('¿Cuántos días antes?'); 
             $table->text('coment_client')->nullable()->comment('Comentarios cliente');
-            $table->string('estat_vent_gen',100)->default('Falta Información general')->comment('Estatus de venta 1');
-            $table->string('estat_vent_arm',100)->default('Falta cargar armado(s)')->comment('Estatus de venta 2');
-            $table->string('estat_vent_dir',100)->default('Falta asignar dirección(es) armado(s)')->comment('Estatus de venta 3');
+           
+           
+            
+            $table->string('estat_vent_gen',100)->default(config('app.falta_informacion_general'))->comment('Estatus de venta 1');
+            $table->string('estat_vent_arm',100)->default(config('app.falta_cargar_armados'))->comment('Estatus de venta 2');
+            $table->string('estat_vent_dir',100)->default(config('app.falta_asignar_direcciones_armados'))->comment('Estatus de venta 3');
             $table->text('coment_vent')->nullable()->comment('Comentarios venta');
-            $table->string('estat_fact',100)->default('No solicitada')->comment('Estatus factura');
-            $table->string('estat_pag',100)->default('Pendiente')->comment('Estatus de pago');
+            $table->string('estat_fact',100)->default(config('app.no_solicitada'))->comment('Estatus factura');
+            $table->string('estat_pag',100)->default(config('app.pendiente'))->comment('Estatus de pago');
             $table->string('lid_de_ped_alm',80)->nullable()->comment('Personas que recibe en almacen');
-            $table->string('estat_alm',100)->default('Pendiente')->comment('Estatus almacen');
-            $table->timestamp('fech_estat_alm')->nullable()->comment('Fecha estatus almacen');
+            $table->string('estat_alm',100)->default(config('app.pendiente'))->comment('Estatus almacén');
+            $table->timestamp('fech_estat_alm')->nullable()->comment('Fecha estatus almacén');
             $table->text('coment_alm')->nullable()->comment('Comentarios Almacen');
             $table->string('lid_de_ped_produc',80)->nullable()->comment('Líder de pedido del producto'); 
-            $table->string('estat_produc',100)->default('Pendiente')->comment('Estatus del producto');
+            $table->string('estat_produc',100)->default(config('app.pendiente'))->comment('Estatus del producto');
             $table->timestamp('fech_estat_produc')->nullable()->comment('Fecha estatus producto');
             $table->text('coment_produc')->nullable()->comment('Comentarios producción');
             $table->string('lid_de_ped_log',80)->nullable()->comment('Lider pedido logística');
-            $table->string('estat_log',100)->default('Pendiente')->comment('Estatus logística');
+            $table->string('estat_log',100)->default(config('app.pendiente'))->comment('Estatus logística');
             $table->timestamp('fech_estat_log')->nullable()->comment('Fecha estatus logística');
             $table->text('coment_log')->nullable()->comment('Comentarios logística');
             $table->unsignedBigInteger('user_id')->comment('Foreign Key usuario');

@@ -1,1 +1,1 @@
-<td>${{ Sistema::dosDecimales($direccion->cost_por_env_vent) }}</td>
+<td>${{ Sistema::dosDecimales($direccion->cost_por_env) }}</td>

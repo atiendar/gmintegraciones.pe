@@ -8,7 +8,7 @@ use App\User;
 use App\Models\Serie;
 
 $factory->define(Cotizacion::class, function (Faker $faker) {
-    $usuario    = $faker->randomElement(User::where('acceso', '1')->get()->pluck('email_registro'));
+    $usuario    = $faker->randomElement(User::where('acceso', '1')->pluck('email_registro'));
     $id_cliente = $faker->randomElement(User::where('acceso', '2')->pluck('id'));
     $serie      = $faker->unique()->randomElement(Serie::where('input', 'Cotizaciones (Serie)')->pluck('value'));
     return [

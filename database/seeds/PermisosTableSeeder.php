@@ -708,5 +708,20 @@ class PermisosTableSeeder extends Seeder {
       'desc'            => "Ver detalles de cualquier registro del módulo Rastrear 'Pedido'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+//PERMISOS DEL MÓDULO ALMACÉN (PEDIDO TERMINADO)
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 97,
+      'nom'             => "Navegar por tabla Almacén 'Pedidos terminados'",
+      'name'				    => 'almacen.pedidoTerminado.index',
+      'desc'            => "Lista y navega por todos los registros del módulo Almacén 'Pedidos terminados'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 98,
+      'nom'             => "Ver detalles Almacén 'Pedidos terminados'",
+      'name'				    => 'almacen.pedidoTerminado.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo Almacén 'Pedidos terminados'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
   }
 }

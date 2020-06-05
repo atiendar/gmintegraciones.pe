@@ -35,7 +35,7 @@
             <li class="nav-item">
               <a href="{{ route('venta.pedidoTerminado.index') }}" class="nav-link {{ Request::is('venta/pedido-terminado') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-list"></i>
-                <p>{{ __('Lista de pedidos terminados') }}</p>
+                <p>{{ __('Lista de pedidos terminados') }} (-90d)</p>
               </a>
             </li>
           @endcanany

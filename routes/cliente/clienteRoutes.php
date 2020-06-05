@@ -32,6 +32,4 @@ Route::group(['prefix' => 'cliente'], function() {
     Route::match(['PUT', 'PATCH'],'actualizar/{id_usuario}', 'Cliente\ClienteController@update')->name('cliente.update')->middleware('permission:cliente.edit');
     Route::match(['DELETE'],'eliminar/{id_cliente}', 'Cliente\ClienteController@destroy')->name('cliente.destroy')->middleware('permission:cliente.destroy');
     Route::match(['GET', 'HEAD'],'re-enviar-correo-bienvenida/{id_cliente}', 'Cliente\ClienteController@reEnviarCorreoBienvenida')->name('cliente.reEnviarCorreoBienvenida')->middleware('permission:cliente.create');
-
-   
 });

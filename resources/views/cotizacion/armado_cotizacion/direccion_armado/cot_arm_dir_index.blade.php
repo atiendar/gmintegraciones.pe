@@ -1,10 +1,10 @@
 <div class="card {{ empty($armado->cant == $armado->cant_direc_carg) ? config('app.color_card_danger') : config('app.color_card_secundario') }} card-outline">
   <div class="card-header p-1 border-bottom {{ empty($armado->cant == $armado->cant_direc_carg) ?  config('app.color_bg_danger') : config('app.color_bg_secundario') }}">
-      @if(Request::route()->getName() == 'cotizacion.armado.edit')
-        <div class="float-right">
-          <a href="{{ route('cotizacion.armado.direccion.create', Crypt::encrypt($armado->id)) }}" class="btn btn-primary">{{ __('Registrar dirección') }}</a>
-        </div>
-      @endif
+    @if(Request::route()->getName() == 'cotizacion.armado.edit')
+      <div class="float-right">
+        <a href="{{ route('cotizacion.armado.direccion.create', Crypt::encrypt($armado->id)) }}" class="btn btn-primary">{{ __('Registrar dirección') }}</a>
+      </div>
+    @endif
     <h5>{{ __('Direcciones') }} ({{ $armado->cant_direc_carg }} {{ __('de') }} {{ $armado->cant }})</h5>
   </div>
   <div class="card-body">

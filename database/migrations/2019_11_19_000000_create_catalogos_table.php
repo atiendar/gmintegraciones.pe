@@ -18,7 +18,7 @@ class CreateCatalogosTable extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
-            $table->enum('input', ['Armados (Gama)', 'Armados (Tipo)', 'Productos (Categoría)', 'Productos (Etiqueta)', 'Soportes (Agrupación de fallas)'])->comment('Nombre del input select');
+            $table->enum('input', config('opcionesSelect.select_input'))->comment('Nombre del input select');
             $table->string('value', 150)->comment('Valor que se guardara en la BD');
             $table->string('vista', 150)->comment('Valor que se le mostrara al usuario');
             $table->string('asignado_cat', 75)->comment('Correo del usuario al qu se le asigno este registro');

@@ -4,7 +4,7 @@
 <div class="row">
   @canany([
     'almacen.pedidoActivo.index', 'almacen.pedidoActivo.show', 'almacen.pedidoActivo.edit', 'almacen.pedidoActivo.armado.show', 'almacen.pedidoActivo.armado.edit',
-    'almacen.pedidoTerminado.index'
+    'almacen.pedidoTerminado.index','almacen.pedidoTerminado.show'
   ])
     <div class="col-lg-3">
       <div class="small-box bg-info">
@@ -18,8 +18,8 @@
               @canany(['almacen.pedidoActivo.index', 'almacen.pedidoActivo.show', 'almacen.pedidoActivo.edit', 'almacen.pedidoActivo.armado.show', 'almacen.pedidoActivo.armado.edit',])
                 <a href="{{ route('almacen.pedidoActivo.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos activos') }}</a>
               @endcanany
-              @canany(['almacen.pedidoTerminado.index'])
-                <a href="{{ route('almacen.pedidoTerminado.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos terminados') }}</a>
+              @canany(['almacen.pedidoTerminado.index','almacen.pedidoTerminado.show'])
+                <a href="{{ route('almacen.pedidoTerminado.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos terminados') }} (-90d)</a>
               @endcanany
             </div>
           </div>

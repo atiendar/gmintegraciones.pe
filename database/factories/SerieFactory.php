@@ -5,13 +5,12 @@ use App\User;
 use Faker\Generator as Faker;
 
 $factory->define(Serie::class, function (Faker $faker) {
-    $input          = $faker->randomElement(['Cotizaciones (Serie)', 'Pedidos (Serie)']);
     $p1             = $faker->streetSuffix;
     $p2             = $faker->tld;
     $value_vista    = $p1.$p2;
-    $usuario        = $faker->randomElement(User::where('acceso', '1')->get()->pluck('email_registro'));
+    $usuario        = $faker->randomElement(User::where('acceso', '1')->pluck('email_registro'));
     return [
-        'input'             => $input,
+        'input'             => $faker->randomElement(config('opcionesSelect.select_input_serie')),
         'value'             => $value_vista . '-',
         'vista'             => $value_vista . '-',
         'asignado_ser'      => $usuario,

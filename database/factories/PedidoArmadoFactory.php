@@ -10,10 +10,10 @@ use Faker\Generator as Faker;
 $factory->define(PedidoArmado::class, function (Faker $faker) {
     $armado = $faker->randomElement(Armado::all());
     $pedido = $faker->randomElement(Pedido::all());
-    $usuario = $faker->randomElement(User::where('acceso', '1')->get()->pluck('email_registro'));
+    $usuario = $faker->randomElement(User::where('acceso', '1')->pluck('email_registro'));
     return [
         'cod'                   => $pedido->num_pedido.'-'.$faker->stateAbbr,
-        'estat'                 =>  $faker->randomElement(['En espera de compra', 'En revisión de productos', 'Productos completos', 'En producción', 'En almacén de salida', 'En ruta', 'Entregado', 'Sin entrega por falta de información', 'Intento de entrega fallido', 'Cancelado']),
+        'estat'                 => $faker->randomElement([config('app.en_espera_de_compra'), config('app.en_revision_de_productos'), config('app.productos_completos'), config('app.en_produccion'), config('app.en_almacen_de_salida'), config('app.en_ruta'), config('app.entregado'), config('app.sin_entrega_por_falta_de_informacion'), config('app.intento_de_entrega_fallido'), config('app.cancelado')]),
         'cant'                  => '100',
         'tip'                   => $armado->tip,
         'nom'                   => $armado->nom,
@@ -28,4 +28,3 @@ $factory->define(PedidoArmado::class, function (Faker $faker) {
         'created_at_ped_arm'    => $usuario,
     ];
 });
-

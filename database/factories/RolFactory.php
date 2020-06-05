@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(Spatie\Permission\Models\Role::class, function (Faker $faker) {
-    $usuario = $faker->randomElement(User::where('acceso', '1')->get()->pluck('email_registro'));
+    $usuario = $faker->randomElement(User::where('acceso', '1')->pluck('email_registro'));
     return [
         'nom'               => $faker->unique()->name,
         'name'              => $faker->unique()->name,

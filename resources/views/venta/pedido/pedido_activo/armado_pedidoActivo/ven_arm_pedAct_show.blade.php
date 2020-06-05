@@ -4,13 +4,13 @@
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
     <h5>
-      <strong>{{ __('Detalles armado') }}:</strong>
+      <strong>{{ __('Datos generales del armado') }}:</strong>
       @can('venta.pedidoActivo.armado.edit')
         <a href="{{ route('venta.pedidoActivo.armado.edit', Crypt::encrypt($armado->id)) }}" class="text-white">{{ $armado->cod }}</a>,
       @else
         {{ $armado->cod }},
       @endcan
-     <strong>{{ __('del pedido') }}:</strong> {{ $armado->pedido->num_pedido }}
+     <strong>{{ __('estas en el pedido') }}:</strong> {{ $armado->pedido->num_pedido }}
     </h5>
   </div>
   <div class="ribbon-wrapper">

@@ -14,5 +14,6 @@
     {!! Form::close() !!}
   </div>
 </div>
+@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_costosDeEnvio')
 @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_index')
 @endsection

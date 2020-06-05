@@ -22,11 +22,11 @@ class CreateArmadosTable extends Migration
             $table->string('img_nom',200)->nullable()->comment('Nombre imágen');
             $table->enum('clon',['0','1'])->default('1')->comment('0=No 1=Si');
             $table->integer('num_clon')->unsigned()->default(0)->comment('Número de clon');
-            $table->string('tip', 150)->comment('Tipo');
+            $table->enum('tip', config('opcionesSelect.select_tipo'))->comment('Tipo');
             $table->string('nom',90)->unique()->comment('Nombre');
             $table->string('sku',60)->unique()->comment('SKU');
             $table->string('gama', 150)->comment('Gama');
-            $table->enum('dest', ['Si','No'])->comment('Destacado');
+            $table->enum('dest', config('opcionesSelect.select_destacado'))->comment('Destacado');
             $table->decimal('prec_origin',20,2)->unsigned()->default(0.00)->comment('Precio original');
             $table->decimal('prec_redond',20,2)->unsigned()->default(0.00)->comment('Precio redondeado');
             $table->string('url_pagina', 150)->nullable()->comment('URL página');

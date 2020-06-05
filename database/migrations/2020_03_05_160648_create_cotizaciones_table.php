@@ -21,7 +21,7 @@ class CreateCotizacionesTable extends Migration
             $table->string('num_pedido_gen',45)->nullable()->comment('Número de pedido generado');
             $table->string('ser',45)->comment('Serie');
             $table->string('serie',45)->unique()->comment('Serie');
-            $table->enum('estat', ['Abierta', 'Aprobada', 'Cancelada'])->default('Abierta')->comment('Estatus de la factura');
+            $table->enum('estat', [config('app.abierta'),config('app.aprobada'),config('app.cancelada')])->default('Abierta')->comment('Estatus de la factura');
             $table->date('valid')->comment('Fecha de validez');
         //    $table->string('email_cliente',75)->comment('Correo del cliente que solicita la cotización');
             $table->text('desc_cot')->comment('Descripción de la cotización');

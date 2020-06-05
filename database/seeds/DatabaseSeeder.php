@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         ProductoTieneSustitutosTableSeeder::class,
         ArmadosTableSeeder::class,
         ArmadoTieneProductosTableSeeder::class,
+        CostosDeEnvioTableSeeder::class,
         CotizacionesTableSeeder::class,
         DireccionesTableSeeder::class,
         DatosFiscalesTableSeeder::class,

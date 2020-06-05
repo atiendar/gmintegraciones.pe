@@ -22,7 +22,7 @@ class CreateCotizacionArmadoTieneProductosTable extends Migration {
             $table->string('sku',30)->comment('SKU');
 
             $table->string('marc', 70)->comment('Marca del producto');
-            $table->enum('tip', ['Producto', 'Canasta'])->comment('Tipo de producto');
+            $table->enum('tip', config('opcionesSelect.select_tipo'))->comment('Tipo de producto');
             $table->decimal('alto', 10, 2)->default(0.00)->unsigned()->comment('Alto de la canasta');
             $table->decimal('ancho', 10, 2)->default(0.00)->unsigned()->comment('Ancho de la canasta');
             $table->decimal('largo', 10, 2)->default(0.00)->unsigned()->comment('Largo de la canasta');

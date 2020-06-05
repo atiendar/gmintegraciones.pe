@@ -1,1 +1,1 @@
-<th>{{ __('ESTATUS ALMACEN') }}</th>
+<th>{{ __('ESTATUS ALMACÉN') }}</th>

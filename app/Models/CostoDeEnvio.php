@@ -10,23 +10,22 @@ class CostoDeEnvio extends Model {
 
   public function scopeMetodoDeEntrega($query, $metodo_de_entrega) {
     if($metodo_de_entrega != null) {
-      return $query->orWhere('met_de_entreg', 'LIKE', "%$metodo_de_entrega%");
-    } else {
-      return $query->orWhere('id', '!"#$%&/()(/&%$');
+      return $query->where('met_de_entreg', 'LIKE', "%$metodo_de_entrega%");
     }
   }
   public function scopeEstado($query, $estado) {
     if($estado != null) {
-      return $query->orWhere('est', 'LIKE', "%$estado%");
-    } else {
-      return $query->orWhere('id', '!"#$%&/()(/&%$');
+      return $query->where('est', 'LIKE', "%$estado%");
     }
   }
   public function scopeTipoDeEnvio($query, $tipo_de_envio) {
     if($tipo_de_envio != null) {
-      return $query->orWhere('tip_env', 'LIKE', "%$tipo_de_envio%");
-    } else {
-      return $query->orWhere('id', '!"#$%&/()(/&%$');
+      return $query->where('tip_env', 'LIKE', "%$tipo_de_envio%");
+    }
+  }
+  public function scopeSinSeleccion($query, $metodo_de_entrega, $estado, $tipo_de_envio) {
+    if($metodo_de_entrega == null AND $estado == null AND $tipo_de_envio == null) {
+      return $query->where('id', '!"#$%&/()(/&%$');
     }
   }
 }

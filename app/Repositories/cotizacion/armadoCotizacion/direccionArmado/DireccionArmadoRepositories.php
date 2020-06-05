@@ -42,17 +42,17 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
       // GUARDA LA DIRECCIÓN AL ARMADO
       $direccion = new CotizacionArmadoTieneDirecciones();
       $direccion->cant                      = $request->cantidad;
-      $direccion->met_de_entreg_de_vent     = $request->metodo_de_entrega;
-      $direccion->est_a_la_q_se_cotiz       = $request->estado_al_que_se_cotizo;
+      $direccion->met_de_entreg             = $request->metodo_de_entrega;
+      $direccion->est                       = $request->estado_al_que_se_cotizo;
       $direccion->detalles_de_la_ubicacion  = $request->detalles_de_la_ubicacion;
       $direccion->tip_env                   = $request->tipo_de_envio;
-      $direccion->cost_por_env_vent         = $request->costo_de_envio;
+      $direccion->cost_por_env              = $request->costo_de_envio;
       $direccion->armado_id                 = $armado->id;
       $direccion->created_at_dir            = Auth::user()->email_registro;
       $direccion->save();
       
       // GENERA LOS NUEVOS VALORES PARA EL ARMADO
-      $armado->cost_env         += $direccion->cost_por_env_vent;
+      $armado->cost_env         += $direccion->cost_por_env;
       $armado->cant_direc_carg  += $direccion->cant;
       $armado = $this->calcularValoresArmadoCotizacionRepo->sumaValoresArmadoCotizacion($armado);
       $armado->save();
@@ -72,13 +72,13 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
 
       // ACTUALIZA LOS DATOS DE LA DIRECCIÓN
       $cant_direc_orig                      = $direccion->cant;
-      $cost_por_env_vent_orig               = $direccion->cost_por_env_vent;
+      $cost_por_env_vent_orig               = $direccion->cost_por_env;
       $direccion->cant                      = $request->cantidad;
-      $direccion->met_de_entreg_de_vent     = $request->metodo_de_entrega;
-      $direccion->est_a_la_q_se_cotiz       = $request->estado_al_que_se_cotizo;
+      $direccion->met_de_entreg             = $request->metodo_de_entrega;
+      $direccion->est                       = $request->estado_al_que_se_cotizo;
       $direccion->detalles_de_la_ubicacion  = $request->detalles_de_la_ubicacion;
       $direccion->tip_env                   = $request->tipo_de_envio;
-      $direccion->cost_por_env_vent         = $request->costo_de_envio;
+      $direccion->cost_por_env              = $request->costo_de_envio;
       if($direccion->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
@@ -88,7 +88,7 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
           $this->serviceCrypt->decrypt($id_direccion), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
           array('Cantidad', 'Método de entrega', 'Estado al que se cotizo', 'Detalles de la ubicación', 'Tipo de envío', 'Costo de envío'), // Nombre de los inputs del formulario
           $direccion, // Request
-          array('cant', 'met_de_entreg_de_vent', 'est_a_la_q_se_cotiz', 'detalles_de_la_ubicacion', 'tip_env', 'cost_por_env_vent') // Nombre de los campos en la BD
+          array('cant', 'met_de_entreg', 'est', 'detalles_de_la_ubicacion', 'tip_env', 'cost_por_env') // Nombre de los campos en la BD
         ); 
         $direccion->updated_at_dir  = Auth::user()->email_registro;
       }
@@ -96,7 +96,7 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
 
       // ACTUALIZA Y GENERA LOS NUEVOS PRECIOS DEL ARMADO
       $armado->cost_env        -= $cost_por_env_vent_orig;
-      $armado->cost_env        += $direccion->cost_por_env_vent;
+      $armado->cost_env        += $direccion->cost_por_env;
       $armado->cant_direc_carg -= $cant_direc_orig;
       $armado->cant_direc_carg += $direccion->cant;
       $armado                   = $this->calcularValoresArmadoCotizacionRepo->sumaValoresArmadoCotizacion($armado);
@@ -117,7 +117,7 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
       $direccion->delete();
 
       // ACTUALIZA Y GENERA LOS NUEVOS PRECIOS DEL ARMADO
-      $armado->cost_env        -= $direccion->cost_por_env_vent;
+      $armado->cost_env        -= $direccion->cost_por_env;
       $armado->cant_direc_carg -= $direccion->cant;
       $armado                   = $this->calcularValoresArmadoCotizacionRepo->sumaValoresArmadoCotizacion($armado);
       $armado->save();

@@ -15,7 +15,7 @@
       </thead>
       <tbody> 
         @foreach($direcciones as $direccion)
-          <tr title="{{ $direccion->est_a_la_q_se_cotiz }}">
+          <tr title="{{ $direccion->est }}">
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntrega')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.estado')

@@ -1,1 +1,1 @@
-<td>{{ $direccion->met_de_entreg_de_vent }}</td>
+<td>{{ $direccion->met_de_entreg }}</td>

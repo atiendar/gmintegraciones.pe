@@ -13,7 +13,7 @@
           </a>
           <div class="dropdown-menu">
             <a href="{{ route('venta.pedidoActivo.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos activos') }}</a>
-            <a href="{{ route('venta.pedidoTerminado.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos terminados') }}</a>
+            <a href="{{ route('venta.pedidoTerminado.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos terminados') }} (-90d)</a>
           </div>
         </div>
       </div>

@@ -19,12 +19,15 @@ class CreateCostosDeEnvioTable extends Migration
         $table->collation = 'utf8mb4_unicode_ci';
         $table->bigIncrements('id');
 
-        $table->string('met_de_entreg', 150)->comment('Método de entrega');
-        $table->string('est',150)->comment('Estado');
-        $table->enum('for_loc', ['Foráneo', 'Local'])->comment('Tipo de envío');
-        $table->enum('tip_env', ['Normal', 'Express'])->comment('Tipo de envío');
+        $table->enum('met_de_entreg', config('opcionesSelect.select_metodo_de_entrega'))->comment('Método de entrega');
+        $table->enum('est',config('opcionesSelect.select_estado'))->comment('Estado');
+        $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Tipo de envío');
+        $table->enum('tip_env', config('opcionesSelect.select_tipo_de_envio'))->comment('Tipo de envío');
         $table->decimal('cost_por_env',20,2)->unsigned()->comment('Costo por envío');
 
+        $table->string('asignado_env', 75)->comment('Correo del usuario al qu se le asigno este registro');
+        $table->string('created_at_env',75)->comment('Correo del usuario que realizo el registro');
+        $table->string('updated_at_env',75)->nullable()->comment('Correo del usuario que realizo la última modificación');
         $table->timestamps();
         $table->softDeletes();
       });

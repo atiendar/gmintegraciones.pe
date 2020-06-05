@@ -7,12 +7,10 @@ use App\Models\Catalogo;
 use Faker\Generator as Faker;
 
 $factory->define(Producto::class, function (Faker $faker) {
-    $usuario = $faker->randomElement(User::where('acceso', '1')->get()->pluck('email_registro'));
-    $categ      = $faker->randomElement(Catalogo::where('input', 'Productos (Categoría)')->pluck('value'));
-    $etiq       = $faker->randomElement(Catalogo::where('input', 'Productos (Etiqueta)')->pluck('value'));
+    $usuario    = $faker->randomElement(User::where('acceso', '1')->pluck('email_registro'));
     $prec_prove = $faker->randomFloat(3, 0, 1000);
     $utilid     = $faker->randomElement(['.1','.2','.3','.4']);
-    $tip        = $faker->randomElement(['Producto','Canasta']);
+    $tip        = $faker->randomElement(config('opcionesSelect.select_tipo'));
     $alto       = 0.00;
     $ancho      = 0.00;
     $largo      = 0.00;
@@ -22,7 +20,7 @@ $factory->define(Producto::class, function (Faker $faker) {
         $alto       = $faker->randomFloat(2, 1, 5);
         $ancho      = $faker->randomFloat(2, 1, 5);
         $largo      = $faker->randomFloat(2, 1, 5);
-        $cost_arm   = $faker->randomFloat(2, 10, 20);
+        $cost_arm   = $faker->randomFloat(2, 5, 20);
     } elseif($tip == 'Producto') {
         $produc = $faker->unique()->name;
     }
@@ -39,12 +37,12 @@ $factory->define(Producto::class, function (Faker $faker) {
         'cost_arm'          => $cost_arm,
         'cant_requerida'    => $faker->numberBetween(99, 999),
         'stock'             => $faker->numberBetween(9, 999),
-        'prove'             => $faker->randomElement(\App\Models\Proveedor::all()->pluck('nom_comerc')),
+        'prove'             => $faker->randomElement(\App\Models\Proveedor::pluck('nom_comerc')),
         'prec_prove'        => $prec_prove,
         'utilid'            => $utilid,
         'prec_clien'        => $prec_clien,
-        'categ'             => $categ,
-        'etiq'              => $etiq,
+        'categ'             => $faker->randomElement(Catalogo::where('input', 'Productos (Categoría)')->pluck('value')),
+        'etiq'              => $faker->randomElement(Catalogo::where('input', 'Productos (Etiqueta)')->pluck('value')),
         'pes'               => $faker->randomFloat(3, 1, 5),
         'cod_barras'        => $faker->ean13,
         'asignado_prod'  	  => $usuario,

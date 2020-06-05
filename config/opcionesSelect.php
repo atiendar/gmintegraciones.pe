@@ -36,18 +36,15 @@ return array(
     'Zacatecas'             => 'Zacatecas',
   ],
   'select_si_no' => [
-    ''            => 'Seleccione. . .',
     'Si'          => 'Si',
     'No'          => 'No',
   ],
 /* ===================== PERFIL [ PERSONALIZAR SISTEMA ] ===================== */
   'select_idioma' => [
-    ''            => 'Seleccione. . .',
     'es'          => 'Español',
     'en'          => 'Ingles',
   ],
   'select_color_barra_de_navegacion'  => [
-    ''                              => 'Seleccione. . .',
     'navbar-dark navbar-primary'    => 'navbar-dark navbar-primary',
     'navbar-dark navbar-secondary'  => 'navbar-dark navbar-secondary',
     'navbar-dark navbar-info'       => 'navbar-dark navbar-info',
@@ -67,11 +64,10 @@ return array(
     'navbar-light navbar-orange'    => 'navbar-light navbar-orange',
   ],
   'select_color_barra_lateral_oscura_o_clara'  => [
-    ''                      => 'Seleccione. . .',
     'sidebar-dark-primary'  => 'sidebar-dark-primary',
     'sidebar-dark-warning'  => 'sidebar-dark-warning',
     'sidebar-dark-info'     => 'sidebar-dark-info',
-    'sidebar-dark-danger'   => 'idebar-dark-danger',
+    'sidebar-dark-danger'   => 'sidebar-dark-danger',
     'sidebar-dark-success'  => 'sidebar-dark-success',
     'sidebar-dark-indigo'   => 'sidebar-dark-indigo',
     'sidebar-dark-navy'     => 'sidebar-dark-navy',
@@ -100,7 +96,6 @@ return array(
     'sidebar-light-olive'   => 'sidebar-light-olive',
   ],
   'select_color_logotipo'  => [
-    ''                  => 'Seleccione. . .',
     'navbar-primary'    => 'navbar-primary',
     'navbar-secondary'  => 'navbar-secondary',
     'navbar-info'       => 'navbar-info',
@@ -110,7 +105,7 @@ return array(
     'navbar-purple'     => 'navbar-purple',
     'navbar-pink'       => 'navbar-pink',
     'navbar-teal'       => 'navbar-teal',
-    'navbar-cyan'       => 'avbar-cyan',
+    'navbar-cyan'       => 'navbar-cyan',
     'navbar-dark'       => 'navbar-dark',
     'navbar-gray-dark'  => 'navbar-gray-dark',
     'navbar-gray'       => 'navbar-gray',
@@ -151,7 +146,6 @@ return array(
     'created_at'          => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_modulo' => [
-    ''                                          => 'Seleccione . . .',
     'Cotizaciones (Términos y condiciones)'     => 'Cotizaciones (Términos y condiciones)',
     'Clientes (Bienvenida)'                     => 'Clientes (Bienvenida)',
     'Pagos (Registrar pago)'                    => 'Pagos (Registrar pago)',
@@ -208,7 +202,6 @@ return array(
     'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_departamento' => [
-    ''            => 'Seleccione . . .',
     'Ventas'      => 'Ventas',
     'Producción'  => 'Producción',
     'Logística'   => 'Logística',
@@ -314,7 +307,6 @@ return array(
     'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_fabricante_distribuidor_index'  => [
-    ''              => 'Seleccione. . .',
     'Fabricante'    => 'Fabricante',
     'Distribuidor'  => 'Distribuidor',
   ],
@@ -337,12 +329,11 @@ return array(
     'created_at'  => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_tipo'   => [
-    ''            => 'Seleccione. . .',
     'Producto'    => 'Producto',
     'Canasta'     => 'Canasta',
   ],
   'select_producto_armado_index'  => [
-    ''                        => 'Buscar por. . .',
+    ''              => 'Buscar por. . .',
     'categ'         => 'Categoría',
     'cod_barras'    => 'Código de barras',
     'etiq'          => 'Etiqueta',
@@ -375,7 +366,6 @@ return array(
     '20' => 20
   ],
   'select_destacado'  => [
-    ''            => 'Seleccione. . .',
     'Si'          => 'Si',
     'No'          => 'No',
   ],
@@ -393,7 +383,6 @@ return array(
     'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_utilidad' => [
-    ''              => 'Seleccione. . .',
     '.1'           => '10%',
     '.2'           => '20%',
     '.3'           => '30%',
@@ -501,7 +490,7 @@ return array(
     ''                        => 'Buscar por. . .',
   //  'usuario.email_registro'  => 'Cliente',
     'entr_xprs'               => 'Entrega express',
-    'estat_alm'               => 'Estatus almacen',
+    'estat_alm'               => 'Estatus almacén',
     'estat_pag'               => 'Estatus pago',
     'fech_de_entreg'          => 'Fecha de entrega (YYYY-MM-DD)',
     'num_pedido'              => 'Número de pedido',
@@ -518,7 +507,6 @@ return array(
     'created_at'  => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_estatus_armado_almacen' => [
-    ''                                      => 'Seleccione. . .',
     config('app.en_espera_de_compra')       => config('app.en_espera_de_compra'),
     config('app.en_revision_de_productos')  => config('app.en_revision_de_productos'),
     config('app.productos_completos')       => config('app.productos_completos'),
@@ -542,7 +530,6 @@ return array(
   ],
 /* ===================== COTIZACIONES/ARMADO [ DIRECCIONES ] ===================== */
   'select_metodo_de_entrega'  => [
-    ''                                  => 'Seleccione. . .',
     'En bodega'                         => 'En bodega',
     'Gratis'                            => 'Gratis',
     'Paquetería'                        => 'Paquetería',
@@ -550,13 +537,7 @@ return array(
     'Transportes ferro'                 => 'Transportes ferro',
     'Viaje metropolitano'               => 'Viaje metropolitano (Uber, Didi, Beat. . .)',
   ],
-  'select_tipo_de_envio'  => [
-    ''        => 'Seleccione. . .',
-    'Normal'  => 'Normal',
-    'Express' => 'Express',
-  ],
   'select_tipo_de_descuento'  => [
-    ''              => 'Seleccione. . .',
     'Sin descuento' => 'Sin descuento',
     'Manual'        => 'Manual',
     'Porcentaje'    => 'Porcentaje',
@@ -576,22 +557,18 @@ return array(
     'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_entrega_express'  => [
-    ''    => 'Seleccione. . .',
     'Si'  => 'Si',
     'No'  => 'No',
   ],
   'es_pedido_urgente'  => [
-    ''    => 'Seleccione. . .',
     'Si'  => 'Si',
     'No'  => 'No',
   ],
   'select_se_puede_entregar_antes'  => [
-    ''    => 'Seleccione. . .',
     'Si'  => 'Si',
     'No'  => 'No',
   ],
   'select_es_de_regalo'  => [
-    ''    => 'Seleccione. . .',
     'Si'  => 'Si',
     'No'  => 'No',
   ],
@@ -601,7 +578,6 @@ return array(
     'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_forma_de_pago'  => [
-    ''                            => 'Seleccione. . .',
     'Cheque'                      => 'Cheque',
     'Efectivo'                    => 'Efectivo',
     'Paypal'                      => 'Paypal',
@@ -616,4 +592,71 @@ return array(
   //  'usuario.email_registro'  => 'Cliente', // este marca error
     'num_pedido'              => 'Número de pedido',
   ],
+  /* ===================== [ COSTOS DE ENVIO ] ===================== */
+  	'select_foraneo_local' => [
+      'Foráneo' => 'Foráneo',
+      'Local' 	=> 'Local',
+    ],
+    'select_tipo_de_envio'  => [
+      'Normal'  => 'Normal',
+      'Express' => 'Express',
+    ],
+  /* ===================== [ FACTURACIÓN ] ===================== */
+	'select_concepto' => [
+		'Arcón Navideño' 		    => 'Arcón Navideño',
+		'Canastas Navideñas' 	  => 'Canastas Navideñas',
+		'Despensas' 			      => 'Despensas',
+		'Regalo de fin de año' 	=> 'Regalo de fin de año',
+  ],
+  'select_uso_de_cfdi' 												                => [
+		'G01 Adquisición de mercancias'									          => 'G01 Adquisición de mercancias',
+		'G02 Devoluciones, descuentos o bonificaciones'					  => 'G02 Devoluciones, descuentos o bonificaciones',
+		'G03 Gastos en general'										            	  => 'G03 Gastos en general',
+		'P01 Por definir'												                  => 'P01 Por definir',
+		'I01 Construcciones'											                => 'I01 Construcciones',
+		'I02 Mobiliario y equipo de oficina por inversiones'		  => 'I02 Mobiliario y equipo de oficina por inversiones',
+		'I03 Equipo de transporte'										            => 'I03 Equipo de transporte',
+		'I04 Equipo de computo y accesorios'							        => 'I04 Equipo de computo y accesorios',
+		'I05 Dados, troqueles, moldes, matrices y herramientas'	  => 'I05 Dados, troqueles, moldes, matrices y herramientas',
+		'I06 Comunicaciones telefonicas'								          => 'I06 Comunicaciones telefonicas',
+		'I07 Comunicaciones satelitales'								          => 'I07 Comunicaciones satelitales',
+		'I08 Otra maquinaria y equipo'									          => 'I08 Otra maquinaria y equipo',
+		'D01 honorarios médicos, dentales y gastos hospitalarios' => 'D01 honorarios médicos, dentales y gastos hospitalarios',
+		'D02 Gastos médicos por incapacidad o discapacidad'				=> 'D02 Gastos médicos por incapacidad o discapacidad',
+		'D03 Gastos funerales'											              => 'D03 Gastos funerales',
+		'D04 Donativos'													                  => 'D04 Donativos',
+		'D05 Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación)'  => 'D05 Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación)',
+		'D06 Aportaciones voluntarias al SAR'							        => 'D06 Aportaciones voluntarias al SAR',
+		'D07 Primas por seguros de gastos médicos'						    => 'D07 Primas por seguros de gastos médicos',
+		'D08 Gastos de transportación escolar obligatoria'				=> 'D08 Gastos de transportación escolar obligatoria',
+		'D09 Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones'  =>'D09 Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones',
+		'D10 Pagos por servicios educativos (colegiaturas)'				=> 'D10 Pagos por servicios educativos (colegiaturas)',
+  ],
+  'select_metodo_de_pago' 					        => [
+		'PUE Pago en una sola exhibición' 		  => 'PUE Pago en una sola exhibición', 
+		'PPD Pago en parcialidades o diferido'  => 'PPD Pago en parcialidades o diferido', 
+  ],
+  'select_forma_de_pago' 							=> [
+		'01 Efectivo' 								            => '01 Efectivo', 
+		'02 Cheque nominativo' 						        => '02 Cheque nominativo',
+		'03 Transferencia electrónica de fondos'	=> '03 Transferencia electrónica de fondos',
+		'04 Tarjeta de crédito' 					        => '04 Tarjeta de crédito',
+		'05 Monedero electrónico' 					      => '05 Monedero electrónico',
+		'06 Dinero electrónico' 					        => '06 Dinero electrónico',
+		'08 Vales de despensa' 						        => '08 Vales de despensa',
+		'12 Dación en pago' 						          => '12 Dación en pago',
+		'13 Pago por subrogación' 					      => '13 Pago por subrogación',
+		'14 Pago por consignación' 					      => '14 Pago por consignación',
+		'15 Condonación' 							            => '15 Condonación',
+		'17 Compensación' 						          	=> '17 Compensación',
+		'23 Novación' 								            => '23 Novación',
+		'24 Confusión' 								            => '24 Confusión',
+		'25 Remisión de deuda' 						        => '25 Remisión de deuda',
+		'26 Prescripción o caducidad' 				    => '26 Prescripción o caducidad',
+		'27 A satisfacción del acreedor' 			    => '27 A satisfacción del acreedor',
+		'28 Tarjeta de débito' 						        => '28 Tarjeta de débito',
+		'29 Tarjeta de servicios' 					      => '29 Tarjeta de servicios',
+		'30 Aplicación de anticipos' 				      => '30 Aplicación de anticipos',
+		'99 Por definir' 							            => '99 Por definir',
+	],
 );

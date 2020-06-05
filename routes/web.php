@@ -15,24 +15,6 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
       });
     });
  
-
-
-
-
-    Route::get('costo-de-envio', function(\Illuminate\Http\Request $request) {
-      if($request->ajax()) {
-        $datos = \App\Models\CostoDeEnvio::metodoDeEntrega($request->metodo_de_entrega)->estado($request->estado)->tipoDeEnvio($request->tipo_de_envio)->get();
-        return $datos;
-      } else {
-        return view('home');
-      }
-    });
-
-
-
-
-
-
     require_once __DIR__ . '/layouts/layoutsRoutes.php';
     require_once __DIR__ . '/usuario/usuarioRoutes.php';
     require_once __DIR__ . '/quejasYSugerencias/quejasYSugerenciasRoutes.php';
@@ -41,6 +23,7 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
     require_once __DIR__ . '/proveedor/proveedorRoutes.php';
     require_once __DIR__ . '/armado/armadoRoutes.php';
     require_once __DIR__ . '/pago/pagoRoutes.php';
+    require_once __DIR__ . '/costoDeEnvio/costoDeEnvioRoutes.php';
     require_once __DIR__ . '/cotizacion/cotizacionRoutes.php';
 
     Route::group(['prefix' => 'rastrea'], function() {

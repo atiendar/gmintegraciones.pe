@@ -20,11 +20,11 @@ class CreateCotizacionArmadoTieneDireccionesTable extends Migration
             $table->bigIncrements('id');
            
             $table->integer('cant')->unsigned()->default(0)->comment('Cantidad');
-            $table->string('met_de_entreg_de_vent', 150)->comment('Método de entrega de ventas');
-            $table->string('est_a_la_q_se_cotiz',150)->comment('Estado a la que se cotizo');
+            $table->enum('met_de_entreg', config('opcionesSelect.select_metodo_de_entrega'))->comment('Método de entrega de ventas');
+            $table->enum('est',config('opcionesSelect.select_estado'))->comment('Estado a la que se cotizo');
             $table->string('detalles_de_la_ubicacion',150)->comment('Detalles de la ubicación');
-            $table->enum('tip_env', ['Normal', 'Express'])->default('Normal')->comment('Tipo de envío');
-            $table->decimal('cost_por_env_vent',20,2)->unsigned()->nullable()->comment('Costo por envío venta');
+            $table->enum('tip_env', config('opcionesSelect.select_tipo_de_envio'))->default('Normal')->comment('Tipo de envío');
+            $table->decimal('cost_por_env',20,2)->unsigned()->nullable()->comment('Costo por envío venta');
 
             $table->unsignedBigInteger('armado_id')->comment('Foreign Key armados cotización');
             $table->foreign('armado_id')->references('id')->on('cotizacion_tiene_armados')->onUpdate('restrict')->onDelete('cascade');

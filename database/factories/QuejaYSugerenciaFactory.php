@@ -7,10 +7,10 @@ use App\User;
 use Faker\Generator as Faker;
 
 $factory->define(QuejaYSugerencia::class, function (Faker $faker) {
-    $cliente = $faker->randomElement(User::all());
+  $id_usuario = $faker->randomElement(User::pluck('id'));
     return [
-        'depto'     => $faker->randomElement(['Ventas', 'Producción', 'Logística']),
+        'depto'     => $faker->randomElement(config('opcionesSelect.select_departamento')),
         'obs'       => 'Pesimo servicio',
-        'user_id'   => $cliente->id,
+        'user_id'   => $id_usuario,
     ];
 });
