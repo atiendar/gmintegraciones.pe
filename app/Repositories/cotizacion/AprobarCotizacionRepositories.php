@@ -30,10 +30,25 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
     $this->plantillaRepo    = $plantillaRepositories;
     $this->pedidoActivoRepo = $pedidoActivoRepositories;
   } 
+  public function elPedidoEsDeRegalo($cotizacion, $armados_cotizacion) {
+    if($armados_cotizacion->where('es_de_regalo', 'Si')->sum('cant')  ==  $cotizacion->tot_arm ) {
+      return 'Si';
+    } else {
+      return 'No';
+    }
+  }
+  public function elPedidoTieneDireccionesForaneas($pedido, $armado_cotizacion, $modificado) {
+    if($armado_cotizacion->direcciones->where('for_loc', 'Foráneo')->count() > 0) {
+      $pedido->foraneo = 'Si';
+      $pedido->save();
+      $modificado = true;
+    }
+    return $modificado;
+  }
   public function aprobar($id_cotizacion) {
     try { DB::beginTransaction();
       $cotizacion = $this->cotizacionRepo->cotizacionAsignadoFindOrFailById($id_cotizacion, 'armados', config('app.abierta'));
-      $armados = $cotizacion->armados()->with('productos', 'direcciones')->get();
+      $armados_cotizacion = $cotizacion->armados()->with('productos', 'direcciones')->get();
       $nom_tabla = (new \App\Models\Producto())->getTable();
 
       // CREA EL PEDIDO
@@ -44,25 +59,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       $pedido->user_id          = $cotizacion->user_id;
       $pedido->tot_de_arm       = $cotizacion->tot_arm;
       $pedido->mont_tot_de_ped  = $cotizacion->tot;
-
-
-
-
-      
-      
-
-
-    //  $pedido->foraneo
-    //  $pedido->gratis
-
-
-
-
-
-
-
-
-    
+      $pedido->gratis           = $this->elPedidoEsDeRegalo($cotizacion, $armados_cotizacion);
       $pedido->estat_vent_arm   = config('app.armados_cargados');
       $pedido->asignado_ped     = Auth::user()->email_registro;
       $pedido->created_at_ped   = Auth::user()->email_registro;
@@ -75,26 +72,32 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       $up_vendidos_productos  = NULL;
       $ids                    = NULL;
       $direcciones            = NULL;
-      foreach($armados as $armado) {
-        if($armado->cant != $armado->cant_direc_carg) {
-          return abort(403, 'No se han registrado todas las direcciones al armado '.$armado->nom);
+      $modificado             = null;
+      foreach($armados_cotizacion as $armado_cotizacion) {
+        if($armado_cotizacion->cant != $armado_cotizacion->cant_direc_carg) {
+          return abort(403, 'No se han registrado todas las direcciones al armado '.$armado_cotizacion->nom);
+        }
+
+        // DEFINE SI EL PEDIDO ES FORANEO O NO
+        if($modificado == null) {
+          $modificado = $this->elPedidoTieneDireccionesForaneas($pedido, $armado_cotizacion, $modificado);
         }
 
         // REGISTRA LOS ARMADOS AL PEDIDO
         $armado_pedido               = new \App\Models\PedidoArmado();
-        $armado_pedido->cod          = $this->pedidoActivoRepo->sumaUnoALaUltimaLetraYArmadosCargados($pedido, $armado->cant);
-        $armado_pedido->cant         = $armado->cant;
-        $armado_pedido->tip          = $armado->tip;
-        $armado_pedido->nom          = $armado->nom;
-        $armado_pedido->sku          = $armado->sku;
-        $armado_pedido->gama         = $armado->gama;
-        $armado_pedido->prec         = $armado->prec_redond;
-        $armado_pedido->pes          = $armado->pes;
-        $armado_pedido->alto         = $armado->alto;
-        $armado_pedido->ancho        = $armado->ancho;
-        $armado_pedido->largo        = $armado->largo;
-        $armado_pedido->es_de_regalo = $armado->es_de_regalo;
-        if($armado->es_de_regalo == 'Si') {
+        $armado_pedido->cod          = $this->pedidoActivoRepo->sumaUnoALaUltimaLetraYArmadosCargados($pedido, $armado_cotizacion->cant);
+        $armado_pedido->cant         = $armado_cotizacion->cant;
+        $armado_pedido->tip          = $armado_cotizacion->tip;
+        $armado_pedido->nom          = $armado_cotizacion->nom;
+        $armado_pedido->sku          = $armado_cotizacion->sku;
+        $armado_pedido->gama         = $armado_cotizacion->gama;
+        $armado_pedido->prec         = $armado_cotizacion->prec_redond;
+        $armado_pedido->pes          = $armado_cotizacion->pes;
+        $armado_pedido->alto         = $armado_cotizacion->alto;
+        $armado_pedido->ancho        = $armado_cotizacion->ancho;
+        $armado_pedido->largo        = $armado_cotizacion->largo;
+        $armado_pedido->es_de_regalo = $armado_cotizacion->es_de_regalo;
+        if($armado_cotizacion->es_de_regalo == 'Si') {
           $armado_pedido->aut   = config('app.pendiente');
         }
 //        $armado_pedido->coment_vent  = $request->comentarios_ventas;
@@ -103,11 +106,11 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
         $armado_pedido->save();
 
         // REGISTRA LOS PRODUCTOS AL ARMADO
-        foreach($armado->productos as $producto) {
+        foreach($armado_cotizacion->productos as $producto) {
           // PREPARA LA CONSULTA UPDATE MASIVA PARA DISMINUIR EL STOCK DEL PRODUCTO QUE TIENE EL ARMADO
           $up_stock_productos     .= ' WHEN '. $producto->id_producto. ' THEN stock-'. $producto->cant * $armado_pedido->cant;
           $up_vendidos_productos  .= ' WHEN '. $producto->id_producto. ' THEN vend+'. $producto->cant * $armado_pedido->cant;
-          $ids .= $producto->id_producto.',';
+          $ids                    .= $producto->id_producto.',';
 
           // REGISTRA LOS PRODUCTOS AL ARMADO
           $productos_armado[$contador2]['id_producto']      = $producto->id_producto;
@@ -128,7 +131,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
         $ids = NULL;
 
         // REGISTRA LAS DIRECCIONES AL ARMADO
-        foreach($armado->direcciones as $direccion) {
+        foreach($armado_cotizacion->direcciones as $direccion) {
           $direcciones[$contador3]['cant'] = $direccion->cant;
           $direcciones[$contador3]['met_de_entreg_de_vent']         = $direccion->met_de_entreg;
           $direcciones[$contador3]['est_a_la_q_se_cotiz']           = $direccion->est;

@@ -37,6 +37,11 @@ class DatabaseSeeder extends Seeder
         PedidoArmadoTieneProductosTableSeeder::class,
         PagosTableSeeder::class,
         FacturasTableSeeder::class,
-      ]);
+        SoportesTableSeeder::class,
+        InventarioEquiposTableSeeder::class,
+        HistorialesTableSeeder::class,
+        SoporteArchivosTableSeeder::class,
+        HistorialesArchivosTableSeeder::class,
+  ]);
     }
 }

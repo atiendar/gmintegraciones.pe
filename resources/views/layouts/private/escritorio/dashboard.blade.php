@@ -66,6 +66,7 @@
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('plugins/pace-progress/pace.min.js') }}"></script>
 <script src="{{ asset('js/myfunction.js') }}"></script>
+@yield('vuejs')
 @yield('js')
 @yield('js1')
 @yield('js2')

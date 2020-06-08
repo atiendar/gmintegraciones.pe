@@ -34,61 +34,71 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
     return $direccion;
   }
   public function store($request, $id_armado) {
-    DB::transaction(function() use($request, $id_armado) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
-      $armado     = $this->armadoCotizacionRepo->armadoFindOrFailById($id_armado, 'cotizacion');
+    try { DB::beginTransaction();
+      $armado     = $this->armadoCotizacionRepo->armadoFindOrFailById($this->serviceCrypt->encrypt($id_armado), 'cotizacion');
       $this->armadoCotizacionRepo->verificarElEstatusDeLaCotizacion($armado->cotizacion->estat);
       $cotizacion = $armado->cotizacion;
 
       // GUARDA LA DIRECCIÓN AL ARMADO
       $direccion = new CotizacionArmadoTieneDirecciones();
+      $direccion->met_de_entreg             = $request->costo_seleccionado['met_de_entreg'];
+      $direccion->est                       = $request->costo_seleccionado['est'];
+      $direccion->for_loc                   = $request->costo_seleccionado['for_loc'];
+      $direccion->tip_env                   = $request->costo_seleccionado['tip_env'];
+      $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'] *  $request->cantidad;
       $direccion->cant                      = $request->cantidad;
-      $direccion->met_de_entreg             = $request->metodo_de_entrega;
-      $direccion->est                       = $request->estado_al_que_se_cotizo;
       $direccion->detalles_de_la_ubicacion  = $request->detalles_de_la_ubicacion;
-      $direccion->tip_env                   = $request->tipo_de_envio;
-      $direccion->cost_por_env              = $request->costo_de_envio;
-      $direccion->armado_id                 = $armado->id;
+      $direccion->armado_id                 = $id_armado;
       $direccion->created_at_dir            = Auth::user()->email_registro;
       $direccion->save();
       
       // GENERA LOS NUEVOS VALORES PARA EL ARMADO
       $armado->cost_env         += $direccion->cost_por_env;
       $armado->cant_direc_carg  += $direccion->cant;
-      $armado = $this->calcularValoresArmadoCotizacionRepo->sumaValoresArmadoCotizacion($armado);
+      $armado                   = $this->calcularValoresArmadoCotizacionRepo->sumaValoresArmadoCotizacion($armado);
       $armado->save();
 
       // GENERA LOS NUEVOS PRECIOS DE LA COTIZACIÓN
       $this->calcularValoresCotizacionRepo->calculaValoresCotizacion($cotizacion);
-
       $cotizacion->save();
+
+      DB::commit();
       return $direccion;
-    });
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function update($request, $id_direccion) {
     try { DB::beginTransaction();
-      $direccion  = $this->direccionFindOrFailById($id_direccion);
+      $direccion  = $this->direccionFindOrFailById($this->serviceCrypt->encrypt($id_direccion));
       $armado     = $direccion->armado()->with('cotizacion')->first();
       $this->armadoCotizacionRepo->verificarElEstatusDeLaCotizacion($armado->cotizacion->estat);
 
       // ACTUALIZA LOS DATOS DE LA DIRECCIÓN
       $cant_direc_orig                      = $direccion->cant;
       $cost_por_env_vent_orig               = $direccion->cost_por_env;
+
+      if($request->costo_seleccionado != []) {
+        $direccion->met_de_entreg             = $request->costo_seleccionado['met_de_entreg'];
+        $direccion->est                       = $request->costo_seleccionado['est'];
+        $direccion->for_loc                   = $request->costo_seleccionado['for_loc'];
+        $direccion->tip_env                   = $request->costo_seleccionado['tip_env'];
+        $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'] *  $request->cantidad;
+      } else {
+        $costo = $direccion->cost_por_env / $direccion->cant;
+        $direccion->cost_por_env = $costo * $request->cantidad;
+      }
       $direccion->cant                      = $request->cantidad;
-      $direccion->met_de_entreg             = $request->metodo_de_entrega;
-      $direccion->est                       = $request->estado_al_que_se_cotizo;
       $direccion->detalles_de_la_ubicacion  = $request->detalles_de_la_ubicacion;
-      $direccion->tip_env                   = $request->tipo_de_envio;
-      $direccion->cost_por_env              = $request->costo_de_envio;
+
       if($direccion->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
-          'Usuarios', // Módulo
-          'usuario.show', // Nombre de la ruta
-          $id_direccion, // Id del registro debe ir encriptado
-          $this->serviceCrypt->decrypt($id_direccion), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Cantidad', 'Método de entrega', 'Estado al que se cotizo', 'Detalles de la ubicación', 'Tipo de envío', 'Costo de envío'), // Nombre de los inputs del formulario
+          'Cotizaciones', // Módulo
+          'cotizacion.show', // Nombre de la ruta
+          $this->serviceCrypt->encrypt($id_direccion), // Id del registro debe ir encriptado
+          $id_direccion, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('Método de entrega', 'Estado al que se cotizo', 'Foráneo o local', 'Tipo de envío', 'Costo de envío', 'Cantidad', 'Detalles de la ubicación'), // Nombre de los inputs del formulario
           $direccion, // Request
-          array('cant', 'met_de_entreg', 'est', 'detalles_de_la_ubicacion', 'tip_env', 'cost_por_env') // Nombre de los campos en la BD
+          array('met_de_entreg', 'est', 'for_loc', 'tip_env', 'cost_por_env', 'cant',  'detalles_de_la_ubicacion') // Nombre de los campos en la BD
         ); 
         $direccion->updated_at_dir  = Auth::user()->email_registro;
       }

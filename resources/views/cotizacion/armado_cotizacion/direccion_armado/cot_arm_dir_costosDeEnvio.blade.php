@@ -3,7 +3,27 @@
     <h5>{{ __('Costos de envío') }}</h5>
   </div>
   <div class="card-body">
-    <div class="card-body table-responsive p-0" id="div-tabla-scrollbar" style="height: 15em;">
+    <div class="row border  border-primary rounded mb-3">
+      <div class="form-group col-sm btn-sm">
+        <label for="filtar_metodo_de_entrega">{{ __('Filtar método de entrega') }}</label>
+        <div class="input-group">
+          {!! Form::select('filtar_metodo_de_entrega', config('opcionesSelect.select_metodo_de_entrega'), null, ['v-on:change' => 'getCostos', 'v-model' => 'filtrar.metodo_de_entrega', 'class' => 'form-control form-control-sm select2', 'placeholder' => __('')]) !!}   
+        </div>
+      </div> 
+      <div class="form-group col-sm btn-sm">
+        <label for="filtrar_estado">{{ __('Filtar estado') }}</label>
+        <div class="input-group">
+          {!! Form::select('filtrar_estado', config('opcionesSelect.select_estado'), null, ['v-on:change' => 'getCostos', 'v-model' => 'filtrar.estado', 'class' => 'form-control form-control-sm select2', 'placeholder' => __('')]) !!}   
+        </div>
+      </div>
+      <div class="form-group col-sm btn-sm">
+        <label for="filtrar_tipo_de_envio">{{ __('Filtar tipo de envío') }}</label>
+        <div class="input-group">
+          {!! Form::select('filtrar_tipo_de_envio', config('opcionesSelect.select_tipo_de_envio'), null, ['v-on:change' => 'getCostos', 'v-model' => 'filtrar.tipo_de_envio', 'class' => 'form-control form-control-sm select2', 'placeholder' => __('')]) !!}   
+        </div>
+      </div>
+    </div>
+    <div class="card-body table-responsive p-0" style="height: 15em;">
       <table class="table table-head-fixed table-hover table-striped table-sm table-bordered">
         <thead>
           <tr>
@@ -16,13 +36,13 @@
         </thead>
         <tbody>
           <tr v-if="!costos.length"><td colspan="5">@include('layouts.private.busquedaSinResultados')</td></tr>
-          <tr v-for="todo in costos">
-            <td v-text="todo.met_de_entreg"></td>
-            <td v-text="todo.est"></td>
-            <td v-text="todo.tip_env"></td>
-            <td v-text="todo.cost_por_env"></td>
+          <tr v-for="costo in costos">
+            <td v-text="costo.met_de_entreg"></td>
+            <td v-text="costo.est"></td>
+            <td v-text="costo.tip_env"></td>
+            <td v-text="costo.cost_por_env"></td>
             <td width="1rem" title="Seleccionar">
-              <a href="" class="btn btn-light btn-sm" @click.prevent="getSeleccionado(todo.cost_por_env)"><i class="fas fa-check"></i></a>
+              <a href="" class="btn btn-light btn-sm" @click.prevent="getCostoSeleccionado(costo)"><i class="fas fa-check"></i></a>
             </td>
           </tr>
         </tbody>
@@ -30,46 +50,3 @@
     </div>
   </div>
 </div>
-
-@section('js6')
-<script>
-  var app4 = new Vue({
-    el: '#dashboard',
-    data: {
-      costos: [],
-      metodo_de_entrega: null,
-      estado_al_que_se_cotizo: null,
-      tipo_de_envio: null,
-      costo_de_envio: null
-    },
-    mounted() {
-      this.getCostos()
-    },
-    methods: {
-      getCostos() {
-        var urlCostos = '/costo-de-envio/obtener';
-        axios.get(urlCostos, {
-          params: {
-            metodo_de_entrega:  this.metodo_de_entrega,
-            estado:             this.estado_al_que_se_cotizo,
-            tipo_de_envio:      this.tipo_de_envio,
-          }
-        }).then(response => {
-          this.costos = response.data
-          console.log(this.costos)
-        }).catch(error => {
-          console.log(error)
-          Swal.fire({
-            icon: 'error',
-            title: 'Algo salio mal',
-            text: error,
-          })
-        });
-      },
-      getSeleccionado(cost_por_env) {
-        this.costo_de_envio = cost_por_env
-      }
-    }
-  })
-</script>
-@endsection

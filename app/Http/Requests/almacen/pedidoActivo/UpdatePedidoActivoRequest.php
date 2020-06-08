@@ -9,7 +9,7 @@ class UpdatePedidoActivoRequest extends FormRequest {
   public function rules() {
     return [
       'lider_de_pedido_almacen' => 'required|max:80',
-      'comentario_almacen'      => 'nullable|max:65500|string',
+      'comentario_almacen'      => 'nullable|max:30000|string',
     ];
   }
 }

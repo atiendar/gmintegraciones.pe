@@ -6,7 +6,7 @@
 <div class="login100-form">
   @include('layouts.public.logo')
   <div class="shadow-lg p-3">
-    <h1>Actualmente no estás conectado a ninguna red.</h1>
+    <h1>{{ __('Actualmente no estás conectado a ninguna red') }}.</h1>
   </div>
 </div>
 @endsection

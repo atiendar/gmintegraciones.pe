@@ -19,7 +19,7 @@ class StoreProveedorRequest extends FormRequest {
       'extension'                       => 'max:10',
       'lada_telefono_movil'             => 'required|max:9999|min:1|numeric',
       'telefono_movil'                  => 'required|max:15|alpha_solo_numeros_guiones',
-      'observaciones'                   => 'nullable|max:65500|string',
+      'observaciones'                   => 'nullable|max:30000|string',
       'calle'                           => 'required|max:45',
       'no_ext'                          => 'required|max:8',
       'no_int'                          => 'max:30',
@@ -28,7 +28,7 @@ class StoreProveedorRequest extends FormRequest {
       'colonia'                         => 'required|max:40',
       'delegacion_o_municipio'          => 'required|max:50',
       'codigo_postal'                   => 'required|max:6',
-      'referencias'                     => 'nullable|max:65500|string',
+      'referencias'                     => 'nullable|max:30000|string',
       'archivo'                         => 'nullable|max:1024|file',
     ];
   }

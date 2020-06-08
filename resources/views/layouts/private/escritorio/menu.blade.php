@@ -38,6 +38,7 @@
 ])
   <li class="nav-header">{{ __('MÓDULOS') }}</li>
 @endcanany
+@include('layouts.private.escritorio.menu.tecnologiaDeLaInformacion')
 @include('layouts.private.escritorio.menu.rastrearPedido')
 @include('layouts.private.escritorio.menu.pagos')
 @include('layouts.private.escritorio.menu.cotizaciones')

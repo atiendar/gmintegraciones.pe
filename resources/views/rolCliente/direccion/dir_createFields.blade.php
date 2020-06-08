@@ -151,7 +151,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      {!! Form::textarea('referencias_zona_de_entrega', null, ['class' => 'form-control' . ($errors->has('referencias_zona_de_entrega') ? ' is-invalid' : ''), 'maxlength' => 65500, 'placeholder' => __('Referencias zona de entrega'), 'rows' => 4, 'cols' => 4]) !!}
+      {!! Form::textarea('referencias_zona_de_entrega', null, ['class' => 'form-control' . ($errors->has('referencias_zona_de_entrega') ? ' is-invalid' : ''), 'maxlength' => 30000, 'placeholder' => __('Referencias zona de entrega'), 'rows' => 4, 'cols' => 4]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('referencias_zona_de_entrega') }}</span>
   </div>

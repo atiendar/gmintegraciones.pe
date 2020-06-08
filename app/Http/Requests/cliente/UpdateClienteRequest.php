@@ -21,7 +21,7 @@ class UpdateClienteRequest extends FormRequest {
       'lada_telefono_movil' => 'required|max:9999|min:1|numeric',
       'telefono_movil'      => 'required|max:15|alpha_solo_numeros_guiones',
       'empresa'             => 'max:200',
-      'observaciones'       => 'nullable|max:65500|string',
+      'observaciones'       => 'nullable|max:30000|string',
       'imagen'              => 'nullable|max:1024|image',
     ];
   }

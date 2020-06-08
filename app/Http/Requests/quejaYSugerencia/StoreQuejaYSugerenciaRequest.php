@@ -10,7 +10,7 @@ class StoreQuejaYSugerenciaRequest extends FormRequest {
     return [
       'departamento'  => 'required|in:Ventas,Producción,Logística,Facturación,Sistema,Otro',
       "archivos.*"    => "required|image|max:1024",
-      'observaciones' => 'required|max:65500|string',
+      'observaciones' => 'required|max:30000|string',
     ];
   }
 }

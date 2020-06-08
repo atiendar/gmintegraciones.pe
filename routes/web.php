@@ -2,6 +2,9 @@
 Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
   require_once __DIR__ . '/public/authRoutes.php';
 
+  Route::match(['GET', 'HEAD'],'solicitar/soporte','TecnologiaDeLaInformacion\SoporteController@create')->name('soporte.create');
+  Route::post('almacenar', 'TecnologiaDeLaInformacion\SoporteController@store')->name('soporte.store');
+  
   Route::get('/offline', function() {
     return view('vendor.laravelpwa.offline');
   });
@@ -26,6 +29,10 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
     require_once __DIR__ . '/costoDeEnvio/costoDeEnvioRoutes.php';
     require_once __DIR__ . '/cotizacion/cotizacionRoutes.php';
 
+    Route::group(['prefix' => 'ti'], function(){
+      require_once __DIR__ . '/tecnologiaDeLaInformacion/soporteRoutes.php';
+    });
+    
     Route::group(['prefix' => 'rastrea'], function() {
       require_once __DIR__ . '/rastrea/rastreaPedidoRoutes.php';
     });

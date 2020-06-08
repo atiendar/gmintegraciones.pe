@@ -20,7 +20,7 @@ class StoreClienteRequest extends FormRequest {
       'telefono_movil'      => 'required|max:15|alpha_solo_numeros_guiones',
       'empresa'             => 'max:200',
       'password'            => 'required|max:60|min:8|confirmed',
-      'observaciones'       => 'nullable|max:65500|string',
+      'observaciones'       => 'nullable|max:30000|string',
       'plantilla'           => 'nullable|required_if:checkbox_correo,on|exists:plantillas,id',
       'checkbox_correo'     => 'in:on,off',
       'imagen'              => 'nullable|max:1024|image',

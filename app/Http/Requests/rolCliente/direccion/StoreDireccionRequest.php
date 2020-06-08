@@ -8,8 +8,8 @@ class StoreDireccionRequest extends FormRequest {
   }
   public function rules() {
     return [
-      'nombre_de_referencia_uno'    => 'required|max:65500|string',
-      'nombre_de_referencia_dos'    => 'nullable|max:65500|string',
+      'nombre_de_referencia_uno'    => 'required|max:30000|string',
+      'nombre_de_referencia_dos'    => 'nullable|max:30000|string',
       'lada_telefono_fijo'          => 'nullable|max:9999|min:1|numeric|required_with:telefono_fijo',
       'telefono_fijo'               => 'nullable|max:15|alpha_solo_numeros_guiones|required_with:lada_telefono_fijo',
       'extension'                   => 'max:10',
@@ -23,7 +23,7 @@ class StoreDireccionRequest extends FormRequest {
       'colonia'                     => 'required|max:40',
       'delegacion_o_municipio'      => 'required|max:50',
       'codigo_postal'               => 'required|max:6',
-      'referencias_zona_de_entrega' => 'nullable|max:65500|string',
+      'referencias_zona_de_entrega' => 'nullable|max:30000|string',
     ];
   }
 }

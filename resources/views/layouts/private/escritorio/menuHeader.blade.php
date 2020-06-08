@@ -1,7 +1,27 @@
 <ul class="navbar-nav">
   <li class="nav-item">
     <span class="pantallaMax985px">
-      <layouts-menu-header></layouts-menu-header>
+      <a href="" class="nav-link" data-widget="pushmenu" @click.prevent="sidebar"><i class="fas fa-bars"></i></a>
+      @section('vuejs')
+      <script>
+        new Vue({
+          el: '#dashboard',
+          methods: {
+            async sidebar() {
+              axios.get('/layouts').then(res => {
+                //location.reload(); // Recarga la pagina para visualizar los cambios
+              }).catch(err => {
+                Swal.fire({
+                icon: 'error',
+                title: 'Algo salio mal',
+                text: 'Error: ' + err.response.data,
+              })
+              })
+            }
+          }
+        });
+      </script>
+      @endsection
     </span>
     <span class="pantallaMin985px">
       <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>

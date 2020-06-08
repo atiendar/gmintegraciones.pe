@@ -11,7 +11,7 @@ class StoreRolRequest extends FormRequest {
       'nombre_del_rol'  => 'required|max:40|unique:roles,nom|string',
       'slug'            => 'required|max:40|unique:roles,name|string',
       'permisos'        => 'required|exists:permissions,id|array',
-      'descripcion'     => 'nullable|max:65500|string',
+      'descripcion'     => 'nullable|max:30000|string',
     ];
   }
 }

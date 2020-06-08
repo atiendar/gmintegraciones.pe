@@ -9,11 +9,122 @@
     </h5>  
   </div>
   <div class="card-body">
-    {!! Form::open(['route' => ['cotizacion.armado.direccion.store', Crypt::encrypt($armado->id)], 'onsubmit' => 'return checarBotonSubmit("btnsubmit")']) !!}
+    <form @submit.prevent="create" enctype="multipart/form-data">
       @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_createFields')
-    {!! Form::close() !!}
+      <div class="row">
+        <div class="form-group col-sm btn-sm">
+          <a href="{{ route('cotizacion.armado.edit', Crypt::encrypt($armado->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con el armado') }}</a>
+        </div>
+        <div class="form-group col-sm btn-sm">
+          <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2"><i class="fas fa-check-circle text-dark"></i> {{ __('Registrar dirección') }}</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
 @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_costosDeEnvio')
 @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_index')
+@endsection
+
+@section('vuejs')
+<script>
+  var app4 = new Vue({
+    el: '#dashboard',
+    data: {
+      errors: [],
+      hasError: false,
+      costos: [],
+      filtrar: [
+        metodo_de_entrega  = null,
+        estado             = null,
+        tipo_de_envio      = null,
+      ],
+
+      metodo_de_entrega:        null,
+      estado_al_que_se_cotizo:  null,
+      foraneo_o_local:          null,
+      tipo_de_envio:            null,
+      costo_de_envio:           null,
+      cantidad:                 null,
+      detalles_de_la_ubicacion: null,
+
+      costo_seleccionado: [],
+      cost_por_env: null,
+    },
+    methods: {
+      async create() {
+        this.checarBotonSubmit("btnsubmit")
+        axios.post('/cotizacion/armado/direccion/almacenar/'+{{ $armado->id }}, {
+          metodo_de_entrega:        this.metodo_de_entrega,
+          estado_al_que_se_cotizo:  this.estado_al_que_se_cotizo,
+          foraneo_o_local:          this.foraneo_o_local,
+          tipo_de_envio:            this.tipo_de_envio,
+          costo_de_envio:           this.costo_de_envio,
+          cantidad:                 this.cantidad,
+          detalles_de_la_ubicacion: this.detalles_de_la_ubicacion,
+          costo_seleccionado:       this.costo_seleccionado
+        }).then(res => {
+          Swal.fire({
+            title: 'Éxito',
+            text: '¡Dirección registrada exitosamente!',
+          }).then((value) => {
+            location.reload()
+          })
+        }).catch(error => {
+          if(error.response.status == 422) {
+            this.errors   = error.response.data.errors,
+            this.hasError = true
+          } else {
+            Swal.fire({
+              title: 'Algo salio mal',
+              text: error,
+            })
+          }
+        });
+      },
+      async getCostos() {
+        var urlCostos = '/costo-de-envio/obtener';
+        axios.get(urlCostos, {
+          params: {
+            metodo_de_entrega:  this.filtrar.metodo_de_entrega,
+            estado:             this.filtrar.estado,
+            tipo_de_envio:      this.filtrar.tipo_de_envio,
+          }
+        }).then(res => {
+          this.costos = res.data
+        }).catch(error => {
+          Swal.fire({
+            title: 'Algo salio mal',
+            text: error,
+          })
+        });
+      },
+      async getCostoSeleccionado(costo_env) {
+        this.costo_seleccionado      = costo_env
+        this.metodo_de_entrega       = costo_env.met_de_entreg
+        this.estado_al_que_se_cotizo = costo_env.est
+        this.foraneo_o_local         = costo_env.for_loc
+        this.tipo_de_envio           = costo_env.tip_env
+        this.costo_de_envio          = costo_env.cost_por_env
+        this.getCostoDeEnvio()
+      },
+      async getCostoDeEnvio() {
+        this.cost_por_env = parseFloat(this.costo_de_envio) * parseFloat(this.cantidad)
+        if (isNaN(parseFloat(this.cost_por_env))) {
+          this.cost_por_env = this.costo_de_envio
+        }
+        this.costo_de_envio = Number.parseFloat(this.cost_por_env).toFixed(2)
+
+        if (isNaN(parseFloat(this.cost_por_env))) {
+          this.costo_de_envio = null
+        }
+      },
+      async checarBotonSubmit(id_btn) {
+        document.getElementById(id_btn).value = "Espere un momento...";
+        document.getElementById(id_btn).disabled = true;
+        return true;
+      },
+    }
+  });
+</script>
 @endsection

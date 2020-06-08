@@ -16,7 +16,7 @@ class UpdateContactoRequest extends FormRequest {
       'extension'           => 'max:10',
       'lada_telefono_movil' => 'required|max:9999|min:1|numeric',
       'telefono_movil'      => 'required|max:15|alpha_solo_numeros_guiones',
-      'observaciones'       => 'nullable|max:65500|string',
+      'observaciones'       => 'nullable|max:30000|string',
     ];
   }
 }

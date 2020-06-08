@@ -5,7 +5,7 @@
 <script>
   export default {
     methods: {
-      sidebar() {
+      async sidebar() {
         axios.get('/layouts').then(res => {
           //location.reload(); // Recarga la pagina para visualizar los cambios
         }).catch(err => {

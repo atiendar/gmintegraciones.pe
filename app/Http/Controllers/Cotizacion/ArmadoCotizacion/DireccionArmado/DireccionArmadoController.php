@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Cotizacion\ArmadoCotizacion\DireccionArmado;
 use App\Http\Controllers\Controller;
 // Request
+use Illuminate\Http\Request;
 use App\Http\Requests\cotizacion\armadoCotizacion\direccionArmado\StoreDireccionArmadoRequest;
 use App\Http\Requests\cotizacion\armadoCotizacion\direccionArmado\UpdateDireccionArmadoRequest;
 // Repositories
@@ -22,19 +23,17 @@ class DireccionArmadoController extends Controller {
     return view('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_create', compact('armado', 'direcciones'));
   }
   public function store(StoreDireccionArmadoRequest $request, $id_armado) {
-    $this->direccionArmadoRepo->store($request, $id_armado);
-    toastr()->success('¡Dirección registrada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-    return back();
+    $direccion = $this->direccionArmadoRepo->store($request, $id_armado);
+    return $direccion;
   }
   public function edit($id_direccion) {
-    $direccion  = $this->direccionArmadoRepo->direccionFindOrFailById($id_direccion);
+    $direccion = $this->direccionArmadoRepo->direccionFindOrFailById($id_direccion);
     $this->armadoCotizacionRepo->verificarElEstatusDeLaCotizacion($direccion->armado->cotizacion->estat);
     return view('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_edit', compact('direccion'));
   }
   public function update(UpdateDireccionArmadoRequest $request, $id_direccion) {
-    $this->direccionArmadoRepo->update($request, $id_direccion);
-    toastr()->success('¡Dirección actualizada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-    return back();
+    $direccion = $this->direccionArmadoRepo->update($request, $id_direccion);
+    return $direccion;
   }
   public function destroy($id_direccion) {
     $this->direccionArmadoRepo->destroy($id_direccion);

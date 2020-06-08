@@ -658,5 +658,17 @@ return array(
 		'29 Tarjeta de servicios' 					      => '29 Tarjeta de servicios',
 		'30 Aplicación de anticipos' 				      => '30 Aplicación de anticipos',
 		'99 Por definir' 							            => '99 Por definir',
-	],
+  ],
+    /* ===================== TI [ SOPORTES ] ===================== */
+    'select_soporte_index'  => [
+      ''              => 'Buscar por. . .',
+      'emp'           => 'Empresa',
+      'sol'           => 'Solicitante',
+      'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
+    ],
+    'select_estatus_soporte'  => [
+      'Pendiente'             => 'Pendiente',
+      'En espera de compra'   => 'En espera de compra',
+      'Terminado'             => 'Terminado',
+    ],
 );

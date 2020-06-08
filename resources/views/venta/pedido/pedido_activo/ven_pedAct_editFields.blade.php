@@ -61,7 +61,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      {!! Form::textarea('comentarios_ventas', $pedido->coment_vent, ['class' => 'form-control' . ($errors->has('comentarios_ventas') ? ' is-invalid' : ''), 'maxlength' => 65500, 'placeholder' => __('Comentarios ventas'), 'rows' => 4, 'cols' => 4]) !!}
+      {!! Form::textarea('comentarios_ventas', $pedido->coment_vent, ['class' => 'form-control' . ($errors->has('comentarios_ventas') ? ' is-invalid' : ''), 'maxlength' => 30000, 'placeholder' => __('Comentarios ventas'), 'rows' => 4, 'cols' => 4]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('comentarios_ventas') }}</span>
   </div>

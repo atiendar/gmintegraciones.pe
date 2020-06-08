@@ -15,7 +15,7 @@ class StoreArmadoRequest extends FormRequest {
       'destacado'           => 'required|in:Si,No',
       'imagen_del_armado'   => 'nullable|max:1024|image',
       'url_pagina'          => 'max:150',
-      'observaciones'       => 'nullable|max:65500|string',
+      'observaciones'       => 'nullable|max:30000|string',
     ];
   }
 }

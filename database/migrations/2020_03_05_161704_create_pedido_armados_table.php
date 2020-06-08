@@ -24,7 +24,7 @@ class CreatePedidoArmadosTable extends Migration
             $table->integer('cant_direc_carg')->default(0)->unsigned()->comment('Cantidad de direcciones cargadas');
             $table->string('img_rut',200)->nullable()->comment('Ruta imágen');
             $table->string('img_nom',200)->nullable()->comment('Nombre imágen');
-            $table->enum('tip', config('opcionesSelect.select_tipo'))->comment('Tipo');
+            $table->string('tip', 150)->comment('Tipo de armado');
             $table->string('nom',90)->comment('Nombre');
             $table->string('sku',60)->comment('SKU');
             $table->string('gama', 150)->comment('Gama');

@@ -22,7 +22,7 @@ class CreateCotizacionTieneArmadosTable extends Migration
             
             $table->string('img_rut',200)->nullable()->comment('Ruta imágen');
             $table->string('img_nom',200)->nullable()->comment('Nombre imágen');
-            $table->string('tip', 150)->comment('Tipo');
+            $table->string('tip', 150)->comment('Tipo de armado');
             $table->string('nom',110)->comment('Nombre');
             $table->enum('ya_mod',['0', '1'])->default('0')->comment('¿Armado ya modificado? 0= No, 1=Si');
             $table->string('sku',60)->comment('SKU');

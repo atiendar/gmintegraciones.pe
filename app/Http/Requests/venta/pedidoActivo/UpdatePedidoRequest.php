@@ -13,7 +13,7 @@ class UpdatePedidoRequest extends FormRequest {
       'cuantos_dias_antes'                => 'nullable|required_if:se_puede_entregar_antes,Si|max:999|min:1|integer',
       'es_entrega_express'                => 'required|in:Si,No',
       'es_pedido_urgente'                 => 'required|in:Si,No',
-      'comentarios_ventas'                => 'nullable|max:65500|string',
+      'comentarios_ventas'                => 'nullable|max:30000|string',
     ];
   }
 }
