@@ -27,10 +27,10 @@
       <table class="table table-head-fixed table-hover table-striped table-sm table-bordered">
         <thead>
           <tr>
-            <th>{{ __('MET. ENTREGA') }}</th>
-            <th>{{ __('ESTADO') }}</th>
-            <th>{{ __('TIP. ENVÍO') }}</th>
-            <th>{{ __('COS. ENVÍO') }}</th>
+            @include('costo_de_envio.cos_table.th.metodoDeEntrega')
+            @include('costo_de_envio.cos_table.th.estado')
+            @include('costo_de_envio.cos_table.th.tipoDeEnvio')
+            @include('costo_de_envio.cos_table.th.costoPorEnvio')
             <th colspan="1">&nbsp</th>
           </tr>
         </thead>

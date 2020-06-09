@@ -1,6 +1,6 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="comprobante_de_pago">{{ __('Comprobante de pago') }} *</label>
+    <label for="comprobante_de_pago">{{ __('Comprobante de pago') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-folder-open"></i></span>

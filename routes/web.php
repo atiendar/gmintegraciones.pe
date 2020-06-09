@@ -25,9 +25,13 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
     require_once __DIR__ . '/papeleraDeReciclaje/papeleraDeReciclajeRoutes.php';
     require_once __DIR__ . '/proveedor/proveedorRoutes.php';
     require_once __DIR__ . '/armado/armadoRoutes.php';
-    require_once __DIR__ . '/pago/pagoRoutes.php';
     require_once __DIR__ . '/costoDeEnvio/costoDeEnvioRoutes.php';
     require_once __DIR__ . '/cotizacion/cotizacionRoutes.php';
+
+    Route::group(['prefix' => 'pago'], function() {
+      require_once __DIR__ . '/pago/pagoFPedidoRoutes.php';
+      require_once __DIR__ . '/pago/pagoIndividualRoutes.php';
+    });
 
     Route::group(['prefix' => 'ti'], function(){
       require_once __DIR__ . '/tecnologiaDeLaInformacion/soporteRoutes.php';

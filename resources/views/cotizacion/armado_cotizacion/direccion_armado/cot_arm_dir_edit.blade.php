@@ -39,9 +39,8 @@
 
       costo_seleccionado: [],
       cost_por_env: null,
-      costo_de_envio_origin: "{{ $direccion->cost_por_env }}",
-      cant_origin: "{{ $direccion->cant }}",
-      costo: null
+
+      cost_por_env_individual: "{{ $direccion->cost_por_env_individual }}"
     },
     methods: {
       async edit() {
@@ -101,11 +100,9 @@
         this.getCostoDeEnvio()
       },
       async getCostoDeEnvio() {
-        // VERIFICA SI EL OBJETO ESTA VACIO O NO
+        // VERIFICA SI EL OBJETO "costo_seleccionado" ESTA VACIO O NO
         if(Object.keys(this.costo_seleccionado).length === 0) {
-          this.costo = 0
-          this.costo = parseFloat(this.costo_de_envio_origin) / parseFloat(this.cant_origin)
-          this.cost_por_env = parseFloat(this.costo) * parseFloat(this.cantidad)
+          this.cost_por_env = parseFloat(this.cost_por_env_individual) * parseFloat(this.cantidad)
         } else {
           this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env) * parseFloat(this.cantidad)
         }

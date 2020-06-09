@@ -93,8 +93,11 @@
       @endif
       <p>
         {{ Auth::user()->nom }} {{ Auth::user()->apell }}
-        <small>{{ Auth::user()->email }}<br>
-          {{ __('Fecha de registro') }} {{ Auth::user()->created_at->isoFormat('lll') }}</small>
+        <small>
+          {{ Auth::user()->email }}<br>
+          {{ __('Fecha de registro') }} {{ Auth::user()->created_at->isoFormat('lll') }}<br>
+          {{ __('Último inicio de sesión') }} {{ Auth::user()->last_login }}<br>
+        </small>
       </p>
     </li>
     <li class="user-footer">

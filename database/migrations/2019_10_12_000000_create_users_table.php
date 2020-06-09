@@ -35,6 +35,8 @@ class CreateUsersTable extends Migration
             $table->string('tel_mov', 15)->comment('Teléfono móvil');
             $table->string('emp', 200)->nullable()->comment('Nombre completo de la empresa a la que pertenece');
             $table->timestamp('email_verified_at')->nullable()->comment('Fecha en la que se verifico el correo');
+            $table->dateTime('login')->nullable()->comment('Fecha en la que inicio sesión');
+            $table->dateTime('last_login')->nullable()->comment('Fecha de la ultima vez que inicio sesión');
             $table->string('password',120)->default('$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi')->comment('Contraseña');
             $table->rememberToken()->comment('Recordar token del login');
             $table->text('obs')->nullable()->comment('Observaciones');

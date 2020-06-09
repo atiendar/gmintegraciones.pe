@@ -45,6 +45,7 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
       $direccion->est                       = $request->costo_seleccionado['est'];
       $direccion->for_loc                   = $request->costo_seleccionado['for_loc'];
       $direccion->tip_env                   = $request->costo_seleccionado['tip_env'];
+      $direccion->cost_por_env_individual   = $request->costo_seleccionado['cost_por_env'];
       $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'] *  $request->cantidad;
       $direccion->cant                      = $request->cantidad;
       $direccion->detalles_de_la_ubicacion  = $request->detalles_de_la_ubicacion;
@@ -81,10 +82,10 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
         $direccion->est                       = $request->costo_seleccionado['est'];
         $direccion->for_loc                   = $request->costo_seleccionado['for_loc'];
         $direccion->tip_env                   = $request->costo_seleccionado['tip_env'];
+        $direccion->cost_por_env_individual   = $request->costo_seleccionado['cost_por_env'];
         $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'] *  $request->cantidad;
       } else {
-        $costo = $direccion->cost_por_env / $direccion->cant;
-        $direccion->cost_por_env = $costo * $request->cantidad;
+        $direccion->cost_por_env = $direccion->cost_por_env_individual * $request->cantidad;
       }
       $direccion->cant                      = $request->cantidad;
       $direccion->detalles_de_la_ubicacion  = $request->detalles_de_la_ubicacion;

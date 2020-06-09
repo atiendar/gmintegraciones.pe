@@ -77,3 +77,26 @@ $("#div-tabla-scrollbar").overlayScrollbars({
     }
   }).overlayScrollbars();
 // Fin (Diseño del scrollbar)
+
+// Diseño del scrollbar
+$("#div-tabla-scrollbar2").overlayScrollbars({
+  className       : "os-theme-dark",
+  resize          : "both",
+  sizeAutoCapable : true,
+  paddingAbsolute : true,
+  scrollbars : {
+    clickScrolling : true
+  }
+}).overlayScrollbars();
+// Fin (Diseño del scrollbar)
+
+$("#div-tabla-scrollbar3").overlayScrollbars({
+  className       : "os-theme-dark",
+  resize          : "both",
+  sizeAutoCapable : true,
+  paddingAbsolute : true,
+  scrollbars : {
+    clickScrolling : true
+  }
+}).overlayScrollbars();
+// Fin (Diseño del scrollbar)

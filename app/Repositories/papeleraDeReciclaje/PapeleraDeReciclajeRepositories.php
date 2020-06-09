@@ -135,6 +135,9 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
     //    $consulta->armados()->restore();
     //  }
     }
+    if($registro->tab == 'costos_de_envio') {
+      $consulta = \App\Models\CostoDeEnvio::withTrashed()->findOrFail($registro->id_reg);
+    }
     return [
       'consulta'              => $consulta,
       'existe_llave_primaria' => $existe_llave_primaria

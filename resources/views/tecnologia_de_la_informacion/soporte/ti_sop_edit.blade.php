@@ -2,7 +2,7 @@
 @section('contenido')
 <title>@section('title', __('Editar soporte'))</title>
 <div class="card card-info card-outline card-tabs position-relative bg-white">
-  <div class="card-header p-1 border-botto tex">
+  <div class="card-header p-1 border-botton">
     <h5>
       <strong>{{ __('Editar soporte') }}: </strong>
       <a href="{{ route('soporte.show', Crypt::encrypt($soporte->id)) }}">{{ $soporte->sol }}</a>

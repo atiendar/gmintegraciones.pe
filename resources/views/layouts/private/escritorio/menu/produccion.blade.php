@@ -1,5 +1,7 @@
-{{-- 
-@canany(['produccion.pedidoActivo.index'])
+@canany([
+  'produccion.pedidoActivo.index', 'produccion.pedidoActivo.show', 'produccion.pedidoActivo.edit', 'produccion.pedidoActivo.armado.show', 'produccion.pedidoActivo.armado.edit',
+  'produccion.pedidoTerminado.index','produccion.pedidoTerminado.show'
+])
   <li class="nav-item has-treeview {{ Request::is('produccion*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link {{ Request::is('produccion*') ? 'active' : '' }}">
       <i class="nav-icon fas fa-cart-plus"></i>
@@ -15,50 +17,38 @@
           <p>{{ __('Inicio producción') }}</p>
         </a>
       </li>
-      <li class="nav-item has-treeview {{ Request::is('produccion/pedido*') ? 'menu-open' : '' }}">
-        <a href="#" class="nav-link {{ Request::is('produccion/pedido*') ? 'active' : '' }}">
-          <i class="nav-icon fas fa-shopping-bag"></i>
-          <p>
-            <p>{{ __('Pedidos producción') }}</p>
-            <i class="right fas fa-angle-left"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview ">
-          @canany(['produccion.pedidoActivo.index'])
-            <li class="nav-item">
-              <a href="" class="nav-link {{ Request::is('produccion/pedido-activo') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-list"></i>
-                <p>{{ __('Lista de pedidos activos') }}</p>
-              </a>
-            </li>
-          @endcanany
-          @canany(['produccion.pedidoTerminado.index'])
-            <li class="nav-item">
-              <a href="" class="nav-link {{ Request::is('produccion/pedido-terminado') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-list"></i>
-                <p>{{ __('Lista de pedidos terminados') }}</p>
-              </a>
-            </li>
-          @endcanany
-        </ul>
-      </li>
+      @canany(['produccion.pedidoActivo.index','produccion.pedidoActivo.show','produccion.pedidoActivo.edit', 'produccion.pedidoActivo.armado.show', 'produccion.pedidoActivo.armado.edit', 'produccion.pedidoTerminado.index','produccion.pedidoTerminado.show'])
+        <li class="nav-item has-treeview {{ Request::is('produccion/pedido*') ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Request::is('produccion/pedido*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-shopping-bag"></i>
+            <p>
+              <p>{{ __('Pedidos') }}</p>
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview ">
+            @canany(['produccion.pedidoActivo.index','produccion.pedidoActivo.show','produccion.pedidoActivo.edit', 'produccion.pedidoActivo.armado.show', 'produccion.pedidoActivo.armado.edit'])
+              <li class="nav-item">
+                <a href="" class="nav-link {{ Request::is('produccion/pedido-activo') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-list"></i>
+                  <p>{{ __('Lista de pedidos activos') }}</p>
+                </a>
+              </li>
+            @endcanany
+            @canany(['produccion.pedidoTerminado.index', 'produccion.pedidoTerminado.show'])
+              <li class="nav-item">
+                <a href="" class="nav-link {{ Request::is('produccion/pedido-terminado') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-list"></i>
+                  <p>{{ __('Lista de pedidos terminados') }}</p>
+                </a>
+              </li>
+            @endcanany
+          </ul>
+        </li>
+      @endcanany
     </ul>
   </li>
 @endcanany
---}}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 {{--
 @canany(['pruebaaaa'])

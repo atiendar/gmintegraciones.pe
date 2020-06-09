@@ -17,7 +17,7 @@ class PagoPedidoActivoController extends Controller {
     $this->pagoRepo         = $pagoRepositories;
   }
   public function show($id_pago) {
-    $pago = $this->pagoRepo->getPagoFindOrFailById($id_pago);
+    $pago = $this->pagoRepo->getPagoFindOrFailById($id_pago, ['pedido']);
     return view('venta.pedido.pedido_activo.pago_pedidoActivo.ven_pedAct_pag_show', compact('pago'));
   }
 }

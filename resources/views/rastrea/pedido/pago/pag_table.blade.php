@@ -1,4 +1,4 @@
-<div class="card-body table-responsive p-0" id="div-tabla-scrollbar" style="height: 20em;"> 
+<div class="card-body table-responsive p-0" id="div-tabla-scrollbar3" style="height: 20em;"> 
   <table class="table table-head-fixed table-hover table-striped table-sm table-bordered">
     @if(sizeof($pagos) == 0)
       @include('layouts.private.busquedaSinResultados')

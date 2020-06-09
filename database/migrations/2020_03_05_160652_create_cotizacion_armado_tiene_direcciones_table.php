@@ -25,6 +25,7 @@ class CreateCotizacionArmadoTieneDireccionesTable extends Migration
             $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
             $table->string('detalles_de_la_ubicacion',150)->comment('Detalles de la ubicación');
             $table->enum('tip_env', config('opcionesSelect.select_tipo_de_envio'))->default('Normal')->comment('Tipo de envío');
+            $table->decimal('cost_por_env_individual',20,2)->unsigned()->nullable()->comment('Costo por envío venta');
             $table->decimal('cost_por_env',20,2)->unsigned()->nullable()->comment('Costo por envío venta');
 
             $table->unsignedBigInteger('armado_id')->comment('Foreign Key armados cotización');

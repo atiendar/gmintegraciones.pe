@@ -572,7 +572,7 @@ return array(
     'Si'  => 'Si',
     'No'  => 'No',
   ],
-  /* =====================  [ PAGOS ] ===================== */
+  /* =====================  PAGOS [ INDIVIDUAL ] ===================== */
   'select_pago_index'  => [
     ''              => 'Buscar por. . .',
     'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
@@ -586,12 +586,25 @@ return array(
     'Transferencia'               => 'Transferencia',
     'Otro'                        => 'Otro',
   ],
+  'select_estatus_pago_individual'  => [
+    config('app.pendiente')  => config('app.pendiente'),
+    config('app.aprobado')  => config('app.aprobado'),
+    config('app.rechazado') => config('app.rechazado'),
+  ],
+  /* ===================== PAGOS [ FPEDIDO ] ===================== */
+  'select_pago_fpedido_index'  => [
+    ''                => 'Buscar por. . .',
+    'estat_pag'       => 'Estatus pago',
+    'num_pedido'      => 'Número de pedido',
+    'mont_tot_de_ped' => 'Monto total',
+  ],
+
   /* =====================  RASTREAR [ RASTREAR PEDIDO ] ===================== */
   'select_rastrear_pedido_index'  => [
     ''                        => 'Buscar por. . .',
   //  'usuario.email_registro'  => 'Cliente', // este marca error
     'num_pedido'              => 'Número de pedido',
-  ],
+  ], 
   /* ===================== [ COSTOS DE ENVIO ] ===================== */
   	'select_foraneo_local' => [
       'Foráneo' => 'Foráneo',
@@ -636,7 +649,7 @@ return array(
 		'PUE Pago en una sola exhibición' 		  => 'PUE Pago en una sola exhibición', 
 		'PPD Pago en parcialidades o diferido'  => 'PPD Pago en parcialidades o diferido', 
   ],
-  'select_forma_de_pago' 							=> [
+  'select_forma_de_pago_factura' 							=> [
 		'01 Efectivo' 								            => '01 Efectivo', 
 		'02 Cheque nominativo' 						        => '02 Cheque nominativo',
 		'03 Transferencia electrónica de fondos'	=> '03 Transferencia electrónica de fondos',
@@ -659,16 +672,26 @@ return array(
 		'30 Aplicación de anticipos' 				      => '30 Aplicación de anticipos',
 		'99 Por definir' 							            => '99 Por definir',
   ],
-    /* ===================== TI [ SOPORTES ] ===================== */
-    'select_soporte_index'  => [
-      ''              => 'Buscar por. . .',
-      'emp'           => 'Empresa',
-      'sol'           => 'Solicitante',
-      'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
-    ],
-    'select_estatus_soporte'  => [
-      'Pendiente'             => 'Pendiente',
-      'En espera de compra'   => 'En espera de compra',
-      'Terminado'             => 'Terminado',
-    ],
+/* ===================== TI [ SOPORTES ] ===================== */
+  'select_soporte_index'  => [
+    ''              => 'Buscar por. . .',
+    'emp'           => 'Empresa',
+    'sol'           => 'Solicitante',
+    'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+  'select_estatus_soporte'  => [
+    'Pendiente'             => 'Pendiente',
+    'En espera de compra'   => 'En espera de compra',
+    'Terminado'             => 'Terminado',
+  ],
+
+/* ===================== TI [ SOPORTES ] ===================== */
+  'select_costos_de_envio_index'  => [
+    ''              => 'Buscar por. . .',
+    'cost_por_env'  => 'Costo por envío',
+    'est'           => 'Estado',
+    'met_de_entreg' => 'Método de entrega',
+    'tip_env'       => 'Tipo de envío',
+    'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
+  ],
 );

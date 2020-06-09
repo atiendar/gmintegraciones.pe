@@ -11,7 +11,8 @@
     <p class="text-muted text-center">
       {{ Auth::user()->getRoleNom()->implode(', ') }}<br> <!-- Funcion declarada en Spatie\Permission\Traits\HasRole -->
       {{ Auth::user()->email }}<br>
-      {{ __('Fecha de registro') }} {{ Auth::user()->created_at->isoFormat('lll') }}
+      {{ __('Fecha de registro') }} {{ Auth::user()->created_at->isoFormat('lll') }}<br>
+      {{ __('Último inicio de sesión') }} {{ Auth::user()->last_login }}<br>
     </p>
     <strong><i class="fas fa-envelope mr-1"></i> {{ __('Correo de registro') }} </strong>
     <p class="text-muted">{{ Auth::user()->email_registro }}</p>

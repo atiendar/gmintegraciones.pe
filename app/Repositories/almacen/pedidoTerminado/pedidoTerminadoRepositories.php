@@ -4,8 +4,6 @@ namespace App\Repositories\almacen\pedidoTerminado;
 use App\Models\Pedido;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
-// Otros
-use Illuminate\Support\Facades\Auth;
 
 class PedidoTerminadoRepositories implements PedidoTerminadoInterface {
   protected $serviceCrypt;

@@ -4,10 +4,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CostoDeEnvio extends Model {
-  // use SoftDeletes;
+  use SoftDeletes;
   protected $table='costos_de_envio';
   protected $primaryKey='id';
-
+  // Define si vera todos los registros de la tabla o solo los que se le asignaron o los que usuario registro (on = todos los registros null = solo sus registros)
+  public function scopeAsignado($query, $opcion_asignado, $usuario) {
+    if($opcion_asignado == null) {
+      return $query->where('asignado_env', $usuario);
+    }
+  }
+  // Buscador
+  public function scopeBuscar($query, $opcion_buscador, $buscador) {
+    if($opcion_buscador != null) {
+      return $query->where("$opcion_buscador", 'LIKE', "%$buscador%");
+    }
+  }
   public function scopeMetodoDeEntrega($query, $metodo_de_entrega) {
     if($metodo_de_entrega != null) {
       return $query->where('met_de_entreg', 'LIKE', "%$metodo_de_entrega%");

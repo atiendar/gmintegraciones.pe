@@ -22,6 +22,10 @@ class EventServiceProvider extends ServiceProvider {
      * @var array
      */
     protected $listen = [
+      // Registra la fecha del ultimo acceso al sistema
+        'Illuminate\Auth\Events\Login' => [
+          'App\Listeners\SuccessfulLogin',
+        ],
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],

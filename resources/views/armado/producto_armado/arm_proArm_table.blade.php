@@ -1,4 +1,4 @@
-<div class="card-body table-responsive p-0" id="div-tabla-scrollbar" style="height: 25em;">
+<div class="card-body table-responsive p-0" id="div-tabla-scrollbar2" style="height: 25em;">
   <table class="table table-head-fixed table-hover table-striped table-sm table-bordered">
     @if(sizeof($productos) == 0)
       @include('layouts.private.busquedaSinResultados')
@@ -27,7 +27,7 @@
             <td>
               @canany(['armado.producto.editCantidad', 'armado.clon.producto.editCantidad'])
                 {!! Form::open(['route' => ['armado.producto.editCantidad', Crypt::encrypt($producto->id), Crypt::encrypt($armado->id)], 'method' => 'patch', 'id' => 'armadoProductoEditCantidad']) !!}
-                  {!! Form::select('cantidad', config('opcionesSelect.select_cantidad_table_productos_edit'), $producto->pivot->cant, ['class' => 'form-control form-control-sm select2' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'onchange' => 'this.form.submit()']) !!}
+                  {!! Form::select('cantidad', config('opcionesSelect.select_cantidad_table_productos_edit'), $producto->pivot->cant, ['class' => 'form-control form-control-sm' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'onchange' => 'this.form.submit()']) !!}
                 {!! Form::close() !!}
               @else
                 {{ $producto->pivot->cant }}
@@ -37,7 +37,7 @@
             @include('almacen.producto.alm_pro_table.td.proveedor')
             @include('almacen.producto.alm_pro_table.td.precioProveedor')
             <td>
-              {!! Form::select('utilidad', config('opcionesSelect.select_utilidad'), $producto->utilid, ['class' => 'form-control form-control-sm select2 disable' . ($errors->has('utilidad') ? ' is-invalid' : ''), 'disabled']) !!}
+              {!! Form::select('utilidad', config('opcionesSelect.select_utilidad'), $producto->utilid, ['class' => 'form-control form-control-sm disable' . ($errors->has('utilidad') ? ' is-invalid' : ''), 'disabled']) !!}
             </td>
             @include('almacen.producto.alm_pro_table.td.precioCliente')
             @include('almacen.producto.alm_pro_table.td.alto')

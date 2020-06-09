@@ -722,6 +722,42 @@ class PermisosTableSeeder extends Seeder {
       'name'				    => 'almacen.pedidoTerminado.show',
       'desc'            => "Ver detalles de cualquier registro del módulo Almacén 'Pedidos terminados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);   
+// PERMISOS DEL MÓDULO COSTOS DE ENVÍO
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 99,
+      'nom'             => "Navegar por tabla 'Costos de envío'",
+      'name'				    => 'costoDeEnvio.index',
+      'desc'            => "Lista y navega por todos los registros del módulo 'Costos de envío'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 100,
+      'nom'             => "Registrar nuevo 'Costos de envío'",
+      'name'				    => 'costoDeEnvio.create',
+      'desc'            => "Crear nuevo registro en el módulo 'Costos de envío'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 101,
+      'nom'             => "Ver detalles 'Costos de envío'",
+      'name'				    => 'costoDeEnvio.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo 'Costos de envío'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 102,
+      'nom'             => "Editar registro 'Costos de envío'",
+      'name'				    => "costoDeEnvio.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo 'Costos de envío'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 103,
+      'nom'             => "Eliminar registro 'Costos de envío'",
+      'name'				    => "costoDeEnvio.destroy",
+      'desc'            => "Eliminar cualquier registro del módulo 'Costos de envío'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
   }
 }

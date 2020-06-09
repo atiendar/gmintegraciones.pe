@@ -1,4 +1,4 @@
-<div class="card-body table-responsive p-0" id="div-tabla-scrollbar" style="height: 25em;"> 
+<div class="card-body table-responsive p-0" id="div-tabla-scrollbar2" style="height: 25em;"> 
   <table class="table table-head-fixed table-hover table-striped table-sm table-bordered">
     @if(sizeof($armados) == 0)
       @if($pedido->lid_de_ped_alm == null)

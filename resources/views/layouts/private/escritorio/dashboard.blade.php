@@ -58,6 +58,7 @@
   @include('layouts.private.footer')
 </div>
 <script src="{{ asset('js/app.js') }}"></script>
+@yield('vuejs')
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
@@ -66,7 +67,6 @@
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('plugins/pace-progress/pace.min.js') }}"></script>
 <script src="{{ asset('js/myfunction.js') }}"></script>
-@yield('vuejs')
 @yield('js')
 @yield('js1')
 @yield('js2')

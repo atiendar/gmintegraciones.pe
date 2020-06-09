@@ -1,5 +1,5 @@
 <div class="card card-info card-outline card-tabs position-relative bg-white">
-  <div class="card-header p-1 border-botto tex">
+  <div class="card-header p-1 border-botton">
     <h5>Archivos
     </h5>
   </div>

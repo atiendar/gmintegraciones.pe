@@ -9,7 +9,7 @@
   </div>
   <div class="card-body">
     {!! Form::model(Request::all(), ['route' => 'pago.fPedido.index', 'method' => 'GET']) !!}
-      @include('global.buscador.buscador', ['ruta_recarga' => route('pago.fPedido.index'), 'opciones_buscador' => []])
+      @include('global.buscador.buscador', ['ruta_recarga' => route('pago.fPedido.index'), 'opciones_buscador' => config('opcionesSelect.select_pago_fpedido_index')])
     {!! Form::close() !!}
     @include('pago.fPedido.fpe_table')
     @include('global.paginador.paginador', ['paginar' => $pedidos])

@@ -7,7 +7,7 @@
 @endcanany
 @can('pago.index')
 <li class="nav-item">
-    <a href="{{ route('pago.index') }}" class="nav-link {{ Request::is('pago') ? 'active' : '' }}">
+    <a href="{{ route('pago.index') }}" class="nav-link {{ Request::is('pago/individual') ? 'active' : '' }}">
       <i class="fas fa-list nav-icon"></i> {{ __('Lista de pagos (Individual)') }}
     </a>
   </li>

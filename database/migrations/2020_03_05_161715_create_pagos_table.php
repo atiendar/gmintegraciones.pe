@@ -19,8 +19,8 @@ class CreatePagosTable extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
             $table->string('cod_fact',50)->unique()->comment('Código de facturación');
-            $table->string('comp_de_pag_rut',200)->comment('Ruta de comprobante de pagos');
-            $table->string('comp_de_pag_nom',200)->comment('Nombre de comprobante de pagos');
+            $table->string('comp_de_pag_rut',200)->nullable()->comment('Ruta de comprobante de pagos');
+            $table->string('comp_de_pag_nom',200)->nullable()->comment('Nombre de comprobante de pagos');
             $table->string('cop_de_indent_rut',200)->nullable()->comment('Ruta de la copia de identificación');
             $table->string('cop_de_indent_nom',200)->nullable()->comment('Nombre de la copia de identificación');
             $table->enum('estat_pag',[config('app.pendiente'), config('app.aprobado'), config('app.rechazado')])->default('Pendiente')->nullable()->comment('Estatus de pago');

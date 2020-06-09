@@ -26,7 +26,7 @@ $factory->define(Factura::class, function (Faker $faker) {
         'preg'              => $faker->randomElement(config('opcionesSelect.select_si_no')),
         'uso_de_cfdi'       => $faker->randomElement(config('opcionesSelect.select_uso_de_cfdi')),
         'met_de_pag'        => $faker->randomElement(config('opcionesSelect.select_metodo_de_pago')),
-        'form_de_pag'       => $faker->randomElement(config('opcionesSelect.select_forma_de_pago')),
+        'form_de_pag'       => $faker->randomElement(config('opcionesSelect.select_forma_de_pago_factura')),
         'concept'           => $faker->randomElement(config('opcionesSelect.select_concepto')),
     //    'mont_a_fact'       => $pago->mont_de_pag,
         'pago_id'           => $id_pago,
