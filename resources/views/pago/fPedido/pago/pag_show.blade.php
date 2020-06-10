@@ -5,7 +5,7 @@
   <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
     <h5>
       <strong>{{ __('Detalles del registro') }}:</strong>
-      @can('pago.edit')
+      @can('pago.fPedido.edit')
         <a href="{{ route('pago.fPedido.edit', Crypt::encrypt($pago->id)) }}" class="text-white">{{ $pago->cod_fact }}</a>
       @else
         {{ $pago->cod_fact }}

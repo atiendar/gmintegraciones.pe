@@ -3,8 +3,8 @@ namespace App\Http\Controllers\Pago\Individual;
 use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
-use App\Http\Requests\pago\StorePagoRequest;
-use App\Http\Requests\pago\UpdatePagoRequest;
+use App\Http\Requests\pago\individual\StorePagoRequest;
+use App\Http\Requests\pago\individual\UpdatePagoRequest;
 // Repositories
 use App\Repositories\pago\PagoRepositories;
 
@@ -23,12 +23,14 @@ class PagoController extends Controller {
     return back();
   }
   public function show($id_pago) {
-    $pago = $this->pagoRepo->getPagoFindOrFailById($id_pago, ['pedido']);
+    $pago = $this->pagoRepo->getPagoFindOrFailById($id_pago, ['pedido'], null);
     return view('pago.individual.ind_show', compact('pago'));
   }
   public function edit($id_pago) {
-    $pago = $this->pagoRepo->getPagoFindOrFailById($id_pago, ['pedido']);
-    return view('pago.individual.ind_edit', compact('pago'));
+    $pago           = $this->pagoRepo->getPagoFindOrFailById($id_pago, ['pedido'], null);
+    $pedido         = $pago->pedido;
+    $mont_pag_aprov =  $this->pagoRepo->getMontoDePagosAprobados($pedido);
+    return view('pago.individual.ind_edit', compact('pago', 'pedido', 'mont_pag_aprov'));
   }
   public function update(UpdatePagoRequest $request, $id_pago) {
     $this->pagoRepo->update($request, $id_pago);

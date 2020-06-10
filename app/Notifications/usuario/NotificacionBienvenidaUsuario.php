@@ -58,11 +58,13 @@ class NotificacionBienvenidaUsuario extends Notification { // No implementar Sho
                 'pagina_de_inicio_del_sistema'      => url(config('app.url')),
                 'year_actual'                       => date("Y"),
                 
-                // OTROS
+                // USUARIO
                 'nombre_completo_del_usuario'       => $notifiable->nom . ' ' . $notifiable->apell,
                 'nombre_del_usuario'                => $notifiable->nom,
                 'apellido_del_usuario'              => $notifiable->apell,
                 'email_registro_del_usuario'        => $notifiable->email_registro,
+
+                // EXTRAS
                 'password'                          => $this->password,
             ]
         );

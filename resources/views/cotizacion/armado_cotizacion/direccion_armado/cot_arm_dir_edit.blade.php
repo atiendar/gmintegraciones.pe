@@ -44,7 +44,7 @@
     },
     methods: {
       async edit() {
-        this.checarBotonSubmit("btnsubmit")
+        this.checarBotonSubmitDisabled("btnsubmit")
         axios.put('/cotizacion/armado/direccion/actualizar/'+{{ $direccion->id }}, {
           metodo_de_entrega:        this.metodo_de_entrega,
           estado_al_que_se_cotizo:  this.estado_al_que_se_cotizo,
@@ -62,6 +62,7 @@
             location.reload()
           })
         }).catch(error => {
+          this.checarBotonSubmitEnabled("btnsubmit")
           if(error.response.status == 422) {
             this.errors   = error.response.data.errors,
             this.hasError = true
@@ -116,9 +117,14 @@
           this.costo_de_envio = null
         }
       },
-      async checarBotonSubmit(id_btn) {
+      async checarBotonSubmitDisabled(id_btn) {
         document.getElementById(id_btn).value = "Espere un momento...";
         document.getElementById(id_btn).disabled = true;
+        return true;
+      },
+      async checarBotonSubmitEnabled(id_btn) {
+        document.getElementById(id_btn).value = "Espere un momento...";
+        document.getElementById(id_btn).disabled = false;
         return true;
       },
     }

@@ -49,7 +49,7 @@
       </section>
     </div>
     @if(Request::route()->getName() != 'home')
-      <aside class="control-sidebar control-sidebar-dark">
+      <aside class="control-sidebar {{ Auth::user()->col_barr_lat_der_oscu_o_clar }}">
         @include('layouts.private.escritorio.barraLateralDerecha')
       </aside>
     @endif

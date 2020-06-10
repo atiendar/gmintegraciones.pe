@@ -2,6 +2,9 @@
 namespace App\Repositories\pago;
 // Models
 use App\Models\Pago;
+// Notifications
+use App\Notifications\pago\NotificacionPagoRegistrado;
+use App\Notifications\pago\NotificacionPagoRechazado;
 // Events
 use App\Events\layouts\ActividadRegistrada;
 use App\Events\layouts\ArchivoCargado;
@@ -9,6 +12,8 @@ use App\Events\layouts\ArchivoCargado;
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
 use App\Repositories\venta\pedidoActivo\PedidoActivoRepositories;
+use App\Repositories\sistema\plantilla\PlantillaRepositories;
+use App\Repositories\sistema\sistema\SistemaRepositories;
 // Otros
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -16,20 +21,24 @@ use DB;
 class PagoRepositories implements PagoInterface {
   protected $serviceCrypt;
   protected $pedidoActivoRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, PedidoActivoRepositories $pedidoActivoRepositories) {
-    $this->serviceCrypt = $serviceCrypt;
+  protected $plantillaRepo;
+  protected $sistemaRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, PedidoActivoRepositories $pedidoActivoRepositories, PlantillaRepositories $plantillaRepositories, SistemaRepositories $sistemaRepositories) {
+    $this->serviceCrypt     = $serviceCrypt;
     $this->pedidoActivoRepo = $pedidoActivoRepositories;
+    $this->plantillaRepo    = $plantillaRepositories;
+    $this->sistemaRepo      = $sistemaRepositories;
   }
-  public function getPagoFindOrFailById($id_pago, $relaciones) {
+  public function getPagoFindOrFailById($id_pago, $relaciones, $estatus) {
     $id_pago = $this->serviceCrypt->decrypt($id_pago);
-    return Pago::with($relaciones)->findOrFail($id_pago);
-  }// ->orderBy('estat_pag', 'ASC')
+    return Pago::with($relaciones)->estatus($estatus)->findOrFail($id_pago);
+  }
   public function getPagination($request) {
     return Pago::with('pedido')->buscar($request->opcion_buscador, $request->buscador)->orderByRaw('estat_pag ASC, id DESC')->paginate($request->paginador);
   }
   public function store($request, $id_pedido) {
     try { DB::beginTransaction();
-      $pedido = $this->pedidoActivoRepo->getPedidoFindOrFail($id_pedido, []);
+      $pedido = $this->pedidoActivoRepo->getPedidoFindOrFail($id_pedido, ['usuario']);
       $pago = new Pago();
       $pago->cod_fact       = $this->generateRandomString();
       $pago->form_de_pag    = $request->forma_de_pago;
@@ -37,13 +46,12 @@ class PagoRepositories implements PagoInterface {
       $pago->pedido_id      = $pedido->id;   
       $pago->user_id        = $pedido->user_id; 
       $pago->created_at_pag = Auth::user()->email_registro;
-
       if($request->hasfile('comprobante_de_pago')) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('comprobante_de_pago'), // Archivo blob
-          'public/venta/pedido/' . $pedido->serie . '/', // Ruta en la que guardara el archivo
-          'pago-' . time() . '.', // Nombre del archivo
+          'public/venta/pedido/' . $pedido->num_pedido . '/', // Ruta en la que guardara el archivo
+          'comprobante_de_pago-' . time() . '.', // Nombre del archivo
           null // Ruta y nombre del archivo anterior
         ); 
         $pago->comp_de_pag_rut  = $imagen[0]['ruta'];
@@ -53,8 +61,8 @@ class PagoRepositories implements PagoInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('copia_de_identificacion'), // Archivo blob
-          'public/venta/pedido/' . $pedido->serie . '/', // Ruta en la que guardara el archivo
-          'pago-' . time() . '.', // Nombre del archivo
+          'public/venta/pedido/' . $pedido->num_pedido . '/', // Ruta en la que guardara el archivo
+          'copia_de_identificacion-' . time() . '.', // Nombre del archivo
           null // Ruta y nombre del archivo anterior
         ); 
         $pago->cop_de_indent_rut  = $imagen[0]['ruta'];
@@ -64,18 +72,23 @@ class PagoRepositories implements PagoInterface {
       $pago->cod_fact .= $pago->id;
       $pago->save();
       $this->pedidoActivoRepo->getEstatusPagoPedido($pedido);
-      /*
-      *
-      * FALTA ENVIAR CORREO CON EL CODIGO DE FACTURA
-      *
-      */
+     
+      // SI CUMPLE CON LA CONFICION SE MODIFICA EL ESTATUS DE PRODUCCIÓN Y ALMACEN PARA QUE LO PUEDAN VISUALIZAR
+      if($pedido->mont_tot_de_ped <= 25000 AND $pedido->estat_produc == config('app.pendiente')) {
+        $this->modificarEstatusProduccionYAlmacen($pedido);
+      }
+
+      // NOTIFICA AL USUARIO VIA CORREO ELECTRONICO QUE SU PAGO HA SIDO REGISTRADO
+      $plantilla = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_pag_reg_pag'));
+      $pedido->usuario->notify(new NotificacionPagoRegistrado($pedido->usuario, $pago, $pedido->num_pedido, $plantilla)); // Envió de correo electrónico
+
       DB::commit();
       return $pago;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function update($request, $id_pago) {
     try { DB::beginTransaction();
-      $pago = $this->getPagoFindOrFailById($id_pago, ['pedido']);
+      $pago = $this->getPagoFindOrFailById($id_pago, ['pedido', 'usuario'], null);
       $pago->estat_pag  = $request->estatus_pago;
       $pago->coment_pag = $request->comentarios;
       
@@ -85,7 +98,7 @@ class PagoRepositories implements PagoInterface {
           'Pagos (Individual)', // Módulo
           'pago.show', // Nombre de la ruta
           $id_pago, // Id del registro debe ir encriptado
-          $this->serviceCrypt->decrypt($id_pago), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          $pago->cod_fact, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
           array('Estatus pago', 'Comentarios'), // Nombre de los inputs del formulario
           $pago, // Request
           array('estat_pag', 'coment_pag') // Nombre de los campos en la BD
@@ -95,20 +108,43 @@ class PagoRepositories implements PagoInterface {
       $pago->save();
       $this->pedidoActivoRepo->getEstatusPagoPedido($pago->pedido);
 
-      /*
-      *
-      * FALTA ENVIAR CORREO CON EL CODIGO DE FACTURA
-      *
-      */
+      // NOTIFICA AL USUARIO VIA CORREO ELECTRONICO QUE SU PAGO HA SIDO RECHAZADO
+      if($pago->estat_pag == config('app.rechazado')) {
+        $plantilla = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_pag_pag_rech'));
+        $pago->usuario->notify(new NotificacionPagoRechazado($pago->usuario, $pago, $pago->pedido->num_pedido, $plantilla)); // Envió de correo electrónico
+      }
+
+      // SI CUMPLE CON LA CONFICION SE MODIFICA EL ESTATUS DE PRODUCCIÓN Y ALMACEN PARA QUE LO PUEDAN VISUALIZAR
+      if($pago->estat_pag == config('app.aprobado')) {
+        $this->modificarEstatusProduccionYAlmacen($pago->pedido);
+      }
 
       DB::commit();
       return $pago;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function destroy($id_pago) {
-    dd('destroy');
+    try { DB::beginTransaction();
+      $pago = $this->getPagoFindOrFailById($id_pago, ['pedido'], null);
+      $pago->delete();
+      $this->pedidoActivoRepo->getEstatusPagoPedido($pago->pedido);
+
+      DB::commit();
+      return $pago;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function generateRandomString($length = 4) { 
     return substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length); 
-  } 
+  }
+  public function getMontoDePagosAprobados($pedido) {
+    return $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
+  }
+  public function modificarEstatusProduccionYAlmacen($pedido) {
+    $pedido->estat_alm          = config('app.asignar_lider_de_pedido');
+    $pedido->fech_estat_alm     = date("Y-m-d h:i:s"); 
+
+    $pedido->estat_produc       = config('app.asignar_lider_de_pedido');
+    $pedido->fech_estat_produc  = date("Y-m-d h:i:s");
+    $pedido->save();
+  }
 }

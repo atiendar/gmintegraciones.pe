@@ -41,17 +41,9 @@ class NotificacionSent extends Notification {
         ->subject($this->notificacion->asunt)
         ->view(
             'diseno_notificacion.notificacion.' . $this->notificacion->id, [
-                // No se definiran variables para enviar en el correo 
+              // No se definiran variables para enviar en el correo 
             ]
         );
-/*
-        return (new MailMessage)
-            ->subject($this->notificacion->asunt)
-            ->greeting('¡Hola! ' . $notifiable->nom)
-            ->line('Tienes una nueva notificación')
-            ->line($this->notificacion->dis_de_la_notif)
-            ->action('Ver las notificaciones', route('perfil.notificacion.index'));
-*/
     }
 
     /**

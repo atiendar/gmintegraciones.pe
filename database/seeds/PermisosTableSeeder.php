@@ -758,6 +758,64 @@ class PermisosTableSeeder extends Seeder {
       'name'				    => "costoDeEnvio.destroy",
       'desc'            => "Eliminar cualquier registro del módulo 'Costos de envío'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);  
+// PERMISOS DEL MÓDULO PAGOS (INDIVIDUAL)
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 104,
+      'nom'             => "Navegar por tabla Pagos 'Individual'",
+      'name'				    => 'pago.index',
+      'desc'            => "Lista y navega por todos los registros del módulo Pagos 'Individual'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 105,
+      'nom'             => "Registrar nuevo Pagos 'Individual'",
+      'name'				    => 'pago.create',
+      'desc'            => "Crear nuevo registro en el módulo Pagos 'Individual'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 106,
+      'nom'             => "Ver detalles Pagos 'Individual'",
+      'name'				    => 'pago.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo Pagos 'Individual'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 108,
+      'nom'             => "Eliminar registro Pagos 'Individual'",
+      'name'				    => "pago.destroy",
+      'desc'            => "Eliminar cualquier registro del módulo Pagos 'Individual'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+// PERMISOS DEL MÓDULO PAGOS (F. POR PEDIDO)
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 109,
+      'nom'             => "Navegar por tabla Pagos 'F. por pedido'",
+      'name'				    => 'pago.fPedido.index',
+      'desc'            => "Lista y navega por todos los registros del módulo Pagos 'F. por pedido'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 110,
+      'nom'             => "Registrar nuevo Pagos 'F. por pedido'",
+      'name'				    => 'pago.fPedido.create',
+      'desc'            => "Crear nuevo registro en el módulo Pagos 'F. por pedido'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 111,
+      'nom'             => "Ver detalles Pagos 'F. por pedido'",
+      'name'				    => 'pago.fPedido.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo Pagos 'F. por pedido'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      'id'              => 112,
+      'nom'             => "Editar registro Pagos 'F. por pedido'",
+      'name'				    => "pago.fPedido.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo Pagos 'F. por pedido'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
   }
 }

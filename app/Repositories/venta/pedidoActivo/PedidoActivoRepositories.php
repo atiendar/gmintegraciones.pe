@@ -134,7 +134,6 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     return $pedido;
   }
   public function getEstatusPagoPedido($pedido) {
-  //  dd($pedido->pagos);
     $pagos_rechazado      = $pedido->pagos()->where('estat_pag', config('app.rechazado'))->get();
     $pagos_pendientes     = $pedido->pagos()->where('estat_pag', config('app.pendiente'))->get();
     $sum_pagos_aprobados  = $pedido->pagos()->where('estat_pag', config('app.aprobado'))->sum('mont_de_pag');
@@ -143,6 +142,11 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     $count_pagos_pendientes = count($pagos_pendientes);
 
     // ESTATUS PENDIENTE
+    if($count_pagos_pendientes == 0) {
+      $pedido->estat_pag = config('app.pendiente');
+    }
+
+    // ESTATUS PENDIENTE DE APROBAR
     if($count_pagos_pendientes > 0) {
       $pedido->estat_pag = config('app.pago_pendiente_de_aprobar');
     }

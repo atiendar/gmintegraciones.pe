@@ -44,6 +44,7 @@ class CreateUsersTable extends Migration
             $table->enum('sidebar', ['sidebar-collapse'])->nullable()->comment('Menú del sistema abierto o cerrado');
             $table->enum('col_barr_de_naveg', config('opcionesSelect.select_color_barra_de_navegacion'))->default('navbar-light navbar-white')->comment('Color de la barra superior del sistema');
             $table->enum('col_barr_lat_oscu_o_clar', config('opcionesSelect.select_color_barra_lateral_oscura_o_clara'))->default('sidebar-dark-primary')->comment('Color del menú izquierdo del sistema');
+            $table->enum('col_barr_lat_der_oscu_o_clar', config('opcionesSelect.select_color_barra_lateral_derecha_oscura_o_clara'))->default('control-sidebar-light border-left')->comment('Color del menú derecho del sistema');
             $table->enum('col_logot', config('opcionesSelect.select_color_logotipo'))->default('navbar-dark')->comment('Color de la barra donde se encuentra el logotipo del sistema');
             $table->string('asignado_us', 75)->comment('Correo del usuario al qu se le asigno este registro');
             $table->string('created_at_us', 75)->comment('Correo del usuario que realizo el registro');

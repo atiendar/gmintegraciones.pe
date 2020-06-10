@@ -15,6 +15,14 @@ class PersonalizarRepositories implements PersonalizarInterface {
     $personalizar->lang                     = $request->idioma;
     $personalizar->col_barr_de_naveg        = $request->color_barra_de_navegacion;
     $personalizar->col_barr_lat_oscu_o_clar = $request->color_barra_lateral_oscura_o_clara;
+
+    $opcion = substr($personalizar->col_barr_lat_oscu_o_clar, 0, 13);
+    if($opcion == 'sidebar-light') {
+      $personalizar->col_barr_lat_der_oscu_o_clar = config('opcionesSelect.select_color_barra_lateral_derecha_oscura_o_clara.control-sidebar-light border-left');
+    } elseif($opcion == 'sidebar-dark-') {
+      $personalizar->col_barr_lat_der_oscu_o_clar = config('opcionesSelect.select_color_barra_lateral_derecha_oscura_o_clara.control-sidebar-dark');
+    }
+
     $personalizar->col_logot                = $request->color_logotipo;
     $personalizar->save();
     return $personalizar;

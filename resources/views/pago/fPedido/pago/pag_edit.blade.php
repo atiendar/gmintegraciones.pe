@@ -5,8 +5,8 @@
   <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
     <h5>
       <strong>{{ __('Editar registro') }}:</strong>
-      @can('pago.show')
-        <a href="{{ route('pago.show', Crypt::encrypt($pago->id)) }}" class="text-white">{{ $pago->cod_fact }}</a>
+      @can('pago.fPedido.show')
+        <a href="{{ route('pago.fPedido.show', Crypt::encrypt($pago->id)) }}" class="text-white">{{ $pago->cod_fact }}</a>
       @else
         {{ $pago->cod_fact }}
       @endcan
@@ -31,9 +31,10 @@
         @include('pago.pag_showFields.formaDePago')
         @include('pago.pag_showFields.montoDePago')
       </div>
+      @include('pago.pag_showFields.comentarios')
     </div>
-    {!! Form::open(['route' => ['pago.update', Crypt::encrypt($pago->id)], 'method' => 'patch', 'id' => 'pagoUpdate']) !!}
-      @include('pago.individual.ind_editFields')
+    {!! Form::open(['route' => ['pago.fPedido.update', Crypt::encrypt($pago->id)], 'method' => 'patch', 'id' => 'pagofPedidoUpdate', 'files' => true]) !!}
+      @include('pago.fPedido.pago.pag_editFields')
     {!! Form::close() !!}
   </div>
 </div>

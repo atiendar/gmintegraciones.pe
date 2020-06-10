@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Requests\pago;
+namespace App\Http\Requests\pago\individual;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Crypt;
 

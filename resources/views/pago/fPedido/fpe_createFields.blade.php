@@ -21,11 +21,11 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('forma_de_pago', config('opcionesSelect.select_forma_de_pago'), null, ['class' => 'form-control select2' . ($errors->has('forma_de_pago') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+      {!! Form::select('forma_de_pago', config('opcionesSelect.select_forma_de_pago'), null, ['id' => 'forma_de_pago', 'class' => 'form-control select2' . ($errors->has('forma_de_pago') ? ' is-invalid' : ''), 'placeholder' => __('') , 'onChange' => 'getFormaDePago();']) !!}
     </div>
     <span class="text-danger">{{ $errors->first('forma_de_pago') }}</span>
   </div>
-  <div class="form-group col-sm btn-sm">
+  <div class="form-group col-sm btn-sm" id="div_copia_de_identificacion">
     <label for="copia_de_identificacion">{{ __('Copia de identificación') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
@@ -66,6 +66,20 @@
 @include('layouts.private.plugins.priv_plu_select2')
 @section('js5')
 <script>
+  window.onload = function() { 
+    getFormaDePago();
+  }
+  function getFormaDePago() {
+    selectFormaDePago           = document.getElementById("forma_de_pago"),
+    forma_de_pago               = selectFormaDePago.value;
+    div_copia_de_identificacion = document.getElementById('div_copia_de_identificacion');
+
+    if(forma_de_pago == 'Paypal' || forma_de_pago == 'Tarjeta de credito (Pagina)') {
+      div_copia_de_identificacion.style.display = 'block';
+    } else {
+      div_copia_de_identificacion.style.display = 'none';
+    }
+  }
   function getMontoDelPago() {
     monto_del_pago = document.getElementById("monto_del_pago").value;
     if (isNaN(parseFloat(monto_del_pago))) {

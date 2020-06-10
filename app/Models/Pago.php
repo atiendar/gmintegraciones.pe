@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pago extends Model{
-  use SoftDeletes;
+  // use SoftDeletes;
   protected $table='pagos';
   protected $primaryKey='id';
 
@@ -14,8 +14,13 @@ class Pago extends Model{
       return $query->where("$opcion_buscador", 'LIKE', "%$buscador%");
     }
   }
+  public function scopeEstatus($query, $estatus) {
+    if($estatus != null) {
+      return $query->where('estat_pag', $estatus);
+    }
+  }
   public function usuario(){
-    return $this->belongsTo('App\Models\User')->orderBy('id','DESC');
+    return $this->belongsTo('App\User', 'user_id')->orderBy('id','DESC');
   } 
   public function pedido(){
     return $this->belongsTo('App\Models\Pedido')->orderBy('id','DESC');

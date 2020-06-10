@@ -5,9 +5,9 @@ use Closure;
 class HttpsProtocol {
   public function handle($request, Closure $next) {
     // Redirecciona al https
-    if (!$request->secure()) {
-      return redirect()->secure($request->getRequestUri());
-    }
+  //  if (!$request->secure()) {
+  //    return redirect()->secure($request->getRequestUri());
+  //  }
     return $next($request); 
   }
 }

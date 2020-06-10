@@ -1,5 +1,5 @@
 <?php
-namespace App\Notifications\venta\pedidoActivo;
+namespace App\Notifications\pago;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -9,21 +9,19 @@ use App\Models\Sistema;
 // Otros
 use Carbon\Carbon;
 
-class NotificacionRegistrarPedido extends Notification { // No implementar ShouldQueue
+class NotificacionPagoRegistrado extends Notification {
     use Queueable;
-    protected $cliente;
-    protected $pedido;
-    protected $plantilla;
-    
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($cliente, $pedido, $plantilla) {
-        $this->cliente      = $cliente;
-        $this->pedido       = $pedido;
-        $this->plantilla    = $plantilla;
+    public function __construct($usuario, $pago, $numero_de_pedido, $plantilla) {
+      $this->usuario          = $usuario;
+      $this->pago             = $pago;
+      $this->numero_de_pedido = $numero_de_pedido;
+      $this->plantilla        = $plantilla;
     }
 
     /**
@@ -32,8 +30,7 @@ class NotificacionRegistrarPedido extends Notification { // No implementar Shoul
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
-    {
+    public function via($notifiable) {
         return ['mail']; // 'database', 'mail'
     }
 
@@ -44,12 +41,11 @@ class NotificacionRegistrarPedido extends Notification { // No implementar Shoul
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable) {
-        $year = Carbon::parse(Sistema::datos()->sistemaFindOrFail()->year_de_ini);
+      $year = Carbon::parse(Sistema::datos()->sistemaFindOrFail()->year_de_ini);
         return (new MailMessage)
         ->subject($this->plantilla->asunt)
         ->view(
             'correo.' . $this->plantilla->id, [
-
                 // SISTEMA
                 'nombre_de_la_empresa'              => Sistema::datos()->sistemaFindOrFail()->emp, 
                 'nombre_de_la_empresa_abreviado'    => Sistema::datos()->sistemaFindOrFail()->emp_abrev,
@@ -70,7 +66,10 @@ class NotificacionRegistrarPedido extends Notification { // No implementar Shoul
                 'email_registro_del_usuario'        => $notifiable->email_registro,
 
                 // EXTRAS
-                'numero_de_pedido'                  => $this->pedido->num_pedido,
+                'codigo_de_factura'                 => $this->pago->cod_fact,
+                'monto_del_pago'                    => $this->pago->mont_de_pag,
+                'forma_de_pago'                     => $this->pago->form_de_pag,
+                'numero_de_pedido'                  => $this->numero_de_pedido,
             ]
         );
     }
@@ -86,6 +85,5 @@ class NotificacionRegistrarPedido extends Notification { // No implementar Shoul
         return [
             //
         ];
-        
     }
 }

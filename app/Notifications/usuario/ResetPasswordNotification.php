@@ -74,11 +74,13 @@ class ResetPasswordNotification extends Notification {
                 'pagina_de_inicio_del_sistema'      => url(config('app.url')),
                 'year_actual'                       => date("Y"),
                 
-                // OTROS
+                // USUARIO
                 'nombre_completo_del_usuario'       => $notifiable->nom . ' ' . $notifiable->apell,
                 'nombre_del_usuario'                => $notifiable->nom,
                 'apellido_del_usuario'              => $notifiable->apell,
                 'email_registro_del_usuario'        => $notifiable->email_registro,
+
+                // EXTRAS
                 'minutos'                           => config('auth.passwords.'.config('auth.defaults.passwords').'.expire'),
                 'url_cambio_de_password'            => url(config('app.url').route('password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false)),
             ]

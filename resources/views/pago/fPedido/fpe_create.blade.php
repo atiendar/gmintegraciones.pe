@@ -10,11 +10,15 @@
       <small>{{ $pedido->num_pedido }}</small>
     </div>
   </div>
-  <div class="card-body">
-    {!! Form::open(['route' => ['pago.store', Crypt::encrypt($pedido->id)], 'onsubmit' => 'return checarBotonSubmit("btnsubmit")', 'files' => true]) !!}
-      @include('pago.pag_createFields')
-    {!! Form::close() !!}
-  </div>
 </div>
+@can('pago.fPedido.create')
+  <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
+    <div class="card-body">
+      {!! Form::open(['route' => ['pago.fPedido.store', Crypt::encrypt($pedido->id)], 'onsubmit' => 'return checarBotonSubmit("btnsubmit")', 'files' => true]) !!}
+        @include('pago.fPedido.fpe_createFields')
+      {!! Form::close() !!}
+    </div>
+  </div>
+@endcan
 @include('pago.fPedido.pago.pag_index')
 @endsection

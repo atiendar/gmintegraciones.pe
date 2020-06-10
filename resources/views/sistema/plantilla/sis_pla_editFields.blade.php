@@ -104,13 +104,20 @@
   @endif
 
   @if($plantilla->mod == 'Pagos (Registrar pago)')
-  //  otros.push();
+    otros.push('$codigo_de_factura !',
+              '$monto_del_pago !',
+              '$forma_de_pago !',
+              '$numero_de_pedido !');
   @endif
 
   @if($plantilla->mod == 'Pagos (Pago rechazado)')
-  //  otros.push();
+  otros.push('$codigo_de_factura !',
+              '$monto_del_pago !',
+              '$forma_de_pago !',
+              '$comentarios_del_pago !',
+              '$numero_de_pedido !');
   @endif
-
+  
   $('.textarea').summernote({
     tabsize: 4,
     height: 500,

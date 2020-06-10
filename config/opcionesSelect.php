@@ -63,6 +63,10 @@ return array(
     'navbar-light navbar-white'     => 'navbar-light navbar-white',
     'navbar-light navbar-orange'    => 'navbar-light navbar-orange',
   ],
+  'select_color_barra_lateral_derecha_oscura_o_clara'  => [
+    'control-sidebar-light border-left' => 'control-sidebar-light border-left',
+    'control-sidebar-dark'              => 'control-sidebar-dark',
+  ],
   'select_color_barra_lateral_oscura_o_clara'  => [
     'sidebar-dark-primary'  => 'sidebar-dark-primary',
     'sidebar-dark-warning'  => 'sidebar-dark-warning',
@@ -575,7 +579,12 @@ return array(
   /* =====================  PAGOS [ INDIVIDUAL ] ===================== */
   'select_pago_index'  => [
     ''              => 'Buscar por. . .',
-    'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
+    'cod_fact'          => 'Código de facturación',
+    'estat_pag'         => 'Estatus de pago',
+    'form_de_pag'       => 'Forma de pago',
+    'mont_de_pag'       => 'Monto de pago',
+  //  'pedido.num_pedido' => 'Número de pedido',
+    'created_at'        => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_forma_de_pago'  => [
     'Cheque'                      => 'Cheque',

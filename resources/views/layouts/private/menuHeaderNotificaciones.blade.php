@@ -85,7 +85,7 @@
     {{ Auth::user()->nom }} <i class="fas fa-sort-down"></i>
   </a>
   <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-    <li class="user-header bg-white">
+    <li class="user-header bg-white mb-3">
       @if(Auth::user()->img_us != null)
         <img src="{{ Storage::url(Auth::user()->img_us_rut . Auth::user()->img_us) }}" class="img-circle elevation-2" alt="{{ Auth::user()->defau_img_perf }}">
       @else

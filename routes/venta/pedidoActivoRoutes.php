@@ -12,10 +12,4 @@ Route::group(['prefix' => 'pedido-activo'], function() {
     Route::match(['GET', 'HEAD'],'editar/{id_armado}', 'Venta\PedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@edit')->name('venta.pedidoActivo.armado.edit')->middleware('permission:venta.pedidoActivo.armado.edit');
     Route::match(['PUT', 'PATCH'],'actualizar/{id_armado}', 'Venta\PedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@update')->name('venta.pedidoActivo.armado.update')->middleware('permission:venta.pedidoActivo.armado.edit');
   });
-
-  Route::group(['prefix' => 'pago'], function() {
-    Route::match(['GET', 'HEAD'],'detalles/{id_pago}', 'Venta\PedidoActivo\PagoPedidoActivo\PagoPedidoActivoController@show')->name('venta.pedidoActivo.pago.show')->middleware('permission:venta.pedidoActivo.pago.show');
-    Route::match(['GET', 'HEAD'],'editar/{id_pago}', 'Venta\PedidoActivo\PagoPedidoActivo\PagoPedidoActivoController@edit')->name('venta.pedidoActivo.pago.edit')->middleware('permission:venta.pedidoActivo.pago.edit');
-    Route::match(['PUT', 'PATCH'],'actualizar/{id_pago}', 'Venta\PedidoActivo\PagoPedidoActivo\PagoPedidoActivoController@update')->name('venta.pedidoActivo.pago.update')->middleware('permission:venta.pedidoActivo.pago.edit');
-  });
 });

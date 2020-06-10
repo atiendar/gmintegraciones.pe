@@ -29,6 +29,8 @@
 <!-- ****************************************************************************************** -->
 @canany([
   'rastrea.pedido.show', 'rastrea.pedido.showFull',
+  'pago.fPedido.index', 'pago.fPedido.create', 'pago.fPedido.show', 'pago.fPedido.edit',
+  'pago.index', 'pago.show', 'pago.edit', 'pago.destroy',
   'costoDeEnvio.index', 'costoDeEnvio.create', 'costoDeEnvio.show', 'costoDeEnvio.edit', 'costoDeEnvio.destroy',
   'cotizacion.index', 'cotizacion.create', 'cotizacion.show', 'cotizacion.edit', 'cotizacion.destroy',
   'proveedor.index', 'proveedor.create', 'proveedor.show', 'proveedor.edit', 'proveedor.destroy', 'proveedor.contacto.index', 'proveedor.contacto.create', 'proveedor.contacto.show', 'proveedor.contacto.edit', 'proveedor.contacto.destroy',
