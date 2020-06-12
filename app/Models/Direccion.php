@@ -2,11 +2,18 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
 class Direccion extends Model{
   use SoftDeletes;
+  use SoftCascadeTrait;
+
   protected $table='direcciones';
   protected $primaryKey='id';
+  protected $guarded = [];
+
+  protected $dates = ['deleted_at'];
+ // protected $softCascade = []; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
 
   // Buscador
   public function scopeBuscar($query, $opcion_buscador, $buscador) {

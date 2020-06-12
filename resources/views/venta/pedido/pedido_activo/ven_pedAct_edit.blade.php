@@ -36,7 +36,7 @@
       </div>
     </div>
   @endcan
-  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.numeroDePedidoUnificado', ['alto' => 'height: 20em;'])
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.numeroDePedidoUnificado', ['alto' => 'height: 23em;'])
 </div>
 @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_index')
 @include('venta.pedido.pedido_activo.pago_pedidoActivo.ven_pedAct_pag_index')

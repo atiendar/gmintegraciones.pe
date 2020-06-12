@@ -18,13 +18,15 @@ class ArmadoPedidoActivoController extends Controller {
   }
   public function show(Request $request, $id_armado) {
     $armado     = $this->armadoPedidoActivoRepo->armadoPedidoActivoFindOrFailById($id_armado, ['pedido', 'productos'], 'show');
+    $pedido     = $armado->pedido()->firstOrFail();
     $productos  = $armado->productos()->with('sustitutos')->get();
-    return view('almacen.pedido.pedido_activo.armado_activo.alm_pedAct_armAct_show', compact('armado', 'productos'));
+    return view('almacen.pedido.pedido_activo.armado_activo.alm_pedAct_armAct_show', compact('armado', 'pedido', 'productos'));
   }
   public function edit(Request $request, $id_armado) { 
     $armado     = $this->armadoPedidoActivoRepo->armadoPedidoActivoFindOrFailById($id_armado, ['pedido'], 'edit');
+    $pedido     = $armado->pedido()->firstOrFail();
     $productos  = $this->armadoPedidoActivoRepo->getArmadoPedidoTieneProductosPaginate($armado, $request);
-    return view('almacen.pedido.pedido_activo.armado_activo.alm_pedAct_armAct_edit', compact('armado', 'productos'));
+    return view('almacen.pedido.pedido_activo.armado_activo.alm_pedAct_armAct_edit', compact('armado', 'pedido', 'productos'));
   }
   public function update(UpdateArmadoPedidoActivoRequest $request, $id_armado) {
     $armado = $this->armadoPedidoActivoRepo->update($request, $id_armado);

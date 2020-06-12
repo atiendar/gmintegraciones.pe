@@ -6,9 +6,9 @@ use App\Models\PapeleraDeReciclaje;
 use App\Repositories\servicio\crypt\ServiceCrypt;
 use App\Repositories\servicio\fOpen\ServiceFopen;
 // Repositories
-use App\Repositories\proveedor\ProveedorRepositories;
-// Events
-use App\Events\layouts\ArchivosEliminados;
+use App\Repositories\papeleraDeReciclaje\tabla\pedidos\PedidosRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\productos\ProductosRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\armados\ArmadosRepositories;
 //Otro
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -16,9 +16,15 @@ use DB;
 class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
   protected $serviceCrypt;
   protected $serviceFopen;
-  public function __construct(ServiceCrypt $serviceCrypt, ServiceFopen $serviceFopen) {
-    $this->serviceCrypt = $serviceCrypt;
-    $this->serviceFopen = $serviceFopen;
+  protected $pedidosRepo;
+  protected $productosRepo;
+  protected $armadosRepositories;
+  public function __construct(ServiceCrypt $serviceCrypt, ServiceFopen $serviceFopen, PedidosRepositories $pedidosRepositories, ProductosRepositories $productosRepositories, ArmadosRepositories $armadosRepositories) {
+    $this->serviceCrypt   = $serviceCrypt;
+    $this->serviceFopen   = $serviceFopen;
+    $this->pedidosRepo    = $pedidosRepositories;
+    $this->productosRepo  = $productosRepositories;
+    $this->armadosRepo    = $armadosRepositories;
   }
   public function papeleraAsignadoFindOrFailById($id_registro) {
     $id_registro = $this->serviceCrypt->decrypt($id_registro);
@@ -60,9 +66,23 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
       return $registro;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
+  public function destroyAllPapeleraByIdFk($id_registro, $id_resultado) {
+    $registros =  PapeleraDeReciclaje::where('id_fk', $id_resultado)->get();
+    if($registros->isEmpty() == false) { // Verifica si la colección esta vacia
+      $hastaC = count($registros) - 1;
+      for($contador2 = 0; $contador2 <= $hastaC; $contador2++) { 
+        $registros_id[$contador2] = $registros[$contador2]->id;        
+      }
+      array_push($registros_id, $id_registro);
+    } else {
+      $registros_id[0] = $id_registro;
+    }
+    PapeleraDeReciclaje::destroy($registros_id); 
+  }
   public function tablas($registro, $metodo) {
     $existe_llave_primaria = 'indefinido';
     if($registro->tab == 'users') {
+     //  'quejasYSugerencias','pedidos', 'facturas', 'pagos' // LOS PAGOS PUEDEN SALIR DEL PEDIDO VER COMO ES MAS FACIL Y OPTIMO
       $consulta = \App\User::withTrashed()->findOrFail($registro->id_reg);
       if($metodo == 'destroy') {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
@@ -93,9 +113,6 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
         ArchivosEliminados::dispatch(
           array($consulta->arch_rut.$consulta->arch_nom), 
         );
-      } 
-      elseif($metodo == 'restore') {
-        $consulta->contactos()->restore();
       }
     }
     if($registro->tab == 'contactos_proveedores') {
@@ -104,56 +121,42 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
         $existe_llave_primaria = false;
       }
     }
-    if($registro->tab == 'armados') {
-      $consulta = \App\Models\Armado::with('imagenes')->withTrashed()->findOrFail($registro->id_reg);
-      if($metodo == 'destroy') {
-        // Elimina todas las imagenes relacionadas a este registro
-        $hastaC = count($consulta->imagenes) - 1;
-        $imagenes = [];
-        for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
-          $imagenes[$contador2] = $consulta->imagenes[$contador2]->img_rut.$consulta->imagenes[$contador2]->img_nom;
-        }
-        if($consulta->img_nom != null) { array_push($imagenes, $consulta->img_rut.$consulta->img_nom); }
-        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
-        ArchivosEliminados::dispatch(
-          $imagenes, 
-        );
-      } 
-    }
-    if($registro->tab == 'productos') {
-      $consulta = \App\Models\Producto::withTrashed()->findOrFail($registro->id_reg);
+    if($registro->tab == 'armado_tiene_imagenes') {
+      $consulta = \App\Models\ArmadoImagen::with('armado')->withTrashed()->findOrFail($registro->id_reg);
+      if($consulta->armado == null) {
+        $existe_llave_primaria = false;
+      }
       if($metodo == 'destroy') {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ArchivosEliminados::dispatch(
-          array($consulta->img_prod_rut.$consulta->img_prod_nom), 
+          array($consulta->img_rut.$consulta->img_nom), 
         );
       }
     }
+    if($registro->tab == 'armados') {
+      $consulta = \App\Models\Armado::with(['imagenes'=> function ($query) {
+                                        $query->withTrashed();
+                                      }])->withTrashed()->findOrFail($registro->id_reg);
+      $this->armadosRepo->metodo($metodo, $consulta);
+    }
+    if($registro->tab == 'productos') {
+      $consulta = \App\Models\Producto::withTrashed()->findOrFail($registro->id_reg);
+      $this->productosRepo->metodo($metodo, $consulta);
+    }
     if($registro->tab == 'cotizaciones') {
-      $consulta = \App\Models\Cotizacion::with('armados')->withTrashed()->findOrFail($registro->id_reg);
-    //  if($metodo == 'restore') {
-    //    $consulta->armados()->restore();
-    //  }
+      $consulta = \App\Models\Cotizacion::withTrashed()->findOrFail($registro->id_reg);
     }
     if($registro->tab == 'costos_de_envio') {
       $consulta = \App\Models\CostoDeEnvio::withTrashed()->findOrFail($registro->id_reg);
     }
+    if($registro->tab == 'pedidos') {
+      $consulta = \App\Models\Pedido::with(['armados', 'pagos'])->withTrashed()->findOrFail($registro->id_reg);
+      $this->$this->pedidosRepo->metodo($metodo, $consulta);
+    }
+    if($consulta == null) {return abort(403, 'Registro no encontrado.');} // ABORTA LA OPERACIÓN EN CASO DE QUE LA CONSULTA SEA NULL
     return [
       'consulta'              => $consulta,
       'existe_llave_primaria' => $existe_llave_primaria
     ];
-  }
-  public function destroyAllPapeleraByIdFk($id_registro, $id_resultado) {
-    $registros =  PapeleraDeReciclaje::where('id_fk', $id_resultado)->get();
-    if($registros->isEmpty() == false) { // Verifica si la colección esta vacia
-      $hastaC = count($registros) - 1;
-      for($contador2 = 0; $contador2 <= $hastaC; $contador2++) { 
-        $registros_id[$contador2] = $registros[$contador2]->id;        
-      }
-      array_push($registros_id, $id_registro);
-    } else {
-      $registros_id[0] = $id_registro;
-    }
-    PapeleraDeReciclaje::destroy($registros_id); 
   }
 }

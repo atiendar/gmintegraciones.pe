@@ -10,7 +10,7 @@
       @else
         {{ $armado->cod }}
       @endcan
-      <strong>{{ __('del pedido') }}:</strong> {{ $armado->pedido->num_pedido }}
+      <strong>{{ __('del pedido') }}:</strong> {{ $pedido->num_pedido }}
     </h5>
   </div>
   <div class="ribbon-wrapper">

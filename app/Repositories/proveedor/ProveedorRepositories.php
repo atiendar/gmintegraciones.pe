@@ -139,16 +139,6 @@ class ProveedorRepositories implements ProveedorInterface {
       $proveedor->delete();
       $this->eliminarCacheAllProveedoresPlunk();
 
-      // Elimina todos los contactos relacionados al proveedor
-      $contactos = $proveedor->contactos()->get();
-      if($contactos->isEmpty() == false) { // Verifica si la colección esta vacia
-        $hastaC = count($contactos) - 1;
-        for($contador2 = 0; $contador2 <= $hastaC; $contador2++) { 
-          $contactos_id[$contador2] = $contactos[$contador2]->id;        
-        }
-        \App\Models\ContactoProveedor::destroy($contactos_id);
-      }
-
       /// Elimina todos los productos relacionados al proveedor y deja en cero los precios
       $productos = $proveedor->productos()->withTrashed()->with('armados')->get();
       $hastaC = count($productos) - 1;
@@ -165,6 +155,7 @@ class ProveedorRepositories implements ProveedorInterface {
           $this->calcularValoresArmadoRepo->calcularValoresArmado($armado, $armado->productos);
         }
       }
+
       // Manda el registro a la papelera de reciclaje
       $this->papeleraDeReciclajeRepo->store([
         'modulo'      => 'Proveedores', // Nombre del módulo del sistema
@@ -173,6 +164,7 @@ class ProveedorRepositories implements ProveedorInterface {
         'id_reg'      => $proveedor->id, // ID de registro eliminado
         'id_fk'       => null // ID de la llave foranea con la que tiene relación              
       ]);
+      
       DB::commit();
       return $proveedor;
     } catch(\Exception $e) { DB::rollback(); throw $e; }

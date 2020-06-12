@@ -27,8 +27,8 @@ class CreatePedidoArmadoTieneDireccionesTable extends Migration
         //    $table->string('ref_gral_de_ubic_entreg',500)->nullable()->comment('Referencia general de ubicación de entrega');
             $table->string('met_de_entreg_de_log',60)->nullable()->comment('Método de entrega de logística');
             $table->string('met_de_entreg_de_log_esp',100)->nullable()->comment('Método de entrega espesifico de logística');
-            $table->string('comp_de_sal_rut', 200)->nullable()->comment('Ruta de donde se guardo el comprobante');
-            $table->string('comp_de_sal_nom', 200)->nullable()->comment('Nombre del comprobante');
+            $table->string('comp_de_sal_rut', 200)->nullable()->comment('Ruta de donde se guardo el comprobante de salida');
+            $table->string('comp_de_sal_nom', 200)->nullable()->comment('Nombre del comprobante de salida');
             $table->string('url',200)->nullable()->comment('URL');
             $table->string('num_guia',60)->nullable()->comment('Número de guía');
           

@@ -5,6 +5,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\usuario\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 use Spatie\Permission\Traits\HasRoles;
 // Models
 use App\Models\Sistema;
@@ -14,9 +15,14 @@ class User extends Authenticatable {
   // HasRoles Permite implementar la capa de roles y permisos de laravel permissions
   // SoftDeletes Permite habilitar el campo deleted_at en la BD para no eliminar el registro directamente y trabajar sobre una papelera de reciclaje
   use Notifiable, HasRoles, SoftDeletes;
+  use SoftCascadeTrait;
   protected $table = 'users';
   protected $primaryKey = 'id';
   protected $guarded = [];
+
+  protected $dates = ['deleted_at'];
+  protected $softCascade = ['actividades', 'quejasYSugerencias', 'cotizaciones', 'datosFiscales', 'direcciones', 'pedidos', 'facturas', 'pagos']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
+
   protected $hidden = [
     'password', 'remember_token', 'created_at_us', 'updated_at_us',
   ];

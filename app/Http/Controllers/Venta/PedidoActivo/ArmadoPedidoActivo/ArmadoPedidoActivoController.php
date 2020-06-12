@@ -19,19 +19,16 @@ class ArmadoPedidoActivoController extends Controller {
     $this->cotizacionRepo         = $cotizacionRepositories;
   }
   public function show($id_armado) {
-    $armado = $this->armadoPedidoActivoRepo->armadoFindOrFailById($id_armado);
-    $productos  = $armado->productos()->with('sustitutos')->get();
-    $direcciones = $armado->direcciones()->paginate(9);
-
-    return view('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_show', compact('armado', 'productos', 'direcciones'));
+    $armado       = $this->armadoPedidoActivoRepo->armadoFindOrFailById($id_armado, ['productos', 'direcciones', 'pedido']);
+    $pedido       = $armado->pedido()->firstOrFail();
+    $productos    = $armado->productos()->with('sustitutos')->get();
+    $direcciones  = $armado->direcciones()->paginate(9);
+    return view('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_show', compact('armado', 'pedido', 'productos', 'direcciones'));
   }
   public function edit($id_armado) {
-    $armado = $this->armadoPedidoActivoRepo->armadoFindOrFailById($id_armado);
-  
-    $direcciones = $armado->direcciones()->paginate(9);
-
-  
-
-    return view('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_edit', compact('armado', 'direcciones'));
+    $armado       = $this->armadoPedidoActivoRepo->armadoFindOrFailById($id_armado, ['direcciones', 'pedido']);
+    $pedido       = $armado->pedido()->firstOrFail();
+    $direcciones  = $armado->direcciones()->paginate(9);
+    return view('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_edit', compact('armado', 'pedido', 'direcciones'));
   }
 }

@@ -2,12 +2,19 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 use DB;
 
 class Pedido extends Model{
   use SoftDeletes;
+  use SoftCascadeTrait;
+
   protected $table='pedidos';
   protected $primaryKey='id';
+  protected $guarded = [];
+
+  protected $dates = ['deleted_at'];
+  protected $softCascade = ['armados', 'pagos']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
 
   // Define si vera todos los registros de la tabla o solo los que se le asignaron o los que usuario registro (on = todos los registros null = solo sus registros)
   public function scopeAsignado($query, $opcion_asignado, $usuario) {

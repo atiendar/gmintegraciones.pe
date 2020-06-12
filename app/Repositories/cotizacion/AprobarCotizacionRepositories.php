@@ -10,7 +10,6 @@ use App\Repositories\sistema\serie\SerieRepositories;
 use App\Repositories\usuario\UsuarioRepositories;
 use App\Repositories\sistema\sistema\SistemaRepositories;
 use App\Repositories\sistema\plantilla\PlantillaRepositories;
-use App\Repositories\venta\pedidoActivo\PedidoActivoRepositories;
 // Otro
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -21,14 +20,12 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
   protected $usuarioRepo;
   protected $sistemaRepo;
   protected $plantillaRepo;
-  protected $pedidoActivoRepo;
-  public function __construct(CotizacionRepositories $cotizacionRepositories, SerieRepositories $serieRepositories, UsuarioRepositories $usuarioRepositories, SistemaRepositories $sistemaRepositories, PlantillaRepositories $plantillaRepositories, PedidoActivoRepositories $pedidoActivoRepositories) {
+  public function __construct(CotizacionRepositories $cotizacionRepositories, SerieRepositories $serieRepositories, UsuarioRepositories $usuarioRepositories, SistemaRepositories $sistemaRepositories, PlantillaRepositories $plantillaRepositories) {
     $this->cotizacionRepo   = $cotizacionRepositories;
     $this->serieRepo        = $serieRepositories;
     $this->usuarioRepo      = $usuarioRepositories;
     $this->sistemaRepo      = $sistemaRepositories;
     $this->plantillaRepo    = $plantillaRepositories;
-    $this->pedidoActivoRepo = $pedidoActivoRepositories;
   } 
   public function elPedidoEsDeRegalo($cotizacion, $armados_cotizacion) {
     if($armados_cotizacion->where('es_de_regalo', 'Si')->sum('cant')  ==  $cotizacion->tot_arm ) {
@@ -44,6 +41,12 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       $modificado = true;
     }
     return $modificado;
+  }
+  public function sumaUnoALaUltimaLetraYArmadosCargados($pedido, $cantidad) {
+    $pedido->ult_let  = ++ $pedido->ult_let;
+    $pedido->arm_carg += $cantidad;
+    $pedido->save();
+    return $pedido->num_pedido.'-'.$pedido->ult_let;
   }
   public function aprobar($id_cotizacion) {
     try { DB::beginTransaction();
@@ -85,7 +88,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
 
         // REGISTRA LOS ARMADOS AL PEDIDO
         $armado_pedido               = new \App\Models\PedidoArmado();
-        $armado_pedido->cod          = $this->pedidoActivoRepo->sumaUnoALaUltimaLetraYArmadosCargados($pedido, $armado_cotizacion->cant);
+        $armado_pedido->cod          = $this->sumaUnoALaUltimaLetraYArmadosCargados($pedido, $armado_cotizacion->cant);
         $armado_pedido->cant         = $armado_cotizacion->cant;
         $armado_pedido->tip          = $armado_cotizacion->tip;
         $armado_pedido->nom          = $armado_cotizacion->nom;

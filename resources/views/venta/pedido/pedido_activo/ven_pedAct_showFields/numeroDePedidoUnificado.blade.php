@@ -4,7 +4,7 @@
       <h5>{{ __('Pedido unificado') }}</h5> 
     </div>
     <div class="card-body">    
-    <div class="card-body table-responsive p-0" id="div-tabla-scrollbar" style="{{ $alto }}">
+      <div class="card-body table-responsive p-0" id="div-tabla-scrollbar" style="{{ $alto }}">
         <table class="table table-head-fixed table-hover table-striped table-sm table-bordered">
           @if(sizeof($unificados) == 0)
             @include('layouts.private.busquedaSinResultados')

@@ -33,7 +33,7 @@ class PedidoActivoController extends Controller {
     return view('venta.pedido.pedido_activo.ven_pedAct_edit', compact('pedido', 'unificados', 'armados', 'pagos', 'mont_pag_aprov'));
   }
   public function update(UpdatePedidoRequest $request, $id_pedido) {
-    $pedido = $this->pedidoActivoRepo->update($request, $id_pedido);
+    $this->pedidoActivoRepo->update($request, $id_pedido);
     toastr()->success('¡Pedido actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }

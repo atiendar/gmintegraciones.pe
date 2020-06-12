@@ -2,15 +2,19 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
 class PedidoArmado extends Model{
   use SoftDeletes;
+  use SoftCascadeTrait;
+
   protected $table = 'pedido_armados';
   protected $primaryKey = 'id';
+  protected $guarded = [];
 
-  public function comprobantesDeEntrega() {
-    return $this->hasMany('App\Models\PedidoComprobanteDeEntrega')->orderBy('id', 'DESC');
-  }  
+  protected $dates = ['deleted_at'];
+  protected $softCascade = ['direcciones', 'productos']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
+ 
   public function pedido() {
     return $this->belongsTo('App\Models\Pedido')->orderBy('id','DESC');
   }

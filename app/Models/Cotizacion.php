@@ -2,11 +2,19 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
 class Cotizacion extends Model{
   use SoftDeletes;
+  use SoftCascadeTrait;
+
   protected $table='cotizaciones';
   protected $primaryKey='id';
+  protected $guarded = [];
+
+  protected $dates = ['deleted_at'];
+  protected $softCascade = ['armados']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
+
   public function scopeAsignado($query, $opcion_asignado, $usuario) {
     if($opcion_asignado == null){
       return $query->where('asignado_cot', $usuario);

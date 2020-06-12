@@ -6,6 +6,7 @@ use App\Models\ArmadoImagen;
 use App\Events\layouts\ArchivoCargado;
 use App\Events\layouts\ArchivosEliminados;
 // Repositories
+use App\Repositories\papeleraDeReciclaje\PapeleraDeReciclajeRepositories;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Otros
@@ -14,12 +15,14 @@ use DB;
 
 class ImagenArmadoRepositories implements ImagenArmadoInterface {
   protected $serviceCrypt;
-  public function __construct(ServiceCrypt $serviceCrypt) {
+  protected $papeleraDeReciclajeRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories) {
     $this->serviceCrypt     = $serviceCrypt;
+    $this->papeleraDeReciclajeRepo  = $papeleraDeReciclajeRepositories;
   }
-  public function imagenArmadoFindOrFailById($id_imagen) {
+  public function imagenArmadoFindOrFailById($id_imagen, $relaciones) {
     $id_imagen = $this->serviceCrypt->decrypt($id_imagen);
-    $imagen = ArmadoImagen::findOrFail($id_imagen);
+    $imagen = ArmadoImagen::with($relaciones)->findOrFail($id_imagen);
     return $imagen;
   }
   public function store($request, $id_armado) {
@@ -56,12 +59,16 @@ class ImagenArmadoRepositories implements ImagenArmadoInterface {
   }
   public function destroy($id_imagen) {
     DB::transaction(function() use($id_imagen) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
-      $img_armado = $this->imagenArmadoFindOrFailById($id_imagen);
+      $img_armado = $this->imagenArmadoFindOrFailById($id_imagen, 'armado');
       $img_armado->delete();
-      // Dispara el evento registrado en App\Providers\EventServiceProvider.php
-      ArchivosEliminados::dispatch(
-        array($img_armado->img_rut.$img_armado->img_nom), 
-      );
+
+      $this->papeleraDeReciclajeRepo->store([
+        'modulo'      => 'Imagenes armado', // Nombre del módulo del sistema
+        'registro'    => $img_armado->img_nom, // Información a mostrar en la papelera
+        'tab'         => 'armado_tiene_imagenes', // Nombre de la tabla en la BD
+        'id_reg'      => $img_armado->id, // ID de registro eliminado
+        'id_fk'       => $img_armado->armado->id // ID de la llave foranea con la que tiene relación           
+      ]);
     });
   }
 }

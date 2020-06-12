@@ -2,11 +2,18 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
 class Pago extends Model{
-  // use SoftDeletes;
+  use SoftDeletes;
+  use SoftCascadeTrait;
+
   protected $table='pagos';
   protected $primaryKey='id';
+  protected $guarded = [];
+
+  protected $dates = ['deleted_at'];
+ // protected $softCascade = []; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
 
   // Buscador
   public function scopeBuscar($query, $opcion_buscador, $buscador) {
@@ -19,13 +26,13 @@ class Pago extends Model{
       return $query->where('estat_pag', $estatus);
     }
   }
-  public function usuario(){
+  public function usuario() {
     return $this->belongsTo('App\User', 'user_id')->orderBy('id','DESC');
   } 
-  public function pedido(){
+  public function pedido() {
     return $this->belongsTo('App\Models\Pedido')->orderBy('id','DESC');
   }
-  public function factura(){
+  public function factura() {
     return $this->hasOne('App\Models\Factura');
   } 
 }

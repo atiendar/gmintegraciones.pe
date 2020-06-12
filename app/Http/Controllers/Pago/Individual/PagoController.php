@@ -23,12 +23,13 @@ class PagoController extends Controller {
     return back();
   }
   public function show($id_pago) {
-    $pago = $this->pagoRepo->getPagoFindOrFailById($id_pago, ['pedido'], null);
-    return view('pago.individual.ind_show', compact('pago'));
+    $pago   = $this->pagoRepo->getPagoFindOrFailById($id_pago, ['pedido'], null);
+    $pedido = $pago->pedido()->firstOrFail();
+    return view('pago.individual.ind_show', compact('pago', 'pedido'));
   }
   public function edit($id_pago) {
     $pago           = $this->pagoRepo->getPagoFindOrFailById($id_pago, ['pedido'], null);
-    $pedido         = $pago->pedido;
+    $pedido         = $pago->pedido()->firstOrFail();
     $mont_pag_aprov =  $this->pagoRepo->getMontoDePagosAprobados($pedido);
     return view('pago.individual.ind_edit', compact('pago', 'pedido', 'mont_pag_aprov'));
   }

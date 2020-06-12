@@ -45,8 +45,6 @@ class CreatePedidoArmadosTable extends Migration
             $table->text('coment_produc')->nullable()->comment('Comentarios producción');
             $table->text('coment_log')->nullable()->comment('Comentarios logística');
             $table->string('ubic_rack',50)->nullable()->comment('Ubicación rack');
-            $table->string('comp_de_sali_rut',200)->nullable()->comment('Ruta comprobante de salida');
-            $table->string('comp_de_sali_nom',200)->nullable()->comment('Nombre comprobante de salida');
     //        $table->string('comp_de_pag_env_rut',200)->nullable()->comment('Ruta comprobante de pago envío');
     //        $table->string('comp_de_pag_env_nom',200)->nullable()->comment('Nombre comprobante de pago envío');
     //        $table->decimal('tot_pag_env', 20,2)->nullable()->unsigned()->comment('Total pago de envío'); 

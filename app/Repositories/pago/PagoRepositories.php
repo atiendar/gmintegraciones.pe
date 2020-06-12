@@ -126,9 +126,9 @@ class PagoRepositories implements PagoInterface {
   public function destroy($id_pago) {
     try { DB::beginTransaction();
       $pago = $this->getPagoFindOrFailById($id_pago, ['pedido'], null);
-      $pago->delete();
+      $pago->forceDelete();
       $this->pedidoActivoRepo->getEstatusPagoPedido($pago->pedido);
-
+      // No se implementara papelera de reciclaje (por los montos de los pagos relacionados al pedido)
       DB::commit();
       return $pago;
     } catch(\Exception $e) { DB::rollback(); throw $e; }

@@ -37,12 +37,14 @@ class PagoPedidoController extends Controller {
     return view('pago.fPedido.fpe_create', compact('pedido', 'pagos', 'mont_pag_aprov'));
   }
   public function show($id_pago) {
-    $pago = $this->pagoRepo->getPagoFindOrFailById($id_pago, ['pedido'], null);
-    return view('pago.fPedido.pago.pag_show', compact('pago'));
+    $pago   = $this->pagoRepo->getPagoFindOrFailById($id_pago, ['pedido'], null);
+    $pedido = $pago->pedido()->firstOrFail();
+    return view('pago.fPedido.pago.pag_show', compact('pago', 'pedido'));
   }
   public function edit($id_pago) {
     $pago = $this->pagoRepo->getPagoFindOrFailById($id_pago, ['pedido'], config('app.rechazado'));
-    return view('pago.fPedido.pago.pag_edit', compact('pago'));
+    $pedido = $pago->pedido()->firstOrFail();
+    return view('pago.fPedido.pago.pag_edit', compact('pago', 'pedido'));
   }
   public function update(UpdatePagoRequest $request, $id_pago) {
     try { DB::beginTransaction();

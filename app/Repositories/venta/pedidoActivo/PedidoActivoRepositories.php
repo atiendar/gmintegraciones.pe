@@ -2,19 +2,12 @@
 namespace App\Repositories\venta\pedidoActivo;
 // Models
 use App\Models\Pedido;
-// Notifications
-use App\Notifications\venta\pedidoActivo\NotificacionRegistrarPedido;
 // Events
 use App\Events\layouts\ActividadRegistrada;
-use App\Events\layouts\ArchivoCargado;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
 use App\Repositories\papeleraDeReciclaje\PapeleraDeReciclajeRepositories;
-use App\Repositories\sistema\plantilla\PlantillaRepositories;
-use App\Repositories\sistema\sistema\SistemaRepositories;
-use App\Repositories\sistema\serie\SerieRepositories;
-use App\Repositories\usuario\UsuarioRepositories;
 // Otros
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -22,17 +15,9 @@ use DB;
 class PedidoActivoRepositories implements PedidoActivoInterface {
   protected $serviceCrypt;
   protected $papeleraDeReciclajeRepo;
-  protected $plantillaRepo;
-  protected $sistemaRepo;
-  protected $serieRepo;
-  protected $usuarioRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories, PlantillaRepositories $plantillaRepositories, SistemaRepositories $sistemaRepositories, SerieRepositories $serieRepositories, UsuarioRepositories $usuarioRepositories) {
+  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories) {
     $this->serviceCrypt             = $serviceCrypt;
     $this->papeleraDeReciclajeRepo  = $papeleraDeReciclajeRepositories;
-    $this->plantillaRepo            = $plantillaRepositories;
-    $this->sistemaRepo              = $sistemaRepositories;
-    $this->serieRepo                = $serieRepositories;
-    $this->usuarioRepo              = $usuarioRepositories;
   } 
   public function pedidoAsignadoFindOrFailById($id_pedido, $relaciones) { // 'usuario', 'unificar', 'armados', 'pago'
     $id_pedido = $this->serviceCrypt->decrypt($id_pedido);
@@ -78,7 +63,22 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function destroy($id_pedido) {
-    dd('destroy');
+    try { DB::beginTransaction();
+      $pedido = $this->pedidoAsignadoFindOrFailById($id_pedido, []);
+      $pedido->delete();
+      // EN AUTOMATICO ELIMINA LA UNIFICACION QUE TIENE CON LOS DEMAS PEDIDOS
+
+      $this->papeleraDeReciclajeRepo->store([
+        'modulo'      => 'Ventas pedido activo', // Nombre del módulo del sistema
+        'registro'    => $pedido->num_pedido, // Información a mostrar en la papelera
+        'tab'         => 'pedidos', // Nombre de la tabla en la BD
+        'id_reg'      => $pedido->id, // ID de registro eliminado
+        'id_fk'       => null // ID de la llave foranea con la que tiene relación           
+      ]);
+
+      DB::commit();
+      return $pedido;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function getArmadosPedidoPagination($pedido, $request) {
     if($request->opcion_buscador != null) {
@@ -94,12 +94,6 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       return $pedido->pagos()->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
     }
     return $pedido->pagos()->paginate($request->paginador);
-  }
-  public function sumaUnoALaUltimaLetraYArmadosCargados($pedido, $cantidad) {
-    $pedido->ult_let  = ++ $pedido->ult_let;
-    $pedido->arm_carg += $cantidad;
-    $pedido->save();
-    return $pedido->num_pedido.'-'.$pedido->ult_let;
   }
   public function getPedidoFindOrFail($id_pedido, $relaciones) {// 'armados', 'unificar'
     $id_pedido = $this->serviceCrypt->decrypt($id_pedido);

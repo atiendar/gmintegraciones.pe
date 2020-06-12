@@ -27,9 +27,9 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
     $this->pedidoActivoRepo         = $pedidoActivoRepositories;
     $this->cotizacionRepo           = $cotizacionRepositories;
   } 
-  public function armadoFindOrFailById($id_armado) {
+  public function armadoFindOrFailById($id_armado, $relaciones) { // 'productos', 'direcciones', 'pedido'
     $id_armado = $this->serviceCrypt->decrypt($id_armado);
-    $armado = PedidoArmado::with('productos', 'direcciones', 'pedido')->findOrFail($id_armado);
+    $armado = PedidoArmado::with($relaciones)->findOrFail($id_armado);
     return $armado;
   }
 }

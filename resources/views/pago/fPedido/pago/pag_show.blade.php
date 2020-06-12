@@ -21,7 +21,7 @@
     @include('pago.pag_showFields')
     <div class="row">
       <div class="form-group col-sm btn-sm">
-        <center><a href="{{ route('pago.fPedido.create', Crypt::encrypt($pago->pedido->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a></center>
+        <center><a href="{{ route('pago.fPedido.create', Crypt::encrypt($pedido->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a></center>
       </div>
     </div>
   </div>

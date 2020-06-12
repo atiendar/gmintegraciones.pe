@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Soporte extends Model{
   protected $table = 'soportes';
   protected $primaryKey = 'id';
+  protected $guarded = [];
 
   // Buscador
   public function scopeBuscar($query, $opcion_buscador, $buscador) {

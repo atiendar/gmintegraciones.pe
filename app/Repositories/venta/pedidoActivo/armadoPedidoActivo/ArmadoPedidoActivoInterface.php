@@ -2,5 +2,5 @@
 namespace App\Repositories\venta\pedidoActivo\armadoPedidoActivo;
 
 interface ArmadoPedidoActivoInterface {
-  public function armadoFindOrFailById($id_armado);
+  public function armadoFindOrFailById($id_armado, $relaciones);
 }

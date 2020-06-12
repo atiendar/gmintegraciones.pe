@@ -2,7 +2,7 @@
 namespace App\Repositories\armado\imagenArmado;
 
 interface ImagenArmadoInterface {
-    public function imagenArmadoFindOrFailById($id_imagen);
+    public function imagenArmadoFindOrFailById($id_imagen, $relaciones);
     
     public function store($request, $id_armado);
 
