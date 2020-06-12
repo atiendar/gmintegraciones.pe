@@ -11,12 +11,12 @@
         </div>
       </div>
       <div class="form-group col-sm btn-sm">
-        <label for="estado_al_que_se_cotizo">{{ __('Estado al que se cotizo') }} *</label>
+        <label for="estado_al_que_se_cotizo">{{ __('Estado al que se cotizó') }} *</label>
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-text-width"></i></span>
           </div>
-          {!! Form::text('estado_al_que_se_cotizo', $direccion->est, ['v-model' => 'estado_al_que_se_cotizo', 'class' => 'form-control form-control-sm disabled', 'maxlength' => 0, 'placeholder' => __('Estado al que se cotizo'), 'readonly' => 'readonly']) !!}  
+          {!! Form::text('estado_al_que_se_cotizo', $direccion->est, ['v-model' => 'estado_al_que_se_cotizo', 'class' => 'form-control form-control-sm disabled', 'maxlength' => 0, 'placeholder' => __('Estado al que se cotizó'), 'readonly' => 'readonly']) !!}  
         </div>
       </div>
       <div class="form-group col-sm btn-sm">

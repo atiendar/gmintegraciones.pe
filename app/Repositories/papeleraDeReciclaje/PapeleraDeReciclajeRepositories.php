@@ -4,27 +4,36 @@ namespace App\Repositories\papeleraDeReciclaje;
 use App\Models\PapeleraDeReciclaje;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
-use App\Repositories\servicio\fOpen\ServiceFopen;
 // Repositories
-use App\Repositories\papeleraDeReciclaje\tabla\pedidos\PedidosRepositories;
-use App\Repositories\papeleraDeReciclaje\tabla\productos\ProductosRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\usuarios\UsuariosRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\plantillas\PlantillasRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\proveedores\ProveedoresRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\armados\ArmadosRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\armados\ArmadoTieneImagenesRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\productos\ProductosRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\pedidos\PedidosRepositories;
 //Otro
 use Illuminate\Support\Facades\Auth;
 use DB;
 
 class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
   protected $serviceCrypt;
-  protected $serviceFopen;
-  protected $pedidosRepo;
+  protected $usuariosRepo;
+  protected $plantillasRepo;
+  protected $proveedoresRepo;
+  protected $armadosRepo;
+  protected $armadoTieneImagenesRepo;
   protected $productosRepo;
-  protected $armadosRepositories;
-  public function __construct(ServiceCrypt $serviceCrypt, ServiceFopen $serviceFopen, PedidosRepositories $pedidosRepositories, ProductosRepositories $productosRepositories, ArmadosRepositories $armadosRepositories) {
-    $this->serviceCrypt   = $serviceCrypt;
-    $this->serviceFopen   = $serviceFopen;
-    $this->pedidosRepo    = $pedidosRepositories;
-    $this->productosRepo  = $productosRepositories;
-    $this->armadosRepo    = $armadosRepositories;
+  protected $pedidosRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, UsuariosRepositories $usuariosRepositories, PlantillasRepositories $plantillasRepositories, ProveedoresRepositories $proveedoresRepositories, ArmadosRepositories $armadosRepositories, ArmadoTieneImagenesRepositories $armadoTieneImagenesRepositories, ProductosRepositories $productosRepositories, PedidosRepositories $pedidosRepositories) {
+    $this->serviceCrypt             = $serviceCrypt;
+    $this->usuariosRepo             = $usuariosRepositories;
+    $this->plantillasRepo           = $plantillasRepositories;
+    $this->proveedoresRepo          = $proveedoresRepositories;
+    $this->armadosRepo              = $armadosRepositories;
+    $this->armadoTieneImagenesRepo  = $armadoTieneImagenesRepositories;
+    $this->productosRepo            = $productosRepositories;
+    $this->pedidosRepo              = $pedidosRepositories;
   }
   public function papeleraAsignadoFindOrFailById($id_registro) {
     $id_registro = $this->serviceCrypt->decrypt($id_registro);
@@ -82,23 +91,32 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
   public function tablas($registro, $metodo) {
     $existe_llave_primaria = 'indefinido';
     if($registro->tab == 'users') {
-     //  'quejasYSugerencias','pedidos', 'facturas', 'pagos' // LOS PAGOS PUEDEN SALIR DEL PEDIDO VER COMO ES MAS FACIL Y OPTIMO
       $consulta = \App\User::withTrashed()->findOrFail($registro->id_reg);
-      if($metodo == 'destroy') {
-        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
-        ArchivosEliminados::dispatch(
-          array($consulta->img_us_rut.$consulta->img_us), 
-        );
+      $this->usuariosRepo->metodo($metodo, $consulta);
+      
+
+      /*
+      * FALTA ELIMINAR LOSS ARCHIVOS DE ESTOS REGISTROS RELACIONADOS AL USUARIO
+      *  'quejasYSugerencias','pedidos', 'pagos', facturas' // LOS PAGOS PUEDEN SALIR DEL PEDIDO VER COMO ES MAS FACIL Y OPTIMO
+      */
+      if($consulta->acceso == '2') { // 2 = Cliente, 1 = Usuario
+        $pedidos = \App\Models\Pedido::with(['armados', 'pagos'])->withTrashed()->where('user_id', $consulta->id)->get();
+        foreach($pedidos as $pedido) {
+          $this->pedidosRepo->metodo($metodo, $pedido);
+        }
       }
+      if($consulta->acceso == '1' OR $consulta->acceso == '2') { // 2 = Cliente, 1 = Usuario
+      }
+
+
+
     }
     if($registro->tab == 'roles') {
       $consulta = \Spatie\Permission\Models\Role::withTrashed()->findOrFail($registro->id_reg);
     }
     if($registro->tab == 'plantillas') {
       $consulta = \App\Models\Plantilla::withTrashed()->findOrFail($registro->id_reg);
-      if($metodo == 'destroy') {
-        $this->serviceFopen->eliminarFicheroBlade('resources\views\correo\\' . $consulta->id . '.blade.php');
-      }
+      $this->plantillasRepo->metodo($metodo, $consulta);
     }
     if($registro->tab == 'catalogos') {
       $consulta = \App\Models\Catalogo::withTrashed()->findOrFail($registro->id_reg);
@@ -108,12 +126,7 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
     }
     if($registro->tab == 'proveedores') {
       $consulta = \App\Models\Proveedor::with('productos')->withTrashed()->findOrFail($registro->id_reg);
-      if($metodo == 'destroy') {
-        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
-        ArchivosEliminados::dispatch(
-          array($consulta->arch_rut.$consulta->arch_nom), 
-        );
-      }
+      $this->proveedoresRepo->metodo($metodo, $consulta);
     }
     if($registro->tab == 'contactos_proveedores') {
       $consulta = \App\Models\ContactoProveedor::with('proveedor')->withTrashed()->findOrFail($registro->id_reg);
@@ -121,23 +134,18 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
         $existe_llave_primaria = false;
       }
     }
-    if($registro->tab == 'armado_tiene_imagenes') {
-      $consulta = \App\Models\ArmadoImagen::with('armado')->withTrashed()->findOrFail($registro->id_reg);
-      if($consulta->armado == null) {
-        $existe_llave_primaria = false;
-      }
-      if($metodo == 'destroy') {
-        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
-        ArchivosEliminados::dispatch(
-          array($consulta->img_rut.$consulta->img_nom), 
-        );
-      }
-    }
     if($registro->tab == 'armados') {
       $consulta = \App\Models\Armado::with(['imagenes'=> function ($query) {
                                         $query->withTrashed();
                                       }])->withTrashed()->findOrFail($registro->id_reg);
       $this->armadosRepo->metodo($metodo, $consulta);
+    }
+    if($registro->tab == 'armado_tiene_imagenes') {
+      $consulta = \App\Models\ArmadoImagen::with('armado')->withTrashed()->findOrFail($registro->id_reg);
+      if($consulta->armado == null) {
+        $existe_llave_primaria = false;
+      }
+      $this->armadoTieneImagenesRepo->metodo($metodo, $consulta);
     }
     if($registro->tab == 'productos') {
       $consulta = \App\Models\Producto::withTrashed()->findOrFail($registro->id_reg);

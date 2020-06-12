@@ -72,7 +72,7 @@ class ProductoArmadoRepositories implements ProductoArmadoInterface {
       $cotizacion = $armado->cotizacion()->with('cliente')->first();
 
       // ELIMINA EL PRODUCTO DE DEL ARMADO
-      $producto->delete();
+      $producto->forceDelete();
             
       // GENERA LOS NUEVOS VALORES PARA EL ARMADO
       $armado = $this->armadoCotizacionRepo->verificarSiYaFueModificado($armado, $cotizacion);
@@ -83,6 +83,8 @@ class ProductoArmadoRepositories implements ProductoArmadoInterface {
       // GENERA LOS NUEVOS VALORES PARA LA COTIZACIÓN
       $this->calcularValoresCotizacionRepo->calculaValoresCotizacion($cotizacion);
 
+      // IMPORTANTE NO SE IMPLEMENTARA PAPELERA DE RECICLAJE (POR LOS PRECIOS DE LOS ARMADOS RELACIONADOS A LA COTIZACIÓN)
+      
       DB::commit();
       return $producto;
     } catch(\Exception $e) { DB::rollback(); throw $e; }

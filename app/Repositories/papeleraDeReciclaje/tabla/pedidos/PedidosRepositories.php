@@ -54,6 +54,10 @@ class PedidosRepositories implements PedidosInterface {
         $archivos_a_eliminar[$cont1] = $pago->cop_de_indent_rut.$pago->cop_de_indent_nom;
         $cont1 +=1;
       }
+
+      /*
+      * FALTA ELIMINAR SUS FACTURAS
+      */
     }            
     // Se implementa esta forma de eliminar archivos ya que con la funcion "ArchivosEliminados::dispatch" no lo hace
     \Storage::delete($archivos_a_eliminar);

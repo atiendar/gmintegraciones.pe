@@ -7,7 +7,7 @@
   @can('sistema.serie.destroy')
     <form method="post" action="{{ route('sistema.serie.destroy', Crypt::encrypt($serie->id)) }}" id="sistemaSerieDestroy{{ $serie->id }}">
       @method('DELETE')@csrf
-      {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnsub$serie->id", 'onclick' => "return check('btnsub$serie->id', 'sistemaSerieDestroy$serie->id', '¡Alerta!', 'Estás seguro quieres eliminar el registro, $serie->id ($serie->vista) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+      {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnsub$serie->id", 'onclick' => "return check('btnsub$serie->id', 'sistemaSerieDestroy$serie->id', '¡Alerta!', 'Enviaras este registro a la papelera de reciclaje junto con toda su información. ¿Estás seguro que quieres realizar esta acción para el registro: $serie->id ($serie->vista) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
     </form>
   @endcan
 </td>

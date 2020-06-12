@@ -21,7 +21,7 @@ class CreateCotizacionArmadoTieneDireccionesTable extends Migration
            
             $table->integer('cant')->unsigned()->default(0)->comment('Cantidad');
             $table->enum('met_de_entreg', config('opcionesSelect.select_metodo_de_entrega'))->comment('Método de entrega de ventas');
-            $table->enum('est',config('opcionesSelect.select_estado'))->comment('Estado a la que se cotizo');
+            $table->enum('est',config('opcionesSelect.select_estado'))->comment('Estado a la que se cotizó');
             $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
             $table->string('detalles_de_la_ubicacion',150)->comment('Detalles de la ubicación');
             $table->enum('tip_env', config('opcionesSelect.select_tipo_de_envio'))->default('Normal')->comment('Tipo de envío');

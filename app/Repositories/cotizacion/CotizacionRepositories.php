@@ -57,16 +57,6 @@ class CotizacionRepositories implements CotizacionInterface {
       $cotizacion = $this->cotizacionAsignadoFindOrFailById($id_cotizacion, 'armados', null);
       $cotizacion->delete();
 
-      // Elimina todos los armados relacionados a la cotización
-      $armados = $cotizacion->armados()->get();
-      if($armados->isEmpty() == false) { // Verifica si la colección esta vacia
-        $hastaC = count($armados) - 1;
-        for($contador2 = 0; $contador2 <= $hastaC; $contador2++) { 
-          $armados_id[$contador2] = $armados[$contador2]->id;        
-        }
-        \App\Models\CotizacionArmado::destroy($armados_id);
-      }
-
       $this->papeleraDeReciclajeRepo->store([
         'modulo'    => 'Cotizaciones', // Nombre del módulo del sistema
         'registro'  => $cotizacion->serie, // Información a mostrar en la papelera

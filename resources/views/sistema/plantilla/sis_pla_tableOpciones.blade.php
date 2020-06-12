@@ -7,7 +7,7 @@
   @can('sistema.plantilla.destroy')
     <form method="post" action="{{ route('sistema.plantilla.destroy', Crypt::encrypt($plantilla->id)) }}" id="sistemaPlantillaDestroy{{ $plantilla->id }}">
       @method('DELETE')@csrf
-      {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnsub$plantilla->id", 'onclick' => "return check('btnsub$plantilla->id', 'sistemaPlantillaDestroy$plantilla->id', '¡Alerta!', 'Estás seguro quieres eliminar el registro, $plantilla->id ($plantilla->nom) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+      {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnsub$plantilla->id", 'onclick' => "return check('btnsub$plantilla->id', 'sistemaPlantillaDestroy$plantilla->id', '¡Alerta!', 'Enviaras este registro a la papelera de reciclaje junto con toda su información. ¿Estás seguro que quieres realizar esta acción para el registro: $plantilla->id ($plantilla->nom) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
     </form>
   @endcan
 </td>

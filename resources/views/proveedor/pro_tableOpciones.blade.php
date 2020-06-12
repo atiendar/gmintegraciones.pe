@@ -7,7 +7,7 @@
   @can('proveedor.destroy')
     <form method="post" action="{{ route('proveedor.destroy', Crypt::encrypt($proveedor->id)) }}" id="proveedorDestroy{{ $proveedor->id }}">
       @method('DELETE')@csrf
-      {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnsub$proveedor->id", 'onclick' => "return check('btnsub$proveedor->id', 'proveedorDestroy$proveedor->id', '¡Alerta!', '¿Estás seguro quieres eliminar el registro, $proveedor->id ($proveedor->nom_comerc) ? Eliminaras toda relación con sus productos.', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+      {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnsub$proveedor->id", 'onclick' => "return check('btnsub$proveedor->id', 'proveedorDestroy$proveedor->id', '¡Alerta!', 'Enviaras este registro a la papelera de reciclaje junto con toda su información (Contactos) y se alterarán los precio de los productos relacionados a este registro y a su vez el de los armados relacionados a los productos. ¿Estás seguro que quieres realizar esta acción para el registro: $proveedor->id ($proveedor->nom_comerc) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
     </form>
   @endcan
 </td>

@@ -7,7 +7,7 @@
   @can('costoDeEnvio.destroy')
     <form method="post" action="{{ route('costoDeEnvio.destroy', Crypt::encrypt($costo_de_envio->id)) }}" id="costoDeEnvioDestroy{{ $costo_de_envio->id }}">
       @method('DELETE')@csrf
-      {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnDes$costo_de_envio->id", 'onclick' => "return check('btnDes$costo_de_envio->id', 'costoDeEnvioDestroy$costo_de_envio->id', '¡Alerta!', '¿Estás seguro quieres eliminar el registro, $costo_de_envio->id ($costo_de_envio->met_de_entreg) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+      {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnDes$costo_de_envio->id", 'onclick' => "return check('btnDes$costo_de_envio->id', 'costoDeEnvioDestroy$costo_de_envio->id', '¡Alerta!', 'Enviaras este registro a la papelera de reciclaje junto con toda su información. ¿Estás seguro que quieres realizar esta acción para el registro: $costo_de_envio->id ($costo_de_envio->met_de_entreg) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
     </form>
   @endcan
 </td>

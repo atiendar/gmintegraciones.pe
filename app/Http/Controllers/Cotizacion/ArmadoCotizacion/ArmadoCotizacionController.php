@@ -22,6 +22,8 @@ class ArmadoCotizacionController extends Controller {
   }
   public function edit($id_armado) {
     $armado       = $this->armadoCotizacionRepo->armadoFindOrFailById($id_armado, ['direcciones', 'productos', 'cotizacion']);
+
+    dd(   $armado );
     $this->armadoCotizacionRepo->verificarElEstatusDeLaCotizacion($armado->cotizacion->estat);
     $direcciones  = $armado->direcciones()->paginate(99999999);
     $productos    = $armado->productos()->paginate(99999999);

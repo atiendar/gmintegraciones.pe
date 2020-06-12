@@ -44,7 +44,7 @@
   @can('cotizacion.destroy')
     <form method="post" action="{{ route('cotizacion.destroy', Crypt::encrypt($cotizacion->id)) }}" id="cotizacionDestroy{{ $cotizacion->id }}">
       @method('DELETE')@csrf
-      {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnDes$cotizacion->id", 'onclick' => "return check('btnDes$cotizacion->id', 'cotizacionDestroy$cotizacion->id', '¡Alerta!', '¿Estás seguro quieres eliminar el registro, $cotizacion->serie (".$cotizacion->cliente->email_registro.") ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+      {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnDes$cotizacion->id", 'onclick' => "return check('btnDes$cotizacion->id', 'cotizacionDestroy$cotizacion->id', '¡Alerta!', 'Enviaras este registro a la papelera de reciclaje junto con toda su información (Armados, Productos y Direcciones). ¿Estás seguro que quieres realizar esta acción para el registro: $cotizacion->serie (".$cotizacion->cliente->email_registro.") ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
     </form>
   @endcan
 </td>

@@ -5,19 +5,19 @@
   <div class="card-body">
     <div class="row border  border-primary rounded mb-3">
       <div class="form-group col-sm btn-sm">
-        <label for="filtar_metodo_de_entrega">{{ __('Filtar método de entrega') }}</label>
+        <label for="filtar_metodo_de_entrega">{{ __('Filtrar método de entrega') }}</label>
         <div class="input-group">
           {!! Form::select('filtar_metodo_de_entrega', config('opcionesSelect.select_metodo_de_entrega'), null, ['v-on:change' => 'getCostos', 'v-model' => 'filtrar.metodo_de_entrega', 'class' => 'form-control form-control-sm select2', 'placeholder' => __('')]) !!}   
         </div>
       </div> 
       <div class="form-group col-sm btn-sm">
-        <label for="filtrar_estado">{{ __('Filtar estado') }}</label>
+        <label for="filtrar_estado">{{ __('Filtrar estado') }}</label>
         <div class="input-group">
           {!! Form::select('filtrar_estado', config('opcionesSelect.select_estado'), null, ['v-on:change' => 'getCostos', 'v-model' => 'filtrar.estado', 'class' => 'form-control form-control-sm select2', 'placeholder' => __('')]) !!}   
         </div>
       </div>
       <div class="form-group col-sm btn-sm">
-        <label for="filtrar_tipo_de_envio">{{ __('Filtar tipo de envío') }}</label>
+        <label for="filtrar_tipo_de_envio">{{ __('Filtrar tipo de envío') }}</label>
         <div class="input-group">
           {!! Form::select('filtrar_tipo_de_envio', config('opcionesSelect.select_tipo_de_envio'), null, ['v-on:change' => 'getCostos', 'v-model' => 'filtrar.tipo_de_envio', 'class' => 'form-control form-control-sm select2', 'placeholder' => __('')]) !!}   
         </div>

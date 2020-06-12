@@ -97,7 +97,7 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
           'cotizacion.show', // Nombre de la ruta
           $this->serviceCrypt->encrypt($id_direccion), // Id del registro debe ir encriptado
           $id_direccion, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Método de entrega', 'Estado al que se cotizo', 'Foráneo o local', 'Tipo de envío', 'Costo de envío', 'Cantidad', 'Detalles de la ubicación'), // Nombre de los inputs del formulario
+          array('Método de entrega', 'Estado al que se cotizó', 'Foráneo o local', 'Tipo de envío', 'Costo de envío', 'Cantidad', 'Detalles de la ubicación'), // Nombre de los inputs del formulario
           $direccion, // Request
           array('met_de_entreg', 'est', 'for_loc', 'tip_env', 'cost_por_env', 'cant',  'detalles_de_la_ubicacion') // Nombre de los campos en la BD
         ); 
@@ -125,7 +125,7 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
       $direccion  = $this->direccionFindOrFailById($id_direccion);
       $armado     = $direccion->armado()->with('cotizacion')->first();
       $this->armadoCotizacionRepo->verificarElEstatusDeLaCotizacion($armado->cotizacion->estat);
-      $direccion->delete();
+      $direccion->forceDelete();
 
       // ACTUALIZA Y GENERA LOS NUEVOS PRECIOS DEL ARMADO
       $armado->cost_env        -= $direccion->cost_por_env;
@@ -136,6 +136,8 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
       // GENERA LOS NUEVOS PRECIOS DE LA COTIZACIÓN
       $this->calcularValoresCotizacionRepo->calculaValoresCotizacion($armado->cotizacion);
 
+      // IMPORTANTE NO SE IMPLEMENTARA PAPELERA DE RECICLAJE (POR LOS PRECIOS DE LOS ARMADOS RELACIONADOS A LA COTIZACIÓN)
+      
       DB::commit();
       return $direccion;
     } catch(\Exception $e) { DB::rollback(); throw $e; }

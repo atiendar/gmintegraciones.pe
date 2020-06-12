@@ -8,6 +8,7 @@ use App\Notifications\pago\NotificacionPagoRechazado;
 // Events
 use App\Events\layouts\ActividadRegistrada;
 use App\Events\layouts\ArchivoCargado;
+use App\Events\layouts\ArchivosEliminados;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
@@ -125,10 +126,30 @@ class PagoRepositories implements PagoInterface {
   }
   public function destroy($id_pago) {
     try { DB::beginTransaction();
-      $pago = $this->getPagoFindOrFailById($id_pago, ['pedido'], null);
+      $pago = $this->getPagoFindOrFailById($id_pago, ['pedido', 'factura'], null);
       $pago->forceDelete();
       $this->pedidoActivoRepo->getEstatusPagoPedido($pago->pedido);
-      // No se implementara papelera de reciclaje (por los montos de los pagos relacionados al pedido)
+
+      // IMPORTANTE NO SE IMPLEMENTARA PAPELERA DE RECICLAJE (POR LOS MONTOS DE LOS PAGOS RELACIONADOS AL PEDIDO)
+
+      // ELIMINA LOS ARCHIVOS DEL PAGO
+      // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+      ArchivosEliminados::dispatch([
+        $pago->comp_de_pag_rut.$pago->comp_de_pag_nom,
+        $pago->cop_de_indent_rut.$pago->cop_de_indent_nom
+      ]);
+
+      // ELIMINA LOS ARCHIVOS DE LA COTIZACION RELACIONADA AL PAGO
+      if(empty($pago->factura) == FALSE) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ArchivosEliminados::dispatch([
+          $pago->factura->fact_pdf_rut.$pago->factura->fact_pdf_nom,
+          $pago->factura->fact_xlm_rut.$pago->factura->fact_xlm_nom,
+          $pago->factura->ppd_pdf_rut.$pago->factura->ppd_pdf_nom,
+          $pago->factura->ppd_xlm_rut.$pago->factura->ppd_xlm_nom
+        ]);
+      }
+  
       DB::commit();
       return $pago;
     } catch(\Exception $e) { DB::rollback(); throw $e; }

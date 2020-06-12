@@ -103,10 +103,12 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
       $armado     = $this->armadoFindOrFailById($id_armado, 'cotizacion');
       $this->verificarElEstatusDeLaCotizacion($armado->cotizacion->estat);
       $cotizacion = $armado->cotizacion;
-      $armado->delete();
+      $armado->forceDelete();
 
       // GENERA LOS NUEVOS PRECIOS DE LA COTIZACIÓN
       $this->calcularValoresCotizacionRepo->calculaValoresCotizacion($cotizacion);
+
+      // IMPORTANTE NO SE IMPLEMENTARA PAPELERA DE RECICLAJE (POR LOS PRECIOS DE LOS ARMADOS RELACIONADOS A LA COTIZACIÓN)
       
       DB::commit();
       return $armado;

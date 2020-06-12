@@ -341,7 +341,7 @@ return array(
     'categ'         => 'Categoría',
     'cod_barras'    => 'Código de barras',
     'etiq'          => 'Etiqueta',
-    'id'            => 'ID',
+    'productos.id'  => 'ID',
     'prec_clien'    => 'Precio cliente',
     'produc'        => 'Producto',
     'prove'         => 'Proveedor',
@@ -489,7 +489,7 @@ return array(
     '.89'          => '89%',
     '.9'           => '90%',
   ],
-/* ===================== ALMACEN [ PEDIDO ACTIVO ] ===================== */
+/* ===================== ALMACÉN [ PEDIDO ACTIVO ] ===================== */
   'select_almacen_pedido_activo_index'  => [
     ''                        => 'Buscar por. . .',
   //  'usuario.email_registro'  => 'Cliente',
@@ -501,7 +501,7 @@ return array(
     'tot_de_arm'              => 'Total de armados',
     'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
-/* ===================== ALMAÉN PEDIDO ACTIVO [ ARMADOS ] ===================== */
+/* ===================== ALMACÉN PEDIDO ACTIVO [ ARMADOS ] ===================== */
   'select_pedido_armados_index' => [
     ''            => 'Buscar por. . .',
     'nom'         => 'Armado',

@@ -17,9 +17,8 @@
 <td width="1rem" title="Eliminar: {{ $usuario->nom }}">
   @can('usuario.destroy')
     <form method="post" action="{{ route('usuario.destroy', Crypt::encrypt($usuario->id)) }}" id="usuarioDestroy{{ $usuario->id }}">
-      @method('DELETE')
-      @csrf
-      {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnsub$usuario->id", 'onclick' => "return check('btnsub$usuario->id', 'usuarioDestroy$usuario->id', '¡Alerta!', '¿Estás seguro quieres eliminar el registro, $usuario->id ($usuario->nom) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+      @method('DELETE')@csrf
+      {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnsub$usuario->id", 'onclick' => "return check('btnsub$usuario->id', 'usuarioDestroy$usuario->id', '¡Alerta!', 'Enviaras este registro a la papelera de reciclaje junto con toda su información (Registro de actividades, Quejas y sugerencias). ¿Estás seguro que quieres realizar esta acción para el registro: $usuario->id ($usuario->nom) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
     </form>
   @endcan
 </td>
