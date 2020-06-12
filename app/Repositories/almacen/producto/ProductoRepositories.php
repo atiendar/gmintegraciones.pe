@@ -193,6 +193,7 @@ class ProductoRepositories implements ProductoInterface {
         $this->calcularValoresArmadoRepo->calcularValoresArmado($armado, $armado->productos);
       }
       $this->eliminarCacheAllProductosPlunk();
+      
       // Manda el registro a la papelera de reciclaje
       $this->papeleraDeReciclajeRepo->store([
         'modulo'      => 'Productos', // Nombre del módulo del sistema

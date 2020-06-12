@@ -15,17 +15,19 @@ class CalcularValoresCotizacionRepositories implements CalcularValoresCotizacion
     $this->calcularValoresArmadoCotizacionRepo  = $calcularValoresArmadoCotizacionRepositories;
   }
   public function calculaValoresCotizacion($cotizacion) {
-    $cotizacion->tot_arm    = $cotizacion->armados()->sum('cant');
-    $cotizacion->cost_env   = $cotizacion->armados()->sum('cost_env');
-    $cotizacion->desc       = $cotizacion->armados()->sum('desc');
-    $cotizacion->sub_total  = $cotizacion->armados()->sum('sub_total');
-    $cotizacion->iva        = $cotizacion->armados()->sum('iva');
-    $cotizacion->tot        = $cotizacion->armados()->sum('tot');
+    $cotizacion->tot_arm    = $cotizacion->armados()->withTrashed()->sum('cant');
+    $cotizacion->cost_env   = $cotizacion->armados()->withTrashed()->sum('cost_env');
+    $cotizacion->desc       = $cotizacion->armados()->withTrashed()->sum('desc');
+    $cotizacion->sub_total  = $cotizacion->armados()->withTrashed()->sum('sub_total');
+    $cotizacion->iva        = $cotizacion->armados()->withTrashed()->sum('iva');
+    $cotizacion->tot        = $cotizacion->armados()->withTrashed()->sum('tot');
     $cotizacion->save();
+    return $cotizacion;
   }
   public function calculaValoresCotizacionAlModificarProducto($producto) {
-    $productos_armado_cotizacion = \App\Models\CotizacionArmadoProductos::where('id_producto', $producto->id)->with('armado')->withTrashed()->get();
-  //  dd(   $productos_armado_cotizacion );
+    $productos_armado_cotizacion = \App\Models\CotizacionArmadoProductos::where('id_producto', $producto->id)->with(['armado'=> function ($query) {
+                                                                                                                      $query->withTrashed();
+                                                                                                                    }])->withTrashed()->get();
     foreach($productos_armado_cotizacion as $producto_armado_cotizacion) {
       $producto_armado_cotizacion->alto        = $producto->alto;
       $producto_armado_cotizacion->ancho       = $producto->ancho;
@@ -38,15 +40,17 @@ class CalcularValoresCotizacionRepositories implements CalcularValoresCotizacion
       $producto_armado_cotizacion->save();
 
       $armado = $producto_armado_cotizacion->armado;
-
-    //  dd($armado);
       // GENERA LOS NUEVOS VALORES PARA EL ARMADO
-      $armado             = $this->calcularValoresArmadoRepo->calcularValoresArmado($armado, $armado->productos);
-      $armado             = $this->calcularValoresArmadoCotizacionRepo->sumaValoresArmadoCotizacion($armado);
-      $armado->save();
-
+      $productos  = $armado->productos()->withTrashed()->get();
+      $armado     = $this->calcularValoresArmadoRepo->calcularValoresArmado($armado, $productos); 
+      $armado_cot = $this->calcularValoresArmadoCotizacionRepo->sumaValoresArmadoCotizacion($armado);
+      $armado_cot->save();
+    }
+    if(count($productos_armado_cotizacion) > 0) {
+      $armado = $productos_armado_cotizacion[0]->armado;
+      $cotizacion = $armado->cotizacion()->withTrashed()->firstOrFail();
       // GENERA LOS NUEVOS VALORES PARA LA COTIZACIÓN
-      $this->calculaValoresCotizacion($armado->cotizacion);
+      $this->calculaValoresCotizacion($cotizacion);
     }
   }
 }

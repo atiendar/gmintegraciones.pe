@@ -73,9 +73,9 @@ class SustitutoArmadoController extends Controller {
   }
   public function destroy($id_sustituto) {
     try { DB::beginTransaction();
-      $id_sustituto            = $this->serviceCrypt->decrypt($id_sustituto);
-      $sustituto = PedidoArmadoProductoTieneSustituto::with('producto')->findOrFail($id_sustituto);
-      $sustituto->delete();
+      $id_sustituto = $this->serviceCrypt->decrypt($id_sustituto);
+      $sustituto    = PedidoArmadoProductoTieneSustituto::with('producto')->findOrFail($id_sustituto);
+      $sustituto->forceDelete();
 
       // RESTA AL STOCK LA CANTIDAD ESCRITA EN EL FORMULARIO AL PRODUCTO QUE ESTA ASIGNADO DIRECTAMENTE AL ARMADO
       $producto_original1         = $this->productoRepo->getproductoFindById($this->serviceCrypt->encrypt($sustituto->producto->id_producto), []);

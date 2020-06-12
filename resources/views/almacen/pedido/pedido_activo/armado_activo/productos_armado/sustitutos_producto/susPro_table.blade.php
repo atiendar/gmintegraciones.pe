@@ -18,7 +18,7 @@
             <td width="1rem" title="Eliminar: {{ $sustituto->sku }}">
               <form method="post" action="{{ route('almacen.pedidoActivo.armado.sistituto.destroy', Crypt::encrypt($sustituto->id)) }}" id="almacenPedidoActivoArmadoSistitutoDestroy{{ $sustituto->id }}">
                 @method('DELETE')@csrf
-                {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnsub$sustituto->id", 'onclick' => "return check('btnsub$sustituto->id', 'almacenPedidoActivoArmadoSistitutoDestroy$sustituto->id', '¡Alerta!', '¿Estás seguro quieres eliminar el registro, $sustituto->sku ($sustituto->produc) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+                {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnsub$sustituto->id", 'onclick' => "return check('btnsub$sustituto->id', 'almacenPedidoActivoArmadoSistitutoDestroy$sustituto->id', '¡Alerta!', 'Eliminaras permanentemente este registro junto con toda su información. ¿Estás seguro que quieres realizar esta acción para el registro: $sustituto->sku ($sustituto->produc) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
               </form>
             </td>
           </tr>
@@ -26,4 +26,4 @@
       </tbody>
     @endif
   </table>
-</div>
+</div> 

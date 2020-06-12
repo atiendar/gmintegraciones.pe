@@ -73,7 +73,7 @@ class ProveedorProductoRepositories implements ProveedorProductoInterface {
       $producto = $this->productoRepo->getproductoFindOrFailById($id_producto, ['proveedores', 'armados']);
       $proveedores = $producto->proveedores()->where('proveedores.id', $this->serviceCrypt->decrypt($id_proveedor))->first();
 
-      // Actualiza los datos del producto solo en caso de que el proveedor que se modifico sea el mismo al que tiene el producto
+      // Actualiza los datos del producto solo en caso de que el proveedor que se elimino sea el mismo al que tiene el producto
       if($producto->prove == $proveedores->nom_comerc) {
         $producto->prove = null;
         $producto->prec_prove = $this->calculoRepo->bcdivDosDecimales(0);
