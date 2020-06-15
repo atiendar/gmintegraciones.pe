@@ -1,5 +1,5 @@
 <label for="redes_sociales">{{ __('CORREOS') }}</label>
-  <div class="border border-primary rounded p-2">
+<div class="border border-primary rounded p-2">
   <div class="row">
     <div class="form-group col-sm btn-sm">
       <label for="correo_ventas">{{ __('Correo ventas') }} *</label>

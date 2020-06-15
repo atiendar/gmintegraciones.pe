@@ -21,6 +21,9 @@ class Factura extends Model{
       return $query->where("$opcion_buscador", 'LIKE', "%$buscador%");
     }
   }
+  public function usuario(){
+    return $this->belongsTo('App\User', 'user_id')->orderBy('id','DESC');
+  }
   public function pago(){
     return $this->belongsTo('App\Models\Pago');
   }

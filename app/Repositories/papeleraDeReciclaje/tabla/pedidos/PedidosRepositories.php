@@ -44,7 +44,10 @@ class PedidosRepositories implements PedidosInterface {
     }
 
     // FUNCION QUE ELIMINA TODOS LOS ARCHIVOS DE LOS PAGOS, COMPROBANTES DE PAGO QUE ESTEN RELACIONADOS AL PEDIDO
-    $pagos = $consulta->pagos()->withTrashed()->get(['id', 'comp_de_pag_rut', 'comp_de_pag_nom', 'cop_de_indent_rut', 'cop_de_indent_nom']);
+    $pagos = $consulta->pagos()->with(['factura'=> function ($query) {
+        $query->select('id', 'fact_pdf_rut', 'fact_pdf_nom', 'fact_xlm_rut', 'fact_xlm_nom', 'ppd_pdf_rut', 'ppd_pdf_nom', 'ppd_xlm_rut', 'ppd_xlm_nom', 'pago_id')->withTrashed();
+      }])->withTrashed()->get(['id', 'comp_de_pag_rut', 'comp_de_pag_nom', 'cop_de_indent_rut', 'cop_de_indent_nom']);
+
     foreach($pagos as $pago) {
       if($pago->comp_de_pag_nom != null) {
         $archivos_a_eliminar[$cont1] = $pago->comp_de_pag_rut.$pago->comp_de_pag_nom;
@@ -56,9 +59,29 @@ class PedidosRepositories implements PedidosInterface {
       }
 
       /*
-      * FALTA ELIMINAR SUS FACTURAS
+      * ELIMINA LOS ARCHIVOS DE LA FACTURA RELACIONADA AL PAGO
       */
-    }            
+      $factura = $pago->factura;
+      if(empty($factura) == false) {
+        if($factura->fact_pdf_nom != null) {
+          $archivos_a_eliminar[$cont1] = $factura->fact_pdf_rut.$factura->fact_pdf_nom;
+          $cont1 +=1;
+        }
+        if($factura->fact_xlm_nom != null) {
+          $archivos_a_eliminar[$cont1] = $factura->fact_xlm_rut.$factura->fact_xlm_nom;
+          $cont1 +=1;
+        }
+        if($factura->ppd_pdf_nom != null) {
+          $archivos_a_eliminar[$cont1] = $factura->ppd_pdf_rut.$factura->ppd_pdf_nom;
+          $cont1 +=1;
+        }
+        if($factura->ppd_xlm_nom != null) {
+          $archivos_a_eliminar[$cont1] = $factura->ppd_xlm_rut.$factura->ppd_xlm_nom;
+          $cont1 +=1;
+        }
+      }
+    }
+    
     // Se implementa esta forma de eliminar archivos ya que con la funcion "ArchivosEliminados::dispatch" no lo hace
     \Storage::delete($archivos_a_eliminar);
   }

@@ -25,6 +25,10 @@
               @if($armado->cant == $armado->cant_direc_carg)
                 <i class="fas fa-check"></i>
               @endif
+
+              @if($armado->es_de_regalo == 'Si')
+                <i class="fas fa-gift" title="{{ __('Gratis') }}"></i>
+              @endif
             </td>
             <td>
               <div class="card">

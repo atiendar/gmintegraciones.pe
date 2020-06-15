@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "Canastas y Arcones",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Sistema para la automatización de procesos para la empresa canastas y arcones 2020.",
     "keywords": [
         "framework",
         "laravel"
@@ -23,6 +23,7 @@
         "mpdf/mpdf": "^8.0",
         "nesbot/carbon": "^2.28",
         "predis/predis": "^1.1",
+        "rap2hpoutre/laravel-log-viewer": "^1.6",
         "silviolleite/laravelpwa": "^2.0",
         "spatie/laravel-permission": "^3.6",
         "tecnick.com/tcpdf": "^6.3",

@@ -1,4 +1,5 @@
-@canany(['sistema.edit', 
+@canany(['logs.index',
+'sistema.edit', 
 'sistema.plantilla.index', 'sistema.plantilla.create', 'sistema.plantilla.show', 'sistema.plantilla.edit', 'sistema.plantilla.destroy', 
 'sistema.notificacion.create', 
 'sistema.actividad.index',
@@ -11,6 +12,7 @@
 'papeleraDeReciclaje.index', 'papeleraDeReciclaje.destroy', 'papeleraDeReciclaje.restore'])
   <li class="nav-header">{{ __('SISTEMA') }}</li>
 @endcanany
+@include('layouts.private.escritorio.menu.logs')
 @include('layouts.private.escritorio.menu.sistema')
 @include('layouts.private.escritorio.menu.quejasYSugerencias')
 @include('layouts.private.escritorio.menu.usuarios')
@@ -37,7 +39,8 @@
   'armado.index', 'armado.create', 'armado.show', 'armado.edit', 'armado.destroy', 'armado.clon.index', 'armado.clon.create', 'armado.clon.show', 'armado.clon.edit', 'armado.clon.destroy', 'armado.producto.store', 'armado.producto.destroy', 'armado.producto.editCantidad', 'armado.clon.producto.store', 'armado.clon.producto.destroy', 'armado.clon.producto.editCantidad',
   'almacen.producto.index', 'almacen.producto.create', 'almacen.producto.show', 'almacen.producto.edit', 'almacen.producto.disminuirStock', 'almacen.producto.destroy', 'almacen.producto.sustituto.create', 'almacen.producto.sustituto.destroy', 'almacen.producto.proveedor.create', 'almacen.producto.proveedor.destroy',
   'almacen.pedidoActivo.index', 'almacen.pedidoActivo.show', 'almacen.pedidoActivo.edit', 'almacen.pedidoActivo.armado.show', 'almacen.pedidoActivo.armado.edit',
-  'almacen.pedidoTerminado.index','almacen.pedidoTerminado.show'
+  'almacen.pedidoTerminado.index','almacen.pedidoTerminado.show',
+  'factura.index', 'factura.create', 'factura.show', 'factura.edit', 'factura.destroy'
 ])
   <li class="nav-header">{{ __('MÓDULOS') }}</li>
 @endcanany

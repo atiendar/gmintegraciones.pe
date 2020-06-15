@@ -13,8 +13,7 @@ class FacturaController extends Controller {
   }
   public function index(Request $request, $id_cliente) {
     $cliente  = $this->usuarioRepo->usuarioAsignadoFindOrFailById($id_cliente, '2', ['facturas']);
-    $facturas = $cliente->facturas()->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
-    return view('enConstruccion');
-  //  return view('cliente.show.factura.sho_fac_index', compact('cliente', 'facturas'));
+    $facturas = $cliente->facturas()->buscar($request->opcion_buscador, $request->buscador)->orderByRaw('est_fact DESC, id DESC')->paginate($request->paginador);
+    return view('cliente.show.factura.sho_fac_index', compact('cliente', 'facturas'));
   }
 }

@@ -21,6 +21,7 @@ class CreatePedidoArmadosTable extends Migration
             $table->string('cod',50)->comment('Código');
             $table->string('estat',70)->default('Pendiente')->comment('Estatus');
             $table->integer('cant')->unsigned()->comment('Cantidad');
+            $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
             $table->integer('cant_direc_carg')->default(0)->unsigned()->comment('Cantidad de direcciones cargadas');
             $table->string('img_rut',200)->nullable()->comment('Ruta imágen');
             $table->string('img_nom',200)->nullable()->comment('Nombre imágen');

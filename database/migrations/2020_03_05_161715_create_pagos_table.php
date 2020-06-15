@@ -24,6 +24,7 @@ class CreatePagosTable extends Migration
             $table->string('cop_de_indent_rut',200)->nullable()->comment('Ruta de la copia de identificación');
             $table->string('cop_de_indent_nom',200)->nullable()->comment('Nombre de la copia de identificación');
             $table->enum('estat_pag',[config('app.pendiente'), config('app.aprobado'), config('app.rechazado')])->default('Pendiente')->nullable()->comment('Estatus de pago');
+            $table->string('est_fact',100)->default(config('app.no_solicitada'))->comment('Estatus factura');
             $table->decimal('mont_de_pag',20,2)->unsigned()->comment('Monto de pago');
             $table->enum('form_de_pag',config('opcionesSelect.select_forma_de_pago'))->comment('Forma de pago');
             $table->text('coment_pag')->nullable()->comment('Comentarios pagos');

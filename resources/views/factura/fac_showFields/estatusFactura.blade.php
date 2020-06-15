@@ -1,4 +1,4 @@
-@switch($pedido->estat_fact)
+@switch($factura->est_fact)
   @case(config('app.no_solicitada'))
     @php $borde = config('app.color_a'); @endphp
     @break
@@ -30,6 +30,6 @@
     <div class="input-group-prepend">
       <span class="input-group-text" style="border-color:{{ $borde }}"><i class="fas fa-text-width"></i></i></span>
     </div>
-    {!! Form::text('estatus_factura', $pedido->estat_fact, ['class' => 'form-control disable', 'style' => "border-color:$borde", 'maxlength' => 0, 'placeholder' => __('Estatus factura'), 'readonly' => 'readonly']) !!}
+    {!! Form::text('estatus_factura', $factura->est_fact, ['class' => 'form-control disable', 'style' => "border-color:$borde", 'maxlength' => 0, 'placeholder' => __('Estatus factura'), 'readonly' => 'readonly']) !!}
   </div>
 </div>

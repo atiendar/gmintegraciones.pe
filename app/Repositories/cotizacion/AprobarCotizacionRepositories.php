@@ -81,13 +81,17 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
           return abort(403, 'No se han registrado todas las direcciones al armado '.$armado_cotizacion->nom);
         }
 
+        // REGISTRA LOS ARMADOS AL PEDIDO
+        $armado_pedido               = new \App\Models\PedidoArmado();
+
         // DEFINE SI EL PEDIDO ES FORANEO O NO
         if($modificado == null) {
           $modificado = $this->elPedidoTieneDireccionesForaneas($pedido, $armado_cotizacion, $modificado);
+          if($modificado == true) {
+            $armado_pedido->for_loc    = 'Si';
+          }
         }
 
-        // REGISTRA LOS ARMADOS AL PEDIDO
-        $armado_pedido               = new \App\Models\PedidoArmado();
         $armado_pedido->cod          = $this->sumaUnoALaUltimaLetraYArmadosCargados($pedido, $armado_cotizacion->cant);
         $armado_pedido->cant         = $armado_cotizacion->cant;
         $armado_pedido->tip          = $armado_cotizacion->tip;

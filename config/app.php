@@ -304,6 +304,7 @@ return [
         Laraveles\Spanish\SpanishServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Yoeunes\Toastr\ToastrServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
     ],
 
     /*

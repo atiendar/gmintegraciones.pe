@@ -17,7 +17,8 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
         return 'exito';
       });
     });
- 
+
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('logs.index')->middleware('permission:logs.index');
     require_once __DIR__ . '/layouts/layoutsRoutes.php';
     require_once __DIR__ . '/usuario/usuarioRoutes.php';
     require_once __DIR__ . '/quejasYSugerencias/quejasYSugerenciasRoutes.php';
@@ -27,6 +28,7 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
     require_once __DIR__ . '/armado/armadoRoutes.php';
     require_once __DIR__ . '/costoDeEnvio/costoDeEnvioRoutes.php';
     require_once __DIR__ . '/cotizacion/cotizacionRoutes.php';
+    require_once __DIR__ . '/factura/facturaRoutes.php';
 
     Route::group(['prefix' => 'pago'], function() {
       require_once __DIR__ . '/pago/pagoFPedidoRoutes.php';

@@ -10,7 +10,7 @@
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-body">
     {!! Form::model(Request::all(), ['route' => ['cliente.show.factura.index', Crypt::encrypt($cliente->id)], 'method' => 'GET']) !!}
-      @include('global.buscador.buscador', ['ruta_recarga' => route('cliente.show.factura.index', Crypt::encrypt($cliente->id)), 'opciones_buscador' => []])
+      @include('global.buscador.buscador', ['ruta_recarga' => route('cliente.show.factura.index', Crypt::encrypt($cliente->id)), 'opciones_buscador' => config('opcionesSelect.select_cliente_factura_index')])
     {!! Form::close() !!}
     @include('cliente.show.factura.sho_fac_table')
     @include('global.paginador.paginador', ['paginar' => $facturas]) 

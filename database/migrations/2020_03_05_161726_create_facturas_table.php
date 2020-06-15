@@ -18,8 +18,7 @@ class CreateFacturasTable extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
-            $table->string('est_fact',50)->default(config('app.pendiente'))->comment('Estatus Factura');
-           
+            $table->string('est_fact',100)->default(config('app.pendiente'))->comment('Estatus factura');
             $table->string('nom_o_raz_soc',60)->comment('Nombre o razón social');
             $table->string('rfc',20)->comment('RFC');
             $table->string('lad_fij',4)->nullable()->comment('Lada del teléfono fijo');

@@ -7,6 +7,7 @@ use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
 use App\Repositories\papeleraDeReciclaje\tabla\usuarios\UsuariosRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\plantillas\PlantillasRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\quejasYSugerencias\QuejasYSugerenciasRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\proveedores\ProveedoresRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\armados\ArmadosRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\armados\ArmadoTieneImagenesRepositories;
@@ -20,15 +21,17 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
   protected $serviceCrypt;
   protected $usuariosRepo;
   protected $plantillasRepo;
+  protected $quejasYSugerenciasRepo;
   protected $proveedoresRepo;
   protected $armadosRepo;
   protected $armadoTieneImagenesRepo;
   protected $productosRepo;
   protected $pedidosRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, UsuariosRepositories $usuariosRepositories, PlantillasRepositories $plantillasRepositories, ProveedoresRepositories $proveedoresRepositories, ArmadosRepositories $armadosRepositories, ArmadoTieneImagenesRepositories $armadoTieneImagenesRepositories, ProductosRepositories $productosRepositories, PedidosRepositories $pedidosRepositories) {
+  public function __construct(ServiceCrypt $serviceCrypt, UsuariosRepositories $usuariosRepositories, PlantillasRepositories $plantillasRepositories, QuejasYSugerenciasRepositories $quejasYSugerenciasRepositories, ProveedoresRepositories $proveedoresRepositories, ArmadosRepositories $armadosRepositories, ArmadoTieneImagenesRepositories $armadoTieneImagenesRepositories, ProductosRepositories $productosRepositories, PedidosRepositories $pedidosRepositories) {
     $this->serviceCrypt             = $serviceCrypt;
     $this->usuariosRepo             = $usuariosRepositories;
     $this->plantillasRepo           = $plantillasRepositories;
+    $this->quejasYSugerenciasRepo   = $quejasYSugerenciasRepositories;
     $this->proveedoresRepo          = $proveedoresRepositories;
     $this->armadosRepo              = $armadosRepositories;
     $this->armadoTieneImagenesRepo  = $armadoTieneImagenesRepositories;
@@ -93,12 +96,7 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
     if($registro->tab == 'users') {
       $consulta = \App\User::withTrashed()->findOrFail($registro->id_reg);
       $this->usuariosRepo->metodo($metodo, $consulta);
-      
 
-      /*
-      * FALTA ELIMINAR LOSS ARCHIVOS DE ESTOS REGISTROS RELACIONADOS AL USUARIO
-      *  'quejasYSugerencias','pedidos', 'pagos', facturas' // LOS PAGOS PUEDEN SALIR DEL PEDIDO VER COMO ES MAS FACIL Y OPTIMO
-      */
       if($consulta->acceso == '2') { // 2 = Cliente, 1 = Usuario
         $pedidos = \App\Models\Pedido::with(['armados', 'pagos'])->withTrashed()->where('user_id', $consulta->id)->get();
         foreach($pedidos as $pedido) {
@@ -106,10 +104,11 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
         }
       }
       if($consulta->acceso == '1' OR $consulta->acceso == '2') { // 2 = Cliente, 1 = Usuario
+        $qys = \App\Models\QuejaYSugerencia::with(['archivos'=> function ($query) {
+          $query->withTrashed();
+        }])->withTrashed()->where('user_id', $consulta->id)->get();
+        $this->quejasYSugerenciasRepo->metodo($metodo, $qys);
       }
-
-
-
     }
     if($registro->tab == 'roles') {
       $consulta = \Spatie\Permission\Models\Role::withTrashed()->findOrFail($registro->id_reg);

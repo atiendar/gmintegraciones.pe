@@ -8,4 +8,8 @@
   @else
     {{ $armado->cod }}
   @endif
+
+  @if($armado->for_loc == 'Si')
+    <i class="fas fa-globe-africa" title="{{ __('Foráneo') }}"></i>
+  @endif
 </td>

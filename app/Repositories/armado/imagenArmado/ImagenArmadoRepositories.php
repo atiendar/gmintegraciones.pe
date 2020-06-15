@@ -59,7 +59,7 @@ class ImagenArmadoRepositories implements ImagenArmadoInterface {
   }
   public function destroy($id_imagen) {
     DB::transaction(function() use($id_imagen) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
-      $img_armado = $this->imagenArmadoFindOrFailById($id_imagen, 'armado');
+      $img_armado = $this->imagenArmadoFindOrFailById($id_imagen, []);
       $img_armado->delete();
 
       $this->papeleraDeReciclajeRepo->store([
@@ -67,7 +67,7 @@ class ImagenArmadoRepositories implements ImagenArmadoInterface {
         'registro'    => $img_armado->img_nom, // Información a mostrar en la papelera
         'tab'         => 'armado_tiene_imagenes', // Nombre de la tabla en la BD
         'id_reg'      => $img_armado->id, // ID de registro eliminado
-        'id_fk'       => $img_armado->armado->id // ID de la llave foranea con la que tiene relación           
+        'id_fk'       => $img_armado->armado_id // ID de la llave foranea con la que tiene relación           
       ]);
     });
   }

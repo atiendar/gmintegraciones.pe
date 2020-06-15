@@ -10,7 +10,7 @@
               @if(Request::route()->getName() == 'armado.edit' OR Request::route()->getName() == 'armado.clon.edit')
                 <form method="post" action="{{ route('armado.imagen.destroy', Crypt::encrypt($imagen->id)) }}" id="armadoImagenDestroy{{ $imagen->id }}" class="col-sm-12 p-0 bg-danger">
                   @method('DELETE')@csrf
-                  {!! Form::button(__('Eliminar'), ['type' => 'submit', 'class' => 'btn btn-danger btn-sm w-100 p-0', 'id' => "btnsub$imagen->id", 'onclick' => "return check('btnsub$imagen->id', 'armadoImagenDestroy$imagen->id', '¡Alerta!', '¿Estás seguro quieres eliminar el registro, $imagen->id ($imagen->img_nom) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+                  {!! Form::button(__('Eliminar'), ['type' => 'submit', 'class' => 'btn btn-danger btn-sm w-100 p-0', 'id' => "btnsub$imagen->id", 'onclick' => "return check('btnsub$imagen->id', 'armadoImagenDestroy$imagen->id', '¡Alerta!', 'Enviaras este registro a la papelera de reciclaje junto con toda su información. ¿Estás seguro que quieres realizar esta acción para el registro: $imagen->id ($imagen->img_nom) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
                 </form>
               @endif
               <img src="{{ Storage::url($imagen->img_rut.$imagen->img_nom) }}" class="card-img-top" alt="{{ $imagen->img_nom }}">

@@ -70,10 +70,9 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     try { DB::beginTransaction();
       $pedido = $this->pedidoActivoAlmacenFindOrFailById($id_pedido, ['armados']);
       if($pedido->lid_de_ped_alm == null) { return abort(405, 'Falta asignar líder de pedido'); }
-      $armados = $pedido->armados()->where(function ($query){
-                    $query->where('estat', config('app.en_espera_de_compra'))
-                        ->orWhere('estat', config('app.en_revision_de_productos'));
-                    })->get();
+      $armados = $pedido->armados()->where('estat', config('app.en_espera_de_compra'))
+                        ->orWhere('estat', config('app.en_revision_de_productos'))
+                        ->get();
       $nom_tabla = (new \App\Models\PedidoArmado())->getTable();
 
       $hastaC                 = count($armados) - 1;

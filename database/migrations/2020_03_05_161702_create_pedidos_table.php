@@ -39,7 +39,6 @@ class CreatePedidosTable extends Migration
             $table->string('estat_vent_arm',100)->default(config('app.falta_cargar_armados'))->comment('Estatus de venta 2');
             $table->string('estat_vent_dir',100)->default(config('app.falta_asignar_direcciones_armados'))->comment('Estatus de venta 3');
             $table->text('coment_vent')->nullable()->comment('Comentarios venta');
-            $table->string('estat_fact',100)->default(config('app.no_solicitada'))->comment('Estatus factura');
             $table->string('estat_pag',100)->default(config('app.pendiente'))->comment('Estatus de pago');
             $table->string('lid_de_ped_alm',80)->nullable()->comment('Personas que recibe en almacen');
             $table->string('estat_alm',100)->default(config('app.pendiente'))->comment('Estatus almacén');

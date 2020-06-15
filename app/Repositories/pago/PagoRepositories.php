@@ -161,11 +161,24 @@ class PagoRepositories implements PagoInterface {
     return $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
   }
   public function modificarEstatusProduccionYAlmacen($pedido) {
-    $pedido->estat_alm          = config('app.asignar_lider_de_pedido');
-    $pedido->fech_estat_alm     = date("Y-m-d h:i:s"); 
+    if($pedido->estat_alm == config('app.pendiente')) {
+      $pedido->estat_alm          = config('app.asignar_lider_de_pedido');
+      $pedido->fech_estat_alm     = date("Y-m-d h:i:s"); 
 
-    $pedido->estat_produc       = config('app.asignar_lider_de_pedido');
-    $pedido->fech_estat_produc  = date("Y-m-d h:i:s");
-    $pedido->save();
+      $pedido->estat_produc       = config('app.asignar_lider_de_pedido');
+      $pedido->fech_estat_produc  = date("Y-m-d h:i:s");
+      $pedido->save();
+
+      // CAMBIA EL ESTATUS DE LOS ARMADOS DEL PEDIDO PARA QUE ALMACÉN LOS PUEDA MODIFICAR
+      $up_estat = NULL;
+      $ids      = NULL;
+      foreach($pedido->armados as $armado){ 
+        $up_estat .= ' WHEN '. $armado->id. ' THEN "'. config('app.en_espera_de_compra').'"';
+        $ids      .= $armado->id.',';
+      }
+      $nom_tabla = (new \App\Models\PedidoArmado())->getTable();
+      $ids = substr($ids, 0, -1);
+      DB::UPDATE("UPDATE ".$nom_tabla." SET estat = CASE id". $up_estat." END WHERE id IN (".$ids.")");
+    }
   }
 }

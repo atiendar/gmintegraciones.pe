@@ -6,6 +6,7 @@
       <thead>
         <tr> 
           @include('pago.pag_table.th.codigoDeFacturacion')
+          @include('factura.fac_table.th.estatusFactura')
           @include('pago.pag_table.th.estatusPago')
           @include('pago.pag_table.th.formaDePago')
           @include('pago.pag_table.th.montoDePago')
@@ -16,6 +17,7 @@
         @foreach($pagos as $pago)
           <tr title="{{ $pago->cod_fact }}">
             @include('pago.pag_table.td.codigoDeFacturacion', ['show' => true, 'canany' => ['pago.fPedido.show'], 'ruta' => 'pago.fPedido.show', 'target' => 'target="_blank"'])
+            @include('factura.fac_table.td.estatusFactura', ['factura' => $pago])
             @include('pago.pag_table.td.estatusPago')
             @include('pago.pag_table.td.formaDePago')
             @include('pago.pag_table.td.montoDePago')

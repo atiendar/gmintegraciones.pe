@@ -15,7 +15,7 @@
   @can('armado.destroy')
     <form method="post" action="{{ route('armado.destroy', Crypt::encrypt($armado->id)) }}" id="armadoDestroy{{ $armado->id }}">
       @method('DELETE')@csrf
-      {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnsub$armado->id", 'onclick' => "return check('btnsub$armado->id', 'armadoDestroy$armado->id', '¡Alerta!', '¿Estás seguro quieres eliminar el registro, $armado->id ($armado->sku) ? Eliminaras toda relación con los armados.', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+      {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'id' => "btnsub$armado->id", 'onclick' => "return check('btnsub$armado->id', 'armadoDestroy$armado->id', '¡Alerta!', 'Enviaras este registro a la papelera de reciclaje junto con toda su información (Imagenes y productos). ¿Estás seguro que quieres realizar esta acción para el registro: $armado->id ($armado->sku) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
     </form>
   @endcan
 </td>

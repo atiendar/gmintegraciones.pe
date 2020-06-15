@@ -254,6 +254,14 @@ return array(
     'entr_xprs'               => '¿Express?',
     'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
+/* ===================== CLIENTES [ FACTURAS ] ===================== */
+  'select_cliente_factura_index'  => [
+    ''              => 'Buscar por. . .',
+    'id'            => 'ID',
+    'est_fact'      => 'Estatus factura',
+    'nom_o_raz_soc' => 'Nombre o razón social',
+    'rfc'           => 'RFC',
+  ],
 /* ===================== CLIENTES [ QUEJAS Y SUGERENCIAS ] ===================== */
   'select_cliente_qys_index'  => [
     ''                        => 'Buscar por. . .',
@@ -607,7 +615,6 @@ return array(
     'num_pedido'      => 'Número de pedido',
     'mont_tot_de_ped' => 'Monto total',
   ],
-
   /* =====================  RASTREAR [ RASTREAR PEDIDO ] ===================== */
   'select_rastrear_pedido_index'  => [
     ''                        => 'Buscar por. . .',
@@ -624,6 +631,13 @@ return array(
       'Express' => 'Express',
     ],
   /* ===================== [ FACTURACIÓN ] ===================== */
+  'select_factura_index'  => [
+    ''              => 'Buscar por. . .',
+    'id'            => 'ID',
+    'est_fact'      => 'Estatus factura',
+    'nom_o_raz_soc' => 'Nombre o razón social',
+    'rfc'           => 'RFC',
+  ],
 	'select_concepto' => [
 		'Arcón Navideño' 		    => 'Arcón Navideño',
 		'Canastas Navideñas' 	  => 'Canastas Navideñas',
@@ -693,8 +707,6 @@ return array(
     'En espera de compra'   => 'En espera de compra',
     'Terminado'             => 'Terminado',
   ],
-
-/* ===================== TI [ SOPORTES ] ===================== */
   'select_costos_de_envio_index'  => [
     ''              => 'Buscar por. . .',
     'cost_por_env'  => 'Costo por envío',
