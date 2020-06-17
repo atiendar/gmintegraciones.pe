@@ -34,8 +34,6 @@ class CreateFacturasTable extends Migration
             $table->string('col',40)->comment('Colonia');
             $table->string('del_o_munic',50)->comment('Delegación o Municipio');
             $table->string('cod_post',6)->comment('Código Postal');
-           
-            $table->enum('preg',config('opcionesSelect.select_si_no'))->comment('Pregunta: ¿La factura es necesaria para generar anticipo?');
             $table->enum('uso_de_cfdi',config('opcionesSelect.select_uso_de_cfdi'))->comment('Uso de CFDI');
             $table->enum('met_de_pag', config('opcionesSelect.select_metodo_de_pago'))->comment('Método de pago');
             $table->enum('form_de_pag', config('opcionesSelect.select_forma_de_pago_factura'))->comment('Forma de pago');

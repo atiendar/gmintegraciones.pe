@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'throttle'              => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified'              => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 /* ===================== [ SISTEMA ] ===================== */
+        'RolDiferenteAlCliente' => \App\Http\Middleware\RolDiferenteAlCliente::class,
         'navegador'             => \App\Http\Middleware\NavegadorMiddleware::class, // Niega el acceso a los navegadores especificados en este archivo
         'headerSeguro'          => \App\Http\Middleware\HeadersSegurosMiddleware::class, // Oculta los header del sistema para mejorar la seguridad
         'idiomaSistema'         => \App\Http\Middleware\IdiomaSistemaMiddleware::class, // Definir el idioma del sistema dependiendo la configuración que tenga el usuario en su perfil

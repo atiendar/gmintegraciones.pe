@@ -1,5 +1,25 @@
 <label for="redes_sociales">{{ __('DATOS FISCALES') }}</label>
-  <div class="border border-primary rounded p-2">
+<div class="border border-primary rounded p-2">
+  <div class="row">
+    <div class="form-group col-sm btn-sm">
+      <label for="nombre_o_razon_social">{{ __('Nombre o razón social') }}</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+        </div>
+         {!! Form::text('nombre_o_razon_social', $factura->nom_o_raz_soc, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Nombre o razón social'), 'readonly' => 'readonly']) !!}
+      </div>
+    </div>
+    <div class="form-group col-sm btn-sm">
+      <label for="rfc">{{ __('RFC') }}</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+        </div>
+         {!! Form::text('rfc', $factura->rfc, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('RFC'), 'readonly' => 'readonly']) !!}
+      </div>
+    </div>
+  </div>  
   <div class="row">
     <div class="form-group col-sm btn-sm">
       <label for="telefono_fijo">{{ __('Teléfono fijo') }}</label>

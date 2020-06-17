@@ -23,10 +23,11 @@ class FacturaController extends Controller {
   }
   public function show($id_factura) {
     $factura = $this->facturaRepo->getFacturaFindOrFailById($id_factura, ['usuario', 'pago']);
+
     return view('factura.fac_show', compact('factura'));
   }
   public function edit($id_factura) {
-    $factura = $this->facturaRepo->getFacturaFindOrFailById($id_factura, ['usuario', 'pago']);
+    $factura = $this->facturaRepo->getFacturaFindOrFailById($id_factura, []);
     return view('factura.fac_edit', compact('factura'));
   }
   public function update(Request $request, $id_factura) {

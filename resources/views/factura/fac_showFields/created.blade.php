@@ -14,7 +14,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
       </div>
-      {!! Form::text('created_at_us', $factura->created_at_pag, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Registrado por'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('created_at_us', $factura->created_at_fact, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Registrado por'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>
@@ -34,7 +34,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
       </div>
-      {!! Form::text('updated_at_us', $factura->updated_at_pag, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Última modificación por'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('updated_at_us', $factura->updated_at_fact, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Última modificación por'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>

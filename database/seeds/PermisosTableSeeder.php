@@ -825,5 +825,41 @@ class PermisosTableSeeder extends Seeder {
       'desc'            => "Editar cualquier dato de un registro del módulo Pagos 'F. por pedido'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+// PERMISOS DEL MÓDULO FACTURACIÓN
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 10,
+      'nom'             => "Navegar por tabla Facturación",
+      'name'				    => 'factura.index',
+      'desc'            => "Lista y navega por todos los registros del módulo Facturación",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 11,
+      'nom'             => "Registrar nuevo Facturación",
+      'name'				    => 'factura.create',
+      'desc'            => "Crear nuevo registro en el módulo Facturación",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 12,
+      'nom'             => "Ver detalles Facturación",
+      'name'				    => 'factura.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo Facturación",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 13,
+      'nom'             => "Editar registro Facturación",
+      'name'				    => "factura.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo Facturación",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 14,
+      'nom'             => "Eliminar registro Facturación",
+      'name'				    => "factura.destroy",
+      'desc'            => "Eliminar cualquier registro del módulo Facturación",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
   }
 }

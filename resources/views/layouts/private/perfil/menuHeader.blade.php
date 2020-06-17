@@ -24,18 +24,20 @@
         {{ __('Notificaciones') }}
       </a>
     </li>
-    <li class="nav-item">
-      <a href="{{ route('perfil.archivoGenerado.index') }}" class="nav-link {{ Request::is('perfil/archivos-generados*') ? 'active border rounded' : '' }}">
-        <i class="fas fa-download"></i>
-        {{ __('Archivos generados') }}
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="{{ route('perfil.recordatorio.index') }}" class="nav-link {{ Request::is('perfil/recordatorio*') ? 'active border rounded' : '' }}">
-        <i class="far fa-sticky-note"></i>
-        {{ __('Recordatorios') }}
-      </a>
-    </li>
+    @unlessrole(config('app.rol_cliente'))
+      <li class="nav-item">
+        <a href="{{ route('perfil.archivoGenerado.index') }}" class="nav-link {{ Request::is('perfil/archivos-generados*') ? 'active border rounded' : '' }}">
+          <i class="fas fa-download"></i>
+          {{ __('Archivos generados') }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('perfil.recordatorio.index') }}" class="nav-link {{ Request::is('perfil/recordatorio*') ? 'active border rounded' : '' }}">
+          <i class="far fa-sticky-note"></i>
+          {{ __('Recordatorios') }}
+        </a>
+      </li>
+    @endunlessrole
   </ul>
 </div>
 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">

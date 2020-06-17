@@ -17,9 +17,9 @@ class FacturaRepositories implements FacturaInterface {
     $this->serviceCrypt               = $serviceCrypt;
     $this->papeleraDeReciclajeRepo    = $papeleraDeReciclajeRepositories;
   }
-  public function getFacturaFindOrFailById($id_factura, $relaciones) {
+  public function getFacturaFindOrFailById($id_factura, $relaciones, $estatus) {
     $id_factura = $this->serviceCrypt->decrypt($id_factura);
-    return Factura::with($relaciones)->findOrFail($id_factura);
+    return Factura::with($relaciones)->estatus()->findOrFail($id_factura);
   }
   public function getPagination($request) {
     // falta ordenar por el estatus

@@ -21,6 +21,11 @@ class Factura extends Model{
       return $query->where("$opcion_buscador", 'LIKE', "%$buscador%");
     }
   }
+  public function scopeEstatus($query, $estatus) {
+    if($estatus != null) {
+      return $query->where('est_fact', $estatus);
+    }
+  }
   public function usuario(){
     return $this->belongsTo('App\User', 'user_id')->orderBy('id','DESC');
   }
