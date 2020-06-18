@@ -1,5 +1,5 @@
 <?php
-namespace App\Notifications\Factura;
+namespace App\Notifications\factura;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -13,14 +13,16 @@ class NotificacionFacturaCancelada extends Notification {
     use Queueable;
     protected $cliente;
     protected $plantilla;
+    protected $factura;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($cliente, $plantilla) {
+    public function __construct($cliente, $plantilla, $factura) {
       $this->cliente = $cliente;
       $this->plantilla = $plantilla;
+      $this->factura = $factura;
     }
 
     /**
@@ -65,7 +67,7 @@ class NotificacionFacturaCancelada extends Notification {
               'email_registro_del_usuario'        => $notifiable->email_registro,
 
               // EXTRAS
-
+              'id_factura'                        => $this->factura->id,
           ]
       );
     }

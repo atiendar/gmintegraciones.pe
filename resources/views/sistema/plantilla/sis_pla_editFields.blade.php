@@ -119,11 +119,11 @@
   @endif
 
   @if($plantilla->mod == config('opcionesSelect.select_modulo.Facturación (Factura generada)'))
-  //  otros.push(); // ESTE MÓDULO NO CUENTA CON OPCIONES EXTRAS
+    otros.push('$id_factura !'); // ESTE MÓDULO NO CUENTA CON OPCIONES EXTRAS
   @endif
 
   @if($plantilla->mod == config('opcionesSelect.select_modulo.Facturación (Factura cancelada)'))
-  //  otros.push(); // ESTE MÓDULO NO CUENTA CON OPCIONES EXTRAS
+    otros.push('$id_factura !'); // ESTE MÓDULO NO CUENTA CON OPCIONES EXTRAS
   @endif
 
 

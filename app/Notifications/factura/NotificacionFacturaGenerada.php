@@ -1,5 +1,5 @@
 <?php
-namespace App\Notifications\Factura;
+namespace App\Notifications\factura;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -13,15 +13,17 @@ class NotificacionFacturaGenerada extends Notification {
     use Queueable;
     protected $cliente;
     protected $plantilla;
+    protected $factura;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($cliente, $plantilla) {
-      $this->cliente = $cliente;
-      $this->plantilla = $plantilla;
+    public function __construct($cliente, $plantilla, $factura) {
+      $this->cliente    = $cliente;
+      $this->plantilla  = $plantilla;
+      $this->factura    = $factura;
     }
 
     /**
@@ -42,9 +44,23 @@ class NotificacionFacturaGenerada extends Notification {
      */
     public function toMail($notifiable) {
       $year = Carbon::parse(Sistema::datos()->sistemaFindOrFail()->year_de_ini);
+/*
+      if($this->factura->fact_pdf_nom != null) {
+        $fact_pdf = file_get_contents(env('APP_URL').\Storage::url($this->factura->fact_pdf_rut.$this->factura->fact_pdf_nom));
+        $fact_xlm = file_get_contents(env('APP_URL').\Storage::url($this->factura->fact_xlm_rut.$this->factura->fact_xlm_nom));
+      }
+      if($this->factura->ppd_pdf_nom != null) {
+        $ppd_pdf = file_get_contents(env('APP_URL').\Storage::url($this->factura->ppd_pdf_rut.$this->factura->ppd_pdf_nom));
+        $ppd_xlm = file_get_contents(env('APP_URL').\Storage::url($this->factura->ppd_xlm_rut.$this->factura->ppd_xlm_nom));
+      }
+*/
         return (new MailMessage)
-        ->subject($this->plantilla->asunt)
-        ->view(
+          ->subject($this->plantilla->asunt)
+        //  ->attachData($fact_pdf, 'factura.pdf')
+        //  ->attachData($fact_xlm, 'factura.xlm')
+        //  ->attachData($ppd_pdf, 'ppd.pdf')
+        //  ->attachData($ppd_xlm, 'ppd.xlm')
+          ->view(
             'correo.' . $this->plantilla->id, [
                 // SISTEMA
                 'nombre_de_la_empresa'              => Sistema::datos()->sistemaFindOrFail()->emp, 
@@ -66,7 +82,7 @@ class NotificacionFacturaGenerada extends Notification {
                 'email_registro_del_usuario'        => $notifiable->email_registro,
                 
                 // EXTRAS
-
+                'id_factura'                        =>  $this->factura->id,
             ]
         );
     }

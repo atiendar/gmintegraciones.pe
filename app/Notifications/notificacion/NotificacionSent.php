@@ -39,6 +39,7 @@ class NotificacionSent extends Notification {
     public function toMail($notifiable) {
         return (new MailMessage)
         ->subject($this->notificacion->asunt)
+        ->from(auth()->user()->email_registro)
         ->view(
             'diseno_notificacion.notificacion.' . $this->notificacion->id, [
               // No se definiran variables para enviar en el correo 

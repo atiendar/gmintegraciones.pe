@@ -103,7 +103,7 @@ class FacturaRepositories implements FacturaInterface {
       
       // ENVIA UN CORREO AL CLIENTE DE QUE SU FACTURA HA SIDO CANCELADA
       $plantilla = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_fac_cancelado'));
-      $factura->usuario->notify(new NotificacionFacturaCancelada($factura->usuario, $plantilla)); // Envió de correo electrónico
+      $factura->usuario->notify(new NotificacionFacturaCancelada($factura->usuario, $plantilla, $factura)); // Envió de correo electrónico
     
       DB::commit();
       return $factura;
@@ -112,26 +112,61 @@ class FacturaRepositories implements FacturaInterface {
   public function updateSubirArchivos($request, $id_factura) {
     try { DB::beginTransaction();
       $factura = $this->getFacturaFindOrFailById($id_factura, ['usuario', 'pago'], null);
-
-      dd(     $factura );
-      /*
-      if($request->hasfile('imagen')) {
+       
+      if($request->hasfile('factura_pdf')) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
-          $request->file('imagen'), // Archivo blob
-          'public/perfil/' . date("Y-m") . '/', // Ruta en la que guardara el archivo
-          'perfil-' . time() . '.', // Nombre del archivo
-          null // Ruta y nombre del archivo anterior
+          $request->file('factura_pdf'), // Archivo blob
+          'public/facturas/'.date("Y").'/'.$factura->id.'/', // Ruta en la que guardara el archivo
+          'factura_pdf-' . time() . '.', // Nombre del archivo
+          $factura->fact_pdf_rut.$factura->fact_pdf_nom // Ruta y nombre del archivo anterior
         ); 
         $factura->fact_pdf_rut  = $imagen[0]['ruta'];
-        $factura->fact_pdf_nom      = $imagen[0]['nombre'];
+        $factura->fact_pdf_nom  = $imagen[0]['nombre'];
       }
-    */
-      $factura->save();
+    
+      if($request->hasfile('factura_xlm')) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        $imagen = ArchivoCargado::dispatch(
+          $request->file('factura_xlm'), // Archivo blob
+          'public/facturas/'.date("Y").'/'.$factura->id.'/', // Ruta en la que guardara el archivo
+          'factura_xlm-' . time() . '.', // Nombre del archivo
+          $factura->fact_xlm_rut.$factura->fact_xlm_nom // Ruta y nombre del archivo anterior
+        ); 
+        $factura->fact_xlm_rut  = $imagen[0]['ruta'];
+        $factura->fact_xlm_nom  = $imagen[0]['nombre'];
+      }
 
-      // ENVIA UN CORREO AL CLIENTE DE QUE SU FACTURA HA SIDO GENERADA
-      $plantilla = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_fac_generada'));
-      $factura->usuario->notify(new NotificacionFacturaGenerada($factura->usuario, $plantilla)); // Envió de correo electrónico
+      if($request->hasfile('ppd_pdf')) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        $imagen = ArchivoCargado::dispatch(
+          $request->file('ppd_pdf'), // Archivo blob
+          'public/facturas/'.date("Y").'/'.$factura->id.'/', // Ruta en la que guardara el archivo
+          'ppd_pdf-' . time() . '.', // Nombre del archivo
+          $factura->ppd_pdf_rut.$factura->ppd_pdf_nom // Ruta y nombre del archivo anterior
+        ); 
+        $factura->ppd_pdf_rut  = $imagen[0]['ruta'];
+        $factura->ppd_pdf_nom  = $imagen[0]['nombre'];
+      }
+
+      if($request->hasfile('ppd_xlm')) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        $imagen = ArchivoCargado::dispatch(
+          $request->file('ppd_xlm'), // Archivo blob
+          'public/facturas/'.date("Y").'/'.$factura->id.'/', // Ruta en la que guardara el archivo
+          'ppd_xlm-' . time() . '.', // Nombre del archivo
+          $factura->ppd_xlm_rut.$factura->ppd_xlm_nom // Ruta y nombre del archivo anterior
+        ); 
+        $factura->ppd_xlm_rut = $imagen[0]['ruta'];
+        $factura->ppd_xlm_nom = $imagen[0]['nombre'];
+      }
+      
+      if($factura->isDirty()) {
+        // ENVIA UN CORREO AL CLIENTE DE QUE SU FACTURA HA SIDO GENERADA
+        $plantilla = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_fac_generada'));
+        $factura->usuario->notify(new NotificacionFacturaGenerada($factura->usuario, $plantilla, $factura)); // Envió de correo electrónico
+      }
+      $factura->save();
 
       DB::commit();
       return $factura;
