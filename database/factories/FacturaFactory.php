@@ -23,7 +23,7 @@ $factory->define(Factura::class, function (Faker $faker) {
         'col'               => $faker->name,
         'del_o_munic'       => $faker->name,
         'cod_post'          => $faker->numberBetween(1, 9999),
-        'preg'              => $faker->randomElement(config('opcionesSelect.select_si_no')),
+        'corr'              => $faker->safeEmail,
         'uso_de_cfdi'       => $faker->randomElement(config('opcionesSelect.select_uso_de_cfdi')),
         'met_de_pag'        => $faker->randomElement(config('opcionesSelect.select_metodo_de_pago')),
         'form_de_pag'       => $faker->randomElement(config('opcionesSelect.select_forma_de_pago_factura')),

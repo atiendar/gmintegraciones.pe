@@ -8,10 +8,10 @@
   @case(config('app.error_del_cliente'))
     @php $borde = config('app.color_c'); @endphp
     @break
-  @case(config('app.anticipo_facturado'))
-    @php $borde = config('app.bfcde6'); @endphp
-    @break
   @case(config('app.facturado'))
+    @php $borde = config('app.color_d'); @endphp
+    @break
+  @case(config('app.facturado_por_fuera'))
     @php $borde = config('app.color_d'); @endphp
     @break
   @case(config('app.cancelado'))
@@ -21,7 +21,7 @@
     @php $borde = config('app.color_d'); @endphp
     @break
   @default
-  @php $borde = config('app.color_null'); @endphp
+    @php $borde = config('app.color_null'); @endphp
 @endswitch 
 
 <div class="form-group col-sm btn-sm">

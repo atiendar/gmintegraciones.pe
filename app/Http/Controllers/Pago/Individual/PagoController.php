@@ -43,4 +43,9 @@ class PagoController extends Controller {
     toastr()->success('¡Pago eliminado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
+  public function marcarComoFacturado($id_pago) {
+    $this->pagoRepo->marcarComoFacturado($id_pago);
+    toastr()->success('¡Pago marcado como facturado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
+  }
 }

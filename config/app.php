@@ -80,7 +80,7 @@ return [
 
     # --- ESTATUS COTIZACIONES
     'abierta'   => 'Abierta',
-    'aprobada'   => 'Aprobada',
+    'aprobada'  => 'Aprobada',
     'cancelada' => 'Cancelada',
 
     # --- ESTATUS GLOBAL
@@ -95,8 +95,8 @@ return [
     # --- ESTATUS FACTURA
     'no_solicitada'         => 'No solicitada',
     'error_del_cliente'     => 'Error del cliente',
-    'anticipo_facturado'    => 'Anticipo facturado',
     'facturado'             => 'Facturado',
+    'facturado_por_fuera'   => 'Facturado por fuera',
     'facturado_eliminado'   => 'Facturado / Eliminado',  
     
     # --- ESTATUS PAGO

@@ -65,4 +65,13 @@ class UsuarioController extends Controller {
     toastr()->success('¡Correo enviado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
+  public function getDatosFiscalesCliente(Request $request, $id_cliente) {
+    if($request->ajax()) {
+      $usuario        = $this->usuarioRepo->getUsuarioFindOrFail($id_cliente, ['datosFiscales']);
+      $datosFiscales  = $usuario->datosFiscales;
+  //  $datosFiscales = [];
+  //    array_push($datosFiscales->items, ['id'=>'', 'rfc'=>'Seleccione. . .']);
+      return response()->json($datosFiscales);
+    }
+  }
 }

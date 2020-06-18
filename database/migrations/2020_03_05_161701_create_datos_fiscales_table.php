@@ -33,7 +33,7 @@ class CreateDatosFiscalesTable extends Migration
             $table->string('col',40)->comment('Colonia');
             $table->string('del_o_munic',50)->comment('Delegación o Municipio');
             $table->string('cod_post',6)->comment('Código Postal');
-
+            $table->string('corr',75)->comment('Correo');
             $table->unsignedBigInteger('user_id')->comment('Foreign Key de users');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('restrict')->onDelete('cascade');
             

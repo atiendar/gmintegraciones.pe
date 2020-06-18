@@ -14,7 +14,7 @@ interface UsuarioInterface {
 
   public function reEnviarCorreoBienvenida($id_usuario);
 
-  public function getUsuarioFindOrFail($id_usuario);
+  public function getUsuarioFindOrFail($id_usuario, $relaciones);
 
   public function getAllUsersPlunk();
 

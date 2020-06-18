@@ -128,5 +128,14 @@
         {!! Form::text('codigo_postal',  $dato_fiscal->cod_post, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Código postal'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="correo">{{ __('Correo') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+      </div>
+        {!! Form::text('correo', $dato_fiscal->corr, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Correo'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
 </div>
 @include('layouts.private.plugins.priv_plu_select2')

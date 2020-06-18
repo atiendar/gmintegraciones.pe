@@ -67,7 +67,7 @@
     '$year_actual !',
   ];
 
-  @if($plantilla->mod == 'Usuarios (Bienvenida)' OR $plantilla->mod == 'Clientes (Bienvenida)')
+  @if($plantilla->mod == config('opcionesSelect.select_modulo.Usuarios (Bienvenida)') OR $plantilla->mod == config('opcionesSelect.select_modulo.Clientes (Bienvenida)'))
     otros.push('$nombre_completo_del_usuario !', 
                 '$nombre_del_usuario !', 
                 '$apellido_del_usuario !', 
@@ -75,7 +75,7 @@
                 '$password !');
   @endif
 
-  @if($plantilla->mod == 'Sistema (Restablecimiento de contraseña)')
+  @if($plantilla->mod == config('opcionesSelect.select_modulo.Sistema (Restablecimiento de contraseña)'))
     otros.push('$nombre_completo_del_usuario !', 
                 '$nombre_del_usuario !', 
                 '$apellido_del_usuario !', 
@@ -84,40 +84,49 @@
                 '$url_cambio_de_password !');
   @endif
 
-  @if($plantilla->mod == 'Perfil (Cambio de contraseña)')
+  @if($plantilla->mod == config('opcionesSelect.select_modulo.Perfil (Cambio de contraseña)'))
     otros.push('$nombre_completo_del_usuario !', 
                 '$nombre_del_usuario !', 
                 '$apellido_del_usuario !', 
                 '$email_registro_del_usuario !');
   @endif
 
-  @if($plantilla->mod == 'Cotizaciones (Términos y condiciones)')
+  @if($plantilla->mod == config('opcionesSelect.select_modulo.Cotizaciones (Términos y condiciones)'))
   //  otros.push(); // ESTE MÓDULO NO CUENTA CON OPCIONES EXTRAS
   @endif
 
-  @if($plantilla->mod == 'Ventas (Registrar pedido)')
+  @if($plantilla->mod == config('opcionesSelect.select_modulo.Ventas (Registrar pedido)'))
     otros.push('$numero_de_pedido !');
   @endif
 
-  @if($plantilla->mod == 'Ventas (Pedido cancelado)')
+  @if($plantilla->mod == config('opcionesSelect.select_modulo.Ventas (Pedido cancelado)'))
   //  otros.push();
   @endif
 
-  @if($plantilla->mod == 'Pagos (Registrar pago)')
+  @if($plantilla->mod == config('opcionesSelect.select_modulo.Pagos (Registrar pago)'))
     otros.push('$codigo_de_factura !',
               '$monto_del_pago !',
               '$forma_de_pago !',
               '$numero_de_pedido !');
   @endif
 
-  @if($plantilla->mod == 'Pagos (Pago rechazado)')
+  @if($plantilla->mod == config('opcionesSelect.select_modulo.Pagos (Pago rechazado)'))
   otros.push('$codigo_de_factura !',
               '$monto_del_pago !',
               '$forma_de_pago !',
               '$comentarios_del_pago !',
               '$numero_de_pedido !');
   @endif
-  
+
+  @if($plantilla->mod == config('opcionesSelect.select_modulo.Facturación (Factura generada)'))
+  //  otros.push(); // ESTE MÓDULO NO CUENTA CON OPCIONES EXTRAS
+  @endif
+
+  @if($plantilla->mod == config('opcionesSelect.select_modulo.Facturación (Factura cancelada)'))
+  //  otros.push(); // ESTE MÓDULO NO CUENTA CON OPCIONES EXTRAS
+  @endif
+
+
   $('.textarea').summernote({
     tabsize: 4,
     height: 500,

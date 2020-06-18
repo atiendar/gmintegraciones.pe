@@ -790,10 +790,24 @@ class PermisosTableSeeder extends Seeder {
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
+//      'id'              => 112,
+      'nom'             => "Editar registro Pagos 'Individual'",
+      'name'				    => "pago.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo Pagos 'Individual'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
 //      'id'              => 108,
       'nom'             => "Eliminar registro Pagos 'Individual'",
       'name'				    => "pago.destroy",
       'desc'            => "Eliminar cualquier registro del módulo Pagos 'Individual'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 112,
+      'nom'             => "Marcar como facturado Pagos 'Individual'",
+      'name'				    => "pago.marcarComoFacturado",
+      'desc'            => "Marcar como facturado e cualquier registro del módulo Pagos 'Individual'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
 // PERMISOS DEL MÓDULO PAGOS (F. POR PEDIDO)

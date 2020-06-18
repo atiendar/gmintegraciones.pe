@@ -35,7 +35,7 @@ class PagoRepositories implements PagoInterface {
     return Pago::with($relaciones)->estatus($estatus)->findOrFail($id_pago);
   }
   public function getPagination($request) {
-    return Pago::with('pedido')->buscar($request->opcion_buscador, $request->buscador)->orderByRaw('estat_pag ASC, id DESC')->paginate($request->paginador);
+    return Pago::with('pedido', 'usuario')->buscar($request->opcion_buscador, $request->buscador)->orderByRaw('estat_pag ASC, id DESC')->paginate($request->paginador);
   }
   public function store($request, $id_pedido) {
     try { DB::beginTransaction();
@@ -154,6 +154,33 @@ class PagoRepositories implements PagoInterface {
       return $pago;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
+  public function marcarComoFacturado($id_pago) {
+    try { DB::beginTransaction();
+      $pago = $this->getPagoFindOrFailById($id_pago, [], null);
+      if($pago->est_fact != config('app.no_solicitada') AND $pago->est_fact != config('app.cancelado')) {
+        return abort(403, 'El pago esta en proceso de facturación o ya fue facturado.');
+      }
+
+      $pago->est_fact = config('app.facturado_por_fuera');      
+      if($pago->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Pagos (Individual)', // Módulo
+          'pago.show', // Nombre de la ruta
+          $id_pago, // Id del registro debe ir encriptado
+          $pago->cod_fact, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('Estatus factura'), // Nombre de los inputs del formulario
+          $pago, // Request
+          array('est_fact') // Nombre de los campos en la BD
+        ); 
+        $pago->updated_at_pag  = Auth::user()->email_registro;
+      }
+      $pago->save(); 
+      
+      DB::commit();
+      return $pago;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
   public function generateRandomString($length = 4) { 
     return substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length); 
   }
@@ -180,5 +207,12 @@ class PagoRepositories implements PagoInterface {
       $ids = substr($ids, 0, -1);
       DB::UPDATE("UPDATE ".$nom_tabla." SET estat = CASE id". $up_estat." END WHERE id IN (".$ids.")");
     }
+  }
+  public function getPagoForCodigoFacturacionFindOrFail($codigo_de_facturacion, $relaciones) {
+    return Pago::with($relaciones)->where('cod_fact', $codigo_de_facturacion)->firstOrFail();
+  }
+  public function cambiarEstatusFacturaDelPago($pago, $estatus) {
+    $pago->est_fact = $estatus;
+    $pago->save();
   }
 }

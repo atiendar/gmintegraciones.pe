@@ -21,6 +21,9 @@ return [
     'alpha_decimal18'                   => 'El campo :attribute solo puede contener números y un punto con una longitud no mayor a 18 dígitos.',
     'alpha_decimal7'                    => 'El campo :attribute solo puede contener números y un punto con una longitud no mayor a 7 dígitos.',
     'alpha_unique_where'                => 'El valor del campo :attribute ya existe.',
+    'alpha_codigo_de_facturacion_pertenece_al_usuario'  => 'El :attribute introducido no es valido para el usuario seleccionado.',
+    'alpha_estatus_codigo_de_facturacion'               => 'El :attribute introducido ya esta en proceso de facturación o ya fue facturado.',
+    'alpha_cierre_fiscal'               => 'El :attribute introducido no es valido ya que el cierre fiscal ha concluido.',
 /* ======================================================= */
     'accepted'             => 'El campo :attribute debe ser aceptado.',
     'active_url'           => 'El campo :attribute no es una URL válida.',

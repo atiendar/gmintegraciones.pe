@@ -9,10 +9,10 @@
     @case(config('app.error_del_cliente'))
       <span class="badge" style="background:{{ config('app.color_c') }};color:{{ config('app.color_0') }};">{{ $factura->est_fact }}</span>
       @break
-    @case(config('app.anticipo_facturado'))
-      <span class="badge" style="background:{{ config('app.bfcde6') }}">{{ $factura->est_fact }}</span>
-      @break
     @case(config('app.facturado'))
+      <span class="badge" style="background:{{ config('app.color_d') }}">{{ $factura->est_fact }}</span>
+      @break
+    @case(config('app.facturado_por_fuera'))
       <span class="badge" style="background:{{ config('app.color_d') }}">{{ $factura->est_fact }}</span>
       @break
     @case(config('app.cancelado'))

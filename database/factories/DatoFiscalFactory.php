@@ -21,6 +21,7 @@ $factory->define(DatoFiscal::class, function (Faker $faker) {
         'col'                   => $faker->name,
         'del_o_munic'           => $faker->name,
         'cod_post'              => $faker->numberBetween(1, 9999),
+        'corr'                  => $faker->safeEmail,
         'user_id'               => $cliente->id,
         'created_at_dat_fisc'   => $cliente->email_registro,
     ];

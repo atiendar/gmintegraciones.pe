@@ -161,8 +161,8 @@ class UsuarioRepositories implements UsuarioInterface {
       return false;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
-  public function getUsuarioFindOrFail($id_usuario) {
-    return User::findOrFail($id_usuario);
+  public function getUsuarioFindOrFail($id_usuario, $relaciones) {
+    return User::with($relaciones)->findOrFail($id_usuario);
   }
   public function getAllUsersPlunk() {
     return User::where('email_registro', '!=', Auth::user()->email_registro)->where('notif', 'on')->orderBy('email_registro', 'ASC')->pluck('email_registro', 'id');

@@ -1,3 +1,11 @@
+<td width="1rem" title="Marcar como facturado: {{ $pago->cod_fact }}">
+  @can('pago.marcarComoFacturado')
+    @if($pago->est_fact != config('app.no_solicitada') AND $pago->est_fact != config('app.cancelado'))
+    @else
+      <a href="{{ route('pago.marcarComoFacturado', Crypt::encrypt($pago->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-file-invoice"></i></a>
+    @endif
+  @endcan
+</td>
 <td width="1rem" title="Editar: {{ $pago->cod_fact }}">
   @can('pago.edit')
     <a href="{{ route('pago.edit', Crypt::encrypt($pago->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-edit"></i></a>

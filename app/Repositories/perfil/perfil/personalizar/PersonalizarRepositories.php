@@ -11,7 +11,7 @@ class PersonalizarRepositories implements PersonalizarInterface {
     $this->usuarioRepo   = $usuarioRepositories;
   } 
   public function update($request) {
-    $personalizar                           = $this->usuarioRepo->getUsuarioFindOrFail(Auth::user()->id);
+    $personalizar                           = $this->usuarioRepo->getUsuarioFindOrFail(Auth::user()->id, []);
     $personalizar->lang                     = $request->idioma;
     $personalizar->col_barr_de_naveg        = $request->color_barra_de_navegacion;
     $personalizar->col_barr_lat_oscu_o_clar = $request->color_barra_lateral_oscura_o_clara;

@@ -5,7 +5,7 @@
     </a>
   </li>
 @endcanany
-@canany(['pago.index', 'pago.show', 'pago.edit', 'pago.destroy'])
+@canany(['pago.index', 'pago.show', 'pago.edit', 'pago.destroy', 'pago.marcarComoFacturado'])
   <li class="nav-item">
     <a href="{{ route('pago.index') }}" class="nav-link {{ Request::is('pago/individual') ? 'active' : '' }}">
       <i class="fas fa-list nav-icon"></i> {{ __('Lista de pagos (Individual)') }}

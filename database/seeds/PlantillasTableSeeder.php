@@ -344,6 +344,32 @@ class PlantillasTableSeeder extends Seeder {
             'asignado_plan'    => 'desarrolloweb.ewmx@gmail.com',
         	  'created_at_plan'  => 'desarrolloweb.ewmx@gmail.com',
         ]);
+        App\Models\Plantilla::create([
+            'id'               => 10,
+            'nom'			         => 'Factura generada CYA',
+            'mod'              => 'Facturación (Factura generada)',
+            'asunt'            => 'Factura generada',
+            'dis_de_la_plant'  => '        
+            
+      
+
+            ',
+            'asignado_plan'    => 'desarrolloweb.ewmx@gmail.com',
+            'created_at_plan'  => 'desarrolloweb.ewmx@gmail.com',
+        ]);
+        App\Models\Plantilla::create([
+            'id'               => 11,
+            'nom'			         => 'Factura cancelada CYA',
+            'mod'              => 'Facturación (Factura cancelada)',
+            'asunt'            => 'Factura cancelada',
+            'dis_de_la_plant'  => '        
+            
+      
+
+            ',
+            'asignado_plan'    => 'desarrolloweb.ewmx@gmail.com',
+            'created_at_plan'  => 'desarrolloweb.ewmx@gmail.com',
+        ]);
         factory(App\Models\Plantilla::class, 20)->create();
     }
 }

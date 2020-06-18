@@ -9,7 +9,7 @@
     {{ $armado->cod }}
   @endif
 
-  @if($armado->for_loc == 'Si')
+  @if($armado->for_loc == config('opcionesSelect.select_foraneo_local.Foráneo'))
     <i class="fas fa-globe-africa" title="{{ __('Foráneo') }}"></i>
   @endif
 </td>

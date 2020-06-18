@@ -125,4 +125,29 @@
       </div>
     </div>
   </div>
+  <label for="redes_sociales">{{ __('MÓDULO FACTURACIÓN') }}</label>
+  <div class="border border-secondary rounded p-2">
+    <div class="row">
+      <div class="form-group col-sm btn-sm">
+        <label for="plantilla_por_default_factura_generada">{{ __('Plantilla por default "Factura generada"') }} *</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-brush"></i></span>
+          </div>
+          {!! Form::select('plantilla_por_default_factura_generada', $plantillas_fac_generada, Sistema::datos()->sistemaFindOrFail()->plant_fac_generada, ['class' => 'form-control select2' . ($errors->has('plantilla_por_default_factura_generada') ? ' is-invalid' : ''), 'placeholder' => __('Seleccione. . .')]) !!}
+        </div>
+        <span class="text-danger">{{ $errors->first('plantilla_por_default_factura_generada') }}</span>
+      </div>
+      <div class="form-group col-sm btn-sm">
+        <label for="plantilla_por_default_factura_cancelada">{{ __('Plantilla por default "Factura cancelada"') }} *</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-brush"></i></span>
+          </div>
+          {!! Form::select('plantilla_por_default_factura_cancelada', $plantillas_fac_cancelado, Sistema::datos()->sistemaFindOrFail()->plant_fac_cancelado, ['class' => 'form-control select2' . ($errors->has('plantilla_por_default_factura_cancelada') ? ' is-invalid' : ''), 'placeholder' => __('Seleccione. . .')]) !!}
+        </div>
+        <span class="text-danger">{{ $errors->first('plantilla_por_default_factura_cancelada') }}</span>
+      </div>
+    </div>
+  </div>
 </div>

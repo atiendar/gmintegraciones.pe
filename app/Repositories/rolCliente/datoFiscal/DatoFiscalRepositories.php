@@ -12,7 +12,11 @@ class DatoFiscalRepositories implements DatoFiscalInterface {
   protected $serviceCrypt;
   public function __construct(ServiceCrypt $serviceCrypt) {
     $this->serviceCrypt = $serviceCrypt;
-  } 
+  }
+  public function getDatoFiscalFindOrFail($id_dato_fiscal, $relaciones) {
+    $id_dato_fiscal = $this->serviceCrypt->decrypt($id_dato_fiscal);
+    return DatoFiscal::with($relaciones)->findOrFail($id_dato_fiscal);
+  }
   public function store($request) {
     try { DB::beginTransaction();
       $dato_fiscal = new DatoFiscal();
@@ -39,12 +43,9 @@ class DatoFiscalRepositories implements DatoFiscalInterface {
     $dato_fiscal->col                 = $request->colonia;
     $dato_fiscal->del_o_munic         = $request->delegacion_o_municipio;
     $dato_fiscal->cod_post            = $request->codigo_postal;
+    $dato_fiscal->corr                = $request->correo;
     $dato_fiscal->user_id             = $user_id;
     $dato_fiscal->created_at_dat_fisc = Auth::user()->email_registro;
     return $dato_fiscal;
-  }
-  public function getDatoFiscalFindOrFail($id_dato_fiscal, $relaciones) {
-    $id_dato_fiscal = $this->serviceCrypt->decrypt($id_dato_fiscal);
-    return DatoFiscal::with($relaciones)->findOrFail($id_dato_fiscal);
   }
 }

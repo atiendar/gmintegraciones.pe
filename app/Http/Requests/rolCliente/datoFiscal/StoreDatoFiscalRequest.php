@@ -23,6 +23,7 @@ class StoreDatoFiscalRequest extends FormRequest {
       'colonia'                 => 'required|max:40',
       'delegacion_o_municipio'  => 'required|max:50',
       'codigo_postal'           => 'required|max:6',
+      'correo'                  => 'required|max:75|email',
     ];
   }
 }

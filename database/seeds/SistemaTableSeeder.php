@@ -51,6 +51,8 @@ class SistemaTableSeeder extends Seeder {
             'plant_vent_ped_can'    => 7,
             'plant_pag_reg_pag'     => 8,
             'plant_pag_pag_rech'    => 9,
+            'plant_fac_generada'    => 10,
+            'plant_fac_cancelado'   => 11,
         	'created_at_sis'	    => 'desarrolloweb.ewmx@gmail.com',
         ]);
     }

@@ -12,9 +12,15 @@ interface PagoInterface {
 
   public function destroy($id_pago);
 
+  public function marcarComoFacturado($id_pago);
+  
   public function generateRandomString($length = 4);
 
   public function getMontoDePagosAprobados($pedido);
 
   public function modificarEstatusProduccionYAlmacen($pedido);
+
+  public function getPagoForCodigoFacturacionFindOrFail($codigo_de_facturacion, $relaciones);
+
+  public function cambiarEstatusFacturaDelPago($pago, $estatus);
 }

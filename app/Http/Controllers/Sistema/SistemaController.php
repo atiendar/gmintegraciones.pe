@@ -29,7 +29,21 @@ class SistemaController extends Controller {
     $plantillas_vent_ped_can  = $this->plantillaRepo->getAllPlantillasModuloPluck('Ventas (Pedido cancelado)');
     $plantillas_pag_reg_pag   = $this->plantillaRepo->getAllPlantillasModuloPluck('Pagos (Registrar pago)');
     $plantillas_pag_pag_rech  = $this->plantillaRepo->getAllPlantillasModuloPluck('Pagos (Pago rechazado)');
-    return view('sistema.sistema.sis_sis_index', compact('ser_cotizaciones', 'ser_pedidos', 'plantillas_usu_bien', 'plantillas_cli_bien', 'plantillas_per_camb_pass', 'plantillas_sis_rest_pass', 'plantillas_cot_term_cond', 'plantillas_vent_reg_ped', 'plantillas_vent_ped_can', 'plantillas_pag_reg_pag', 'plantillas_pag_pag_rech'));
+    $plantillas_fac_generada  = $this->plantillaRepo->getAllPlantillasModuloPluck('Facturación (Factura generada)');
+    $plantillas_fac_cancelado  = $this->plantillaRepo->getAllPlantillasModuloPluck('Facturación (Factura cancelada)');
+    return view('sistema.sistema.sis_sis_index', compact('ser_cotizaciones', 
+                                                        'ser_pedidos', 
+                                                        'plantillas_usu_bien', 
+                                                        'plantillas_cli_bien', 
+                                                        'plantillas_per_camb_pass', 
+                                                        'plantillas_sis_rest_pass', 
+                                                        'plantillas_cot_term_cond', 
+                                                        'plantillas_vent_reg_ped', 
+                                                        'plantillas_vent_ped_can', 
+                                                        'plantillas_pag_reg_pag', 
+                                                        'plantillas_pag_pag_rech', 
+                                                        'plantillas_fac_generada',
+                                                        'plantillas_fac_cancelado'));
   }
   public function update(UpdateSistemaRequest $request) {
     $this->sistemaRepo->update($request);

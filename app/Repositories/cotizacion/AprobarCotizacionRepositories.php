@@ -35,7 +35,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
     }
   }
   public function elPedidoTieneDireccionesForaneas($pedido, $armado_cotizacion, $modificado) {
-    if($armado_cotizacion->direcciones->where('for_loc', 'Foráneo')->count() > 0) {
+    if($armado_cotizacion->direcciones->where('for_loc', config('opcionesSelect.select_foraneo_local.Foráneo'))->count() > 0) {
       $pedido->foraneo = 'Si';
       $pedido->save();
       $modificado = true;
@@ -88,7 +88,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
         if($modificado == null) {
           $modificado = $this->elPedidoTieneDireccionesForaneas($pedido, $armado_cotizacion, $modificado);
           if($modificado == true) {
-            $armado_pedido->for_loc    = 'Si';
+            $armado_pedido->for_loc    = config('opcionesSelect.select_foraneo_local.Foráneo');
           }
         }
 
@@ -158,7 +158,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       }
 
       // CORREO ALTA DE PEDIDO
-      $cliente    = $this->usuarioRepo->getUsuarioFindOrFail($pedido->user_id);
+      $cliente    = $this->usuarioRepo->getUsuarioFindOrFail($pedido->user_id, []);
       $plantilla  = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_vent_reg_ped'));
       $cliente->notify(new NotificacionRegistrarPedido($cliente, $pedido, $plantilla)); // Envió de correo electrónico
 

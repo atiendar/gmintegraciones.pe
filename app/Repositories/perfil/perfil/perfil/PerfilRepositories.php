@@ -29,7 +29,7 @@ class PerfilRepositories implements PerfilInterface {
   } 
   public function update($request) {
     DB::transaction(function() use($request) { // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
-      $perfil               = $this->usuarioRepo->getUsuarioFindOrFail(Auth::user()->id);
+      $perfil               = $this->usuarioRepo->getUsuarioFindOrFail(Auth::user()->id, []);
       $perfil->nom          = $request->nombre;
       $perfil->apell        = $request->apellidos;
       $perfil->email        = $request->correo_de_acceso;

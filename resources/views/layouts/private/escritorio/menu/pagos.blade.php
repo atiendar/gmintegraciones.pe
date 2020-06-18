@@ -1,6 +1,6 @@
 @canany([
   'pago.fPedido.index', 'pago.fPedido.create', 'pago.fPedido.show', 'pago.fPedido.edit',
-  'pago.index', 'pago.show', 'pago.edit', 'pago.destroy'
+  'pago.index', 'pago.show', 'pago.edit', 'pago.destroy', 'pago.marcarComoFacturado'
 ])
   <li class="nav-item has-treeview {{ Request::is('pago*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link {{ Request::is('pago*') ? 'active' : '' }}">
@@ -19,7 +19,7 @@
           </a>
         </li>
       @endcanany
-      @canany(['pago.index', 'pago.show', 'pago.edit', 'pago.destroy'])
+      @canany(['pago.index', 'pago.show', 'pago.edit', 'pago.destroy', 'pago.marcarComoFacturado'])
         <li class="nav-item">
           <a href="{{ route('pago.index') }}" class="nav-link {{ Request::is('pago/individual') ? 'active' : '' }}">
             <i class="nav-icon fas fa-list"></i>

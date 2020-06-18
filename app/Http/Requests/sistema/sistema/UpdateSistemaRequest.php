@@ -41,6 +41,8 @@ class UpdateSistemaRequest extends FormRequest {
       'plantilla_por_default_pedido_cancelado'              => 'required|exists:plantillas,id',
       'plantilla_por_default_registrar_pago'                => 'required|exists:plantillas,id',
       'plantilla_por_default_pago_rechazado'                => 'required|exists:plantillas,id',
+      'plantilla_por_default_factura_generada'              => 'required|exists:plantillas,id',
+      'plantilla_por_default_factura_cancelada'             => 'required|exists:plantillas,id',
       'logo_color_negro'                                    => 'nullable|max:1024|image',
       'logo_color_blanco'                                   => 'nullable|max:1024|image',
       'imagen_login'                                        => 'nullable|max:1024|image',
@@ -66,6 +68,8 @@ class UpdateSistemaRequest extends FormRequest {
       'plantilla_por_default_pedido_cancelado'              => 'plantilla por default "Pedido cancelado"',
       'plantilla_por_default_registrar_pago'                => 'plantilla por default "Registrar pago"',
       'plantilla_por_default_pago_rechazado'                => 'plantilla por default "Pago rechazado"',
+      'plantilla_por_default_factura_generada'                => 'plantilla por default "Factura generada"',
+      'plantilla_por_default_factura_cancelada'                => 'plantilla por default "Factura cancelada"',
     ];
   }
 }

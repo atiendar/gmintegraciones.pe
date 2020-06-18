@@ -7,8 +7,8 @@
 @endcanany
 @can('factura.create')
   <li class="nav-item">
-    <a href="{{ route('factura.create') }}" class="nav-link {{ Request::is('factura/crear') ? 'active' : '' }}">
-      <i class="fas fa-plus-square"></i> {{ __('Registrar factura') }}
+    <a href="{{ route('factura.create') }}" class="nav-link {{ Request::is('factura/solicitar') ? 'active' : '' }}">
+      <i class="fas fa-plus-square"></i> {{ __('Solicitar factura') }}
     </a>
   </li>
 @endcan
