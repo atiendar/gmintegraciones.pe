@@ -4,7 +4,7 @@
     <div class="form-group col-sm btn-sm">
         {{ __('Para cualquier duda o aclaración de tu factura comunicarse al teléfono: (0155) 7159 6103 ext. 1002. NOTA: Si no mandas tus datos de facturación antes del 28 del mes en curso se dará por entendido que no vas a requerir factura y no te la podremos generar en fecha posterior.') }}<br>
         <strong>
-          {{ __('Tiempo de emisión 72 hrs.') }}<br>
+          {{ __('Tiempo de emisión 72 hrs') }}.<br>
         </strong>
     </div>
   </div>

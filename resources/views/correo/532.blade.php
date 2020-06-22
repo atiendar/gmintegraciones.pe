@@ -1,1 +1,0 @@
-<p><br></p><p>   {!! $telefono_movil !!}   </p><p> </p><p> </p><p> </p><p> </p>

@@ -113,6 +113,6 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <center><a href="{{ route('proveedor.edit', Crypt::encrypt($contacto->proveedor->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con el proveedor') }}</a></center>
+    <center><a href="{{ route('proveedor.show', Crypt::encrypt($contacto->proveedor->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con el proveedor') }}</a></center>
   </div>
 </div>

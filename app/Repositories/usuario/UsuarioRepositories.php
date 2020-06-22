@@ -63,8 +63,8 @@ class UsuarioRepositories implements UsuarioInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('imagen'), // Archivo blob
-          'public/perfil/' . date("Y-m") . '/', // Ruta en la que guardara el archivo
-          'perfil-' . time() . '.', // Nombre del archivo
+          'public/perfil/usuarios/'.date("Y").'/', // Ruta en la que guardara el archivo
+          'perfil-'.time().'.', // Nombre del archivo
           null // Ruta y nombre del archivo anterior
         ); 
         $usuario->img_us_rut  = $imagen[0]['ruta'];
@@ -112,8 +112,8 @@ class UsuarioRepositories implements UsuarioInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('imagen'), 
-          'public/perfil/' . date("Y-m") . '/', 
-          'perfil-' . time() . '.',
+          'public/perfil/usuarios/'.date("Y").'/', // Ruta en la que guardara el archivo
+          'perfil-'.time().'.', // Nombre del archivo
           $usuario->img_us_rut.$usuario->img_us
         ); 
         $usuario->img_us_rut        = $imagen[0]['ruta'];

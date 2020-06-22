@@ -16,7 +16,13 @@
       <tbody> 
         @foreach($direcciones as $direccion)
           <tr title="{{ $direccion->id }}">
-            <td><a href="{{ route('cliente.show.direccion.show', Crypt::encrypt($direccion->id)) }}" title="Detalles: {{ $direccion->id }}">{{ $direccion->id }}</a></td>
+            <td>
+              @can('cliente.show')
+                <a href="{{ route('cliente.show.direccion.show', Crypt::encrypt($direccion->id)) }}" title="Detalles: {{ $direccion->id }}">{{ $direccion->id }}</a>
+              @else
+                {{ $direccion->id }}
+              @endcan
+            </td>
             @include('rolCliente.direccion.dir_table.td.nombreReferenciaUno')
             @include('rolCliente.direccion.dir_table.td.nombreReferenciaDos')
             @include('rolCliente.direccion.dir_table.td.pais')

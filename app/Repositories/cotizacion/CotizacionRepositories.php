@@ -2,6 +2,8 @@
 namespace App\Repositories\cotizacion;
 // Models
 use App\Models\Cotizacion;
+// Events
+use App\Events\layouts\ActividadRegistrada;
 // Repositories
 use App\Repositories\papeleraDeReciclaje\PapeleraDeReciclajeRepositories;
 use App\Repositories\sistema\serie\SerieRepositories;
@@ -72,6 +74,21 @@ class CotizacionRepositories implements CotizacionInterface {
     try { DB::beginTransaction();
       $cotizacion = $this->cotizacionAsignadoFindOrFailById($id_cotizacion, 'armados', config('app.abierta'));
       $cotizacion->con_iva = $request->iva;
+
+      if($cotizacion->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Cotizaciones', // Módulo
+          'cotizacion.show', // Nombre de la ruta
+          $id_cotizacion, // Id del registro debe ir encriptado
+          $cotizacion->serie, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('IVA'), // Nombre de los inputs del formulario
+          $cotizacion, // Request
+          array('con_iva') // Nombre de los campos en la BD
+        ); 
+        $cotizacion->updated_at_cot  = Auth::user()->email_registro;
+      }
+
       $cotizacion->save();
 
       if($cotizacion->con_iva == 'on') {

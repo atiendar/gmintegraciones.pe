@@ -20,6 +20,12 @@ class ArmadoCotizacionController extends Controller {
     toastr()->success('¡Armado registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
+  public function show($id_armado) {
+    $armado       = $this->armadoCotizacionRepo->armadoFindOrFailById($id_armado, ['direcciones', 'productos', 'cotizacion']);
+    $direcciones  = $armado->direcciones()->paginate(99999999);
+    $productos    = $armado->productos()->paginate(99999999);
+    return view('cotizacion.armado_cotizacion.cot_arm_show', compact('armado', 'direcciones', 'productos'));
+  }
   public function edit($id_armado) {
     $armado       = $this->armadoCotizacionRepo->armadoFindOrFailById($id_armado, ['direcciones', 'productos', 'cotizacion']);
     $this->armadoCotizacionRepo->verificarElEstatusDeLaCotizacion($armado->cotizacion->estat);

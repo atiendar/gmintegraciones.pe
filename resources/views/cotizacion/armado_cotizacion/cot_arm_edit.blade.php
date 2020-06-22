@@ -4,7 +4,12 @@
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     <h5>
-      <strong>{{ __('Editar armado') }}: </strong>{{ $armado->nom }}
+      <strong>{{ __('Editar armado') }}: </strong>
+      @can('cotizacion.armado.show')
+        <a href="{{ route('cotizacion.armado.show', Crypt::encrypt($armado->id)) }}" class="text-white">{{ $armado->nom }}</a>
+      @else
+        {{ $armado->nom }}
+      @endcan
       <strong>{{ __('de la cotización') }}: </strong>{{ $armado->cotizacion->serie }}
     </h5>
   </div>

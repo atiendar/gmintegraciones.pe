@@ -2,6 +2,8 @@
 namespace App\Repositories\cotizacion\armadoCotizacion;
 // Models
 use App\Models\CotizacionArmado;
+// Events
+use App\Events\layouts\ActividadRegistrada;
 // Repositories
 use App\Repositories\armado\ArmadoRepositories;
 use App\Repositories\cotizacion\CotizacionRepositories;
@@ -40,7 +42,6 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
       $armado     = $this->armadoRepo->getArmadoFindOrFail($request->id_armado);
       $this->verificarElEstatusDeLaCotizacion($cotizacion->estat);
       
-
       // GUARDA EL REGISTRO DEL ARMADO
       $cot_armado = new CotizacionArmado();
       // FALTA GUARGAR LA IMAGEN
@@ -89,6 +90,21 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
       $armado->manu         = $request->manual;
       $armado->porc         = $request->porcentaje;
       $armado               = $this->calcularValoresArmadoCotizacionRepo->sumaValoresArmadoCotizacion($armado);
+
+      if($armado->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Cotizaciones (Armado)', // Módulo
+          'cotizacion.armado.show', // Nombre de la ruta
+          $id_armado, // Id del registro debe ir encriptado
+          $this->serviceCrypt->decrypt($id_armado), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('¿Es de regalo?', 'Cantidad', 'Tipo de descuento', 'Manual', 'Porcenjate', 'Descuento', 'Subtotal', 'IVA', 'Total'), // Nombre de los inputs del formulario
+          $armado, // Request
+          array('es_de_regalo', 'cant', 'tip_desc', 'manu', 'porc', 'desc', 'sub_total', 'iva', 'tot') // Nombre de los campos en la BD
+        ); 
+        $armado->updated_at_arm  = Auth::user()->email_registro;
+      }
+
       $armado->save();
 
       // GENERA LOS NUEVOS PRECIOS DE LA COTIZACIÓN

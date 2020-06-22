@@ -21,7 +21,11 @@
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.estado')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.tipoDeEnvio')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.costo')
-            @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_tableOpciones')
+            @if(Request::route()->getName() == 'cotizacion.armado.edit')
+              @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_tableOpciones')
+            @else
+              <td></td>
+            @endif
           </tr>
           @endforeach
       </tbody>

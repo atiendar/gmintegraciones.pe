@@ -21,7 +21,12 @@
         @foreach($armados as $armado)
           <tr title="{{ $armado->nom }}">
             <td>
-              {{ $armado->tip }}
+              @can('cotizacion.show')
+                <a href="{{ route('cotizacion.armado.show', Crypt::encrypt($armado->id)) }}" title="Detalles: {{ $armado->tip }}">{{ $armado->tip }}</a>
+              @else
+                {{ $armado->tip }}
+              @endcan
+
               @if($armado->cant == $armado->cant_direc_carg)
                 <i class="fas fa-check"></i>
               @endif

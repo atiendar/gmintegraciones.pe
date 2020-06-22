@@ -20,7 +20,7 @@
     <tbody> 
         @foreach($armados as $armado)
         <tr title="{{ $armado->cod }}">
-          @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.#', ['show' => true, 'canany' => ['almacen.pedidoActivo.armado.show'], 'ruta' => 'almacen.pedidoActivo.armado.show'])
+          @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.#', ['show' => true, 'canany' => ['almacen.pedidoActivo.armado.show', 'almacen.pedidoActivo.show'], 'ruta' => 'almacen.pedidoActivo.armado.show'])
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.estatus')
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.cantidad')
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.tipo')

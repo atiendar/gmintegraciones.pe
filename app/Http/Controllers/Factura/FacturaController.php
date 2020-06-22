@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
 use App\Http\Requests\factura\StoreFacturaRequest;
+use App\Http\Requests\factura\UpdateFacturaRequest;
 use App\Http\Requests\factura\StoreArchivosRequest;
 // Repositories
 use App\Repositories\factura\FacturaRepositories;
@@ -35,10 +36,10 @@ class FacturaController extends Controller {
     return view('factura.fac_show', compact('factura', 'pago'));
   }
   public function edit($id_factura) {
-    $factura = $this->facturaRepo->getFacturaFindOrFailById($id_factura, [], null);
+    $factura = $this->facturaRepo->getFacturaFindOrFailById($id_factura, [], config('app.facturado'));
     return view('factura.fac_edit', compact('factura'));
   }
-  public function update(Request $request, $id_factura) {
+  public function update(UpdateFacturaRequest $request, $id_factura) {
     $this->facturaRepo->update($request, $id_factura);
     toastr()->success('¡Factura actualizada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();

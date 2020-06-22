@@ -126,6 +126,10 @@
     otros.push('$id_factura !'); // ESTE MÓDULO NO CUENTA CON OPCIONES EXTRAS
   @endif
 
+  @if($plantilla->mod == config('opcionesSelect.select_modulo.Facturación (Error del cliente)'))
+    otros.push('$id_factura !',
+              '$comentarios_admin !'); // ESTE MÓDULO NO CUENTA CON OPCIONES EXTRAS
+  @endif
 
   $('.textarea').summernote({
     tabsize: 4,

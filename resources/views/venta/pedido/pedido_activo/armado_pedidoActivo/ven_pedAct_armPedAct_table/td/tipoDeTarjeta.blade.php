@@ -1,1 +1,0 @@
-<td>{{ $armado->tip_tarj_felic }}</td>

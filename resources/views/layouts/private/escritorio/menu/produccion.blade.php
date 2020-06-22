@@ -90,33 +90,6 @@
 </ul>
 </li>
 @endcanany
-
-@canany(['pruebaaaa'])
-<li class="nav-item has-treeview {{ Request::is('armado-de-regalo*') ? 'menu-open' : '' }}">
-<a href="#" class="nav-link {{ Request::is('armado-de-regalo*') ? 'active' : '' }}">
-  <i class="nav-icon fas fa-gifts"></i>
-  <p>
-    {{ __('Armados de regalo') }}
-    <i class="right fas fa-angle-left"></i>
-    <span class="badge badge-info right">10</span>
-  </p>
-</a>
-<ul class="nav nav-treeview">
-  <li class="nav-item">
-    <a href="#" class="nav-link {{ Request::is('armado-de-regalo') ? 'active' : '' }}">
-      <i class="nav-icon fas fa-list"></i>
-      <p>{{ __('Lista de armados de regalo') }}</p>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="#" class="nav-link {{ Request::is('armado-de-regalo') ? 'active' : '' }}">
-      <i class="nav-icon far fa-plus-square"></i>
-      <p>{{ __('Registrar armado de regalo') }}</p>
-    </a>
-  </li>
-</ul>
-</li>
-@endcanany
 @canany(['pruebaaaa'])
 <li class="nav-item has-treeview {{ Request::is('logistica*') ? 'menu-open' : '' }}">
 <a href="#" class="nav-link {{ Request::is('logistica*') ? 'active' : '' }}">

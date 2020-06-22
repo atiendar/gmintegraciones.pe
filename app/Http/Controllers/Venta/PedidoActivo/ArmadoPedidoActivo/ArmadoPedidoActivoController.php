@@ -2,21 +2,15 @@
 namespace App\Http\Controllers\Venta\PedidoActivo\ArmadoPedidoActivo;
 use App\Http\Controllers\Controller;
 // Repositories
-use App\Repositories\venta\pedidoActivo\PedidoActivoRepositories;
 use App\Repositories\venta\pedidoActivo\armadoPedidoActivo\ArmadoPedidoActivoRepositories;
 use App\Repositories\armado\ArmadoRepositories;
-use App\Repositories\cotizacion\CotizacionRepositories;
 
 class ArmadoPedidoActivoController extends Controller {
-  protected $pedidoActivoRepo;
   protected $armadoPedidoActivoRepo;
   protected $armadoRepo;
-  protected $cotizacionRepo;
-  public function __construct(PedidoActivoRepositories $pedidoActivoRepositories, ArmadoPedidoActivoRepositories $armadoPedidoActivoRepositories, ArmadoRepositories $armadoRepositories, CotizacionRepositories $cotizacionRepositories) {
-    $this->pedidoActivoRepo       = $pedidoActivoRepositories;
+  public function __construct(ArmadoPedidoActivoRepositories $armadoPedidoActivoRepositories, ArmadoRepositories $armadoRepositories) {
     $this->armadoPedidoActivoRepo = $armadoPedidoActivoRepositories;
     $this->armadoRepo             = $armadoRepositories;
-    $this->cotizacionRepo         = $cotizacionRepositories;
   }
   public function show($id_armado) {
     $armado       = $this->armadoPedidoActivoRepo->armadoFindOrFailById($id_armado, ['productos', 'direcciones', 'pedido']);

@@ -17,11 +17,11 @@
           <tr title="{{ $proveedor->nom_comerc  }}">
             <td width="1rem">{{ $proveedor->id }}</td>
             <td>
-              @can('proveedor.show')
+              @canany(['proveedor.show', 'proveedor.contacto.show'])
                 <a href="{{ route('proveedor.show', Crypt::encrypt($proveedor->id)) }}" title="Detalles: {{ $proveedor->nom_comerc  }}">{{ $proveedor->raz_soc }}</a>
               @else
                 {{ $proveedor->raz_soc  }}
-              @endcan
+              @endcanany
               <td>{{ $proveedor->nom_comerc }}</td>
               <td>{{ $proveedor->nom_rep_legal }}</td>
             </td>

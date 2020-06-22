@@ -21,9 +21,11 @@
       <small>{{ $pedido->num_pedido }}</small>
     </div>
   </div>
-  <div class="card-body">
-    @include('almacen.pedido.pedido_activo.alm_pedAct_showFields')
-  </div>
+  @can('almacen.pedidoActivo.show')
+    <div class="card-body">
+      @include('almacen.pedido.pedido_activo.alm_pedAct_showFields')
+    </div>
+  @endcan
 </div>
 @include('almacen.pedido.pedido_activo.armado_activo.alm_pedAct_armAct_index')
 @endsection

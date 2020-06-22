@@ -23,24 +23,36 @@
         @foreach($productos as $producto)
           <tr title="{{ $producto->sku }}">
             <td>
-              {!! Form::open(['route' => ['cotizacion.armado.producto.updateCantidad', Crypt::encrypt($producto->id), Crypt::encrypt($armado->id)  ], 'method' => 'patch', 'id' => 'cotizacionArmadoProductoUpdateCantidad']) !!}
-                {!! Form::select('cantidad_producto', config('opcionesSelect.select_cantidad_table_productos_edit'), $producto->cant, ['class' => 'form-control form-control-sm' . ($errors->has('cantidad_producto') ? ' is-invalid' : ''), 'onchange' => 'this.form.submit()']) !!}
-              {!! Form::close() !!}
+              @if(Request::route()->getName() == 'cotizacion.armado.edit')
+                {!! Form::open(['route' => ['cotizacion.armado.producto.updateCantidad', Crypt::encrypt($producto->id), Crypt::encrypt($armado->id)  ], 'method' => 'patch', 'id' => 'cotizacionArmadoProductoUpdateCantidad']) !!}
+                  {!! Form::select('cantidad_producto', config('opcionesSelect.select_cantidad_table_productos_edit'), $producto->cant, ['class' => 'form-control form-control-sm' . ($errors->has('cantidad_producto') ? ' is-invalid' : ''), 'onchange' => 'this.form.submit()']) !!}
+                {!! Form::close() !!}
+              @else
+              {{ $producto->cant }}
+              @endif
             </td>
             @include('almacen.producto.alm_pro_table.td.sku')
             @include('almacen.producto.alm_pro_table.td.producto', ['id_producto' => Crypt::encrypt($producto->id_producto), 'target' => '_blank'])
             @include('almacen.producto.alm_pro_table.td.precioProveedor')
             <td>
-              {!! Form::open(['route' => ['cotizacion.armado.producto.updateUtilidad', Crypt::encrypt($producto->id), Crypt::encrypt($armado->id)  ], 'method' => 'patch', 'id' => 'cotizacionArmadoProductoUpdateUtilidad']) !!}
-                {!! Form::select('utilidad', config('opcionesSelect.select_utilidad_sin_seleccione'), $producto->utilid, ['class' => 'form-control form-control-sm' . ($errors->has('utilidad') ? ' is-invalid' : ''), 'onchange' => 'this.form.submit()']) !!}
-              {!! Form::close() !!}
+              @if(Request::route()->getName() == 'cotizacion.armado.edit')
+                {!! Form::open(['route' => ['cotizacion.armado.producto.updateUtilidad', Crypt::encrypt($producto->id), Crypt::encrypt($armado->id)  ], 'method' => 'patch', 'id' => 'cotizacionArmadoProductoUpdateUtilidad']) !!}
+                  {!! Form::select('utilidad', config('opcionesSelect.select_utilidad_sin_seleccione'), $producto->utilid, ['class' => 'form-control form-control-sm' . ($errors->has('utilidad') ? ' is-invalid' : ''), 'onchange' => 'this.form.submit()']) !!}
+                {!! Form::close() !!}
+              @else
+                {{ $producto->utilid }}
+              @endif
             </td>
             @include('almacen.producto.alm_pro_table.td.precioCliente')
             @include('almacen.producto.alm_pro_table.td.alto')
             @include('almacen.producto.alm_pro_table.td.ancho')
             @include('almacen.producto.alm_pro_table.td.largo')
             @include('almacen.producto.alm_pro_table.td.peso')
-            @include('cotizacion.armado_cotizacion.producto_armado.cot_arm_pro_tableOpciones')
+            @if(Request::route()->getName() == 'cotizacion.armado.edit')
+              @include('cotizacion.armado_cotizacion.producto_armado.cot_arm_pro_tableOpciones')
+            @else
+              <td></td>
+            @endif
           </tr>
           @endforeach
       </tbody>

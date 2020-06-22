@@ -12,6 +12,17 @@ interface PedidoActivoInterface {
 
   public function getArmadosPedidoPagination($pedido, $request);
 
+  public function getMontoDePagosAprobados($pedido);
+
   public function getPagosPedidoPagination($pedido, $request);
 
+  public function getPedidoFindOrFail($id_pedido, $relaciones);
+
+  public function getEstatusVentas($pedido);
+
+  public function getEstatusPagoPedido($pedido);
+
+  public function unificarPedido($pedido, $fecha_original, $fecha_nueva);
+
+  public function eliminarUnificacionDelPedido($id_pedido);
 }

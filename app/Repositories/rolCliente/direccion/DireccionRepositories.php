@@ -16,14 +16,16 @@ class DireccionRepositories implements DireccionInterface {
   public function store($request) {
     try { DB::beginTransaction();
       $direccion = new Direccion();
-      $direccion = $this->storeFields($direccion, $request, Auth::user()->id);
+      $direccion = $this->storeFields($direccion, $request);
+      $direccion->user_id             = Auth::user()->id;
+      $direccion->created_at_direc    = Auth::user()->email_registro;
       dd(   $direccion    );
       $direccion->save();
       DB::commit();
       return $direccion;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
-  public function storeFields($direccion, $request, $user_id) {
+  public function storeFields($direccion, $request) {
     $direccion->nom_ref_uno         = $request->nombre_de_referencia_uno;
     $direccion->nom_ref_dos         = $request->nombre_de_referencia_dos;
     $direccion->lad_fij             = $request->lada_telefono_fijo;
@@ -40,8 +42,6 @@ class DireccionRepositories implements DireccionInterface {
     $direccion->del_o_munic         = $request->delegacion_o_municipio;
     $direccion->cod_post            = $request->codigo_postal;
     $direccion->ref_zon_de_entreg   = $request->referencias_zona_de_entrega;
-    $direccion->user_id             = $user_id;
-    $direccion->created_at_direc    = Auth::user()->email_registro;
     return $direccion;
   }
   public function getDireccionFindOrFail($id_direccion, $relaciones) {

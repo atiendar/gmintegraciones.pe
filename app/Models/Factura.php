@@ -23,7 +23,7 @@ class Factura extends Model{
   }
   public function scopeEstatus($query, $estatus) {
     if($estatus != null) {
-      return $query->where('est_fact', $estatus);
+      return $query->where('est_fact', '!=', $estatus);
     }
   }
   public function usuario(){

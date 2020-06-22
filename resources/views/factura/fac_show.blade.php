@@ -3,9 +3,11 @@
 <title>@section('title', __('Detalles factura').' '.$factura->rfc)</title>
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
-    <div class="float-right mr-5">
-      <a href="{{ route('factura.subirArchivos', Crypt::encrypt($factura->id)) }}" class="btn btn-info btn-sm">{{ __('Subir archivos') }}</a>
-    </div>
+    @can('factura.edit')
+      <div class="float-right mr-5">
+        <a href="{{ route('factura.subirArchivos', Crypt::encrypt($factura->id)) }}" class="btn btn-info btn-sm">{{ __('Subir archivos') }}</a>
+      </div>
+    @endcan
     <h5>
       <strong>{{ __('Detalles del registro') }}:</strong>
       @can('factura.edit')

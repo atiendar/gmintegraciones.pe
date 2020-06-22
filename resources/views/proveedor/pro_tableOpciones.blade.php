@@ -1,5 +1,5 @@
 <td width="1rem" title="Editar: {{ $proveedor->nom_comerc }}">
-  @canany(['proveedor.edit', 'proveedor.contacto.index', 'proveedor.contacto.create', 'proveedor.contacto.show', 'proveedor.contacto.edit', 'proveedor.contacto.destroy'])
+  @canany(['proveedor.edit', 'proveedor.contacto.index', 'proveedor.contacto.create', 'proveedor.contacto.edit', 'proveedor.contacto.destroy'])
     <a href="{{ route('proveedor.edit', Crypt::encrypt($proveedor->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-edit"></i></a>
   @endcanany
 </td>

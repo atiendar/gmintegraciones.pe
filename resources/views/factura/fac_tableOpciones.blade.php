@@ -4,9 +4,11 @@
   @endcan
 </td>
 <td width="1rem" title="Editar: {{ $factura->sku }}">
-  @can('factura.edit')
-    <a href="{{ route('factura.edit', Crypt::encrypt($factura->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-edit"></i></a>
-  @endcan
+  @if($factura->est_fact != config('app.facturado'))
+    @can('factura.edit')
+      <a href="{{ route('factura.edit', Crypt::encrypt($factura->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-edit"></i></a>
+    @endcan
+  @endif
 </td>
 <td width="1rem" title="Eliminar: {{ $factura->sku }}">
   @can('factura.destroy')

@@ -16,15 +16,11 @@
           <tr title="{{ $contacto->nom  }}">
             <td width="1rem">{{ $contacto->id }}</td>
             <td>
-              @if(Request::route()->getName() == 'proveedor.edit')
-                @can('proveedor.contacto.show')
-                  <a href="{{ route('proveedor.contacto.show', Crypt::encrypt($contacto->id)) }}" title="Detalles: {{ $contacto->nom  }}">{{ $contacto->nom }}</a>
-                @else
-                  {{ $contacto->nom }}
-                @endcan
+              @canany(['proveedor.show', 'proveedor.contacto.show'])
+                <a href="{{ route('proveedor.contacto.show', Crypt::encrypt($contacto->id)) }}" title="Detalles: {{ $contacto->nom  }}">{{ $contacto->nom }}</a>
               @else
                 {{ $contacto->nom }}
-                @endif
+              @endcanany
             </td>
             <td>{{ $contacto->carg }}</td>
             @if(Request::route()->getName() == 'proveedor.edit')

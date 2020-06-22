@@ -18,9 +18,11 @@
       <small>{{ $proveedor->id }}</small>
     </div>
   </div>
-  <div class="card-body">
-    @include('proveedor.pro_showFields')
-  </div>
+  @can('proveedor.show')
+    <div class="card-body">
+      @include('proveedor.pro_showFields')
+    </div>
+  @endcan
 </div>
 @include('proveedor.contacto_proveedor.pro_conPro_index')
 @endsection

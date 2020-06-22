@@ -78,8 +78,8 @@ class PagoPedidoController extends Controller {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('comprobante_de_pago'), // Archivo blob
-          'public/venta/pedido/' . $pago->pedido->num_pedido . '/', // Ruta en la que guardara el archivo
-          'comprobante_de_pago-' . time() . '.', // Nombre del archivo
+          'public/pedidos/'.date("Y").'/'.$pago->pedido->num_pedido. '/', // Ruta en la que guardara el archivo
+          'comprobante_de_pago-'.time().'.', // Nombre del archivo
           $pago->comp_de_pag_rut.$pago->comp_de_pag_nom // Ruta y nombre del archivo anterior
         ); 
         $pago->comp_de_pag_rut  = $imagen[0]['ruta'];
@@ -89,8 +89,8 @@ class PagoPedidoController extends Controller {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('copia_de_identificacion'), // Archivo blob
-          'public/venta/pedido/' . $pago->pedido->num_pedido . '/', // Ruta en la que guardara el archivo
-          'copia_de_identificacion-' . time() . '.', // Nombre del archivo
+          'public/pedidos/'.date("Y").'/'.$pago->pedido->num_pedido. '/', // Ruta en la que guardara el archivo
+          'copia_de_identificacion-'.time().'.', // Nombre del archivo
           $pago->cop_de_indent_rut.$pago->cop_de_indent_nom // Ruta y nombre del archivo anterior
         ); 
         $pago->cop_de_indent_rut  = $imagen[0]['ruta'];

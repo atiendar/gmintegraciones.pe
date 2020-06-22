@@ -12,6 +12,7 @@ use App\Repositories\rolCliente\direccion\DireccionRepositories;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Otros
+use Illuminate\Support\Facades\Auth;
 use DB;
 
 class DireccionController extends Controller {
@@ -31,8 +32,11 @@ class DireccionController extends Controller {
   public function store(StoreDireccionRequest $request, $id_cliente) {
     try { DB::beginTransaction();
       $direccion = new Direccion();
-      $direccion = $this->direccionRepo->storeFields($direccion, $request, $this->serviceCrypt->decrypt($id_cliente));
+      $direccion = $this->direccionRepo->storeFields($direccion, $request);
+      $direccion->user_id             = $this->serviceCrypt->decrypt($id_cliente);
+      $direccion->created_at_direc    = Auth::user()->email_registro;
       $direccion->save();
+      
       DB::commit();
       toastr()->success('¡Direccion registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
       return back();

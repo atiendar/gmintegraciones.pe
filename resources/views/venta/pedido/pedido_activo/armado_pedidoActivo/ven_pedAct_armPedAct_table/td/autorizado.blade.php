@@ -1,1 +1,0 @@
-<td width="1rem">{{ $armado->aut }}</td>

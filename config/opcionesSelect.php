@@ -152,6 +152,7 @@ return array(
   'select_modulo' => [
     'Cotizaciones (Términos y condiciones)'     => 'Cotizaciones (Términos y condiciones)',
     'Clientes (Bienvenida)'                     => 'Clientes (Bienvenida)',
+    'Facturación (Error del cliente)'           => 'Facturación (Error del cliente)',
     'Facturación (Factura generada)'            => 'Facturación (Factura generada)',
     'Facturación (Factura cancelada)'           => 'Facturación (Factura cancelada)',
     'Pagos (Registrar pago)'                    => 'Pagos (Registrar pago)',

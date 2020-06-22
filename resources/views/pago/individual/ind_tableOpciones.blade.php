@@ -2,7 +2,10 @@
   @can('pago.marcarComoFacturado')
     @if($pago->est_fact != config('app.no_solicitada') AND $pago->est_fact != config('app.cancelado'))
     @else
-      <a href="{{ route('pago.marcarComoFacturado', Crypt::encrypt($pago->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-file-invoice"></i></a>
+      <form method="post" action="{{ route('pago.marcarComoFacturado', Crypt::encrypt($pago->id)) }}" id="pagoMarcarComoFacturado{{ $pago->id }}">
+        @method('GET')@csrf
+        {!! Form::button('<i class="fas fa-file-invoice"></i>', ['type' => 'submit', 'class' => 'btn btn-light btn-sm', 'id' => "btnfact$pago->id", 'onclick' => "return check('btnfact$pago->id', 'pagoMarcarComoFacturado$pago->id', '¡Alerta!', 'Marcaras este pago como facturado. ¿Estás seguro que quieres realizar esta acción para el registro: $pago->cod_fact ($pago->cod_fact) ? ', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+      </form>
     @endif
   @endcan
 </td>

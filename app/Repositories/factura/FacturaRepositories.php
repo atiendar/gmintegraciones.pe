@@ -5,13 +5,13 @@ use App\Models\Factura;
 // Notifications
 use App\Notifications\Factura\NotificacionFacturaGenerada;
 use App\Notifications\Factura\NotificacionFacturaCancelada;
+use App\Notifications\Factura\NotificacionFacturaErrorDelCliente;
 // Events
 use App\Events\layouts\ActividadRegistrada;
 use App\Events\layouts\ArchivoCargado;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
-use App\Repositories\papeleraDeReciclaje\PapeleraDeReciclajeRepositories;
 use App\Repositories\pago\PagoRepositories;
 use App\Repositories\sistema\plantilla\PlantillaRepositories;
 use App\Repositories\sistema\sistema\SistemaRepositories;
@@ -21,13 +21,11 @@ use DB;
 
 class FacturaRepositories implements FacturaInterface {
   protected $serviceCrypt;
-  protected $papeleraDeReciclajeRepo;
   protected $pagoRepo;
   protected $plantillaRepo;
   protected $sistemaRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories, PagoRepositories $pagoRepositories, PlantillaRepositories $plantillaRepositories, SistemaRepositories $sistemaRepositories) {
+  public function __construct(ServiceCrypt $serviceCrypt, PagoRepositories $pagoRepositories, PlantillaRepositories $plantillaRepositories, SistemaRepositories $sistemaRepositories) {
     $this->serviceCrypt             = $serviceCrypt;
-    $this->papeleraDeReciclajeRepo  = $papeleraDeReciclajeRepositories;
     $this->pagoRepo                 = $pagoRepositories;
     $this->plantillaRepo            = $plantillaRepositories;
     $this->sistemaRepo              = $sistemaRepositories;
@@ -37,7 +35,6 @@ class FacturaRepositories implements FacturaInterface {
     return Factura::with($relaciones)->estatus($estatus)->findOrFail($id_factura);
   }
   public function getPagination($request) {
-    // falta ordenar por el estatus
     return Factura::with('usuario')->buscar($request->opcion_buscador, $request->buscador)->orderByRaw('est_fact DESC, id DESC')->paginate($request->paginador);
   }
   public function store($request) {
@@ -84,11 +81,45 @@ class FacturaRepositories implements FacturaInterface {
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function update($request, $id_factura) {
-    dd('update');
+    try { DB::beginTransaction();
+      $factura = $this->getFacturaFindOrFailById($id_factura, ['usuario', 'pago'], config('app.facturado'));
+      $factura->est_fact      = $request->estatus_factura;
+      $factura->coment_admin  = $request->comentarios;
+
+      if($factura->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Facturación', // Módulo
+          'factura.show', // Nombre de la ruta
+          $id_factura, // Id del registro debe ir encriptado
+          $this->serviceCrypt->decrypt($id_factura), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('Estatus factura', 'Comentarios',), // Nombre de los inputs del formulario
+          $factura, // Request
+          array('est_fact', 'coment_admin') // Nombre de los campos en la BD
+        ); 
+        $factura->updated_at_fact = Auth::user()->email_registro;
+      }
+
+      if($factura->isDirty()) {
+        // ENVIA UN CORREO AL CLIENTE DE QUE SU FACTURA TIENE UN ERROR
+        $plantilla = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_fac_err_cli'));
+        $factura->usuario->notify(new NotificacionFacturaErrorDelCliente($factura->usuario, $plantilla, $factura)); // Envió de correo electrónico
+      }
+
+      $factura->save();
+
+      /*
+      * Cambia el estatus de la factura del pago a Facturado
+      */
+      $this->pagoRepo->cambiarEstatusFacturaDelPago($factura->pago, config('app.error_del_cliente'));
+
+      DB::commit();
+      return $factura;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function destroy($id_factura) {
     try { DB::beginTransaction();
-      $factura = $this->getFacturaFindOrFailById($id_factura, ['usuario', 'pago'], null);
+      $factura = $this->getFacturaFindOrFailById($id_factura, ['usuario', 'pago'], []);
       $factura->forceDelete();
      
       /*
@@ -111,8 +142,15 @@ class FacturaRepositories implements FacturaInterface {
   }
   public function updateSubirArchivos($request, $id_factura) {
     try { DB::beginTransaction();
+
+      // Verifica si se cargo algun archivo o no
+      if($request->factura_pdf == NULL AND $request->factura_xlm == NULL AND $request->ppd_pdf == NULL AND $request->ppd_xlm == NULL) {
+        return abort(403, 'No has seleccionado ningún archivo');
+      }
+
       $factura = $this->getFacturaFindOrFailById($id_factura, ['usuario', 'pago'], null);
-       
+      $factura->est_fact = config('app.facturado');
+
       if($request->hasfile('factura_pdf')) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
@@ -167,6 +205,11 @@ class FacturaRepositories implements FacturaInterface {
         $factura->usuario->notify(new NotificacionFacturaGenerada($factura->usuario, $plantilla, $factura)); // Envió de correo electrónico
       }
       $factura->save();
+
+      /*
+      * Cambia el estatus de la factura del pago a Facturado
+      */
+      $this->pagoRepo->cambiarEstatusFacturaDelPago($factura->pago, config('app.facturado'));
 
       DB::commit();
       return $factura;
