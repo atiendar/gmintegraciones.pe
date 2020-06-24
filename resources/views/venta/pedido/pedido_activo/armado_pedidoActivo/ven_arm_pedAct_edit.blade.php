@@ -19,10 +19,10 @@
     </div>
   </div>
   <div class="card-body">
-    {!! Form::open(['route' => ['venta.pedidoActivo.armado.direcion.store', Crypt::encrypt($armado->id)], 'onsubmit' => 'return checarBotonSubmit("btnsubmit")', 'files' => true]) !!}
+    {!! Form::open(['route' => ['venta.pedidoActivo.armado.update', Crypt::encrypt($armado->id)], 'method' => 'patch', 'id' => 'ventaPedidoActivoArmadoUpdate']) !!}
       @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_editFields')
     {!! Form::close() !!}
   </div>
 </div>
-@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.ven_pedAct_armPedAct_dirArmPedAct_index')
+@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_index')
 @endsection

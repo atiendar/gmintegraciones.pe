@@ -587,6 +587,13 @@ return array(
     'Si'  => 'Si',
     'No'  => 'No',
   ],
+  'select_tarjeta_de_felicitacion'  => [
+    'Estandar'                  => 'Estandar',
+    'Entregada por el cliente'  => 'Entregada por el cliente',
+    'Personalizada'             => 'Personalizada',
+    'Diseñada por el cliente'   => 'Diseñada por el cliente',
+    'Sin tarjeta'               => 'Sin tarjeta',
+  ],
   /* =====================  PAGOS [ INDIVIDUAL ] ===================== */
   'select_pago_index'  => [
     ''              => 'Buscar por. . .',

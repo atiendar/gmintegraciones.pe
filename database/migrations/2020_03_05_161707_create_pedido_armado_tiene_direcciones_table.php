@@ -25,11 +25,13 @@ class CreatePedidoArmadoTieneDireccionesTable extends Migration
             $table->string('tarj_dise_rut',200)->nullable()->comment('Ruta tarjeta diseñada');
             $table->string('tarj_dise_nom',200)->nullable()->comment('Nombre tarjeta diseñada');
 
-            $table->string('met_de_entreg_de_vent', 150)->comment('Método de entrega de ventas');
-            $table->string('est_a_la_q_se_cotiz',150)->comment('Estado a la que se cotizó');
-            $table->string('detalles_de_la_ubicacion_vent',150)->comment('Detalles de la ubicación');
+            $table->string('met_de_entreg', 150)->comment('Método de entrega de ventas');
+            $table->string('est',150)->comment('Estado a la que se cotizó');
+            $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
+            $table->string('detalles_de_la_ubicacion',150)->comment('Detalles de la ubicación');
             $table->enum('tip_env', config('opcionesSelect.select_tipo_de_envio'))->default('Normal')->comment('Tipo de envío');
-            $table->decimal('cost_por_env_vent',20,2)->unsigned()->nullable()->comment('Costo por envío venta');
+            $table->decimal('cost_por_env',20,2)->unsigned()->nullable()->comment('Costo por envío venta');
+
             $table->string('met_de_entreg_de_log',60)->nullable()->comment('Método de entrega de logística');
             $table->string('met_de_entreg_de_log_esp',100)->nullable()->comment('Método de entrega espesifico de logística');
             $table->string('comp_de_sal_rut', 200)->nullable()->comment('Ruta de donde se guardo el comprobante de salida');

@@ -56,6 +56,33 @@ class Pedido extends Model{
       }
     })->where('pedido_id', $id_pedido)->sum('cant');
   }
+  public static function getEstatusVentas($pedido) {
+    $direcciones_cargadas = $pedido->armados()->where('pedido_armados.estat','!=', config('app.cancelado'))->sum('cant_direc_carg');
+ 
+    // ESTATUS GENERAL
+    if($pedido->fech_de_entreg != null) {
+      $pedido->estat_vent_gen = config('app.informacion_general_completa');
+    } elseif($pedido->fech_de_entreg == null) {
+      $pedido->estat_vent_gen = config('app.falta_informacion_general');
+    }
+
+    // ESTATUS ARMADOS
+    if($pedido->arm_carg != $pedido->tot_de_arm) {
+      $pedido->estat_vent_arm = config('app.falta_cargar_armados');
+    } elseif($pedido->arm_carg == $pedido->tot_de_arm) {
+      $pedido->estat_vent_arm = config('app.armados_cargados');
+    }
+
+    // ESTATUS DIRECCIONES ARMADOS
+    if($direcciones_cargadas != $pedido->tot_de_arm) {
+      $pedido->estat_vent_dir = config('app.falta_asignar_direcciones_armados');
+    } elseif($direcciones_cargadas == $pedido->tot_de_arm) {
+      $pedido->estat_vent_dir = config('app.direccion_de_armados_asignado');
+    }
+
+    $pedido->save();
+    return $pedido;
+  }
   public static function getEstatusPedido($pedido, $modulo) {
     $consulta = DB::table('pedido_armados')->select(
       // ESTATUS VENTAS

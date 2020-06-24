@@ -18,8 +18,6 @@ interface PedidoActivoInterface {
 
   public function getPedidoFindOrFail($id_pedido, $relaciones);
 
-  public function getEstatusVentas($pedido);
-
   public function getEstatusPagoPedido($pedido);
 
   public function unificarPedido($pedido, $fecha_original, $fecha_nueva);

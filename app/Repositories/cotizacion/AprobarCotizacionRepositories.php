@@ -139,14 +139,15 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
 
         // REGISTRA LAS DIRECCIONES AL ARMADO
         foreach($armado_cotizacion->direcciones as $direccion) {
-          $direcciones[$contador3]['cant'] = $direccion->cant;
-          $direcciones[$contador3]['met_de_entreg_de_vent']         = $direccion->met_de_entreg;
-          $direcciones[$contador3]['est_a_la_q_se_cotiz']           = $direccion->est;
-          $direcciones[$contador3]['detalles_de_la_ubicacion_vent'] = $direccion->detalles_de_la_ubicacion;
-          $direcciones[$contador3]['tip_env']                       = $direccion->tip_env;
-          $direcciones[$contador3]['cost_por_env_vent']             = $direccion->cost_por_env;
-          $direcciones[$contador3]['created_at_direc_arm']          = Auth::user()->email_registro;
-          $direcciones[$contador3]['pedido_armado_id']              = $armado_pedido->id;
+          $direcciones[$contador3]['cant']                      = $direccion->cant;
+          $direcciones[$contador3]['met_de_entreg']             = $direccion->met_de_entreg;
+          $direcciones[$contador3]['est']                       = $direccion->est;
+          $direcciones[$contador3]['for_loc']                   = $direccion->for_loc;
+          $direcciones[$contador3]['detalles_de_la_ubicacion']  = $direccion->detalles_de_la_ubicacion;
+          $direcciones[$contador3]['tip_env']                   = $direccion->tip_env;
+          $direcciones[$contador3]['cost_por_env']              = $direccion->cost_por_env;
+          $direcciones[$contador3]['created_at_direc_arm']      = Auth::user()->email_registro;
+          $direcciones[$contador3]['pedido_armado_id']          = $armado_pedido->id;
           $contador3 +=1;
         }
       }

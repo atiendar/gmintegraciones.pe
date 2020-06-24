@@ -43,7 +43,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       if($pedido->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
-          'Pedidos activos', // Módulo
+          'Ventas (Pedidos activos)', // Módulo
           'venta.pedidoActivo.show', // Nombre de la ruta
           $id_pedido, // Id del registro debe ir encriptado
           $pedido->serie, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
@@ -56,7 +56,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       $fecha_original = $pedido->getOriginal('fech_de_entreg');
       $fecha_nueva    = $pedido->getAttribute('fech_de_entreg');
       $pedido->save();
-      $this->getEstatusVentas($pedido);
+      Pedido::getEstatusVentas($pedido);
       $this->unificarPedido($pedido, $fecha_original, $fecha_nueva);
       DB::commit();
       return $pedido;
@@ -98,33 +98,6 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   public function getPedidoFindOrFail($id_pedido, $relaciones) {// 'armados', 'unificar'
     $id_pedido = $this->serviceCrypt->decrypt($id_pedido);
     $pedido = Pedido::with($relaciones)->findOrFail($id_pedido);
-    return $pedido;
-  }
-  public function getEstatusVentas($pedido) {
-    $direcciones_cargadas = $pedido->armados()->where('pedido_armados.estat','!=', config('app.cancelado'))->sum('cant_direc_carg');
- 
-    // ESTATUS GENERAL
-    if($pedido->fech_de_entreg != null) {
-      $pedido->estat_vent_gen = config('app.informacion_general_completa');
-    } elseif($pedido->fech_de_entreg == null) {
-      $pedido->estat_vent_gen = config('app.falta_informacion_general');
-    }
-
-    // ESTATUS ARMADOS
-    if($pedido->arm_carg != $pedido->tot_de_arm) {
-      $pedido->estat_vent_arm = config('app.falta_cargar_armados');
-    } elseif($pedido->arm_carg == $pedido->tot_de_arm) {
-      $pedido->estat_vent_arm = config('app.armados_cargados');
-    }
-
-    // ESTATUS DIRECCIONES ARMADOS
-    if($direcciones_cargadas != $pedido->tot_de_arm) {
-      $pedido->estat_vent_dir = config('app.falta_asignar_direcciones_armados');
-    } elseif($direcciones_cargadas == $pedido->tot_de_arm) {
-      $pedido->estat_vent_dir = config('app.direccion_de_armados_asignado');
-    }
-
-    $pedido->save();
     return $pedido;
   }
   public function getEstatusPagoPedido($pedido) {

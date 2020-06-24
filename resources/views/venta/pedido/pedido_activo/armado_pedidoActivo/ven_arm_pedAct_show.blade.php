@@ -22,5 +22,5 @@
     @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_showFields')
   </div>
 </div>
-@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.ven_pedAct_armPedAct_dirArmPedAct_index')
+@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_index')
 @endsection
