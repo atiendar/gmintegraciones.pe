@@ -49,7 +49,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <center><a href="{{ route('venta.pedidoActivo.edit', Crypt::encrypt($armado->pedido->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con el pedido') }}</a></center>
+    <center><a href="{{ route('venta.pedidoActivo.show', Crypt::encrypt($armado->pedido->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con el pedido') }}</a></center>
   </div>
 </div>
 @include('layouts.private.plugins.priv_plu_select2')

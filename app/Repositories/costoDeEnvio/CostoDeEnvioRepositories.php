@@ -30,8 +30,8 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
   public function store($request) {
     try { DB::beginTransaction();
       $costo_de_envio = new CostoDeEnvio();
-      $costo_de_envio->met_de_entreg  = $request->metodo_de_entrega;
       $costo_de_envio->est            = $request->estado;
+      $costo_de_envio->met_de_entreg  = $request->metodo_de_entrega;
       $costo_de_envio->for_loc        = $request->foraneo_o_local;
       $costo_de_envio->tip_env        = $request->tipo_de_envio;
       $costo_de_envio->cost_por_env   = $request->costo_por_envio;
@@ -46,8 +46,8 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
   public function update($request, $id_costo) {
     try { DB::beginTransaction();
       $costo_de_envio                 = $this->costoDeEnvioAsignadoFindOrFailById($id_costo);
-      $costo_de_envio->met_de_entreg  = $request->metodo_de_entrega;
       $costo_de_envio->est            = $request->estado;
+      $costo_de_envio->met_de_entreg  = $request->metodo_de_entrega;
       $costo_de_envio->for_loc        = $request->foraneo_o_local;
       $costo_de_envio->tip_env        = $request->tipo_de_envio;
       $costo_de_envio->cost_por_env   = $request->costo_por_envio;
@@ -59,9 +59,9 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
           'costoDeEnvio.show', // Nombre de la ruta
           $id_costo, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_costo), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Método de entrega', 'Estado', 'Foráneo o local', 'Tipo de envío', 'Costo por envío'), // Nombre de los inputs del formulario
+          array('Estado', 'Método de entrega', 'Foráneo o local', 'Tipo de envío', 'Costo por envío'), // Nombre de los inputs del formulario
           $costo_de_envio, // Request
-          array('met_de_entreg', 'est', 'for_loc', 'tip_env', 'cost_por_env') // Nombre de los campos en la BD
+          array('est', 'met_de_entreg', 'for_loc', 'tip_env', 'cost_por_env') // Nombre de los campos en la BD
         ); 
         $costo_de_envio->updated_at_env  = Auth::user()->email_registro;
       }

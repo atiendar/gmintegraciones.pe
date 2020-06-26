@@ -1,15 +1,5 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="metodo_de_entrega">{{ __('Método de entrega') }} *</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-list"></i></span>
-      </div>
-      {!! Form::select('metodo_de_entrega', config('opcionesSelect.select_metodo_de_entrega'), null, ['class' => 'form-control select2' . ($errors->has('metodo_de_entrega') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
-    </div>
-    <span class="text-danger">{{ $errors->first('metodo_de_entrega') }}</span>
-  </div>
-  <div class="form-group col-sm btn-sm">
     <label for="estado">{{ __('Estado') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
@@ -18,6 +8,16 @@
       {!! Form::select('estado', config('opcionesSelect.select_estado'), null, ['class' => 'form-control select2' . ($errors->has('estado') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('estado') }}</span>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="metodo_de_entrega">{{ __('Método de entrega') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::select('metodo_de_entrega', config('opcionesSelect.select_metodo_de_entrega'), null, ['class' => 'form-control select2' . ($errors->has('metodo_de_entrega') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('metodo_de_entrega') }}</span>
   </div>
 </div>
 <div class="row">

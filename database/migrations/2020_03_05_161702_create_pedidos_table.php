@@ -24,8 +24,8 @@ class CreatePedidosTable extends Migration
             $table->integer('tot_de_arm')->default(0)->unsigned()->comment('Total de armados');
             $table->integer('arm_carg')->default(0)->unsigned()->comment('Armados cargados');
             $table->decimal('mont_tot_de_ped',20, 2)->unsigned()->comment('Monto total del pedido');
-            $table->enum('entr_xprs',config('opcionesSelect.select_entrega_express'))->default('No')->comment('Entrega express');
             $table->enum('urg',config('opcionesSelect.es_pedido_urgente'))->default('No')->comment('Urgente');
+
             $table->enum('foraneo',config('opcionesSelect.select_si_no'))->default('No')->comment('¿Es foráneo?');
             $table->enum('gratis',config('opcionesSelect.select_si_no'))->default('No')->comment('¿Sera gratis?'); 
             $table->date('fech_de_entreg')->nullable()->comment('Fecha de entrega');
@@ -33,8 +33,6 @@ class CreatePedidosTable extends Migration
             $table->integer('cuant_dia_ant')->unsigned()->nullable()->comment('¿Cuántos días antes?'); 
             $table->text('coment_client')->nullable()->comment('Comentarios cliente');
            
-           
-            
             $table->string('estat_vent_gen',100)->default(config('app.falta_informacion_general'))->comment('Estatus de venta 1');
             $table->string('estat_vent_arm',100)->default(config('app.falta_cargar_armados'))->comment('Estatus de venta 2');
             $table->string('estat_vent_dir',100)->default(config('app.falta_asignar_direcciones_armados'))->comment('Estatus de venta 3');

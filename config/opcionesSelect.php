@@ -254,7 +254,6 @@ return array(
     'fech_de_entreg'          => 'Fecha de entrega',
     'num_pedido'              => 'Número de pedido',
     'tot_de_arm'              => 'Total de armados',    
-    'entr_xprs'               => '¿Express?',
     'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
 /* ===================== CLIENTES [ FACTURAS ] ===================== */
@@ -504,7 +503,6 @@ return array(
   'select_almacen_pedido_activo_index'  => [
     ''                        => 'Buscar por. . .',
   //  'usuario.email_registro'  => 'Cliente',
-    'entr_xprs'               => 'Entrega express',
     'estat_alm'               => 'Estatus almacén',
     'estat_pag'               => 'Estatus pago',
     'fech_de_entreg'          => 'Fecha de entrega (YYYY-MM-DD)',
@@ -567,8 +565,7 @@ return array(
     'estat_vent_dir'          => 'Estatus venta dirección(es)',
     'fech_de_entreg'          => 'Fecha de entrega',
     'num_pedido'              => 'Número de pedido',
-    'tot_de_arm'              => 'Total de armados',    
-    'entr_xprs'               => '¿Express?',
+    'tot_de_arm'              => 'Total de armados',
     'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_entrega_express'  => [

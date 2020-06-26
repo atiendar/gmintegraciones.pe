@@ -43,34 +43,49 @@
       cost_por_env_individual: "{{ $direccion->cost_por_env_individual }}"
     },
     methods: {
-      async edit() {
-        this.checarBotonSubmitDisabled("btnsubmit")
-        axios.put('/cotizacion/armado/direccion/actualizar/'+{{ $direccion->id }}, {
-          metodo_de_entrega:        this.metodo_de_entrega,
-          estado_al_que_se_cotizo:  this.estado_al_que_se_cotizo,
-          foraneo_o_local:          this.foraneo_o_local,
-          tipo_de_envio:            this.tipo_de_envio,
-          costo_de_envio:           this.costo_de_envio,
-          cantidad:                 this.cantidad,
-          detalles_de_la_ubicacion: this.detalles_de_la_ubicacion,
-          costo_seleccionado:       this.costo_seleccionado
-        }).then(res => {
-          Swal.fire({
-            title: 'Éxito',
-            text: '¡Dirección actualizada exitosamente!',
-          }).then((value) => {
-            location.reload()
-          })
-        }).catch(error => {
-          this.checarBotonSubmitEnabled("btnsubmit")
-          if(error.response.status == 422) {
-            this.errors   = error.response.data.errors,
-            this.hasError = true
-          } else {
-            Swal.fire({
-              title: 'Algo salio mal',
-              text: error,
-            })
+      async edit() {     
+        event.preventDefault();   
+        Swal.fire({
+          title: '¡Alerta!',
+          text: '¿Estás seguro quieres actualizar el registro?',
+          type: 'info',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Continuar',
+          cancelButtonText: 'Cancelar',
+          reverseButtons: false,
+        }).then((result) => {
+          if (result.value) {
+            this.checarBotonSubmitDisabled("btnsubmit")
+            axios.put('/cotizacion/armado/direccion/actualizar/'+{{ $direccion->id }}, {
+              metodo_de_entrega:        this.metodo_de_entrega,
+              estado_al_que_se_cotizo:  this.estado_al_que_se_cotizo,
+              foraneo_o_local:          this.foraneo_o_local,
+              tipo_de_envio:            this.tipo_de_envio,
+              costo_de_envio:           this.costo_de_envio,
+              cantidad:                 this.cantidad,
+              detalles_de_la_ubicacion: this.detalles_de_la_ubicacion,
+              costo_seleccionado:       this.costo_seleccionado
+            }).then(res => {
+              Swal.fire({
+                title: 'Éxito',
+                text: '¡Dirección actualizada exitosamente!',
+              }).then((value) => {
+                location.reload()
+              })
+            }).catch(error => {
+              this.checarBotonSubmitEnabled("btnsubmit")
+              if(error.response.status == 422) {
+                this.errors   = error.response.data.errors,
+                this.hasError = true
+              } else {
+                Swal.fire({
+                  title: 'Algo salio mal',
+                  text: error,
+                })
+              }
+            });
           }
         });
       },

@@ -1,6 +1,3 @@
-@if($pedido->entr_xprs == 'Si')
-  <i class="fas fa-shipping-fast" title="{{ __('Entrega express') }}"></i>
-@endif
 @if($pedido->urg == 'Si')
   <i class="fas fa-exclamation-triangle" title="{{ __('Urgente') }}"></i>
 @endif

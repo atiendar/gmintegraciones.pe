@@ -125,6 +125,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
           $productos_armado[$contador2]['produc']           = $producto->produc;
           $productos_armado[$contador2]['sku']              = $producto->sku;
           $productos_armado[$contador2]['pedido_armado_id'] = $armado_pedido->id;
+          $productos_armado[$contador2]['created_at']       = date("Y-m-d h:i:s");
           $contador2 +=1;
         }
 
@@ -148,6 +149,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
           $direcciones[$contador3]['cost_por_env']              = $direccion->cost_por_env;
           $direcciones[$contador3]['created_at_direc_arm']      = Auth::user()->email_registro;
           $direcciones[$contador3]['pedido_armado_id']          = $armado_pedido->id;
+          $direcciones[$contador3]['created_at']                = date("Y-m-d h:i:s");
           $contador3 +=1;
         }
       }

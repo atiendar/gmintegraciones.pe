@@ -41,7 +41,7 @@ class DireccionArmadoRepositories implements DireccionInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
           'Ventas/Pedido Activo/Armado (direcciones)', // Módulo
-          'venta.pedidoActivo.armado.direcion.show', // Nombre de la ruta
+          'venta.pedidoActivo.armado.direccion.show', // Nombre de la ruta
           $id_direccion, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_direccion), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
           array('Tipo de tarjeta de felicitación', 'Mensaje de dedicatoria', 'Nombre de referencia uno', 'Nombre de referencia dos', 'Lada teléfono fijo', 'Teléfono fijo', 'Extensión', 'Lada teléfono móvil', 'Teléfono móvil', 'Calle ', 'No. Exterior', 'No. Interior', 'País', 'Ciudad', 'Colonia', 'Delegación o municipio', 'Código postal', 'Referencias zona de entrega'), // Nombre de los inputs del formulario

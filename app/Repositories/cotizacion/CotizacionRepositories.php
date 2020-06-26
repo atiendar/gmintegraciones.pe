@@ -145,6 +145,7 @@ class CotizacionRepositories implements CotizacionInterface {
         // CLONA LOS ARMADOS DE LA COTIZACIÓN
         $clonArmado                = $armado->replicate();
         $clonArmado->cotizacion_id = $clonCotizacion->id;
+        $clonArmado->created_at    = date("Y-m-d h:i:s");
         $clonArmado->save();
         
         // CLONA LOS PRODUCTOS DE LOS ARMADOS
@@ -152,6 +153,7 @@ class CotizacionRepositories implements CotizacionInterface {
           $clonProducto                       = $producto->replicate();
           $productos[$contador2]              = $clonProducto->getAttributes();
           $productos[$contador2]['armado_id'] = $clonArmado->id;
+          $productos[$contador2]['created_at']  = date("Y-m-d h:i:s");
           $contador2 +=1;
         }
 
@@ -160,6 +162,7 @@ class CotizacionRepositories implements CotizacionInterface {
           $clonDireccion                        = $direccion->replicate();
           $direcciones[$contador3]              = $clonDireccion->getAttributes();
           $direcciones[$contador3]['armado_id'] = $clonArmado->id;
+          $direcciones[$contador3]['created_at']= date("Y-m-d h:i:s");
           $contador3 +=1;
         }
       }

@@ -61,13 +61,15 @@
       </div>
       <span v-if="errors.cantidad" class="text-danger" v-text="errors.cantidad[0]"></span>
     </div>
+  </div>
+  <div class="row">
     <div class="form-group col-sm btn-sm">
       <label for="detalles_de_la_ubicacion">{{ __('Detalles de la ubicación') }} *</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-text-width"></i></span>
         </div>
-          {!! Form::text('detalles_de_la_ubicacion', null, ['v-model' => 'detalles_de_la_ubicacion', 'class' => 'form-control', 'maxlength' => 150, 'placeholder' => __('Detalles de la ubicación'), 'required']) !!}
+        {!! Form::textarea('detalles_de_la_ubicacion', null, ['v-model' => 'detalles_de_la_ubicacion', 'class' => 'form-control', 'maxlength' => 150, 'placeholder' => __('Detalles de la ubicación'), 'rows' => 4, 'cols' => 4, 'required']) !!}
       </div>
       <span v-if="errors.detalles_de_la_ubicacion" class="text-danger" v-text="errors.detalles_de_la_ubicacion[0]"></span>
     </div>
@@ -80,3 +82,4 @@
       <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2"><i class="fas fa-check-circle text-dark"></i> {{ __('Actualizar dirección') }}</button>
     </div>
   </div>
+</form>

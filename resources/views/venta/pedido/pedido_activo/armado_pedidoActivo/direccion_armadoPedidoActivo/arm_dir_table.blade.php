@@ -5,26 +5,26 @@
     @else 
       <thead>
         <tr> 
-          <th>{{ __('P. RECIBE') }}</th>
+          @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.nombreDeReferenciaUno')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.cantidad')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.metodoDeEntrega')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.estado')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.tipoDeEnvio')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.costo')
-          <th>{{ __('COLONIA') }}</th>
+          @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.colonia')
           <th colspan="1">&nbsp</th>
         </tr>
       </thead>
       <tbody> 
         @foreach($direcciones as $direccion)
           <tr title="{{ $direccion->est }}">
-            <td>{{ $direccion->nom_ref_uno }}</td>
-            @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad')
+            @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.nombreDeReferenciaUno')
+            @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => true, 'canany' => ['venta.pedidoActivo.armado.direccion.show'], 'ruta' => 'venta.pedidoActivo.armado.direccion.show', 'target' => null])
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntrega')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.estado')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.tipoDeEnvio')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.costo')
-            <td>{{ $direccion->col }}</td>
+            @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.colonia')
             @if(Request::route()->getName() == 'venta.pedidoActivo.armado.edit')
               @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_tableOpciones')
             @else

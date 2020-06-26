@@ -5,8 +5,8 @@
   <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
     <h5>
       <strong>{{ __('Editar direccion') }}:</strong>
-      @can('venta.pedidoActivo.armado.show')
-        <a href="{{ route('venta.pedidoActivo.armado.show', Crypt::encrypt($direccion->id)) }}" class="text-white">{{ $direccion->est }}</a>,
+      @can('venta.pedidoActivo.armado.direccion.show')
+        <a href="{{ route('venta.pedidoActivo.armado.direccion.show', Crypt::encrypt($direccion->id)) }}" class="text-white">{{ $direccion->est }}</a>,
       @else
         {{ $direccion->est }},
       @endcan
@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="card-body">
-    {!! Form::open(['route' => ['venta.pedidoActivo.armado.direcion.update', Crypt::encrypt($direccion->id)], 'method' => 'patch', 'id' => 'ventaPedidoActivoArmadoDirecionUpdate', 'files' => true]) !!}
+    {!! Form::open(['route' => ['venta.pedidoActivo.armado.direccion.update', Crypt::encrypt($direccion->id)], 'method' => 'patch', 'id' => 'ventaPedidoActivoArmadoDirecionUpdate', 'files' => true]) !!}
     @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_editFields')
     {!! Form::close() !!}
   </div>

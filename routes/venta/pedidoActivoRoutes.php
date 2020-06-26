@@ -13,10 +13,10 @@ Route::group(['prefix' => 'pedido-activo'], function() {
     Route::match(['PUT', 'PATCH'],'actualizar/{id_armado}', 'Venta\PedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@update')->name('venta.pedidoActivo.armado.update')->middleware('permission:venta.pedidoActivo.armado.edit');
 
     Route::group(['prefix' => 'direccion'], function() {
-      Route::post('almacenar/{id_armado}', 'Venta\PedidoActivo\ArmadoPedidoActivo\Direccion\DireccionController@store')->name('venta.pedidoActivo.armado.direcion.store')->middleware('permission:venta.pedidoActivo.armado.edit');
-      Route::match(['GET', 'HEAD'],'detalles/{id_direccion}', 'Venta\PedidoActivo\ArmadoPedidoActivo\Direccion\DireccionController@show')->name('venta.pedidoActivo.armado.direcion.show')->middleware('permission:venta.pedidoActivo.show');
-      Route::match(['GET', 'HEAD'],'editar/{id_direccion}', 'Venta\PedidoActivo\ArmadoPedidoActivo\Direccion\DireccionController@edit')->name('venta.pedidoActivo.armado.direcion.edit')->middleware('permission:venta.pedidoActivo.armado.edit');
-      Route::match(['PUT', 'PATCH'],'actualizar/{id_direccion}', 'Venta\PedidoActivo\ArmadoPedidoActivo\Direccion\DireccionController@update')->name('venta.pedidoActivo.armado.direcion.update')->middleware('permission:venta.pedidoActivo.armado.edit');
+      Route::post('almacenar/{id_armado}', 'Venta\PedidoActivo\ArmadoPedidoActivo\Direccion\DireccionController@store')->name('venta.pedidoActivo.armado.direccion.store')->middleware('permission:venta.pedidoActivo.armado.edit');
+      Route::match(['GET', 'HEAD'],'detalles/{id_direccion}', 'Venta\PedidoActivo\ArmadoPedidoActivo\Direccion\DireccionController@show')->name('venta.pedidoActivo.armado.direccion.show')->middleware('permission:venta.pedidoActivo.show');
+      Route::match(['GET', 'HEAD'],'editar/{id_direccion}', 'Venta\PedidoActivo\ArmadoPedidoActivo\Direccion\DireccionController@edit')->name('venta.pedidoActivo.armado.direccion.edit')->middleware('permission:venta.pedidoActivo.armado.edit');
+      Route::match(['PUT', 'PATCH'],'actualizar/{id_direccion}', 'Venta\PedidoActivo\ArmadoPedidoActivo\Direccion\DireccionController@update')->name('venta.pedidoActivo.armado.direccion.update')->middleware('permission:venta.pedidoActivo.armado.edit');
     });
   });
 });

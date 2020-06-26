@@ -37,7 +37,6 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       } elseif($pedido->se_pued_entreg_ant == 'No') {
         $pedido->cuant_dia_ant    = null;
       }
-      $pedido->entr_xprs          = $request->es_entrega_express;
       $pedido->urg                = $request->es_pedido_urgente;
       $pedido->coment_vent        = $request->comentarios_ventas;
       if($pedido->isDirty()) {
@@ -47,9 +46,9 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
           'venta.pedidoActivo.show', // Nombre de la ruta
           $id_pedido, // Id del registro debe ir encriptado
           $pedido->serie, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Fecha de entrega', '¿Se puede entregar antes?', '¿Cuántos días antes?', '¿Es entrega express?', '¿Es pedido urgente?', 'Comentarios ventas'), // Nombre de los inputs del formulario
+          array('Fecha de entrega', '¿Se puede entregar antes?', '¿Cuántos días antes?', '¿Es pedido urgente?', 'Comentarios ventas'), // Nombre de los inputs del formulario
           $pedido, // Request
-          array('fech_de_entreg', 'se_pued_entreg_ant', 'cuant_dia_ant', 'entr_xprs', 'urg', 'coment_vent') // Nombre de los campos en la BD
+          array('fech_de_entreg', 'se_pued_entreg_ant', 'cuant_dia_ant', 'urg', 'coment_vent') // Nombre de los campos en la BD
         ); 
         $pedido->updated_at_ped  = Auth::user()->email_registro;
       }

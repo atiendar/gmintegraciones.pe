@@ -6,8 +6,8 @@
       <thead>
         <tr>
           @include('costo_de_envio.cos_table.th.#')
-          @include('costo_de_envio.cos_table.th.metodoDeEntrega')
           @include('costo_de_envio.cos_table.th.estado')
+          @include('costo_de_envio.cos_table.th.metodoDeEntrega')
           @include('costo_de_envio.cos_table.th.tipoDeEnvio')
           @include('costo_de_envio.cos_table.th.costoPorEnvio')
           <th colspan="2">&nbsp</th>
@@ -17,8 +17,8 @@
         @foreach($costos_de_envio as $costo_de_envio)
           <tr title="{{ $costo_de_envio->id }}">
             @include('costo_de_envio.cos_table.td.#')
-            @include('costo_de_envio.cos_table.td.metodoDeEntrega')
             @include('costo_de_envio.cos_table.td.estado')
+            @include('costo_de_envio.cos_table.td.metodoDeEntrega')
             @include('costo_de_envio.cos_table.td.tipoDeEnvio')
             @include('costo_de_envio.cos_table.td.costoPorEnvio')
             @include('costo_de_envio.cos_tableOpciones')

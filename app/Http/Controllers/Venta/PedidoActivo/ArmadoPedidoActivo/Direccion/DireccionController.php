@@ -2,7 +2,6 @@
 namespace App\Http\Controllers\Venta\PedidoActivo\ArmadoPedidoActivo\Direccion;
 use App\Http\Controllers\Controller;
 // Request
-use Illuminate\Http\Request;
 use App\Http\Requests\venta\pedidoActivo\armado\direccion\UpdateDireccionRequest;
 // Repositories
 use App\Repositories\venta\pedidoActivo\armadoPedidoActivo\direccion\DireccionArmadoRepositories;
@@ -14,7 +13,7 @@ class DireccionController extends Controller {
   }
   public function show($id_direccion) {
     $direccion = $this->direccionArmadoRepo->direccionFindOrFailById($id_direccion, ['armado']);
-    return view('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_editFields', compact('direccion'));
+    return view('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_show', compact('direccion'));
   }
   public function edit($id_direccion) {
     $direccion = $this->direccionArmadoRepo->direccionFindOrFailById($id_direccion, ['armado']);
