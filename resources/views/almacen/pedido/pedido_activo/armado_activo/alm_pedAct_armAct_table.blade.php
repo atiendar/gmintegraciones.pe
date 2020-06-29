@@ -19,13 +19,17 @@
     </thead>
     <tbody> 
         @foreach($armados as $armado)
-        <tr title="{{ $armado->cod }}">
+        @if($armado->estat == config('app.en_espera_de_compra') OR $armado->estat == config('app.en_revision_de_productos'))
+          <tr title="{{ $armado->cod }}">
+        @else
+          <tr title="{{ $armado->cod }}" class="text-muted cursor-allowed">
+        @endif
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.#', ['show' => true, 'canany' => ['almacen.pedidoActivo.armado.show', 'almacen.pedidoActivo.show'], 'ruta' => 'almacen.pedidoActivo.armado.show'])
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.estatus')
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.cantidad')
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.tipo')
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.armado')
-          @if(Request::route()->getName() == 'almacen.pedidoActivo.edit' AND $armado->estat == config('app.en_espera_de_compra') OR $armado->estat == config('app.en_revision_de_productos'))
+          @if(Request::route()->getName() == 'almacen.pedidoActivo.edit')
             @include('almacen.pedido.pedido_activo.armado_activo.alm_pedAct_armAct_tableOpciones')
           @else
             <td></td>

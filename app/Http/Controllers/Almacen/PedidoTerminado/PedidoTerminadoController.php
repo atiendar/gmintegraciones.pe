@@ -8,8 +8,10 @@ use App\Repositories\almacen\pedidoTerminado\PedidoTerminadoRepositories;
 use App\Repositories\almacen\pedidoActivo\armadoPedidoActivo\ArmadoPedidoActivoRepositories;
 
 class PedidoTerminadoController extends Controller {
+  protected $pedidoTerminadoRepo;
+  protected $armadoPedidoActivoRepo;
   public function __construct(PedidoTerminadoRepositories $PedidoTerminadoRepositories, ArmadoPedidoActivoRepositories $armadoPedidoActivoRepositories) {
-    $this->pedidoTerminadoRepo = $PedidoTerminadoRepositories;  
+    $this->pedidoTerminadoRepo    = $PedidoTerminadoRepositories;  
     $this->armadoPedidoActivoRepo = $armadoPedidoActivoRepositories;    
   }
   public function index(Request $request) {

@@ -1,6 +1,6 @@
 <td>
   @if($show == true)
-    @canany([$canany])
+    @canany($canany)
       <a href="{{ route($ruta, Crypt::encrypt($direccion->id)) }}" title="Detalles: {{ $direccion->est }}" {{ $target }}>{{ Sistema::dosDecimales($direccion->cant) }}</a>
     @else
     {{ Sistema::dosDecimales($direccion->cant) }}

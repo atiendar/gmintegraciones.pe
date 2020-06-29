@@ -1,5 +1,5 @@
 <td width="1rem" title="Editar: {{ $pedido->num_pedido }}">
-  @canany(['venta.pedidoActivo.edit'])
+  @canany(['venta.pedidoActivo.edit' ,'venta.pedidoActivo.armado.edit', 'venta.pedidoActivo.pago.create', 'venta.pedidoActivo.pago.edit'])
     <a href="{{ route('venta.pedidoActivo.edit', Crypt::encrypt($pedido->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-edit"></i></a>
   @endcanany
 </td>

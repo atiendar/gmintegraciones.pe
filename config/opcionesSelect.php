@@ -722,4 +722,38 @@ return array(
     'tip_env'       => 'Tipo de envío',
     'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
   ],
+/* ===================== PRODUCCIÓN [ PEDIDO ACTIVO ] ===================== */
+  'select_produccion_pedido_activo_index'  => [
+    ''                        => 'Buscar por. . .',
+  //  'usuario.email_registro'  => 'Cliente',
+    'estat_pag'               => 'Estatus pago',
+    'estat_produc'            => 'Estatus producción',
+    'fech_de_entreg'          => 'Fecha de entrega (YYYY-MM-DD)',
+    'num_pedido'              => 'Número de pedido',
+    'tot_de_arm'              => 'Total de armados',
+    'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+/* ===================== PRODUCCIÓN PEDIDO ACTIVO [ ARMADOS ] ===================== */
+  'select_produccion_pedido_armados_index' => [
+    ''            => 'Buscar por. . .',
+    'nom'         => 'Armado',
+    'cant'        => 'Cantidad',
+    'estat'       => 'Estatus',
+    'tip'         => 'Tipo',
+    'created_at'  => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+  'select_estatus_armado_produccion' => [
+    config('app.en_produccion')                 => config('app.en_produccion'),
+    config('app.en_almacen_de_salida')          => config('app.en_almacen_de_salida'),
+    config('app.en_revision_de_productos')      => 'Productos incompletos',
+  ],
+/* ===================== PRODUCCIÓN PEDIDO ACTIVO ARMADOS [ DIRECCIONES ] ===================== */
+  'select_produccion_pedido_armado__direcciones_index' => [
+    ''                      => 'Buscar por. . .',
+    'cant'                  => 'Cantidad',
+    'est_a_la_q_se_cotiz'   => 'Estado al que se cotizó',
+    'met_de_entreg_de_log'  => 'Metodo de entrega',
+    'tip_env'               => 'Tipo de envío',
+    'created_at'            => 'Fecha de registro (YYYY-MM-DD)',
+  ],
 );

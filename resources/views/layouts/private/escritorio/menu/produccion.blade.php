@@ -12,7 +12,7 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="" class="nav-link {{ Request::is('inicio-produccion') ? 'active' : '' }}">
+        <a href="{{ route('produccion.index') }}" class="nav-link {{ Request::is('inicio-produccion') ? 'active' : '' }}">
           <i class="nav-icon fas fa-home"></i>
           <p>{{ __('Inicio producción') }}</p>
         </a>
@@ -29,7 +29,7 @@
           <ul class="nav nav-treeview ">
             @canany(['produccion.pedidoActivo.index','produccion.pedidoActivo.show','produccion.pedidoActivo.edit', 'produccion.pedidoActivo.armado.show', 'produccion.pedidoActivo.armado.edit'])
               <li class="nav-item">
-                <a href="" class="nav-link {{ Request::is('produccion/pedido-activo') ? 'active' : '' }}">
+                <a href="{{ route('produccion.pedidoActivo.index') }}" class="nav-link {{ Request::is('produccion/pedido-activo') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-list"></i>
                   <p>{{ __('Lista de pedidos activos') }}</p>
                 </a>
@@ -37,7 +37,7 @@
             @endcanany
             @canany(['produccion.pedidoTerminado.index', 'produccion.pedidoTerminado.show'])
               <li class="nav-item">
-                <a href="" class="nav-link {{ Request::is('produccion/pedido-terminado') ? 'active' : '' }}">
+                <a href="{{ route('produccion.pedidoTerminado.index') }}" class="nav-link {{ Request::is('produccion/pedido-terminado') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-list"></i>
                   <p>{{ __('Lista de pedidos terminados') }}</p>
                 </a>
@@ -51,18 +51,10 @@
 @endcanany
 
 {{--
-@canany(['pruebaaaa'])
-
 <li class="nav-item">
 <a href="" class="nav-link {{ Request::is('nomina*') ? 'active' : '' }}">
   <i class="nav-icon fas fa-money-check"></i>
   <p>{{ __('Nomina') }}</p>
-</a>
-</li>
-<li class="nav-item">
-<a href="" class="nav-link {{ Request::is('rastrear-pedido*') ? 'active' : '' }}">
-  <i class="nav-icon fas fa-search"></i>
-  <p>{{ __('Rastrear pedido') }}</p>
 </a>
 </li>
 <li class="nav-item has-treeview {{ Request::is('servicios*') ? 'menu-open' : '' }}">
@@ -89,30 +81,4 @@
   </li>
 </ul>
 </li>
-@endcanany
-@canany(['pruebaaaa'])
-<li class="nav-item has-treeview {{ Request::is('logistica*') ? 'menu-open' : '' }}">
-<a href="#" class="nav-link {{ Request::is('logistica*') ? 'active' : '' }}">
-  <i class="nav-icon fas fa-shipping-fast"></i>
-  <p>
-    {{ __('Logística') }}
-    <i class="right fas fa-angle-left"></i>
-  </p>
-</a>
-<ul class="nav nav-treeview">
-  <li class="nav-item">
-    <a href="#" class="nav-link {{ Request::is('logistica') ? 'active' : '' }}">
-      <i class="nav-icon fas fa-list"></i>
-      <p>{{ __('Lista de logística') }}</p>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="#" class="nav-link" data-toggle="modal" data-target="#log_create" data-backdrop="static" data-keyboard="false">
-      <i class="nav-icon far fa-plus-square"></i>
-      <p>{{ __('Registrar') }}</p>
-    </a>
-  </li>
-</ul>
-</li>
-@endcanany
 --}}

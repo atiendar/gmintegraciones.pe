@@ -30,6 +30,7 @@
 
 <!-- ****************************************************************************************** -->
 @canany([
+  'venta.pedidoActivo.index', 'venta.pedidoActivo.show', 'venta.pedidoActivo.edit', 'venta.pedidoActivo.destroy', 'venta.pedidoActivo.armado.show' ,'venta.pedidoActivo.armado.edit', 'venta.pedidoActivo.pago.create', 'venta.pedidoActivo.pago.show', 'venta.pedidoActivo.pago.edit',
   'rastrea.pedido.show', 'rastrea.pedido.showFull',
   'pago.fPedido.index', 'pago.fPedido.create', 'pago.fPedido.show', 'pago.fPedido.edit',
   'pago.index', 'pago.show', 'pago.edit', 'pago.destroy', 'pago.marcarComoFacturado',
@@ -54,4 +55,5 @@
 @include('layouts.private.escritorio.menu.ventas')
 @include('layouts.private.escritorio.menu.almacen')
 @include('layouts.private.escritorio.menu.produccion')
+@include('layouts.private.escritorio.menu.logistica')
 @include('layouts.private.escritorio.menu.facturacion')

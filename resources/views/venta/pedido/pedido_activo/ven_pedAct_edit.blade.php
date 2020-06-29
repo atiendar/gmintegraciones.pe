@@ -23,7 +23,7 @@
   </div>
 </div>
 <div class="row">
-  @can('almacen.pedidoActivo.edit')
+  @can('venta.pedidoActivo.edit')
     <div class="col-md-8">
       <div class="pad">
           <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">

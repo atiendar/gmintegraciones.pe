@@ -73,9 +73,11 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       $armados = $pedido->armados()->where('estat', config('app.en_espera_de_compra'))
                         ->orWhere('estat', config('app.en_revision_de_productos'))
                         ->get();
+
+                       
       $nom_tabla = (new \App\Models\PedidoArmado())->getTable();
 
-      $hastaC                 = count($armados) - 1;
+      $hastaC                 = count($armados);
       $up_estatus_armado      = null;
       $up_updated_at_ped_arm  = null;
       $up_updated_at          = null;
@@ -86,6 +88,8 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
         $up_updated_at          .= ' WHEN '. $armado->id. ' THEN "'.date('Y-m-d h:i:s').'"';
         $ids                    .= $armado->id.',';
       }
+
+
       if($hastaC > 0) {
         $ids = substr($ids, 0, -1);
         DB::UPDATE("UPDATE ".$nom_tabla." SET estat = CASE id". $up_estatus_armado." END, updated_at_ped_arm = CASE id". $up_updated_at_ped_arm." END, updated_at = CASE id". $up_updated_at." END WHERE id IN (".$ids.")");

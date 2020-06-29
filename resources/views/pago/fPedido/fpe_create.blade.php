@@ -11,7 +11,7 @@
     </div>
   </div>
 </div>
-@can('pago.fPedido.create')
+@canany(['pago.fPedido.create', 'venta.pedidoActivo.pago.create'])
   <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
     <div class="card-body">
       {!! Form::open(['route' => ['pago.fPedido.store', Crypt::encrypt($pedido->id)], 'onsubmit' => 'return checarBotonSubmit("btnsubmit")', 'files' => true]) !!}
@@ -19,6 +19,6 @@
       {!! Form::close() !!}
     </div>
   </div>
-@endcan
+@endcanany
 @include('pago.fPedido.pago.pag_index')
 @endsection

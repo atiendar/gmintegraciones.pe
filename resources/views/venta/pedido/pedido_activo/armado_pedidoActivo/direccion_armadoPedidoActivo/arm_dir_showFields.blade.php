@@ -38,33 +38,44 @@
     </div>
   </div>
 </div>
-
-<BR><BR><BR><BR><BR><BR>
-FALTA TARJETA DISEÑADA POR EL CLIENTE<BR>
-COMPROBANTE DE SALIDA
-<BR><BR><BR><BR><BR><BR><BR>
 <label for="redes_sociales">{{ __('INFORMACIÓN EXTRA DEL ARMADO') }}</label>
 <div class="border border-primary rounded p-2">
   <div class="row">
-    <div class="form-group col-sm btn-sm">
-      <label for="tipo_de_tarjeta_de_felicitacion">{{ __('Tipo de tarjeta de felicitación') }}</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-list"></i></span>
+    <div class="col-md-8">
+      <div class="pad">
+        <div class="row">
+          <div class="form-group col-sm btn-sm">
+            <label for="tipo_de_tarjeta_de_felicitacion">{{ __('Tipo de tarjeta de felicitación') }}</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-list"></i></span>
+              </div>
+              {!! Form::select('tipo_de_tarjeta_de_felicitacion', config('opcionesSelect.select_tarjeta_de_felicitacion'), $direccion->tip_tarj_felic, ['class' => 'form-control select2 disabled', 'placeholder' => __(''), 'readonly' => 'readonly', 'disabled']) !!}
+            </div>
+          </div>
         </div>
-        {!! Form::select('tipo_de_tarjeta_de_felicitacion', config('opcionesSelect.select_tarjeta_de_felicitacion'), $direccion->tip_tarj_felic, ['class' => 'form-control select2 disabled', 'placeholder' => __(''), 'readonly' => 'readonly', 'disabled']) !!}
+        <div class="row" id="mensaje_de_dedicatoria">
+          <div class="form-group col-sm btn-sm">
+            <label for="mensaje_de_dedicatoria">{{ __('Mensaje de dedicatoria') }}</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+              </div>
+              {!! Form::textarea('mensaje_de_dedicatoria',  $direccion->mens_dedic, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Mensaje de dedicatoria'), 'rows' => 4, 'cols' => 4, 'readonly' => 'readonly']) !!}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row" id="mensaje_de_dedicatoria">
-    <div class="form-group col-sm btn-sm">
-      <label for="mensaje_de_dedicatoria">{{ __('Mensaje de dedicatoria') }}</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+    <div class="col-md-4">
+      @if($direccion->tarj_dise_nom != null)
+        <div class="form-group col-sm btn-sm">
+          <label for="comentarios">{{ __('Tarjeta diseñada por el cliente') }}</label>
+          <div class="pad box-pane-right no-padding" style="min-height: 280px">
+            <iframe src="{{ Storage::url($direccion->tarj_dise_rut.$direccion->tarj_dise_nom) }}" style="width:100%;border:none;height:25rem;"></iframe>
+          </div>
         </div>
-        {!! Form::textarea('mensaje_de_dedicatoria',  $direccion->mens_dedic, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Mensaje de dedicatoria'), 'rows' => 4, 'cols' => 4, 'readonly' => 'readonly']) !!}
-      </div>
+      @endif
     </div>
   </div>
 </div>
@@ -136,37 +147,53 @@ COMPROBANTE DE SALIDA
 <label for="redes_sociales">{{ __('MÉTODO DE ENTREGA DE LOGÍSTICA') }}</label>
 <div class="border border-primary rounded p-2">
   <div class="row">
-    <div class="form-group col-sm btn-sm">
-      <label for="metodo_de_entrega">{{ __('Método de entrega') }}</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+    <div class="col-md-8">
+      <div class="pad">
+        <div class="row">
+          <div class="form-group col-sm btn-sm">
+            <label for="metodo_de_entrega">{{ __('Método de entrega') }}</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+              </div>
+              {!! Form::text('metodo_de_entrega', $direccion->met_de_entreg_de_log, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Método de entrega'), 'readonly' => 'readonly']) !!}
+            </div>
+          </div>
+          <div class="form-group col-sm btn-sm">
+            <label for="metodo_de_entrega_espesifico">{{ __('Método de entrega espesifico') }}</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+              </div>
+              {!! Form::text('metodo_de_entrega_espesifico', $direccion->met_de_entreg_de_log_esp, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Método de entrega espesifico'), 'readonly' => 'readonly']) !!}
+            </div>
+          </div>
         </div>
-        {!! Form::text('metodo_de_entrega', $direccion->met_de_entreg_de_log, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Método de entrega'), 'readonly' => 'readonly']) !!}
+        <div class="row">
+          <div class="form-group col-sm btn-sm">
+            <label for="numero_de_guia">{{ __('Número de guia') }}</label>
+            @if($direccion->url != null)
+              <a href="{{ $direccion->url }}" target="_blank">{{ ('Rastrear pedido') }}</a>
+            @endif
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+              </div>
+              {!! Form::text('numero_de_guia', $direccion->num_guia, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Número de guia'), 'readonly' => 'readonly']) !!}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="form-group col-sm btn-sm">
-      <label for="metodo_de_entrega_espesifico">{{ __('Método de entrega espesifico') }}</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+    <div class="col-md-4">
+      @if($direccion->comp_de_sal_nom != null)
+        <div class="form-group col-sm btn-sm">
+          <label for="comentarios">{{ __('Comprobante de salida') }}</label>
+          <div class="pad box-pane-right no-padding" style="min-height: 280px">
+            <iframe src="{{ Storage::url($direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom) }}" style="width:100%;border:none;height:25rem;"></iframe>
+          </div>
         </div>
-        {!! Form::text('metodo_de_entrega_espesifico', $direccion->met_de_entreg_de_log_esp, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Método de entrega espesifico'), 'readonly' => 'readonly']) !!}
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="form-group col-sm btn-sm">
-      <label for="numero_de_guia">{{ __('Número de guia') }}</label>
-      @if($direccion->url != null)
-        <a href="{{ $direccion->url }}" target="_blank">{{ ('Rastrear pedido') }}</a>
       @endif
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-text-width"></i></span>
-        </div>
-        {!! Form::text('numero_de_guia', $direccion->num_guia, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Número de guia'), 'readonly' => 'readonly']) !!}
-      </div>
     </div>
   </div>
 </div>

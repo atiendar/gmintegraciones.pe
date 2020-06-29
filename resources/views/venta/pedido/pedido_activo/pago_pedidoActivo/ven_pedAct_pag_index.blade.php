@@ -1,7 +1,7 @@
 <div class="card {{ config('app.color_card_secundario') }} card-outline">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_secundario') }}">
     @if(Request::route()->getName() == 'venta.pedidoActivo.edit')
-      @can('pago.fPedido.create')
+      @can('venta.pedidoActivo.pago.create')
         <a href="{{ route('pago.fPedido.create', Crypt::encrypt($pedido->id)) }}" class="btn btn-primary btn-sm" target="_blank">{{ __('Registrar pago') }}</a>
       @endcan
     @endif

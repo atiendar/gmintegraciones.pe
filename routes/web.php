@@ -76,5 +76,11 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
       require_once __DIR__ . '/almacen/pedidoTerminadoRoutes.php';
       require_once __DIR__ . '/almacen/productoRoutes.php';
     });
+
+    Route::group(['prefix' => 'produccion'], function() {
+      require_once __DIR__ . '/produccion/produccionRoutes.php';
+      require_once __DIR__ . '/produccion/pedidoActivoRoutes.php';
+      require_once __DIR__ . '/produccion/pedidoTerminadoRoutes.php';
+    });
   });
 });

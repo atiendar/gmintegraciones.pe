@@ -1,4 +1,4 @@
-@canany(['pago.fPedido.index', 'pago.fPedido.create', 'pago.fPedido.show', 'pago.fPedido.edit'])
+@canany(['pago.fPedido.index', 'pago.fPedido.create', 'pago.fPedido.show', 'pago.fPedido.edit', 'venta.pedidoActivo.show', 'venta.pedidoActivo.pago.create','venta.pedidoActivo.pago.show', 'venta.pedidoActivo.pago.edit'])
   <li class="nav-item">
     <a href="{{ route('pago.fPedido.index') }}" class="nav-link {{ Request::is('pago/f-pedido') ? 'active' : '' }}">
       <i class="fas fa-list nav-icon"></i> {{ __('Lista de pagos (F. por pedido)') }}

@@ -1,10 +1,10 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Editar direccion').' '.$direccion->est)</title>
+<title>@section('title', __('Editar dirección').' '.$direccion->est)</title>
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
     <h5>
-      <strong>{{ __('Editar direccion') }}:</strong>
+      <strong>{{ __('Editar dirección') }}:</strong>
       @can('venta.pedidoActivo.armado.direccion.show')
         <a href="{{ route('venta.pedidoActivo.armado.direccion.show', Crypt::encrypt($direccion->id)) }}" class="text-white">{{ $direccion->est }}</a>,
       @else
