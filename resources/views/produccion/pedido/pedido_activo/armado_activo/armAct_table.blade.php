@@ -1,3 +1,4 @@
+<span class="text-danger border border-danger row">{{ $errors->first('ubicacion_rack') }}</span>
 <div class="card-body table-responsive p-0" id="div-tabla-scrollbar" style="height: 25em;"> 
   <table class="table table-head-fixed table-hover table-striped table-sm table-bordered">
     @if(sizeof($armados) == 0)
@@ -14,7 +15,7 @@
         @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.th.cantidad')
         @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.th.tipo')
         @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.th.armado')
-        <th colspan="1">&nbsp</th>
+        <th colspan="2">&nbsp</th>
       </tr>
     </thead>
     <tbody> 
@@ -24,7 +25,7 @@
       @else
         <tr title="{{ $armado->cod }}" class="text-muted cursor-allowed">
       @endif
-        @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.#', ['show' => true, 'canany' => ['produccion.pedidoActivo.armado.show'], 'ruta' => 'produccion.pedidoActivo.armado.show'])
+        @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.#', ['show' => true, 'canany' => ['produccion.pedidoActivo.armado.show', 'produccion.pedidoActivo.show'], 'ruta' => 'produccion.pedidoActivo.armado.show'])
         @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.estatus')
         @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.cantidad')
         @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.tipo')

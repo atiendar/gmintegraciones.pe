@@ -44,7 +44,7 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
           'produccion.pedidoActivo.armado.show', // Nombre de la ruta
           $id_armado, // Id del registro debe ir encriptado
           $armado->cod, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Estatus', 'Ubicacion rack', 'Comentario producción'), // Nombre de los inputs del formulario
+          array('Estatus', 'Ubicación rack', 'Comentario producción'), // Nombre de los inputs del formulario
           $armado, // Request
           array('estat', 'ubic_rack', 'coment_produc') // Nombre de los campos en la BD
         ); 
@@ -56,12 +56,6 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
       return $armado;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
-  public function getArmadoPedidoTieneProductosPaginate($pedido, $request) {
-    if($request->opcion_buscador != null) {
-      return $pedido->productos()->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
-    }
-    return $pedido->productos()->paginate($request->paginador);
-  }
   public function armadosTerminadosProduccion($id_pedido, $estatus) {
     return Pedido::armadosTerminados($id_pedido, $estatus);
   }
@@ -70,5 +64,31 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
       return $pedido->direcciones()->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
     }
     return $pedido->direcciones()->paginate($request->paginador);
+  }
+  public function updateModal($request, $id_armado) {
+    try { DB::beginTransaction();
+      $armado                 = $this->armadoPedidoActivoFindOrFailById($id_armado, ['pedido'], 'edit');
+      $armado->estat          = config('app.en_almacen_de_salida');
+      $armado->ubic_rack = $request->ubicacion_rack;
+      $armado->coment_produc  = $request->comentario_produccion;
+
+      if($armado->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Producción/Pedidos activos (armado)', // Módulo
+          'produccion.pedidoActivo.armado.show', // Nombre de la ruta
+          $id_armado, // Id del registro debe ir encriptado
+          $armado->cod, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('Estatus', 'Ubicación rack'), // Nombre de los inputs del formulario
+          $armado, // Request
+          array('estat', 'ubic_rack') // Nombre de los campos en la BD
+        ); 
+        $armado->updated_at_ped_arm = Auth::user()->email_registro;
+      }
+      $armado->save();
+      Pedido::getEstatusPedido($armado->pedido, 'Todos');
+      DB::commit();
+      return $armado;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
 }

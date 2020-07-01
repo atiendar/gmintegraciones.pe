@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\produccion\pedidoActivo;
+namespace App\Repositories\logistica\pedidoActivoLocal;
 // Models
 use App\Models\Pedido;
 // Events
@@ -17,19 +17,23 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   }
   public function getPagination($request, $relaciones) {
     return Pedido::with($relaciones)->where(function ($query) {
-      $query->where('estat_produc', config('app.asignar_lider_de_pedido'))
-      ->orWhere('estat_produc', config('app.en_espera_de_almacen'))
-      ->orWhere('estat_produc', config('app.productos_completos'))
-      ->orWhere('estat_produc', config('app.en_produccion'));
-    })->buscar($request->opcion_buscador, $request->buscador)->orderBy('fech_estat_produc', 'DESC')->paginate($request->paginador);
+      $query->where('estat_log', config('app.asignar_lider_de_pedido'))
+      ->orWhere('estat_log', config('app.en_espera_de_produccion'))
+      ->orWhere('estat_log', config('app.en_almacen_de_salida'))
+      ->orWhere('estat_log', config('app.en_ruta'))
+      ->orWhere('estat_log', config('app.sin_entrega_por_falta_de_informacion'))
+      ->orWhere('estat_log', config('app.intento_de_entrega_fallido'));
+    })->buscar($request->opcion_buscador, $request->buscador)->orderBy('fech_estat_log', 'DESC')->paginate($request->paginador);
   }
   public function pedidoActivoProduccionFindOrFailById($id_pedido, $relaciones) {
     $id_pedido = $this->serviceCrypt->decrypt($id_pedido);
     $pedido = Pedido::with($relaciones)->where(function ($query) {
-      $query->where('estat_produc', config('app.asignar_lider_de_pedido'))
-        ->orWhere('estat_produc', config('app.en_espera_de_almacen'))
-        ->orWhere('estat_produc', config('app.productos_completos'))
-        ->orWhere('estat_produc', config('app.en_produccion'));
+      $query->where('estat_log', config('app.asignar_lider_de_pedido'))
+        ->orWhere('estat_log', config('app.en_espera_de_produccion'))
+        ->orWhere('estat_log', config('app.en_almacen_de_salida'))
+        ->orWhere('estat_log', config('app.en_ruta'))
+        ->orWhere('estat_log', config('app.sin_entrega_por_falta_de_informacion'))
+        ->orWhere('estat_log', config('app.intento_de_entrega_fallido'));
       })->findOrFail($id_pedido);
     return $pedido;
   }

@@ -46,7 +46,7 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
         $armado->updated_at_ped_arm = Auth::user()->email_registro;
       }
       $armado->save();
-      Pedido::getEstatusPedido($armado->pedido, 'Almacén');
+      Pedido::getEstatusPedido($armado->pedido, 'Todos');
       DB::commit();
       return $armado;
     } catch(\Exception $e) { DB::rollback(); throw $e; }

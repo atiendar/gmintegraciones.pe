@@ -1,0 +1,3 @@
+<?php
+/* ===================== [ RUTAS (LOGÍSTICA) ] ===================== */
+Route::match(['GET', 'HEAD'],'', 'Logistica\LogisticaController@index')->name('logistica.index')->middleware('permission:logistica.pedidoActivoLocal.index|logistica.pedidoActivoLocal.show|logistica.pedidoActivoLocal.edit|logistica.pedidoActivoLocal.armado.show|logistica.pedidoActivoLocal.armado.edit|logistica.pedidoTerminado.index|logistica.pedidoTerminado.show');

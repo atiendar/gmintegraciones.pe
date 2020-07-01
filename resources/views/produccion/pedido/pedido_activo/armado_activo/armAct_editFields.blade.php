@@ -9,17 +9,15 @@
     </div>
     <span class="text-danger">{{ $errors->first('estatus') }}</span>
   </div>
-  <div id="ubicacion-rack">
-    <div class="form-group col-sm btn-sm">
-      <label for="ubicacion_rack">{{ __('Ubicación rack') }} * </label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-text-width"></i></span>
-        </div>
-        {!! Form::text('ubicacion_rack', $armado->ubic_rack	, ['class' => 'form-control' . ($errors->has('ubicacion_rack') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Ubicación rack')]) !!}
+  <div class="form-group col-sm btn-sm" id="ubicacion-rack">
+    <label for="ubicacion_rack">{{ __('Ubicación rack') }} * </label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      <span class="text-danger">{{ $errors->first('ubicacion_rack') }}</span>
+      {!! Form::text('ubicacion_rack', $armado->ubic_rack	, ['class' => 'form-control' . ($errors->has('ubicacion_rack') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Ubicación rack')]) !!}
     </div>
+    <span class="text-danger">{{ $errors->first('ubicacion_rack') }}</span>
   </div>
 </div>
 <div class="row">
@@ -43,7 +41,6 @@
   </div>
 </div>
 @include('layouts.private.plugins.priv_plu_select2')
-
 
 @section('js5')
 <script>

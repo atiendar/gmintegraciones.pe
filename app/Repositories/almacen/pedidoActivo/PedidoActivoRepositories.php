@@ -52,7 +52,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
         $pedido->updated_at_ped = Auth::user()->email_registro;
       }
       $pedido->save();
-      Pedido::getEstatusPedido($pedido, 'Almacén');
+      Pedido::getEstatusPedido($pedido, 'Todos');
       return $pedido;
     });
   }
@@ -73,8 +73,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       $armados = $pedido->armados()->where('estat', config('app.en_espera_de_compra'))
                         ->orWhere('estat', config('app.en_revision_de_productos'))
                         ->get();
-
-                       
+     
       $nom_tabla = (new \App\Models\PedidoArmado())->getTable();
 
       $hastaC                 = count($armados);
@@ -95,7 +94,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
         DB::UPDATE("UPDATE ".$nom_tabla." SET estat = CASE id". $up_estatus_armado." END, updated_at_ped_arm = CASE id". $up_updated_at_ped_arm." END, updated_at = CASE id". $up_updated_at." END WHERE id IN (".$ids.")");
       }
 
-      Pedido::getEstatusPedido($pedido, 'Almacén');
+      Pedido::getEstatusPedido($pedido, 'Todos');
       DB::commit();
       return $pedido;
     } catch(\Exception $e) { DB::rollback(); throw $e; }

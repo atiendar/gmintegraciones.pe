@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Produccion\PedidoTerminado;
+namespace App\Http\Controllers\Logistica\PedidoTerminado;
 use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
@@ -13,10 +13,12 @@ class PedidoTerminadoController extends Controller {
     $this->armadoPedidoActivoRepo = $armadoPedidoActivoRepositories;    
   }
   public function index(Request $request) {
+    dd('s');
     $pedidos = $this->pedidoTerminadoRepo->getPagination($request, ['usuario', 'unificar']);
     return view('produccion.pedido.pedido_terminado.pedTer_index', compact('pedidos'));
   }
   public function show(Request $request, $id_pedido) {
+    dd('w');
     $pedido                        = $this->pedidoTerminadoRepo->pedidoTerminadoFindOrFailById($id_pedido);
     $unificados                    = $pedido->unificar()->paginate(99999999);
     $armados                       = $this->pedidoTerminadoRepo->getArmadosPedidoPaginate($pedido, $request);

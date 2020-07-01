@@ -1,11 +1,11 @@
 <?php
-namespace App\Http\Controllers\Produccion\PedidoActivo;
+namespace App\Http\Controllers\Logistica\PedidoActivoLocal;
 use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
 use App\Http\Requests\produccion\pedidoActivo\UpdatePedidoActivoRequest;
 // Repositories
-use App\Repositories\produccion\pedidoActivo\PedidoActivoRepositories;
+use App\Repositories\logistica\pedidoActivoLocal\PedidoActivoRepositories;
 use App\Repositories\produccion\pedidoActivo\armadoPedidoActivo\ArmadoPedidoActivoRepositories;
 
 class PedidoActivoController extends Controller {
@@ -17,9 +17,10 @@ class PedidoActivoController extends Controller {
   }
   public function index(Request $request) {
     $pedidos = $this->pedidoActivoRepo->getPagination($request, ['usuario', 'unificar']);
-    return view('produccion.pedido.pedido_activo.pedAct_index', compact('pedidos'));
+    return view('logistica.pedido.pedido_activoLocal.pedAct_index', compact('pedidos'));
   }
   public function show(Request $request, $id_pedido) {
+    dd('show');
     $pedido                        = $this->pedidoActivoRepo->pedidoActivoProduccionFindOrFailById($id_pedido, ['usuario', 'unificar']);
     $unificados                    = $pedido->unificar()->paginate(99999999);
     $armados                       = $this->pedidoActivoRepo->getArmadosPedidoPaginate($pedido, $request);
@@ -27,6 +28,7 @@ class PedidoActivoController extends Controller {
     return view('produccion.pedido.pedido_activo.pedAct_show', compact('pedido', 'unificados', 'armados', 'armados_terminados_produccion'));
   }
   public function edit(Request $request, $id_pedido) {
+    dd('edit');
     $pedido                         = $this->pedidoActivoRepo->pedidoActivoProduccionFindOrFailById($id_pedido, ['unificar']);
     $unificados                     = $pedido->unificar()->paginate(99999999);
     $armados                        = $this->pedidoActivoRepo->getArmadosPedidoPaginate($pedido, $request);
@@ -34,11 +36,13 @@ class PedidoActivoController extends Controller {
     return view('produccion.pedido.pedido_activo.pedAct_edit', compact('pedido', 'unificados', 'armados', 'armados_terminados_produccion'));
   }
   public function update(UpdatePedidoActivoRequest $request, $id_pedido) {
+    dd('update');
     $this->pedidoActivoRepo->update($request, $id_pedido);
     toastr()->success('¡Pedido actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
   public function generarOrdenDeProduccion($id_pedido) {
+    dd('generarOrdenDeProduccion');
     $pedido   = $this->pedidoActivoRepo->pedidoActivoProduccionFindOrFailById($id_pedido, ['usuario', 'unificar']);
     $armados  = $pedido->armados()->with(['productos'=> function ($query) {
       $query->with('sustitutos');

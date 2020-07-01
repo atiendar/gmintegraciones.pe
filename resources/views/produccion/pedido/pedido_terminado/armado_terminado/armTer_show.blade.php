@@ -22,4 +22,5 @@
     @include('produccion.pedido.pedido_terminado.armado_terminado.armTer_showFields')
   </div>
 </div>
+@include('produccion.pedido.pedido_activo.armado_activo.direccion_armado.dirArm_index')
 @endsection

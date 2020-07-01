@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
 use App\Http\Requests\produccion\pedidoActivo\armadoPedidoActivo\UpdateArmadoPedidoActivoRequest;
+use App\Http\Requests\produccion\pedidoActivo\armadoPedidoActivo\UpdateModalArmadoPedidoActivoRequest;
 // Repositories
 use App\Repositories\produccion\pedidoActivo\armadoPedidoActivo\ArmadoPedidoActivoRepositories;
 // Servicios
@@ -24,11 +25,22 @@ class ArmadoPedidoActivoController extends Controller {
   }
   public function edit(Request $request, $id_armado) {
     $armado     = $this->armadoPedidoActivoRepo->armadoPedidoActivoFindOrFailById($id_armado, ['pedido'], 'edit');
-    $productos  = $this->armadoPedidoActivoRepo->getArmadoPedidoTieneProductosPaginate($armado, $request);
-    return view('produccion.pedido.pedido_activo.armado_activo.armAct_edit', compact('armado', 'productos'));
+    return view('produccion.pedido.pedido_activo.armado_activo.armAct_edit', compact('armado'));
   }
   public function update(UpdateArmadoPedidoActivoRequest $request, $id_armado) {
     $armado = $this->armadoPedidoActivoRepo->update($request, $id_armado);
+    toastr()->success('¡Armado actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    if($armado->estat == config('app.en_almacen_de_salida') OR $armado->estat == config('app.en_revision_de_productos')) {
+      if($armado->pedido->estat_produc == config('app.en_almacen_de_salida_terminado')) {
+        toastr()->info('¡Pedido terminado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+        return redirect(route('produccion.pedidoActivo.index')); 
+      }
+      return redirect(route('produccion.pedidoActivo.edit', $this->serviceCrypt->encrypt($armado->pedido_id))); 
+    }
+    return back();
+  }
+  public function updateModal(UpdateModalArmadoPedidoActivoRequest $request, $id_armado) {
+    $armado = $this->armadoPedidoActivoRepo->updateModal($request, $id_armado);
     toastr()->success('¡Armado actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     if($armado->estat == config('app.en_almacen_de_salida') OR $armado->estat == config('app.en_revision_de_productos')) {
       if($armado->pedido->estat_produc == config('app.en_almacen_de_salida_terminado')) {

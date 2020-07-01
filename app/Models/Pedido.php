@@ -110,7 +110,7 @@ class Pedido extends Model{
     if($modulo == 'Logística' OR $modulo == 'Todos' AND $pedido->fech_estat_log != null) {
       $pedido->estat_log = Pedido::getEstatusLogistica($consulta, $pedido->tot_de_arm, $pedido->arm_carg, $pedido->lid_de_ped_log);
     }
-    $estatus = [$pedido->estat_alm,$pedido->estat_produc,$pedido->estat_log,$pedido];
+    //$estatus = [$pedido->estat_alm,$pedido->estat_produc,$pedido->estat_log,$pedido];
     $pedido->save();
   }
   public static function getEstatusAlmacen($consulta, $tot_de_arm, $arm_carg, $lid_de_ped_alm) {

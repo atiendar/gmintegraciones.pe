@@ -8,8 +8,9 @@ Route::group(['prefix' => 'pedido-activo'], function() {
   Route::match(['GET', 'HEAD'],'orden-de-produccion/{id_pedido}', 'Produccion\PedidoActivo\PedidoActivoController@generarOrdenDeProduccion')->name('produccion.pedidoActivo.generarOrdenDeProduccion')->middleware('permission:produccion.pedidoActivo.index');
  
   Route::group(['prefix' => 'armado'], function() {
-    Route::match(['GET', 'HEAD'],'detalles/{id_armado}', 'Produccion\pedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@show')->name('produccion.pedidoActivo.armado.show')->middleware('permission:produccion.pedidoActivo.armado.show');
-    Route::match(['GET', 'HEAD'],'editar/{id_armado}', 'Produccion\pedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@edit')->name('produccion.pedidoActivo.armado.edit')->middleware('permission:produccion.pedidoActivo.armado.edit');
-    Route::match(['PUT', 'PATCH'],'actualizar/{id_armado}', 'Produccion\pedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@update')->name('produccion.pedidoActivo.armado.update')->middleware('permission:produccion.pedidoActivo.armado.edit');
+    Route::match(['GET', 'HEAD'],'detalles/{id_armado}', 'Produccion\PedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@show')->name('produccion.pedidoActivo.armado.show')->middleware('permission:produccion.pedidoActivo.armado.show|produccion.pedidoActivo.show');
+    Route::match(['GET', 'HEAD'],'editar/{id_armado}', 'Produccion\PedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@edit')->name('produccion.pedidoActivo.armado.edit')->middleware('permission:produccion.pedidoActivo.armado.edit');
+    Route::match(['PUT', 'PATCH'],'actualizar/{id_armado}', 'Produccion\PedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@update')->name('produccion.pedidoActivo.armado.update')->middleware('permission:produccion.pedidoActivo.armado.edit');
+    Route::match(['PUT', 'PATCH'],'actualizar-modal/{id_armado}', 'Produccion\PedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@updateModal')->name('produccion.pedidoActivo.armado.updateModal')->middleware('permission:produccion.pedidoActivo.armado.edit');
   });
 });
