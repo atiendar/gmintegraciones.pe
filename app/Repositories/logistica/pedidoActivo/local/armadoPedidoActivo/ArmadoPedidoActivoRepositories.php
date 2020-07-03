@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\produccion\pedidoActivo\armadoPedidoActivo;
+namespace App\Repositories\logistica\pedidoActivo\local\armadoPedidoActivo;
 // Models
 use App\Models\Pedido;
 use App\Models\PedidoArmado;
@@ -21,8 +21,9 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
     $consulta = PedidoArmado::with($relaciones);
     if($accion == 'edit') {
       $consulta->where(function ($query){
-        $query->where('estat', config('app.productos_completos'))
-          ->orWhere('estat', config('app.en_produccion'));
+        $query->where('estat', config('app.en_almacen_de_salida'))
+          ->orWhere('estat', config('app.sin_entrega_por_falta_de_informacion'))
+          ->orWhere('estat', config('app.intento_de_entrega_fallido'));
       });
     }
     return $consulta->findOrFail($id_armado);
@@ -33,12 +34,6 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
       $armado->estat          = $request->estatus;
       if($armado->estat == config('app.en_almacen_de_salida')) {
         $armado->ubic_rack = $request->ubicacion_rack;
-
-        // Se guarda la fecha en la que el pedido paso a logística por primera vez
-        if($armado->pedido->fech_estat_log == null) {
-          $armado->pedido->fech_estat_log = date("Y-m-d h:i:s");
-          $armado->pedido->save();
-        }
       }elseif($armado->estat == config('app.en_produccion') || $armado->estat == config('app.en_revision_de_productos') || $armado->estat == '') {
         $armado->ubic_rack = null; 
       }
@@ -57,13 +52,12 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
         $armado->updated_at_ped_arm = Auth::user()->email_registro;
       }
       $armado->save();
-
       Pedido::getEstatusPedido($armado->pedido, 'Todos');
       DB::commit();
       return $armado;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
-  public function armadosTerminadosProduccion($id_pedido, $estatus) {
+  public function armadosTerminadosLogistica($id_pedido, $estatus) {
     return Pedido::armadosTerminados($id_pedido, $estatus);
   }
   public function getArmadoPedidoTieneDireccionesPaginate($pedido, $request) {

@@ -27,7 +27,7 @@
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusLogistica')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.cliente')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.totalDeArmados')
-            @include('logistica.pedido.pedido_activoLocal.pedAct_tableOpciones')
+            @include('logistica.pedido.pedido_activo.local.pedAct_tableOpciones')
           </tr>
         @endforeach
       </tbody>

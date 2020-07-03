@@ -1,10 +1,10 @@
 <?php
-namespace App\Repositories\logistica\pedidoActivoLocal;
+namespace App\Repositories\logistica\pedidoActivo\local;
 
 interface PedidoActivoInterface {
   public function getPagination($request, $relaciones);
   
-  public function pedidoActivoProduccionFindOrFailById($id_pedido, $relaciones);
+  public function pedidoActivoLogisticaFindOrFailById($id_pedido, $relaciones);
 
   public function update($request, $id_pedido);
   

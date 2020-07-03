@@ -19,7 +19,7 @@ class CreatePedidoArmadoTieneDireccionesTable extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');            
             $table->integer('cant')->unsigned()->comment('Cantidad');
-
+            $table->string('estat',70)->default('Pendiente')->comment('Estatus');
             $table->string('tip_tarj_felic',30)->nullable()->comment('Tipo de tarjeta de felicitación');
             $table->text('mens_dedic')->nullable()->comment('Mensaje dedicatoria');
             $table->string('tarj_dise_rut',200)->nullable()->comment('Ruta tarjeta diseñada');

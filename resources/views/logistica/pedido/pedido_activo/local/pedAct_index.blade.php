@@ -9,9 +9,9 @@
   </div>
   <div class="card-body">
     {!! Form::model(Request::all(), ['route' => 'logistica.pedidoActivoLocal.index', 'method' => 'GET']) !!}
-      @include('global.buscador.buscador', ['ruta_recarga' => route('logistica.pedidoActivoLocal.index'), 'opciones_buscador' => config('opcionesSelect.select_produccion_pedido_activo_index')])
+      @include('global.buscador.buscador', ['ruta_recarga' => route('logistica.pedidoActivoLocal.index'), 'opciones_buscador' => config('opcionesSelect.select_logistica_pedido_activo_local_index')])
     {!! Form::close() !!}
-    @include('logistica.pedido.pedido_activoLocal.pedAct_table')
+    @include('logistica.pedido.pedido_activo.local.pedAct_table')
     @include('global.paginador.paginador', ['paginar' => $pedidos])
   </div>
 </div>

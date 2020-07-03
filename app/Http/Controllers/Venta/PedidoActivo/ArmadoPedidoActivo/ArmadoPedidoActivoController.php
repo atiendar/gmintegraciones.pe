@@ -23,7 +23,7 @@ class ArmadoPedidoActivoController extends Controller {
   public function edit($id_armado) {
     $armado       = $this->armadoPedidoActivoRepo->armadoFindOrFailById($id_armado, ['direcciones', 'pedido']);
     $pedido       = $armado->pedido()->firstOrFail();
-    $direcciones  = $armado->direcciones()->paginate(9);
+    $direcciones  = $armado->direcciones()->paginate(99999999);
     return view('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_edit', compact('armado', 'pedido', 'direcciones'));
   }
   public function update(UpdateArmadoRequest $request, $id_armado) {

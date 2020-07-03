@@ -16,6 +16,7 @@ $factory->define(Pedido::class, function (Faker $faker) {
       'user_id'               => $cliente_id,
       'tot_de_arm'            => 0,
       'mont_tot_de_ped'       => $faker->randomFloat(2, 100, 3000),
+      'foraneo'               => $faker->randomElement(['Si', 'No']),
       'estat_vent_arm'        => config('app.armados_cargados'),
       'estat_alm'             => config('app.asignar_lider_de_pedido'),
       'fech_estat_alm'        => date('Y-m-d h:i:s'),

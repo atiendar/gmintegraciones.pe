@@ -29,7 +29,7 @@
           <ul class="nav nav-treeview ">
             @canany(['logistica.pedidoActivoLocal.index','logistica.pedidoActivoLocal.show','logistica.pedidoActivoLocal.edit', 'logistica.pedidoActivoLocal.armado.show', 'logistica.pedidoActivoLocal.armado.edit'])
               <li class="nav-item">
-                <a href="" class="nav-link {{ Request::is('logistica/pedido-activo/local') ? 'active' : '' }}">
+                <a href="{{ route('logistica.pedidoActivoLocal.index') }}" class="nav-link {{ Request::is('logistica/pedido-activo/local') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-list"></i>
                   <p>{{ __('Lista de pedidos locales') }}</p>
                 </a>

@@ -756,4 +756,16 @@ return array(
     'tip_env'               => 'Tipo de envío',
     'created_at'            => 'Fecha de registro (YYYY-MM-DD)',
   ],
+  /* ===================== LOGÍSTICA [ PEDIDO ACTIVO LOCAL ] ===================== */
+  'select_logistica_pedido_activo_local_index'  => [
+    ''                        => 'Buscar por. . .',
+  //  'usuario.email_registro'  => 'Cliente',
+    'estat_pag'               => 'Estatus pago',
+    'estat_produc'            => 'Estatus producción',
+    'estat_log'               => 'Estatus logística',
+    'fech_de_entreg'          => 'Fecha de entrega (YYYY-MM-DD)',
+    'num_pedido'              => 'Número de pedido',
+    'tot_de_arm'              => 'Total de armados',
+    'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
+  ],
 );

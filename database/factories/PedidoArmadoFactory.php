@@ -15,6 +15,7 @@ $factory->define(PedidoArmado::class, function (Faker $faker) {
         'cod'                   => $pedido->num_pedido.'-'.$faker->stateAbbr,
         'estat'                 => $faker->randomElement([config('app.en_espera_de_compra'), config('app.en_revision_de_productos'), config('app.productos_completos'), config('app.en_produccion'), config('app.en_almacen_de_salida'), config('app.en_ruta'), config('app.entregado'), config('app.sin_entrega_por_falta_de_informacion'), config('app.intento_de_entrega_fallido'), config('app.cancelado')]),
         'cant'                  => '100',
+        'for_loc'               => $faker->randomElement(['Foráneo', 'Local']),
         'tip'                   => $armado->tip,
         'nom'                   => $armado->nom,
         'sku'                   => $armado->sku,
