@@ -85,7 +85,8 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
 
     Route::group(['prefix' => 'logistica'], function() {
       require_once __DIR__ . '/logistica/logisticaRoutes.php';
-      require_once __DIR__ . '/logistica/pedidoActivoLocalRoutes.php';
+      require_once __DIR__ . '/logistica/pedidoActivoRoutes.php';
+      require_once __DIR__ . '/logistica/direccionLocalRoutes.php';
       require_once __DIR__ . '/logistica/pedidoTerminadoRoutes.php';
     });
   });

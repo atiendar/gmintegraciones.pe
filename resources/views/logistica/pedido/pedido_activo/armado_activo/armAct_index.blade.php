@@ -6,10 +6,10 @@
     </h5>
   </div>
   <div class="card-body">
-    {!! Form::model(Request::all(), ['route' => [$ruta, Crypt::encrypt($pedido->id)],'method' => 'GET']) !!}
-      @include('global.buscador.buscador', ['ruta_recarga' => route($ruta, Crypt::encrypt($pedido->id)), 'opciones_buscador' => config('opcionesSelect.select_produccion_pedido_armados_index')])
+    {!! Form::model(Request::all(), ['route' => [Request::is('logistica/pedido-activo/editar/*') ? 'logistica.pedidoActivo.edit' : 'logistica.pedidoActivo.show', Crypt::encrypt($pedido->id)],'method' => 'GET']) !!}
+      @include('global.buscador.buscador', ['ruta_recarga' => route(Request::is('logistica/pedido-activo/editar/*') ? 'logistica.pedidoActivo.edit' : 'logistica.pedidoActivo.show', Crypt::encrypt($pedido->id)), 'opciones_buscador' => config('opcionesSelect.select_produccion_pedido_armados_index')])
     {!! Form::close() !!}
-    @include('logistica.pedido.pedido_activo.armado_activo.armAct_table', ['ruta_show' => $ruta_show, 'canany_show' => $canany_show, 'ruta_opciones' => $ruta_opciones])
+    @include('logistica.pedido.pedido_activo.armado_activo.armAct_table')
     @include('global.paginador.paginador', ['paginar' => $armados])
   </div>
 </div>

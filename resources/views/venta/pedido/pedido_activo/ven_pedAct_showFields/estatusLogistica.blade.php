@@ -2,9 +2,6 @@
   @case(config('app.pendiente'))
     @php $borde = config('app.color_a'); @endphp
     @break
-  @case(config('app.asignar_lider_de_pedido'))
-    @php $borde = config('app.color_m'); @endphp
-    @break
   @case(config('app.en_espera_de_produccion'))
     @php $borde = config('app.color_a'); @endphp
     @break

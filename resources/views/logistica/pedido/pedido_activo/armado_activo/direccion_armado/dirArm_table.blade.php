@@ -13,14 +13,14 @@
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.tipoDeEnvio')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.costo')
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.colonia')
-          <th colspan="1">&nbsp</th>
+          <th colspan="3">&nbsp</th>
         </tr>
       </thead>
       <tbody> 
         @foreach($direcciones as $direccion)
           <tr title="{{ $direccion->est }}">
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.nombreDeReferenciaUno')
-            @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => true, 'canany' => ['venta.pedidoActivo.armado.show', 'venta.pedidoActivo.show'], 'ruta' => 'venta.pedidoActivo.armado.direccion.show', 'target' => null])
+            @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => true, 'canany' => ['logistica.pedidoActivo.armado.show', 'logistica.pedidoActivo.show'], 'ruta' => 'logistica.pedidoActivo.armado.direccion.show', 'target' => null])
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.estatus')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntrega')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.estado')
@@ -28,8 +28,8 @@
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.costo')
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.colonia')
 
-            @if(Request::route()->getName() == 'logistica.pedidoActivoLocal.armado.edit')
-              @include('logistica.pedido.pedido_activo.armado_activo.direccion.arm_dir_tableOpciones')
+            @if(Request::route()->getName() == 'logistica.pedidoActivo.armado.edit')
+              @include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.dirArm_tableOpciones')
             @else
               <td></td>
             @endif

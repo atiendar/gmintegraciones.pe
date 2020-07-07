@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\logistica\pedidoActivo\local;
+namespace App\Repositories\logistica\pedidoActivo;
 
 interface PedidoActivoInterface {
   public function getPagination($request, $relaciones);

@@ -102,37 +102,38 @@ class Pedido extends Model{
     )->first();
 
     if($modulo == 'Almacén' OR $modulo == 'Todos' AND $pedido->fech_estat_alm != null) {
-      $pedido->estat_alm = Pedido::getEstatusAlmacen($consulta, $pedido->tot_de_arm, $pedido->arm_carg, $pedido->lid_de_ped_alm);
+      $pedido->estat_alm = Pedido::getEstatusAlmacen($consulta, $pedido->tot_de_arm, $pedido->arm_carg, $pedido->per_reci_alm);
     }
     if($modulo == 'Producción' OR $modulo == 'Todos' AND $pedido->fech_estat_produc != null) {
       $pedido->estat_produc = Pedido::getEstatusProduccion($consulta, $pedido->tot_de_arm, $pedido->arm_carg, $pedido->lid_de_ped_produc);
     }
     if($modulo == 'Logística' OR $modulo == 'Todos' AND $pedido->fech_estat_log != null) {
-      $pedido->estat_log = Pedido::getEstatusLogistica($consulta, $pedido->tot_de_arm, $pedido->arm_carg, $pedido->lid_de_ped_log);
+      $pedido->estat_log = Pedido::getEstatusLogistica($consulta, $pedido->tot_de_arm, $pedido->arm_carg);
     }
     //$estatus = [$pedido->estat_alm,$pedido->estat_produc,$pedido->estat_log,$pedido];
     $pedido->save();
   }
-  public static function getEstatusAlmacen($consulta, $tot_de_arm, $arm_carg, $lid_de_ped_alm) {
+  public static function getEstatusAlmacen($consulta, $tot_de_arm, $arm_carg, $per_reci_alm) {
     $anteriores = $consulta->pendiente;
+
 
     if($tot_de_arm != $arm_carg) {
       $estat_alm = config('app.en_espera_de_ventas');
     }
-    if($lid_de_ped_alm != NULL AND $tot_de_arm == $arm_carg) {
+    if($tot_de_arm == $arm_carg) {
       $estat_alm = config('app.productos_completos_terminado');
     }
-    if($lid_de_ped_alm != NULL AND $consulta->en_revision_de_productos > 0) {
+    if($per_reci_alm == NULL) {
+      $estat_alm = config('app.asignar_persona_que_recibe');
+    }
+    if($consulta->en_revision_de_productos > 0) {
       $estat_alm = config('app.en_revision_de_productos');
     }
-    if($lid_de_ped_alm != NULL AND $consulta->en_espera_de_compra > 0) {
+    if($consulta->en_espera_de_compra > 0) {
       $estat_alm = config('app.en_espera_de_compra');
     }
-    if($lid_de_ped_alm != NULL AND $anteriores > 0 AND $consulta->en_espera_de_compra == 0 AND $consulta->en_revision_de_productos == 0) {
+    if($anteriores > 0 AND $consulta->en_espera_de_compra == 0 AND $consulta->en_revision_de_productos == 0) {
       $estat_alm = config('app.en_espera_de_ventas');
-    }
-    if($lid_de_ped_alm == NULL) {
-      $estat_alm = config('app.asignar_lider_de_pedido');
     }
     if(empty($estat_alm)) {
       return abort(500, 'Algo salio mal en el estatus de almacén');
@@ -165,32 +166,29 @@ class Pedido extends Model{
     }
     return $estat_produc;
   }
-  public static function getEstatusLogistica($consulta, $tot_de_arm, $arm_carg, $lid_de_ped_log) {
+  public static function getEstatusLogistica($consulta, $tot_de_arm, $arm_carg) {
     $anteriores = $consulta->pendiente + $consulta->en_espera_de_compra + $consulta->en_revision_de_productos + $consulta->productos_completos + $consulta->en_produccion;
     
     if($tot_de_arm != $arm_carg) {
       $estat_log = config('app.en_espera_de_produccion');
     }
-    if($lid_de_ped_log != NULL AND $anteriores == 0 AND $consulta->suma_entregado == $tot_de_arm) {
+    if($anteriores == 0 AND $consulta->suma_entregado == $tot_de_arm) {
       $estat_log = config('app.entregado');
     }
-    if($lid_de_ped_log != NULL AND $consulta->en_ruta > 0) {
+    if($consulta->en_ruta > 0) {
       $estat_log = config('app.en_ruta');
     }
-    if($lid_de_ped_log != NULL AND $consulta->en_almacen_de_salida > 0) {
+    if($consulta->en_almacen_de_salida > 0) {
       $estat_log = config('app.en_almacen_de_salida');
     }
-    if($lid_de_ped_log != NULL AND $consulta->intento_de_entrega_fallido > 0) {
+    if($consulta->intento_de_entrega_fallido > 0) {
       $estat_log = config('app.intento_de_entrega_fallido');
     }
-    if($lid_de_ped_log != NULL AND $consulta->sin_entrega_por_falta_de_informacion > 0) {
+    if($consulta->sin_entrega_por_falta_de_informacion > 0) {
       $estat_log = config('app.sin_entrega_por_falta_de_informacion');
     }
-    if($lid_de_ped_log != NULL AND $anteriores > 0  AND $consulta->sin_entrega_por_falta_de_informacion == 0 AND $consulta->intento_de_entrega_fallido == 0 AND $consulta->en_almacen_de_salida == 0 AND $consulta->en_ruta == 0) {
+    if($anteriores > 0  AND $consulta->sin_entrega_por_falta_de_informacion == 0 AND $consulta->intento_de_entrega_fallido == 0 AND $consulta->en_almacen_de_salida == 0 AND $consulta->en_ruta == 0) {
       $estat_log = config('app.en_espera_de_produccion');
-    }
-    if($lid_de_ped_log == NULL) {
-      $estat_log = config('app.asignar_lider_de_pedido');
     }
     if(empty($estat_log)) {
       return abort(500, 'Algo salio mal en el estatus de logística');

@@ -76,7 +76,14 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
     try { DB::beginTransaction();
       $armado                 = $this->armadoPedidoActivoFindOrFailById($id_armado, ['pedido'], 'edit');
       $armado->estat          = config('app.en_almacen_de_salida');
-      $armado->ubic_rack = $request->ubicacion_rack;
+      $armado->ubic_rack      = $request->ubicacion_rack;
+
+      // Se guarda la fecha en la que el pedido paso a logística por primera vez
+      if($armado->pedido->fech_estat_log == null) {
+        $armado->pedido->fech_estat_log = date("Y-m-d h:i:s");
+        $armado->pedido->save();
+      }
+      
       $armado->coment_produc  = $request->comentario_produccion;
 
       if($armado->isDirty()) {

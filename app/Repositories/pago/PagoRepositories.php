@@ -189,7 +189,7 @@ class PagoRepositories implements PagoInterface {
   }
   public function modificarEstatusProduccionYAlmacen($pedido) {
     if($pedido->estat_alm == config('app.pendiente')) {
-      $pedido->estat_alm          = config('app.asignar_lider_de_pedido');
+      $pedido->estat_alm          = config('app.en_revision_de_productos');
       $pedido->fech_estat_alm     = date("Y-m-d h:i:s"); 
 
       $pedido->estat_produc       = config('app.asignar_lider_de_pedido');

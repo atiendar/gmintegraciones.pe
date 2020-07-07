@@ -1,11 +1,7 @@
 <div class="card-body table-responsive p-0" id="div-tabla-scrollbar" style="height: 25em;"> 
   <table class="table table-head-fixed table-hover table-striped table-sm table-bordered">
     @if(sizeof($armados) == 0)
-      @if($pedido->lid_de_ped_log == null)
-        @include('layouts.private.busquedaSinResultados', ['mensaje' => __('Falta asignar líder de pedido')])
-      @else
-        @include('layouts.private.busquedaSinResultados')
-      @endif
+      @include('layouts.private.busquedaSinResultados')
     @else 
     <thead>
       <tr>
@@ -25,14 +21,14 @@
       @else
         <tr title="{{ $armado->cod }}" class="text-muted cursor-allowed">
       @endif
-        @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.#', ['show' => true, 'canany' => $canany_show, 'ruta' => $ruta_show])
+        @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.#', ['show' => true, 'canany' => ['logistica.pedidoActivo.armado.show', 'logistica.pedidoActivo.show'], 'ruta' => 'logistica.pedidoActivo.armado.show'])
         @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.estatus')
         @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.cantidad')
         @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.tipo')
         @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.armado')
         @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.ubicacionRack')
-        @if(Request::route()->getName() == 'logistica.pedidoActivoLocal.edit')
-          @include($ruta_opciones)
+        @if(Request::route()->getName() == 'logistica.pedidoActivo.edit')
+          @include('logistica.pedido.pedido_activo.armado_activo.armAct_tableOpciones')
         @else
           <td></td>
         @endif

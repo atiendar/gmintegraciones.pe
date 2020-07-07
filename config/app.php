@@ -85,7 +85,6 @@ return [
 
     # --- ESTATUS GLOBAL
     'pendiente'                 => 'Pendiente',
-    'asignar_lider_de_pedido'   => 'Asignar líder de pedido',
     'cancelado'                 => 'Cancelado',
 
     # --- ESTATUS ARMADO
@@ -119,12 +118,14 @@ return [
     'falta_detallar_direccion'  => 'Falta detallar dirección',
 
     # --- ESTATUS ALMACÉN
+    'asignar_persona_que_recibe'                => 'Asignar persona que recibe',
     'en_espera_de_ventas'                       => 'En espera de ventas',
     'en_espera_de_compra'                       => 'En espera de compra',
     'en_revision_de_productos'                  => 'En revisión de productos',
     'productos_completos_terminado'             => 'Productos completos terminado',
 
     # --- ESTATUS PRODUCCIÓN
+    'asignar_lider_de_pedido'   => 'Asignar líder de pedido',
     'en_espera_de_almacen'                  => 'En espera de almacén',
     'en_produccion'                         => 'En producción',
     'en_almacen_de_salida_terminado'        => 'En almacén de salida terminado',

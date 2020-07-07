@@ -1,13 +1,13 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="lider_de_pedido_almacen">{{ __('Líder de pedido almacén') }} *</label>
+    <label for="persona_que_recibe">{{ __('Persona que recibe') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
       </div>
-      {!! Form::text('lider_de_pedido_almacen', $pedido->lid_de_ped_alm, ['class' => 'form-control' . ($errors->has('lider_de_pedido_almacen') ? ' is-invalid' : ''), 'maxlength' => 80, 'placeholder' => __('Líder de pedido almacén')]) !!}
+      {!! Form::text('persona_que_recibe', $pedido->per_reci_alm, ['class' => 'form-control' . ($errors->has('persona_que_recibe') ? ' is-invalid' : ''), 'maxlength' => 80, 'placeholder' => __('Persona que recibe')]) !!}
     </div>
-    <span class="text-danger">{{ $errors->first('lider_de_pedido_almacen') }}</span>
+    <span class="text-danger">{{ $errors->first('persona_que_recibe') }}</span>
   </div>
 </div>
 <div class="row">

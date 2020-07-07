@@ -27,11 +27,11 @@
       </td>
     </tr>
     <tr style="text-align:center">
-      <td colspan="1">
+      <td colspan="2">
         <dt>Número de pedido</dt>
-        <dt>{{ $pedido->num_pedido }}</dt>
+        <dt style="font-size:30px;">{{ $pedido->num_pedido }}</dt>
       </td>
-      <td colspan="6">
+      <td colspan="3">
         <dt>Pedido unificado</dt>
         <dt>
           @foreach($pedido->unificar as $unificado)
@@ -39,9 +39,9 @@
           @endforeach
         </dt>
       </td>
-      <td colspan="5">
+      <td colspan="7">
         <dt>Fecha de Entrega</dt>
-        <dt>{{ $pedido->fech_de_entreg }}</dt>
+        <dt style="font-size:30px;">{{ $pedido->fech_de_entreg }}</dt>
       </td>
     </tr>
     <tr style="text-align:center">
@@ -57,24 +57,41 @@
     <tr style="text-align:center">
       <td colspan="12">
         <dt>Comentarios generales ventas</dt>
-        <dt>{{ $pedido->coment_venta }}</dt>
+        <dt>
+          @if($pedido->coment_venta == null)
+            Sin comentarios
+          @else
+            {{ $pedido->coment_venta }}
+          @endif
+        </dt>
       </td>
     </tr>
     <tr style="text-align:center">
       <td colspan="12">
         <dt>Comentarios generales cliente</dt>
-        <dt>{{ $pedido->coment_client }}</dt>
+        <dt>
+          @if($pedido->coment_client == null)
+            Sin comentarios
+          @else
+            {{ $pedido->coment_client }}
+          @endif
+        </dt>
       </td>
     </tr>
     <tr>
-      <td colspan="1">
-        <dt><h5>Líder de pedido</h5></dt>
+      <td colspan="2" class="text-center">
+        <p>QR Almacén</p>
+        <img src="data:image/svg;base64, {!! base64_encode($codigoQRAlmacen) !!} ">
       </td>
-      <td colspan="11">
-        <dt>Nombre completo:</dt>
-        <dt>Fecha:</dt>
-        <dt>Firma:</dt>
+      <td colspan="2" class="text-center">
+        <p>QR Producción</p>
+        <img src="data:image/svg;base64, {!! base64_encode($codigoQRProduccion) !!} ">
       </td>
+      <td colspan="5" class="text-center">
+        <p>QR Logística</p>
+        <img src="data:image/svg;base64, {!! base64_encode($codigoQRLogistica) !!} ">
+      </td>
+      <td colspan="3"></td>
     </tr>
   </table>
   <table class="table table-hover table-striped table-sm table-bordered" style="font-size:8px;">
@@ -87,6 +104,7 @@
           <th>CANT</th>
           <th>TIPO</th>
           <th>ARMADO</th>
+          <th>RACK</th>
           <th>COM. VENTAS</th>
           <th>COM. CLIENTE</th>
         </tr>
@@ -94,7 +112,7 @@
       <tbody>
         @foreach($armados as $armado)
           <tr>
-            <td>{{ $armado->cod }}</td>
+            <td style="font-size:15px;">{{ $armado->cod }}</td>
             <td>{{ $armado->cant }}</td>
             <td>{{ $armado->tip }}</td>
             <td>
@@ -110,8 +128,21 @@
                 @endforeach
               @endforeach
             </td>
-            <td>{{ $armado->coment_vent}}</td>
-            <td>{{ $armado->coment_client }}</td>
+            <td>{{ $armado->ubic_rack }}</td>
+            <td>
+              @if($pedido->coment_vent == null)
+                Sin comentarios
+              @else
+                {{ $pedido->coment_vent }}
+              @endif
+            </td>
+            <td>
+              @if($pedido->coment_client == null)
+                Sin comentarios
+              @else
+                {{ $pedido->coment_client }}
+              @endif            
+            </td>
           </tr>
         @endforeach
       </tbody>

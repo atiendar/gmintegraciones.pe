@@ -6,8 +6,8 @@
     </h5>
   </div>
   <div class="card-body">
-    {!! Form::model(Request::all(), ['route' => ['produccion.pedidoActivo.edit',Crypt::encrypt($pedido->id)],'method' => 'GET']) !!}
-      @include('global.buscador.buscador', ['ruta_recarga' => route('produccion.pedidoActivo.edit',Crypt::encrypt($pedido->id)), 'opciones_buscador' => config('opcionesSelect.select_produccion_pedido_armados_index')])
+    {!! Form::model(Request::all(), ['route' => [Request::is('produccion/pedido-activo/editar/*') ? 'produccion.pedidoActivo.edit' : 'produccion.pedidoActivo.show', Crypt::encrypt($pedido->id)],'method' => 'GET']) !!}
+      @include('global.buscador.buscador', ['ruta_recarga' => route(Request::is('produccion/pedido-activo/editar/*') ? 'produccion.pedidoActivo.edit' : 'produccion.pedidoActivo.show', Crypt::encrypt($pedido->id)), 'opciones_buscador' => config('opcionesSelect.select_produccion_pedido_armados_index')])
     {!! Form::close() !!}
     @include('produccion.pedido.pedido_activo.armado_activo.armAct_table')
     @include('global.paginador.paginador', ['paginar' => $armados])

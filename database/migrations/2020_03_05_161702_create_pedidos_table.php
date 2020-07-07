@@ -38,7 +38,7 @@ class CreatePedidosTable extends Migration
             $table->string('estat_vent_dir',100)->default(config('app.falta_asignar_direcciones_armados'))->comment('Estatus de venta 3');
             $table->text('coment_vent')->nullable()->comment('Comentarios venta');
             $table->string('estat_pag',100)->default(config('app.pendiente'))->comment('Estatus de pago');
-            $table->string('lid_de_ped_alm',80)->nullable()->comment('Personas que recibe en almacen');
+            $table->string('per_reci_alm',80)->nullable()->comment('Personas que recibe en almacen');
             $table->string('estat_alm',100)->default(config('app.pendiente'))->comment('Estatus almacén');
             $table->timestamp('fech_estat_alm')->nullable()->comment('Fecha estatus almacén');
             $table->text('coment_alm')->nullable()->comment('Comentarios Almacen');
@@ -46,7 +46,6 @@ class CreatePedidosTable extends Migration
             $table->string('estat_produc',100)->default(config('app.pendiente'))->comment('Estatus del producto');
             $table->timestamp('fech_estat_produc')->nullable()->comment('Fecha estatus producto');
             $table->text('coment_produc')->nullable()->comment('Comentarios producción');
-            $table->string('lid_de_ped_log',80)->nullable()->comment('Lider pedido logística');
             $table->string('estat_log',100)->default(config('app.pendiente'))->comment('Estatus logística');
             $table->timestamp('fech_estat_log')->nullable()->comment('Fecha estatus logística');
             $table->text('coment_log')->nullable()->comment('Comentarios logística');

@@ -7,6 +7,7 @@ use App\Http\Requests\almacen\pedidoActivo\UpdatePedidoActivoRequest;
 // Repositories
 use App\Repositories\almacen\pedidoActivo\PedidoActivoRepositories;
 use App\Repositories\almacen\pedidoActivo\armadoPedidoActivo\ArmadoPedidoActivoRepositories;
+use App\Repositories\venta\pedidoActivo\codigoQR\GenerarQRRepositories;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 
@@ -14,10 +15,12 @@ class PedidoActivoController extends Controller {
   protected $serviceCrypt;
   protected $pedidoActivoRepo;
   protected $armadoPedidoActivoRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, PedidoActivoRepositories $PedidoActivoRepositories, ArmadoPedidoActivoRepositories $armadoPedidoActivoRepositories) {
+  protected $generarQRRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, PedidoActivoRepositories $PedidoActivoRepositories, ArmadoPedidoActivoRepositories $armadoPedidoActivoRepositories, GenerarQRRepositories $generarQRRepositories) {
     $this->serviceCrypt             = $serviceCrypt;
     $this->pedidoActivoRepo         = $PedidoActivoRepositories;
     $this->armadoPedidoActivoRepo   = $armadoPedidoActivoRepositories;
+    $this->generarQRRepo            = $generarQRRepositories;
   }
   public function index(Request $request) {
     $pedidos = $this->pedidoActivoRepo->getPagination($request, ['usuario', 'unificar']);
@@ -38,16 +41,26 @@ class PedidoActivoController extends Controller {
     return view('almacen.pedido.pedido_activo.alm_pedAct_edit', compact('pedido', 'unificados', 'armados', 'armados_terminados_almacen'));
   }
   public function update(UpdatePedidoActivoRequest $request, $id_pedido) {
-    $this->pedidoActivoRepo->update($request, $id_pedido);
-    toastr()->success('¡Pedido actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-    return back();
+    $pedido = $this->pedidoActivoRepo->update($request, $id_pedido);
+
+    if($pedido->estat_alm == config('app.productos_completos_terminado')) {
+      toastr()->success('¡Pedido terminado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+      return redirect(route('almacen.pedidoActivo.index')); 
+    }
+    toastr()->success('¡Pedido modificados exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return redirect(route('almacen.pedidoActivo.edit', $this->serviceCrypt->encrypt($pedido->id)));
   }
   public function generarOrdenDeProduccion($id_pedido){
     $pedido               = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_pedido, ['usuario', 'unificar']);
+
+    $codigoQRAlmacen = $this->generarQRRepo->pedido($pedido->id, 'almacen.pedidoActivo.show');
+    $codigoQRProduccion = $this->generarQRRepo->pedido($pedido->id, 'produccion.pedidoActivo.show');
+    $codigoQRLogistica = $this->generarQRRepo->pedido($pedido->id, 'logistica.pedidoActivo.show');
+
     $armados              = $pedido->armados()->with(['productos'=> function ($query) {
                                                             $query->with('sustitutos');
                                                           }])->get();
-    $orden_de_produccion  = \PDF::loadView('almacen.pedido.pedido_activo.export.ordenDeProduccion', compact('pedido', 'armados'));
+    $orden_de_produccion  = \PDF::loadView('almacen.pedido.pedido_activo.export.ordenDeProduccion', compact('pedido', 'armados', 'codigoQRAlmacen', 'codigoQRProduccion', 'codigoQRLogistica'));
     return $orden_de_produccion->stream();
 //  return $orden_de_produccion->download('OrdenDeProduccionAlmacen-'$pedido->num_pedido.'.pdf'); // Descargar
   }

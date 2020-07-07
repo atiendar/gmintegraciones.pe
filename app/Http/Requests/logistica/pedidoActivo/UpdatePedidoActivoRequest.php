@@ -8,7 +8,6 @@ class UpdatePedidoActivoRequest extends FormRequest {
   }
   public function rules() {
     return [
-      'lider_de_pedido_logistica' => 'required|max:80',
       'comentario_logistica'      => 'nullable|max:30000|string',
     ];
   }

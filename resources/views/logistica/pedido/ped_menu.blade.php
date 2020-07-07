@@ -1,14 +1,21 @@
-@canany(['logistica.pedidoActivoLocal.index', 'logistica.pedidoActivoLocal.show', 'logistica.pedidoActivoLocal.edit'])
+@canany(['logistica.pedidoActivo.index', 'logistica.pedidoActivo.show', 'logistica.pedidoActivo.edit'])
   <li class="nav-item">
-    <a href="{{ route('logistica.pedidoActivoLocal.index') }}" class="nav-link {{ Request::is('logistica/pedido-activo/local') ? 'active' : '' }}">
-      <i class="fas fa-list nav-icon"></i> {{ __('Lista de pedidos locales') }}
+    <a href="{{ route('logistica.pedidoActivo.index') }}" class="nav-link {{ Request::is('logistica/pedido-activo') ? 'active' : '' }}">
+      <i class="fas fa-list nav-icon"></i> {{ __('Lista de pedidos activos') }}
     </a>
   </li>
 @endcanany
-@canany(['logistica.pedidoActivoForaneo.index', 'logistica.pedidoActivoForaneo.show', 'logistica.pedidoActivoForaneo.edit'])
+@canany([''])
   <li class="nav-item">
-    <a href="" class="nav-link {{ Request::is('logistica/pedido-activo/foraneo') ? 'active' : '' }}">
-      <i class="fas fa-list nav-icon"></i> {{ __('Lista de pedidos foráneos') }}
+    <a href="{{ route('logistica.direccionLocal.index') }}" class="nav-link {{ Request::is('logistica/direccion-local') ? 'active' : '' }}">
+      <i class="fas fa-list nav-icon"></i> {{ __('Lista de direcciones locales') }}
+    </a>
+  </li>
+@endcanany
+@canany([''])
+  <li class="nav-item">
+    <a href="" class="nav-link {{ Request::is('logistica/direccion-foraneo') ? 'active' : '' }}">
+      <i class="fas fa-list nav-icon"></i> {{ __('Lista de direcciones foráneos') }}
     </a>
   </li>
 @endcanany

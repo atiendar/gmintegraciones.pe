@@ -24,7 +24,7 @@
 </div>
 <div class="row">
   @can('produccion.pedidoActivo.edit')
-    <div class="col-md-8">
+    <div class="col-md-7">
       <div class="pad">
           <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
             <div class="card-body">

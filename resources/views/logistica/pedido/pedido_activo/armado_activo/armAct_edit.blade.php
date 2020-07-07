@@ -5,8 +5,8 @@
   <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
     <h5>
       <strong>{{ __('Editar armado') }}:</strong>
-      @can('logistica.pedidoActivoLocal.armado.show')
-        <a href="{{ route('logistica.pedidoActivoLocal.armado.show', Crypt::encrypt($armado->id)) }}" class="text-white">{{ $armado->cod }}</a>,
+      @can('logistica.pedidoActivo.armado.show')
+        <a href="{{ route('logistica.pedidoActivo.armado.show', Crypt::encrypt($armado->id)) }}" class="text-white">{{ $armado->cod }}</a>,
       @else
         {{ $armado->cod }},
       @endcan
@@ -19,10 +19,10 @@
     </div>
   </div>
   <div class="card-body">
-    {!! Form::open(['route' => ['logistica.pedidoActivoLocal.armado.update', Crypt::encrypt($armado->id)], 'method' => 'patch', 'id' => 'ventaPedidoActivoArmadoUpdate']) !!}
-      {{--   @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_editFields') --}}
+    {!! Form::open(['route' => ['logistica.pedidoActivo.armado.update', Crypt::encrypt($armado->id)], 'method' => 'patch', 'id' => 'logisticaPedidoActivoArmadoUpdate']) !!}
+      @include('logistica.pedido.pedido_activo.armado_activo.armAct_editFields')
     {!! Form::close() !!}
   </div>
 </div>
-@include('logistica.pedido.pedido_activo.armado_activo.direccion.arm_dir_index')
+@include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.dirArm_index')
 @endsection

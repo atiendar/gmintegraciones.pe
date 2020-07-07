@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-7">
     <div class="pad">
       @include('venta.pedido.pedido_activo.ven_pedAct_showFields.created')
       <div class="row">
@@ -37,7 +37,6 @@
 </div>
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusLogistica')
-  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.liderDePedidoLogistica')
 </div>
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosLogistica')

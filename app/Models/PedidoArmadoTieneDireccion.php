@@ -15,6 +15,13 @@ class PedidoArmadoTieneDireccion extends Model {
   protected $dates = ['deleted_at'];
   protected $softCascade = ['comprobantesDeEntrega']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
 
+  // Buscador
+  public function scopeBuscar($query, $opcion_buscador, $buscador) {
+    if($opcion_buscador != null) {
+      return $query->where("$opcion_buscador", 'LIKE', "%$buscador%");
+    }
+  }
+
   public function armado() {
     return $this->belongsTo('App\Models\PedidoArmado', 'pedido_armado_id')->orderBy('id','DESC');
   }

@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\logistica\pedidoActivo\local;
+namespace App\Repositories\logistica\pedidoActivo;
 // Models
 use App\Models\Pedido;
 // Events
@@ -16,10 +16,8 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     $this->serviceCrypt = $serviceCrypt;
   }
   public function getPagination($request, $relaciones) {
-    // ->where('foraneo', 'No')
     return Pedido::with($relaciones)->where(function ($query) {
-      $query->where('estat_log', config('app.asignar_lider_de_pedido'))
-      ->orWhere('estat_log', config('app.en_espera_de_produccion'))
+      $query->where('estat_log', config('app.en_espera_de_produccion'))
       ->orWhere('estat_log', config('app.en_almacen_de_salida'))
       ->orWhere('estat_log', config('app.en_ruta'))
       ->orWhere('estat_log', config('app.sin_entrega_por_falta_de_informacion'))
@@ -28,10 +26,8 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   }
   public function pedidoActivoLogisticaFindOrFailById($id_pedido, $relaciones) {
     $id_pedido = $this->serviceCrypt->decrypt($id_pedido);
-    // ->where('foraneo', 'No')
     $pedido = Pedido::with($relaciones)->where(function ($query) {
-      $query->where('estat_log', config('app.asignar_lider_de_pedido'))
-        ->orWhere('estat_log', config('app.en_espera_de_produccion'))
+      $query->where('estat_log', config('app.en_espera_de_produccion'))
         ->orWhere('estat_log', config('app.en_almacen_de_salida'))
         ->orWhere('estat_log', config('app.en_ruta'))
         ->orWhere('estat_log', config('app.sin_entrega_por_falta_de_informacion'))
@@ -42,18 +38,17 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   public function update($request, $id_pedido) {
     DB::transaction(function() use($request, $id_pedido) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
       $pedido                    = $this->pedidoActivoLogisticaFindOrFailById($id_pedido, []);
-      $pedido->lid_de_ped_log = $request->lider_de_pedido_logistica;
       $pedido->coment_log     = $request->comentario_logistica;
       if($pedido->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
-          'Logística (Pedidos locales)', // Módulo
-          'logistica.pedidoActivoLocal.show', // Nombre de la ruta
+          'Logística (Pedidos activos)', // Módulo
+          'logistica.pedidoActivo.show', // Nombre de la ruta
           $id_pedido, // Id del registro debe ir encriptado
           $pedido->num_pedido, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Líder de pedido logística', 'Comentario logística'), // Nombre de los inputs del formulario
+          array('Comentario logística'), // Nombre de los inputs del formulario
           $pedido, // Request
-          array('lid_de_ped_log', 'coment_log') // Nombre de los campos en la BD
+          array('coment_log') // Nombre de los campos en la BD
         );
         $pedido->updated_at_ped = Auth::user()->email_registro;
       }
@@ -63,13 +58,9 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     });
   }
   public function getArmadosPedidoPaginate($pedido, $request) {
-    if($pedido->lid_de_ped_log != null) {
-      if($request->opcion_buscador != null) {
-        // ->where('for_loc', 'Local')
-        return $pedido->armados()->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
-      }
-      return $pedido->armados()->paginate($request->paginador);
+    if($request->opcion_buscador != null) {
+      return $pedido->armados()->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
     }
-    return $pedido->armados()->where('id', '!"#$%&/()(/&%$')->paginate($request->paginador);
+    return $pedido->armados()->paginate($request->paginador);
   }
 }

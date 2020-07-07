@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-md-5">
   <div class="card {{ config('app.color_card_secundario') }} card-outline">
     <div class="card-header p-1 border-bottom {{ config('app.color_bg_secundario') }}">
       <h5>{{ __('Pedido unificado') }}</h5> 
@@ -8,7 +8,15 @@
         <table class="table table-head-fixed table-hover table-striped table-sm table-bordered">
           @if(sizeof($unificados) == 0)
             @include('layouts.private.busquedaSinResultados')
-          @else 
+          @else
+          <thead>
+            <tr>
+              @include('venta.pedido.pedido_activo.ven_pedAct_table.th.numeroDePedido')
+              @include('venta.pedido.pedido_activo.ven_pedAct_table.th.estatusAlmacen')
+              @include('venta.pedido.pedido_activo.ven_pedAct_table.th.estatusProduccion')
+              @include('venta.pedido.pedido_activo.ven_pedAct_table.th.estatusLogistica')
+            </tr>
+          </thead>
             <tbody> 
               @foreach($unificados as $unificado)
                 <tr>
@@ -19,6 +27,9 @@
                       {{ $unificado->num_pedido }}
                     @endcanany
                   </td>
+                  @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusAlmacen', ['pedido' => $unificado])
+                  @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusProduccion', ['pedido' => $unificado])
+                  @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusLogistica', ['pedido' => $unificado])
                 </tr>
               @endforeach
             </tbody>

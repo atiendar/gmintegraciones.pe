@@ -13,13 +13,13 @@
           @include('venta.pedido.pedido_activo.ven_pedAct_table.th.estatusLogistica')
           @include('venta.pedido.pedido_activo.ven_pedAct_table.th.cliente')
           @include('venta.pedido.pedido_activo.ven_pedAct_table.th.totalDeArmados')
-          <th colspan="2">&nbsp</th>
+          <th colspan="1">&nbsp</th>
         </tr>
       </thead>
       <tbody> 
         @foreach($pedidos as $pedido)
           <tr title="{{ $pedido->num_pedido }}">
-            @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['logistica.pedidoActivoLocal.show', 'logistica.pedidoActivoLocal.armado.show'], 'ruta' => route('logistica.pedidoActivoLocal.show',  Crypt::encrypt($pedido->id))])
+            @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['logistica.pedidoActivo.show', 'logistica.pedidoActivo.armado.show'], 'ruta' => route('logistica.pedidoActivo.show',  Crypt::encrypt($pedido->id))])
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.numeroDePedidoUnificado')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.fechaDeEntrega')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusPago')
@@ -27,7 +27,7 @@
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusLogistica')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.cliente')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.totalDeArmados')
-            @include('logistica.pedido.pedido_activo.local.pedAct_tableOpciones')
+            @include('logistica.pedido.pedido_activo.pedAct_tableOpciones')
           </tr>
         @endforeach
       </tbody>

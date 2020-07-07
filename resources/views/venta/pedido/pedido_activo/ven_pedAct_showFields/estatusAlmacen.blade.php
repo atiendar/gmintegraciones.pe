@@ -2,7 +2,7 @@
   @case(config('app.pendiente'))
     @php $borde = config('app.color_a'); @endphp
     @break
-  @case(config('app.asignar_lider_de_pedido'))
+  @case(config('app.asignar_persona_que_recibe'))
     @php $borde = config('app.color_m'); @endphp
     @break
   @case(config('app.en_espera_de_ventas'))
