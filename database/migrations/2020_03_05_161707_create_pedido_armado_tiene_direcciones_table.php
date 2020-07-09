@@ -31,13 +31,6 @@ class CreatePedidoArmadoTieneDireccionesTable extends Migration
             $table->string('detalles_de_la_ubicacion',150)->comment('Detalles de la ubicación');
             $table->enum('tip_env', config('opcionesSelect.select_tipo_de_envio'))->default('Normal')->comment('Tipo de envío');
             $table->decimal('cost_por_env',20,2)->unsigned()->nullable()->comment('Costo por envío venta');
-
-            $table->string('met_de_entreg_de_log',60)->nullable()->comment('Método de entrega de logística');
-            $table->string('met_de_entreg_de_log_esp',100)->nullable()->comment('Método de entrega espesifico de logística');
-            $table->string('comp_de_sal_rut', 200)->nullable()->comment('Ruta de donde se guardo el comprobante de salida');
-            $table->string('comp_de_sal_nom', 200)->nullable()->comment('Nombre del comprobante de salida');
-            $table->string('url',200)->nullable()->comment('URL');
-            $table->string('num_guia',60)->nullable()->comment('Número de guía');
           
             $table->string('nom_ref_uno',80)->nullable()->comment('Nombre referencia uno');
             $table->string('nom_ref_dos',80)->nullable()->comment('Nombre referencia dos');

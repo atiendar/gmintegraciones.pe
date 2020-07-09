@@ -3,7 +3,7 @@
     <label for="comentarios">{{ __('Comentarios') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-text-width "></i></span>
+        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
       {!! Form::textarea('comentarios', $pago->coment_pag, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Comentarios'), 'readonly' => 'readonly']) !!}
     </div>

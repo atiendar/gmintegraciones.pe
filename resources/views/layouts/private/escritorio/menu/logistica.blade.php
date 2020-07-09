@@ -18,8 +18,8 @@
         </a>
       </li>
       @canany(['logistica.pedidoActivo.index','logistica.pedidoActivo.show','logistica.pedidoActivo.edit', 'logistica.pedidoActivo.armado.show', 'logistica.pedidoActivo.armado.edit', 'logistica.pedidoTerminado.index','logistica.pedidoTerminado.show'])
-        <li class="nav-item has-treeview {{ Request::is('logistica/pedido*') ? 'menu-open' : '' }}">
-          <a href="#" class="nav-link {{ Request::is('logistica/pedido*') ? 'active' : '' }}">
+        <li class="nav-item has-treeview {{ Request::is('logistica/pedido*') ? 'menu-open' : '' }} {{ Request::is('logistica/direccion*') ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Request::is('logistica/pedido*') ? 'active' : '' }} {{ Request::is('logistica/direccion*') ? 'menu-open' : '' }}">
             <i class="nav-icon fas fa-shopping-bag"></i>
             <p>
               <p>{{ __('Pedidos') }}</p>
@@ -37,23 +37,23 @@
             @endcanany
             @canany([''])
               <li class="nav-item">
-                <a href="" class="nav-link {{ Request::is('logistica/armado-local') ? 'active' : '' }}">
+                <a href="{{ route('logistica.direccionLocal.index') }}" class="nav-link {{ Request::is('logistica/direccion-local') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-list"></i>
-                  <p>{{ __('Lista de armados locales') }}</p>
+                  <p>{{ __('Lista de direcciones locales') }}</p>
                 </a>
               </li>
             @endcanany
             @canany([''])
               <li class="nav-item">
-                <a href="" class="nav-link {{ Request::is('logistica/armado-foraneo') ? 'active' : '' }}">
+                <a href="" class="nav-link {{ Request::is('logistica/direccion-foraneo') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-list"></i>
-                  <p>{{ __('Lista de armados foráneos') }}</p>
+                  <p>{{ __('Lista de direcciones foráneos') }}</p>
                 </a>
               </li>
             @endcanany
             @canany(['logistica.pedidoTerminado.index', 'logistica.pedidoTerminado.show'])
               <li class="nav-item">
-                <a href="" class="nav-link {{ Request::is('logistica/pedido-terminado') ? 'active' : '' }}">
+                <a href="{{ route('logistica.pedidoTerminado.index') }}" class="nav-link {{ Request::is('logistica/pedido-terminado') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-list"></i>
                   <p>{{ __('Lista de pedidos terminados') }}</p>
                 </a>

@@ -5,13 +5,13 @@
     @endcan
   @endif
 </td>
-<td width="1rem" title="Generar comprobante de entrega: {{ $armado->id }}">
-  @if($armado->estat == config('app.en_almacen_de_salida') OR $armado->estat == config('app.en_ruta') OR $armado->estat == config('app.sin_entrega_por_falta_de_informacion') OR $armado->estat == config('app.intento_de_entrega_fallido'))
+<td width="1rem" title="Generar comprobante de entrega: {{ $direccion->id }}">
+  @if($direccion->estat == config('app.en_ruta'))
     <a href="{{ route('logistica.pedidoActivo.armado.direccion.generarComprobanteDeEntrega', Crypt::encrypt($direccion->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-truck"></i></a>
   @endif
 </td>
-<td width="1rem" title="Carcar comprobante de entrega: {{ $armado->id }}">
-  @if($armado->estat == config('app.en_almacen_de_salida') OR $armado->estat == config('app.en_ruta') OR $armado->estat == config('app.sin_entrega_por_falta_de_informacion') OR $armado->estat == config('app.intento_de_entrega_fallido'))
+<td width="1rem" title="Carcar comprobante de entrega: {{ $direccion->id }}">
+  @if($direccion->estat == config('app.en_ruta'))
     <a href="" class='btn btn-light btn-sm'><i class="fas fa-arrow-circle-up"></i></a>
   @endif
 </td>

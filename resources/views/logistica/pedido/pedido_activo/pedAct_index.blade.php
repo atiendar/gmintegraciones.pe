@@ -11,7 +11,7 @@
     {!! Form::model(Request::all(), ['route' => 'logistica.pedidoActivo.index', 'method' => 'GET']) !!}
       @include('global.buscador.buscador', ['ruta_recarga' => route('logistica.pedidoActivo.index'), 'opciones_buscador' => config('opcionesSelect.select_logistica_pedido_activo_local_index')])
     {!! Form::close() !!}
-    @include('logistica.pedido.direccion_local.dirLoc_table')
+    @include('logistica.pedido.pedido_activo.pedAct_table')
     @include('global.paginador.paginador', ['paginar' => $pedidos])
   </div>
 </div>

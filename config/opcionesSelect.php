@@ -548,6 +548,7 @@ return array(
     'Paquetería'                        => 'Paquetería',
     'Transporte interno de la empresa'  => 'Transporte interno de la empresa',
     'Transportes ferro'                 => 'Transportes ferro',
+    'Transportes Vianey'                => 'Transportes Vianey',
     'Viaje metropolitano'               => 'Viaje metropolitano (Uber, Didi, Beat. . .)',
   ],
   'select_tipo_de_descuento'  => [
@@ -752,6 +753,7 @@ return array(
     ''                      => 'Buscar por. . .',
     'cant'                  => 'Cantidad',
     'est_a_la_q_se_cotiz'   => 'Estado al que se cotizó',
+    'estat'                 => 'Estatus',
     'met_de_entreg_de_log'  => 'Metodo de entrega',
     'tip_env'               => 'Tipo de envío',
     'created_at'            => 'Fecha de registro (YYYY-MM-DD)',

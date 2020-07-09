@@ -42,6 +42,8 @@ class DatabaseSeeder extends Seeder
         HistorialesTableSeeder::class,
         SoporteArchivosTableSeeder::class,
         HistorialesArchivosTableSeeder::class,
+        MetodosDeEntregaTableSeeder::class,
+        MetodosDeEntregaEspecificosTableSeeder::class,
       ]);
     }
 }

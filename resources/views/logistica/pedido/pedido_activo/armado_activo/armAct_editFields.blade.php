@@ -1,3 +1,12 @@
+***<BR>
+*<BR>
+*<BR>
+*<BR>
+FALTA AGREGAR OPCION DE ESTATUS CON LA OPCION SIN ENTREGA POR FALTA DE INFORMACIÓN, REGRESAR A PRODUCCIÓN AGREGANDO CAMPO EN LA BD varchar regre(true o false)<BR>
+*<BR>
+*<BR>
+*<BR>
+**<BR>
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="comentario_armado">{{ __('Comentario armado') }}</label>

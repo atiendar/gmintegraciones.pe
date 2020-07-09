@@ -7,14 +7,18 @@ use App\Models\PedidoArmado;
 use App\Events\layouts\ActividadRegistrada;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
+// Repositories
+use App\Repositories\logistica\direccionLocal\DireccionLocalRepositories;
 // Otros
 use Illuminate\Support\Facades\Auth;
 use DB;
 
 class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
   protected $serviceCrypt;
-  public function __construct(ServiceCrypt $serviceCrypt) {
+  protected $direccionLocalRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, DireccionLocalRepositories $direccionLocalRepositories) {
     $this->serviceCrypt = $serviceCrypt;
+    $this->direccionLocalRepo = $direccionLocalRepositories;
   }
   public function armadoPedidoActivoFindOrFailById($id_armado, $relaciones, $accion) { // 'pedido'
     $id_armado = $this->serviceCrypt->decrypt($id_armado); 
@@ -29,10 +33,13 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
   }
   public function update($request, $id_armado) {
     try { DB::beginTransaction();
-      $armado                 = $this->armadoPedidoActivoFindOrFailById($id_armado, ['pedido'], 'edit');
+      $armado                 = $this->armadoPedidoActivoFindOrFailById($id_armado, ['pedido', 'direcciones'], 'edit');
       $armado->estat          = $request->estatus;
       if($armado->estat == config('app.en_almacen_de_salida')) {
         $armado->ubic_rack = $request->ubicacion_rack;
+
+        //Cambia es estatus de las direcciones relacionadas a este armado
+        $this->direccionLocalRepo->cambiarEstatusDireccionAlmacenDeSalida($armado->direcciones);
 
         // Se guarda la fecha en la que el pedido paso a logística por primera vez
         if($armado->pedido->fech_estat_log == null) {
@@ -74,7 +81,7 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
   }
   public function updateModal($request, $id_armado) {
     try { DB::beginTransaction();
-      $armado                 = $this->armadoPedidoActivoFindOrFailById($id_armado, ['pedido'], 'edit');
+      $armado                 = $this->armadoPedidoActivoFindOrFailById($id_armado, ['pedido', 'direcciones'], 'edit');
       $armado->estat          = config('app.en_almacen_de_salida');
       $armado->ubic_rack      = $request->ubicacion_rack;
 
@@ -84,7 +91,8 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
         $armado->pedido->save();
       }
       
-      $armado->coment_produc  = $request->comentario_produccion;
+      //Cambia es estatus de las direcciones relacionadas a este armado
+      $this->direccionLocalRepo->cambiarEstatusDireccionAlmacenDeSalida($armado->direcciones);
 
       if($armado->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
