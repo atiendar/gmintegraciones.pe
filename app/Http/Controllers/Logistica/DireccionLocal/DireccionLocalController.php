@@ -31,23 +31,9 @@ class DireccionLocalController extends Controller {
     return view('logistica.pedido.direccion_local.dirLoc_createComprobanteDeSalida', compact('direccion', 'comprobantes', 'metodos_de_entrega'));
   }
   public function storeComprobanteDeSalida(StoreComprobanteDeEntregaRequest $request, $id_direccion) {
-  //  $comprobante = $this->direccionLocalRepo->storeComprobanteDeSalida($request, $id_direccion);
-  //  return $comprobante;
-  return [$request->hasfile('comprobante_de_salida'), $request->comprobante_de_salida];
+    $comprobante = $this->direccionLocalRepo->storeComprobanteDeSalida($request, $id_direccion);
+    return $comprobante;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-  
   public function createComprobanteDeEntrega($id_direccion) {
     $direccion = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, ['comprobantes']);
     $comprobantes = $direccion->comprobantes()->paginate(99999999);
@@ -55,9 +41,7 @@ class DireccionLocalController extends Controller {
   }
   public function storeComprobanteDeEntrega(Request $request, $id_direccion) {
     dd('storeComprobanteDeEntrega');
-
  //   estat = config('app.entregado')
-   
   }
   public function metodoDeEntregaEspecifico(Request $request, $id_metodo_de_entrega) {
     if( $request->ajax()) {

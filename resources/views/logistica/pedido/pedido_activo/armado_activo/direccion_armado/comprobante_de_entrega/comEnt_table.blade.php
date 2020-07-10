@@ -6,6 +6,7 @@
     <thead>
       <tr>
         <th>{{ __('CANT.') }}</th>
+        <th>{{ __('MET DE ENTREGA') }}</th>
         <th>{{ __('COM. SALIDA') }}</th>
         <th>{{ __('COM. ENTREGA') }}</th>
         <th>{{ __('COM. COST. ENVÍO') }}</th>
@@ -16,11 +17,12 @@
       <tbody> 
         @foreach($comprobantes as $comprobante)
           <tr title="{{ $comprobante->id }}">
-            <td>{{ $direccion->cant }}</td>
-            <td>{{ $direccion->comp_de_sal_nom }}</td>
-            <td>{{ $direccion->comp_ent_nom }}</td>
-            <td>{{ $direccion->comp_cost_por_env_log_nom }}</td>
-            <td>{{ $direccion->cost_por_env_log }}</td>
+            <td>{{ Sistema::dosDecimales($comprobante->cant) }}</td>
+            <td>{{ $comprobante->met_de_entreg_de_log }}</td>
+            <td>{{ $comprobante->comp_de_sal_nom }}</td>
+            <td>{{ $comprobante->comp_ent_nom }}</td>
+            <td>{{ $comprobante->comp_cost_por_env_log_nom }}</td>
+            <td>{{ $comprobante->cost_por_env_log }}</td>
           </tr>
         @endforeach
       </tbody>

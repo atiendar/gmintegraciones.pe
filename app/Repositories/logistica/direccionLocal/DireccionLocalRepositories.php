@@ -48,9 +48,15 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
       $comprobante->met_de_entreg_de_log      = $request->metodo_de_entrega;
       $comprobante->met_de_entreg_de_log_esp  = $request->metodo_de_entrega_espesifico;
       $comprobante->direccion_id              = $id_direccion;
+      $comprobante->comp_de_sal_rut           = 'public/comprobantes_de_salida/'.date("Y").'/'.$comprobante->direccion_id.'/';
+      $comprobante->comp_de_sal_nom           = 'comprobante_de_salida-'.time().'.jpg';
       
-    //  estat = config('app.en_ruta')
+      $algo = $request->file('comprobante_de_salida');
+      $algo->storeAs($comprobante->comp_de_sal_rut, $comprobante->comp_de_sal_nom);
 
+
+    //  estat = config('app.en_ruta')
+/*
       if($request->hasfile('comprobante_de_salida')) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
@@ -62,7 +68,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
         $comprobante->comp_de_sal_rut  = $imagen[0]['ruta'];
         $comprobante->comp_de_sal_nom  = $imagen[0]['nombre'];
       }
-
+*/
       $comprobante->save();
 
       DB::commit();
@@ -79,7 +85,6 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
       $ids        .= $direccion->id.',';
     }
 
-    
     if($up_estaus != NULL) {
       $ids = substr($ids, 0, -1);
       DB::UPDATE("UPDATE ".$nom_tabla." SET estat = CASE id". $up_estaus." END WHERE id IN (".$ids.")");

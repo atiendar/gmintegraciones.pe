@@ -4,7 +4,7 @@
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     @include('logistica.pedido.direccion_local.dirLoc_opcionesComprobantes')
-    <h5>{{ __('Registrar comprobante de salida') }}: {{ $direccion->est }}</h5>
+    <h5>{{ __('Registrar comprobante de salida') }}: {{ $direccion->est }} ({{ Sistema::dosDecimales($direccion->cant) }})</h5>
   </div>
   <div class="ribbon-wrapper">
     <div class="ribbon {{ config('app.color_bg_primario') }}"> 
@@ -38,55 +38,51 @@
     data: {
       errors: [],
       metodos_de_entrega_espesificos: [],
-
-      cantidad:                     null,
-      metodo_de_entrega:            null,
-      metodo_de_entrega_espesifico: null,
-      comprobante_de_salida:        null
+      cantidad:                     [],
+      metodo_de_entrega:            [],
+      metodo_de_entrega_espesifico: [],
+      comprobante_de_salida:        [],
+      mydata: null
     },
     methods: {
-      async create() {
-      //  this.checarBotonSubmitDisabled("btnsubmit")
-
-
-       
-        data.append('cantidad', this.cantidad)
-        data.append('metodo_de_entrega', this.metodo_de_entrega)
-        data.append('metodo_de_entrega_espesifico', this.metodo_de_entrega_espesifico)
-        
-        console.log(data)
-
-
-        axios.post('/logistica/direccion-local/almacenar-comprobante-de-salida/'+{{ $direccion->id }}, data, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }).then(res => {
-          console.log(res)
-          /*
-          Swal.fire({
-            title: 'Éxito',
-            text: '¡Comprobante registrado exitosamente!',
-          }).then((value) => {
-            location.reload()
-          })
-          */
-        }).catch(error => {
-        //  this.checarBotonSubmitEnabled("btnsubmit")
-          if(error.response.status == 422) {
-            this.errors = error.response.data.errors
-          } else {
-            Swal.fire({
-              title: 'Algo salio mal',
-              text: error,
-            })
-          }
-        });
+       create() {
+        this.checarBotonSubmitDisabled("btnsubmit")
+        fetch(mydata.value)
+          .then(res => res.blob())
+          .then(blob => {
+            const formData = new FormData()
+            formData.append('cantidad', this.cantidad)
+            formData.append('metodo_de_entrega', this.metodo_de_entrega)
+            formData.append('metodo_de_entrega_espesifico', this.metodo_de_entrega_espesifico)
+            formData.append('comprobante_de_salida', blob, 'filename')
+            formData.append('mydata', this.mydata)
+      
+            axios.post('/logistica/direccion-local/almacenar-comprobante-de-salida/'+{{ $direccion->id }}, formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            }).then(res => {
+              Swal.fire({
+                title: 'Éxito',
+                text: '¡Comprobante registrado exitosamente!',
+              }).then((value) => {
+                location.reload()
+              })
+            }).catch(error => {
+              this.checarBotonSubmitEnabled("btnsubmit")
+              if(error.response.status == 422) {
+                this.errors = error.response.data.errors
+              } else {
+                Swal.fire({
+                  title: 'Algo salio mal',
+                  text: error,
+                })
+              }
+            });
+         });
       },
       async getMetodosDeEntregaEspesificos() {
-        console.log(this.metodo_de_entrega)
         axios.get('/logistica/direccion-local/metodo-de-entrega-espescifico/'+this.metodo_de_entrega).then(res => {
-          console.log(res.data);
           this.metodos_de_entrega_espesificos = res.data
         }).catch(error => {
           Swal.fire({
@@ -106,35 +102,16 @@
         return true;
       },
       async quitarFoto() {
+        document.getElementById('mydata').value = '';
         document.getElementById('results').innerHTML = 
             '<img src=""/>';
       },
       async capturarFoto() {
         var data_uri = Webcam.snap( function(data_uri, canvas, context) {
-   
-          fetch(data_uri)
-          .then(res => res.blob())
-          .then(blob => {
-            var fd = new FormData()
-            fd.append('image', blob, 'filename')
-            
-           
-            console.log(blob)
-
-
-            let data = new FormData()
-            data.append('comprobante_de_salida', blob)
-
-            console.log(data)
-            
-            // Upload
-            // fetch('upload', {method: 'POST', body: fd})
-          })
-
+          document.getElementById('mydata').value = data_uri;
           document.getElementById('results').innerHTML = 
             '<img src="'+data_uri+'"/>';
         });
-    //    console.log(data)
       },
     }
   });
