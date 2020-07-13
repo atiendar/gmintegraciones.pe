@@ -84,6 +84,11 @@
       async getMetodosDeEntregaEspesificos() {
         axios.get('/logistica/direccion-local/metodo-de-entrega-espescifico/'+this.metodo_de_entrega).then(res => {
           this.metodos_de_entrega_espesificos = res.data
+          metodo_de_etnrega_espesifico = document.getElementById('metodo_de_etnrega_espesifico')
+          metodo_de_etnrega_espesifico.style.display = 'none';
+          if(Object.keys(res.data).length != 0) { 
+            metodo_de_etnrega_espesifico.style.display = 'block';
+          }
         }).catch(error => {
           Swal.fire({
             title: 'Algo salio mal',
@@ -118,8 +123,11 @@
   Webcam.set({
     width: 320,
     height: 240,
+    dest_width: 640,
+    dest_height: 480,
     image_format: 'jpeg',
-    jpeg_quality: 90
+    jpeg_quality: 90,
+    force_flash: false
   });
   Webcam.attach('#my_camera');
 </script>

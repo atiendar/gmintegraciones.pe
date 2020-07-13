@@ -21,7 +21,7 @@
     </div>
     <span v-if="errors.metodo_de_entrega" class="text-danger" v-text="errors.metodo_de_entrega[0]"></span>
   </div>
-  <div class="form-group col-sm btn-sm">
+  <div class="form-group col-sm btn-sm" id="metodo_de_etnrega_espesifico" style="display:none">
     <label for="metodo_de_entrega_espesifico">{{ __('Método de entrega espesifico') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">

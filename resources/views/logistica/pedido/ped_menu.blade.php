@@ -14,7 +14,7 @@
 @endcanany
 @canany([''])
   <li class="nav-item">
-    <a href="" class="nav-link {{ Request::is('logistica/direccion-foraneo') ? 'active' : '' }}">
+    <a href="{{ route('logistica.direccionForaneo.index') }}" class="nav-link {{ Request::is('logistica/direccion-foraneo') ? 'active' : '' }}">
       <i class="fas fa-list nav-icon"></i> {{ __('Lista de direcciones foráneos') }}
     </a>
   </li>

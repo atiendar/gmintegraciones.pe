@@ -3,7 +3,7 @@
     @case(config('app.pendiente'))
       <span class="badge" style="background:{{ config('app.color_a') }};color:{{ config('app.color_0') }};">{{ $pedido->estat_alm }}</span>
       @break
-    @case(config('app.asignar_lider_de_pedido'))
+    @case(config('app.asignar_persona_que_recibe'))
       <span class="badge" style="background:{{ config('app.color_m') }};">{{ $pedido->estat_alm }}</span>
       @break
     @case(config('app.en_espera_de_ventas'))

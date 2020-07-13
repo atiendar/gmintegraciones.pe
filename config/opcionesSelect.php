@@ -184,10 +184,11 @@ return array(
     'created_at'          => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_input'  => [
-    'Armados (Gama)'        => 'Armados (Gama)',
-    'Armados (Tipo)'        => 'Armados (Tipo)',
-    'Productos (Categoría)' => 'Productos (Categoría)',
-    'Productos (Etiqueta)'  => 'Productos (Etiqueta)',
+    'Armados (Gama)'                  => 'Armados (Gama)',
+    'Armados (Tipo)'                  => 'Armados (Tipo)',
+    'Productos (Categoría)'           => 'Productos (Categoría)',
+    'Productos (Etiqueta)'            => 'Productos (Etiqueta)',
+    'Soportes (Agrupación de fallas)' => 'Soportes (Agrupación de fallas)',
   ],
 /* ===================== SISTEMA [ SERIES ] ===================== */
   'select_serie_index'  => [

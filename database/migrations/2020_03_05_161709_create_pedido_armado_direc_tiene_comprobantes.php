@@ -20,9 +20,10 @@ class CreatePedidoArmadoDirecTieneComprobantes extends Migration
             $table->bigIncrements('id');
 
             $table->integer('cant')->unsigned()->comment('Cantidad');
-            
+            $table->string('estat',70)->default(config('app.en_ruta'))->comment('Estatus');
+
             $table->string('met_de_entreg_de_log',150)->comment('Método de entrega de logística');
-            $table->string('met_de_entreg_de_log_esp',150)->comment('Método de entrega espesifico de logística');
+            $table->string('met_de_entreg_de_log_esp',150)->nullable()->comment('Método de entrega espesifico de logística');
             $table->string('comp_de_sal_rut', 200)->comment('Ruta de donde se guardo el comprobante de salida');
             $table->string('comp_de_sal_nom', 200)->comment('Nombre del comprobante de salida');
             $table->string('url',200)->nullable()->comment('URL rastreo');
@@ -36,6 +37,7 @@ class CreatePedidoArmadoDirecTieneComprobantes extends Migration
 
             $table->unsignedBigInteger('direccion_id')->comment('Foreign Key');
             $table->foreign('direccion_id')->references('id')->on('pedido_armado_tiene_direcciones')->onUpdate('restrict')->onDelete('cascade');
+            $table->string('created_at_comp', 75)->comment('Correo del usuario que realizo el registro');
             $table->timestamps();
             $table->softDeletes();
         });

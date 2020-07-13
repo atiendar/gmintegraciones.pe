@@ -6,7 +6,7 @@
     <h5>
       <strong>{{ __('Detalles dirección') }}:</strong>
       @can('venta.pedidoActivo.armado.direccion.edit')
-        <a href="{{ route('venta.pedidoActivo.armado.direccion.edit', Crypt::encrypt($direccion->id)) }}" class="text-white">{{ $direccion->est }}</a>,
+        <a href="{{ route('venta.pedidoActivo.armado.direccion.edit', Crypt::encrypt($direccion->id)) }}" class="text-white">{{ $direccion->est }} ({{ Sistema::dosDecimales($direccion->cant) }})</a>,
       @else
         {{ $direccion->est }},
       @endcan
@@ -22,4 +22,5 @@
     @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_showFields')
   </div>
 </div>
+@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.comprobantes.com_index')
 @endsection

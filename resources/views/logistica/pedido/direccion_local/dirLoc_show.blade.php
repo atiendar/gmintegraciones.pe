@@ -5,7 +5,7 @@
   <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
     @include('logistica.pedido.direccion_local.dirLoc_opcionesComprobantes')
     <h5>
-      <strong>{{ __('Detalles del registro') }}:</strong>{{ $direccion->est }}
+      <strong>{{ __('Detalles del registro') }}:</strong> {{ $direccion->est }}
     </h5>
   </div>
   <div class="ribbon-wrapper">

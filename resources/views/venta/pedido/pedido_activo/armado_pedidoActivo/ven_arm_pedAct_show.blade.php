@@ -6,7 +6,7 @@
     <h5>
       <strong>{{ __('Datos generales del armado') }}:</strong>
       @can('venta.pedidoActivo.armado.edit')
-        <a href="{{ route('venta.pedidoActivo.armado.edit', Crypt::encrypt($armado->id)) }}" class="text-white">{{ $armado->cod }}</a>,
+        <a href="{{ route('venta.pedidoActivo.armado.edit', Crypt::encrypt($armado->id)) }}" class="text-white">{{ $armado->cod }} ({{ Sistema::dosDecimales($armado->cant) }})</a>,
       @else
         {{ $armado->cod }},
       @endcan

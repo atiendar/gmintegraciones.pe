@@ -48,15 +48,7 @@
        {!! Form::text('cantidad', $direccion->cant, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Cantidad'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
-  <div class="form-group col-sm btn-sm">
-    <label for="estatus">{{ __('Estatus') }}</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
-      </div>
-      {!! Form::text('estatus', $direccion->estat, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Estatus'), 'readonly' => 'readonly']) !!}
-    </div>
-  </div>
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.estatus', ['armado' => $direccion])
 </div>
 <label for="envio_al_que_se_cotizo">{{ __('ENVÍO AL QUE SE COTIZO') }}</label>
 <div class="border border-primary rounded p-2">

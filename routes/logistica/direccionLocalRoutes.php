@@ -7,6 +7,9 @@ Route::group(['prefix' => 'direccion-local'], function() {
   Route::match(['GET', 'HEAD'],'registrar-comprobante-de-salida/{id_direccion}', 'Logistica\DireccionLocal\DireccionLocalController@createComprobanteDeSalida')->name('logistica.direccionLocal.createComprobanteDeSalida')->middleware('permission:logistica.direccionLocal.createComprobantes');
   Route::post('almacenar-comprobante-de-salida/{id_direccion}', 'Logistica\DireccionLocal\DireccionLocalController@storeComprobanteDeSalida')->name('logistica.direccionLocal.storeComprobanteDeSalida')->middleware('permission:logistica.direccionLocal.createComprobantes');
 
+
+
+  
   Route::match(['GET', 'HEAD'],'registrar-comprobante-de-entrega/{id_direccion}', 'Logistica\DireccionLocal\DireccionLocalController@createComprobanteDeEntrega')->name('logistica.direccionLocal.createComprobanteDeEntrega')->middleware('permission:logistica.direccionLocal.createComprobantes');
   Route::post('almacenar-comprobante-de-entrega/{id_direccion}', 'Logistica\DireccionLocal\DireccionLocalController@storeComprobanteDeEntrega')->name('logistica.direccionLocal.storeComprobanteDeEntrega')->middleware('permission:logistica.direccionLocal.createComprobantes');
 });

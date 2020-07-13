@@ -1,17 +1,14 @@
-<td width="1rem" title="Editar: {{ $direccion->est }}">
-  @if($direccion->estat == config('app.pendiente') OR $direccion->estat == config('app.sin_entrega_por_falta_de_informacion') OR $direccion->estat == config('app.intento_de_entrega_fallido'))
-    @can('logistica.pedidoActivo.armado.edit')
-      <a href="{{ route('logistica.pedidoActivo.armado.direccion.edit', Crypt::encrypt($direccion->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-edit"></i></a>
+<td width="1rem" title="Registrar comprobante de salida: {{ $direccion->est }}">
+  @if($direccion->estat != config('app.pendiente') AND $direccion->estat != config('app.entregado'))
+    @can('logistica.direccionLocal.createComprobantes')
+      <a href="{{ route('logistica.direccionLocal.createComprobanteDeSalida', Crypt::encrypt($direccion->id)) }}" class='btn btn-light btn-sm' target="_blank"><i class="fas fa-sign-out-alt"></i></a>
     @endcan
   @endif
 </td>
-<td width="1rem" title="Generar comprobante de entrega: {{ $direccion->id }}">
-  @if($direccion->estat == config('app.en_ruta'))
-    <a href="{{ route('logistica.pedidoActivo.armado.direccion.generarComprobanteDeEntrega', Crypt::encrypt($direccion->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-truck"></i></a>
-  @endif
-</td>
-<td width="1rem" title="Carcar comprobante de entrega: {{ $direccion->id }}">
-  @if($direccion->estat == config('app.en_ruta'))
-    <a href="" class='btn btn-light btn-sm'><i class="fas fa-arrow-circle-up"></i></a>
+<td width="1rem" title="Registrar comprobante de entrega: {{ $direccion->est }}">
+  @if($direccion->estat != config('app.pendiente') AND $direccion->estat != config('app.entregado'))
+    @can('logistica.direccionLocal.createComprobantes')
+      <a href="" class='btn btn-light btn-sm' target="_blank"><i class="fas fa-truck"></i></a>
+    @endcan
   @endif
 </td>

@@ -18,8 +18,8 @@
               @canany(['logistica.pedidoActivo.index','logistica.pedidoActivo.show','logistica.pedidoActivo.edit', 'logistica.pedidoActivo.armado.show', 'logistica.pedidoActivo.armado.edit'])
                 <a href="{{ route('logistica.pedidoActivo.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos activos') }}</a>
               @endcanany
-              <a href="" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de armados locales') }}</a>
-              <a href="" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de armados foráneos') }}</a>
+              <a href="{{ route('logistica.direccionLocal.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de armados locales') }}</a>
+              <a href="{{ route('logistica.direccionForaneo.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de armados foráneos') }}</a>
               @canany(['logistica.pedidoTerminado.index','logistica.pedidoTerminado.show'])
                 <a href="{{ route('logistica.pedidoTerminado.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos entregados') }} (-90d)</a>
               @endcanany
