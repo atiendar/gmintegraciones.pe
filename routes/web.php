@@ -86,8 +86,13 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
     Route::group(['prefix' => 'logistica'], function() {
       require_once __DIR__ . '/logistica/logisticaRoutes.php';
       require_once __DIR__ . '/logistica/pedidoActivoRoutes.php';
-      require_once __DIR__ . '/logistica/direccionLocalRoutes.php';
-      require_once __DIR__ . '/logistica/direccionForaneaRoutes.php';
+
+      Route::group(['prefix' => 'direccion'], function() {
+        Route::match(['GET', 'HEAD'],'metodo-de-entrega-espescifico/{id_metodo_de_entrega}', 'Logistica\DireccionLocal\DireccionLocalController@metodoDeEntregaEspecifico')->name('logistica.metodoDeEntregaEspecifico.index')->middleware('permission:logistica.direccionLocal.createComprobantes');
+        require_once __DIR__ . '/logistica/direccionLocalRoutes.php';
+        require_once __DIR__ . '/logistica/direccionForaneaRoutes.php';
+      });
+      
       require_once __DIR__ . '/logistica/pedidoTerminadoRoutes.php';
     });
   });

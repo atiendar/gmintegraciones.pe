@@ -13,11 +13,19 @@
   </div>
   <div class="card-body">
     <form @submit.prevent="create" enctype="multipart/form-data">
-      @include('logistica.pedido.direccion_local.dirLoc_createComprobanteDeSalidaFields')
+      @include('logistica.pedido.direccion_local.comprobante_de_salida.com_createComprobanteDeSalidaFields')
+      <div class="row">
+        <div class="form-group col-sm btn-sm">
+          <a href="{{ route('logistica.direccionLocal.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
+        </div>
+        <div class="form-group col-sm btn-sm">
+          <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2"><i class="fas fa-check-circle text-dark"></i> {{ __('Registrar') }}</button>
+        </div>
+      </div>
     </form>
   </div>
 </div>
-@include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.comprobante_de_entrega.comEnt_index')
+@include('logistica.pedido.direccion_local.comprobante_de_salida.com_index')
 @endsection
 
 @section('css')
@@ -57,7 +65,7 @@
             formData.append('comprobante_de_salida', blob, 'filename')
             formData.append('mydata', this.mydata)
       
-            axios.post('/logistica/direccion-local/almacenar-comprobante-de-salida/'+{{ $direccion->id }}, formData, {
+            axios.post('/logistica/direccion/local/comprobante-de-salida/almacenar/'+{{ $direccion->id }}, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
               }
@@ -82,19 +90,21 @@
          });
       },
       async getMetodosDeEntregaEspesificos() {
-        axios.get('/logistica/direccion-local/metodo-de-entrega-espescifico/'+this.metodo_de_entrega).then(res => {
-          this.metodos_de_entrega_espesificos = res.data
-          metodo_de_etnrega_espesifico = document.getElementById('metodo_de_etnrega_espesifico')
-          metodo_de_etnrega_espesifico.style.display = 'none';
-          if(Object.keys(res.data).length != 0) { 
-            metodo_de_etnrega_espesifico.style.display = 'block';
-          }
-        }).catch(error => {
-          Swal.fire({
-            title: 'Algo salio mal',
-            text: error,
-          })
-        });
+        if(this.metodo_de_entrega != '') {
+          axios.get('/logistica/direccion/metodo-de-entrega-espescifico/'+this.metodo_de_entrega).then(res => {
+            this.metodos_de_entrega_espesificos = res.data
+            metodo_de_entrega_espesifico = document.getElementById('metodo_de_entrega_espesifico')
+            metodo_de_entrega_espesifico.style.display = 'none';
+            if(Object.keys(res.data).length != 0) { 
+              metodo_de_entrega_espesifico.style.display = 'block';
+            }
+          }).catch(error => {
+            Swal.fire({
+              title: 'Algo salio mal',
+              text: error,
+            })
+          });
+        }
       },
       async checarBotonSubmitDisabled(id_btn) {
         document.getElementById(id_btn).value = "Espere un momento...";

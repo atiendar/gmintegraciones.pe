@@ -1,4 +1,13 @@
-public function generarComprobanteDeEntrega($id_direccion){
+public function createComprobanteDeEntrega($id_direccion) {
+    $direccion = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, ['comprobantes']);
+    $comprobantes = $direccion->comprobantes()->paginate(99999999);
+    return view('logistica.pedido.direccion_local.dirLoc_createComprobanteDeEntrega', compact('direccion', 'comprobantes'));
+  }
+  public function storeComprobanteDeEntrega(Request $request, $id_direccion) {
+    dd('storeComprobanteDeEntrega');
+ //   estat = config('app.entregado')
+  }
+  public function generarComprobanteDeEntrega($id_direccion){
     dd('generarComprobanteDeEntrega');
     $direccion               = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_direccion, ['armado']);
 

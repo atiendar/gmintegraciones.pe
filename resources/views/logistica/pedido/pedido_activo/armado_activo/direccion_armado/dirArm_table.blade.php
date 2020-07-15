@@ -27,7 +27,6 @@
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.tipoDeEnvio')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.costo')
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.colonia')
-
             @if(Request::route()->getName() == 'logistica.pedidoActivo.armado.edit')
               @include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.dirArm_tableOpciones')
             @else

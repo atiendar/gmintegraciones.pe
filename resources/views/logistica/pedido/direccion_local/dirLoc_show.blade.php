@@ -22,5 +22,5 @@
     </div>
   </div>
 </div>
-@include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.comprobante_de_entrega.comEnt_index')
+@include('logistica.pedido.direccion_local.comprobante_de_salida.com_index')
 @endsection

@@ -21,7 +21,7 @@
     </div>
     <span v-if="errors.metodo_de_entrega" class="text-danger" v-text="errors.metodo_de_entrega[0]"></span>
   </div>
-  <div class="form-group col-sm btn-sm" id="metodo_de_etnrega_espesifico" style="display:none">
+  <div class="form-group col-sm btn-sm" id="metodo_de_entrega_espesifico" style="display:none">
     <label for="metodo_de_entrega_espesifico">{{ __('Método de entrega espesifico') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
@@ -45,12 +45,12 @@
       <div id="results" ></div>
     <span v-if="errors.comprobante_de_salida" class="text-danger" v-text="errors.comprobante_de_salida[0]"></span>
   </div>
-</div>
-<div class="row">
-  <div class="form-group col-sm btn-sm">
-    <a href="{{ route('logistica.direccionLocal.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2"><i class="fas fa-check-circle text-dark"></i> {{ __('Registrar') }}</button>
-  </div>
+  @if(Request::route()->getName() == 'logistica.direccionLocal.comprobante.edit')
+    <div class="form-group col-sm btn-sm">
+      <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label>
+      <div class="pad box-pane-right no-padding" style="min-height: 280px">
+        <iframe src="{{ Storage::url($comprobante->comp_de_sal_rut.$comprobante->comp_de_sal_nom) }}" style="width:100%;border:none;height:15rem;"></iframe>
+      </div>
+    </div>
+  @endif
 </div>
