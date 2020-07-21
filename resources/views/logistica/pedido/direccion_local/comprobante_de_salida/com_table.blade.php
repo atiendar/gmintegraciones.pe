@@ -13,13 +13,13 @@
         @include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.comprobante.com_table.th.comprobanteDeEntrega')
         @include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.comprobante.com_table.th.comprobanteCostoDeEnvio')
         @include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.comprobante.com_table.th.costoDeEnvio')
-        <th colspan="1">&nbsp</th>
+        <th colspan="2">&nbsp</th>
       </tr>
     </thead>
       <tbody> 
         @foreach($comprobantes as $comprobante)
           <tr title="{{ $comprobante->id }}">
-            @include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.comprobante.com_table.td.#', ['show' => true, 'canany' => ['logistica.direccionLocal.comprobante.show'], 'ruta' => 'logistica.direccionLocal.comprobante.show', 'target' => null])
+            @include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.comprobante.com_table.td.#', ['show' => true, 'canany' => ['logistica.direccionLocal.comprobanteDeSalida.show'], 'ruta' => 'logistica.direccionLocal.comprobanteDeSalida.show', 'target' => null])
             @include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.comprobante.com_table.td.cantidad')
             @include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.comprobante.com_table.td.estatus')
             @include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.comprobante.com_table.td.metodo_de_entrega')
@@ -29,6 +29,8 @@
             @include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.comprobante.com_table.td.costoDeEnvio')
             @if(Request::route()->getName() == 'logistica.direccionLocal.comprobanteDeSalida.create')
               @include('logistica.pedido.direccion_local.comprobante_de_salida.com_tableOpciones')
+            @elseif(Request::route()->getName() == 'logistica.direccionLocal.comprobanteEntrega.index')
+              @include('logistica.pedido.direccion_local.comprobante_de_entrega.comEnt_tableOpciones')
             @else
               <td></td>
             @endif

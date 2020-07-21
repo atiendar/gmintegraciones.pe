@@ -16,8 +16,7 @@ class DireccionForaneoController extends Controller {
     $this->metodoDeEntregaRepo   = $metodoDeEntregaRepositories;
   }
   public function index(Request $request) {
-    dd('index');
-    $direcciones_locales = $this->direccionLocalRepo->getPagination($request, ['armado']);
-    return view('logistica.pedido.direccion_local.dirLoc_index', compact('direcciones_locales'));
+    $direcciones_foraneas = $this->direccionLocalRepo->getPagination($request, config('opcionesSelect.select_foraneo_local.Foráneo'), ['armado']);
+    return view('logistica.pedido.direccion_foraneo.dirFor_index', compact('direcciones_foraneas'));
   }
 }

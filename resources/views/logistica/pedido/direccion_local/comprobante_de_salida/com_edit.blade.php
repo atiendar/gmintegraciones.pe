@@ -5,8 +5,8 @@
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     <h5>
       <strong>{{ __('Editar comprobante') }}: </strong>
-      @can('logistica.direccionLocal.comprobante.show')
-        <a href="{{ route('logistica.direccionLocal.comprobante.show', Crypt::encrypt($comprobante->id)) }}" class="text-white">{{ $comprobante->id }}</a>
+      @can('logistica.direccionLocal.comprobanteDeSalida.show')
+        <a href="{{ route('logistica.direccionLocal.comprobanteDeSalida.show', Crypt::encrypt($comprobante->id)) }}" class="text-white">{{ $comprobante->id }}</a>
       @else
         {{ $comprobante->id }}
       @endcan
@@ -34,8 +34,6 @@
 </div>
 @endsection
 
-
-
 @section('css')
 <style>
   #my_camera{
@@ -57,7 +55,6 @@
       cantidad:                     "{{ $comprobante->cant }}",
       metodo_de_entrega:            "{{ $comprobante->met_de_entreg_de_log }}",
       metodo_de_entrega_espesifico: "{{ $comprobante->met_de_entreg_de_log_esp }}",
-      comprobante_de_salida:        [],
       mydata: null
     },
     mounted() {
@@ -65,7 +62,6 @@
     },
     methods: {
       edit() {
-        event.preventDefault();     
         Swal.fire({
           title: '¡Alerta!',
           text: '¿Estás seguro quieres actualizar el registro?',
@@ -78,29 +74,31 @@
           reverseButtons: false,
         }).then((result) => {
           if (result.value) {
-        //    this.checarBotonSubmitDisabled("btnsubmit")
+            this.checarBotonSubmitDisabled("btnsubmit")
             fetch(mydata.value)
               .then(res => res.blob())
               .then(blob => {
-                var formData = new FormData()
+                const formData = new FormData()
                 formData.append('cantidad', this.cantidad)
                 formData.append('metodo_de_entrega', this.metodo_de_entrega)
                 formData.append('metodo_de_entrega_espesifico', this.metodo_de_entrega_espesifico)
                 if(blob.type != 'text/html') {
                   formData.append('comprobante_de_salida', blob, 'filename')
-                  formData.append('mydata', this.mydata)
+                } else {
+                  formData.append('comprobante_de_salida', [])
                 }
-                axios.put('/logistica/direccion/local/comprobante-de-salida/actualizar/'+{{ $comprobante->id }}, formData, {
+                formData.append('mydata', this.mydata)
+          
+                axios.post('/logistica/direccion/local/comprobante-de-salida/actualizar/'+{{ $comprobante->id }}, formData, {
                   headers: {
                     'Content-Type': 'multipart/form-data'
                   }
                 }).then(res => {
-                  console.log(res)
                   Swal.fire({
                     title: 'Éxito',
-                    text: '¡Comprobante registrado exitosamente!',
+                    text: '¡Comprobante actializado exitosamente!',
                   }).then((value) => {
-                  //  location.reload()
+                   location.reload()
                   })
                 }).catch(error => {
                   this.checarBotonSubmitEnabled("btnsubmit")
@@ -113,21 +111,6 @@
                     })
                   }
                 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             });
           }
         });
@@ -185,5 +168,3 @@
   Webcam.attach('#my_camera');
 </script>
 @endsection
-
-

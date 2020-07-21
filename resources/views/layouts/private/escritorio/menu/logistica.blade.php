@@ -37,7 +37,7 @@
             @endcanany
             @canany([''])
               <li class="nav-item">
-                <a href="{{ route('logistica.direccionLocal.index') }}" class="nav-link {{ Request::is('logistica/direccion-local') ? 'active' : '' }}">
+                <a href="{{ route('logistica.direccionLocal.index') }}" class="nav-link {{ Request::is('logistica/direccion/local') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-list"></i>
                   <p>{{ __('Lista de direcciones locales') }}</p>
                 </a>
@@ -45,7 +45,7 @@
             @endcanany
             @canany([''])
               <li class="nav-item">
-                <a href="{{ route('logistica.direccionForaneo.index') }}" class="nav-link {{ Request::is('logistica/direccion-foraneo') ? 'active' : '' }}">
+                <a href="{{ route('logistica.direccionForaneo.index') }}" class="nav-link {{ Request::is('logistica/direccion/foraneo') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-list"></i>
                   <p>{{ __('Lista de direcciones foráneos') }}</p>
                 </a>

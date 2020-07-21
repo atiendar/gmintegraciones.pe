@@ -11,9 +11,9 @@
     @endcan 
   @endif
 
-  @if(Request::route()->getName() != 'logistica.direccionLocal.createComprobanteDeEntrega')
-    @can('logistica.direccionLocal.createComprobanteDeSalida')
-      <a href="{{ route('logistica.direccionLocal.createComprobanteDeEntrega', Crypt::encrypt($direccion->id)) }}" class="btn btn-info btn-sm">{{ __('Registrar comprobante de entrega') }}</a>
+  @if(Request::route()->getName() != 'logistica.direccionLocal.comprobanteEntrega.index')
+    @can('logistica.direccionLocal.comprobanteEntrega.index')
+      <a href="{{ route('logistica.direccionLocal.comprobanteEntrega.index', Crypt::encrypt($direccion->id)) }}" class="btn btn-info btn-sm">{{ __('Registrar comprobante de entrega') }}</a>
     @endcan
   @endif
 </div>

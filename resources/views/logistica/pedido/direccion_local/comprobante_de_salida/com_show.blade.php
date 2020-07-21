@@ -5,8 +5,8 @@
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     <h5>
       <strong>{{ __('Detalles comprobante') }}: </strong>
-      @can('logistica.direccionLocal.comprobante.edit')
-        <a href="{{ route('logistica.direccionLocal.comprobante.edit', Crypt::encrypt($comprobante->id)) }}" class="text-white">{{ $comprobante->id }}</a>
+      @can('logistica.direccionLocal.comprobanteDeSalida.edit')
+        <a href="{{ route('logistica.direccionLocal.comprobanteDeSalida.edit', Crypt::encrypt($comprobante->id)) }}" class="text-white">{{ $comprobante->id }}</a>
       @else
         {{ $comprobante->id }}
       @endcan

@@ -19,7 +19,7 @@ class ComprobanteDeSalidaController extends Controller {
     $this->metodoDeEntregaRepo      = $metodoDeEntregaRepositories;
   }
   public function create($id_direccion) {
-    $direccion          = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, ['comprobantes']);
+    $direccion          = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Local'), ['comprobantes']);
     $comprobantes       = $direccion->comprobantes()->paginate(99999999);
     $metodos_de_entrega = $this->metodoDeEntregaRepo->getAllMetodosPluck();
     return view('logistica.pedido.direccion_local.comprobante_de_salida.com_createComprobanteDeSalida', compact('direccion', 'comprobantes', 'metodos_de_entrega'));
@@ -41,6 +41,7 @@ class ComprobanteDeSalidaController extends Controller {
 
   }
   public function update(UpdateComprobanteDeSalidaRequest $request, $id_comprobante) {
-    return $request->all();
+    $comprobante = $this->comprobanteDeSalidaRepo->update($request, $id_comprobante);
+    return $comprobante;
   }
 }

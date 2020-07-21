@@ -12,9 +12,9 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   public function __construct(ServiceCrypt $serviceCrypt) {
     $this->serviceCrypt         = $serviceCrypt;
   }
-  public function direccionLocalFindOrFailById($id_direccion, $relaciones) {
+  public function direccionLocalFindOrFailById($id_direccion, $for_loc, $relaciones) {
     $id_direccion = $this->serviceCrypt->decrypt($id_direccion);
-    $direccion = PedidoArmadoTieneDireccion::with($relaciones)->where('for_loc', config('opcionesSelect.select_foraneo_local.Local'))->where(function ($query) {
+    $direccion = PedidoArmadoTieneDireccion::with($relaciones)->where('for_loc', $for_loc)->where(function ($query) {
       $query->where('estat', config('app.en_almacen_de_salida'))
         ->orWhere('estat', config('app.en_ruta'))
         ->orWhere('estat', config('app.sin_entrega_por_falta_de_informacion'))
@@ -22,9 +22,9 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
       })->findOrFail($id_direccion);
     return $direccion;
   }
-  public function getPagination($request, $relaciones) {
+  public function getPagination($request, $for_loc, $relaciones) {
     return PedidoArmadoTieneDireccion::with($relaciones)
-    ->where('for_loc', config('opcionesSelect.select_foraneo_local.Local'))
+    ->where('for_loc', $for_loc)
     ->where(function ($query) {
       $query->where('estat', config('app.pendiente'))
       ->orWhere('estat', config('app.en_almacen_de_salida'))
@@ -38,7 +38,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   }
   public function cambiarEstatusDireccionAlmacenDeSalida($direcciones) {
     $up_estaus     = NULL;
-    $ids                    = NULL;
+    $ids           = NULL;
     $nom_tabla = (new PedidoArmadoTieneDireccion())->getTable();
 
     foreach($direcciones as $direccion) {

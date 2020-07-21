@@ -44,9 +44,9 @@ class PedidoActivoController extends Controller {
   public function generarOrdenDeProduccion($id_pedido) {
     $pedido   = $this->pedidoActivoRepo->pedidoActivoProduccionFindOrFailById($id_pedido, ['usuario', 'unificar']);
 
-    $codigoQRAlmacen = $this->generarQRRepo->pedido($pedido->id, 'almacen.pedidoActivo.show');
-    $codigoQRProduccion = $this->generarQRRepo->pedido($pedido->id, 'produccion.pedidoActivo.show');
-    $codigoQRLogistica = $this->generarQRRepo->pedido($pedido->id, 'logistica.pedidoActivo.show');
+    $codigoQRAlmacen = $this->generarQRRepo->qr($pedido->id, 'Almacén');
+    $codigoQRProduccion = $this->generarQRRepo->qr($pedido->id, 'Producción');
+    $codigoQRLogistica = $this->generarQRRepo->qr($pedido->id, 'Logística');
       
     $armados  = $pedido->armados()->with(['productos'=> function ($query) {
       $query->with('sustitutos');

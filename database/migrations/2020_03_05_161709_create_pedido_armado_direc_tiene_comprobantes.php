@@ -38,6 +38,7 @@ class CreatePedidoArmadoDirecTieneComprobantes extends Migration
             $table->unsignedBigInteger('direccion_id')->comment('Foreign Key');
             $table->foreign('direccion_id')->references('id')->on('pedido_armado_tiene_direcciones')->onUpdate('restrict')->onDelete('cascade');
             $table->string('created_at_comp', 75)->comment('Correo del usuario que realizo el registro');
+            $table->string('updated_at_comp', 75)->nullable()->comment('Correo del usuario que realizo la última modificación');
             $table->timestamps();
             $table->softDeletes();
         });

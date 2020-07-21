@@ -8,8 +8,8 @@
     </ul>
   </div>
   <div class="card-body">
-    {!! Form::model(Request::all(), ['route' => 'logistica.pedidoActivo.index', 'method' => 'GET']) !!}
-      @include('global.buscador.buscador', ['ruta_recarga' => route('logistica.pedidoActivo.index'), 'opciones_buscador' => config('opcionesSelect.select_produccion_pedido_armado__direcciones_index')])
+    {!! Form::model(Request::all(), ['route' => 'logistica.direccionLocal.index', 'method' => 'GET']) !!}
+      @include('global.buscador.buscador', ['ruta_recarga' => route('logistica.direccionLocal.index'), 'opciones_buscador' => config('opcionesSelect.select_logistica_direcciones_index')])
     {!! Form::close() !!}
     @include('logistica.pedido.direccion_local.dirLoc_table')
     @include('global.paginador.paginador', ['paginar' => $direcciones_locales])

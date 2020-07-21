@@ -7,18 +7,17 @@ class UpdateComprobanteDeSalidaRequest extends FormRequest {
     return true;
   }
   public function rules() {
-   /* 
-    $direccion = \App\Models\PedidoArmadoTieneDireccion::with('comprobantes')->findOrFail($this->id_comprobante);
+    $comprobante = \App\Models\PedidoArmadoDireccionTieneComprobante::select('direccion_id', 'cant')->findOrFail($this->id_comprobante);
+    $direccion = \App\Models\PedidoArmadoTieneDireccion::with('comprobantes')->findOrFail($comprobante->direccion_id);
     $cant_comprobantes = $direccion->comprobantes()->sum('cant');
-    $max = $direccion->cant - $cant_comprobantes;
-*/
-$max = 1000;
+    $cargados = $cant_comprobantes - $comprobante->cant;
+    $max = $direccion->cant - $cargados;
+
     return [
       'cantidad'                      => 'required|numeric|min:1|max:'.$max,
       'metodo_de_entrega'             => 'required|exists:metodos_de_entrega,nom_met_ent',
       'metodo_de_entrega_espesifico'  => 'required_if:metodo_de_entrega,Paquetería,Transporte interno de la empresa,Transportes Ferro,Viaje metropolitano (Uber, Didi, Beat...)',
       'comprobante_de_salida'         => 'nullable|image'
     ];
-    
   }
 }

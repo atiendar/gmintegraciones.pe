@@ -5,7 +5,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-       {!! Form::text('cantidad', null, ['v-model' => 'cantidad','class' => 'form-control', 'maxlength' => 10, 'placeholder' => __('Cantidad'), 'required']) !!}
+       {!! Form::text('cantidad', null, ['v-model' => 'cantidad', 'class' => 'form-control', 'maxlength' => 10, 'placeholder' => __('Cantidad'), 'required']) !!}
     </div>
     <span v-if="errors.cantidad" class="text-danger" v-text="errors.cantidad[0]"></span>
   </div>
@@ -45,7 +45,7 @@
       <div id="results" ></div>
     <span v-if="errors.comprobante_de_salida" class="text-danger" v-text="errors.comprobante_de_salida[0]"></span>
   </div>
-  @if(Request::route()->getName() == 'logistica.direccionLocal.comprobante.edit')
+  @if(Request::route()->getName() == 'logistica.direccionLocal.comprobanteDeSalida.edit')
     <div class="form-group col-sm btn-sm">
       <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label>
       <div class="pad box-pane-right no-padding" style="min-height: 280px">

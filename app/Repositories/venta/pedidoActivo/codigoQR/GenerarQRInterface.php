@@ -2,5 +2,5 @@
 namespace App\Repositories\venta\pedidoActivo\codigoQR;
 
 interface GenerarQRInterface {
-  public function pedido($id_pedido, $ruta);
+  public function qr($id, $modulo);
 }

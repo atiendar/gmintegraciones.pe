@@ -1,22 +1,29 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Registrar comprobante de salida').' '.$direccion->est)</title>
+<title>@section('title', __('Registrar comprobante de entrega').' '.$comprobante->id)</title>
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
-    @include('logistica.pedido.direccion_local.dirLoc_opcionesComprobantes')
-    <h5>{{ __('Registrar comprobante de salida') }}: {{ $direccion->est }} ({{ Sistema::dosDecimales($direccion->cant) }})</h5>
+    <h5>
+      <strong>{{ __('Registrar comprobante de entrega') }}: </strong>
+      @can('logistica.direccionLocal.comprobanteDeSalida.show')
+        <a href="{{ route('logistica.direccionLocal.comprobanteDeSalida.show', Crypt::encrypt($comprobante->id)) }}" class="text-white">{{ $comprobante->id }}</a>
+      @else
+        {{ $comprobante->id }}
+      @endcan
+      <strong>{{ __('de la dirección') }}: </strong>{{ $direccion->est }}
+    </h5>
   </div>
   <div class="ribbon-wrapper">
     <div class="ribbon {{ config('app.color_bg_primario') }}"> 
-      <small>{{ $direccion->id }}</small>
+      <small>{{ $comprobante->id }}</small>
     </div>
   </div>
   <div class="card-body">
     <form @submit.prevent="create" enctype="multipart/form-data">
-      @include('logistica.pedido.direccion_local.comprobante_de_salida.com_createComprobanteDeSalidaFields')
+      @include('logistica.pedido.direccion_local.comprobante_de_entrega.comEnt_createFields')
       <div class="row">
         <div class="form-group col-sm btn-sm">
-          <a href="{{ route('logistica.direccionLocal.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
+          <a href="{{ route('logistica.direccionLocal.comprobanteEntrega.index', Crypt::encrypt($direccion->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con la dirección') }}</a>
         </div>
         <div class="form-group col-sm btn-sm">
           <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2"><i class="fas fa-check-circle text-dark"></i> {{ __('Registrar') }}</button>
@@ -25,8 +32,9 @@
     </form>
   </div>
 </div>
-@include('logistica.pedido.direccion_local.comprobante_de_salida.com_index')
 @endsection
+
+
 
 @section('css')
 <style>
@@ -45,35 +53,35 @@
     el: '#dashboard',
     data: {
       errors: [],
-      metodos_de_entrega_espesificos: [],
-      cantidad:                     [],
-      metodo_de_entrega:            [],
-      metodo_de_entrega_espesifico: [],
-      mydata: null
+      numero_de_guia: [],
+      costo_por_envio:  [],
+      mydataComprobantdeentrega: null,
+      metodo_de_entrega: "{{ $comprobante->met_de_entreg_de_log }}"
     },
     methods: {
        create() {
-        this.checarBotonSubmitDisabled("btnsubmit")
-        fetch(mydata.value)
+      //  this.checarBotonSubmitDisabled("btnsubmit")
+        fetch(mydataComprobantdeentrega.value)
           .then(res => res.blob())
           .then(blob => {
             const formData = new FormData()
-            formData.append('cantidad', this.cantidad)
+            formData.append('numero_de_guia', this.numero_de_guia)
+            formData.append('comprobante_de_entrega', blob, 'filename')
+            formData.append('costo_por_envio', this.costo_por_envio)
+            formData.append('mydataComprobantdeentrega', this.mydataComprobantdeentrega)
             formData.append('metodo_de_entrega', this.metodo_de_entrega)
-            formData.append('metodo_de_entrega_espesifico', this.metodo_de_entrega_espesifico)
-            formData.append('comprobante_de_salida', blob, 'filename')
-            formData.append('mydata', this.mydata)
-      
-            axios.post('/logistica/direccion/local/comprobante-de-salida/almacenar/'+{{ $direccion->id }}, formData, {
+            
+            axios.post('/logistica/direccion/local/comprobante-de-entrega/almacenar/'+{{ $comprobante->id }}, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
               }
             }).then(res => {
+              console.log(res)
               Swal.fire({
                 title: 'Éxito',
                 text: '¡Comprobante registrado exitosamente!',
               }).then((value) => {
-                location.reload()
+            //    location.reload()
               })
             }).catch(error => {
               this.checarBotonSubmitEnabled("btnsubmit")
@@ -88,22 +96,13 @@
             });
          });
       },
-      async getMetodosDeEntregaEspesificos() {
-        if(this.metodo_de_entrega != '') {
-          axios.get('/logistica/direccion/metodo-de-entrega-espescifico/'+this.metodo_de_entrega).then(res => {
-            this.metodos_de_entrega_espesificos = res.data
-            metodo_de_entrega_espesifico = document.getElementById('metodo_de_entrega_espesifico')
-            metodo_de_entrega_espesifico.style.display = 'none';
-            if(Object.keys(res.data).length != 0) { 
-              metodo_de_entrega_espesifico.style.display = 'block';
-            }
-          }).catch(error => {
-            Swal.fire({
-              title: 'Algo salio mal',
-              text: error,
-            })
-          });
+      async getDecimales() {
+        costo_por_envio = document.getElementById("costo_por_envio").value;
+        if (isNaN(parseFloat(costo_por_envio))) {
+          costo_por_envio = 0;
         }
+        costo_por_envio_decimal   = Number.parseFloat(costo_por_envio).toFixed(2);
+        this.costo_por_envio = costo_por_envio_decimal;
       },
       async checarBotonSubmitDisabled(id_btn) {
         document.getElementById(id_btn).value = "Espere un momento...";
@@ -115,15 +114,15 @@
         document.getElementById(id_btn).disabled = false;
         return true;
       },
-      async quitarFoto() {
-        document.getElementById('mydata').value = '';
-        document.getElementById('results').innerHTML = 
+      async quitarFoto(mydata, results) {
+        document.getElementById(mydata).value = '';
+        document.getElementById(results).innerHTML = 
             '<img src=""/>';
       },
-      async capturarFoto() {
+      async capturarFoto(mydata, results) {
         var data_uri = Webcam.snap( function(data_uri, canvas, context) {
-          document.getElementById('mydata').value = data_uri;
-          document.getElementById('results').innerHTML = 
+          document.getElementById(mydata).value = data_uri;
+          document.getElementById(results).innerHTML = 
             '<img src="'+data_uri+'"/>';
         });
       },
@@ -138,6 +137,6 @@
     jpeg_quality: 90,
     force_flash: false
   });
-  Webcam.attach('#my_camera');
+  Webcam.attach('#my_camera_comprobante_de_entrega');
 </script>
 @endsection

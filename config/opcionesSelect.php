@@ -749,16 +749,6 @@ return array(
     config('app.en_almacen_de_salida')          => config('app.en_almacen_de_salida'),
     config('app.en_revision_de_productos')      => 'Productos incompletos',
   ],
-/* ===================== PRODUCCIÓN PEDIDO ACTIVO ARMADOS [ DIRECCIONES ] ===================== */
-  'select_produccion_pedido_armado__direcciones_index' => [
-    ''                      => 'Buscar por. . .',
-    'cant'                  => 'Cantidad',
-    'est_a_la_q_se_cotiz'   => 'Estado al que se cotizó',
-    'estat'                 => 'Estatus',
-    'met_de_entreg_de_log'  => 'Metodo de entrega',
-    'tip_env'               => 'Tipo de envío',
-    'created_at'            => 'Fecha de registro (YYYY-MM-DD)',
-  ],
   /* ===================== LOGÍSTICA [ PEDIDO ACTIVO LOCAL ] ===================== */
   'select_logistica_pedido_activo_local_index'  => [
     ''                        => 'Buscar por. . .',
@@ -771,4 +761,14 @@ return array(
     'tot_de_arm'              => 'Total de armados',
     'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
+/* ===================== LOGISTICA [ DIRECCIONES ] ===================== */
+'select_logistica_direcciones_index' => [
+  ''                      => 'Buscar por. . .',
+  'cant'                  => 'Cantidad',
+  'est'                   => 'Estado',
+  'estat'                 => 'Estatus',
+  'met_de_entreg'         => 'Metodo de entrega',
+  'tip_env'               => 'Tipo de envío',
+  'created_at'            => 'Fecha de registro (YYYY-MM-DD)',
+],
 );

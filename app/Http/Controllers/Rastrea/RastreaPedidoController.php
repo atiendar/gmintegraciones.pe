@@ -25,4 +25,32 @@ class RastreaPedidoController extends Controller {
     $mont_pag_aprov =  $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
     return view('rastrea.pedido.rpe_show', compact('pedido', 'unificados', 'armados', 'pagos', 'mont_pag_aprov'));
   }
+  public function rastrearPorQR($id, $modulo) {
+    $pedido =  Pedido::findorfail($id);
+
+    switch ($modulo) {
+      case 'Almacén':
+        if($pedido->estat_alm == config('app.productos_completos_terminado')) {
+          return redirect(route('almacen.pedidoTerminado.show', \Crypt::encrypt($pedido->id)));
+        }
+        return redirect(route('almacen.pedidoActivo.show', \Crypt::encrypt($pedido->id)));
+      case 'Producción':
+        if($pedido->estat_produc == config('app.en_almacen_de_salida_terminado')) {
+          return redirect(route('produccion.pedidoTerminado.show', \Crypt::encrypt($pedido->id)));
+        }
+        return redirect(route('produccion.pedidoActivo.show', \Crypt::encrypt($pedido->id)));
+      case 'Logística':
+        if($pedido->estat_log == config('app.en_almacen_de_salida_terminado')) {
+          return redirect(route('logistica.pedidoTerminado.show', \Crypt::encrypt($pedido->id)));
+        }
+        return redirect(route('logistica.pedidoActivo.show', \Crypt::encrypt($pedido->id)));
+      case 'Comprobantes':
+        $comprobante = \App\Models\PedidoArmadoDireccionTieneComprobante::findorfail($id);
+
+        if($comprobante->estat == config('app.entregado')) {
+          return 'Ya se ha subido el comprobante con anterioridad';
+        }
+        return redirect(route('logistica.direccionLocal.comprobanteEntrega.create', \Crypt::encrypt($comprobante->id)));
+    }
+  }
 }

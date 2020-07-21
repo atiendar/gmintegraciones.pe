@@ -6,7 +6,7 @@
   </div>
   <div class="card-body">
     {!! Form::model(Request::all(), ['route' => ['produccion.pedidoActivo.armado.show',Crypt::encrypt($armado->id)],'method' => 'GET']) !!}
-      @include('global.buscador.buscador', ['ruta_recarga' => route('produccion.pedidoActivo.armado.show',Crypt::encrypt($armado->id)), 'opciones_buscador' => config('opcionesSelect.select_produccion_pedido_armado__direcciones_index')])
+      @include('global.buscador.buscador', ['ruta_recarga' => route('produccion.pedidoActivo.armado.show',Crypt::encrypt($armado->id)), 'opciones_buscador' => config('opcionesSelect.select_logistica_direcciones_index')])
     {!! Form::close() !!}
       @include('produccion.pedido.pedido_activo.armado_activo.direccion_armado.dirArm_table')
     @include('global.paginador.paginador', ['paginar' => $direcciones])
