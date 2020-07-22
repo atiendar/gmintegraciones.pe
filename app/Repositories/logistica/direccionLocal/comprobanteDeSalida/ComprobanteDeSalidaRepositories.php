@@ -34,11 +34,12 @@ class ComprobanteDeSalidaRepositories implements ComprobanteDeSalidaInterface {
       $comprobante->met_de_entreg_de_log      = $request->metodo_de_entrega;
       $comprobante->met_de_entreg_de_log_esp  = $request->metodo_de_entrega_espesifico;
       $comprobante->direccion_id              = $id_direccion;
-      $comprobante->comp_de_sal_rut           = 'public/comprobantes_de_salida/'.date("Y").'/'.$comprobante->direccion_id.'/';
-      $comprobante->comp_de_sal_nom           = 'comprobante_de_salida-'.time().'.jpg';
+      
       $comprobante->created_at_comp           = Auth::user()->email_registro;
       if($request->hasfile('comprobante_de_salida')) {
-        $comprobante_de_salida = $request->file('comprobante_de_salida');
+        $comprobante->comp_de_sal_rut = 'public/comprobantes_de_salida/'.date("Y").'/'.$comprobante->direccion_id.'/';
+        $comprobante->comp_de_sal_nom = 'comprobante_de_salida-'.time().'.jpg';
+        $comprobante_de_salida        = $request->file('comprobante_de_salida');
         $comprobante_de_salida->storeAs($comprobante->comp_de_sal_rut, $comprobante->comp_de_sal_nom);
       }
       $comprobante->save();

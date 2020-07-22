@@ -102,14 +102,16 @@
   </div>
 </div>
 <div class="row">
-  @if($comprobante->comp_de_sal_nom != null)
-    <div class="form-group col-sm btn-sm">
-      <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label>
+  <div class="form-group col-sm btn-sm">
+    <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label>
+    @if($comprobante->comp_de_sal_nom != null)
       <div class="pad box-pane-right no-padding" style="min-height: 280px">
         <iframe src="{{ Storage::url($comprobante->comp_de_sal_rut.$comprobante->comp_de_sal_nom) }}" style="width:100%;border:none;height:25rem;"></iframe>
       </div>
-    </div>
-  @endif
+    @else
+      <span class="badge" style="background:{{ config('app.color_c') }};color:{{ config('app.color_0') }};">{{ __('Falta cargar comprobante de salida') }}</span>
+    @endif
+  </div>
   @if($comprobante->comp_ent_nom != null)
     <div class="form-group col-sm btn-sm">
       <label for="comprobante_de_entrega">{{ __('Comprobante de entrega') }}</label>

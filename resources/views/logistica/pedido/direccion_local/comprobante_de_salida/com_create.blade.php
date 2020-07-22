@@ -13,7 +13,7 @@
   </div>
   <div class="card-body">
     <form @submit.prevent="create" enctype="multipart/form-data">
-      @include('logistica.pedido.direccion_local.comprobante_de_salida.com_createComprobanteDeSalidaFields')
+      @include('logistica.pedido.direccion_local.comprobante_de_salida.com_createFields')
       <div class="row">
         <div class="form-group col-sm btn-sm">
           <a href="{{ route('logistica.direccionLocal.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
@@ -61,7 +61,11 @@
             formData.append('cantidad', this.cantidad)
             formData.append('metodo_de_entrega', this.metodo_de_entrega)
             formData.append('metodo_de_entrega_espesifico', this.metodo_de_entrega_espesifico)
-            formData.append('comprobante_de_salida', blob, 'filename')
+            if(blob.type != 'text/html') {
+              formData.append('comprobante_de_salida', blob, 'filename')
+            } else {
+              formData.append('comprobante_de_salida', [])
+            }
             formData.append('mydata', this.mydata)
       
             axios.post('/logistica/direccion/local/comprobante-de-salida/almacenar/'+{{ $direccion->id }}, formData, {

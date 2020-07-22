@@ -24,8 +24,8 @@ class CreatePedidoArmadoDirecTieneComprobantes extends Migration
 
             $table->string('met_de_entreg_de_log',150)->comment('Método de entrega de logística');
             $table->string('met_de_entreg_de_log_esp',150)->nullable()->comment('Método de entrega espesifico de logística');
-            $table->string('comp_de_sal_rut', 200)->comment('Ruta de donde se guardo el comprobante de salida');
-            $table->string('comp_de_sal_nom', 200)->comment('Nombre del comprobante de salida');
+            $table->string('comp_de_sal_rut', 200)->nullable()->comment('Ruta de donde se guardo el comprobante de salida');
+            $table->string('comp_de_sal_nom', 200)->nullable()->comment('Nombre del comprobante de salida');
             $table->string('url',200)->nullable()->comment('URL rastreo');
             $table->string('num_guia',60)->nullable()->comment('Número de guía');
 

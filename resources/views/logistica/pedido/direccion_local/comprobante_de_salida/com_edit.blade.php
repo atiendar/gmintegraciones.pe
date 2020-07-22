@@ -20,7 +20,7 @@
   </div>
   <div class="card-body">
     <form @submit.prevent="edit" enctype="multipart/form-data">
-      @include('logistica.pedido.direccion_local.comprobante_de_salida.com_createComprobanteDeSalidaFields')
+      @include('logistica.pedido.direccion_local.comprobante_de_salida.com_editFields')
       <div class="row">
         <div class="form-group col-sm btn-sm">
           <a href="{{ route('logistica.direccionLocal.comprobanteDeSalida.create', Crypt::encrypt($direccion->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con la dirección') }}</a>

@@ -22,7 +22,7 @@ class ComprobanteDeSalidaController extends Controller {
     $direccion          = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Local'), ['comprobantes']);
     $comprobantes       = $direccion->comprobantes()->paginate(99999999);
     $metodos_de_entrega = $this->metodoDeEntregaRepo->getAllMetodosPluck();
-    return view('logistica.pedido.direccion_local.comprobante_de_salida.com_createComprobanteDeSalida', compact('direccion', 'comprobantes', 'metodos_de_entrega'));
+    return view('logistica.pedido.direccion_local.comprobante_de_salida.com_create', compact('direccion', 'comprobantes', 'metodos_de_entrega'));
   }
   public function store(StoreComprobanteDeSalidaRequest $request, $id_direccion) {
     $comprobante = $this->comprobanteDeSalidaRepo->store($request, $id_direccion);

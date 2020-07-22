@@ -22,30 +22,14 @@
         <dt>{{ Sistema::datos()->sistemaFindOrFail()->lad_mov }} {{ Sistema::datos()->sistemaFindOrFail()->tel_mov }}</dt>
       </td>
       <td colspan="8">
-        <dt><h5>Comprobante de entrega</h5></dt>
+        <h5>
+          <dt>Comprobante de entrega</dt>
+          <dt>{{ $armado->cod }}</dt>
+        </h5>
         <dt>{{ date("Y-m-d G:i:s") }}</dt>
       </td>
     </tr>
-    <tr>
-      <td colspan="12" class="text-center">
-        <dt><h5>Confirmo que recibo el pedido completo y en buenas condiciones</h5></dt>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="8">
-        <dt>Nombre completo:</dt>
-        <dt>Fecha:</dt>
-        <dt>Total de productos recibidos:</dt>
-        <dt>Comentarios:</dt>
-      </td>
-      <td colspan="4" class="text-center">
-        <dt>Firma</dt>
-        <br><br><br>
-        <dt>Al firmar confirmo mi entera satisfacción del producto recibido</dt>
-      </td>
-    </tr>
-
-    <tr>
+    <tr style="font-size:15px;">
       <td colspan="12">
         <p>
           <strong>Nombre de referencia uno: </strong>{{ $direccion->nom_ref_uno }}<br>
@@ -66,14 +50,45 @@
         </p>
       </td>
     </tr>
+
+    <tr style="font-size:15px;">
+      <td colspan="3" class="text-center">
+        <dt><br><br><br><br>Firma quien entrega</dt>
+      </td>
+      <td colspan="9" class="text-center">
+        <dt><br><br><br><br>Firma quien recibe</dt>
+      </td>
+    </tr>
+
+
+
+   
     <tr>
-      <td colspan="12" class="text-center">
-        <p>Cargar comprobante</p>
-        <img src="data:image/svg;base64, {!! base64_encode($codigoQRDComprobante) !!} ">
+      <td colspan="8" style="font-size:15px;">
+        <dt class="text-center"><h5>Confirmo que recibo el pedido completo y en buenas condiciones</h5></dt>
+        <dt>Nombre completo:</dt>
+        <dt>Fecha:</dt>
+        <dt>Total de productos recibidos:</dt>
+        <dt>Comentarios:</dt>
+      </td>
+      <td colspan="4" class="text-center">
+        <dt>Firma</dt>
+        <br><br><br>
+        <dt>Al firmar confirmo mi entera satisfacción del producto recibido</dt>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" class="text-center">
+        <p>Cargar comprobante de salida</p>
+        <img src="data:image/svg;base64, {!! base64_encode($codigoQRDComprobanteDeSalida) !!} ">
+      </td>
+      <td colspan="9" class="text-center">
+        <p>Cargar comprobante de entrega</p>
+        <img src="data:image/svg;base64, {!! base64_encode($codigoQRDComprobanteDeEntrega) !!} ">
       </td>
     </tr>
   </table>
-  <table class="table table-hover table-striped table-sm table-bordered" style="font-size:8px;">
+  <table class="table table-hover table-striped table-sm table-bordered" style="font-size:10px;">
     <thead class="thead-dark">
       <tr>
         <th>#</th>

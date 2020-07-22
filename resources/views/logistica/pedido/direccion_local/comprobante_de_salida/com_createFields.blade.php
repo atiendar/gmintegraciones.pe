@@ -37,7 +37,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="comprobante_de_salida">{{ __('Comprobante de salida') }} *</label>
+    <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label>
       {!! Form::hidden('mydata', null, ['id' => 'mydata', 'class' => 'form-control']) !!}
       <div id="my_camera"></div>
       <input type=button value="{{ __('Capturar foto') }}" v-on:click="capturarFoto()">
@@ -48,9 +48,13 @@
   @if(Request::route()->getName() == 'logistica.direccionLocal.comprobanteDeSalida.edit')
     <div class="form-group col-sm btn-sm">
       <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label>
-      <div class="pad box-pane-right no-padding" style="min-height: 280px">
-        <iframe src="{{ Storage::url($comprobante->comp_de_sal_rut.$comprobante->comp_de_sal_nom) }}" style="width:100%;border:none;height:15rem;"></iframe>
-      </div>
+      @if($comprobante->comp_de_sal_nom != NULL)
+        <div class="pad box-pane-right no-padding" style="min-height: 280px">
+          <iframe src="{{ Storage::url($comprobante->comp_de_sal_rut.$comprobante->comp_de_sal_nom) }}" style="width:100%;border:none;height:15rem;"></iframe>
+        </div>
+      @else
+        <span class="badge" style="background:{{ config('app.color_c') }};color:{{ config('app.color_0') }};">{{ __('Falta cargar comprobante de salida') }}</span>
+      @endif
     </div>
   @endif
 </div>

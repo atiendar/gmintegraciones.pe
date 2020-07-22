@@ -35,13 +35,14 @@ class DireccionLocalController extends Controller {
       return $metodo_de_entrega->metodosDeEntregaEspecificos()->pluck('nom_met_ent_esp', 'nom_met_ent_esp');
     }
   }
-  public function generarComprobanteDeEntrega($id_comprobante){
+  public function generarComprobanteDeEntrega($id_comprobante) {
     $comprobante          = $this->comprobanteDeSalidaRepo->comprobanteFindOrFailById($id_comprobante, ['direccion']);
     $direccion            = $comprobante->direccion()->with('armado')->firstOrFail();
     $armado               = $direccion->armado;
-    $codigoQRDComprobante = $this->generarQRRepo->qr($comprobante->id, 'Comprobantes');
+    $codigoQRDComprobanteDeSalida = $this->generarQRRepo->qr($comprobante->id, 'Comprobante de salida');
+    $codigoQRDComprobanteDeEntrega = $this->generarQRRepo->qr($comprobante->id, 'Comprobante de entrega');
 
-    $comprobante_de_entrega  = \PDF::loadView('logistica.pedido.pedido_activo.export.comprobanteDeEntrega', compact('comprobante', 'direccion', 'armado', 'codigoQRDComprobante'));
+    $comprobante_de_entrega  = \PDF::loadView('logistica.pedido.pedido_activo.export.comprobanteDeEntrega', compact('comprobante', 'direccion', 'armado', 'codigoQRDComprobanteDeSalida', 'codigoQRDComprobanteDeEntrega'));
     return $comprobante_de_entrega->stream();
 //  return $comprobante_de_entrega->download('OrdenDeProduccionAlmacen-'$pedido->num_pedido.'.pdf'); // Descargar
   }
