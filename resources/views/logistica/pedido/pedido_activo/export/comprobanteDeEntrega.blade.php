@@ -53,6 +53,7 @@
 
     <tr style="font-size:15px;">
       <td colspan="3" class="text-center">
+        
         <dt><br><br><br><br>Firma quien entrega</dt>
       </td>
       <td colspan="9" class="text-center">
