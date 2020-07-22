@@ -6,5 +6,5 @@ interface MetodoDeEntregaInterface {
 
   public function metodoFindOrFailByNombreMetodo($nom_met_ent, $relaciones);
   
-  public function getAllMetodosPluck();
+  public function getAllMetodosPluck($for_loc);
 }

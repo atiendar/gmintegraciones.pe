@@ -44,20 +44,20 @@ class RastreaPedidoController extends Controller {
           return redirect(route('logistica.pedidoTerminado.show', \Crypt::encrypt($pedido->id)));
         }
         return redirect(route('logistica.pedidoActivo.show', \Crypt::encrypt($pedido->id)));
-      case 'Comprobante de entrega':
-        $comprobante = \App\Models\PedidoArmadoDireccionTieneComprobante::findorfail($id);
-
-        if($comprobante->estat == config('app.entregado')) {
-          return 'Ya se ha subido el comprobante con anterioridad';
-        }
-        return redirect(route('logistica.direccionLocal.comprobanteEntrega.create', \Crypt::encrypt($comprobante->id)));
       case 'Comprobante de salida':
         $comprobante = \App\Models\PedidoArmadoDireccionTieneComprobante::findorfail($id);
 
         if($comprobante->estat == config('app.entregado')) {
           return 'Ya se ha subido el comprobante con anterioridad';
         }
-        return redirect(route('logistica.direccionLocal.comprobanteDeSalida.edit', \Crypt::encrypt($comprobante->id)));
+        return redirect(route('logistica.direccionLocal.comprobante.edit', \Crypt::encrypt($comprobante->id)));
+      case 'Comprobante de entrega':
+        $comprobante = \App\Models\PedidoArmadoDireccionTieneComprobante::findorfail($id);
+
+        if($comprobante->estat == config('app.entregado')) {
+          return 'Ya se ha subido el comprobante con anterioridad';
+        }
+        return redirect(route('logistica.direccionLocal.comprobante.createEntrega', \Crypt::encrypt($comprobante->id)));
       default:
         echo 'Opción invalida';
     }

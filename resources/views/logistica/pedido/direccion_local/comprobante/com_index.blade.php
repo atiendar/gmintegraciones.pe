@@ -3,7 +3,7 @@
     <h5>{{ __('Comprobantes') }}</h5>
   </div>
   <div class="card-body">
-    @include('logistica.pedido.direccion_local.comprobante_de_salida.com_table')
+    @include('logistica.pedido.direccion_local.comprobante.com_table')
     @include('global.paginador.paginador', ['paginar' => $comprobantes])
   </div>
 </div>

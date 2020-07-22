@@ -8,6 +8,6 @@ class PedidoArmadoTieneDireccionesTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        factory(App\Models\PedidoArmadoTieneDireccion::class, 30)->create();
+        factory(App\Models\PedidoArmadoTieneDireccion::class, 1000)->create();
     }
 }

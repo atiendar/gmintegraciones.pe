@@ -5,8 +5,8 @@
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     <h5>
       <strong>{{ __('Editar comprobante') }}: </strong>
-      @can('logistica.direccionLocal.comprobanteDeSalida.show')
-        <a href="{{ route('logistica.direccionLocal.comprobanteDeSalida.show', Crypt::encrypt($comprobante->id)) }}" class="text-white">{{ $comprobante->id }}</a>
+      @can('logistica.direccionLocal.comprobante.show')
+        <a href="{{ route('logistica.direccionLocal.comprobante.show', Crypt::encrypt($comprobante->id)) }}" class="text-white">{{ $comprobante->id }}</a>
       @else
         {{ $comprobante->id }}
       @endcan
@@ -20,10 +20,10 @@
   </div>
   <div class="card-body">
     <form @submit.prevent="edit" enctype="multipart/form-data">
-      @include('logistica.pedido.direccion_local.comprobante_de_salida.com_editFields')
+      @include('logistica.pedido.direccion_local.comprobante.com_editFields')
       <div class="row">
         <div class="form-group col-sm btn-sm">
-          <a href="{{ route('logistica.direccionLocal.comprobanteDeSalida.create', Crypt::encrypt($direccion->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con la dirección') }}</a>
+          <a href="{{ route('logistica.direccionLocal.comprobante.create', Crypt::encrypt($direccion->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con la dirección') }}</a>
         </div>
         <div class="form-group col-sm btn-sm">
           <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2"><i class="fas fa-check-circle text-dark"></i> {{ __('Actualizar') }}</button>
@@ -53,6 +53,7 @@
       errors: [],
       metodos_de_entrega_espesificos: [],
       cantidad:                     "{{ $comprobante->cant }}",
+      nombre_de_la_persona_que_se_lleva_el_pedido: "{{ $comprobante->nom_de_la_pera_que_se_llev_el_ped }}",
       metodo_de_entrega:            "{{ $comprobante->met_de_entreg_de_log }}",
       metodo_de_entrega_espesifico: "{{ $comprobante->met_de_entreg_de_log_esp }}",
       mydata: null
@@ -80,6 +81,7 @@
               .then(blob => {
                 const formData = new FormData()
                 formData.append('cantidad', this.cantidad)
+                formData.append('nombre_de_la_persona_que_se_lleva_el_pedido', this.nombre_de_la_persona_que_se_lleva_el_pedido)
                 formData.append('metodo_de_entrega', this.metodo_de_entrega)
                 formData.append('metodo_de_entrega_espesifico', this.metodo_de_entrega_espesifico)
                 if(blob.type != 'text/html') {
@@ -89,14 +91,14 @@
                 }
                 formData.append('mydata', this.mydata)
           
-                axios.post('/logistica/direccion/local/comprobante-de-salida/actualizar/'+{{ $comprobante->id }}, formData, {
+                axios.post('/logistica/direccion/local/comprobante/salida/actualizar/'+{{ $comprobante->id }}, formData, {
                   headers: {
                     'Content-Type': 'multipart/form-data'
                   }
                 }).then(res => {
                   Swal.fire({
                     title: 'Éxito',
-                    text: '¡Comprobante actializado exitosamente!',
+                    text: '¡Comprobante actualizado exitosamente!',
                   }).then((value) => {
                    location.reload()
                   })

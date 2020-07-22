@@ -32,9 +32,12 @@ class DatabaseSeeder extends Seeder
         CotizacionesTableSeeder::class,
         DireccionesTableSeeder::class,
         DatosFiscalesTableSeeder::class,
+        MetodosDeEntregaTableSeeder::class,
+        MetodosDeEntregaEspecificosTableSeeder::class,
         PedidosTableSeeder::class,
         PedidoArmadosTableSeeder::class,
         PedidoArmadoTieneProductosTableSeeder::class,
+        PedidoArmadoTieneDireccionesTableSeeder::class,
         PagosTableSeeder::class,
         FacturasTableSeeder::class,
         SoportesTableSeeder::class,
@@ -42,8 +45,6 @@ class DatabaseSeeder extends Seeder
         HistorialesTableSeeder::class,
         SoporteArchivosTableSeeder::class,
         HistorialesArchivosTableSeeder::class,
-        MetodosDeEntregaTableSeeder::class,
-        MetodosDeEntregaEspecificosTableSeeder::class,
       ]);
     }
 }

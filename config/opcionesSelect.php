@@ -635,6 +635,11 @@ return array(
       'Foráneo' => 'Foráneo',
       'Local' 	=> 'Local',
     ],
+    'select_foraneo_local_ambos' => [
+      'Foráneo'         => 'Foráneo',
+      'Local' 	        => 'Local',
+      'Foráneo y Local' => 'Foráneo y Local',
+    ],
     'select_tipo_de_envio'  => [
       'Normal'  => 'Normal',
       'Express' => 'Express',

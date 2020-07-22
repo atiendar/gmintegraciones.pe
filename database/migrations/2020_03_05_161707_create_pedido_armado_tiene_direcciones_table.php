@@ -28,7 +28,7 @@ class CreatePedidoArmadoTieneDireccionesTable extends Migration
             $table->string('met_de_entreg', 150)->comment('Método de entrega de ventas');
             $table->string('est',150)->comment('Estado a la que se cotizó');
             $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
-            $table->string('detalles_de_la_ubicacion',150)->comment('Detalles de la ubicación');
+            $table->text('detalles_de_la_ubicacion')->comment('Detalles de la ubicación');
             $table->enum('tip_env', config('opcionesSelect.select_tipo_de_envio'))->default('Normal')->comment('Tipo de envío');
             $table->decimal('cost_por_env',20,2)->unsigned()->nullable()->comment('Costo por envío venta');
           

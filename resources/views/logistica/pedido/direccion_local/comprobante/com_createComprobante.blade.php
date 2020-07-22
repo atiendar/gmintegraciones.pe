@@ -4,13 +4,7 @@
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     <h5>
-      <strong>{{ __('Registrar comprobante de entrega') }}: </strong>
-      @can('logistica.direccionLocal.comprobanteDeSalida.show')
-        <a href="{{ route('logistica.direccionLocal.comprobanteDeSalida.show', Crypt::encrypt($comprobante->id)) }}" class="text-white">{{ $comprobante->id }}</a>
-      @else
-        {{ $comprobante->id }}
-      @endcan
-      <strong>{{ __('de la dirección') }}: </strong>{{ $direccion->est }}
+      <strong>{{ __('Registrar comprobante de entrega') }}: </strong>{{ $comprobante->id }}<strong> {{ __('de la dirección') }}: </strong>{{ $direccion->est }}
     </h5>
   </div>
   <div class="ribbon-wrapper">
@@ -20,10 +14,10 @@
   </div>
   <div class="card-body">
     <form @submit.prevent="create" enctype="multipart/form-data">
-      @include('logistica.pedido.direccion_local.comprobante_de_entrega.comEnt_createFields')
+      @include('logistica.pedido.direccion_local.comprobante.com_createComprobanteFields')
       <div class="row">
         <div class="form-group col-sm btn-sm">
-          <a href="{{ route('logistica.direccionLocal.comprobanteEntrega.index', Crypt::encrypt($direccion->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con la dirección') }}</a>
+          <a href="{{ route('logistica.direccionLocal.comprobante.create', Crypt::encrypt($direccion->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con la dirección') }}</a>
         </div>
         <div class="form-group col-sm btn-sm">
           <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2"><i class="fas fa-check-circle text-dark"></i> {{ __('Registrar') }}</button>
@@ -33,8 +27,6 @@
   </div>
 </div>
 @endsection
-
-
 
 @section('css')
 <style>
@@ -60,7 +52,7 @@
     },
     methods: {
        create() {
-      //  this.checarBotonSubmitDisabled("btnsubmit")
+        this.checarBotonSubmitDisabled("btnsubmit")
         fetch(mydataComprobantdeentrega.value)
           .then(res => res.blob())
           .then(blob => {
@@ -71,17 +63,16 @@
             formData.append('mydataComprobantdeentrega', this.mydataComprobantdeentrega)
             formData.append('metodo_de_entrega', this.metodo_de_entrega)
             
-            axios.post('/logistica/direccion/local/comprobante-de-entrega/almacenar/'+{{ $comprobante->id }}, formData, {
+            axios.post('/logistica/direccion/local/comprobante/salida/entrega/almacenar/'+{{ $comprobante->id }}, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
               }
             }).then(res => {
-              console.log(res)
               Swal.fire({
                 title: 'Éxito',
                 text: '¡Comprobante registrado exitosamente!',
               }).then((value) => {
-            //    location.reload()
+                location.reload()
               })
             }).catch(error => {
               this.checarBotonSubmitEnabled("btnsubmit")

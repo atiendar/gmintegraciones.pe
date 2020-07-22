@@ -21,7 +21,8 @@ class CreatePedidoArmadoDirecTieneComprobantes extends Migration
 
             $table->integer('cant')->unsigned()->comment('Cantidad');
             $table->string('estat',70)->default(config('app.en_ruta'))->comment('Estatus');
-
+            $table->string('nom_de_la_pera_que_se_llev_el_ped',150)->comment('Nombre de la persona que se lleva el pedido');
+            
             $table->string('met_de_entreg_de_log',150)->comment('Método de entrega de logística');
             $table->string('met_de_entreg_de_log_esp',150)->nullable()->comment('Método de entrega espesifico de logística');
             $table->string('comp_de_sal_rut', 200)->nullable()->comment('Ruta de donde se guardo el comprobante de salida');

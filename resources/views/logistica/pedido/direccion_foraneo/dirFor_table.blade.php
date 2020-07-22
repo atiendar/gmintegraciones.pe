@@ -5,6 +5,7 @@
     @else 
       <thead>
         <tr>
+          @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.#')
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.armado')
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.nombreDeReferenciaUno')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.cantidad')
@@ -24,6 +25,7 @@
           @else
             <tr title="{{ $direccion->est }}" class="text-muted cursor-allowed">
           @endif
+            @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.#')
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.armado', ['show' => true, 'canany' => ['logistica.pedidoActivo.armado.show'], 'ruta' => 'logistica.pedidoActivo.armado.show', 'target' => 'target="_blank"'])
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.nombreDeReferenciaUno')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => true, 'canany' => ['logistica.direccionLocal.show'], 'ruta' => 'logistica.direccionLocal.show', 'target' => null])
