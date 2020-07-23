@@ -1,23 +1,23 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Registrar comprobante de entrega').' '.$comprobante->id)</title>
+<title>@section('title', __('Registrar comprobante de entrega').' '.$direccion->est)</title>
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     <h5>
-      <strong>{{ __('Registrar comprobante de entrega') }}: </strong>{{ $comprobante->id }}<strong> {{ __('de la dirección') }}: </strong>{{ $direccion->est }}
+      <strong>{{ __('Registrar comprobante de entrega') }}: </strong>{{ $direccion->est }} ({{ Sistema::dosDecimales($direccion->cant) }})
     </h5>
   </div>
   <div class="ribbon-wrapper">
     <div class="ribbon {{ config('app.color_bg_primario') }}"> 
-      <small>{{ $comprobante->id }}</small>
+      <small>{{ $direccion->est }}</small>
     </div>
   </div>
   <div class="card-body">
     <form @submit.prevent="create" enctype="multipart/form-data">
-      @include('logistica.pedido.direccion_local.comprobante.com_createComprobanteFields')
+      @include('logistica.pedido.direccion_local.comprobante.com_createEntregaFields')
       <div class="row">
         <div class="form-group col-sm btn-sm">
-          <a href="{{ route('logistica.direccionLocal.comprobante.create', Crypt::encrypt($direccion->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con la dirección') }}</a>
+          <a href="{{ route('logistica.direccionLocal.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
         </div>
         <div class="form-group col-sm btn-sm">
           <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2"><i class="fas fa-check-circle text-dark"></i> {{ __('Registrar') }}</button>
@@ -48,11 +48,11 @@
       numero_de_guia: [],
       costo_por_envio:  [],
       mydataComprobantdeentrega: null,
-      metodo_de_entrega: "{{ $comprobante->met_de_entreg_de_log }}"
+      metodo_de_entrega: "{{ $direccion->met_de_entreg_de_log }}"
     },
     methods: {
        create() {
-        this.checarBotonSubmitDisabled("btnsubmit")
+        this.checarBotonSubmitDisabled("btnsubmit") 
         fetch(mydataComprobantdeentrega.value)
           .then(res => res.blob())
           .then(blob => {
@@ -63,7 +63,7 @@
             formData.append('mydataComprobantdeentrega', this.mydataComprobantdeentrega)
             formData.append('metodo_de_entrega', this.metodo_de_entrega)
             
-            axios.post('/logistica/direccion/local/comprobante/salida/entrega/almacenar/'+{{ $comprobante->id }}, formData, {
+            axios.post('/logistica/direccion/local/comprobante-de-entrega/almacenar/'+{{ $direccion->id }}, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
               }
@@ -72,7 +72,8 @@
                 title: 'Éxito',
                 text: '¡Comprobante registrado exitosamente!',
               }).then((value) => {
-                location.reload()
+                location.href="{{ route('logistica.direccionLocal.index') }}";
+                //  location.reload()
               })
             }).catch(error => {
               this.checarBotonSubmitEnabled("btnsubmit")
@@ -86,14 +87,6 @@
               }
             });
          });
-      },
-      async getDecimales() {
-        costo_por_envio = document.getElementById("costo_por_envio").value;
-        if (isNaN(parseFloat(costo_por_envio))) {
-          costo_por_envio = 0;
-        }
-        costo_por_envio_decimal   = Number.parseFloat(costo_por_envio).toFixed(2);
-        this.costo_por_envio = costo_por_envio_decimal;
       },
       async checarBotonSubmitDisabled(id_btn) {
         document.getElementById(id_btn).value = "Espere un momento...";

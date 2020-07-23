@@ -19,22 +19,9 @@ class CreatePedidoArmadoDirecTieneComprobantes extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
 
-            $table->integer('cant')->unsigned()->comment('Cantidad');
-            $table->string('estat',70)->default(config('app.en_ruta'))->comment('Estatus');
-            $table->string('nom_de_la_pera_que_se_llev_el_ped',150)->comment('Nombre de la persona que se lleva el pedido');
-            
-            $table->string('met_de_entreg_de_log',150)->comment('Método de entrega de logística');
-            $table->string('met_de_entreg_de_log_esp',150)->nullable()->comment('Método de entrega espesifico de logística');
-            $table->string('comp_de_sal_rut', 200)->nullable()->comment('Ruta de donde se guardo el comprobante de salida');
-            $table->string('comp_de_sal_nom', 200)->nullable()->comment('Nombre del comprobante de salida');
-            $table->string('url',200)->nullable()->comment('URL rastreo');
             $table->string('num_guia',60)->nullable()->comment('Número de guía');
-
-            $table->string('comp_ent_rut',200)->nullable()->comment('Ruta comprobate');
-            $table->string('comp_ent_nom',200)->nullable()->comment('Nombre comprobate');
-            $table->string('comp_cost_por_env_log_rut',200)->nullable()->comment('Ruta comprobate');
-            $table->string('comp_cost_por_env_log_nom',200)->nullable()->comment('Nombre comprobate');
-            $table->decimal('cost_por_env_log',20,2)->nullable()->comment('Costo por envío logística');
+            $table->string('comp_ent_rut',200)->comment('Ruta comprobate');
+            $table->string('comp_ent_nom',200)->comment('Nombre comprobate');
 
             $table->unsignedBigInteger('direccion_id')->comment('Foreign Key');
             $table->foreign('direccion_id')->references('id')->on('pedido_armado_tiene_direcciones')->onUpdate('restrict')->onDelete('cascade');

@@ -769,6 +769,7 @@ return array(
 /* ===================== LOGISTICA [ DIRECCIONES ] ===================== */
 'select_logistica_direcciones_index' => [
   ''                      => 'Buscar por. . .',
+  'id'                    => '#',
   'cant'                  => 'Cantidad',
   'est'                   => 'Estado',
   'estat'                 => 'Estatus',

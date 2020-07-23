@@ -1,23 +1,13 @@
 <div class="row">
-  <div class="form-group col-sm btn-sm">
-    <label for="cantidad">{{ __('Cantidad') }} *</label>
+    <div class="form-group col-sm btn-sm">
+    <label for="costo_por_envio">{{ __('Costo por envío') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-       {!! Form::text('cantidad', null, ['v-model' => 'cantidad', 'class' => 'form-control', 'maxlength' => 10, 'placeholder' => __('Cantidad'), 'required']) !!}
+        {!! Form::text('costo_por_envio', null, ['v-model' => 'costo_por_envio', 'v-on:change' => 'getDecimales()', 'id' => 'costo_por_envio', 'class' => 'form-control', 'maxlength' => 15, 'placeholder' => __('Costo por envío')]) !!}
     </div>
-    <span v-if="errors.cantidad" class="text-danger" v-text="errors.cantidad[0]"></span>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <label for="nombre_de_la_persona_que_se_lleva_el_pedido">{{ __('Nombre de la persona que se lleva el pedido') }} *</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
-      </div>
-       {!! Form::text('nombre_de_la_persona_que_se_lleva_el_pedido', null, ['v-model' => 'nombre_de_la_persona_que_se_lleva_el_pedido', 'class' => 'form-control', 'maxlength' => 80, 'placeholder' => __('Nombre de la persona que se lleva el pedido'), 'required']) !!}
-    </div>
-    <span v-if="errors.nombre_de_la_persona_que_se_lleva_el_pedido" class="text-danger" v-text="errors.nombre_de_la_persona_que_se_lleva_el_pedido[0]"></span>
+    <span v-if="errors.costo_por_envio" class="text-danger" v-text="errors.costo_por_envio[0]"></span>
   </div>
 </div>
 <div class="row">
@@ -46,23 +36,20 @@
   </div>
 </div>
 <div class="row">
+  @if($direccion->comp_de_sal_nom != NULL)
+    <div class="form-group col-sm btn-sm">
+      <div class="pad box-pane-right no-padding" style="min-height: 280px">
+        <iframe src="{{ Storage::url($direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom) }}" style="width:100%;border:none;height:15rem;"></iframe>
+      </div>
+    </div>
+  @endif
   <div class="form-group col-sm btn-sm">
     <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label>
       {!! Form::hidden('mydata', null, ['id' => 'mydata', 'class' => 'form-control']) !!}
       <div id="my_camera"></div>
       <input type=button value="{{ __('Capturar foto') }}" v-on:click="capturarFoto()">
       <input type=button value="{{ __('Quitar foto') }}" v-on:click="quitarFoto()">
-      <div id="results" ></div>
+      <div id="results"></div>
     <span v-if="errors.comprobante_de_salida" class="text-danger" v-text="errors.comprobante_de_salida[0]"></span>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label>
-    @if($comprobante->comp_de_sal_nom != NULL)
-      <div class="pad box-pane-right no-padding" style="min-height: 280px">
-        <iframe src="{{ Storage::url($comprobante->comp_de_sal_rut.$comprobante->comp_de_sal_nom) }}" style="width:100%;border:none;height:15rem;"></iframe>
-      </div>
-    @else
-      <span class="badge" style="background:{{ config('app.color_c') }};color:{{ config('app.color_0') }};">{{ __('Falta cargar comprobante de salida') }}</span>
-    @endif
   </div>
 </div>

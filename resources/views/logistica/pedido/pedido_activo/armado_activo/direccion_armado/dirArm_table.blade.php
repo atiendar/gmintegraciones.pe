@@ -4,7 +4,8 @@
       @include('layouts.private.busquedaSinResultados')
     @else 
       <thead>
-        <tr> 
+        <tr>
+          @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.#') 
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.nombreDeReferenciaUno')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.cantidad')
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.estatus')
@@ -19,6 +20,7 @@
       <tbody> 
         @foreach($direcciones as $direccion)
           <tr title="{{ $direccion->est }}">
+            @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.#') 
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.nombreDeReferenciaUno')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => true, 'canany' => ['logistica.pedidoActivo.armado.show', 'logistica.pedidoActivo.show'], 'ruta' => 'logistica.direccionLocal.show', 'target' => 'target="_blank"'])
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.estatus')

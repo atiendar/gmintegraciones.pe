@@ -26,8 +26,16 @@ class RastreaPedidoController extends Controller {
     return view('rastrea.pedido.rpe_show', compact('pedido', 'unificados', 'armados', 'pagos', 'mont_pag_aprov'));
   }
   public function rastrearPorQR($id, $modulo) {
+    if($modulo == 'Almacén' OR $modulo == 'Producción' OR $modulo == 'Logística') {
+      return $this->pedido($id, $modulo);
+    }
+    if($modulo == 'Comprobante de salida' OR $modulo == 'Comprobante de entrega') {
+      return $this->direccion($id, $modulo);
+    }
+    echo 'Opción 1 invalida';
+  }
+  public function pedido($id, $modulo) {
     $pedido =  Pedido::findorfail($id);
-
     switch ($modulo) {
       case 'Almacén':
         if($pedido->estat_alm == config('app.productos_completos_terminado')) {
@@ -44,22 +52,27 @@ class RastreaPedidoController extends Controller {
           return redirect(route('logistica.pedidoTerminado.show', \Crypt::encrypt($pedido->id)));
         }
         return redirect(route('logistica.pedidoActivo.show', \Crypt::encrypt($pedido->id)));
-      case 'Comprobante de salida':
-        $comprobante = \App\Models\PedidoArmadoDireccionTieneComprobante::findorfail($id);
-
-        if($comprobante->estat == config('app.entregado')) {
-          return 'Ya se ha subido el comprobante con anterioridad';
-        }
-        return redirect(route('logistica.direccionLocal.comprobante.edit', \Crypt::encrypt($comprobante->id)));
-      case 'Comprobante de entrega':
-        $comprobante = \App\Models\PedidoArmadoDireccionTieneComprobante::findorfail($id);
-
-        if($comprobante->estat == config('app.entregado')) {
-          return 'Ya se ha subido el comprobante con anterioridad';
-        }
-        return redirect(route('logistica.direccionLocal.comprobante.createEntrega', \Crypt::encrypt($comprobante->id)));
       default:
-        echo 'Opción invalida';
+        echo 'Opción 2 invalida';
+    }
+  }
+  public function direccion($id, $modulo) {
+    $direccion = \App\Models\PedidoArmadoTieneDireccion::findorfail($id);
+    switch ($modulo) {
+      case 'Comprobante de salida':
+        if($direccion->comp_de_sal_nom != null) {
+          echo 'Ya se ha subido el comprobante de salida con anterioridad';
+          break;
+        }
+        return redirect(route('logistica.direccionLocal.create', \Crypt::encrypt($direccion->id)));
+      case 'Comprobante de entrega':
+        if($direccion->estat == config('app.entregado')) {
+          echo 'Ya se ha subido el comprobante de entrega con anterioridad';
+          break;
+        }
+        return redirect(route('logistica.direccionLocal.createEntrega', \Crypt::encrypt($direccion->id)));
+      default:
+        echo 'Opción 3 invalida';
     }
   }
 }

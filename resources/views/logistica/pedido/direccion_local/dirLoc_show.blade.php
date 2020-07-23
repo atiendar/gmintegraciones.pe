@@ -4,12 +4,7 @@
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
     <h5>
-      <strong>{{ __('Detalles dirección local') }}:</strong>
-      @can('logistica.direccionLocal.comprobante.create')
-        <a href="{{ route('logistica.direccionLocal.comprobante.create', Crypt::encrypt($direccion->id)) }}" class="text-white">{{ $direccion->est }} ({{ Sistema::dosDecimales($direccion->cant) }})</a>
-      @else
-        {{ $direccion->est }} ({{ Sistema::dosDecimales($direccion->cant) }})
-      @endcan
+      <strong>{{ __('Detalles dirección local') }}: </strong>{{ $direccion->est }} ({{ Sistema::dosDecimales($direccion->cant) }})
     </h5>
   </div>
   <div class="ribbon-wrapper">
@@ -26,5 +21,4 @@
     </div>
   </div>
 </div>
-@include('logistica.pedido.direccion_local.comprobante.com_index')
 @endsection

@@ -9,7 +9,6 @@ class StoreComprobanteDeEntregaRequest extends FormRequest {
   public function rules() {
     return [
       'numero_de_guia'          => 'required_if:metodo_de_entrega,Paquetería|max:60',
-      'costo_por_envio'         => 'nullable|min:0|numeric|alpha_decimal18',
       'comprobante_de_entrega'  => 'required|image',
     ];
   }

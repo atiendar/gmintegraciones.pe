@@ -1,8 +1,6 @@
 <?php
 namespace App\Repositories\logistica\direccionLocal;
 
-interface EstatusDireccionInterface {
-  public function estatusDireccion($id_direccion);
-
+interface EstatusArmadonInterface {
   public function estatusArmado($direccion);
 }
