@@ -155,6 +155,7 @@ return array(
     'Facturación (Error del cliente)'           => 'Facturación (Error del cliente)',
     'Facturación (Factura generada)'            => 'Facturación (Factura generada)',
     'Facturación (Factura cancelada)'           => 'Facturación (Factura cancelada)',
+    'Logística (Pedido entregado)'              => 'Logística (Pedido entregado)',
     'Pagos (Registrar pago)'                    => 'Pagos (Registrar pago)',
     'Pagos (Pago rechazado)'                    => 'Pagos (Pago rechazado)',
     'Perfil (Cambio de contraseña)'             => 'Perfil (Cambio de contraseña)',

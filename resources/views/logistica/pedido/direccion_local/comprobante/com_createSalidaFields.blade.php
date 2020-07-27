@@ -38,6 +38,7 @@
 <div class="row">
   @if($direccion->comp_de_sal_nom != NULL)
     <div class="form-group col-sm btn-sm">
+      <a href="{{ Storage::url($direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
       <div class="pad box-pane-right no-padding" style="min-height: 280px">
         <iframe src="{{ Storage::url($direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom) }}" style="width:100%;border:none;height:15rem;"></iframe>
       </div>

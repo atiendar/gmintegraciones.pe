@@ -4,7 +4,8 @@
 <div class="row">
   @canany([
     'logistica.pedidoActivo.index', 'logistica.pedidoActivo.show', 'logistica.pedidoActivo.edit', 'logistica.pedidoActivo.armado.show', 'logistica.pedidoActivo.armado.edit',
-    'logistica.pedidoTerminado.index','logistica.pedidoTerminado.show'
+    'logistica.direccionLocal.index', 'logistica.direccionLocal.show', 'logistica.direccionLocal.create', 'logistica.direccionLocal.createEntrega',
+    'logistica.pedidoEntregado.index','logistica.pedidoEntregado.show'
   ])
     <div class="col-lg-3">
       <div class="small-box bg-info">
@@ -18,10 +19,14 @@
               @canany(['logistica.pedidoActivo.index','logistica.pedidoActivo.show','logistica.pedidoActivo.edit', 'logistica.pedidoActivo.armado.show', 'logistica.pedidoActivo.armado.edit'])
                 <a href="{{ route('logistica.pedidoActivo.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos activos') }}</a>
               @endcanany
-              <a href="{{ route('logistica.direccionLocal.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de direcciones locales') }}</a>
-              <a href="{{ route('logistica.direccionForaneo.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de direcciones foráneos') }}</a>
-              @canany(['logistica.pedidoTerminado.index','logistica.pedidoTerminado.show'])
-                <a href="{{ route('logistica.pedidoTerminado.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos entregados') }} (-90d)</a>
+              @canany(['logistica.direccionLocal.index', 'logistica.direccionLocal.show', 'logistica.direccionLocal.create', 'logistica.direccionLocal.createEntrega'])
+                <a href="{{ route('logistica.direccionLocal.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de direcciones locales') }}</a>
+              @endcanany
+              @canany(['logistica.direccionForaneo.index', 'logistica.direccionForaneo.show', 'logistica.direccionForaneo.create', 'logistica.direccionForaneo.createEntrega'])
+                <a href="{{ route('logistica.direccionForaneo.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de direcciones foráneos') }}</a>
+              @endcanany
+              @canany(['logistica.pedidoEntregado.index','logistica.pedidoEntregado.show'])
+                <a href="{{ route('logistica.pedidoEntregado.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos entregados') }} (-90d)</a>
               @endcanany
             </div>
           </div>

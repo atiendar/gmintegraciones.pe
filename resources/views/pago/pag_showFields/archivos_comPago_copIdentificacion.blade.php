@@ -1,6 +1,7 @@
 <div class="row">
   @if($pago->comp_de_pag_nom != null)
     <div class="form-group col-sm btn-sm">
+      <a href="{{ Storage::url($pago->comp_de_pag_rut.$pago->comp_de_pag_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
       <label for="comprobante_de_pago">{{ __('Comprobante de pago') }}</label>
       <div class="pad box-pane-right no-padding" style="min-height: 280px">
         <iframe src="{{ Storage::url($pago->comp_de_pag_rut.$pago->comp_de_pag_nom) }}" style="width:100%;border:none;height:25rem;"></iframe>
@@ -15,6 +16,7 @@
   @endif
   @if($pago->cop_de_indent_nom != null)
     <div class="form-group col-sm btn-sm">
+      <a href="{{ Storage::url($pago->cop_de_indent_rut.$pago->cop_de_indent_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
       <label for="copia_de_identificacion">{{ __('Copia de identificación') }}</label>
       <div class="pad box-pane-right no-padding" style="min-height: 280px">
         <iframe src="{{ Storage::url($pago->cop_de_indent_rut.$pago->cop_de_indent_nom) }}" style="width:100%;border:none;height:25rem;"></iframe>

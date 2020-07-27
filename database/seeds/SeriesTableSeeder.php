@@ -11,15 +11,15 @@ class SeriesTableSeeder extends Seeder {
     public function run() {
         Serie::create([
             'input'             => 'Cotizaciones (Serie)',
-            'value'             => 'COT-CYA-',
-            'vista'             => 'COT-CYA-',
+            'value'             => 'CYA-',
+            'vista'             => 'CYA-',
             'asignado_ser'  	  => 'desarrolloweb.ewmx@gmail.com',
             'created_at_ser'    => 'desarrolloweb.ewmx@gmail.com',
         ]);
         Serie::create([
             'input'             => 'Pedidos (Serie)',
-            'value'             => 'PED-CYA-',
-            'vista'             => 'PED-CYA-',
+            'value'             => 'CYA-',
+            'vista'             => 'CYA-',
             'asignado_ser'  	  => 'desarrolloweb.ewmx@gmail.com',
             'created_at_ser'    => 'desarrolloweb.ewmx@gmail.com',
         ]);

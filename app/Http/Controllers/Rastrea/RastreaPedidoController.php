@@ -49,7 +49,7 @@ class RastreaPedidoController extends Controller {
         return redirect(route('produccion.pedidoActivo.show', \Crypt::encrypt($pedido->id)));
       case 'Logística':
         if($pedido->estat_log == config('app.en_almacen_de_salida_terminado')) {
-          return redirect(route('logistica.pedidoTerminado.show', \Crypt::encrypt($pedido->id)));
+          return redirect(route('logistica.pedidoEntregado.show', \Crypt::encrypt($pedido->id)));
         }
         return redirect(route('logistica.pedidoActivo.show', \Crypt::encrypt($pedido->id)));
       default:

@@ -43,6 +43,7 @@ class UpdateSistemaRequest extends FormRequest {
       'plantilla_por_default_pago_rechazado'                => 'required|exists:plantillas,id',
       'plantilla_por_default_factura_generada'              => 'required|exists:plantillas,id',
       'plantilla_por_default_factura_cancelada'             => 'required|exists:plantillas,id',
+      'plantilla_por_default_pedido_entregado'              => 'required|exists:plantillas,id',
       'logo_color_negro'                                    => 'nullable|max:1024|image',
       'logo_color_blanco'                                   => 'nullable|max:1024|image',
       'imagen_login'                                        => 'nullable|max:1024|image',

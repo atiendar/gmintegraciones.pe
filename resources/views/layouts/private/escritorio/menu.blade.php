@@ -43,6 +43,7 @@
   'almacen.producto.index', 'almacen.producto.create', 'almacen.producto.show', 'almacen.producto.edit', 'almacen.producto.disminuirStock', 'almacen.producto.destroy', 'almacen.producto.sustituto.create', 'almacen.producto.sustituto.destroy', 'almacen.producto.proveedor.create', 'almacen.producto.proveedor.destroy',
   'almacen.pedidoActivo.index', 'almacen.pedidoActivo.show', 'almacen.pedidoActivo.edit', 'almacen.pedidoActivo.armado.show', 'almacen.pedidoActivo.armado.edit',
   'almacen.pedidoTerminado.index','almacen.pedidoTerminado.show',
+  'logistica.direccionLocal.index', 'logistica.direccionLocal.show', 'logistica.direccionLocal.create', 'logistica.direccionLocal.createEntrega',
   'factura.index', 'factura.create', 'factura.show', 'factura.edit', 'factura.destroy'
 ])
   <li class="nav-header">{{ __('MÓDULOS') }}</li>

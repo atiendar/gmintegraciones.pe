@@ -115,8 +115,6 @@
     </div>
   </div>
 </div>
-
-{{--
 <label for="envio_al_que_se_cotizo">{{ __('ENVÍO DEFINIDO POR LOGÍSTICA') }}</label>
 <div class="border border-primary rounded p-2">
   <div class="row">
@@ -149,18 +147,59 @@
         {!! Form::text('url_rastreo', $direccion->url, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('URL rastreo'), 'readonly' => 'readonly']) !!}
       </div>
     </div>
+  
+    @if(!$comprobantes->isEmpty())
+      <div class="form-group col-sm btn-sm">
+        <label for="numero_de_guia">{{ __('Número de guia') }}</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+          </div>
+          {!! Form::text('numero_de_guia', $comprobantes[0]->num_guia, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Número de guia'), 'readonly' => 'readonly']) !!}
+        </div>
+      </div>
+    @endif
+
+  </div>
+
+  <div class="row">
     <div class="form-group col-sm btn-sm">
-      <label for="numero_de_guia">{{ __('Número de guia') }}</label>
+      <label for="costo_por_envio_logistica">{{ __('Costo de envío') }}</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-text-width"></i></span>
         </div>
-        {!! Form::text('numero_de_guia', $direccion->num_guia, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Número de guia'), 'readonly' => 'readonly']) !!}
+        {!! Form::text('costo_por_envio_logistica', Sistema::dosDecimales($direccion->cost_por_env_log), ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Costo de envío'), 'readonly' => 'readonly']) !!}
       </div>
     </div>
   </div>
 </div>
---}}
+<div class="row">
+  @if($direccion->comp_de_sal_nom != NULL)
+    <div class="form-group col-sm btn-sm">
+      <a href="{{ Storage::url($direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
+      <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label> {{ $direccion->created_com_sal }} ({{ $direccion->fech_car_comp_de_sal }})
+      <div class="form-group col-sm btn-sm">
+        <div class="pad box-pane-right no-padding" style="min-height: 280px">
+          <iframe src="{{ Storage::url($direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom) }}" style="width:100%;border:none;height:15rem;"></iframe>
+        </div>
+      </div>
+    </div>
+  @endif
+  @if(!$comprobantes->isEmpty())
+    @if($comprobantes[0]->comp_ent_nom != NULL)
+      <div class="form-group col-sm btn-sm">
+        <a href="{{ Storage::url($comprobantes->comp_ent_rut.$comprobantes->comp_ent_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
+        <label for="comprobante_de_salida">{{ __('Comprobante de entrega') }}</label> {{ $comprobantes[0]->created_at_comp }} ({{ $comprobantes[0]->created_at }})
+        <div class="form-group col-sm btn-sm">
+          <div class="pad box-pane-right no-padding" style="min-height: 280px">
+            <iframe src="{{ Storage::url($comprobantes[0]->comp_ent_rut.$comprobantes[0]->comp_ent_nom) }}" style="width:100%;border:none;height:15rem;"></iframe>
+          </div>
+        </div>
+      </div>
+    @endif
+  @endif
+</div>
 <label for="envio_al_que_se_cotizo">{{ __('INFORMACIÓN DE ENTREGA') }}</label>
 <div class="border border-primary rounded p-2">
   @include('rolCliente.direccion.dir_showFields')

@@ -10,6 +10,7 @@ class EstatusArmadoRepositories implements EstatusArmadonInterface {
     $nom_tabla = (new PedidoArmadoTieneDireccion())->getTable();
 
     $consulta_armado = DB::table($nom_tabla)->select(
+      DB::raw("(SELECT COUNT(*) FROM $nom_tabla WHERE pedido_armado_id = $direccion->pedido_armado_id AND estat = '".config('app.pendiente')."') as pendiente"),
       DB::raw("(SELECT COUNT(*) FROM $nom_tabla WHERE pedido_armado_id = $direccion->pedido_armado_id AND estat = '".config('app.en_almacen_de_salida')."') as en_almacen_de_salida"),
       DB::raw("(SELECT COUNT(*) FROM $nom_tabla WHERE pedido_armado_id = $direccion->pedido_armado_id AND estat = '".config('app.en_ruta')."') as en_ruta"),
       DB::raw("(SELECT COUNT(*) FROM $nom_tabla WHERE pedido_armado_id = $direccion->pedido_armado_id AND estat = '".config('app.intento_de_entrega_fallido')."') as intento_de_entrega_fallido"),
@@ -17,14 +18,14 @@ class EstatusArmadoRepositories implements EstatusArmadonInterface {
       DB::raw("(SELECT SUM(cant) FROM $nom_tabla WHERE pedido_armado_id = $direccion->pedido_armado_id AND estat = '".config('app.entregado')."') as suma_entregado")
     )->first();
 
-    $anteriores = $consulta_armado->en_ruta + $consulta_armado->intento_de_entrega_fallido + $consulta_armado->sin_entrega_por_falta_de_informacion;
+    $anteriores = $consulta_armado->pendiente + $consulta_armado->en_ruta + $consulta_armado->intento_de_entrega_fallido + $consulta_armado->sin_entrega_por_falta_de_informacion;
     if($anteriores == 0 AND $consulta_armado->suma_entregado == $direccion->armado->cant) {
       $estatus_armado = config('app.entregado');
     }
     if($consulta_armado->en_ruta > 0) {
       $estatus_armado = config('app.en_ruta');
     }
-    if($consulta_armado->en_almacen_de_salida > 0) {
+    if($consulta_armado->en_almacen_de_salida > 0 OR $consulta_armado->pendiente > 0) {
       $estatus_armado = config('app.en_almacen_de_salida');
     }
     if($consulta_armado->intento_de_entrega_fallido > 0) {

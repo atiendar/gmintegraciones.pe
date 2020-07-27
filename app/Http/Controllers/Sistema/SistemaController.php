@@ -31,6 +31,7 @@ class SistemaController extends Controller {
     $plantillas_pag_pag_rech  = $this->plantillaRepo->getAllPlantillasModuloPluck('Pagos (Pago rechazado)');
     $plantillas_fac_generada  = $this->plantillaRepo->getAllPlantillasModuloPluck('Facturación (Factura generada)');
     $plantillas_fac_cancelado  = $this->plantillaRepo->getAllPlantillasModuloPluck('Facturación (Factura cancelada)');
+    $plantillas_plant_ped_ent  = $this->plantillaRepo->getAllPlantillasModuloPluck('Logística (Pedido entregado)');
     return view('sistema.sistema.sis_sis_index', compact('ser_cotizaciones', 
                                                         'ser_pedidos', 
                                                         'plantillas_usu_bien', 
@@ -43,7 +44,8 @@ class SistemaController extends Controller {
                                                         'plantillas_pag_reg_pag', 
                                                         'plantillas_pag_pag_rech', 
                                                         'plantillas_fac_generada',
-                                                        'plantillas_fac_cancelado'));
+                                                        'plantillas_fac_cancelado',
+                                                        'plantillas_plant_ped_ent'));
   }
   public function update(UpdateSistemaRequest $request) {
     $this->sistemaRepo->update($request);

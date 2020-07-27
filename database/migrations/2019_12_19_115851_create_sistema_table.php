@@ -69,6 +69,7 @@ class CreateSistemaTable extends Migration
             $table->unsignedBigInteger('plant_fac_generada')->nullable()->comment('Id de la plantilla por default para el módulo Facturación (Factura generada pago)');
             $table->unsignedBigInteger('plant_fac_cancelado')->nullable()->comment('Id de la plantilla por default para el módulo Facturación (Factura cancelada)');
             $table->unsignedBigInteger('plant_fac_err_cli')->nullable()->comment('Id de la plantilla por default para el módulo Facturación (Error del cliente)');
+            $table->unsignedBigInteger('plant_ped_ent')->nullable()->comment('Id de la plantilla por default para el módulo Logística (Pedido entregado)');
             $table->string('created_at_sis', 75)->comment('Correo del usuario que realizo el registro');
             $table->string('updated_at_sis', 75)->nullable()->comment('Correo del usuario que realizo la última modificación');
             $table->timestamps();

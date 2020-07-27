@@ -1,6 +1,7 @@
 @canany([
   'logistica.pedidoActivo.index', 'logistica.pedidoActivo.show', 'logistica.pedidoActivo.edit', 'logistica.pedidoActivo.armado.show', 'logistica.pedidoActivo.armado.edit',
-  'logistica.pedidoTerminado.index','logistica.pedidoTerminado.show'
+  'logistica.direccionLocal.index', 'logistica.direccionLocal.show', 'logistica.direccionLocal.create', 'logistica.direccionLocal.createEntrega',
+  'logistica.pedidoEntregado.index','logistica.pedidoEntregado.show'
 ])
   <li class="nav-item has-treeview {{ Request::is('logistica*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link {{ Request::is('logistica*') ? 'active' : '' }}">
@@ -17,7 +18,7 @@
           <p>{{ __('Inicio logística') }}</p>
         </a>
       </li>
-      @canany(['logistica.pedidoActivo.index','logistica.pedidoActivo.show','logistica.pedidoActivo.edit', 'logistica.pedidoActivo.armado.show', 'logistica.pedidoActivo.armado.edit', 'logistica.pedidoTerminado.index','logistica.pedidoTerminado.show'])
+      @canany(['logistica.pedidoActivo.index','logistica.pedidoActivo.show','logistica.pedidoActivo.edit', 'logistica.pedidoActivo.armado.show', 'logistica.pedidoActivo.armado.edit', 'logistica.direccionLocal.index', 'logistica.direccionLocal.show', 'logistica.direccionLocal.create', 'logistica.direccionLocal.createEntrega', 'logistica.pedidoEntregado.index','logistica.pedidoEntregado.show'])
         <li class="nav-item has-treeview {{ Request::is('logistica/pedido*') ? 'menu-open' : '' }} {{ Request::is('logistica/direccion*') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ Request::is('logistica/pedido*') ? 'active' : '' }} {{ Request::is('logistica/direccion*') ? 'menu-open' : '' }}">
             <i class="nav-icon fas fa-shopping-bag"></i>
@@ -35,7 +36,7 @@
                 </a>
               </li>
             @endcanany
-            @canany([''])
+            @canany(['logistica.direccionLocal.index', 'logistica.direccionLocal.show', 'logistica.direccionLocal.create', 'logistica.direccionLocal.createEntrega'])
               <li class="nav-item">
                 <a href="{{ route('logistica.direccionLocal.index') }}" class="nav-link {{ Request::is('logistica/direccion/local') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-list"></i>
@@ -43,7 +44,7 @@
                 </a>
               </li>
             @endcanany
-            @canany([''])
+            @canany(['logistica.direccionForaneo.index', 'logistica.direccionForaneo.show', 'logistica.direccionForaneo.create', 'logistica.direccionForaneo.createEntrega'])
               <li class="nav-item">
                 <a href="{{ route('logistica.direccionForaneo.index') }}" class="nav-link {{ Request::is('logistica/direccion/foraneo') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-list"></i>
@@ -51,9 +52,9 @@
                 </a>
               </li>
             @endcanany
-            @canany(['logistica.pedidoTerminado.index', 'logistica.pedidoTerminado.show'])
+            @canany(['logistica.pedidoEntregado.index', 'logistica.pedidoEntregado.show'])
               <li class="nav-item">
-                <a href="{{ route('logistica.pedidoTerminado.index') }}" class="nav-link {{ Request::is('logistica/pedido-terminado') ? 'active' : '' }}">
+                <a href="{{ route('logistica.pedidoEntregado.index') }}" class="nav-link {{ Request::is('logistica/pedido-entregado') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-list"></i>
                   <p>{{ __('Lista de pedidos terminados') }}</p>
                 </a>

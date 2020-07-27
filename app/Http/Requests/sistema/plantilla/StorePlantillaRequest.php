@@ -14,6 +14,7 @@ class StorePlantillaRequest extends FormRequest {
                                                   config('opcionesSelect.select_modulo.Clientes (Bienvenida)').','.
                                                   config('opcionesSelect.select_modulo.Facturación (Factura generada)').','.
                                                   config('opcionesSelect.select_modulo.Facturación (Factura cancelada)').','.
+                                                  config('opcionesSelect.select_modulo.Logística (Pedido entregado)').','.
                                                   config('opcionesSelect.select_modulo.Facturación (Error del cliente)').','.
                                                   config('opcionesSelect.select_modulo.Pagos (Registrar pago)').','.
                                                   config('opcionesSelect.select_modulo.Pagos (Pago rechazado)').','.

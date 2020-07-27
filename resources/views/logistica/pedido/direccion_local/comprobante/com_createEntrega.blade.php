@@ -3,8 +3,12 @@
 <title>@section('title', __('Registrar comprobante de entrega').' '.$direccion->est)</title>
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
+    <div class="float-right" style="margin-right: 4rem">
+      @include('logistica.pedido.direccion_local.opciones')
+    </div>
     <h5>
-      <strong>{{ __('Registrar comprobante de entrega') }}: </strong>{{ $direccion->est }} ({{ Sistema::dosDecimales($direccion->cant) }})
+      <strong>{{ __('Registrar comprobante de entrega') }}: </strong>{{ $direccion->est }} ({{ Sistema::dosDecimales($direccion->cant) }}),
+      <strong>{{ __('para el armado') }}: </strong> {{ $armado->cod }}
     </h5>
   </div>
   <div class="ribbon-wrapper">

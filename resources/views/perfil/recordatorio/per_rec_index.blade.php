@@ -6,5 +6,5 @@
 @endsection
 @section('contenido')
 <title>@section('title', 'Recordatorios')</title>
-@include('enConstruccion');
+@include('enConstruccion')
 @endsection

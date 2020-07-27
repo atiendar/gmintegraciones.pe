@@ -52,6 +52,8 @@ class SistemaRepositories implements SistemaInterface {
     $sistema->plant_pag_pag_rech  = $request->plantilla_por_default_pago_rechazado;
     $sistema->plant_fac_generada  = $request->plantilla_por_default_factura_generada;
     $sistema->plant_fac_cancelado  = $request->plantilla_por_default_factura_cancelada;
+    $sistema->plant_ped_ent  = $request->plantilla_por_default_pedido_entregado;
+    
     if($sistema->isDirty()) {
       // Dispara el evento registrado en App\Providers\EventServiceProvider.php
       ActividadRegistrada::dispatch(
@@ -63,11 +65,11 @@ class SistemaRepositories implements SistemaInterface {
               'Dirección dos', 'Dirección tres', 'Correo ventas', 'Correo opción uno', 'Correo opción dos', 'Correo opción tres', 'Página web', 'Facebook', 'Twitter', 'Instagram', 'Linkedin', 
               'Youtube', 'Serie por default "Cotizaciones"', 'Serie por default "Pedidos"', 'Plantilla por default "Bienvenida"', 'Plantilla por default "Bienvenida"', 'Plantilla por default "Cambio de contraseña"', 
               'Plantilla por default "Restablecimiento de contraseña"', 'Plantilla por default "Términos y condiciones"', 'Plantilla por default "Registrar pedido"', 'Plantilla por default "Pedido cancelado"', 
-              'Plantilla por default "Registrar pago"', 'Plantilla por default "Pago rechazado"', 'Plantilla por default "Factura generada"', 'Plantilla por default "Factura cancelada"'), // Nombre de los inputs del formulario
+              'Plantilla por default "Registrar pago"', 'Plantilla por default "Pago rechazado"', 'Plantilla por default "Factura generada"', 'Plantilla por default "Factura cancelada"', 'Plantilla por default "Pedido entregado"'), // Nombre de los inputs del formulario
         $sistema, // Request
         array('emp', 'emp_abrev', 'year_de_ini', 'lad_fij', 'tel_fij', 'ext', 'lad_mov', 'tel_mov', 'direc_uno', 'direc_dos', 'direc_tres', 'corr_vent', 'corr_opc_uno', 'corr_opc_dos', 'corr_opc_tres', 'pag', 
         'red_fbk', 'red_tw', 'red_ins', 'red_link', 'red_youtube', 'ser_cotizaciones', 'ser_pedidos', 'plant_usu_bien', 'plant_cli_bien', 'plant_per_camb_pass', 'plant_sis_rest_pass', 'plant_cot_term_cond', 
-        'plant_vent_reg_ped', 'plant_vent_ped_can', 'plant_pag_reg_pag', 'plant_pag_pag_rech', 'plant_fac_generada', 'plant_fac_cancelado') // Nombre de los campos en la BD
+        'plant_vent_reg_ped', 'plant_vent_ped_can', 'plant_pag_reg_pag', 'plant_pag_pag_rech', 'plant_fac_generada', 'plant_fac_cancelado', 'plant_ped_ent') // Nombre de los campos en la BD
       ); 
       $sistema->updated_at_sis  = Auth::user()->email_registro;
     }

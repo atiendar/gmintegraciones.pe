@@ -3,11 +3,15 @@ namespace App\Repositories\logistica\direccionLocal;
 // Models
 use App\Models\PedidoArmadoTieneDireccion;
 use App\Models\PedidoArmadoDireccionTieneComprobante;
+// Notifications
+use App\Notifications\logistica\NotificacionPedidoEntregado;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
 use App\Repositories\logistica\direccionLocal\EstatusArmadoRepositories;
 use App\Repositories\metodoDeEntrega\MetodoDeEntregaEspecificoRepositories;
+use App\Repositories\sistema\plantilla\PlantillaRepositories;
+use App\Repositories\sistema\sistema\SistemaRepositories;
 // Otros
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -16,10 +20,14 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   protected $serviceCrypt;
   protected $estatusArmadoRepo;
   protected $metodoDeEntregaEspecificoRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, EstatusArmadoRepositories $estatusArmadoRepositories, MetodoDeEntregaEspecificoRepositories $metodoDeEntregaEspecificoRepositories) {
+  protected $plantillaRepo;
+  protected $sistemaRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, EstatusArmadoRepositories $estatusArmadoRepositories, MetodoDeEntregaEspecificoRepositories $metodoDeEntregaEspecificoRepositories, PlantillaRepositories $plantillaRepositories, SistemaRepositories $sistemaRepositories) {
     $this->serviceCrypt                   = $serviceCrypt;
     $this->estatusArmadoRepo              = $estatusArmadoRepositories;
     $this->metodoDeEntregaEspecificoRepo  = $metodoDeEntregaEspecificoRepositories;
+    $this->plantillaRepo                  = $plantillaRepositories;
+    $this->sistemaRepo                    = $sistemaRepositories;
   }
   public function direccionLocalFindOrFailById($id_direccion, $for_loc, $relaciones, $accion) {
     $id_direccion = $this->serviceCrypt->decrypt($id_direccion);
@@ -35,6 +43,11 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   }
   public function getPagination($request, $for_loc, $relaciones) {
     return PedidoArmadoTieneDireccion::with($relaciones)
+    ->with(['armado'=> function ($query) {
+      $query->select('id', 'cod', 'pedido_id')->with(['pedido'=> function ($query) {
+        $query->select('id', 'fech_de_entreg');
+      }]);
+    }])
     ->where('for_loc', $for_loc)
     ->where(function ($query) {
       $query->where('estat', config('app.pendiente'))
@@ -51,20 +64,19 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
     try { DB::beginTransaction();
       $direccion                            = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), config('opcionesSelect.select_foraneo_local.Local'), ['armado'], 'edit');
       $metodo_de_entrega_espesifico         = $this->metodoDeEntregaEspecificoRepo->metodoEspecificoFirstByNombreMetodo($request->metodo_de_entrega_espesifico, []);
-    
       if($metodo_de_entrega_espesifico == null) {
         $url = null;
       }else {
         $url = $metodo_de_entrega_espesifico->url;
       }
-    
       $direccion->estat                     = config('app.en_ruta');
       $direccion->met_de_entreg_de_log      = $request->metodo_de_entrega;
       $direccion->met_de_entreg_de_log_esp  = $request->metodo_de_entrega_espesifico;
       $direccion->url                       = $url;
       $direccion->cost_por_env_log          = $request->costo_por_envio;
-
       $direccion->created_com_sal           = Auth::user()->email_registro;
+      $direccion->fech_car_comp_de_sal      = date('Y-m-d h:i:s');
+
       if($request->hasfile('comprobante_de_salida')) {
         $direccion->comp_de_sal_rut   = 'public/comprobante/'.date("Y").'/'.$direccion->id.'/';
         $direccion->comp_de_sal_nom   = 'comprobante_de_salida-'.time().'.jpg';
@@ -81,7 +93,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   }
   public function storeEntrega($request, $id_direccion) {
     try { DB::beginTransaction();
-      $direccion        = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), config('opcionesSelect.select_foraneo_local.Local'), [], 'edit');
+      $direccion        = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), config('opcionesSelect.select_foraneo_local.Local'), ['armado'], 'edit');
       $direccion->estat = config('app.entregado');
       $direccion->save();
 
@@ -102,6 +114,10 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
       }
 
       $comprobante->save();   
+
+      $cliente = $direccion->armado->pedido->usuario;
+      $plantilla = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_ped_ent'));
+      $cliente->notify(new NotificacionPedidoEntregado($cliente, $plantilla, $direccion->armado->cod)); // Envió de correo electrónico
 
       DB::commit();
       return $direccion;

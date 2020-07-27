@@ -40,8 +40,8 @@ class SistemaTableSeeder extends Seeder {
             'red_ins'               => 'https://www.instagram.com/arconesmx/',
             'red_link'              => 'https://www.linkedin.com/company/canastas-y-arcones/',
             'red_youtube'           => 'https://www.youtube.com/watch?v=cOxLGYPegVg',
-            'ser_cotizaciones'      => 'COT-CYA-',
-            'ser_pedidos'           => 'PED-CYA-',
+            'ser_cotizaciones'      => 'CYA-',
+            'ser_pedidos'           => 'CYA-',
             'plant_usu_bien'        => 1,
             'plant_cli_bien'        => 2,
             'plant_per_camb_pass'   => 3,
@@ -54,6 +54,7 @@ class SistemaTableSeeder extends Seeder {
             'plant_fac_generada'    => 10,
             'plant_fac_cancelado'   => 11,
             'plant_fac_err_cli'     => 12,
+            'plant_ped_ent'         => 13,
         	'created_at_sis'	    => 'desarrolloweb.ewmx@gmail.com',
         ]);
     }

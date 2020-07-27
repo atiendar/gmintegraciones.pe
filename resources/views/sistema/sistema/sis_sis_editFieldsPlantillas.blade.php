@@ -150,4 +150,19 @@
       </div>
     </div>
   </div>
+  <label for="modulo_logistica">{{ __('MÓDULO LOGÍSTICA') }}</label>
+  <div class="border border-secondary rounded p-2">
+    <div class="row">
+      <div class="form-group col-sm btn-sm">
+        <label for="plantilla_por_default_pedido_entregado">{{ __('Plantilla por default "Pedido entregado"') }} *</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-brush"></i></span>
+          </div>
+          {!! Form::select('plantilla_por_default_pedido_entregado', $plantillas_plant_ped_ent, Sistema::datos()->sistemaFindOrFail()->plant_ped_ent, ['class' => 'form-control select2' . ($errors->has('plantilla_por_default_pedido_entregado') ? ' is-invalid' : ''), 'placeholder' => __('Seleccione. . .')]) !!}
+        </div>
+        <span class="text-danger">{{ $errors->first('plantilla_por_default_pedido_entregado') }}</span>
+      </div>
+    </div>
+  </div>
 </div>

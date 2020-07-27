@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Logistica\PedidoTerminado;
+namespace App\Http\Controllers\Logistica\PedidoEntregado;
 use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\produccion\pedidoTerminado\PedidoTerminadoRepositories;
 use App\Repositories\produccion\pedidoActivo\armadoPedidoActivo\ArmadoPedidoActivoRepositories;
 
-class PedidoTerminadoController extends Controller {
+class PedidoEntregadoController extends Controller {
   public function __construct(PedidoTerminadoRepositories $PedidoTerminadoRepositories, ArmadoPedidoActivoRepositories $armadoPedidoActivoRepositories) {
     $this->pedidoTerminadoRepo    = $PedidoTerminadoRepositories;  
     $this->armadoPedidoActivoRepo = $armadoPedidoActivoRepositories;    

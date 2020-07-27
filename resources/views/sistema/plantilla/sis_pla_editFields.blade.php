@@ -119,16 +119,20 @@
   @endif
 
   @if($plantilla->mod == config('opcionesSelect.select_modulo.Facturación (Factura generada)'))
-    otros.push('$id_factura !'); // ESTE MÓDULO NO CUENTA CON OPCIONES EXTRAS
+    otros.push('$id_factura !');
   @endif
 
   @if($plantilla->mod == config('opcionesSelect.select_modulo.Facturación (Factura cancelada)'))
-    otros.push('$id_factura !'); // ESTE MÓDULO NO CUENTA CON OPCIONES EXTRAS
+    otros.push('$id_factura !');
   @endif
 
   @if($plantilla->mod == config('opcionesSelect.select_modulo.Facturación (Error del cliente)'))
     otros.push('$id_factura !',
-              '$comentarios_admin !'); // ESTE MÓDULO NO CUENTA CON OPCIONES EXTRAS
+              '$comentarios_admin !');
+  @endif
+
+  @if($plantilla->mod == config('opcionesSelect.select_modulo.Logística (Pedido entregado)'))
+    otros.push('$numero_de_pedido !');
   @endif
 
   $('.textarea').summernote({
