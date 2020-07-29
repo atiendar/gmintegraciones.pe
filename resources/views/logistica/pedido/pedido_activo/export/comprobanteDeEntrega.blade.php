@@ -68,12 +68,12 @@
         <dt class="text-center"><br><br><hr style="width:50%">Nombre y firma de repartidor</dt>
       </td>
     </tr>
-    <tr class="text-center" style="background:#f3f3f3">
+    <tr class="text-center" style="background:#9b9b9b">
       <td colspan="12">
         <dt>COMPROBANTE DE ENTREGA</dt>
       </td>
     </tr>
-    <tr style="background:#f3f3f3">
+    <tr style="background:#9b9b9b">
       <td colspan="7">
         <dt class="text-center"><h5>Al firmar este documento confirmo que recibo el pedido completo y en buenas condiciones</h5></dt>
         <dt>Nombre cliente:</dt>

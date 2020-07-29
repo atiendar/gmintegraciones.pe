@@ -1,3 +1,10 @@
+@if(Request::route()->getName() != 'logistica.direccionLocal.show')
+  <td width="1rem" title="Detalles: {{ $direccion->est }}">
+    @can('logistica.direccionLocal.show')
+      <a href="{{ route('logistica.direccionLocal.show', Crypt::encrypt($direccion->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-eye"></i></a>
+    @endcan
+  </td>
+@endif
 <td width="1rem" title="Generar comprobante de entrega: {{ $direccion->est }}">
   @if($direccion->estat != config('app.entregado') AND $direccion->estat != config('app.pendiente') AND $direccion->nom_ref_uno != null)
     @can('logistica.direccionLocal.index')

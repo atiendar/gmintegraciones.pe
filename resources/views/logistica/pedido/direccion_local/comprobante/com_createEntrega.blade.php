@@ -4,7 +4,11 @@
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     <div class="float-right" style="margin-right: 4rem">
-      @include('logistica.pedido.direccion_local.opciones')
+      @if(Request::route()->getName() == 'logistica.direccionLocal.createEntrega')
+        @include('logistica.pedido.direccion_local.opciones')
+      @elseif(Request::route()->getName() == 'logistica.direccionForaneo.createEntrega')
+        @include('logistica.pedido.direccion_foraneo.opciones')
+      @endif
     </div>
     <h5>
       <strong>{{ __('Registrar comprobante de entrega') }}: </strong>{{ $direccion->est }} ({{ Sistema::dosDecimales($direccion->cant) }}),
@@ -21,7 +25,11 @@
       @include('logistica.pedido.direccion_local.comprobante.com_createEntregaFields')
       <div class="row">
         <div class="form-group col-sm btn-sm">
-          <a href="{{ route('logistica.direccionLocal.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
+          @if(Request::route()->getName() == 'logistica.direccionLocal.createEntrega')
+            <a href="{{ route('logistica.direccionLocal.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
+          @elseif(Request::route()->getName() == 'logistica.direccionForaneo.createEntrega')
+            <a href="{{ route('logistica.direccionForaneo.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
+          @endif
         </div>
         <div class="form-group col-sm btn-sm">
           <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2"><i class="fas fa-check-circle text-dark"></i> {{ __('Registrar') }}</button>
@@ -76,8 +84,11 @@
                 title: 'Éxito',
                 text: '¡Comprobante registrado exitosamente!',
               }).then((value) => {
-                location.href="{{ route('logistica.direccionLocal.index') }}";
-                //  location.reload()
+                if("{{ Request::route()->getName() }}" == 'logistica.direccionLocal.createEntrega') {
+                  location.href="{{ route('logistica.direccionLocal.index') }}";
+                } else {
+                  location.href="{{ route('logistica.direccionForaneo.index') }}";
+                }
               })
             }).catch(error => {
               this.checarBotonSubmitEnabled("btnsubmit")

@@ -31,7 +31,11 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   }
   public function direccionLocalFindOrFailById($id_direccion, $for_loc, $relaciones, $accion) {
     $id_direccion = $this->serviceCrypt->decrypt($id_direccion);
-    $direccion = PedidoArmadoTieneDireccion::with($relaciones)->where('for_loc', $for_loc);
+    $direccion = PedidoArmadoTieneDireccion::with($relaciones);
+
+    if($for_loc != null) {
+      $direccion->where('for_loc', $for_loc);
+    }
     if($accion == 'edit') {
       $direccion->where(function ($query) {$query->where('estat', config('app.en_almacen_de_salida'))
         ->orWhere('estat', config('app.en_ruta'))
@@ -62,7 +66,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   }
   public function store($request, $id_direccion) {
     try { DB::beginTransaction();
-      $direccion                            = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), config('opcionesSelect.select_foraneo_local.Local'), ['armado'], 'edit');
+      $direccion                            = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), null, ['armado'], 'edit');
       $metodo_de_entrega_espesifico         = $this->metodoDeEntregaEspecificoRepo->metodoEspecificoFirstByNombreMetodo($request->metodo_de_entrega_espesifico, []);
       if($metodo_de_entrega_espesifico == null) {
         $url = null;
@@ -78,6 +82,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
       $direccion->fech_car_comp_de_sal      = date('Y-m-d h:i:s');
 
       if($request->hasfile('comprobante_de_salida')) {
+        \Storage::delete($direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom);
         $direccion->comp_de_sal_rut   = 'public/comprobante/'.date("Y").'/'.$direccion->id.'/';
         $direccion->comp_de_sal_nom   = 'comprobante_de_salida-'.time().'.jpg';
         $comprobante_de_salida        = $request->file('comprobante_de_salida');
@@ -93,7 +98,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   }
   public function storeEntrega($request, $id_direccion) {
     try { DB::beginTransaction();
-      $direccion        = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), config('opcionesSelect.select_foraneo_local.Local'), ['armado'], 'edit');
+      $direccion        = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), null, ['armado'], 'edit');
       $direccion->estat = config('app.entregado');
       $direccion->save();
 

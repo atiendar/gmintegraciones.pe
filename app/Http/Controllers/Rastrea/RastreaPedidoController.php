@@ -25,12 +25,12 @@ class RastreaPedidoController extends Controller {
     $mont_pag_aprov =  $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
     return view('rastrea.pedido.rpe_show', compact('pedido', 'unificados', 'armados', 'pagos', 'mont_pag_aprov'));
   }
-  public function rastrearPorQR($id, $modulo) {
+  public function rastrearPorQR($id, $modulo, $otro = null) {
     if($modulo == 'Almacén' OR $modulo == 'Producción' OR $modulo == 'Logística') {
       return $this->pedido($id, $modulo);
     }
     if($modulo == 'Comprobante de salida' OR $modulo == 'Comprobante de entrega') {
-      return $this->direccion($id, $modulo);
+      return $this->direccion($id, $modulo, $otro);
     }
     echo 'Opción 1 invalida';
   }
@@ -56,7 +56,7 @@ class RastreaPedidoController extends Controller {
         echo 'Opción 2 invalida';
     }
   }
-  public function direccion($id, $modulo) {
+  public function direccion($id, $modulo, $for_loc) {
     $direccion = \App\Models\PedidoArmadoTieneDireccion::findorfail($id);
     switch ($modulo) {
       case 'Comprobante de salida':
@@ -64,13 +64,23 @@ class RastreaPedidoController extends Controller {
           echo 'Ya se ha subido el comprobante de salida con anterioridad';
           break;
         }
-        return redirect(route('logistica.direccionLocal.create', \Crypt::encrypt($direccion->id)));
+        if($for_loc == config('opcionesSelect.select_foraneo_local.Foráneo')) {
+          $ruta = 'logistica.direccionForaneo.create';
+        }elseif($for_loc == config('opcionesSelect.select_foraneo_local.Local')) {
+          $ruta = 'logistica.direccionLocal.create';
+        }
+        return redirect(route($ruta, \Crypt::encrypt($direccion->id)));
       case 'Comprobante de entrega':
         if($direccion->estat == config('app.entregado')) {
           echo 'Ya se ha subido el comprobante de entrega con anterioridad';
           break;
         }
-        return redirect(route('logistica.direccionLocal.createEntrega', \Crypt::encrypt($direccion->id)));
+        if($for_loc == config('opcionesSelect.select_foraneo_local.Foráneo')) {
+          $ruta = 'logistica.direccionForaneo.createEntrega';
+        }elseif($for_loc == config('opcionesSelect.select_foraneo_local.Local')) {
+          $ruta = 'logistica.direccionLocal.createEntrega';
+        }
+        return redirect(route($ruta, \Crypt::encrypt($direccion->id)));
       default:
         echo 'Opción 3 invalida';
     }

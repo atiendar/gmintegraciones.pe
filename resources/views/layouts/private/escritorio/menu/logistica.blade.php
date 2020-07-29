@@ -1,6 +1,7 @@
 @canany([
   'logistica.pedidoActivo.index', 'logistica.pedidoActivo.show', 'logistica.pedidoActivo.edit', 'logistica.pedidoActivo.armado.show', 'logistica.pedidoActivo.armado.edit',
   'logistica.direccionLocal.index', 'logistica.direccionLocal.show', 'logistica.direccionLocal.create', 'logistica.direccionLocal.createEntrega',
+  'logistica.direccionForaneo.index', 'logistica.direccionForaneo.show', 'logistica.direccionForaneo.create', 'logistica.direccionForaneo.createEntrega',
   'logistica.pedidoEntregado.index','logistica.pedidoEntregado.show'
 ])
   <li class="nav-item has-treeview {{ Request::is('logistica*') ? 'menu-open' : '' }}">
@@ -18,7 +19,7 @@
           <p>{{ __('Inicio logística') }}</p>
         </a>
       </li>
-      @canany(['logistica.pedidoActivo.index','logistica.pedidoActivo.show','logistica.pedidoActivo.edit', 'logistica.pedidoActivo.armado.show', 'logistica.pedidoActivo.armado.edit', 'logistica.direccionLocal.index', 'logistica.direccionLocal.show', 'logistica.direccionLocal.create', 'logistica.direccionLocal.createEntrega', 'logistica.pedidoEntregado.index','logistica.pedidoEntregado.show'])
+      @canany(['logistica.pedidoActivo.index','logistica.pedidoActivo.show','logistica.pedidoActivo.edit', 'logistica.pedidoActivo.armado.show', 'logistica.pedidoActivo.armado.edit', 'logistica.direccionLocal.index', 'logistica.direccionLocal.show', 'logistica.direccionLocal.create', 'logistica.direccionLocal.createEntrega', 'logistica.direccionForaneo.index', 'logistica.direccionForaneo.show', 'logistica.direccionForaneo.create', 'logistica.direccionForaneo.createEntrega', 'logistica.pedidoEntregado.index','logistica.pedidoEntregado.show'])
         <li class="nav-item has-treeview {{ Request::is('logistica/pedido*') ? 'menu-open' : '' }} {{ Request::is('logistica/direccion*') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ Request::is('logistica/pedido*') ? 'active' : '' }} {{ Request::is('logistica/direccion*') ? 'menu-open' : '' }}">
             <i class="nav-icon fas fa-shopping-bag"></i>

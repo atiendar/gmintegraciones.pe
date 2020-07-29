@@ -3,8 +3,6 @@ namespace App\Http\Controllers\Logistica\DireccionForaneo;
 use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
-use App\Http\Requests\logistica\direccionLocal\StoreComprobanteDeSalidaRequest;
-use App\Http\Requests\logistica\direccionLocal\StoreComprobanteDeEntregaRequest;
 // Repositories
 use App\Repositories\logistica\direccionLocal\DireccionLocalRepositories;
 use App\Repositories\metodoDeEntrega\MetodoDeEntregaRepositories;
@@ -26,11 +24,18 @@ class DireccionForaneoController extends Controller {
   public function create($id_direccion) {
     $direccion          = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Foráneo'), [], 'edit');
     $armado             = $direccion->armado;
-    $metodos_de_entrega = $this->metodoDeEntregaRepo->getAllMetodosPluck('Local');
+    $metodos_de_entrega = $this->metodoDeEntregaRepo->getAllMetodosPluck('Foráneo');
     return view('logistica.pedido.direccion_local.comprobante.com_createSalida', compact('direccion', 'armado', 'metodos_de_entrega'));
   }
-  public function store(StoreComprobanteDeSalidaRequest $request, $id_direccion) {
-    $direccion = $this->direccionLocalRepo->store($request, $id_direccion);
-    return $direccion;
+  public function show($id_direccion) {
+    $direccion    = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Foráneo'), ['comprobantes', 'armado'], 'show');
+    $comprobantes = $direccion->comprobantes;
+    $armado       = $direccion->armado;
+    return view('logistica.pedido.direccion_foraneo.dirFor_show', compact('direccion', 'comprobantes', 'armado'));
+  }
+  public function createEntrega($id_direccion) { 
+    $direccion  = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Foráneo'), [], 'edit');
+    $armado     = $direccion->armado;
+    return view('logistica.pedido.direccion_local.comprobante.com_createEntrega', compact('direccion', 'armado'));
   }
 }

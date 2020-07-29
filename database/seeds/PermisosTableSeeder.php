@@ -960,30 +960,66 @@ Spatie\Permission\Models\Permission::create([
 //PERMISOS DEL MÓDULO LOGÍSTICA (DIRECCIONES LOCALES)
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 104,
-      'nom'             => "Navegar por tabla Logística 'Direcciones Locales'",
+      'nom'             => "Navegar por tabla Logística 'Direcciones locales'",
       'name'				    => 'logistica.direccionLocal.index',
-      'desc'            => "Lista y navega por todos los registros del módulo Logística 'Direcciones Locales'",
+      'desc'            => "Lista y navega por todos los registros del módulo Logística 'Direcciones locales'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 105,
-      'nom'             => "Ver detalles Logística 'Direcciones Locales'",
+      'nom'             => "Ver detalles Logística 'Direcciones locales'",
       'name'				    => 'logistica.direccionLocal.show',
-      'desc'            => "Ver detalles de cualquier registro del módulo Logística 'Direcciones Locales'",
+      'desc'            => "Ver detalles de cualquier registro del módulo Logística 'Direcciones locales'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
     //      'id'              => 11,
-      'nom'             => "Registrar nuevo comprobante de salida Logística 'Direcciones Locales'",
+      'nom'             => "Registrar nuevo comprobante de salida Logística 'Direcciones locales'",
       'name'				    => 'logistica.direccionLocal.create',
-      'desc'            => "Registrar nuevo comprobante de salida en el módulo Logística 'Direcciones Locales'",
+      'desc'            => "Registrar nuevo comprobante de salida en el módulo Logística 'Direcciones locales'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
     //      'id'              => 11,
-      'nom'             => "Registrar nuevo comprobante de entrega Logística 'Direcciones Locales'",
+      'nom'             => "Registrar nuevo comprobante de entrega Logística 'Direcciones locales'",
       'name'				    => 'logistica.direccionLocal.createEntrega',
-      'desc'            => "Registrar nuevo comprobante de entrega en el módulo Logística 'Direcciones Locales'",
+      'desc'            => "Registrar nuevo comprobante de entrega en el módulo Logística 'Direcciones locales'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    //PERMISOS DEL MÓDULO LOGÍSTICA (DIRECCIONES FORANEOS)
+    Spatie\Permission\Models\Permission::create([
+      //  'id'              => 104,
+        'nom'             => "Navegar por tabla Logística 'Direcciones foraneos'",
+        'name'				    => 'logistica.direccionForaneo.index',
+        'desc'            => "Lista y navega por todos los registros del módulo Logística 'Direcciones foraneos'",
+        'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+      ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 105,
+      'nom'             => "Ver detalles Logística 'Direcciones foraneos'",
+      'name'				    => 'logistica.direccionForaneo.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo Logística 'Direcciones foraneos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //      'id'              => 11,
+      'nom'             => "Registrar nuevo comprobante de salida Logística 'Direcciones foraneos'",
+      'name'				    => 'logistica.direccionForaneo.create',
+      'desc'            => "Registrar nuevo comprobante de salida en el módulo Logística 'Direcciones foraneos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //      'id'              => 11,
+      'nom'             => "Registrar nuevo comprobante de entrega Logística 'Direcciones foraneos'",
+      'name'				    => 'logistica.direccionForaneo.createEntrega',
+      'desc'            => "Registrar nuevo comprobante de entrega en el módulo Logística 'Direcciones foraneos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //      'id'              => 11,
+      'nom'             => "Registrar nuevo comprobante de entrega Logística 'Direcciones locales y foraneos'",
+      'name'				    => 'logistica.direccionLocFor.createEntrega',
+      'desc'            => "Registrar nuevo comprobante de entrega en el módulo Logística 'Direcciones locales y foraneos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
   }

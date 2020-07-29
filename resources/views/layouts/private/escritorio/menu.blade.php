@@ -44,6 +44,7 @@
   'almacen.pedidoActivo.index', 'almacen.pedidoActivo.show', 'almacen.pedidoActivo.edit', 'almacen.pedidoActivo.armado.show', 'almacen.pedidoActivo.armado.edit',
   'almacen.pedidoTerminado.index','almacen.pedidoTerminado.show',
   'logistica.direccionLocal.index', 'logistica.direccionLocal.show', 'logistica.direccionLocal.create', 'logistica.direccionLocal.createEntrega',
+  'logistica.direccionForaneo.index', 'logistica.direccionForaneo.show', 'logistica.direccionForaneo.create', 'logistica.direccionForaneo.createEntrega',
   'factura.index', 'factura.create', 'factura.show', 'factura.edit', 'factura.destroy'
 ])
   <li class="nav-header">{{ __('MÓDULOS') }}</li>

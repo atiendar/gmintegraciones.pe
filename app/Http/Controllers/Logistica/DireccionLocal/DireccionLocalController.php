@@ -33,7 +33,7 @@ class DireccionLocalController extends Controller {
     $direccion = $this->direccionLocalRepo->store($request, $id_direccion);
     return $direccion;
   }
-  public function createEntrega($id_direccion) { 
+  public function createEntrega($id_direccion) {
     $direccion  = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Local'), [], 'edit');
     $armado     = $direccion->armado;
     return view('logistica.pedido.direccion_local.comprobante.com_createEntrega', compact('direccion', 'armado'));
@@ -60,8 +60,8 @@ class DireccionLocalController extends Controller {
       return abort(403, 'No se ha definido la persona que recibe este pedido.');
     }
     $armado                       = $direccion->armado;
-    $codigoQRDComprobanteDeSalida = $this->generarQRRepo->qr($direccion->id, 'Comprobante de salida');
-    $codigoQRDComprobanteDeEntrega = $this->generarQRRepo->qr($direccion->id, 'Comprobante de entrega');
+    $codigoQRDComprobanteDeSalida = $this->generarQRRepo->qr($direccion->id, 'Comprobante de salida', $for_loc);
+    $codigoQRDComprobanteDeEntrega = $this->generarQRRepo->qr($direccion->id, 'Comprobante de entrega', $for_loc);
 
     $comprobante_de_entrega  = \PDF::loadView('logistica.pedido.pedido_activo.export.comprobanteDeEntrega', compact('direccion', 'armado', 'codigoQRDComprobanteDeSalida', 'codigoQRDComprobanteDeEntrega'));
     return $comprobante_de_entrega->stream();

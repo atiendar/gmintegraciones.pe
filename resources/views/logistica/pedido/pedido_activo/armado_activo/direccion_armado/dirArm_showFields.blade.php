@@ -189,7 +189,7 @@
   @if(!$comprobantes->isEmpty())
     @if($comprobantes[0]->comp_ent_nom != NULL)
       <div class="form-group col-sm btn-sm">
-        <a href="{{ Storage::url($comprobantes->comp_ent_rut.$comprobantes->comp_ent_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
+        <a href="{{ Storage::url($comprobantes[0]->comp_ent_rut.$comprobantes[0]->comp_ent_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
         <label for="comprobante_de_salida">{{ __('Comprobante de entrega') }}</label> {{ $comprobantes[0]->created_at_comp }} ({{ $comprobantes[0]->created_at }})
         <div class="form-group col-sm btn-sm">
           <div class="pad box-pane-right no-padding" style="min-height: 280px">
