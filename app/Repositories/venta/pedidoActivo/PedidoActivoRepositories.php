@@ -24,8 +24,12 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     $pedido = Pedido::with($relaciones)->where('estat_log', '!=', config('app.entregado'))->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->findOrFail($id_pedido);
     return $pedido;
   }
-  public function getPagination($request, $relaciones) { // 'usuario', 'unificar'
-    return Pedido::with($relaciones)->where('estat_log', '!=', config('app.entregado'))->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
+  public function getPagination($request, $relaciones, $opc_consulta) { // 'usuario', 'unificar'
+    return Pedido::pendientesPedido($opc_consulta)->with($relaciones)->where('estat_log', '!=', config('app.entregado'))
+    ->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)
+    ->buscar($request->opcion_buscador, $request->buscador)
+    ->orderBy('id', 'DESC')
+    ->paginate($request->paginador);
   }
   public function update($request, $id_pedido) {
     try { DB::beginTransaction();

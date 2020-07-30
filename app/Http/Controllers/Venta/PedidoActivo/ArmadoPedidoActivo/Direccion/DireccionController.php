@@ -12,8 +12,9 @@ class DireccionController extends Controller {
     $this->direccionArmadoRepo = $direccionArmadoRepositories;
   }
   public function show($id_direccion) {
-    $direccion = $this->direccionArmadoRepo->direccionFindOrFailById($id_direccion, ['armado']);
-    return view('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_show', compact('direccion'));
+    $direccion = $this->direccionArmadoRepo->direccionFindOrFailById($id_direccion, ['comprobantes', 'armado']);
+    $comprobantes = $direccion->comprobantes;
+    return view('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_show', compact('comprobantes', 'direccion'));
   }
   public function edit($id_direccion) {
     $direccion = $this->direccionArmadoRepo->direccionFindOrFailById($id_direccion, ['armado']);

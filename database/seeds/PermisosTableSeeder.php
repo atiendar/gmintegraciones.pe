@@ -957,6 +957,43 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Ver detalles de cualquier registro del módulo Producción 'Pedidos terminados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+//PERMISOS DEL MÓDULO LOGÍSTICA (PEDIDO ACTIVO)
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 99,
+      'nom'             => "Navegar por tabla Logística 'Pedidos activos'",
+      'name'				    => 'logistica.pedidoActivo.index',
+      'desc'            => "Lista y navega por todos los registros del módulo Logística 'Pedidos activos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 100,
+      'nom'             => "Ver detalles Logística 'Pedidos activos'",
+      'name'				    => 'logistica.pedidoActivo.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo Logística 'Pedidos activos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 101,
+      'nom'             => "Editar registro Logística 'Pedidos activos'",
+      'name'				    => "logistica.pedidoActivo.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo Logística 'Pedidos activos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+//PERMISOS DEL MÓDULO LOGÍSTICA/PEDIDO ACTIVO (ARMADOS)
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 102,
+      'nom'             => "Ver detalles Logística/Pedido Activo 'Armados'",
+      'name'				    => 'logistica.pedidoActivo.armado.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo Logística/Pedido Activo 'Armados'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 103,
+      'nom'             => "Editar registro Logística/Pedido Activo 'Armados'",
+      'name'				    => "logistica.pedidoActivo.armado.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo Logística/Pedido Activo 'Armados'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
 //PERMISOS DEL MÓDULO LOGÍSTICA (DIRECCIONES LOCALES)
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 104,
@@ -1020,6 +1057,21 @@ Spatie\Permission\Models\Permission::create([
       'nom'             => "Registrar nuevo comprobante de entrega Logística 'Direcciones locales y foraneos'",
       'name'				    => 'logistica.direccionLocFor.createEntrega',
       'desc'            => "Registrar nuevo comprobante de entrega en el módulo Logística 'Direcciones locales y foraneos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+//PERMISOS DEL MÓDULO LOGÍSTICA (PEDIDO ENTREGADO)
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 104,
+      'nom'             => "Navegar por tabla Logística 'Pedidos entregados'",
+      'name'				    => 'logistica.pedidoTerminado.index',
+      'desc'            => "Lista y navega por todos los registros del módulo Logística 'Pedidos entregados'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 105,
+      'nom'             => "Ver detalles Logística 'Pedidos entregados'",
+      'name'				    => 'logistica.pedidoTerminado.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo Logística 'Pedidos entregados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
   }

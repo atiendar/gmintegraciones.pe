@@ -1,7 +1,7 @@
 <?php
 /* ===================== [ RUTAS VENTAS (PEDIDOS ACTIVOS) ] ===================== */
 Route::group(['prefix' => 'pedido-activo'], function() {
-  Route::match(['GET', 'HEAD'],'', 'Venta\PedidoActivo\PedidoActivoController@index')->name('venta.pedidoActivo.index')->middleware('permission:venta.pedidoActivo.index|venta.pedidoActivo.show|venta.pedidoActivo.edit|venta.pedidoActivo.destroy|venta.pedidoActivo.armado.show|venta.pedidoActivo.armado.edit|venta.pedidoActivo.pago.create|venta.pedidoActivo.pago.show|venta.pedidoActivo.pago.edit');
+  Route::match(['GET', 'HEAD'],'/{opc_consulta?}', 'Venta\PedidoActivo\PedidoActivoController@index')->name('venta.pedidoActivo.index')->middleware('permission:venta.pedidoActivo.index|venta.pedidoActivo.show|venta.pedidoActivo.edit|venta.pedidoActivo.destroy|venta.pedidoActivo.armado.show|venta.pedidoActivo.armado.edit|venta.pedidoActivo.pago.create|venta.pedidoActivo.pago.show|venta.pedidoActivo.pago.edit');
   Route::match(['GET', 'HEAD'],'detalles/{id_pedido}', 'Venta\PedidoActivo\PedidoActivoController@show')->name('venta.pedidoActivo.show')->middleware('permission:venta.pedidoActivo.show|venta.pedidoActivo.armado.show|venta.pedidoActivo.pago.show');
   Route::match(['GET', 'HEAD'],'editar/{id_pedido}', 'Venta\PedidoActivo\PedidoActivoController@edit')->name('venta.pedidoActivo.edit')->middleware('permission:venta.pedidoActivo.edit|venta.pedidoActivo.armado.edit|venta.pedidoActivo.pago.create|venta.pedidoActivo.pago.edit');
   Route::match(['PUT', 'PATCH'],'actualizar/{id_pedido}', 'Venta\PedidoActivo\PedidoActivoController@update')->name('venta.pedidoActivo.update')->middleware('permission:venta.pedidoActivo.edit');

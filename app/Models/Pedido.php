@@ -36,6 +36,34 @@ class Pedido extends Model{
       return $query->where('id', '!"#$%&/()(/&%$');
     }
   }
+
+  public function scopePendientesPedido($query, $opc_consulta) {
+    $fecha = date("Y-m-d");
+    $mas_dia = date("Y-m-d", strtotime('+3 day', strtotime(date("Y-m-d"))));
+    $menos_un_dia = date("Y-m-d", strtotime('-1 day', strtotime(date("Y-m-d"))));
+    $menos_dia = date("Y-m-d", strtotime('-5 day', strtotime(date("Y-m-d"))));
+
+    switch($opc_consulta) {
+      case 'porEntregar':
+        return $query->whereBetween('fech_de_entreg', [$fecha, $mas_dia]);
+      case 'yaCaducados':
+        return $query->whereBetween('fech_de_entreg', [$menos_dia, $menos_un_dia]);
+      case 'pteDePago':
+        return $query->where('estat_pag', '!=', config('app.pagado'));
+      case 'pagoRechazado':
+        return $query->where('estat_pag', config('app.pago_rechazado'));
+      case 'pteDeInformacion':
+      //  return $query->
+      case 'sinEntregaPorFaltaDeInformacion':
+      //  return $query->
+      case 'intentoDeEntregaFallido':
+      
+    }
+  }
+
+
+
+
   public function usuario() {
     return $this->belongsTo('App\User', 'user_id')->orderBy('id','DESC');
   }

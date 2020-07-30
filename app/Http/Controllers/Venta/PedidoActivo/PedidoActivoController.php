@@ -12,9 +12,11 @@ class PedidoActivoController extends Controller {
   public function __construct(PedidoActivoRepositories $pedidoActivoRepositories) {
     $this->pedidoActivoRepo = $pedidoActivoRepositories;
   }
-  public function index(Request $request) {
-    $pedidos = $this->pedidoActivoRepo->getPagination($request, ['usuario', 'unificar']);
-    return view('venta.pedido.pedido_activo.ven_pedAct_index', compact('pedidos'));
+  public function index(Request $request, $opc_consulta = null) {
+    $pedidos = $this->pedidoActivoRepo->getPagination($request, ['usuario', 'unificar'], $opc_consulta);
+  //  dd($pedidos);
+    $pen = 0;
+    return view('venta.pedido.pedido_activo.ven_pedAct_index', compact('pedidos', 'pen'));
   }
   public function show($id_pedido) {
     $pedido         = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['usuario', 'unificar', 'armados', 'pagos']);

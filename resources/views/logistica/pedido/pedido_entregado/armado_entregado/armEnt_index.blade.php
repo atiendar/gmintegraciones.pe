@@ -9,7 +9,7 @@
     {!! Form::model(Request::all(), ['route' => [Request::is('logistica/pedido-activo/editar/*') ? 'logistica.pedidoActivo.edit' : 'logistica.pedidoActivo.show', Crypt::encrypt($pedido->id)],'method' => 'GET']) !!}
       @include('global.buscador.buscador', ['ruta_recarga' => route(Request::is('logistica/pedido-activo/editar/*') ? 'logistica.pedidoActivo.edit' : 'logistica.pedidoActivo.show', Crypt::encrypt($pedido->id)), 'opciones_buscador' => config('opcionesSelect.select_produccion_pedido_armados_index')])
     {!! Form::close() !!}
-    @include('logistica.pedido.pedido_activo.armado_activo.armAct_table')
+    @include('logistica.pedido.pedido_entregado.armado_entregado.armEnt_table')
     @include('global.paginador.paginador', ['paginar' => $armados])
   </div>
 </div>

@@ -23,15 +23,15 @@ class PedidoActivoController extends Controller {
     $pedido                        = $this->pedidoActivoRepo->pedidoActivoLogisticaFindOrFailById($id_pedido, ['usuario', 'unificar']);
     $unificados                    = $pedido->unificar()->paginate(99999999);
     $armados                       = $this->pedidoActivoRepo->getArmadosPedidoPaginate($pedido, $request);
-    $armados_terminados_logistica = $this->armadoPedidoActivoRepo->armadosTerminadosLogistica($pedido->id, [config('app.entregado')]);
-    return view('logistica.pedido.pedido_activo.pedAct_show', compact('pedido', 'unificados', 'armados', 'armados_terminados_logistica'));
+    $armados_entregados_logistica = $this->armadoPedidoActivoRepo->armadosTerminadosLogistica($pedido->id, [config('app.entregado')]);
+    return view('logistica.pedido.pedido_activo.pedAct_show', compact('pedido', 'unificados', 'armados', 'armados_entregados_logistica'));
   }
   public function edit(Request $request, $id_pedido) {
     $pedido                         = $this->pedidoActivoRepo->pedidoActivoLogisticaFindOrFailById($id_pedido, ['unificar']);
     $unificados                     = $pedido->unificar()->paginate(99999999);
     $armados                        = $this->pedidoActivoRepo->getArmadosPedidoPaginate($pedido, $request);
-    $armados_terminados_logistica  = $this->armadoPedidoActivoRepo->armadosTerminadosLogistica($pedido->id, [config('app.entregado')]);
-    return view('logistica.pedido.pedido_activo.pedAct_edit', compact('pedido', 'unificados', 'armados', 'armados_terminados_logistica'));
+    $armados_entregados_logistica  = $this->armadoPedidoActivoRepo->armadosTerminadosLogistica($pedido->id, [config('app.entregado')]);
+    return view('logistica.pedido.pedido_activo.pedAct_edit', compact('pedido', 'unificados', 'armados', 'armados_entregados_logistica'));
   }
   public function update(UpdatePedidoActivoRequest $request, $id_pedido) {
     $this->pedidoActivoRepo->update($request, $id_pedido);

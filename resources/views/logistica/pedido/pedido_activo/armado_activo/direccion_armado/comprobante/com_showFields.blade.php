@@ -100,9 +100,6 @@
       {!! Form::text('costo_por_envio', Sistema::dosDecimales($comprobante->cost_por_env_log), ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Costo por envío'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
-
-
-
   <div class="form-group col-sm btn-sm">
     <label for="nombre_de_la_persona_que_se_lleva_el_pedido">{{ __('Nombre de la persona que se lleva el pedido') }}</label>
     <div class="input-group">
@@ -112,11 +109,6 @@
       {!! Form::text('nombre_de_la_persona_que_se_lleva_el_pedido', $comprobante->nom_de_la_pera_que_se_llev_el_ped, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Nombre de la persona que se lleva el pedido'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
-
-
-
-
-
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">

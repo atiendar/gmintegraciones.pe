@@ -46,6 +46,7 @@
   </li>
 </ul>
 <ul class="navbar-nav ml-auto">
+  @yield('pendientes')
   @include('layouts.private.menuHeaderNotificaciones')
   @if(Request::route()->getName() != 'home')
     <li class="nav-item">
