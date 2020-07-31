@@ -1,7 +1,7 @@
 <?php
 /* ===================== [ RUTAS ALMACÉN (PEDIDO ACTIVO) ] ===================== */
 Route::group(['prefix' => 'pedido-activo'], function() {
-  Route::match(['GET', 'HEAD'],'', 'Almacen\PedidoActivo\PedidoActivoController@index')->name('almacen.pedidoActivo.index')->middleware('permission:almacen.pedidoActivo.index|almacen.pedidoActivo.show|almacen.pedidoActivo.edit|almacen.pedidoActivo.armado.show|almacen.pedidoActivo.armado.edit');
+  Route::match(['GET', 'HEAD'],'{opc_consulta?}', 'Almacen\PedidoActivo\PedidoActivoController@index')->name('almacen.pedidoActivo.index')->middleware('permission:almacen.pedidoActivo.index|almacen.pedidoActivo.show|almacen.pedidoActivo.edit|almacen.pedidoActivo.armado.show|almacen.pedidoActivo.armado.edit');
   Route::match(['GET', 'HEAD'],'detalles/{id_pedido}', 'Almacen\PedidoActivo\PedidoActivoController@show')->name('almacen.pedidoActivo.show')->middleware('permission:almacen.pedidoActivo.show|almacen.pedidoActivo.armado.show');
   Route::match(['GET', 'HEAD'],'editar/{id_pedido}', 'Almacen\PedidoActivo\PedidoActivoController@edit')->name('almacen.pedidoActivo.edit')->middleware('permission:almacen.pedidoActivo.edit|almacen.pedidoActivo.armado.edit');
   Route::match(['PUT', 'PATCH'],'actualizar/{id_pedido}', 'Almacen\PedidoActivo\PedidoActivoController@update')->name('almacen.pedidoActivo.update')->middleware('permission:almacen.pedidoActivo.edit');

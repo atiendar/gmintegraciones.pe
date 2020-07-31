@@ -25,13 +25,17 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
                 })->findOrFail($id_pedido);
     return $pedido;
   }
-  public function getPagination($request, $relaciones) {
-    return Pedido::with($relaciones)->where(function ($query){
+  public function getPagination($request, $relaciones, $opc_consulta) {
+    return Pedido::pendientesPedido($opc_consulta)
+                ->with($relaciones)
+                ->where(function ($query){
                 $query->where('estat_alm', config('app.asignar_persona_que_recibe'))
                     ->orWhere('estat_alm', config('app.en_espera_de_ventas'))
                     ->orWhere('estat_alm', config('app.en_espera_de_compra'))
                     ->orWhere('estat_alm', config('app.en_revision_de_productos'));
-                })->buscar($request->opcion_buscador, $request->buscador)->orderBy('fech_estat_alm', 'DESC')->paginate($request->paginador);
+                })->buscar($request->opcion_buscador, $request->buscador)
+                ->orderBy('fech_estat_alm', 'DESC')
+                ->paginate($request->paginador);
   }
   public function update($request, $id_pedido) {
     try { DB::beginTransaction();
@@ -97,5 +101,28 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       DB::commit();
       return $pedido;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
+  public function getPendientes() {
+    $fecha = date("Y-m-d");
+    $mas_dia = date("Y-m-d", strtotime('+3 day', strtotime(date("Y-m-d"))));
+    $menos_un_dia = date("Y-m-d", strtotime('-1 day', strtotime(date("Y-m-d"))));
+    $menos_dia = date("Y-m-d", strtotime('-5 day', strtotime(date("Y-m-d"))));
+    $nom_tabla = (new \App\Models\Pedido())->getTable();
+    
+    $consulta = DB::table('pedidos')->select(
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE (estat_alm = '".config('app.asignar_persona_que_recibe')."' OR estat_alm = '".config('app.en_espera_de_ventas')."' OR estat_alm = '".config('app.en_espera_de_compra')."' OR estat_alm = '".config('app.en_revision_de_productos')."') AND (fech_de_entreg BETWEEN '$fecha' AND '$mas_dia')) as porEntregar"),
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE (estat_alm = '".config('app.asignar_persona_que_recibe')."' OR estat_alm = '".config('app.en_espera_de_ventas')."' OR estat_alm = '".config('app.en_espera_de_compra')."' OR estat_alm = '".config('app.en_revision_de_productos')."') AND (fech_de_entreg BETWEEN '$menos_dia' AND '$menos_un_dia')) as yaCaducados"),
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE (estat_alm = '".config('app.asignar_persona_que_recibe')."' OR estat_alm = '".config('app.en_espera_de_ventas')."' OR estat_alm = '".config('app.en_espera_de_compra')."' OR estat_alm = '".config('app.en_revision_de_productos')."') AND (estat_pag != '".config('app.pagado')."')) as pteDePago"),
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE (estat_alm = '".config('app.asignar_persona_que_recibe')."' OR estat_alm = '".config('app.en_espera_de_ventas')."' OR estat_alm = '".config('app.en_espera_de_compra')."' OR estat_alm = '".config('app.en_revision_de_productos')."') AND (estat_pag = '".config('app.pago_rechazado')."')) as pagoRechazado"),
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE (estat_alm = '".config('app.asignar_persona_que_recibe')."' OR estat_alm = '".config('app.en_espera_de_ventas')."' OR estat_alm = '".config('app.en_espera_de_compra')."' OR estat_alm = '".config('app.en_revision_de_productos')."') AND (estat_vent_gen != '".config('app.falta_informacion_general')."' OR estat_vent_dir != '".config('app.falta_detallar_direccion')."')) as pteDeInformacion"),
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE (estat_alm = '".config('app.asignar_persona_que_recibe')."' OR estat_alm = '".config('app.en_espera_de_ventas')."' OR estat_alm = '".config('app.en_espera_de_compra')."' OR estat_alm = '".config('app.en_revision_de_productos')."') AND (estat_log = '".config('app.sin_entrega_por_falta_de_informacion')."')) as sinEntregaPorFaltaDeInformacion"),
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE (estat_alm = '".config('app.asignar_persona_que_recibe')."' OR estat_alm = '".config('app.en_espera_de_ventas')."' OR estat_alm = '".config('app.en_espera_de_compra')."' OR estat_alm = '".config('app.en_revision_de_productos')."') AND (estat_log = '".config('app.intento_de_entrega_fallido')."')) as intentoDeEntregaFallido"),
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE (estat_alm = '".config('app.asignar_persona_que_recibe')."' OR estat_alm = '".config('app.en_espera_de_ventas')."' OR estat_alm = '".config('app.en_espera_de_compra')."' OR estat_alm = '".config('app.en_revision_de_productos')."') AND (urg = '".config('opcionesSelect.es_pedido_urgente.Si')."')) as urgente")
+    )->first();
+    if($consulta == null) { 
+      $consulta = (object) array('porEntregar' => 0, 'yaCaducados' => 0, 'pteDePago' => 0, 'pagoRechazado' => 0, 'pteDeInformacion' => 0, 'sinEntregaPorFaltaDeInformacion' => 0, 'intentoDeEntregaFallido' => 0, 'urgente' => 0);
+    }
+
+    return $consulta; 
   }
 }

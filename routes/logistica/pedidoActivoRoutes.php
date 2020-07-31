@@ -1,7 +1,7 @@
 <?php
 /* ===================== [ RUTAS LOGÍSTICA (PEDIDO ACTIVO) ] ===================== */
 Route::group(['prefix' => 'pedido-activo'], function() {
-  Route::match(['GET', 'HEAD'],'', 'Logistica\PedidoActivo\PedidoActivoController@index')->name('logistica.pedidoActivo.index')->middleware('permission:logistica.pedidoActivo.index|logistica.pedidoActivo.show|logistica.pedidoActivo.edit|logistica.pedidoActivo.armado.show|logistica.pedidoActivo.armado.edit');
+  Route::match(['GET', 'HEAD'],'{opc_consulta?}', 'Logistica\PedidoActivo\PedidoActivoController@index')->name('logistica.pedidoActivo.index')->middleware('permission:logistica.pedidoActivo.index|logistica.pedidoActivo.show|logistica.pedidoActivo.edit|logistica.pedidoActivo.armado.show|logistica.pedidoActivo.armado.edit');
   Route::match(['GET', 'HEAD'],'detalles/{id_pedido}', 'Logistica\pedidoActivo\PedidoActivoController@show')->name('logistica.pedidoActivo.show')->middleware('permission:logistica.pedidoActivo.show|logistica.pedidoActivo.armado.show');
   Route::match(['GET', 'HEAD'],'editar/{id_pedido}', 'Logistica\PedidoActivo\PedidoActivoController@edit')->name('logistica.pedidoActivo.edit')->middleware('permission:logistica.pedidoActivo.edit|logistica.pedidoActivo.armado.show|logistica.pedidoActivo.armado.edit');
   Route::match(['PUT', 'PATCH'],'actualizar/{id_pedido}', 'Logistica\PedidoActivo\PedidoActivoController@update')->name('logistica.pedidoActivo.update')->middleware('permission:logistica.pedidoActivo.edit');

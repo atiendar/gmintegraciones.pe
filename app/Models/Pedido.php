@@ -36,7 +36,6 @@ class Pedido extends Model{
       return $query->where('id', '!"#$%&/()(/&%$');
     }
   }
-
   public function scopePendientesPedido($query, $opc_consulta) {
     $fecha = date("Y-m-d");
     $mas_dia = date("Y-m-d", strtotime('+3 day', strtotime(date("Y-m-d"))));
@@ -53,17 +52,16 @@ class Pedido extends Model{
       case 'pagoRechazado':
         return $query->where('estat_pag', config('app.pago_rechazado'));
       case 'pteDeInformacion':
-      //  return $query->
+        return $query->where('estat_vent_gen', '!=', config('app.falta_informacion_general'))
+                      ->orwhere('estat_vent_dir', '!=', config('app.falta_detallar_direccion'));
       case 'sinEntregaPorFaltaDeInformacion':
-      //  return $query->
+        return $query->where('estat_log', config('app.sin_entrega_por_falta_de_informacion'));
       case 'intentoDeEntregaFallido':
-      
+        return $query->where('estat_log', config('app.intento_de_entrega_fallido'));
+      case 'urgente':
+        return $query->where('urg', config('opcionesSelect.es_pedido_urgente.Si'));
     }
   }
-
-
-
-
   public function usuario() {
     return $this->belongsTo('App\User', 'user_id')->orderBy('id','DESC');
   }

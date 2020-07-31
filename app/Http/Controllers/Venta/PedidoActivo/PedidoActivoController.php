@@ -14,8 +14,7 @@ class PedidoActivoController extends Controller {
   }
   public function index(Request $request, $opc_consulta = null) {
     $pedidos = $this->pedidoActivoRepo->getPagination($request, ['usuario', 'unificar'], $opc_consulta);
-  //  dd($pedidos);
-    $pen = 0;
+    $pen = $this->pedidoActivoRepo->getPendientes();
     return view('venta.pedido.pedido_activo.ven_pedAct_index', compact('pedidos', 'pen'));
   }
   public function show($id_pedido) {

@@ -25,11 +25,13 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     return $pedido;
   }
   public function getPagination($request, $relaciones, $opc_consulta) { // 'usuario', 'unificar'
-    return Pedido::pendientesPedido($opc_consulta)->with($relaciones)->where('estat_log', '!=', config('app.entregado'))
-    ->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)
-    ->buscar($request->opcion_buscador, $request->buscador)
-    ->orderBy('id', 'DESC')
-    ->paginate($request->paginador);
+    return Pedido::pendientesPedido($opc_consulta)
+                  ->with($relaciones)
+                  ->where('estat_log', '!=', config('app.entregado'))
+                  ->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)
+                  ->buscar($request->opcion_buscador, $request->buscador)
+                  ->orderBy('id', 'DESC')
+                  ->paginate($request->paginador);
   }
   public function update($request, $id_pedido) {
     try { DB::beginTransaction();
@@ -176,5 +178,28 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
         $pedidos_a_eliminar_unificacion[$contador3]->unificar()->detach($pedido->id);
       }
     }
+  }
+  public function getPendientes() {
+    $fecha = date("Y-m-d");
+    $mas_dia = date("Y-m-d", strtotime('+3 day', strtotime(date("Y-m-d"))));
+    $menos_un_dia = date("Y-m-d", strtotime('-1 day', strtotime(date("Y-m-d"))));
+    $menos_dia = date("Y-m-d", strtotime('-5 day', strtotime(date("Y-m-d"))));
+    $nom_tabla = (new \App\Models\Pedido())->getTable();
+    
+    $consulta = DB::table('pedidos')->select(
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE (estat_log != '".config('app.entregado')."') AND (fech_de_entreg BETWEEN '$fecha' AND '$mas_dia')) as porEntregar"),
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE (estat_log != '".config('app.entregado')."') AND (fech_de_entreg BETWEEN '$menos_dia' AND '$menos_un_dia')) as yaCaducados"),
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE (estat_log != '".config('app.entregado')."') AND (estat_pag != '".config('app.pagado')."')) as pteDePago"),
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE (estat_log != '".config('app.entregado')."') AND (estat_pag = '".config('app.pago_rechazado')."')) as pagoRechazado"),
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE (estat_log != '".config('app.entregado')."') AND (estat_vent_gen != '".config('app.falta_informacion_general')."' OR estat_vent_dir != '".config('app.falta_detallar_direccion')."')) as pteDeInformacion"),
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE estat_log = '".config('app.sin_entrega_por_falta_de_informacion')."') as sinEntregaPorFaltaDeInformacion"),
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE estat_log = '".config('app.intento_de_entrega_fallido')."') as intentoDeEntregaFallido"),
+      DB::raw("(SELECT count(*) FROM $nom_tabla WHERE (estat_log != '".config('app.entregado')."') AND (urg = '".config('opcionesSelect.es_pedido_urgente.Si')."')) as urgente")
+    )->first();
+    if($consulta == null) { 
+      $consulta = (object) array('porEntregar' => 0, 'yaCaducados' => 0, 'pteDePago' => 0, 'pagoRechazado' => 0, 'pteDeInformacion' => 0, 'sinEntregaPorFaltaDeInformacion' => 0, 'intentoDeEntregaFallido' => 0, 'urgente' => 0);
+    }
+
+    return $consulta; 
   }
 }

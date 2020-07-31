@@ -23,4 +23,6 @@ interface PedidoActivoInterface {
   public function unificarPedido($pedido, $fecha_original, $fecha_nueva);
 
   public function eliminarUnificacionDelPedido($id_pedido);
+
+  public function getPendientes();
 }

@@ -1,4 +1,5 @@
 @extends('layouts.private.escritorio.dashboard')
+@include('almacen.pedido.pedido_activo.alm_pedAct_pendientes')
 @section('contenido')
 <title>@section('title', __('Lista de pedidos activos almacén'))</title>
 <div class="card">
