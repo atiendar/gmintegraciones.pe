@@ -35,7 +35,7 @@ class FacturaRepositories implements FacturaInterface {
     return Factura::with($relaciones)->estatus($estatus)->findOrFail($id_factura);
   }
   public function getPagination($request) {
-    return Factura::with('usuario')->buscar($request->opcion_buscador, $request->buscador)->orderByRaw('est_fact DESC, id DESC')->paginate($request->paginador);
+    return Factura::with('usuario', 'pago')->buscar($request->opcion_buscador, $request->buscador)->orderByRaw('est_fact DESC, id DESC')->paginate($request->paginador);
   }
   public function store($request) {
     try { DB::beginTransaction();
@@ -61,7 +61,7 @@ class FacturaRepositories implements FacturaInterface {
       $factura->uso_de_cfdi                     = $request->uso_de_cfdi;
       $factura->met_de_pag                      = $request->metodo_de_pago;
       $factura->form_de_pag                     = $request->forma_de_pago;
-      $factura->banc_de_cuent_de_retir          = $request->banco_cuenta_de_retiro;
+      $factura->banc_de_cuent_de_retir          = $request->banco_de_cuenta_de_retiro;
       $factura->ulti_cuatro_dig_cuent_de_retir  = $request->ultimos_4_digitos_cuenta_de_retiro;
       $factura->concept                         = $request->concepto;
       $factura->coment_u_obs_us                 = $request->comentarios_cliente;

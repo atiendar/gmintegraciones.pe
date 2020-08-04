@@ -27,7 +27,7 @@ class PagoPedidoController extends Controller {
     $this->pagoRepo         = $pagoRepositories;
   }
   public function index(Request $request) {
-    $pedidos =  $this->pedidoActivoRepo->getPagination($request, []);
+    $pedidos =  $this->pedidoActivoRepo->getPagination($request, [], null);
     return view('pago.fPedido.fpe_index', compact('pedidos'));
   }
   public function create($id_pedido) {

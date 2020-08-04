@@ -45,4 +45,23 @@ class EstatusArmadoRepositories implements EstatusArmadonInterface {
 
     return $direccion->armado;
   }
+  public function regresarAProduccion($armado) {
+    $armado->estat = config('app.productos_completos');
+    $armado->save();
+
+    $nom_tabla = (new \App\Models\PedidoArmadoTieneDireccion())->getTable();
+    $up_regresados  = null;
+    $ids            = null;
+   
+    foreach($armado->direcciones as $direcion) {
+      $up_regresados  .= ' WHEN '. $direcion->id. ' THEN "verdadero"';
+      $ids            .= $direcion->id.',';
+    }
+
+    if($up_regresados != NULL) {
+      $ids = substr($ids, 0, -1);
+      DB::UPDATE("UPDATE ".$nom_tabla." SET regresado = CASE id". $up_regresados." END WHERE id IN (".$ids.")");
+    }
+    \App\Models\Pedido::getEstatusPedido($armado->pedido, 'Todos');
+  }
 }

@@ -17,7 +17,8 @@ class CreatePedidoArmadoTieneDireccionesTable extends Migration
             $table->engine ='InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
-            $table->bigIncrements('id');            
+            $table->bigIncrements('id');
+            $table->string('regresado',10)->default('Falso')->comment('Opción para bloquear el editar las direcciones si el armado se refresa de logística a producción (falso o verdadero)');  
             $table->integer('cant')->unsigned()->comment('Cantidad');
             $table->string('estat',70)->default('Pendiente')->comment('Estatus');
             $table->string('tip_tarj_felic',30)->nullable()->comment('Tipo de tarjeta de felicitación');
@@ -28,7 +29,7 @@ class CreatePedidoArmadoTieneDireccionesTable extends Migration
             $table->string('est',150)->comment('Estado a la que se cotizó');
             $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
             $table->text('detalles_de_la_ubicacion')->comment('Detalles de la ubicación');
-            $table->enum('tip_env', config('opcionesSelect.select_tipo_de_envio'))->default('Normal')->comment('Tipo de envío');
+            $table->enum('tip_env', config('opcionesSelect.select_tipo_de_envio_plus'))->default('Normal')->comment('Tipo de envío');
             $table->decimal('cost_por_env',20,2)->unsigned()->nullable()->comment('Costo por envío venta');
             $table->string('created_com_sal',75)->nullable()->comment('Correo del usuario que subio el comprobante de salida');
             $table->timestamp('fech_car_comp_de_sal')->nullable()->comment('Fecha en que que subio el comprobante de salida');

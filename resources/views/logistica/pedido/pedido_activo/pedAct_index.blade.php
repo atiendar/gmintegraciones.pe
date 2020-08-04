@@ -1,4 +1,5 @@
 @extends('layouts.private.escritorio.dashboard')
+@include('logistica.pedido.pedido_activo.pedAct_pendientes')
 @section('contenido')
 <title>@section('title', __('Lista de pedidos activos logística'))</title>
 <div class="card">

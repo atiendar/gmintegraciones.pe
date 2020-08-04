@@ -29,6 +29,9 @@
         tipo_de_envio      = null,
       ],
 
+      tipo_de_empaque:          "{{ $direccion->tip_emp }}",
+      cuenta_con_seguro:        "{{ $direccion->seg }}",
+      tiempo_de_entrega:        "{{ $direccion->tiemp_ent }}",
       metodo_de_entrega:        "{{ $direccion->met_de_entreg }}",
       estado_al_que_se_cotizo:  "{{ $direccion->est }}",
       foraneo_o_local:          "{{ $direccion->for_loc }}",
@@ -59,6 +62,9 @@
           if (result.value) {
             this.checarBotonSubmitDisabled("btnsubmit")
             axios.put('/cotizacion/armado/direccion/actualizar/'+{{ $direccion->id }}, {
+              tipo_de_empaque:          this.tipo_de_empaque,
+              cuenta_con_seguro:        this.cuenta_con_seguro,
+              tiempo_de_entrega:        this.tiempo_de_entrega,
               metodo_de_entrega:        this.metodo_de_entrega,
               estado_al_que_se_cotizo:  this.estado_al_que_se_cotizo,
               foraneo_o_local:          this.foraneo_o_local,
@@ -108,6 +114,9 @@
       },
       async getCostoSeleccionado(costo_env) {
         this.costo_seleccionado      = costo_env
+        this.tipo_de_empaque         = costo_env.tip_emp
+        this.cuenta_con_seguro       = costo_env.seg
+        this.tiempo_de_entrega       = costo_env.tiemp_ent
         this.metodo_de_entrega       = costo_env.met_de_entreg
         this.estado_al_que_se_cotizo = costo_env.est
         this.foraneo_o_local         = costo_env.for_loc

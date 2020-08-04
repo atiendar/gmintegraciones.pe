@@ -40,6 +40,9 @@
         tipo_de_envio      = null,
       ],
 
+      tipo_de_empaque:          null,
+      cuenta_con_seguro:        null,
+      tiempo_de_entrega:        null,
       metodo_de_entrega:        null,
       estado_al_que_se_cotizo:  null,
       foraneo_o_local:          null,
@@ -55,6 +58,9 @@
       async create() {
         this.checarBotonSubmitDisabled("btnsubmit")
         axios.post('/cotizacion/armado/direccion/almacenar/'+{{ $armado->id }}, {
+          tipo_de_empaque:          this.tipo_de_empaque,
+          cuenta_con_seguro:        this.cuenta_con_seguro,
+          tiempo_de_entrega:        this.tiempo_de_entrega,
           metodo_de_entrega:        this.metodo_de_entrega,
           estado_al_que_se_cotizo:  this.estado_al_que_se_cotizo,
           foraneo_o_local:          this.foraneo_o_local,
@@ -102,6 +108,9 @@
       },
       async getCostoSeleccionado(costo_env) {
         this.costo_seleccionado      = costo_env
+        this.tipo_de_empaque         = costo_env.tip_emp
+        this.cuenta_con_seguro       = costo_env.seg
+        this.tiempo_de_entrega       = costo_env.tiemp_ent
         this.metodo_de_entrega       = costo_env.met_de_entreg
         this.estado_al_que_se_cotizo = costo_env.est
         this.foraneo_o_local         = costo_env.for_loc
@@ -110,7 +119,12 @@
         this.getCostoDeEnvio()
       },
       async getCostoDeEnvio() {
-        this.cost_por_env = parseFloat(this.costo_de_envio) * parseFloat(this.cantidad)
+        if(this.tipo_de_envio == 'Consolidado') {
+          this.cost_por_env = parseFloat(this.costo_de_envio)
+        } else {
+          this.cost_por_env = parseFloat(this.costo_de_envio) * parseFloat(this.cantidad)
+        }
+        
         if (isNaN(parseFloat(this.cost_por_env))) {
           this.cost_por_env = this.costo_de_envio
         }

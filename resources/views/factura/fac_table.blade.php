@@ -7,6 +7,7 @@
         <tr>
           @include('factura.fac_table.th.id')
           @include('factura.fac_table.th.estatusFactura')
+          @include('pago.pag_table.th.estatusPago')
           @include('factura.fac_table.th.cliente')
           @include('factura.fac_table.th.rfc')
           @include('factura.fac_table.th.nombreORazonSocial')
@@ -19,6 +20,7 @@
           <tr title="{{ $factura->rfc }}">
             @include('factura.fac_table.td.id', ['show' => true, 'canany' => ['factura.show'], 'ruta' => 'factura.show', 'target' => null])
             @include('factura.fac_table.td.estatusFactura')
+            @include('pago.pag_table.td.estatusPago', ['pago' => $factura->pago])
             @include('factura.fac_table.td.cliente')
             @include('factura.fac_table.td.rfc')
             @include('factura.fac_table.td.nombreORazonSocial')

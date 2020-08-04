@@ -32,12 +32,14 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   public function direccionLocalFindOrFailById($id_direccion, $for_loc, $relaciones, $accion) {
     $id_direccion = $this->serviceCrypt->decrypt($id_direccion);
     $direccion = PedidoArmadoTieneDireccion::with($relaciones);
-
+    
     if($for_loc != null) {
       $direccion->where('for_loc', $for_loc);
     }
     if($accion == 'edit') {
-      $direccion->where(function ($query) {$query->where('estat', config('app.en_almacen_de_salida'))
+      $direccion->where('regresado', 'falso')
+      ->where(function ($query) {
+        $query->where('estat', config('app.en_almacen_de_salida'))
         ->orWhere('estat', config('app.en_ruta'))
         ->orWhere('estat', config('app.sin_entrega_por_falta_de_informacion'))
         ->orWhere('estat', config('app.intento_de_entrega_fallido'));
@@ -128,19 +130,43 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
       return $direccion;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
+  public function update($request, $id_direccion) {
+    try { DB::beginTransaction();
+      $direccion        = $this->direccionLocalFindOrFailById($id_direccion, null, ['armado'], 'show');
+      if($request->estatus == config('app.sin_entrega_por_falta_de_informacion') OR $request->estatus == config('app.intento_de_entrega_fallido')) {
+        $direccion->estat = $request->estatus;
+        $direccion->save();
+        $this->estatusArmadoRepo->estatusArmado($direccion);
+      } else {
+        $this->estatusArmadoRepo->regresarAProduccion($direccion->armado);
+      }
+      DB::commit();
+      return $direccion;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
   public function cambiarEstatusDireccionAlmacenDeSalida($direcciones) {
     $up_estaus     = NULL;
+    $up_regresados = null;
     $ids           = NULL;
     $nom_tabla = (new PedidoArmadoTieneDireccion())->getTable();
 
     foreach($direcciones as $direccion) {
-      $up_estaus  .= ' WHEN '. $direccion->id. ' THEN "'. config('app.en_almacen_de_salida').'"';
-      $ids        .= $direccion->id.',';
+      if($direccion->estat == config('app.pendiente')) {
+        $up_estaus  .= ' WHEN '. $direccion->id. ' THEN "'. config('app.en_almacen_de_salida').'"';
+        $ids        .= $direccion->id.',';
+      } else {
+        $up_regresados  .= ' WHEN '. $direccion->id. ' THEN "false"';
+        $ids        .= $direccion->id.',';
+      }
     }
 
     if($up_estaus != NULL) {
       $ids = substr($ids, 0, -1);
       DB::UPDATE("UPDATE ".$nom_tabla." SET estat = CASE id". $up_estaus." END WHERE id IN (".$ids.")");
+    }
+    if($up_regresados != NULL) {
+      $ids = substr($ids, 0, -1);
+      DB::UPDATE("UPDATE ".$nom_tabla." SET regresado = CASE id". $up_regresados." END WHERE id IN (".$ids.")");
     }
   }
 }

@@ -16,7 +16,7 @@
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.tipoDeEnvio')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.costo')
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.delegacionOMunicipio')
-          <th colspan="3">&nbsp</th>
+          <th colspan="4">&nbsp</th>
         </tr>
       </thead>
       <tbody> 

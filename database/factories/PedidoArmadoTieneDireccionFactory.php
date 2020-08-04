@@ -19,7 +19,7 @@ $factory->define(PedidoArmadoTieneDireccion::class, function (Faker $faker) {
     'est'                       => $faker->randomElement(config('opcionesSelect.select_estado')),
     'for_loc'                   => $faker->randomElement(config('opcionesSelect.select_foraneo_local')),
     'detalles_de_la_ubicacion'  => $faker->paragraph,
-    'tip_env'                   => $faker->randomElement(config('opcionesSelect.select_tipo_de_envio')),
+    'tip_env'                   => $faker->randomElement(config('opcionesSelect.select_tipo_de_envio_plus')),
     'pedido_armado_id'          => $armado,
     'created_at_direc_arm'      => $usuario,
   ];

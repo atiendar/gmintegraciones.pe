@@ -36,23 +36,25 @@
           {{ $direccion->est }}
           @endif
         </dt>
-        <p>
-          <strong>Nombre de referencia uno: </strong>{{ $direccion->nom_ref_uno }}<br>
-          <strong>Nombre de referencia dos: </strong>{{ $direccion->nom_ref_dos }}<br>
+        @if($direccion->nom_ref_uno != null)
+          <p>
+            <strong>Nombre de referencia uno: </strong>{{ $direccion->nom_ref_uno }}<br>
+            <strong>Nombre de referencia dos: </strong>{{ $direccion->nom_ref_dos }}<br>
 
-          <strong>Teléfono fijo: </strong>({{ $direccion->lad_fij }}) {{ $direccion->tel_fij }} <strong>Ext.</strong> {{ $direccion->ext }},
-          <strong>Teléfono móvil: </strong>({{ $direccion->lad_mov }}) {{ $direccion->tel_mov }}<br>
+            <strong>Teléfono fijo: </strong>({{ $direccion->lad_fij }}) {{ $direccion->tel_fij }} <strong>Ext.</strong> {{ $direccion->ext }},
+            <strong>Teléfono móvil: </strong>({{ $direccion->lad_mov }}) {{ $direccion->tel_mov }}<br>
 
-          <strong>C. </strong>{{ $direccion->calle }} 
-          <strong>Nro.</strong> {{ $direccion->no_ext }} 
-          <strong>int.</strong> {{ $direccion->no_int }},
-          <strong>País</strong> {{ $direccion->pais }},
-          <strong>Ciudad</strong> {{ $direccion->ciudad }},
-          <strong>Colonia</strong> {{ $direccion->col }},
-          <strong>Delegación o municipio </strong> {{ $direccion->del_o_munic }},
-          <strong>C.P.</strong> {{ $direccion->cod_post }} <br>
-          <strong>Referencias zona de entrega: </strong>{{ $direccion->ref_zon_de_entreg }}<br>
-        </p>
+            <strong>C. </strong>{{ $direccion->calle }} 
+            <strong>Nro.</strong> {{ $direccion->no_ext }} 
+            <strong>int.</strong> {{ $direccion->no_int }},
+            <strong>País</strong> {{ $direccion->pais }},
+            <strong>Ciudad</strong> {{ $direccion->ciudad }},
+            <strong>Colonia</strong> {{ $direccion->col }},
+            <strong>Delegación o municipio </strong> {{ $direccion->del_o_munic }},
+            <strong>C.P.</strong> {{ $direccion->cod_post }} <br>
+            <strong>Referencias zona de entrega: </strong>{{ $direccion->ref_zon_de_entreg }}<br>
+          </p>
+        @endif
       </td>
     </tr>
     <tr class="text-center">

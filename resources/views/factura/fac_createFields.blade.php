@@ -9,9 +9,6 @@
     </div>
   </div>
 </div>
-
-
-
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="cliente">{{ __('Cliente') }} *</label>
@@ -34,10 +31,6 @@
     <span class="text-danger">{{ $errors->first('datos_fiscales') }}</span>
   </div>
 </div>
-
-
-
-
 <label for="redes_sociales">{{ __('DATOS FISCALES') }}</label>
 <div class="border border-primary rounded p-2">
   @include('rolCliente.datoFiscal.dfi_createFields')
@@ -90,14 +83,14 @@
   </div>
   <div class="row">
     <div class="form-group col-sm btn-sm">
-      <label for="banco_cuenta_de_retiro">{{ __('Banco, cuenta de retiro') }}</label>
+      <label for="banco_de_cuenta_de_retiro">{{ __('Banco de cuenta de retiro') }}</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-text-width"></i></span>
         </div>
-          {!! Form::text('banco_cuenta_de_retiro', null, ['id' => 'banco_cuenta_de_retiro', 'class' => 'form-control' . ($errors->has('banco_cuenta_de_retiro') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Banco, cuenta de retiro')]) !!}
+          {!! Form::text('banco_de_cuenta_de_retiro', null, ['id' => 'banco_de_cuenta_de_retiro', 'class' => 'form-control' . ($errors->has('banco_de_cuenta_de_retiro') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Banco de cuenta de retiro')]) !!}
       </div>
-      <span class="text-danger">{{ $errors->first('banco_cuenta_de_retiro') }}</span>
+      <span class="text-danger">{{ $errors->first('banco_de_cuenta_de_retiro') }}</span>
     </div>
     <div class="form-group col-sm btn-sm">
       <label for="ultimos_4_digitos_cuenta_de_retiro">{{ __('Últimos 4 dígitos cuenta de retiro') }}</label>

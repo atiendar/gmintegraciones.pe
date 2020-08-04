@@ -14,7 +14,7 @@
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.tipoDeEnvio')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.costo')
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.colonia')
-          <th colspan="3">&nbsp</th>
+          <th colspan="4">&nbsp</th>
         </tr>
       </thead>
       <tbody> 
@@ -25,7 +25,7 @@
             @if($direccion->for_loc == config('opcionesSelect.select_foraneo_local.Local'))
               @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => true, 'canany' => ['logistica.direccionLocal.show'], 'ruta' => 'logistica.direccionLocal.show', 'target' => 'target=_blank'])
             @else
-            @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => true, 'canany' => ['logistica.direccionForaneo.show'], 'ruta' => 'logistica.direccionForaneo.show', 'target' => 'target=_blank'])
+              @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => true, 'canany' => ['logistica.direccionForaneo.show'], 'ruta' => 'logistica.direccionForaneo.show', 'target' => 'target=_blank'])
             @endif
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.estatus')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntrega')

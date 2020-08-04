@@ -1,3 +1,4 @@
+logistica / PEDIDO ENTREGADO / dirArm_show
 {{-- 
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')

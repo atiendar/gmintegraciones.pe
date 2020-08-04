@@ -30,6 +30,9 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
   public function store($request) {
     try { DB::beginTransaction();
       $costo_de_envio = new CostoDeEnvio();
+      $costo_de_envio->tip_emp        = $request->tipo_de_empaque;
+      $costo_de_envio->seg            = $request->cuenta_con_seguro;
+      $costo_de_envio->tiemp_ent      = $request->tiempo_de_entrega;
       $costo_de_envio->est            = $request->estado;
       $costo_de_envio->met_de_entreg  = $request->metodo_de_entrega;
       $costo_de_envio->for_loc        = $request->foraneo_o_local;
@@ -46,6 +49,9 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
   public function update($request, $id_costo) {
     try { DB::beginTransaction();
       $costo_de_envio                 = $this->costoDeEnvioAsignadoFindOrFailById($id_costo);
+      $costo_de_envio->tip_emp        = $request->tipo_de_empaque;
+      $costo_de_envio->seg            = $request->cuenta_con_seguro;
+      $costo_de_envio->tiemp_ent      = $request->tiempo_de_entrega;
       $costo_de_envio->est            = $request->estado;
       $costo_de_envio->met_de_entreg  = $request->metodo_de_entrega;
       $costo_de_envio->for_loc        = $request->foraneo_o_local;
@@ -59,9 +65,9 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
           'costoDeEnvio.show', // Nombre de la ruta
           $id_costo, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_costo), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Estado', 'Método de entrega', 'Foráneo o local', 'Tipo de envío', 'Costo por envío'), // Nombre de los inputs del formulario
+          array('Tipo de empaque', 'Cuenta con seguro', 'Tiempo de entrega','Estado', 'Método de entrega', 'Foráneo o local', 'Tipo de envío', 'Costo por envío'), // Nombre de los inputs del formulario
           $costo_de_envio, // Request
-          array('est', 'met_de_entreg', 'for_loc', 'tip_env', 'cost_por_env') // Nombre de los campos en la BD
+          array('tip_emp', 'seg', 'tiemp_ent','est', 'met_de_entreg', 'for_loc', 'tip_env', 'cost_por_env') // Nombre de los campos en la BD
         ); 
         $costo_de_envio->updated_at_env  = Auth::user()->email_registro;
       }
@@ -88,7 +94,7 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function obtener($request) {
-    $datos = CostoDeEnvio::metodoDeEntrega($request->metodo_de_entrega)->estado($request->estado)->tipoDeEnvio($request->tipo_de_envio)->sinSeleccion($request->metodo_de_entrega, $request->estado, $request->tipo_de_envio)->get();
+    $datos = CostoDeEnvio::metodoDeEntrega($request->metodo_de_entrega)->estado($request->estado)->tipoDeEnvio($request->tipo_de_envio)->sinSeleccion($request->metodo_de_entrega, $request->estado, $request->tipo_de_envio)->orderBy('cost_por_env', 'ASC')->get();
     return $datos;
   }
 }

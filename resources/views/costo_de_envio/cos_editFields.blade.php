@@ -1,5 +1,42 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
+    <label for="tipo_de_empaque">{{ __('Tipo de empaque') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::select('tipo_de_empaque', config('opcionesSelect.select_tipo_de_empaque'), $costo_de_envio->tip_emp, ['class' => 'form-control select2' . ($errors->has('tipo_de_empaque') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('tipo_de_empaque') }}</span>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="cuenta_con_seguro">{{ __('Cuenta con seguro') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::select('cuenta_con_seguro', config('opcionesSelect.select_si_no'), $costo_de_envio->seg, ['class' => 'form-control select2' . ($errors->has('cuenta_con_seguro') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('cuenta_con_seguro') }}</span>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
+    <label for="tiempo_de_entrega">{{ __('Tiempo de entrega') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-sort-numeric-down"></i></span>
+      </div>
+      {!! Form::text('tiempo_de_entrega', $costo_de_envio->tiemp_ent, ['class' => 'form-control' . ($errors->has('tiempo_de_entrega') ? ' is-invalid' : ''), 'placeholder' => __('Tiempo de entrega')]) !!}
+      <div class="input-group-append">
+        <span class="input-group-text">min.</span>
+      </div>
+    </div>
+    <span class="text-danger">{{ $errors->first('tiempo_de_entrega') }}</span>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
     <label for="estado">{{ __('Estado') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
@@ -37,7 +74,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('tipo_de_envio', config('opcionesSelect.select_tipo_de_envio'), $costo_de_envio->tip_env, ['class' => 'form-control select2' . ($errors->has('tipo_de_envio') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+      {!! Form::select('tipo_de_envio', config('opcionesSelect.select_tipo_de_envio_plus'), $costo_de_envio->tip_env, ['class' => 'form-control select2' . ($errors->has('tipo_de_envio') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('tipo_de_envio') }}</span>
   </div>

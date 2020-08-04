@@ -2,7 +2,7 @@
 namespace App\Repositories\logistica\pedidoActivo;
 
 interface PedidoActivoInterface {
-  public function getPagination($request, $relaciones);
+  public function getPagination($request, $relaciones, $opc_consulta);
   
   public function pedidoActivoLogisticaFindOrFailById($id_pedido, $relaciones);
 

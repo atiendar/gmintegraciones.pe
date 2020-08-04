@@ -1,5 +1,79 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
+    <label for="created_at">{{ __('Fecha de registro') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+      </div>
+       {!! Form::text('created_at', $costo_de_envio->created_at, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Fecha de registro'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="created_at_env">{{ __('Registrado por') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+      </div>
+      {!! Form::text('created_at_env', $costo_de_envio->created_at_env, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Registrado por'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
+    <label for="updated_at">{{ __('Fecha última modificación') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+      </div>
+       {!! Form::text('updated_at', $costo_de_envio->updated_at, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Fecha última modificación'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="updated_at_env">{{ __('Última modificación por') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+      </div>
+      {!! Form::text('updated_at_env', $costo_de_envio->updated_at_env, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Última modificación por'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
+    <label for="tipo_de_empaque">{{ __('Tipo de empaque') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::select('tipo_de_empaque', config('opcionesSelect.select_tipo_de_empaque'), $costo_de_envio->tip_emp, ['class' => 'form-control select2', 'placeholder' => __(''), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="cuenta_con_seguro">{{ __('Cuenta con seguro') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::select('cuenta_con_seguro', config('opcionesSelect.select_si_no'), $costo_de_envio->seg, ['class' => 'form-control select2', 'placeholder' => __(''), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
+    <label for="tiempo_de_entrega">{{ __('Tiempo de entrega') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-sort-numeric-down"></i></span>
+      </div>
+      {!! Form::text('tiempo_de_entrega', $costo_de_envio->tiemp_ent, ['class' => 'form-control', 'placeholder' => __('Tiempo de entrega'), 'readonly' => 'readonly']) !!}
+      <div class="input-group-append">
+        <span class="input-group-text">min.</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
     <label for="metodo_de_entrega">{{ __('Método de entrega') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
@@ -34,7 +108,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('tipo_de_envio', config('opcionesSelect.select_tipo_de_envio'), $costo_de_envio->tip_env, ['class' => 'form-control disabled select2', 'placeholder' => __(''), 'readonly' => 'readonly']) !!}
+      {!! Form::select('tipo_de_envio', config('opcionesSelect.select_tipo_de_envio_plus'), $costo_de_envio->tip_env, ['class' => 'form-control disabled select2', 'placeholder' => __(''), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>

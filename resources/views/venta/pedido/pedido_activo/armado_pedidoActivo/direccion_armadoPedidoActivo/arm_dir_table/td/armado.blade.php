@@ -8,4 +8,8 @@
   @else
     {{ $direccion->armado->cod }}
   @endif
+
+  @if($direccion->regresado == 'verdadero')
+    <i class="fas fa-undo-alt" title="Armado regresado a producción"></i>
+  @endif
 </td>

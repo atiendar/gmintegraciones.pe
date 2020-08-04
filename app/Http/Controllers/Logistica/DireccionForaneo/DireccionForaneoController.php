@@ -23,6 +23,7 @@ class DireccionForaneoController extends Controller {
   }
   public function create($id_direccion) {
     $direccion          = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Foráneo'), [], 'edit');
+    if($direccion->nom_ref_uno == null) { return abort(403, 'No se ha definido la persona que recibe este pedido.'); }
     $armado             = $direccion->armado;
     $metodos_de_entrega = $this->metodoDeEntregaRepo->getAllMetodosPluck('Foráneo');
     return view('logistica.pedido.direccion_local.comprobante.com_createSalida', compact('direccion', 'armado', 'metodos_de_entrega'));
@@ -33,8 +34,14 @@ class DireccionForaneoController extends Controller {
     $armado       = $direccion->armado;
     return view('logistica.pedido.direccion_foraneo.dirFor_show', compact('direccion', 'comprobantes', 'armado'));
   }
+  public function edit($id_direccion) {
+    $direccion          = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Foráneo'), [], 'show');
+    $armado             = $direccion->armado;
+    return view('logistica.pedido.direccion_foraneo.dirFor_edit', compact('direccion', 'armado'));
+  }
   public function createEntrega($id_direccion) { 
     $direccion  = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Foráneo'), [], 'edit');
+    if($direccion->nom_ref_uno == null) { return abort(403, 'No se ha definido la persona que recibe este pedido.'); }
     $armado     = $direccion->armado;
     return view('logistica.pedido.direccion_local.comprobante.com_createEntrega', compact('direccion', 'armado'));
   }

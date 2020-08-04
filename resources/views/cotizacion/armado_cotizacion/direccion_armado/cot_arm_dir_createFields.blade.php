@@ -1,6 +1,35 @@
 <div class="border border-primary rounded p-2" :class="{ 'border-danger': hasError }">
   <div class="row">
     <div class="form-group col-sm btn-sm">
+      <label for="tipo_de_empaque">{{ __('Tipo de empaque') }} *</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+        </div>
+        {!! Form::text('tipo_de_empaque', null, ['v-model' => 'tipo_de_empaque', 'class' => 'form-control form-control-sm disabled', 'maxlength' => 0, 'placeholder' => __('Tipo de empaque'), 'readonly' => 'readonly']) !!}  
+      </div>
+    </div>
+    <div class="form-group col-sm btn-sm">
+      <label for="cuenta_con_seguro">{{ __('Cuenta con seguro') }} *</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+        </div>
+        {!! Form::text('cuenta_con_seguro', null, ['v-model' => 'cuenta_con_seguro', 'class' => 'form-control form-control-sm disabled', 'maxlength' => 0, 'placeholder' => __('Cuenta con seguro'), 'readonly' => 'readonly']) !!}  
+      </div>
+    </div>
+    <div class="form-group col-sm btn-sm">
+      <label for="tiempo_de_entrega">{{ __('Tiempo de entrega') }} {{ __('(minutos)') }} *</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-sort-numeric-down"></i></span>
+        </div>
+        {!! Form::text('tiempo_de_entrega', null, ['v-model' => 'tiempo_de_entrega', 'class' => 'form-control form-control-sm disabled', 'maxlength' => 0, 'placeholder' => __('Tiempo de entrega'), 'readonly' => 'readonly']) !!}  
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-sm btn-sm">
       <label for="metodo_de_entrega">{{ __('Método de entrega') }} *</label>
       <div class="input-group">
         <div class="input-group-prepend">

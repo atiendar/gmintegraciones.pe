@@ -642,8 +642,17 @@ return array(
       'Foráneo y Local' => 'Foráneo y Local',
     ],
     'select_tipo_de_envio'  => [
+      'Normal'      => 'Normal',
+      'Express'     => 'Express',
+    ],
+    'select_tipo_de_envio_plus'  => [
+      'Consolidado' => 'Consolidado',
+      'Normal'      => 'Normal',
+      'Express'     => 'Express',
+    ],
+    'select_tipo_de_empaque'  => [
+      'Caja'    => 'Caja',
       'Normal'  => 'Normal',
-      'Express' => 'Express',
     ],
   /* ===================== [ FACTURACIÓN ] ===================== */
   'select_factura_index'  => [
@@ -768,14 +777,19 @@ return array(
     'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
 /* ===================== LOGISTICA [ DIRECCIONES ] ===================== */
-'select_logistica_direcciones_index' => [
-  ''                      => 'Buscar por. . .',
-  'id'                    => '#',
-  'cant'                  => 'Cantidad',
-  'est'                   => 'Estado',
-  'estat'                 => 'Estatus',
-  'met_de_entreg'         => 'Metodo de entrega',
-  'tip_env'               => 'Tipo de envío',
-  'created_at'            => 'Fecha de registro (YYYY-MM-DD)',
-],
+  'select_logistica_direcciones_index' => [
+    ''                      => 'Buscar por. . .',
+    'id'                    => '#',
+    'cant'                  => 'Cantidad',
+    'est'                   => 'Estado',
+    'estat'                 => 'Estatus',
+    'met_de_entreg'         => 'Metodo de entrega',
+    'tip_env'               => 'Tipo de envío',
+    'created_at'            => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+  'select_estatus_logistica_direcciones' => [
+    config('app.sin_entrega_por_falta_de_informacion')  => config('app.sin_entrega_por_falta_de_informacion'),
+    config('app.intento_de_entrega_fallido')            => config('app.intento_de_entrega_fallido'),
+    config('app.productos_completos')                   => 'Regresar a producción',
+  ],
 );

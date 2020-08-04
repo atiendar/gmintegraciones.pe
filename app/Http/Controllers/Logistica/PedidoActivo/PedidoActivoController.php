@@ -15,9 +15,10 @@ class PedidoActivoController extends Controller {
     $this->pedidoActivoRepo         = $PedidoActivoRepositories;
     $this->armadoPedidoActivoRepo   = $armadoPedidoActivoRepositories;
   }
-  public function index(Request $request) {
-    $pedidos = $this->pedidoActivoRepo->getPagination($request, ['usuario', 'unificar']);
-    return view('logistica.pedido.pedido_activo.pedAct_index', compact('pedidos'));
+  public function index(Request $request, $opc_consulta = null) {
+    $pedidos = $this->pedidoActivoRepo->getPagination($request, ['usuario', 'unificar'], $opc_consulta);
+    $pen = $this->pedidoActivoRepo->getPendientes();
+    return view('logistica.pedido.pedido_activo.pedAct_index', compact('pedidos', 'pen'));
   }
   public function show(Request $request, $id_pedido) {
     $pedido                        = $this->pedidoActivoRepo->pedidoActivoLogisticaFindOrFailById($id_pedido, ['usuario', 'unificar']);
