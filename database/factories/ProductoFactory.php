@@ -11,12 +11,14 @@ $factory->define(Producto::class, function (Faker $faker) {
     $prec_prove = $faker->randomFloat(3, 0, 1000);
     $utilid     = $faker->randomElement(['.1','.2','.3','.4']);
     $tip        = $faker->randomElement(config('opcionesSelect.select_tipo'));
+    $tam        = null;
     $alto       = 0.00;
     $ancho      = 0.00;
     $largo      = 0.00;
     $cost_arm   = 0.00;
     if($tip == 'Canasta') {
         $produc     = 'Canasta ' . $faker->unique()->name;
+        $tam        = $faker->randomElement(config('opcionesSelect.select_tamano'));
         $alto       = $faker->randomFloat(2, 1, 5);
         $ancho      = $faker->randomFloat(2, 1, 5);
         $largo      = $faker->randomFloat(2, 1, 5);
@@ -31,6 +33,7 @@ $factory->define(Producto::class, function (Faker $faker) {
         'sku'               => 'PRO-' . $faker->unique()->numberBetween(111, 999999),
         'marc'              => $faker->name,
         'tip'               => $tip,
+        'tam'               => $tam,
         'alto'              => $alto,
         'ancho'             => $ancho,
         'largo'             => $largo,

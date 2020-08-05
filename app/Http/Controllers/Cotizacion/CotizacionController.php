@@ -72,7 +72,8 @@ class CotizacionController extends Controller {
   //  return back();
 
     $cotizacion     = $this->cotizacionRepo->cotizacionAsignadoFindOrFailById($id_cotizacion, ['armados', 'cliente'], config('app.abierta'));
-    $armados        = $cotizacion->armados()->with('productos')->get();
+    $armados        = $cotizacion->armados()->with('productos', 'direcciones')->get();
+
     $corizacion_pdf = \PDF::loadView('cotizacion.export.generarCotizacion', compact('cotizacion', 'armados'));
     return $corizacion_pdf->stream(); // Visualizar
   //  return $corizacion_pdf->download('Cotización-'$cotizacion->serie.'.pdf'); // Descargar

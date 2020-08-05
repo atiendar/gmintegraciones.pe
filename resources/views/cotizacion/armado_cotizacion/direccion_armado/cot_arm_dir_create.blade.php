@@ -58,9 +58,6 @@
       async create() {
         this.checarBotonSubmitDisabled("btnsubmit")
         axios.post('/cotizacion/armado/direccion/almacenar/'+{{ $armado->id }}, {
-          tipo_de_empaque:          this.tipo_de_empaque,
-          cuenta_con_seguro:        this.cuenta_con_seguro,
-          tiempo_de_entrega:        this.tiempo_de_entrega,
           metodo_de_entrega:        this.metodo_de_entrega,
           estado_al_que_se_cotizo:  this.estado_al_que_se_cotizo,
           foraneo_o_local:          this.foraneo_o_local,

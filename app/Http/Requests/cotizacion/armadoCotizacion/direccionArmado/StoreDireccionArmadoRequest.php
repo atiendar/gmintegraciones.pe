@@ -34,10 +34,3 @@ class StoreDireccionArmadoRequest extends FormRequest {
     ];
   }
 }
-/*
-'metodo_de_entrega'         => 'required|in:En bodega,Gratis,Paquetería,Transporte interno de la empresa,Transportes ferro,Viaje metropolitano',
-'estado_al_que_se_cotizo'   => 'required|in:Aguascalientes,Baja California,Baja California Sur,Campeche,Ciudad de México,Chihuahua,Chiapas,Coahuila de Zaragoza,Colima,Durango,Estado de México,Guanajuato,Guerrero,Hidalgo,Jalisco,Michoacán de Ocampo,Morelos,Nayarit,Nuevo León,Oaxaca,Puebla,Querétaro,Quintana Roo,San Luis Potosí,Sinaloa,Sonora,Tabasco,Tamaulipas,Tlaxcala,Veracruz,Yucatán,Zacatecas',
-'foraneo_o_local'           => 'required|in:Foráneo,Local',
-'tipo_de_envio'             => 'required|in:Normal,Express',
-'costo_de_envio'            => 'required|min:0|numeric|alpha_decimal15',
-*/

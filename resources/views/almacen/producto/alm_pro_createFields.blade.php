@@ -70,6 +70,16 @@
   <div class="border border-primary rounded p-2">
     <div class="row">
       <div class="form-group col-sm btn-sm">
+        <label for="tamano">{{ __('Tamaño') }} *</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+          </div>
+          {!! Form::select('tamano', config('opcionesSelect.select_tamano'), null, ['class' => 'form-control select2' . ($errors->has('tamano') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+          </div>
+        <span class="text-danger">{{ $errors->first('tamano') }}</span>
+      </div>
+      <div class="form-group col-sm btn-sm">
         <label for="alto">{{ __('Alto') }} *</label>
         <div class="input-group">
           <div class="input-group-prepend">

@@ -83,7 +83,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('tipo', config('opcionesSelect.select_tipo'), $producto->tip, ['id' => 'tipo', 'class' => 'form-control select2', 'placeholder' => __(''), 'readonly' => 'readonly', 'onChange' => 'calcularUtilidad();']) !!}
+      {!! Form::select('tipo', config('opcionesSelect.select_tipo'), $producto->tip, ['id' => 'tipo', 'class' => 'form-control disable select2', 'placeholder' => __(''), 'readonly' => 'readonly', 'onChange' => 'calcularUtilidad();']) !!}
     </div>
   </div>
 </div>
@@ -92,6 +92,15 @@
     <label for="redes_sociales">{{ __('MEDIDAS') }}</label>
     <div class="border border-primary rounded p-2">
       <div class="row">
+        <div class="form-group col-sm btn-sm">
+          <label for="tamano">{{ __('Tamaño') }} *</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+            </div>
+            {!! Form::select('tamano', config('opcionesSelect.select_tamano'), $producto->tam, ['class' => 'form-control disable select2', 'placeholder' => __(''), 'readonly' => 'readonly']) !!}
+            </div>
+        </div>
         <div class="form-group col-sm btn-sm">
           <label for="alto">{{ __('Alto') }}</label>
           <div class="input-group">

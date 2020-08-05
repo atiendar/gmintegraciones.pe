@@ -385,6 +385,11 @@ return array(
     'Si'          => 'Si',
     'No'          => 'No',
   ],
+  'select_tamano'  => [
+    'Chico'   => 'Chico',
+    'Mediano' => 'Mediano',
+    'Grande'  => 'Grande',
+  ],
 /* ===================== ALMACÉN [ PRODUCTOS ] ===================== */
   'select_producto_index'  => [
     ''              => 'Buscar por. . .',

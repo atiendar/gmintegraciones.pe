@@ -62,9 +62,6 @@
           if (result.value) {
             this.checarBotonSubmitDisabled("btnsubmit")
             axios.put('/cotizacion/armado/direccion/actualizar/'+{{ $direccion->id }}, {
-              tipo_de_empaque:          this.tipo_de_empaque,
-              cuenta_con_seguro:        this.cuenta_con_seguro,
-              tiempo_de_entrega:        this.tiempo_de_entrega,
               metodo_de_entrega:        this.metodo_de_entrega,
               estado_al_que_se_cotizo:  this.estado_al_que_se_cotizo,
               foraneo_o_local:          this.foraneo_o_local,
@@ -127,9 +124,17 @@
       async getCostoDeEnvio() {
         // VERIFICA SI EL OBJETO "costo_seleccionado" ESTA VACIO O NO
         if(Object.keys(this.costo_seleccionado).length === 0) {
-          this.cost_por_env = parseFloat(this.cost_por_env_individual) * parseFloat(this.cantidad)
+          if(this.tipo_de_envio == 'Consolidado') {
+            this.cost_por_env = parseFloat(this.cost_por_env_individual)
+          } else {
+            this.cost_por_env = parseFloat(this.cost_por_env_individual) * parseFloat(this.cantidad)
+          }
         } else {
-          this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env) * parseFloat(this.cantidad)
+          if(this.tipo_de_envio == 'Consolidado') {
+            this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env)
+          } else {
+            this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env) * parseFloat(this.cantidad)
+          }
         }
 
         if (isNaN(parseFloat(this.cost_por_env))) {

@@ -11,6 +11,7 @@ class CalcularValoresArmadoRepositories implements CalcularValoresArmadoInterfac
   public function calcularValoresArmado($armado, $productos) {
     $hastaC       = count($productos) - 1;
     $prec_origin  = 0;
+    $tamano       = null;
     $peso         = 0;
     $alto         = 0;
     $ancho        = 0;
@@ -29,11 +30,15 @@ class CalcularValoresArmadoRepositories implements CalcularValoresArmadoInterfac
       $peso += $productos[$contador2]->pes * $cant;
       
       // Calcular nuevas medidas
+      if($productos[$contador2]->tam != null) {
+        $tamano = $productos[$contador2]->tam;
+      }
       $alto += $productos[$contador2]->alto * $cant;
       $ancho += $productos[$contador2]->ancho * $cant;
       $largo += $productos[$contador2]->largo * $cant;
     }
     $armado->prec_origin   = $prec_origin;
+    $armado->tam           = $tamano;
     $armado->pes           = $peso;
     $armado->alto          = $alto;
     $armado->ancho         = $ancho;

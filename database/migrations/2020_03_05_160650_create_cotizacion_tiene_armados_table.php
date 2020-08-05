@@ -29,6 +29,7 @@ class CreateCotizacionTieneArmadosTable extends Migration
             $table->string('gama', 150)->comment('Gama');
             $table->enum('dest', config('opcionesSelect.select_destacado'))->comment('Destacado');
             
+            $table->enum('tam', config('opcionesSelect.select_tamano'))->nullable()->comment('Tamaño');
             $table->decimal('pes',10,3)->unsigned()->comment('Peso');
             $table->decimal('alto', 10, 2)->unsigned()->comment('Alto');
             $table->decimal('ancho', 10, 2)->unsigned()->comment('Ancho');

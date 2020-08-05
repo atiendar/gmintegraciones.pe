@@ -6,7 +6,7 @@ use App\Models\CotizacionArmadoProductos;
 class StoreFilesRepositories implements StoreFilesInterface {
   public function storeProductos($productos, $id_armado) {
     // Agrega los producto del armado al armado de la cotización
-    $camposBD = array('id_producto', 'cant', 'produc', 'sku', 'marc', 'tip', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'etiq', 'pes', 'cod_barras', 'armado_id', 'created_at', 'updated_at');
+    $camposBD = array('id_producto', 'cant', 'produc', 'sku', 'marc', 'tip', 'tam', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'etiq', 'pes', 'cod_barras', 'armado_id', 'created_at', 'updated_at');
     $hastaC = count($productos) - 1;
     if($hastaC > -1) {
       $datos = null;
@@ -33,6 +33,8 @@ class StoreFilesRepositories implements StoreFilesInterface {
         $datos[$contador2][$camposBD[$contador3]] = $productos[$contador2]->marc;
         $contador3 += 1;
         $datos[$contador2][$camposBD[$contador3]] = $productos[$contador2]->tip;
+        $contador3 += 1;
+        $datos[$contador2][$camposBD[$contador3]] = $productos[$contador2]->tam;
         $contador3 += 1;
         $datos[$contador2][$camposBD[$contador3]] = $productos[$contador2]->alto;
         $contador3 += 1;

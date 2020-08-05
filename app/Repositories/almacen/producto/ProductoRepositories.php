@@ -46,11 +46,13 @@ class ProductoRepositories implements ProductoInterface {
       $producto->marc            = $request->marca;
       $producto->tip             = $request->tipo;
       if($producto->tip == 'Canasta') {
+        $producto->tam           = $request->tamano;
         $producto->alto          = $request->alto;
         $producto->ancho         = $request->ancho;
         $producto->largo         = $request->largo;
         $producto->cost_arm      = $request->costo_de_armado;
       } elseif($producto->tip == 'Producto') {
+        $producto->tam           = null;
         $producto->alto          = $this->calculoRepo->bcdivDosDecimales(0.00);
         $producto->ancho         = $this->calculoRepo->bcdivDosDecimales(0.00);
         $producto->largo         = $this->calculoRepo->bcdivDosDecimales(0.00);
@@ -87,6 +89,7 @@ class ProductoRepositories implements ProductoInterface {
       $producto->sku            = $request->sku;
       $producto->marc           = $request->marca;
       if($producto->tip == 'Canasta') {
+        $producto->tam          = $request->tamano;
         $producto->alto         = $request->alto;
         $producto->ancho        = $request->ancho;
         $producto->largo        = $request->largo;
@@ -109,9 +112,9 @@ class ProductoRepositories implements ProductoInterface {
           'almacen.producto.show', // Nombre de la ruta
           $id_producto, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_producto), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Nombre del producto', 'SKU', 'Marca', 'Alto', 'Ancho', 'Largo', 'Costo de armado', 'Nombre del proveedor', 'Precio proveedor', 'Utilidad', 'Precio cliente', 'Categoría', 'Etiqueta', 'Peso', 'Código de barras', 'Descripción del producto'), // Nombre de los inputs del formulario
+          array('Nombre del producto', 'SKU', 'Marca', 'Tamaño ', 'Alto', 'Ancho', 'Largo', 'Costo de armado', 'Nombre del proveedor', 'Precio proveedor', 'Utilidad', 'Precio cliente', 'Categoría', 'Etiqueta', 'Peso', 'Código de barras', 'Descripción del producto'), // Nombre de los inputs del formulario
           $producto, // Request
-          array('produc', 'sku', 'marc', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'etiq', 'pes', 'cod_barras','desc_del_prod') // Nombre de los campos en la BD
+          array('produc', 'sku', 'marc', 'tam', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'etiq', 'pes', 'cod_barras','desc_del_prod') // Nombre de los campos en la BD
         ); 
         $producto->updated_at_prod = Auth::user()->email_registro;
       }

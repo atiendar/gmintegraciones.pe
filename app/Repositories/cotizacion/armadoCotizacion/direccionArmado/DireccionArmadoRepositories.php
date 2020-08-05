@@ -41,12 +41,19 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
 
       // GUARDA LA DIRECCIÓN AL ARMADO
       $direccion = new CotizacionArmadoTieneDirecciones();
+      $direccion->tip_emp                   = $request->costo_seleccionado['tip_emp'];
+      $direccion->seg                       = $request->costo_seleccionado['seg'];
+      $direccion->tiemp_ent                 = $request->costo_seleccionado['tiemp_ent'];
       $direccion->met_de_entreg             = $request->costo_seleccionado['met_de_entreg'];
       $direccion->est                       = $request->costo_seleccionado['est'];
       $direccion->for_loc                   = $request->costo_seleccionado['for_loc'];
       $direccion->tip_env                   = $request->costo_seleccionado['tip_env'];
       $direccion->cost_por_env_individual   = $request->costo_seleccionado['cost_por_env'];
-      $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'] *  $request->cantidad;
+      if($direccion->tip_env == 'Consolidado') {
+        $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'];
+      } else {
+        $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'] *  $request->cantidad;
+      }
       $direccion->cant                      = $request->cantidad;
       $direccion->detalles_de_la_ubicacion  = $request->detalles_de_la_ubicacion;
       $direccion->armado_id                 = $id_armado;
@@ -78,14 +85,25 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
       $cost_por_env_vent_orig               = $direccion->cost_por_env;
 
       if($request->costo_seleccionado != []) {
+        $direccion->tip_emp                   = $request->costo_seleccionado['tip_emp'];
+        $direccion->seg                       = $request->costo_seleccionado['seg'];
+        $direccion->tiemp_ent                 = $request->costo_seleccionado['tiemp_ent'];
         $direccion->met_de_entreg             = $request->costo_seleccionado['met_de_entreg'];
         $direccion->est                       = $request->costo_seleccionado['est'];
         $direccion->for_loc                   = $request->costo_seleccionado['for_loc'];
         $direccion->tip_env                   = $request->costo_seleccionado['tip_env'];
         $direccion->cost_por_env_individual   = $request->costo_seleccionado['cost_por_env'];
-        $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'] *  $request->cantidad;
+        if($direccion->tip_env == 'Consolidado') {
+          $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'];
+        } else {
+          $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'] *  $request->cantidad;
+        }
       } else {
-        $direccion->cost_por_env = $direccion->cost_por_env_individual * $request->cantidad;
+        if($direccion->tip_env == 'Consolidado') {
+          $direccion->cost_por_env = $direccion->cost_por_env_individual;
+        } else {
+          $direccion->cost_por_env = $direccion->cost_por_env_individual * $request->cantidad;
+        }
       }
       $direccion->cant                      = $request->cantidad;
       $direccion->detalles_de_la_ubicacion  = $request->detalles_de_la_ubicacion;
@@ -97,9 +115,9 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
           'cotizacion.show', // Nombre de la ruta
           $this->serviceCrypt->encrypt($id_direccion), // Id del registro debe ir encriptado
           $id_direccion, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Método de entrega', 'Estado al que se cotizó', 'Foráneo o local', 'Tipo de envío', 'Costo de envío', 'Cantidad', 'Detalles de la ubicación'), // Nombre de los inputs del formulario
+          array('Tipo de empaque', 'Cuenta con seguro', 'Tiempo de entrega (minutos)', 'Método de entrega', 'Estado al que se cotizó', 'Foráneo o local', 'Tipo de envío', 'Costo de envío', 'Cantidad', 'Detalles de la ubicación'), // Nombre de los inputs del formulario
           $direccion, // Request
-          array('met_de_entreg', 'est', 'for_loc', 'tip_env', 'cost_por_env', 'cant',  'detalles_de_la_ubicacion') // Nombre de los campos en la BD
+          array('tip_emp', 'seg', 'tiemp_ent', 'met_de_entreg', 'est', 'for_loc', 'tip_env', 'cost_por_env', 'cant',  'detalles_de_la_ubicacion') // Nombre de los campos en la BD
         ); 
         $direccion->updated_at_dir  = Auth::user()->email_registro;
       }

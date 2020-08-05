@@ -23,6 +23,7 @@ class ArmadoTieneProductosTableSeeder extends Seeder {
             $producto = Producto::where('id', $cont)->first();
             $armados[$contador2]->prec_origin   = $producto->prec_clien;
             $armados[$contador2]->prec_redond   = $this->calculoRepo->redondearUnidadA9DelPrecio($producto->prec_clien);
+            $armados[$contador2]->tam           = $producto->tam;
             $armados[$contador2]->pes           = $producto->pes;
             $armados[$contador2]->alto          = $producto->alto;
             $armados[$contador2]->ancho         = $producto->ancho;

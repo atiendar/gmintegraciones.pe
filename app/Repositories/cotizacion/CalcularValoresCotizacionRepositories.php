@@ -29,6 +29,7 @@ class CalcularValoresCotizacionRepositories implements CalcularValoresCotizacion
                                                                                                                       $query->withTrashed();
                                                                                                                     }])->withTrashed()->get();
     foreach($productos_armado_cotizacion as $producto_armado_cotizacion) {
+      $producto_armado_cotizacion->tam         = $producto->tam;
       $producto_armado_cotizacion->alto        = $producto->alto;
       $producto_armado_cotizacion->ancho       = $producto->ancho;
       $producto_armado_cotizacion->largo       = $producto->largo;

@@ -13,6 +13,7 @@ class StoreProductoRequest extends FormRequest {
       'sku'                       => 'required|max:30|unique:productos,sku',
       'marca'                     => 'required|max:70',
       'tipo'                      => 'required|in:Producto,Canasta',
+      'tamano'                    => 'nullable|required_if:tipo,Canasta|in:Chico,Mediano,Grande',
       'alto'                      => 'nullable|required_if:tipo,Canasta|min:0|numeric|alpha_decimal7',
       'ancho'                     => 'nullable|required_if:tipo,Canasta|min:0|numeric|alpha_decimal7',
       'largo'                     => 'nullable|required_if:tipo,Canasta|min:0|numeric|alpha_decimal7',
@@ -22,6 +23,12 @@ class StoreProductoRequest extends FormRequest {
       'peso'                      => 'required|min:0|numeric|alpha_decimal7',
       'codigo_de_barras'          => 'required|max:250',
       'descripcion_del_producto'  => 'nullable|max:30000|string',
+    ];
+  }
+  public function attributes() {
+    return [
+      // Nombre del campo a mostrar.
+      'tamano'    => 'tamaño',
     ];
   }
 }

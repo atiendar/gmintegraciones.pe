@@ -70,7 +70,7 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
       $cot_armado->created_at_arm = Auth::user()->email_registro;
       $cot_armado->save();
 
-      // Agrega los producto del armado al armado de la cotización
+      // Agrega los productos del armado al armado de la cotización
       $this->storeFilesRepo->storeProductos($armado->productos, $cot_armado->id);
 
        // GENERA LOS NUEVOS PRECIOS DE LA COTIZACIÓN

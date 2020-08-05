@@ -30,6 +30,7 @@ class CreateArmadosTable extends Migration
             $table->decimal('prec_origin',20,2)->unsigned()->default(0.00)->comment('Precio original');
             $table->decimal('prec_redond',20,2)->unsigned()->default(0.00)->comment('Precio redondeado');
             $table->string('url_pagina', 150)->nullable()->comment('URL página');
+            $table->enum('tam', config('opcionesSelect.select_tamano'))->nullable()->comment('Tamaño');
             $table->decimal('pes',10,3)->default(0.000)->unsigned()->comment('Peso');
             $table->decimal('alto', 10, 2)->default(0.00)->unsigned()->comment('Alto');
             $table->decimal('ancho', 10, 2)->default(0.00)->unsigned()->comment('Ancho');
