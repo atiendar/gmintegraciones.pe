@@ -18,6 +18,7 @@ $factory->define(Pedido::class, function (Faker $faker) {
       'mont_tot_de_ped'       => $faker->randomFloat(2, 100, 3000),
       'urg'                   => $faker->randomElement(['Si', 'No']),
       'foraneo'               => $faker->randomElement(['Si', 'No']),
+      'con_iva'               => $faker->randomElement(['off', 'on']),
       'estat_pag'             => $faker->randomElement([config('app.pendiente'), config('app.pago_pendiente_de_aprobar'), config('app.pago_rechazado'), config('app.pagado'), config('app.pagado_eliminados'), config('app.pagoseliminados')]),
       'estat_vent_arm'        => config('app.armados_cargados'),
       'estat_alm'             => config('app.en_revision_de_productos'),

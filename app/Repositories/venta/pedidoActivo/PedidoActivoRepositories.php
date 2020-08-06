@@ -96,9 +96,9 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   }
   public function getPagosPedidoPagination($pedido, $request) {
     if($request->opcion_buscador != null) {
-      return $pedido->pagos()->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
+      return $pedido->pagos()->with('pedido')->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
     }
-    return $pedido->pagos()->paginate($request->paginador);
+    return $pedido->pagos()->with('pedido')->paginate($request->paginador);
   }
   public function getPedidoFindOrFail($id_pedido, $relaciones) {// 'armados', 'unificar'
     $id_pedido = $this->serviceCrypt->decrypt($id_pedido);

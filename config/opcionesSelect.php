@@ -615,7 +615,9 @@ return array(
     'Paypal'                      => 'Paypal',
     'Tarjeta de credito (Pagina)' => 'Tarjeta de credito (Pagina)',
     'Tarjeta de credito (Clip)'   => 'Tarjeta de credito (Clip)',
-    'Transferencia'               => 'Transferencia',
+    'Tarjeta de debito'           => 'Tarjeta de debito',
+    'Transferencia RUT'           => 'Transferencia RUT',
+    'Transferencia CYA'           => 'Transferencia CYA',
     'Otro'                        => 'Otro',
   ],
   'select_estatus_pago_individual'  => [

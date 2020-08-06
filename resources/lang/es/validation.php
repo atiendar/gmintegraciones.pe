@@ -24,6 +24,7 @@ return [
     'alpha_codigo_de_facturacion_pertenece_al_usuario'  => 'El :attribute introducido no es valido para el usuario seleccionado.',
     'alpha_estatus_codigo_de_facturacion'               => 'El :attribute introducido ya esta en proceso de facturación o ya fue facturado.',
     'alpha_cierre_fiscal'               => 'El :attribute introducido no es valido ya que el cierre fiscal ha concluido.',
+    'alpha_con_o_sin_iva'               => 'El :attribute introducido no es valido para facturar ya que no se pago IVA.',
 /* ======================================================= */
     'accepted'             => 'El campo :attribute debe ser aceptado.',
     'active_url'           => 'El campo :attribute no es una URL válida.',

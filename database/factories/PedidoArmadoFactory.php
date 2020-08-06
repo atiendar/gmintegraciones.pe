@@ -21,6 +21,7 @@ $factory->define(PedidoArmado::class, function (Faker $faker) {
         'sku'                   => $armado->sku,
         'gama'                  => $armado->gama,
         'prec'                  => $armado->prec_redond,
+        'tam'                   => $faker->randomElement(config('opcionesSelect.select_tamano')),
         'pes'                   => $armado->pes,
         'alto'                  => $armado->alto,
         'ancho'                 => $armado->ancho,

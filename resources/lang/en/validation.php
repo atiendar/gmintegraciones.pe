@@ -23,7 +23,8 @@ return [
     'alpha_unique_where'                => 'The value of the :attribute field already exists.',
     'alpha_codigo_de_facturacion_pertenece_al_usuario'  => 'The :attribute entered is not valid for the selected user.',
     'alpha_estatus_codigo_de_facturacion'               => 'The :attribute entered is already in the billing process or has already been billed.',
-    'alpha_cierre_fiscal'             => 'The :attribute entered is not valid since the fiscal closing has concluded.',
+    'alpha_cierre_fiscal'               => 'The :attribute entered is not valid since the fiscal closing has concluded.',
+    'alpha_con_o_sin_iva'               => 'The :attribute entered is not valid for invoicing since VAT was not paid.',
 /* ======================================================= */
     'accepted' => 'The :attribute must be accepted.',
     'active_url' => 'The :attribute is not a valid URL.',

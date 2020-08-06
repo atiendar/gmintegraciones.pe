@@ -30,6 +30,7 @@ class CreatePedidoArmadosTable extends Migration
             $table->string('sku',60)->comment('SKU');
             $table->string('gama', 150)->comment('Gama');
             $table->decimal('prec', 20,2)->unsigned()->comment('Precio');
+            $table->enum('tam', config('opcionesSelect.select_tamano'))->nullable()->comment('Tamaño');
             $table->decimal('pes',10,3)->unsigned()->comment('Peso');
             $table->decimal('alto', 10, 2)->unsigned()->comment('Alto');
             $table->decimal('ancho', 10, 2)->unsigned()->comment('Ancho');

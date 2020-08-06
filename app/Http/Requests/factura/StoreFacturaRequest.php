@@ -27,7 +27,7 @@ class StoreFacturaRequest extends FormRequest {
       'codigo_postal'           => 'required|max:6',
       'correo'                  => 'required|max:75|email',
 
-      'codigo_de_facturacion'               => 'required|max:50|exists:pagos,cod_fact|alpha_cierre_fiscal|alpha_estatus_codigo_de_facturacion|alpha_codigo_de_facturacion_pertenece_al_usuario:'. $this->cliente,
+      'codigo_de_facturacion'               => 'required|max:50|exists:pagos,cod_fact|alpha_cierre_fiscal|alpha_estatus_codigo_de_facturacion|alpha_con_o_sin_iva|alpha_codigo_de_facturacion_pertenece_al_usuario:'. $this->cliente,
       'uso_de_cfdi'                         => 'required|in:'.
                                                               config('opcionesSelect.select_uso_de_cfdi.G01 Adquisición de mercancias').','.
                                                               config('opcionesSelect.select_uso_de_cfdi.G02 Devoluciones descuentos o bonificaciones').','.

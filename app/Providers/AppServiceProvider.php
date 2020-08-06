@@ -70,5 +70,14 @@ class AppServiceProvider extends ServiceProvider {
       }
       return true; 
     });
+    Validator::extend('alpha_con_o_sin_iva', function ($attribute, $value) { // Validación     
+      $resultado = \App\Models\Pago::where('cod_fact', $value)->with(['pedido'=> function ($query) {
+        $query->select('id', 'con_iva');
+      }])->firstOrFail(['id', 'pedido_id']);
+      if($resultado->pedido->con_iva == null) {
+        return false;
+      }
+      return true; 
+    });
   }
 }

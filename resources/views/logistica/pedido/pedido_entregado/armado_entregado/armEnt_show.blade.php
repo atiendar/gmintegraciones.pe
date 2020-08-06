@@ -17,5 +17,5 @@
     @include('logistica.pedido.pedido_activo.armado_activo.armAct_showFields')
   </div>
 </div>
-{{-- @include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.dirArm_index') --}}
+@include('logistica.pedido.pedido_entregado.armado_entregado.direccion_armado.dirArm_index')
 @endsection

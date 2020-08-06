@@ -64,6 +64,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       $pedido->mont_tot_de_ped  = $cotizacion->tot;
       $pedido->gratis           = $this->elPedidoEsDeRegalo($cotizacion, $armados_cotizacion);
       $pedido->estat_vent_arm   = config('app.armados_cargados');
+      $pedido->con_iva          = $cotizacion->con_iva;
       $pedido->asignado_ped     = Auth::user()->email_registro;
       $pedido->created_at_ped   = Auth::user()->email_registro;
       $pedido->save();
@@ -99,6 +100,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
         $armado_pedido->sku          = $armado_cotizacion->sku;
         $armado_pedido->gama         = $armado_cotizacion->gama;
         $armado_pedido->prec         = $armado_cotizacion->prec_redond;
+        $armado_pedido->tam          = $armado_cotizacion->tam;
         $armado_pedido->pes          = $armado_cotizacion->pes;
         $armado_pedido->alto         = $armado_cotizacion->alto;
         $armado_pedido->ancho        = $armado_cotizacion->ancho;
