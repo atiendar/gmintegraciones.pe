@@ -658,8 +658,8 @@ return array(
       'Express'     => 'Express',
     ],
     'select_tipo_de_empaque'  => [
-      'Caja'    => 'Caja',
-      'Normal'  => 'Normal',
+      'Cuenta con caja de cartón'     => 'Cuenta con caja de cartón',
+      'No cuenta con caja de cartón'  => 'No cuenta con caja de cartón',
     ],
   /* ===================== [ FACTURACIÓN ] ===================== */
   'select_factura_index'  => [

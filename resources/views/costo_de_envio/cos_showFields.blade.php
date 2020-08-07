@@ -40,7 +40,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="tipo_de_empaque">{{ __('Tipo de empaque') }} *</label>
+    <label for="tipo_de_empaque">{{ __('Tipo de empaque') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
@@ -74,27 +74,27 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="metodo_de_entrega">{{ __('Método de entrega') }} *</label>
+    <label for="metodo_de_entrega">{{ __('Método de entrega') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('metodo_de_entrega', config('opcionesSelect.select_metodo_de_entrega'), $costo_de_envio->met_de_entreg, ['class' => 'form-control disabled select2', 'placeholder' => __(''), 'readonly' => 'readonly']) !!}
+      {!! Form::text('metodo_de_entrega', $costo_de_envio->met_de_entreg, ['class' => 'form-control', 'placeholder' => __('Método de entrega'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="estado">{{ __('Estado') }} *</label>
+    <label for="estado">{{ __('Estado') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('estado', config('opcionesSelect.select_estado'), $costo_de_envio->est, ['class' => 'form-control disabled select2', 'placeholder' => __(''), 'readonly' => 'readonly']) !!}
+      {!! Form::text('estado', $costo_de_envio->est, ['class' => 'form-control', 'placeholder' => __('Estado'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="foraneo_o_local">{{ __('Foráneo o local') }} *</label>
+    <label for="foraneo_o_local">{{ __('Foráneo o local') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
@@ -103,7 +103,7 @@
     </div>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="tipo_de_envio">{{ __('Tipo de envío') }} *</label>
+    <label for="tipo_de_envio">{{ __('Tipo de envío') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
@@ -114,7 +114,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="costo_por_envio">{{ __('Costo por envío') }} *</label>
+    <label for="costo_por_envio">{{ __('Costo por envío') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>

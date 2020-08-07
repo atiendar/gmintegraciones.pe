@@ -18,9 +18,9 @@
     </div>
   </div>
   <div class="card-body">
-    {!! Form::open(['route' => ['costoDeEnvio.update', Crypt::encrypt($costo_de_envio->id)], 'method' => 'patch', 'id' => 'costoDeEnvioUpdate', 'files' => true]) !!}
-      @include('costo_de_envio.cos_editFields')
-    {!! Form::close() !!}
+    
+    @include('costo_de_envio.cos_createFields')
+   
   </div>
 </div>
 @endsection

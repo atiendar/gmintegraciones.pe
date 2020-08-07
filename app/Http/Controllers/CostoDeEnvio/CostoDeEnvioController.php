@@ -21,9 +21,8 @@ class CostoDeEnvioController extends Controller {
     return view('costo_de_envio.cos_create');
   }
   public function store(StoreCostoDeEnvioRequest $request) {
-    $this->costoDeEnvioRepo->store($request);
-    toastr()->success('¡Costo de envío registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-    return back();
+    $costo_de_envio = $this->costoDeEnvioRepo->store($request);
+    return $costo_de_envio;
   }
   public function show($id_costo) {
     $costo_de_envio = $this->costoDeEnvioRepo->costoDeEnvioAsignadoFindOrFailById($id_costo);

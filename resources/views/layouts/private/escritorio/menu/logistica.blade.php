@@ -57,7 +57,7 @@
               <li class="nav-item">
                 <a href="{{ route('logistica.pedidoEntregado.index') }}" class="nav-link {{ Request::is('logistica/pedido-entregado') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-list"></i>
-                  <p>{{ __('Lista de pedidos terminados') }}</p>
+                  <p>{{ __('Lista de pedidos entregados') }}</p>
                 </a>
               </li>
             @endcanany

@@ -61,8 +61,14 @@ class DireccionLocalController extends Controller {
     toastr()->success('¡Dirección actualizada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
+  public function metodoDeEntrega(Request $request, $foraneo_o_local) {
+    if($request->ajax()) {
+      $metodo_de_entrega = $this->metodoDeEntregaRepo->getAllMetodosPluck($foraneo_o_local);
+      return $metodo_de_entrega;
+    }
+  }
   public function metodoDeEntregaEspecifico(Request $request, $metodo_de_entrega) {
-    if( $request->ajax()) {
+    if($request->ajax()) {
       $metodo_de_entrega = $this->metodoDeEntregaRepo->metodoFindOrFailByNombreMetodo($metodo_de_entrega, ['metodosDeEntregaEspecificos']);
       return $metodo_de_entrega->metodosDeEntregaEspecificos()->pluck('nom_met_ent_esp', 'nom_met_ent_esp');
     }

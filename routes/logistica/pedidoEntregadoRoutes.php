@@ -8,7 +8,7 @@ Route::group(['prefix' => 'pedido-entregado'], function() {
     Route::match(['GET', 'HEAD'],'detalles/{id_armado}', 'Logistica\PedidoEntregado\ArmadoPedidoEntregado\ArmadoPedidoEntregadoController@show')->name('logistica.pedidoEntregado.armado.show')->middleware('permission:logistica.pedidoEntregado.show');
   
     Route::group(['prefix' => 'direccion'], function() {
-      
+      Route::match(['GET', 'HEAD'],'detalles/{id_direccion}', 'Logistica\PedidoEntregado\ArmadoPedidoEntregado\DireccionArmado\DireccionArmadoController@show')->name('logistica.pedidoEntregado.armado.direccion.show')->middleware('permission:logistica.pedidoEntregado.show');
     });
   });
 });

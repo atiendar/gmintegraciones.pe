@@ -21,16 +21,7 @@
           <tr title="{{ $direccion->est }}">
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.#') 
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.nombreDeReferenciaUno')
-            faltaAAAAAAAAAAAAAAAAAAAAAAAAA AGREGAR COSas aqui
-            {{-- 
-
-
-            @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => true, 'canany' => ['logistica.direccionForaneo.show'], 'ruta' => 'logistica.direccionForaneo.show', 'target' => 'target=_blank'])
-            
-            --}}
-
-
-
+            @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => true, 'canany' => ['logistica.pedidoEntregado.armado.direccion.show'], 'ruta' => 'logistica.pedidoEntregado.armado.direccion.show', 'target' => 'null'])
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.estatus')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntrega')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.estado')
