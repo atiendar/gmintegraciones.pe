@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
         DatosFiscalesTableSeeder::class,
         MetodosDeEntregaTableSeeder::class,
         MetodosDeEntregaEspecificosTableSeeder::class,
+        TiposDeEnvioTableSeeder::class,
         PedidosTableSeeder::class,
         PedidoArmadosTableSeeder::class,
         PedidoArmadoTieneProductosTableSeeder::class,

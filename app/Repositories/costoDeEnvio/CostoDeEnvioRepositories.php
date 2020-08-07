@@ -30,13 +30,13 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
   public function store($request) {
     try { DB::beginTransaction();
       $costo_de_envio = new CostoDeEnvio();
+      $costo_de_envio->for_loc        = $request->foraneo_o_local;
+      $costo_de_envio->met_de_entreg  = $request->metodo_de_entrega;
+      $costo_de_envio->est            = $request->estado;
+      $costo_de_envio->tip_env        = $request->tipo_de_envio;
       $costo_de_envio->tip_emp        = $request->tipo_de_empaque;
       $costo_de_envio->seg            = $request->cuenta_con_seguro;
       $costo_de_envio->tiemp_ent      = $request->tiempo_de_entrega;
-      $costo_de_envio->est            = $request->estado;
-      $costo_de_envio->met_de_entreg  = $request->metodo_de_entrega;
-      $costo_de_envio->for_loc        = $request->foraneo_o_local;
-      $costo_de_envio->tip_env        = $request->tipo_de_envio;
       $costo_de_envio->cost_por_env   = $request->costo_por_envio;
       $costo_de_envio->asignado_env   = Auth::user()->email_registro;
       $costo_de_envio->created_at_env = Auth::user()->email_registro;

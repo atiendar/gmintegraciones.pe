@@ -13,7 +13,7 @@ class MetodoDeEntrega extends Model {
   protected $guarded = [];
 
   protected $dates = ['deleted_at'];
-  protected $softCascade = ['metodos_de_entrega_especificos']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
+  protected $softCascade = ['metodos_de_entrega_especificos', 'tipos_de_envio']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
 
   public function scopeAsignado($query, $opcion_asignado, $usuario) {
     if($opcion_asignado == null){
@@ -29,5 +29,7 @@ class MetodoDeEntrega extends Model {
   public function metodosDeEntregaEspecificos() {
     return $this->hasMany('App\Models\MetodoDeEntregaEspecifico', 'metodo_de_entrega_id')->orderBy('id', 'DESC');
   }  
-
+  public function tiposDeEnvio() {
+    return $this->hasMany('App\Models\TipoDeEnvio')->orderBy('id', 'DESC');
+  } 
 }

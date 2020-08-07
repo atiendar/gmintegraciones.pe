@@ -21,6 +21,7 @@ class CreateCostosDeEnvioTable extends Migration
 
         $table->enum('tip_emp',config('opcionesSelect.select_tipo_de_empaque'))->comment('Tipo de empaque');
         $table->enum('seg',config('opcionesSelect.select_si_no'))->comment('Cuenta con seguro');
+        $table->enum('tam', config('opcionesSelect.select_tamano'))->comment('Tamaño');
         $table->string('tiemp_ent', 25)->comment('Tiempo de entrega en dias');
         $table->enum('met_de_entreg', config('opcionesSelect.select_metodo_de_entrega'))->comment('Método de entrega');
         $table->string('est', 150)->comment('Estado');

@@ -32,31 +32,39 @@
       errors: [],
       metodos_de_entrega: [],
       estados:            [],
-      
+      tipos_de_envio:     [],
+
       foraneo_o_local:    null,
-      cuenta_con_seguro:  null,
       metodo_de_entrega:  null,
+      cuenta_con_seguro:  null,
       estado:             null,
+      tipo_de_empaque:    null,
+      tiempo_de_entrega:  null,
+      tipo_de_envio:      null,
       costo_por_envio:    null
     },
     methods: {
       async create() {
-      //  this.checarBotonSubmitDisabled("btnsubmit")
+        this.checarBotonSubmitDisabled("btnsubmit")
         axios.post('/costo-de-envio/almacenar', {
           foraneo_o_local:    this.foraneo_o_local,
-          cuenta_con_seguro:  this.cuenta_con_seguro,
           metodo_de_entrega:  this.metodo_de_entrega,
+          cuenta_con_seguro:  this.cuenta_con_seguro,
           estado:             this.estado,
+          tipo_de_empaque:    this.tipo_de_empaque,
+          tiempo_de_entrega:  this.tiempo_de_entrega,
+          tipo_de_envio:      this.tipo_de_envio,
+          costo_por_envio:    this.costo_por_envio,
+          tipos_de_envio:     this.tipos_de_envio,
         }).then(res => {
-          console.log(res);
           Swal.fire({
             title: 'Éxito',
             text: '¡Costo de envío registrado exitosamente!',
           }).then((value) => {
-          //  location.reload()
+            location.reload()
           })
         }).catch(error => {
-       //   this.checarBotonSubmitEnabled("btnsubmit")
+          this.checarBotonSubmitEnabled("btnsubmit")
           if(error.response.status == 422) {
             this.errors   = error.response.data.errors
           } else {
@@ -68,13 +76,10 @@
         });
       },
       async getMetodosDeEntrega() {
-        console.log('entro')
         if(this.foraneo_o_local != '') {
+          // TREA TODOS LOS METODOS DE ENTREGA CORRESPONDIENTES
           axios.get('/logistica/direccion/metodo-de-entrega/'+this.foraneo_o_local).then(res => {
-          
-            console.log(res.data)
             this.metodos_de_entrega = res.data
-            
             metodo_de_entrega = document.getElementById('metodo_de_entrega')
             metodo_de_entrega.style.display = 'none';
             if(Object.keys(res.data).length != 0) { 
@@ -86,16 +91,31 @@
               text: error,
             })
           });
+
+          // TREA TODOS LOS ESTADOS CORRESPONDIENTES
+          axios.get('/estado/obtener/'+this.foraneo_o_local).then(res => {
+            this.estados = res.data
+            estado = document.getElementById('estado')
+            estado.style.display = 'none';
+            if(Object.keys(res.data).length != 0) { 
+              estado.style.display = 'block';
+            }
+          }).catch(error => {
+            Swal.fire({
+              title: 'Algo salio mal',
+              text: error,
+            })
+          });
         }
       },
-      async getMetodosDeEntregaEspesificos() {
+      async getTiposDeEnvio() {
         if(this.metodo_de_entrega != '') {
-          axios.get('/logistica/direccion/metodo-de-entrega-espescifico/'+this.metodo_de_entrega).then(res => {
-            this.metodos_de_entrega_espesificos = res.data
-            metodo_de_entrega_espesifico = document.getElementById('metodo_de_entrega_espesifico')
-            metodo_de_entrega_espesifico.style.display = 'none';
+          axios.get('/metodo-de-entrega/obtener/'+this.metodo_de_entrega).then(res => {
+            this.tipos_de_envio = res.data
+            tipo_de_envio = document.getElementById('tipo_de_envio')
+            tipo_de_envio.style.display = 'none';
             if(Object.keys(res.data).length != 0) { 
-              metodo_de_entrega_espesifico.style.display = 'block';
+              tipo_de_envio.style.display = 'block';
             }
           }).catch(error => {
             Swal.fire({
@@ -127,5 +147,3 @@
   });
 </script>
 @endsection
-
-

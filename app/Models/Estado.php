@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
-class Estados extends Model {
+class Estado extends Model {
   use SoftDeletes;
   use SoftCascadeTrait;
 

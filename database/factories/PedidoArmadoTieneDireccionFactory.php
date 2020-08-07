@@ -4,7 +4,7 @@
 
 use App\Models\PedidoArmadoTieneDireccion;
 use App\User;
-use App\Models\Estados;
+use App\Models\Estado;
 use App\Models\PedidoArmado;
 use App\Models\MetodoDeEntrega;
 use Faker\Generator as Faker;
@@ -13,7 +13,7 @@ $factory->define(PedidoArmadoTieneDireccion::class, function (Faker $faker) {
   $usuario            = $faker->randomElement(User::where('acceso', '1')->pluck('email_registro'));
   $armado             = $faker->randomElement(PedidoArmado::pluck('id'));
   $metodo_de_entrega  = $faker->randomElement(MetodoDeEntrega::pluck('nom_met_ent'));
-  $estado    = $faker->randomElement(Estados::pluck('est'));
+  $estado    = $faker->randomElement(Estado::pluck('est'));
   return [
     'cant'                      => $faker->randomElement([1,2,3,4]),
     'estat'                     => $faker->randomElement([config('app.pendiente'), config('app.en_almacen_de_salida')]),

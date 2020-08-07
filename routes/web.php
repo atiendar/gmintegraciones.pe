@@ -29,7 +29,9 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
     require_once __DIR__ . '/costoDeEnvio/costoDeEnvioRoutes.php';
     require_once __DIR__ . '/cotizacion/cotizacionRoutes.php';
     require_once __DIR__ . '/factura/facturaRoutes.php';
-
+    require_once __DIR__ . '/estado/estadoRoutes.php';
+    require_once __DIR__ . '/metodoDeEntrega/tipoDeEnvioRoutes.php';
+    
     Route::group(['prefix' => 'pago'], function() {
       require_once __DIR__ . '/pago/pagoFPedidoRoutes.php';
       require_once __DIR__ . '/pago/pagoIndividualRoutes.php';
