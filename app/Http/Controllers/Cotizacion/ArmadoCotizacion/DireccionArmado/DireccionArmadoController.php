@@ -2,7 +2,6 @@
 namespace App\Http\Controllers\Cotizacion\ArmadoCotizacion\DireccionArmado;
 use App\Http\Controllers\Controller;
 // Request
-use Illuminate\Http\Request;
 use App\Http\Requests\cotizacion\armadoCotizacion\direccionArmado\StoreDireccionArmadoRequest;
 use App\Http\Requests\cotizacion\armadoCotizacion\direccionArmado\UpdateDireccionArmadoRequest;
 // Repositories
@@ -29,7 +28,8 @@ class DireccionArmadoController extends Controller {
   public function edit($id_direccion) {
     $direccion = $this->direccionArmadoRepo->direccionFindOrFailById($id_direccion);
     $this->armadoCotizacionRepo->verificarElEstatusDeLaCotizacion($direccion->armado->cotizacion->estat);
-    return view('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_edit', compact('direccion'));
+    $armado = $direccion->armado;
+    return view('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_edit', compact('armado', 'direccion'));
   }
   public function update(UpdateDireccionArmadoRequest $request, $id_direccion) {
     $direccion = $this->direccionArmadoRepo->update($request, $id_direccion);

@@ -33,9 +33,8 @@ class CostoDeEnvioController extends Controller {
     return view('costo_de_envio.cos_edit', compact('costo_de_envio'));
   }
   public function update(UpdateCostoDeEnvioRequest $request, $id_costo) {
-    $this->costoDeEnvioRepo->update($request, $id_costo);
-    toastr()->success('¡Costo de envío actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-    return back();
+    $costo_de_envio = $this->costoDeEnvioRepo->update($request, $id_costo);
+    return $costo_de_envio;
   }
   public function destroy($id_costo) {
     $this->costoDeEnvioRepo->destroy($id_costo);

@@ -23,10 +23,11 @@ class CreateCostosDeEnvioTable extends Migration
         $table->enum('seg',config('opcionesSelect.select_si_no'))->comment('Cuenta con seguro');
         $table->enum('tam', config('opcionesSelect.select_tamano'))->comment('Tamaño');
         $table->string('tiemp_ent', 25)->comment('Tiempo de entrega en dias');
-        $table->enum('met_de_entreg', config('opcionesSelect.select_metodo_de_entrega'))->comment('Método de entrega');
+        $table->string('met_de_entreg',150)->comment('Método de entrega');
+        $table->string('met_de_entreg_esp',150)->nullable()->comment('Método de entrega espesifico');
         $table->string('est', 150)->comment('Estado');
         $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
-        $table->enum('tip_env', config('opcionesSelect.select_tipo_de_envio_plus'))->comment('Tipo de envío');
+        $table->string('tip_env', 80)->comment('Tipo de envío');
         $table->decimal('cost_por_env',20,2)->unsigned()->comment('Costo por envío');
 
         $table->string('asignado_env', 75)->comment('Correo del usuario al qu se le asigno este registro');

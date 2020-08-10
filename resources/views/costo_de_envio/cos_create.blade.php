@@ -29,33 +29,38 @@
   var app4 = new Vue({
     el: '#dashboard',
     data: {
-      errors: [],
-      metodos_de_entrega: [],
-      estados:            [],
-      tipos_de_envio:     [],
+      errors:                         [],
+      metodos_de_entrega:             [],
+      metodos_de_entrega_espesificos: [],
+      estados:                        [],
+      tipos_de_envio:                 [],
 
-      foraneo_o_local:    null,
-      metodo_de_entrega:  null,
-      cuenta_con_seguro:  null,
-      estado:             null,
-      tipo_de_empaque:    null,
-      tiempo_de_entrega:  null,
-      tipo_de_envio:      null,
-      costo_por_envio:    null
+      foraneo_o_local:              null,
+      metodo_de_entrega:            null,
+      metodo_de_entrega_espesifico: null,
+      cuenta_con_seguro:            null,
+      estado:                       null,
+      tamano:                       null,
+      tipo_de_empaque:              null,
+      tiempo_de_entrega:            null,
+      tipo_de_envio:                null,
+      costo_por_envio:              null
     },
     methods: {
       async create() {
         this.checarBotonSubmitDisabled("btnsubmit")
         axios.post('/costo-de-envio/almacenar', {
-          foraneo_o_local:    this.foraneo_o_local,
-          metodo_de_entrega:  this.metodo_de_entrega,
-          cuenta_con_seguro:  this.cuenta_con_seguro,
-          estado:             this.estado,
-          tipo_de_empaque:    this.tipo_de_empaque,
-          tiempo_de_entrega:  this.tiempo_de_entrega,
-          tipo_de_envio:      this.tipo_de_envio,
-          costo_por_envio:    this.costo_por_envio,
-          tipos_de_envio:     this.tipos_de_envio,
+          foraneo_o_local:              this.foraneo_o_local,
+          metodo_de_entrega:            this.metodo_de_entrega,
+          metodo_de_entrega_espesifico: this.metodo_de_entrega_espesifico,
+          cuenta_con_seguro:            this.cuenta_con_seguro,
+          estado:                       this.estado,
+          tamano:                       this.tamano,
+          tipo_de_empaque:              this.tipo_de_empaque,
+          tiempo_de_entrega:            this.tiempo_de_entrega,
+          tipo_de_envio:                this.tipo_de_envio,
+          costo_por_envio:              this.costo_por_envio,
+          tipos_de_envio:               this.tipos_de_envio,
         }).then(res => {
           Swal.fire({
             title: 'Éxito',
@@ -77,6 +82,11 @@
       },
       async getMetodosDeEntrega() {
         if(this.foraneo_o_local != '') {
+          if(this.foraneo_o_local == 'Local') {
+            this.tiempo_de_entrega = 'De 1 a 4 dias'
+          } else {
+            this.tiempo_de_entrega = 'De 7 a 10 dias'
+          }
           // TREA TODOS LOS METODOS DE ENTREGA CORRESPONDIENTES
           axios.get('/logistica/direccion/metodo-de-entrega/'+this.foraneo_o_local).then(res => {
             this.metodos_de_entrega = res.data
@@ -90,15 +100,35 @@
               title: 'Algo salio mal',
               text: error,
             })
-          });
-
-          // TREA TODOS LOS ESTADOS CORRESPONDIENTES
-          axios.get('/estado/obtener/'+this.foraneo_o_local).then(res => {
-            this.estados = res.data
-            estado = document.getElementById('estado')
-            estado.style.display = 'none';
+          }); 
+          this.getEstados()
+        }
+      },
+      async getEstados() {
+        // TREA TODOS LOS ESTADOS CORRESPONDIENTES
+        axios.get('/estado/obtener/'+this.foraneo_o_local).then(res => {
+          this.estados = res.data
+          estado = document.getElementById('estado')
+          estado.style.display = 'none';
+          if(Object.keys(res.data).length != 0) { 
+            estado.style.display = 'block';
+          }
+        }).catch(error => {
+          Swal.fire({
+            title: 'Algo salio mal',
+            text: error,
+          })
+        });
+      },
+      async getTiposDeEnvio() {
+         // TREA TODOS LOS METODOS DE ENVIO
+        if(this.metodo_de_entrega != '') {
+          axios.get('/metodo-de-entrega/obtener/'+this.metodo_de_entrega).then(res => {
+            this.tipos_de_envio = res.data
+            tipo_de_envio = document.getElementById('tipo_de_envio')
+            tipo_de_envio.style.display = 'none';
             if(Object.keys(res.data).length != 0) { 
-              estado.style.display = 'block';
+              tipo_de_envio.style.display = 'block';
             }
           }).catch(error => {
             Swal.fire({
@@ -107,15 +137,21 @@
             })
           });
         }
+        if(this.metodo_de_entrega == 'Paquetería') {
+          this.getMetodosDeEntregaEspesificos()
+        } else {
+          metodo_de_entrega_espesifico = document.getElementById('metodo_de_entrega_espesifico')
+          metodo_de_entrega_espesifico.style.display = 'none';
+        }
       },
-      async getTiposDeEnvio() {
+      async getMetodosDeEntregaEspesificos() {
         if(this.metodo_de_entrega != '') {
-          axios.get('/metodo-de-entrega/obtener/'+this.metodo_de_entrega).then(res => {
-            this.tipos_de_envio = res.data
-            tipo_de_envio = document.getElementById('tipo_de_envio')
-            tipo_de_envio.style.display = 'none';
+          axios.get('/logistica/direccion/metodo-de-entrega-espescifico/'+this.metodo_de_entrega).then(res => {
+            this.metodos_de_entrega_espesificos = res.data
+            metodo_de_entrega_espesifico = document.getElementById('metodo_de_entrega_espesifico')
+            metodo_de_entrega_espesifico.style.display = 'none';
             if(Object.keys(res.data).length != 0) { 
-              tipo_de_envio.style.display = 'block';
+              metodo_de_entrega_espesifico.style.display = 'block';
             }
           }).catch(error => {
             Swal.fire({

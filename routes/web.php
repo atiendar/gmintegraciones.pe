@@ -16,7 +16,7 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
       Route::get('prueba', function() {
         return 'exito';
       });
-    });
+    }); 
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('logs.index')->middleware('permission:logs.index');
     require_once __DIR__ . '/layouts/layoutsRoutes.php';

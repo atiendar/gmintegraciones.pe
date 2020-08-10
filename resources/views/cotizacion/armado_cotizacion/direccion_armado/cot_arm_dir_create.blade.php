@@ -39,7 +39,7 @@
         estado             = null,
         tipo_de_envio      = null,
       ],
-
+      tamano:                   "{{ $armado->tam }}",
       tipo_de_empaque:          null,
       cuenta_con_seguro:        null,
       tiempo_de_entrega:        null,
@@ -53,6 +53,9 @@
 
       costo_seleccionado: [],
       cost_por_env: null,
+    },
+    mounted() {
+      this.getCostos()
     },
     methods: {
       async create() {
@@ -93,6 +96,7 @@
             metodo_de_entrega:  this.filtrar.metodo_de_entrega,
             estado:             this.filtrar.estado,
             tipo_de_envio:      this.filtrar.tipo_de_envio,
+            tamano:             this.tamano, 
           }
         }).then(res => {
           this.costos = res.data

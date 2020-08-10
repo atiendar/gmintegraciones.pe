@@ -23,7 +23,7 @@ class CreateCotizacionArmadoTieneDireccionesTable extends Migration
             $table->enum('seg',config('opcionesSelect.select_si_no'))->comment('Cuenta con seguro');
             $table->string('tiemp_ent', 20)->comment('Tiempo de entrega en minutos');
             $table->integer('cant')->unsigned()->default(0)->comment('Cantidad');
-            $table->enum('met_de_entreg', config('opcionesSelect.select_metodo_de_entrega'))->comment('Método de entrega de ventas');
+            $table->string('met_de_entreg', 150)->comment('Método de entrega de ventas');
             $table->string('est',150)->comment('Estado a la que se cotizó');
             $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
             $table->string('detalles_de_la_ubicacion',150)->comment('Detalles de la ubicación');

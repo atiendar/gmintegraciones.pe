@@ -42,8 +42,13 @@ class CostoDeEnvio extends Model {
       return $query->where('tip_env', 'LIKE', "%$tipo_de_envio%");
     }
   }
-  public function scopeSinSeleccion($query, $metodo_de_entrega, $estado, $tipo_de_envio) {
-    if($metodo_de_entrega == null AND $estado == null AND $tipo_de_envio == null) {
+  public function scopeTamano($query, $tamano) {
+    if($tamano != null) {
+      return $query->where('tam', 'LIKE', "%$tamano%");
+    }
+  }
+  public function scopeSinSeleccion($query, $metodo_de_entrega, $estado, $tipo_de_envio, $tamano) {
+    if($metodo_de_entrega == null AND $estado == null AND $tipo_de_envio == null AND $tamano == null) {
       return $query->where('id', '!"#$%&/()(/&%$');
     }
   }

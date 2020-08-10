@@ -29,6 +29,7 @@
         tipo_de_envio      = null,
       ],
 
+      tamano:                   "{{ $armado->tam }}",
       tipo_de_empaque:          "{{ $direccion->tip_emp }}",
       cuenta_con_seguro:        "{{ $direccion->seg }}",
       tiempo_de_entrega:        "{{ $direccion->tiemp_ent }}",
@@ -44,6 +45,9 @@
       cost_por_env: null,
 
       cost_por_env_individual: "{{ $direccion->cost_por_env_individual }}"
+    },
+    mounted() {
+      this.getCostos()
     },
     methods: {
       async edit() {     
@@ -99,6 +103,7 @@
             metodo_de_entrega:  this.filtrar.metodo_de_entrega,
             estado:             this.filtrar.estado,
             tipo_de_envio:      this.filtrar.tipo_de_envio,
+            tamano:             this.tamano, 
           }
         }).then(res => {
           this.costos = res.data

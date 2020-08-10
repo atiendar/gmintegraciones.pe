@@ -40,12 +40,72 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="tipo_de_empaque">{{ __('Tipo de empaque') }}</label>
+    <label for="foraneo_o_local">{{ __('Foráneo o local') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('tipo_de_empaque', config('opcionesSelect.select_tipo_de_empaque'), $costo_de_envio->tip_emp, ['class' => 'form-control select2', 'placeholder' => __(''), 'readonly' => 'readonly']) !!}
+      {!! Form::text('foraneo_o_local', $costo_de_envio->for_loc, ['class' => 'form-control', 'placeholder' => __('Foráneo o local'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="metodo_de_entrega">{{ __('Método de entrega') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::text('metodo_de_entrega', $costo_de_envio->met_de_entreg, ['class' => 'form-control', 'placeholder' => __('Método de entrega'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="metodo_de_entrega_espesifico">{{ __('Método de entrega espesifico') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::text('metodo_de_entrega_espesifico', $costo_de_envio->met_de_entreg_esp, ['class' => 'form-control', 'placeholder' => __('Método de entrega espesifico'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
+    <label for="estado">{{ __('Estado') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::text('estado', $costo_de_envio->est, ['class' => 'form-control', 'placeholder' => __('Estado'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="tipo_de_envio">{{ __('Tipo de envío') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::text('tipo_de_envio', $costo_de_envio->tip_env, ['class' => 'form-control', 'placeholder' => __('Tipo de envío'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
+    <label for="tamano">{{ __('Tamaño') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::text('tamano', $costo_de_envio->tam, ['class' => 'form-control', 'placeholder' => __('Tamaño'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
+    <label for="tipo_de_empaque">{{ __('Tipo de empaque') }} ({{ __('Dias') }})</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::text('tipo_de_empaque', $costo_de_envio->tip_emp, ['class' => 'form-control', 'placeholder' => __('Tipo de empaque'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
   <div class="form-group col-sm btn-sm">
@@ -69,46 +129,6 @@
       <div class="input-group-append">
         <span class="input-group-text">min.</span>
       </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="form-group col-sm btn-sm">
-    <label for="metodo_de_entrega">{{ __('Método de entrega') }}</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-list"></i></span>
-      </div>
-      {!! Form::text('metodo_de_entrega', $costo_de_envio->met_de_entreg, ['class' => 'form-control', 'placeholder' => __('Método de entrega'), 'readonly' => 'readonly']) !!}
-    </div>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <label for="estado">{{ __('Estado') }}</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-list"></i></span>
-      </div>
-      {!! Form::text('estado', $costo_de_envio->est, ['class' => 'form-control', 'placeholder' => __('Estado'), 'readonly' => 'readonly']) !!}
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="form-group col-sm btn-sm">
-    <label for="foraneo_o_local">{{ __('Foráneo o local') }}</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-list"></i></span>
-      </div>
-      {!! Form::select('foraneo_o_local', config('opcionesSelect.select_foraneo_local'), $costo_de_envio->for_loc, ['class' => 'form-control disabled select2', 'placeholder' => __(''), 'readonly' => 'readonly']) !!}
-    </div>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <label for="tipo_de_envio">{{ __('Tipo de envío') }}</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-list"></i></span>
-      </div>
-      {!! Form::select('tipo_de_envio', config('opcionesSelect.select_tipo_de_envio_plus'), $costo_de_envio->tip_env, ['class' => 'form-control disabled select2', 'placeholder' => __(''), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>
