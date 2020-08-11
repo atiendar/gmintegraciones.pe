@@ -5,7 +5,7 @@ use App\Models\TipoDeEnvio;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 
-class TipoDeEnvioRepositories implements EstadoInterface {
+class TipoDeEnvioRepositories implements TipoDeEnvioInterface {
   protected $serviceCrypt;
   public function __construct(ServiceCrypt $serviceCrypt) {
     $this->serviceCrypt = $serviceCrypt;

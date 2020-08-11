@@ -1,6 +1,6 @@
 <?php
 namespace App\Repositories\metodoDeEntrega\tipoDeEnvio;
 
-interface EstadoInterface {
+interface TipoDeEnvioInterface {
   public function getAllTiposDeEnvioPluck($id_metodo_de_entrega);
 }
