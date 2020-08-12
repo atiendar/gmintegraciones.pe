@@ -1,8 +1,8 @@
-@extends('layouts.public.dashboard')
+@extends('auth.inicio')
 @section('header')
 <title>@section('title', __('Establecer nueva contraseña'))</title>
 @endsection
-@section('contenido')
+@section('contenido-inicio')
 <form method="POST" action="{{ route('password.update') }}" class="login100-form" onsubmit="return checarBotonSubmit('btnsubmit')">
   @csrf
   @include('layouts.public.logo')

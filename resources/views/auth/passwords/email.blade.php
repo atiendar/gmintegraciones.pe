@@ -1,4 +1,4 @@
-@extends('layouts.public.dashboard')
+@extends('auth.inicio')
 @section('header')
 <title>@section('title', __('Restablecer contraseña'))</title>
 @endsection
@@ -9,7 +9,7 @@
   'callback_catch' => 'callbackCatch'
 ]) !!}
 @endsection
-@section('contenido')
+@section('contenido-inicio')
 <form method="POST" action="{{ route('password.email') }}" class="login100-form" onsubmit="return checarBotonSubmit('btnsubmit')">
   @csrf
   @if(session('status'))

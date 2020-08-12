@@ -63,7 +63,10 @@
             </td>
             <td>{{ Sistema::dosDecimales($armado->cant) }}</td>
             <td>${{ Sistema::dosDecimales($armado->prec_redond) }}</td>
-            <td>${{ Sistema::dosDecimales($armado->cost_env) }}</td>
+            <td>
+              ${{ Sistema::dosDecimales($armado->cost_env) }}
+              <a href="{{ route('costoDeEnvio.opcionesCostos', Crypt::encrypt($armado->id)) }}" target="_blank">Ver otros costos</a>
+            </td>
             @if($cotizacion->desc > 0)
               <td>${{ Sistema::dosDecimales($armado->desc) }}</td>
             @endif
