@@ -13,7 +13,7 @@
 <div class="container">
   <div class="container-fluid">
     <div class="card-body">
-      @include('costo_de_envio.opcionesCostos.cos_show')
+      @include('costo_de_envio.opcionesCostos.cos_show')<br><br>
       <h1>{{ ('Costos definidos por ventas') }}</h1>
       @include('costo_de_envio.opcionesCostos.cos_table')
     </div>  

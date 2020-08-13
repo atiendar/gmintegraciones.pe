@@ -27,7 +27,7 @@ class CreateCotizacionArmadoTieneDireccionesTable extends Migration
             $table->string('est',150)->comment('Estado a la que se cotizó');
             $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
             $table->string('detalles_de_la_ubicacion',150)->comment('Detalles de la ubicación');
-            $table->enum('tip_env', config('opcionesSelect.select_tipo_de_envio_plus'))->default('Normal')->comment('Tipo de envío');
+            $table->string('tip_env', 80)->comment('Tipo de envío');
             $table->decimal('cost_por_env_individual',20,2)->unsigned()->nullable()->comment('Costo por envío venta');
             $table->decimal('cost_por_env',20,2)->unsigned()->nullable()->comment('Costo por envío venta');
 

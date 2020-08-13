@@ -9,7 +9,9 @@
     </h5>  
   </div>
   <div class="card-body">
-    @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_editFields')
+    <form @submit.prevent="edit" enctype="multipart/form-data">
+      @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_editFields')
+    </form>
   </div>
 </div>
 @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_costosDeEnvio')
