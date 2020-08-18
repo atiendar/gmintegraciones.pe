@@ -14,7 +14,7 @@
   <div class="container-fluid">
     <div class="card-body">
       @include('costo_de_envio.opcionesCostos.direccion.dir_show')<br><br>
-      <h1>{{ ('Direcciones') }}</h1>
+      <h1>{{ ('Otros métodos de entrega') }}</h1>
       @include('costo_de_envio.opcionesCostos.direccion.dir_table')
     </div>  
   </div>

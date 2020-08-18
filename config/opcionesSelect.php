@@ -210,6 +210,10 @@ return array(
     'depto'                   => 'Departamento',
     'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
+  'select_queja_o_sugerencia'  => [
+    'Queja'                   => 'Queja',
+    'Sugerencia'              => 'Sugerencia',
+  ],
   'select_departamento' => [
     'Ventas'      => 'Ventas',
     'Producción'  => 'Producción',

@@ -17,6 +17,7 @@ class CreateQuejasYSugerenciasTable extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
+            $table->enum('tip', config('opcionesSelect.select_queja_o_sugerencia'))->comment('Tipo');
             $table->enum('depto', config('opcionesSelect.select_departamento'))->comment('Departamento');
             $table->text('obs')->nullable()->comment('Observaciones');
             $table->unsignedBigInteger('user_id')->comment('Foreign Key del código de pago');

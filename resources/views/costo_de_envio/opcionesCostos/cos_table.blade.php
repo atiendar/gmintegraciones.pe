@@ -22,7 +22,7 @@
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.tipoDeEnvio')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.costo')
             <td title="Ver otros costos: {{ $direccion->est }}">
-            <a href="{{ route('costoDeEnvio.opcionesCostos.direccion', Crypt::encrypt($direccion->id)) }}" class='btn btn-info btn-sm' target="_blank">{{ _('Ver otros costos') }}</a>
+            <a href="{{ route('costoDeEnvio.opcionesCostos.direccion', Crypt::encrypt($direccion->id)) }}" class='btn btn-info btn-sm' target="_blank">{{ _('Ver otras opciones de costos para esta dirección') }}</a>
             </td>
           </tr>
           @endforeach

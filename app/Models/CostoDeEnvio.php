@@ -45,6 +45,8 @@ class CostoDeEnvio extends Model {
   public function scopeTamano($query, $tamano) {
     if($tamano != null) {
       return $query->where('tam', 'LIKE', "%$tamano%");
+    } else {
+      return $query->where('tam', 'Grande');
     }
   }
   public function scopeSinSeleccion($query, $metodo_de_entrega, $estado, $tipo_de_envio, $tamano) {

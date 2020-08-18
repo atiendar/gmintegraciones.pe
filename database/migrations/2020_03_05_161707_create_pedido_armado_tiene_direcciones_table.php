@@ -29,7 +29,7 @@ class CreatePedidoArmadoTieneDireccionesTable extends Migration
             $table->string('est',150)->comment('Estado a la que se cotizó');
             $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
             $table->text('detalles_de_la_ubicacion')->comment('Detalles de la ubicación');
-            $table->string('tip_env', 80)->comment('Tipo de envío');
+            $table->string('tip_env', 80)->nullable()->comment('Tipo de envío');
             $table->decimal('cost_por_env',20,2)->unsigned()->nullable()->comment('Costo por envío venta');
             $table->string('created_com_sal',75)->nullable()->comment('Correo del usuario que subio el comprobante de salida');
             $table->timestamp('fech_car_comp_de_sal')->nullable()->comment('Fecha en que que subio el comprobante de salida');

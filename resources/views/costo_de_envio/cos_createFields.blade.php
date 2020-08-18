@@ -5,7 +5,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('foraneo_o_local', config('opcionesSelect.select_foraneo_local'), null, ['v-model' => 'foraneo_o_local', 'v-on:change' => 'getMetodosDeEntrega()', 'id' => 'foraneo_o_local', 'class' => 'form-control select2' . ($errors->has('foraneo_o_local') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+      {!! Form::select('foraneo_o_local', config('opcionesSelect.select_foraneo_local'), null, ['v-model' => 'foraneo_o_local', 'v-on:change' => 'getMetodosDeEntrega(2)', 'id' => 'foraneo_o_local', 'class' => 'form-control select2' . ($errors->has('foraneo_o_local') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
     </div>
     <span v-if="errors.foraneo_o_local" class="text-danger" v-text="errors.foraneo_o_local[0]"></span>
   </div>
@@ -15,7 +15,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      <select v-model='metodo_de_entrega' v-on:change='getTiposDeEnvio()' class ='form-control' data-old='{{ old('metodo_de_entrega')}}' name='metodo_de_entrega'>
+      <select v-model='metodo_de_entrega' v-on:change='getTiposDeEnvio(2)' class ='form-control' data-old='{{ old('metodo_de_entrega')}}' name='metodo_de_entrega'>
         <option value="">Seleccione. . .</option>
         <option v-for="metodo_de_entrega in metodos_de_entrega" v-bind:value="metodo_de_entrega" v-text="metodo_de_entrega"></option>
       </select>
@@ -110,7 +110,7 @@
     <span v-if="errors.tiempo_de_entrega" class="text-danger" v-text="errors.tiempo_de_entrega[0]"></span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="costo_por_envio">{{ __('Costo por envío') }} *</label>
+    <label for="costo_por_envio">{{ __('Costo por envío') }} ({{ __('Con IVA') }}) *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>

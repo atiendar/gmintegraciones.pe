@@ -27,6 +27,7 @@ class QuejasYSugerenciasRepositories implements QuejasYSugerenciasInterface {
   public function store($request) {
     try { DB::beginTransaction();
       $queja_y_sugerencia = new QuejaYSugerencia();
+      $queja_y_sugerencia->tip      = $request->tipo;
       $queja_y_sugerencia->depto    = $request->departamento;
       $queja_y_sugerencia->obs      = $request->observaciones;
       $queja_y_sugerencia->user_id  = Auth::user()->id;

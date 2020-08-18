@@ -1,5 +1,15 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
+    <label for="tipo">{{ __('Tipo') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::select('tipo', config('opcionesSelect.select_queja_o_sugerencia'), null, ['class' => 'form-control select2' . ($errors->has('tipo') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('tipo') }}</span>
+  </div>
+  <div class="form-group col-sm btn-sm">
     <label for="departamento">{{ __('Departamento') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">

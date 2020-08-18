@@ -3,7 +3,9 @@
   <div class="row">
     @include('cotizacion.cot_showFields.serie')
     @include('cotizacion.cot_showFields.validez')
-
+  </div>
+  <div class="row">
+    @include('cotizacion.cot_showFields.correoCliente')
   </div>
   <div class="row">
     @include('cotizacion.armado_cotizacion.cot_arm_show.descripcion')

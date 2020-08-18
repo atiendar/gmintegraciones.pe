@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body style="font-family: Segoe UI;">
-  <table class="table table-sm table-bordered" style="font-size:10px;">
+  <table class="table table-sm table-bordered" style="font-size:12px;">
     <tr>
       <td style="text-align:center">
         <dt><img src="{{ substr(\Storage::url(Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg), 1)  }}" class="brand-image rounded elevation-0" style="width:10rem;"></dt>
@@ -30,12 +30,14 @@
       </td>
     </tr>
   </table>
-  <table class="table table-hover table-striped table-sm table-bordered" style="font-size:8px;">
-    @if(sizeof($armados) == 0)
-      @include('layouts.private.busquedaSinResultados')
-    @else 
+
+  @if(sizeof($armados) == 0)
+    @include('layouts.private.busquedaSinResultados')
+  @else 
+    <table class="table table-hover table-striped table-sm table-bordered" style="font-size:12px;">
       <thead class="thead-dark">
         <tr>
+          <th>IMG</th>
           <th>TIPO</th>
           <th>DESCRIPCIÓN</th>
           <th>CANT.</th>
@@ -52,6 +54,11 @@
       <tbody> 
         @foreach($armados as $armado)
           <tr>
+            <td>
+              @if($armado->img_nom != null)
+                <img src="{{ substr(\Storage::url($armado->img_rut.$armado->img_nom), 1)  }}">
+              @endif
+            </td>
             <td>{{ $armado->tip }}</td>
             <td>
               <strong>{{ $armado->nom }} ({{ $armado->sku }})</strong><br>
@@ -65,7 +72,7 @@
             <td>${{ Sistema::dosDecimales($armado->prec_redond) }}</td>
             <td>
               ${{ Sistema::dosDecimales($armado->cost_env) }}
-              <a href="{{ route('costoDeEnvio.opcionesCostos', Crypt::encrypt($armado->id)) }}" target="_blank">Ver otros costos</a>
+              <a href="{{ route('costoDeEnvio.opcionesCostos', Crypt::encrypt($armado->id)) }}" target="_blank">Ver otros costos de envío</a>
             </td>
             @if($cotizacion->desc > 0)
               <td>${{ Sistema::dosDecimales($armado->desc) }}</td>
@@ -74,68 +81,56 @@
             <td>${{ Sistema::dosDecimales($armado->iva) }}</td>
             <td>${{ Sistema::dosDecimales($armado->tot) }}</td>
           </tr>
-          @endforeach
-          <tr style="text-align:right;">
-            <td colspan="6"></td>
-            @if($cotizacion->desc > 0)
-              <th colspan="1"></td>
-            @endif
-            <td colspan="1">CANT. TOTAL</td>
-            <td colspan="1">{{ Sistema::dosDecimales($cotizacion->tot_arm) }}</td>
-          </tr>
-          <tr style="text-align:right;">
-            <td colspan="6"></td>
-            @if($cotizacion->desc > 0)
-              <th colspan="1"></td>
-            @endif
-            <td colspan="1"> COST. ENVIO</td>
-            <td colspan="1">${{ Sistema::dosDecimales($cotizacion->cost_env) }}</td>
-          </tr>
-          @if($cotizacion->desc > 0)
-            <tr style="text-align:right;">
-              <td colspan="6"></td>
-              <th colspan="1"></td>
-              <td colspan="1">DESCUENTO</td>
-              <td colspan="1">${{ Sistema::dosDecimales($cotizacion->desc) }}</td>
-            </tr>
-          @endif
-          <tr style="text-align:right;">
-            <td colspan="6"></td>
-            @if($cotizacion->desc > 0)
-              <th colspan="1"></td>
-            @endif
-            <td colspan="1">SUBTOTAL</td>
-            <td colspan="1">${{ Sistema::dosDecimales($cotizacion->sub_total) }}</td>
-          </tr>
-          <tr style="text-align:right;">
-            <td colspan="6"></td>
-            @if($cotizacion->desc > 0)
-              <th colspan="1"></td>
-            @endif
-            <td colspan="1">IVA</td>
-            <td colspan="1">${{ Sistema::dosDecimales($cotizacion->iva) }}</td>
-          </tr>
-          <tr style="text-align:right;">
-            <td colspan="6"></td>
-            @if($cotizacion->desc > 0)
-              <th colspan="1"></td>
-            @endif
-            <td colspan="1">TOTAL</td>
-            <td colspan="1">${{ Sistema::dosDecimales($cotizacion->tot) }}</td>
-          </tr>
-          <tr style="text-align:right;">
-            <td colspan="6"></td>
-            @if($cotizacion->desc > 0)
-              <th colspan="1"></td>
-            @endif
-            <td colspan="2">
-              @php $tot=$cotizacion->tot*0.0105 @endphp
-              <a href="https://www.paypal.me/canastasyarconesmx/{{ Sistema::dosDecimales($cotizacion->tot + $tot) }}" target="_blank">Para pago con tarjeta clic aqui</a>
-            </td>
-          </tr>
+        @endforeach
       </tbody>
-    @endif
-  </table>
+    </table>
+    <table class="table table-hover table-striped table-sm table-bordered" style="font-size:12px;">
+      <thead class="thead-dark">
+        <tr>
+          <th colspan="2"><center>RESUMEN DE LA COTIZACIÓN</center></th>
+        </tr>
+      </thead>
+      <tbody> 
+        <tr style="text-align:right;">
+          <td>CANT. TOTAL</td>
+          <td>{{ Sistema::dosDecimales($cotizacion->tot_arm) }}</td>
+        </tr>
+        <tr style="text-align:right;">
+          <td> COST. ENVIO</td>
+          <td>${{ Sistema::dosDecimales($cotizacion->cost_env) }}</td>
+        </tr>
+        @if($cotizacion->desc > 0)
+          <tr style="text-align:right;">
+            <td>DESCUENTO</td>
+            <td>${{ Sistema::dosDecimales($cotizacion->desc) }}</td>
+          </tr>
+        @endif
+        <tr style="text-align:right;">
+          <td>SUBTOTAL</td>
+          <td>${{ Sistema::dosDecimales($cotizacion->sub_total) }}</td>
+        </tr>
+        <tr style="text-align:right;">
+          <td>IVA</td>
+          <td>${{ Sistema::dosDecimales($cotizacion->iva) }}</td>
+        </tr>
+        <tr style="text-align:right;">
+          <td>TOTAL</td>
+          <td>${{ Sistema::dosDecimales($cotizacion->tot) }}</td>
+        </tr>
+        <tr>
+          <td>
+            @if($cotizacion->con_iva == 'on')
+              <a href="{{ route('rolCliente.factura.create') }}" target="_blank">Para solicitar factura clic aquí</a>
+            @endif
+            </td>
+          <td>
+            @php $tot=$cotizacion->tot*0.0105 @endphp
+            <a href="https://www.paypal.me/canastasyarconesmx/{{ Sistema::dosDecimales($cotizacion->tot + $tot) }}" target="_blank">Para pago con tarjeta clic aquí</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  @endif
   @include('correo.'.Sistema::datos()->sistemaFindOrFail()->plant_cot_term_cond, ['nombre_de_la_empresa' => Sistema::datos()->sistemaFindOrFail()->emp])
 </body>
 </html>

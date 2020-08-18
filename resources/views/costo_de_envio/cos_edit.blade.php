@@ -57,8 +57,8 @@
       costo_por_envio:              "{{ $costo_de_envio->cost_por_env }}"
     },
     mounted() {
-      this.getMetodosDeEntrega()
-      this.getTiposDeEnvio()
+      this.getMetodosDeEntrega(1)
+      this.getTiposDeEnvio(1)
     },
     methods: {
       async update() {
@@ -94,7 +94,15 @@
           }
         });
       },
-      async getMetodosDeEntrega() {
+      async getMetodosDeEntrega($val) {
+        if($val == 2) {
+          this.metodo_de_entrega            = null
+          this.metodo_de_entrega_espesifico = null
+          this.estado                       = null
+          this.tipo_de_envio                = null
+          this.tiempo_de_entrega            = null
+        }
+
         if(this.foraneo_o_local != '') {
           if(this.foraneo_o_local == 'Local') {
             this.tiempo_de_entrega = 'De 1 a 4 dias'
@@ -134,8 +142,13 @@
           })
         });
       },
-      async getTiposDeEnvio() {
-         // TREA TODOS LOS METODOS DE ENVIO
+      async getTiposDeEnvio($val) {
+        if($val == 2) {
+          this.metodo_de_entrega_espesifico = null
+          this.tipo_de_envio                = null
+        }
+
+        // TREA TODOS LOS METODOS DE ENVIO
         if(this.metodo_de_entrega != '') {
           axios.get('/metodo-de-entrega/obtener/'+this.metodo_de_entrega).then(res => {
             this.tipos_de_envio = res.data

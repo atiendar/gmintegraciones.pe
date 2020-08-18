@@ -17,10 +17,11 @@ class OpcionesCostosController extends Controller {
   }
   public function getOpcionesCostos($id_armado) {
     $armado       = $this->armadoCotizacionRepo->armadoFindOrFailById($id_armado, ['direcciones', 'cotizacion']);
-    $cotizacion   = $armado->cotizacion;
+    $cotizacion   = $armado->cotizacion()->with('cliente')->firstOrFail();
     $this->armadoCotizacionRepo->verificarElEstatusDeLaCotizacion($cotizacion->estat);
+    $cliente = $cotizacion->cliente;
     $direcciones  = $armado->direcciones()->paginate(99999999);
-    return view('costo_de_envio.opcionesCostos.cos_index', compact('cotizacion', 'armado', 'direcciones'));
+    return view('costo_de_envio.opcionesCostos.cos_index', compact('cotizacion', 'cliente', 'armado', 'direcciones'));
   }
   public function getOpcionesDirecciones($id_direccion) {
     $costo_de_envio = $this->direccionArmadoRepo->direccionFindOrFailById($id_direccion);
@@ -30,7 +31,7 @@ class OpcionesCostosController extends Controller {
       'metodo_de_entrega' => null,
       'estado'            => $costo_de_envio->est,
       'tipo_de_envio'     => null,
-      'tamano'            => $costo_de_envio->tam
+      'tamano'            => $armado->tam
     ];
     $costos_de_envio = $this->costoDeEnvioRepo->obtener($requ);
     return view('costo_de_envio.opcionesCostos.direccion.dir_index', compact('armado', 'costo_de_envio', 'costos_de_envio'));

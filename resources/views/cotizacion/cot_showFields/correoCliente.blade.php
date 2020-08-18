@@ -4,6 +4,6 @@
     <div class="input-group-prepend">
       <span class="input-group-text"><i class="fas fa-envelope"></i></span>
     </div>
-    {!! Form::select('correo_del_cliente', [$cotizacion->cliente->id => $cotizacion->cliente->email_registro], $cotizacion->user_id, ['class' => 'form-control disabled select2', 'placeholder' => __(''), 'disabled']) !!}
+    {!! Form::text('correo_del_cliente', $cotizacion->cliente->email_registro, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Correo del cliente'), 'readonly' => 'readonly']) !!}
   </div>
 </div>

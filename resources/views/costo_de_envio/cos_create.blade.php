@@ -80,7 +80,13 @@
           }
         });
       },
-      async getMetodosDeEntrega() {
+      async getMetodosDeEntrega($val) {
+        this.metodo_de_entrega            = null
+        this.metodo_de_entrega_espesifico = null
+        this.estado                       = null
+        this.tipo_de_envio                = null
+        this.tiempo_de_entrega            = null
+
         if(this.foraneo_o_local != '') {
           if(this.foraneo_o_local == 'Local') {
             this.tiempo_de_entrega = 'De 1 a 4 dias'
@@ -120,7 +126,10 @@
           })
         });
       },
-      async getTiposDeEnvio() {
+      async getTiposDeEnvio($val) {
+        this.metodo_de_entrega_espesifico = null
+        this.tipo_de_envio                = null
+
          // TREA TODOS LOS METODOS DE ENVIO
         if(this.metodo_de_entrega != '') {
           axios.get('/metodo-de-entrega/obtener/'+this.metodo_de_entrega).then(res => {

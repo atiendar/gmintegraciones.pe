@@ -27,7 +27,7 @@ class CreateCostosDeEnvioTable extends Migration
         $table->string('met_de_entreg_esp',150)->nullable()->comment('Método de entrega espesifico');
         $table->string('est', 150)->comment('Estado');
         $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
-        $table->string('tip_env', 80)->comment('Tipo de envío');
+        $table->string('tip_env', 80)->nullable()->comment('Tipo de envío');
         $table->decimal('cost_por_env',20,2)->unsigned()->comment('Costo por envío');
 
         $table->string('asignado_env', 75)->comment('Correo del usuario al qu se le asigno este registro');

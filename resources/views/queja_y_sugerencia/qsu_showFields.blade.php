@@ -11,14 +11,25 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
+    <label for="tipo">{{ __('Tipo') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::text('tipo', $queja_y_sugerencia->tip, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Tipo'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+  <div class="form-group col-sm btn-sm">
     <label for="departamento">{{ __('Departamento') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('departamento', config('opcionesSelect.select_departamento'), $queja_y_sugerencia->depto, ['class' => 'form-control disabled', 'placeholder' => __(''), 'readonly' => 'readonly']) !!}
+      {!! Form::text('departamento', $queja_y_sugerencia->depto, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Departamento'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
+</div>
+<div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="usuario">{{ __('Usuario') }}</label>
     <div class="input-group">
