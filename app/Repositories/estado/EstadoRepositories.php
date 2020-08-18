@@ -10,7 +10,10 @@ class EstadoRepositories implements EstadoInterface {
   public function __construct(ServiceCrypt $serviceCrypt) {
     $this->serviceCrypt = $serviceCrypt;
   }
-  public function getAllEstadosPluck($foraneo_o_local) {
+  public function getEstadosForaneosOLocalesPluck($foraneo_o_local) {
     return Estado::where('for_loc', $foraneo_o_local)->orwhere('for_loc', 'Foráneo y Local')->orderBy('est', 'ASC')->pluck('est');
+  }
+  public function getAllEstadosPluck() {
+    return Estado::orderBy('est', 'ASC')->pluck('est', 'est');
   }
 }

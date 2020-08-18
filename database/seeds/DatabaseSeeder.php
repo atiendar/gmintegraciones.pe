@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
         FacturasTableSeeder::class,
         SoportesTableSeeder::class,
         InventarioEquiposTableSeeder::class,
+        InventarioEquipoArchivoTableSeeder::class,
         HistorialesTableSeeder::class,
         SoporteArchivosTableSeeder::class,
         HistorialesArchivosTableSeeder::class,

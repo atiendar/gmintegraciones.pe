@@ -63,6 +63,26 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
+    <label for="telefono_fijo">{{ __('Teléfono fijo') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-tty"></i></span>
+      </div>
+        {!! Form::text("telefono_fijo", $soporte->tel_fij, ['class' => 'form-control disabled', 'maxlength' => 40, 'placeholder' => __('Teléfono fijo'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="extension">{{ __('Extensión') }} </label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+      </div>
+      {!! Form::text('extension', $soporte->ext, ['class' => 'form-control disabled', 'maxlength' => 40, 'placeholder' => __('Extensión'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
     <label for="agrupacion_de_fallas">{{ __('Agrupación de fallas') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">

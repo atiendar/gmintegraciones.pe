@@ -313,6 +313,14 @@ return array(
     'col'           => 'Colonia',
     'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
   ],
+  /* ===================== ROL CLIENTES [ FACTURAS ] ===================== */
+  'select_facturas_index'  => [
+    ''              => 'Buscar por. . .',
+    'id'            => 'ID',
+    'est_fact'      => 'Estatus factura',
+    'nom_o_raz_soc' => 'Nombre o razón social',
+    'rfc'           => 'RFC',
+  ],
 /* ===================== [ PROVEEDOR ] ===================== */
   'select_proveedor_index'      => [
     ''              => 'Buscar por. . .',
@@ -799,4 +807,29 @@ return array(
     config('app.intento_de_entrega_fallido')            => config('app.intento_de_entrega_fallido'),
     config('app.productos_completos')                   => 'Regresar a producción',
   ],
+  /* ===================== TI [ SOPORTES ] ===================== */
+  'select_soporte_index'  => [
+    ''              => 'Buscar por. . .',
+    'emp'           => 'Empresa',
+    'sol'           => 'Solicitante',
+    'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+  'select_estatus_soporte'  => [
+    'Pendiente'             => 'Pendiente',
+    'En espera de compra'   => 'En espera de compra',
+    'Terminado'             => 'Terminado',
+  ],
+  /* ====================== TI [ INVENTARIO ] ===================== */
+  'select_inventario_index' => [ 
+    ''               =>     'Buscar por. . .',
+    'emp'            =>     'Empresa',
+    'resp'           =>     'Responsable ',
+    'id_equipo'      =>     'Id Equipo',
+  ],
+  'select_inventario_historial' => [
+    ''                    =>     'Buscar por. . .',
+    'des_de_la_falla'     =>     'Descripción de la falla',
+    'solu'                =>     'Solución',
+    'tec'                 =>     'Técnico',
+  ]
 );

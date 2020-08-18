@@ -13,7 +13,7 @@ class EstadoController extends Controller {
   }
   public function getEstados(Request $request, $foraneo_o_local) {
     if($request->ajax()) {
-      $estados = $this->estadoRepo->getAllEstadosPluck($foraneo_o_local);
+      $estados = $this->estadoRepo->getEstadosForaneosOLocalesPluck($foraneo_o_local);
       return $estados;
     }
   }

@@ -5,6 +5,7 @@ use App\Models\Historial;
 // Events
 use App\Events\layouts\ActividadRegistrada;
 use App\Events\layouts\ArchivoCargado;
+use App\Models\HistoialArchivo;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
@@ -21,9 +22,10 @@ class historialRepositories implements  historialInterface{
             $this->serviceCrypt = $serviceCrypt;
             $this->papeleraDeReciclajeRepo    = $papeleraDeReciclajeRepositories;    
         }
-    public function store($request) {
-        DB::transaction(function() use($request) { // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
+    public function store($request, $archivos) {
+        try{ DB::beginTransaction();
         $historial                          = new Historial();
+        $historial->fec_sol_sop             = $request->fecha_en_la_que_se_solicito_el_soporte;
         $historial->sol                     = $request->nombre_del_solicitante;
         $historial->area_dep                = $request->area_departamento;
         $historial->tec                     = $request->nombre_del_tecnico;
@@ -32,9 +34,23 @@ class historialRepositories implements  historialInterface{
         $historial->solu                    = $request->solucion;
         $historial->obs_del_equipo          = $request->observaciones_del_equipo;
         $historial->des_de_la_falla         = $request->descripcion_de_la_falla;
-        $historial->created_at_his          = Auth::user()->email_registro;  
+        $historial->created_at_his          = Auth::user()->email_registro;
         $historial->save();
-        return $historial;
-      });
+
+        /**
+         * Guarda los archivos relacionados al historial
+        */
+        $imagenes = [];
+        $contador = 0;
+        foreach($archivos as $archivo) {
+            $imagenes[$contador]['his_arch_rut'] = $archivo->arc_rut;
+            $imagenes[$contador]['his_arch'] = $archivo->arc_nom;
+            $imagenes[$contador]['historial_id'] = $historial->id;
+            $contador ++;
+        }
+        HistoialArchivo::insert($imagenes);
+        DB::commit();
+        return $historial;            
+  } catch (\Exception $e) { DB::rollback(); throw $e; }
     }
 }

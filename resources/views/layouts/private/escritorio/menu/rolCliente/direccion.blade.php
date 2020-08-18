@@ -8,13 +8,13 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item">
-      <a href="" class="nav-link {{ Request::is('rc/direccion') ? 'active' : '' }}">
+      <a href="{{ route('rolCliente.direccion.index') }}" class="nav-link {{ Request::is('rc/direccion-de-entrega') ? 'active' : '' }}">
         <i class="nav-icon fas fa-list"></i>
         <p>{{ __('Lista de direcciones') }}</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="" class="nav-link {{ Request::is('rc/direccion/registrar') ? 'active' : '' }}">
+      <a href="{{ route('rolCliente.direccion.create') }}" class="nav-link {{ Request::is('rc/direccion-de-entrega/registrar') ? 'active' : '' }}">
         <i class="nav-icon far fa-plus-square"></i>
         <p>{{ __('Registrar dirección') }}</p>
       </a>

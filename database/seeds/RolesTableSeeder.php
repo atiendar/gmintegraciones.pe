@@ -23,7 +23,7 @@ class RolesTableSeeder extends Seeder {
             'asignado_rol'      => 'desarrolloweb.ewmx@gmail.com',
             'created_at_rol'    => 'desarrolloweb.ewmx@gmail.com',
         ]);
-        $rol2->syncPermissions([20]);
+        $rol2->syncPermissions([21]);
 
         $rol3 = Spatie\Permission\Models\Role::create([
 			'nom'				=> 'Desarrollador',
@@ -230,5 +230,23 @@ class RolesTableSeeder extends Seeder {
         	'created_at_rol'	=> 'desarrolloweb.ewmx@gmail.com',
         ]);
         $rol25->syncPermissions([]);
+        $rol26 = Spatie\Permission\Models\Role::create([
+          'nom'				=> 'Administrador de soporte',
+                'name'				=> 'adminDeSoporte',
+                'desc'              => "Acceso a todo el módulo de 'Soportes'",
+                'asignado_rol'      => 'desarrolloweb.ewmx@gmail.com',
+              'created_at_rol'	=> 'desarrolloweb.ewmx@gmail.com',
+            ]);
+            $rol26->syncPermissions([]);
+    
+            $rol27 = Spatie\Permission\Models\Role::create([
+          'nom'				=> 'Administrador de inventario',
+                'name'				=> 'adminDeInventario',
+                'desc'              => "Acceso a todo el módulo de 'Inventario'",
+                'asignado_rol'      => 'desarrolloweb.ewmx@gmail.com',
+              'created_at_rol'	=> 'desarrolloweb.ewmx@gmail.com',
+            ]);
+            $rol27->syncPermissions([]);
+
     }
 }

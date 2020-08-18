@@ -4,6 +4,8 @@ namespace App\Repositories\rolCliente\datoFiscal;
 use App\Models\DatoFiscal;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
+// Events
+use App\Events\layouts\ActividadRegistrada;
 // Otros
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -15,19 +17,23 @@ class DatoFiscalRepositories implements DatoFiscalInterface {
   }
   public function getDatoFiscalFindOrFail($id_dato_fiscal, $relaciones) {
     $id_dato_fiscal = $this->serviceCrypt->decrypt($id_dato_fiscal);
-    return DatoFiscal::with($relaciones)->findOrFail($id_dato_fiscal);
+    return DatoFiscal::where('user_id', Auth::user()->id)->with($relaciones)->findOrFail($id_dato_fiscal);
+  }
+  public function getPagination($request) {
+    return DatoFiscal::where('user_id', Auth::user()->id)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
   }
   public function store($request) {
     try { DB::beginTransaction();
-      $dato_fiscal = new DatoFiscal();
-      $dato_fiscal = $this->storeFields($dato_fiscal, $request, Auth::user()->id);
-      dd(   $dato_fiscal    );
+      $dato_fiscal                      = new DatoFiscal();
+      $dato_fiscal                      = $this->storeFields($dato_fiscal, $request);
+      $dato_fiscal->user_id             = Auth::user()->id;
+      $dato_fiscal->created_at_dat_fisc = Auth::user()->email_registro;
       $dato_fiscal->save();
       DB::commit();
       return $dato_fiscal;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
-  public function storeFields($dato_fiscal, $request, $user_id) {
+  public function storeFields($dato_fiscal, $request) {
     $dato_fiscal->nom_o_raz_soc       = $request->nombre_o_razon_social;
     $dato_fiscal->rfc                 = $request->rfc;
     $dato_fiscal->lad_fij             = $request->lada_telefono_fijo;
@@ -44,8 +50,42 @@ class DatoFiscalRepositories implements DatoFiscalInterface {
     $dato_fiscal->del_o_munic         = $request->delegacion_o_municipio;
     $dato_fiscal->cod_post            = $request->codigo_postal;
     $dato_fiscal->corr                = $request->correo;
-    $dato_fiscal->user_id             = $user_id;
-    $dato_fiscal->created_at_dat_fisc = Auth::user()->email_registro;
     return $dato_fiscal;
+  }
+  public function update($request, $id_dato_fiscal) {
+    try { DB::beginTransaction();
+      $dato_fiscal = $this->getDatoFiscalFindOrFail($id_dato_fiscal, []);
+      $dato_fiscal = $this->storeFields($dato_fiscal, $request);
+       
+      if($dato_fiscal->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Datos fiscales (Cliente)', // Módulo
+          'rolCliente.datoFiscal.show', // Nombre de la ruta
+          $id_dato_fiscal, // Id del registro debe ir encriptado
+          $this->serviceCrypt->decrypt($id_dato_fiscal), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('Nombre o razón social', 'RFC', 'Lada teléfono fijo', 'Teléfono fijo', 'Extensión', 'Lada teléfono móvil', 'Teléfono móvil', 'Calle' ,'No. Exterior' ,'No. Interior', 'País' ,'Ciudad' ,'Colonia' ,'Delegación o municipio', 'Código postal', 'Correo'), // Nombre de los inputs del formulario
+          $dato_fiscal, // Request
+          array('nom_o_raz_soc', 'rfc', 'lad_fij', 'tel_fij', 'ext', 'lad_mov', 'tel_mov', 'calle', 'no_ext', 'no_int', 'pais', 'ciudad', 'col', 'del_o_munic', 'cod_post', 'corr') // Nombre de los campos en la BD
+        ); 
+        $dato_fiscal->updated_at_dat_fisc  = Auth::user()->email_registro;
+      }
+      
+      $dato_fiscal->save();
+      DB::commit();
+      return $dato_fiscal;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
+  public function destroy($id_dato_fiscal) {
+    try { DB::beginTransaction();
+      $dato_fiscal = $this->getDatoFiscalFindOrFail($id_dato_fiscal, []);
+      $dato_fiscal->forceDelete();
+
+      DB::commit();
+      return $dato_fiscal;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
+  public function getAllDatosFiscalesClientePluck() {
+    return DatoFiscal::where('user_id', Auth::user()->id)->orderBy('rfc', 'ASC')->pluck('rfc', 'id');
   }
 }

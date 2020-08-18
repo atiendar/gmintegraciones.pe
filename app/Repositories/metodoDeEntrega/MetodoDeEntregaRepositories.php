@@ -19,8 +19,12 @@ class MetodoDeEntregaRepositories implements MetodoDeEntregaInterface {
     $metodo = MetodoDeEntrega::with($relaciones)->where('nom_met_ent', $nom_met_ent)->firstOrFail();
     return $metodo;
   }
-  public function getAllMetodosPluck($for_loc) {
+  public function getAllMetodosForaneoOLocalPluck($for_loc) {
     $consulta = MetodoDeEntrega::where('for_loc', $for_loc)->orWhere('for_loc', 'Foráneo y Local')->orderBy('nom_met_ent', 'ASC')->pluck('nom_met_ent', 'nom_met_ent');
+    return $consulta;
+  }
+  public function getAllMetodosPluck() {
+    $consulta = MetodoDeEntrega::pluck('nom_met_ent', 'nom_met_ent');
     return $consulta;
   }
 }

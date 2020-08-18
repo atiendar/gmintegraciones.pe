@@ -34,12 +34,12 @@ class SoporteController extends Controller{
         
     }
     public function show($id_soporte) {
-        $soporte = $this->soporteRepo->soporteFindOrFailById($id_soporte);
+        $soporte = $this->soporteRepo->soporteFindOrFailById($id_soporte, []);
         $archivos = $soporte->archivos()->paginate(99999999);
         return view('tecnologia_de_la_informacion.soporte.ti_sop_show', compact('soporte', 'archivos'));
     }
     public function edit(Request $request, $id_soporte) {
-        $soporte = $this->soporteRepo->soporteFindOrFailById($id_soporte);
+        $soporte = $this->soporteRepo->soporteFindOrFailById($id_soporte, []);
         $archivos = $soporte->archivos()->paginate(99999999);
         $agrupacion_de_fallas_list = $this->catalogoRepo->getAllInputCatalogosPlunk('Soportes (Agrupación de fallas)');
         $inventario_equipo_list = $this->intarioequipoRepo->getAllInventarioEquiposPlunk();

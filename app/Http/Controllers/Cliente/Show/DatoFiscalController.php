@@ -12,6 +12,7 @@ use App\Repositories\rolCliente\datoFiscal\DatoFiscalRepositories;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Otros
+use Illuminate\Support\Facades\Auth;
 use DB;
 
 class DatoFiscalController extends Controller {
@@ -30,8 +31,10 @@ class DatoFiscalController extends Controller {
   }
   public function store(StoreDatoFiscalRequest $request, $id_cliente) {
     try { DB::beginTransaction();
-      $dato_fiscal = new DatoFiscal();
-      $dato_fiscal = $this->datoFiscalRepo->storeFields($dato_fiscal, $request, $this->serviceCrypt->decrypt($id_cliente));
+      $dato_fiscal                      = new DatoFiscal();
+      $dato_fiscal                      = $this->datoFiscalRepo->storeFields($dato_fiscal, $request);
+      $dato_fiscal->user_id             = $this->serviceCrypt->decrypt($id_cliente);
+      $dato_fiscal->created_at_dat_fisc = Auth::user()->email_registro;
       $dato_fiscal->save();
       DB::commit();
       toastr()->success('¡Dato fiscal registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"

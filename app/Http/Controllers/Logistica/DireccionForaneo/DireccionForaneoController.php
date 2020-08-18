@@ -25,7 +25,7 @@ class DireccionForaneoController extends Controller {
     $direccion          = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Foráneo'), [], 'edit');
     if($direccion->nom_ref_uno == null) { return abort(403, 'No se ha definido la persona que recibe este pedido.'); }
     $armado             = $direccion->armado;
-    $metodos_de_entrega = $this->metodoDeEntregaRepo->getAllMetodosPluck('Foráneo');
+    $metodos_de_entrega = $this->metodoDeEntregaRepo->getAllMetodosForaneoOLocalPluck('Foráneo');
     return view('logistica.pedido.direccion_local.comprobante.com_createSalida', compact('direccion', 'armado', 'metodos_de_entrega'));
   }
   public function show($id_direccion) {

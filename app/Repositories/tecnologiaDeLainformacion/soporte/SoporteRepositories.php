@@ -28,9 +28,9 @@ class SoporteRepositories implements  SoporteInterface{
         $this->papeleraDeReciclajeRepo = $papeleraDeReciclajeRepositories;
         $this->historialRepo = $historialRepositories;
     }
-    public function soporteFindOrFailById($id_soporte){
+    public function soporteFindOrFailById($id_soporte, $relaciones){
         $id_soporte = $this->serviceCrypt->decrypt($id_soporte);
-        $soporte = Soporte::findOrFail($id_soporte);
+        $soporte = Soporte::with($relaciones)->findOrFail($id_soporte);
         return $soporte;
     }
     public function getPagination($request){
@@ -42,6 +42,8 @@ class SoporteRepositories implements  SoporteInterface{
             $soporte->sol                  = $request->nombre_del_solicitante;
             $soporte->emp                  = $request->empresa;
             $soporte->area_dep             = $request->area_departamento;
+            $soporte->tel_fij              = $request->telefono_fijo;
+            $soporte->ext                  = $request->extension;
             $soporte->des_de_la_falla      = $request->descripcion_de_la_falla;
             $soporte->save();
             
@@ -70,14 +72,12 @@ class SoporteRepositories implements  SoporteInterface{
                     }
                         SoporteArchivo::insert($datos);
             }
-
-
             return $soporte;
           });
     }
     public function update($request, $id_soporte){
         try{ DB::beginTransaction();
-            $soporte = $this->soporteFindOrFailById($id_soporte);
+            $soporte = $this->soporteFindOrFailById($id_soporte, ['archivos']);
             if( $request->estatus_del_soporte  == 'En espera de compra'){
                 $respuesta = $this->actualizarSoporte($request, $soporte);
             }
@@ -90,15 +90,14 @@ class SoporteRepositories implements  SoporteInterface{
     }
     public function destroy($id_soporte){
         try{ DB::beginTransaction();
-            $soporte = $this->soporteFindOrFailById($id_soporte);
+            $soporte = $this->soporteFindOrFailById($id_soporte, []);
             $soporte->delete();
-            $this->eliminarCacheAllsoportesPlunk();
             $this->papeleraDeReciclajeRepo->store([
-                'modulo'      =>    'Soportes',
-                'registro'    =>    $soporte->sol,
-                'tab'         =>    'soportes',
-                'id_reg'      =>    $soporte->id,
-                'id_fk'       =>    null
+                'modulo'      =>    'Soportes', // Nombre del módulo del sistema
+                'registro'    =>    $soporte->sol,  // Información a mostrar en la papelera
+                'tab'         =>    'soportes', // Nombre de la tabla en la BD
+                'id_reg'      =>    $soporte->id,  // ID de registro eliminado
+                'id_fk'       =>    null // ID de la llave foranea con la que tiene relación
             ]);
             DB::commit();
             return $soporte;            
@@ -131,8 +130,9 @@ class SoporteRepositories implements  SoporteInterface{
                 $soporte->save();
                 return 'Actualizado';
           }
-          public function agregarSoporteaHistorial($request, $soporte){
-                $this->historialRepo->store($request);
+          public function agregarSoporteaHistorial($request, $soporte) {
+                 $request->fecha_en_la_que_se_solicito_el_soporte = \Carbon\Carbon::parse($soporte->created_at)->format('Y-m-d h:i:s');
+                 $this->historialRepo->store($request, $soporte->archivos);
                 $soporte->delete();
                 return 'Eliminado';
           }

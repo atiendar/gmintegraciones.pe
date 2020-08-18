@@ -28,7 +28,7 @@ class DireccionLocalController extends Controller {
     $direccion          = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Local'), [], 'edit');
     if($direccion->nom_ref_uno == null) { return abort(403, 'No se ha definido la persona que recibe este pedido.'); }
     $armado             = $direccion->armado;
-    $metodos_de_entrega = $this->metodoDeEntregaRepo->getAllMetodosPluck('Local');
+    $metodos_de_entrega = $this->metodoDeEntregaRepo->getAllMetodosForaneoOLocalPluck('Local');
     return view('logistica.pedido.direccion_local.comprobante.com_createSalida', compact('direccion', 'armado', 'metodos_de_entrega'));
   }
   public function store(StoreComprobanteDeSalidaRequest $request, $id_direccion) {
@@ -63,7 +63,7 @@ class DireccionLocalController extends Controller {
   }
   public function metodoDeEntrega(Request $request, $foraneo_o_local) {
     if($request->ajax()) {
-      $metodo_de_entrega = $this->metodoDeEntregaRepo->getAllMetodosPluck($foraneo_o_local);
+      $metodo_de_entrega = $this->metodoDeEntregaRepo->getAllMetodosForaneoOLocalPluck($foraneo_o_local);
       return $metodo_de_entrega;
     }
   }

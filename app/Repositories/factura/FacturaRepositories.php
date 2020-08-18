@@ -42,32 +42,9 @@ class FacturaRepositories implements FacturaInterface {
       $pago = $this->pagoRepo->getPagoForCodigoFacturacionFindOrFail($request->codigo_de_facturacion, []);
 
       $factura = new Factura();
-      $factura->nom_o_raz_soc = $request->nombre_o_razon_social;
-      $factura->rfc           = $request->rfc;
-      $factura->lad_fij       = $request->lada_telefono_fijo;
-      $factura->tel_fij       = $request->telefono_fijo;
-      $factura->ext           = $request->extension;
-      $factura->lad_mov       = $request->lada_telefono_movil;
-      $factura->tel_mov       = $request->telefono_movil;
-      $factura->calle         = $request->calle;
-      $factura->no_ext        = $request->no_exterior;
-      $factura->no_int        = $request->no_interior;
-      $factura->pais          = $request->pais;
-      $factura->ciudad        = $request->ciudad;
-      $factura->col           = $request->colonia;
-      $factura->del_o_munic   = $request->delegacion_o_municipio;
-      $factura->cod_post      = $request->codigo_postal;
-      $factura->corr          = $request->correo;
-      $factura->uso_de_cfdi                     = $request->uso_de_cfdi;
-      $factura->met_de_pag                      = $request->metodo_de_pago;
-      $factura->form_de_pag                     = $request->forma_de_pago;
-      $factura->banc_de_cuent_de_retir          = $request->banco_de_cuenta_de_retiro;
-      $factura->ulti_cuatro_dig_cuent_de_retir  = $request->ultimos_4_digitos_cuenta_de_retiro;
-      $factura->concept                         = $request->concepto;
-      $factura->coment_u_obs_us                 = $request->comentarios_cliente;
-
-      $factura->pago_id             = $pago->id;
-      $factura->user_id             = $request->cliente;
+      $factura = $this->storeFields($factura, $request);
+      $factura->pago_id         = $pago->id;
+      $factura->user_id         = $request->cliente;
       $factura->created_at_fact = Auth::user()->email_registro;
       $factura->save();
 
@@ -80,6 +57,35 @@ class FacturaRepositories implements FacturaInterface {
       return $factura;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
+  public function storeFields($factura, $request) {
+    $factura->nom_o_raz_soc = $request->nombre_o_razon_social;
+    $factura->rfc           = $request->rfc;
+    $factura->lad_fij       = $request->lada_telefono_fijo;
+    $factura->tel_fij       = $request->telefono_fijo;
+    $factura->ext           = $request->extension;
+    $factura->lad_mov       = $request->lada_telefono_movil;
+    $factura->tel_mov       = $request->telefono_movil;
+    $factura->calle         = $request->calle;
+    $factura->no_ext        = $request->no_exterior;
+    $factura->no_int        = $request->no_interior;
+    $factura->pais          = $request->pais;
+    $factura->ciudad        = $request->ciudad;
+    $factura->col           = $request->colonia;
+    $factura->del_o_munic   = $request->delegacion_o_municipio;
+    $factura->cod_post      = $request->codigo_postal;
+    $factura->corr          = $request->correo;
+    $factura->uso_de_cfdi                     = $request->uso_de_cfdi;
+    $factura->met_de_pag                      = $request->metodo_de_pago;
+    $factura->form_de_pag                     = $request->forma_de_pago;
+    $factura->banc_de_cuent_de_retir          = $request->banco_de_cuenta_de_retiro;
+    $factura->ulti_cuatro_dig_cuent_de_retir  = $request->ultimos_4_digitos_cuenta_de_retiro;
+    $factura->concept                         = $request->concepto;
+    $factura->coment_u_obs_us                 = $request->comentarios_cliente;
+    return $factura;
+  }
+
+
+
   public function update($request, $id_factura) {
     try { DB::beginTransaction();
       $factura = $this->getFacturaFindOrFailById($id_factura, ['usuario', 'pago'], config('app.facturado'));

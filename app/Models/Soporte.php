@@ -1,11 +1,12 @@
 <?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Soporte extends Model{
+  use SoftDeletes;
   protected $table = 'soportes';
   protected $primaryKey = 'id';
-  protected $guarded = [];
 
   // Buscador
   public function scopeBuscar($query, $opcion_buscador, $buscador) {

@@ -7,7 +7,7 @@ class SoporteArchivosTableSeeder extends Seeder {
    *
    * @return void
    */
-  public function run()    {
+  public function run() {
     factory(App\Models\SoporteArchivo::class, 5)->create();
   }
 }

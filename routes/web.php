@@ -3,8 +3,6 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
   require_once __DIR__ . '/public/authRoutes.php';
   Route::match(['GET', 'HEAD'],'costo-de-envio/opciones/{id_armado}', 'CostoDeEnvio\OpcionesCostosController@getOpcionesCostos')->name('costoDeEnvio.opcionesCostos');
   Route::match(['GET', 'HEAD'],'costo-de-envio/opciones/direccion/{id_direccion}', 'CostoDeEnvio\OpcionesCostosController@getOpcionesDirecciones')->name('costoDeEnvio.opcionesCostos.direccion');
-
-  
   Route::match(['GET', 'HEAD'],'solicitar-soporte','TecnologiaDeLaInformacion\SoporteController@create')->name('soporte.create');
   Route::post('solicitar-soporte/almacenar', 'TecnologiaDeLaInformacion\SoporteController@store')->name('soporte.store');
   
@@ -15,10 +13,12 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
   Route::group(['middleware' => ['sinAccesoAlSistema', 'auth', 'idiomaSistema', 'primerAcceso']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     
-    Route::group(['middleware' => ['rolCliente']], function() {
-      Route::get('prueba', function() {
-        return 'exito';
-      });
+    Route::group(['middleware' => ['rolCliente'], 'prefix' => 'rc'], function() {
+      require_once __DIR__ . '/rolCliente/datoFiscalRoutes/datoFiscalRoutes.php';
+      require_once __DIR__ . '/rolCliente/direccionRoutes/direccionRoutes.php';
+      require_once __DIR__ . '/rolCliente/facturaRoutes/facturaRoutes.php';
+      require_once __DIR__ . '/rolCliente/pagoRoutes/pagoRoutes.php';
+      require_once __DIR__ . '/rolCliente/pedidoRoutes/pedidoRoutes.php';
     }); 
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('logs.index')->middleware('permission:logs.index');
@@ -42,6 +42,7 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
 
     Route::group(['prefix' => 'ti'], function(){
       require_once __DIR__ . '/tecnologiaDeLaInformacion/soporteRoutes.php';
+      require_once __DIR__ . '/tecnologiaDeLaInformacion/inventarioRoutes.php';
     });
     
     Route::group(['prefix' => 'rastrea'], function() {

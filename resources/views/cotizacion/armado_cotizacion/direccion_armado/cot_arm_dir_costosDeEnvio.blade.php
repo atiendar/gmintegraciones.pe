@@ -3,20 +3,17 @@
     <h5>{{ __('Costos de envío') }}</h5>
   </div>
   <div class="card-body">
-    <br><br><br><br><br><br><br>
-    <H1>FALTA TRAER N UNA CONSULKTA LOS ESTADOS Y LOS METODOS DE ENTREGA</H1>
-    <br><br><br><br><br><br><br>
     <div class="row border  border-primary rounded mb-3">
       <div class="form-group col-sm btn-sm">
         <label for="filtar_metodo_de_entrega">{{ __('Filtrar método de entrega') }}</label>
         <div class="input-group">
-          {!! Form::select('filtar_metodo_de_entrega', config('opcionesSelect.select_metodo_de_entrega'), null, ['v-on:change' => 'getCostos', 'v-model' => 'filtrar.metodo_de_entrega', 'class' => 'form-control form-control-sm select2', 'placeholder' => __('')]) !!}   
+          {!! Form::select('filtar_metodo_de_entrega', $metodos_de_entrega, null, ['v-on:change' => 'getCostos', 'v-model' => 'filtrar.metodo_de_entrega', 'class' => 'form-control form-control-sm select2', 'placeholder' => __('')]) !!}   
         </div>
       </div> 
       <div class="form-group col-sm btn-sm">
         <label for="filtrar_estado">{{ __('Filtrar estado') }}</label>
         <div class="input-group">
-          {!! Form::select('filtrar_estado', config('opcionesSelect.select_estado'), null, ['v-on:change' => 'getCostos', 'v-model' => 'filtrar.estado', 'class' => 'form-control form-control-sm select2', 'placeholder' => __('')]) !!}   
+          {!! Form::select('filtrar_estado', $estados, null, ['v-on:change' => 'getCostos', 'v-model' => 'filtrar.estado', 'class' => 'form-control form-control-sm select2', 'placeholder' => __('')]) !!}   
         </div>
       </div>
       <div class="form-group col-sm btn-sm">

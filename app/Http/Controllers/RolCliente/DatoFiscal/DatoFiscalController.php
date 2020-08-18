@@ -16,9 +16,34 @@ class DatoFiscalController extends Controller {
     $this->serviceCrypt   = $serviceCrypt;
     $this->datoFiscalRepo = $datoFiscalRepositories;
   }
+  public function index(Request $request) {
+    $datos_fiscales = $this->datoFiscalRepo->getPagination($request);
+    return view('rolCliente.datoFiscal.dfi_index', compact('datos_fiscales'));
+  }
+  public function create() {
+    return view('rolCliente.datoFiscal.dfi_create');
+  }
   public function store(StoreDatoFiscalRequest $request) {
     $this->datoFiscalRepo->store($request);
     toastr()->success('¡Dato fiscal registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
+  }
+  public function show($id_dato_fiscal) {
+    $dato_fiscal = $this->datoFiscalRepo->getDatoFiscalFindOrFail($id_dato_fiscal, []);
+    return view('rolCliente.datoFiscal.dfi_show', compact('dato_fiscal'));
+  }
+  public function edit($id_dato_fiscal) {
+    $dato_fiscal = $this->datoFiscalRepo->getDatoFiscalFindOrFail($id_dato_fiscal, []);
+    return view('rolCliente.datoFiscal.dfi_edit', compact('dato_fiscal'));
+  }
+  public function update(StoreDatoFiscalRequest $request, $id_dato_fiscal) {
+    $this->datoFiscalRepo->update($request, $id_dato_fiscal);
+    toastr()->success('¡Dato fiscal actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
+  }
+  public function destroy($id_dato_fiscal) {
+    $this->datoFiscalRepo->destroy($id_dato_fiscal);
+    toastr()->success('¡Dato fiscal eliminado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
   public function getInformacionDatoFiscal(Request $request, $id_dato_fiscal) {

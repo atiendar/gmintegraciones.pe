@@ -2,9 +2,15 @@
 namespace App\Repositories\rolCliente\direccion;
 
 interface DireccionInterface {
+  public function getDireccionFindOrFail($id_direccion, $relaciones);
+
+  public function getPagination($request);
+
   public function store($request);
 
   public function storeFields($direccion, $request);
 
-  public function getDireccionFindOrFail($id_direccion, $relaciones);
+  public function update($request, $id_direccion);
+
+  public function destroy($id_direccion);
 }

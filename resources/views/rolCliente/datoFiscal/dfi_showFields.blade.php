@@ -129,7 +129,7 @@
     </div>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="correo">{{ __('Correo') }} *</label>
+    <label for="correo">{{ __('Correo') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-envelope"></i></span>

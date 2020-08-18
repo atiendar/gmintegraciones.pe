@@ -1074,5 +1074,88 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Ver detalles de cualquier registro del módulo Logística 'Pedidos entregados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+// PERMISOS DEL MÓDULO SOPORTE
+    Spatie\Permission\Models\Permission::create([
+//     'id'              => 99,
+      'nom'             => "Navegar por tabla 'Soportes'",
+      'name'            => 'soporte.index',
+      'desc'            => "Lista y navega por todos los registros del módulo 'Soportes'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 100,
+      'nom'             => "Ver detalles 'Soportes'",
+      'name'            => 'soporte.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo 'Soportes'",
+      'created_at_perm' => 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 101,
+      'nom'             => "Editar regisro 'Soportes'",
+      'name'            => 'soporte.edit',
+      'desc'            => "Editar cualquier dato de un registro del módulo 'Soportes'",
+      'created_at_perm' => 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 102,
+      'nom'             => "Eliminar registro 'Soportes'",
+      'name'            => 'soporte.destroy',
+      'desc'            => "Eliminar cualquier registro del módulo 'Soportes'",
+      'created_at_perm' => 'desarrolloweb.ewmx@gmail.com',
+    ]);
+//  PERMISOS DEL MÓDULO INVENTARIO
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 103,
+      'nom'             => "Navegar por tabla 'Inventario'",
+      'name'            => 'inventario.index',
+      'desc'            => "Lista y navega por todos los registros del módulo 'Inventario'",
+      'created_at_perm' => 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //'id'              => 104,
+    'nom'             => "Registrar nuevo  'Inventario'",
+    'name'            => 'inventario.create',
+    'desc'            => "Crear nuevo registro en el módulo 'Inventario'",
+    'created_at_perm' => 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      //'id'              => 105,
+      'nom'             => "Ver detalles  'Inventario'",
+      'name'            => 'inventario.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo 'Inventario'",
+      'created_at_perm' => 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      //'id'              => 106,
+      'nom'             => "Editar regisro 'Inventario'",
+      'name'            => 'inventario.edit',
+      'desc'            => "Editar cualquier dato de un registro del módulo 'Inventario'",
+      'created_at_perm' => 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      //'id'              => 107,
+      'nom'             => "Eliminar registro 'Inventario'",
+      'name'            => 'inventario.destroy',
+      'desc'            => "Eliminar cualquier registro del módulo 'Inventario'",
+      'created_at_perm' => 'desarrolloweb.ewmx@gmail.com',
+    ]);
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 }

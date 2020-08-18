@@ -20,11 +20,11 @@
               @can('soporte.show')
                 <a href="{{ route('soporte.show', Crypt::encrypt($soporte->id)) }}" title="Detalles: {{ $soporte->sol }}">{{ $soporte->sol }}</a>
               @else
-                {{ $soporte->nom }}
+                {{ $soporte->sol }}
               @endcan
-            </td>
             <td>{{ $soporte->emp }}</td>
             <td>{{ $soporte->est }}</td>
+          </td>
             @include('tecnologia_de_la_informacion.soporte.ti_sop_tablaOpciones') 
           </tr>
           @endforeach

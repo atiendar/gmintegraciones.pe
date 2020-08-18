@@ -1,5 +1,5 @@
-<li class="nav-item has-treeview {{ Request::is('rc/facturas*') ? 'menu-open' : '' }}">
-  <a href="#" class="nav-link {{ Request::is('rc/facturas*') ? 'active' : '' }}">
+<li class="nav-item has-treeview {{ Request::is('rc/factura*') ? 'menu-open' : '' }}">
+  <a href="#" class="nav-link {{ Request::is('rc/factura*') ? 'active' : '' }}">
     <i class="nav-icon fas fa-file-invoice"></i>
     <p>
       {{ __('Facturas') }}
@@ -8,13 +8,13 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item">
-      <a href="" class="nav-link {{ Request::is('rc/facturas') ? 'active' : '' }}">
+      <a href="{{ route('rolCliente.factura.index') }}" class="nav-link {{ Request::is('rc/factura') ? 'active' : '' }}">
         <i class="nav-icon fas fa-list"></i>
         <p>{{ __('Lista de facturas') }}</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="" class="nav-link {{ Request::is('rc/facturas/solicitar') ? 'active' : '' }}">
+      <a href="{{ route('rolCliente.factura.create') }}" class="nav-link {{ Request::is('rc/facturas/solicitar') ? 'active' : '' }}">
         <i class="nav-icon far fa-plus-square"></i>
         <p>{{ __('Solicitar factura') }}</p>
       </a>

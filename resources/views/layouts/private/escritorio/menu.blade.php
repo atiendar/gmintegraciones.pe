@@ -8,7 +8,6 @@
 'qys.index', 'qys.create', 'qys.show',
 'usuario.index', 'usuario.create', 'usuario.show', 'usuario.edit', 'usuario.destroy',
 'cliente.index', 'cliente.create', 'cliente.show', 'cliente.edit', 'cliente.destroy',
-'rol.permiso.index', 'rol.index', 'rol.create', 'rol.show', 'rol.edit', 'rol.destroy',
 'papeleraDeReciclaje.index', 'papeleraDeReciclaje.destroy', 'papeleraDeReciclaje.restore'])
   <li class="nav-header">{{ __('SISTEMA') }}</li>
 @endcanany
@@ -19,7 +18,6 @@
 @include('layouts.private.escritorio.menu.clientes')
 @include('layouts.private.escritorio.menu.roles')
 @include('layouts.private.escritorio.menu.papeleraDeReciclaje')
-
 <!-- ****************************************************************************************** -->
 @if(auth()->user()->hasRole(config('app.rol_cliente')))
   @include('layouts.private.escritorio.menu.rolCliente.direccion')
