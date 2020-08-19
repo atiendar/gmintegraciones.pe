@@ -7,7 +7,7 @@ use App\Repositories\almacen\producto\ProductoRepositories;
 use App\Repositories\cotizacion\CotizacionRepositories;
 use App\Repositories\cotizacion\armadoCotizacion\ArmadoCotizacionRepositories;
 use App\Repositories\armado\CalcularValoresArmadoRepositories;
-use App\Repositories\cotizacion\ArmadoCotizacion\ProductoArmado\StoreFilesRepositories;
+use App\Repositories\cotizacion\armadoCotizacion\productoArmado\StoreFilesRepositories;
 use App\Repositories\cotizacion\CalcularValoresCotizacionRepositories;
 use App\Repositories\cotizacion\armadoCotizacion\CalcularValoresArmadoCotizacionRepositories;
 use App\Repositories\servicio\calculo\CalculoRepositories;

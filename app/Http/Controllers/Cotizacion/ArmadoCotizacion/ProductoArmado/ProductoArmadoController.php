@@ -6,7 +6,7 @@ use App\Http\Requests\cotizacion\armadoCotizacion\productoArmado\StoreProductoAr
 use App\Http\Requests\cotizacion\armadoCotizacion\productoArmado\UpdateCantidadRequest;
 use App\Http\Requests\cotizacion\armadoCotizacion\productoArmado\UpdateUtilidadRequest;
 // Repositories
-use App\Repositories\cotizacion\ArmadoCotizacion\ProductoArmado\ProductoArmadoRepositories;
+use App\Repositories\cotizacion\armadoCotizacion\productoArmado\ProductoArmadoRepositories;
 
 class ProductoArmadoController extends Controller {
   protected $productoArmadoRepo;

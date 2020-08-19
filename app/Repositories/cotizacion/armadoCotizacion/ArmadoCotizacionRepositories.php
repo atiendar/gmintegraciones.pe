@@ -8,7 +8,7 @@ use App\Events\layouts\ActividadRegistrada;
 use App\Repositories\armado\ArmadoRepositories;
 use App\Repositories\cotizacion\CotizacionRepositories;
 use App\Repositories\cotizacion\CalcularValoresCotizacionRepositories;
-use App\Repositories\cotizacion\ArmadoCotizacion\ProductoArmado\StoreFilesRepositories;
+use App\Repositories\cotizacion\armadoCotizacion\productoArmado\StoreFilesRepositories;
 use App\Repositories\cotizacion\armadoCotizacion\CalcularValoresArmadoCotizacionRepositories;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
