@@ -156,46 +156,29 @@
             '<img src="'+data_uri+'"/>';
         });
       },
-      async getImage(event){
-      
-      
+      async getImage(event) {
+        // Creamos el objeto de la clase FileReader
+        let reader = new FileReader();
 
+        // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+        reader.readAsDataURL(event.target.files[0]);
 
- // Creamos el objeto de la clase FileReader
- let reader = new FileReader();
+        // Le decimos que cuando este listo ejecute el código interno
+        reader.onload = function(){
+          let results = document.getElementById('results'),
+                  image = document.createElement('img');
 
-// Leemos el archivo subido y se lo pasamos a nuestro fileReader
-reader.readAsDataURL(event.target.files[0]);
-
-// Le decimos que cuando este listo ejecute el código interno
-reader.onload = function(){
-  let preview = document.getElementById('results'),
-          image = document.createElement('img');
-
-  image.src = reader.result;
-  console.log(image)
-  document.getElementById('mydata').value = reader.result;
-  preview.innerHTML = '';
-  preview.append(image);
-};
-
-
-    
-
-
-
-
-
-
-
-
-
-      }
+          image.src = reader.result;
+          document.getElementById('mydata').value = reader.result;
+          results.innerHTML = '';
+          results.append(image);
+        };
+      },
     }
   });
   Webcam.set({
-    width: 320,
-    height: 240,
+    width: 520,
+    height: 440,
     dest_width: 640,
     dest_height: 480,
     image_format: 'jpeg',

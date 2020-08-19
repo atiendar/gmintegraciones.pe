@@ -19,6 +19,7 @@ class CreatePedidoArmadoDirecTieneComprobantes extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
 
+            $table->string('paq',150)->nullable()->comment('Paquetería (Este es el mismo que Nombre del metodo de entrega especifico)');
             $table->string('num_guia',60)->nullable()->comment('Número de guía');
             $table->string('comp_ent_rut',200)->comment('Ruta comprobate');
             $table->string('comp_ent_nom',200)->comment('Nombre comprobate');

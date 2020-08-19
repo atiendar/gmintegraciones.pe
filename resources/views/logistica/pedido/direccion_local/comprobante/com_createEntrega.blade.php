@@ -56,23 +56,32 @@
   var app4 = new Vue({
     el: '#dashboard',
     data: {
+      metodos_de_entrega_espesificos: [],
+      paqueterias: [],
       errors: [],
+    
+      metodo_de_entrega: "{{ $direccion->met_de_entreg_de_log }}",
+      metodo_de_entrega_espesifico: [],
+      paqueteria: [],
       numero_de_guia: [],
-      costo_por_envio:  [],
-      mydataComprobantdeentrega: null,
-      metodo_de_entrega: "{{ $direccion->met_de_entreg_de_log }}"
+
+      mydata: null
+    },
+    mounted() {
+      this.inputsMetodoDeEntrega()
     },
     methods: {
        create() {
         this.checarBotonSubmitDisabled("btnsubmit") 
-        fetch(mydataComprobantdeentrega.value)
+        fetch(mydata.value)
           .then(res => res.blob())
           .then(blob => {
             const formData = new FormData()
+            formData.append('metodo_de_entrega_espesifico', this.metodo_de_entrega_espesifico)
+            formData.append('paqueteria', this.paqueteria)
             formData.append('numero_de_guia', this.numero_de_guia)
             formData.append('comprobante_de_entrega', blob, 'filename')
-            formData.append('costo_por_envio', this.costo_por_envio)
-            formData.append('mydataComprobantdeentrega', this.mydataComprobantdeentrega)
+            formData.append('mydataComprobantdeentrega', this.mydata)
             formData.append('metodo_de_entrega', this.metodo_de_entrega)
             
             axios.post('/logistica/direccion/local/comprobante-de-entrega/almacenar/'+{{ $direccion->id }}, formData, {
@@ -113,29 +122,97 @@
         document.getElementById(id_btn).disabled = false;
         return true;
       },
-      async quitarFoto(mydata, results) {
-        document.getElementById(mydata).value = '';
-        document.getElementById(results).innerHTML = 
+      async quitarFoto() {
+        document.getElementById('mydata').value = '';
+        document.getElementById('results').innerHTML = 
             '<img src=""/>';
       },
-      async capturarFoto(mydata, results) {
-        var data_uri = Webcam.snap( function(data_uri, canvas, context) {
-          document.getElementById(mydata).value = data_uri;
-          document.getElementById(results).innerHTML = 
+      async capturarFoto() {
+        var data_uri = Webcam.snap(function(data_uri, canvas, context) {
+          document.getElementById('mydata').value = data_uri;
+          document.getElementById('results').innerHTML = 
             '<img src="'+data_uri+'"/>';
         });
+      },
+      async getImage(event) {
+        // Creamos el objeto de la clase FileReader
+        let reader = new FileReader();
+
+        // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+        reader.readAsDataURL(event.target.files[0]);
+
+        // Le decimos que cuando este listo ejecute el código interno
+        reader.onload = function(){
+          let results = document.getElementById('results'),
+                  image = document.createElement('img');
+
+          image.src = reader.result;
+          document.getElementById('mydata').value = reader.result;
+          results.innerHTML = '';
+          results.append(image);
+        };
+      },
+      async inputsMetodoDeEntrega() {
+        if(this.metodo_de_entrega == 'Transportes Ferro') {
+          this.getMetodosDeEntregaEspesificos(this.metodo_de_entrega, 'metodos_de_entrega_espesificos');
+        }
+        this.displatNumeroDeGuia();
+      },
+      async displatNumeroDeGuia() {
+        numero_de_guia = document.getElementById('numero_de_guia')
+        numero_de_guia.style.display = 'none';
+        paqueteria.style.display = 'none';
+        this.numero_de_guia = []
+        this.paqueterias = []
+        if(this.metodo_de_entrega == 'Paquetería' || this.metodo_de_entrega_espesifico == 'Paquetería') {
+          numero_de_guia.style.display = '';
+          if(this.metodo_de_entrega_espesifico == 'Paquetería') {
+            this.getMetodosDeEntregaEspesificos('Paquetería', 'Paquetería')
+          }
+        }
+      },
+      async getMetodosDeEntregaEspesificos(opc_met_ent, opc) {
+        axios.get('/logistica/direccion/metodo-de-entrega-espescifico/'+opc_met_ent).then(res => {
+          if(opc == 'metodos_de_entrega_espesificos') {
+            this.metodos_de_entrega_espesificos = res.data
+            metodo_de_entrega_espesifico = document.getElementById('metodo_de_entrega_espesifico')
+            metodo_de_entrega_espesifico.style.display = 'none';
+            if(Object.keys(res.data).length != 0) { 
+              metodo_de_entrega_espesifico.style.display = 'block';
+            }
+          } else if(opc == 'Paquetería') {
+            this.paqueterias = res.data
+            paqueteria = document.getElementById('paqueteria')
+            paqueteria.style.display = 'none';
+            if(Object.keys(res.data).length != 0) { 
+              paqueteria.style.display = 'block';
+            }
+          }
+          
+          
+
+
+          
+
+        }).catch(error => {
+          Swal.fire({
+            title: 'Algo salio mal',
+            text: error,
+          })
+        });
+        
       },
     }
   });
   Webcam.set({
-    width: 320,
-    height: 240,
+    width: 520,
+    height: 440,
     dest_width: 640,
     dest_height: 480,
     image_format: 'jpeg',
     jpeg_quality: 90,
     force_flash: false
   });
-  Webcam.attach('#my_camera_comprobante_de_entrega');
+  Webcam.attach('#my_camera');
 </script>
 @endsection

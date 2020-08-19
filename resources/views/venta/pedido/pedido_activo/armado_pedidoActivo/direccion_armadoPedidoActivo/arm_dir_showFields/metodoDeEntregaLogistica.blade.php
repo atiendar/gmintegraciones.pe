@@ -19,6 +19,19 @@
         {!! Form::text('metodo_de_entrega_espesifico', $direccion->met_de_entreg_de_log_esp, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Método de entrega espesifico'), 'readonly' => 'readonly']) !!}
       </div>
     </div>
+    @if(!$comprobantes->isEmpty())
+      @if($direccion->met_de_entreg_de_log == 'Transportes Ferro')
+        <div class="form-group col-sm btn-sm">
+          <label for="paqueteria">{{ __('Paquetería') }}</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+            </div>
+            {!! Form::text('paqueteria', $comprobantes[0]->paq, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Paquetería'), 'readonly' => 'readonly']) !!}
+          </div>
+        </div>
+      @endif
+    @endif
   </div>
   <div class="row">
     <div class="form-group col-sm btn-sm">

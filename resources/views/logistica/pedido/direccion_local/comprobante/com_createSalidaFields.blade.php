@@ -36,32 +36,35 @@
   </div>
 </div>
 <div class="row">
-  @if($direccion->comp_de_sal_nom != NULL)
-    <div class="form-group col-sm btn-sm">
+  <div class="form-group col-sm btn-sm">
+    <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label>
+    @if($direccion->comp_de_sal_nom != NULL)
       <a href="{{ Storage::url($direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
       <div class="pad box-pane-right no-padding" style="min-height: 280px">
         <iframe src="{{ Storage::url($direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom) }}" style="width:100%;border:none;height:15rem;"></iframe>
       </div>
-    </div>
-  @endif
+    @endif
+  </div>
 </div>
-
-
-
-
 <div class="row">
-  <input id="file" @change='getImage' type="file" />
-  <hr>
-  <div id="preview"></div>
-
   <div class="form-group col-sm btn-sm">
-    <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label>
+    <div class="custom-file"> 
+      {!! Form::file('imagen', ['v-on:change' => 'getImage', 'id' => 'file', 'class' => 'custom-file-input', 'accept' => 'image/jpeg,image/png,image/jpg,image/ico', 'lang' => Auth::user()->lang]) !!}
+      <label class="custom-file-label" for="archivo">Max. 1MB</label>
+    </div>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <input type=button value="{{ __('Capturar foto') }}" v-on:click="capturarFoto()" class="btn btn-info w-100 p-2">
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <input type=button value="{{ __('Quitar foto') }}" v-on:click="quitarFoto()" class="btn btn-info w-100 p-2">
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
       {!! Form::hidden('mydata', null, ['id' => 'mydata', 'class' => 'form-control']) !!}
       <div id="my_camera"></div>
-      <input type=button value="{{ __('Capturar foto') }}" v-on:click="capturarFoto()">
-      <input type=button value="{{ __('Quitar foto') }}" v-on:click="quitarFoto()">
       <div id="results"></div>
     <span v-if="errors.comprobante_de_salida" class="text-danger" v-text="errors.comprobante_de_salida[0]"></span>
   </div>
 </div>
-

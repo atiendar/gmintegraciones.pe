@@ -101,6 +101,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   public function storeEntrega($request, $id_direccion) {
     try { DB::beginTransaction();
       $direccion        = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), null, ['armado'], 'edit');
+      $direccion->estat = $request->metodo_de_entrega_espesifico;
       $direccion->estat = config('app.entregado');
       $direccion->save();
 
@@ -108,6 +109,10 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
 
       // GUARDA LA IMAGEN DEL COMRPBANTE
       $comprobante = new PedidoArmadoDireccionTieneComprobante();
+
+
+
+      $comprobante->paq             = $request->paqueteria;
       $comprobante->num_guia        = $request->numero_de_guia;
       $comprobante->direccion_id    = $id_direccion;
       $comprobante->created_at_comp = Auth::user()->email_registro;

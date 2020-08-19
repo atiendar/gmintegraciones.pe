@@ -94,7 +94,7 @@ class MetodosDeEntregaEspecificosTableSeeder extends Seeder {
     ]);
     MetodoDeEntregaEspecifico::create([
       'id'                    => 13,
-      'nom_met_ent_esp'       => 'Paqueteria',
+      'nom_met_ent_esp'       => 'Paquetería',
       'url'                   => null,
       'metodo_de_entrega_id'  => 4,
       'created_at_met_ent'    => 'desarrolloweb.ewmx@gmail.com',
