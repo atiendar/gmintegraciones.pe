@@ -306,6 +306,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Yoeunes\Toastr\ToastrServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*
@@ -359,5 +360,6 @@ return [
 /* ===================== [ SISTEMA ] ===================== */
         'Debugbar'      => Barryvdh\Debugbar\Facade::class,
         'Sistema'       => \App\Models\Sistema::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 ];

@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="form-group col-sm btn-sm">
+  <div class="form-group col-sm btn-sm">
     <label for="costo_por_envio">{{ __('Costo por envío') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
@@ -44,6 +44,16 @@
       </div>
     </div>
   @endif
+</div>
+
+
+
+
+<div class="row">
+  <input id="file" @change='getImage' type="file" />
+  <hr>
+  <div id="preview"></div>
+
   <div class="form-group col-sm btn-sm">
     <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label>
       {!! Form::hidden('mydata', null, ['id' => 'mydata', 'class' => 'form-control']) !!}
@@ -54,3 +64,4 @@
     <span v-if="errors.comprobante_de_salida" class="text-danger" v-text="errors.comprobante_de_salida[0]"></span>
   </div>
 </div>
+

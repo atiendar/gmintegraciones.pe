@@ -8,8 +8,8 @@ class StoreFilesRepositories implements StoreFilesInterface {
     // Agrega los producto del armado al armado de la cotización
     $camposBD = array('id_producto', 'cant', 'produc', 'sku', 'marc', 'tip', 'tam', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'etiq', 'pes', 'cod_barras', 'armado_id', 'created_at', 'updated_at');
     $hastaC = count($productos) - 1;
+    $datos = null;
     if($hastaC > -1) {
-      $datos = null;
       $contador3 = 0;
       $fecha = date('Y-m-d h:i:s');
       for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
