@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\cotizacion\armadoCotizacion\direccionArmado\StoreDireccionArmadoRequest;
 use App\Http\Requests\cotizacion\armadoCotizacion\direccionArmado\UpdateDireccionArmadoRequest;
 // Repositories
-use App\Repositories\cotizacion\ArmadoCotizacion\DireccionArmado\DireccionArmadoRepositories;
+use App\Repositories\cotizacion\armadoCotizacion\direccionArmado\DireccionArmadoRepositories;
 use App\Repositories\cotizacion\armadoCotizacion\ArmadoCotizacionRepositories;
 use App\Repositories\estado\EstadoRepositories;
 use App\Repositories\metodoDeEntrega\MetodoDeEntregaRepositories;

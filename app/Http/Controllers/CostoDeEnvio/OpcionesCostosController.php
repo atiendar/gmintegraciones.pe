@@ -3,7 +3,7 @@ namespace App\Http\Controllers\CostoDeEnvio;
 use App\Http\Controllers\Controller;
 // Repositories
 use App\Repositories\cotizacion\armadoCotizacion\ArmadoCotizacionRepositories;
-use App\Repositories\cotizacion\ArmadoCotizacion\DireccionArmado\DireccionArmadoRepositories;
+use App\Repositories\cotizacion\armadoCotizacion\direccionArmado\DireccionArmadoRepositories;
 use App\Repositories\costoDeEnvio\CostoDeEnvioRepositories;
 
 class OpcionesCostosController extends Controller {
