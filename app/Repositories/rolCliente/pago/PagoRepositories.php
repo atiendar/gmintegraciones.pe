@@ -4,6 +4,8 @@ namespace App\Repositories\rolCliente\pago;
 use App\Models\Pago;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
+// Events
+use App\Events\layouts\ArchivoCargado;
 // Otros
 use Illuminate\Support\Facades\Auth;
 
@@ -17,5 +19,8 @@ class PagoRepositories implements PagoInterface {
   }
   public function getPagination($request) {
     return Pago::where('user_id', Auth::user()->id)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
+  }
+  public function store($request) {
+    DD('store');
   }
 }

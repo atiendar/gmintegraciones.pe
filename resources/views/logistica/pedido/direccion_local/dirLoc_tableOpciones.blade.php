@@ -6,9 +6,19 @@
   @endif
 </td>
 <td width="1rem" title="Generar comprobante de entrega: {{ $direccion->est }}">
+
+  @if($direccion->nom_ref_uno != null)
+    @php
+      $ss = '#008000';
+    @endphp
+  @else
+    @php
+      $ss = '#ffff00';
+    @endphp
+  @endif
   @if($direccion->estat != config('app.entregado') AND $direccion->estat != config('app.pendiente'))
     @can('logistica.direccionLocal.index')
-      <a href="{{ route('logistica.direccion.generarComprobanteDeEntrega', [Crypt::encrypt($direccion->id), config('opcionesSelect.select_foraneo_local.Local')]) }}" class='btn btn-light btn-sm' target="_blank"><i class="fas fa-file-pdf"></i></a>
+      <a href="{{ route('logistica.direccion.generarComprobanteDeEntrega', [Crypt::encrypt($direccion->id), config('opcionesSelect.select_foraneo_local.Local')]) }}" style="background-color:{{ $ss }}" class='btn btn-sm' target="_blank"><i class="fas fa-file-pdf"></i></a>
     @endcan
   @endif
 </td>

@@ -24,6 +24,7 @@ class SustitutoArmadoController extends Controller {
   public function create($id_producto) {
     $id_producto      = $this->serviceCrypt->decrypt($id_producto);
     $producto         = PedidoArmadoTieneProducto::with('sustitutos')->findOrFail($id_producto);
+    $this->verificarEstatusArmado($producto);
     $sustitutos       = $producto->sustitutos()->paginate(99999999);
     $produc_original  = $this->productoRepo->getproductoFindById($this->serviceCrypt->encrypt($producto->id_producto), ['sustitutos']);
     
@@ -46,6 +47,8 @@ class SustitutoArmadoController extends Controller {
     try { DB::beginTransaction();
       $id_producto            = $this->serviceCrypt->decrypt($id_producto);
       $producto_armado_pedido = PedidoArmadoTieneProducto::findOrFail($id_producto);
+
+      $this->verificarEstatusArmado($producto_armado_pedido);
 
       // SUMA AL STOCK LA CANTIDAD ESCRITA EN EL FORMULARIO AL PRODUCTO QUE ESTA ASIGNADO DIRECTAMENTE AL ARMADO
       $producto_original1         = $this->productoRepo->getproductoFindOrFailById($this->serviceCrypt->encrypt($producto_armado_pedido->id_producto), []);
@@ -75,6 +78,7 @@ class SustitutoArmadoController extends Controller {
     try { DB::beginTransaction();
       $id_sustituto = $this->serviceCrypt->decrypt($id_sustituto);
       $sustituto    = PedidoArmadoProductoTieneSustituto::with('producto')->findOrFail($id_sustituto);
+      $this->verificarEstatusArmado($sustituto->producto);
       $sustituto->forceDelete();
 
       // RESTA AL STOCK LA CANTIDAD ESCRITA EN EL FORMULARIO AL PRODUCTO QUE ESTA ASIGNADO DIRECTAMENTE AL ARMADO
@@ -94,5 +98,10 @@ class SustitutoArmadoController extends Controller {
       toastr()->success('¡Sustituto eliminado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
       return back();
     } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
+  public function verificarEstatusArmado($producto) {
+    if($producto->armado->estat != config('app.en_espera_de_compra') AND $producto->armado->estat != config('app.en_revision_de_productos') ) {
+      return abort(404);
+    }
   }
 }

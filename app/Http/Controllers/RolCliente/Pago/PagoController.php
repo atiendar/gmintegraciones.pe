@@ -20,15 +20,11 @@ class PagoController extends Controller {
     return view('rolCliente.pago.pag_index', compact('pagos'));
   }
   public function create() {
-    dd('create');
-    $datos_fiscales         = $this->datoFiscalRepo->getAllDatosFiscalesClientePluck();
-    $codigos_de_facturacion = $this->pagoRepo->getAllCodigosFacturaClientePluck();
-    return view('rolCliente.factura.fac_create', compact('datos_fiscales', 'codigos_de_facturacion'));
+    return view('rolCliente.pago.pag_create');
   }
-  public function store(Request $request) {
-    dd('store');
-    $this->facturaRepo->store($request);
-    toastr()->success('¡Factura solicitada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+  public function store(Request $request) {   
+    $this->pagoRepo->store($request);
+    toastr()->success('¡Pago registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
   public function show($id_pago) {
