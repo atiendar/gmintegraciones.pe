@@ -29,7 +29,7 @@ class CreateInventarioEquiposTable extends Migration
         $table->string('mar', 50)->comment('Marca del equipo');
         $table->string('mod', 50)->comment('Modelo del equipo');
         $table->string('asignado_inv_equ', 75)->comment('Correo del usuario al que se le asigno este registro');
-        $table->string('created_at_inv_equ', 75)->nullable()->comment('Correo del usuario que realizo el registro');
+        $table->string('created_at_inv_equ', 75)->comment('Correo del usuario que realizo el registro');
         $table->string('updated_at_inv_equ', 75)->nullable()->comment('Correo del usuario que realizo la ultima modificacion');
         $table->timestamps();
         $table->softDeletes();

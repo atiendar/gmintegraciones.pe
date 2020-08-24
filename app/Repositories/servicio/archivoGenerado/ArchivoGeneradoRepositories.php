@@ -24,7 +24,7 @@ class ArchivoGeneradoRepositories implements ArchivoGeneradoInterface {
   }
   public function tipoExport($tipo, $archivo_generado, $info_archivo, $usuario) {
     if($tipo == 'generarReporteDeCompraExport') {
-      (new generarReporteDeCompraExport)->store($archivo_generado->arch_nom, $info_archivo->filesystems)->chain([
+      (new generarReporteDeCompraExport)->store($archivo_generado->arch_nom, $info_archivo->filesystems, null, ['visibility' => 'public'])->chain([
         new NotificarAlUsuarioCuandoTermineLaExportacion($usuario, $archivo_generado)
       ]);
     }

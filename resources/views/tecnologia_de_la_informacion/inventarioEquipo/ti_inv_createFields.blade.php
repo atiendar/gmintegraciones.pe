@@ -1,25 +1,25 @@
 
 <div class="row">
-      <div class="form-group col-sm btn-sm">
-        <label for="id_del_equipo"> {{ __('Id equipo')}} *</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></span>
-          </div>
-          {!! Form::text('id_del_equipo', null, ['class'  =>  'form-control' .($errors->has('id_del_equipo') ?  ' is-invalid' : ''), 'maxlength' => 25, 'placeholder'  =>  __('Id equipo')]) !!}
-        </div>
-      <span class="text-danger">{{ $errors->first('id_del_equipo') }}</span>
+  <div class="form-group col-sm btn-sm">
+    <label for="id_del_equipo"> {{ __('Id equipo')}} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></span>
       </div>
-      <div class="form-group col-sm btn-sm">
-        <label for="responsable">{{ __('Responsable') }} *</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-user"></i></span>
-          </div>
-            {!! Form::text('responsable', null, ['class' => 'form-control' . ($errors->has('responsable') ? ' is-invalid' : ''), 'maxlength' => 80, 'placeholder' => __('Responsable')]) !!}
-        </div>
-        <span class="text-danger">{{ $errors->first('responsable') }}</span>
+      {!! Form::text('id_del_equipo', null, ['class'  =>  'form-control' .($errors->has('id_del_equipo') ?  ' is-invalid' : ''), 'maxlength' => 25, 'placeholder'  =>  __('Id equipo')]) !!}
+    </div>
+  <span class="text-danger">{{ $errors->first('id_del_equipo') }}</span>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="responsable">{{ __('Responsable') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-user"></i></span>
       </div>
+      {!! Form::text('responsable', null, ['class' => 'form-control' . ($errors->has('responsable') ? ' is-invalid' : ''), 'maxlength' => 80, 'placeholder' => __('Responsable')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('responsable') }}</span>
+  </div>
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
@@ -72,14 +72,14 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
       </div>
-      {!! Form::date('ultimo_mantenimiento', date("Y-m-d", strtotime('+30 day', strtotime(date("Y-m-d")))), ['class' => 'form-control', 'min' => date('Y-m-d')]) !!}
+      {!! Form::date('ultimo_mantenimiento', date("Y-m-d"), ['class' => 'form-control', 'min' => date('Y-m-d')]) !!}
     </div>
   <span class="text-danger">{{ $errors->first('ultimo_mantenimiento') }}</span>
   </div>
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="archivos">{{ __('Imagenes') }}</label>
+    <label for="archivo">{{ __('Imagenes') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
@@ -89,7 +89,7 @@
         <label class="custom-file-label" for="archivos">Max. 1MB</label>
       </div>
     </div>
-    <span class="text-danger">{{ $errors->first('archivos') }}</span>
+    <span class="text-danger">{{ $errors->first('archivos.*') }}</span>
   </div>
 </div>
 <div class="row">

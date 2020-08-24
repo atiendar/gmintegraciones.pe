@@ -93,7 +93,6 @@ class InventarioEquipoRepositories implements InventarioEquipoInterface {
         $inventario->obs                   = $request->observaciones; 
         $inventario->asignado_inv_equ      = Auth::user()->email_registro;
         $inventario->created_at_inv_equ    = Auth::user()->email_registro;
-        $inventario->updated_at_inv_equ    = Auth::user()->email_registro;
         $inventario->save();
 
         if($request->archivos > 0 ) {
@@ -106,7 +105,7 @@ class InventarioEquipoRepositories implements InventarioEquipoInterface {
             // Dispara el evento registrado en App\Providers\EventServiceProvider.php
               $archivos = ArchivoCargado::dispatch(
               $request->archivos[$contador2], // Archivos blob
-              'tecnologiasDeLaInformacion/inventario/' . date("Y-m"), // Ruta en la que guardara el archivo
+              'public/tecnologiasDeLaInformacion/inventario/' . date("Y-m") . '/', // Ruta en la que guardara el archivo
               'inventario-' . $contador2 . time() . '.', // Nombre del archivo
               null // Ruta y nombre del archivo anterior
             );

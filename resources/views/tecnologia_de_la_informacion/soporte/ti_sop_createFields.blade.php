@@ -32,18 +32,18 @@
       <span class="text-danger">{{ $errors->first('area_departamento') }}</span>
     </div>
     <div class="form-group col-sm btn-sm">
-    <label for="archivos">{{ __('Archivos') }}</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
+      <label for="archivo">{{ __('Archivos') }}</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
+        </div>
+       <div class="custom-file"> 
+          {!! Form::file('archivos[]', ['class' => 'custom-file-input', 'lang' => 'es', 'multiple']) !!}
+          <label class="custom-file-label" for="archivos">Max. 1MB</label>
+        </div>
       </div>
-     <div class="custom-file"> 
-        {!! Form::file('archivos[]', ['class' => 'custom-file-input', 'lang' => 'es', 'multiple']) !!}
-        <label class="custom-file-label" for="archivos">Max. 1MB</label>
-      </div>
+      <span class="text-danger">{{ $errors->first('archivos.*') }}</span>
     </div>
-    <span class="text-danger">{{ $errors->first('archivos') }}</span>
-  </div>
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">

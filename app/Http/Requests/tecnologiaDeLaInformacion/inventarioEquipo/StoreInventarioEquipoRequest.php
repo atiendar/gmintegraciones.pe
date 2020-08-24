@@ -14,6 +14,8 @@ class StoreInventarioEquipoRequest extends FormRequest {
             'numero_serie'       =>  'required|max:40',
             'marca'              =>  'required|max:50',
             'modelo'             =>  'required|max:50',
+            'archivo'            =>  'nullable|array',
+            'archivos.*'         =>  'nullable|max:1024',
         ];
     }
 }

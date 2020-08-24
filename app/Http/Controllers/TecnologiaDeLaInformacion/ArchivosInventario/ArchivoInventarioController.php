@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\tecnologiaDeLaInformacion\inventarioEquipo\archivoInventario\StoreArchivosInventarioRequest;
 use Illuminate\Http\Request;
 // Repositories
-use App\Repositories\tecnologiaDeLaInformacion\InventarioEquipo\archivoInventario\ArchivoInventarioRepositories;
+use App\Repositories\tecnologiaDeLaInformacion\inventarioEquipo\archivoInventario\ArchivoInventarioRepositories;
 
 class ArchivoInventarioController extends Controller {
     protected $archivoRepo;

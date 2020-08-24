@@ -38,7 +38,7 @@ class ArchivoInventarioRepositories implements ArchivoInventarioInterface {
                 // Dispara el evento registrado en App\Providers\EventServiceProvider.php
                 $archivos = ArchivoCargado::dispatch(
                     $request->archivos[$contador2], // Archivos blob
-                    'tecnologiasDeLaInformacion/inventario/' . date("Y-m"), // Ruta en la que guardara el archivo
+                    'public/tecnologiasDeLaInformacion/inventario/' . date("Y-m") . '/', // Ruta en la que guardara el archivo
                     'inventario-' . $contador2 . time() . '.', // Nombre del archivo
                     null // Ruta y nombre del archivo anterior
                 );

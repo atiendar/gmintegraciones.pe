@@ -53,21 +53,7 @@ return [
             'root' => storage_path('app/public'), // Ruta donde se guardara el archivo
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public', // private - public
-        ],
-
-        'public_producto_archivosGenerados' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/almacen/producto/archivosGenerados'), // Ruta donde se guardara el archivo
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public', // private - public
-        ],
-
-        'public_armado_catalogoArmados' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/armado/archivosGenerados'), // Ruta donde se guardara el archivo
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public', // private - public
-        ],
+        ],      
 
         's3' => [
             'driver' => 's3',
