@@ -6,7 +6,7 @@ use App\Models\Historial;
 use Faker\Generator as Faker;
 
 $factory->define(Historial::class, function (Faker $faker) {
-    $inventario_equipo_id = $faker->randomElement(\App\Models\InventarioEquipo::all()->pluck('id'));
+    $inventario_equipo_id = $faker->randomElement(InventarioEquipo::pluck('id'));
 
     return [
         'fec_ent'                => $faker->dateTime($max = 'now', $timezone = null),

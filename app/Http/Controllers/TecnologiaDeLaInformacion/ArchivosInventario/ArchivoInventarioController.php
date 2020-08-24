@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Http\Controllers\TecnologiaDeLaInformacion\ArchivosInventario;
+
 use App\Http\Controllers\Controller;
 // Request
 use App\Http\Requests\tecnologiaDeLaInformacion\inventarioEquipo\archivoInventario\StoreArchivosInventarioRequest;
-use Illuminate\Http\Request;
 // Repositories
-use App\Repositories\tecnologiaDeLaInformacion\inventarioEquipo\archivoInventario\ArchivoInventarioRepositories;
+use App\Repositories\tecnologiaDeLainformacion\inventarioEquipo\archivoInventario\ArchivoInventarioRepositories;
 
 class ArchivoInventarioController extends Controller {
     protected $archivoRepo;

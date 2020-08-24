@@ -4,14 +4,11 @@ namespace App\Repositories\tecnologiaDeLainformacion\inventarioEquipo\archivoInv
 use App\Models\InventarioEquipoArchivo;
 //Events
 use App\Events\layouts\ArchivoCargado;
-use App\Events\layouts\ArchivosElimina;
-use App\Events\layouts\ArchivosEliminados;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 //Repositories
 use App\Repositories\papeleraDeReciclaje\PapeleraDeReciclajeRepositories;
 // Otros
-use Illuminate\Support\Facades\Auth;
 use DB;
 
 class ArchivoInventarioRepositories implements ArchivoInventarioInterface {
