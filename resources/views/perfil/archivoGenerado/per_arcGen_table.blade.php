@@ -7,7 +7,7 @@
         @foreach($archivos_generados as $archivo_generado)
           <tr title="" style="{{ $archivo_generado->read_at != null ? 'background:#ECECEC;' : '' }}">
             <td>
-              <a href="{{ Storage::url($archivo_generado->data['arch_rut'].$archivo_generado->data['arch_nom']) }}" class="dropdown-item">
+              <a href="{{ $archivo_generado->data['arch_rut'].$archivo_generado->data['arch_nom'] }}" class="dropdown-item">
                 @if($archivo_generado->data['tip'] == 'XLSX')
                   <i class="fas fa-file-excel"></i> 
                 @elseif($archivo_generado->data['tip'] == 'PDF')

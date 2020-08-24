@@ -52,7 +52,7 @@ class ClienteRepositories implements ClienteInterface {
       if($request->hasfile('imagen')) {
         $imagen = ArchivoCargado::dispatch(
           $request->file('imagen'), // Archivo blob
-          'public/perfil/clientes/'.date("Y").'/', // Ruta en la que guardara el archivo
+          'perfil/clientes/'.date("Y"), // Ruta en la que guardara el archivo
           'perfil-'.time().'.', // Nombre del archivo
           null // Ruta y nombre del archivo anterior
         ); 
@@ -99,9 +99,9 @@ class ClienteRepositories implements ClienteInterface {
       if($request->hasfile('imagen')) {
         $imagen = ArchivoCargado::dispatch(
           $request->file('imagen'), 
-          'public/perfil/clientes/'.date("Y").'/', // Ruta en la que guardara el archivo
+          'perfil/clientes/'.date("Y"), // Ruta en la que guardara el archivo
           'perfil-'.time().'.', // Nombre del archivo
-          $cliente->img_us_rut.$cliente->img_us
+          $cliente->img_us
         ); 
         $cliente->img_us_rut  = $imagen[0]['ruta'];
         $cliente->img_us      = $imagen[0]['nombre'];

@@ -12,7 +12,7 @@ class UsuariosRepositories implements UsuariosInterface {
   public function metDestroy($consulta) {
     // Dispara el evento registrado en App\Providers\EventServiceProvider.php
     ArchivosEliminados::dispatch(
-      array($consulta->img_us_rut.$consulta->img_us), 
+      array($consulta->img_us), 
     );
   }
 }

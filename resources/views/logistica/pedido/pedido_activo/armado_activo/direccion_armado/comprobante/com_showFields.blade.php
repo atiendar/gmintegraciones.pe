@@ -114,9 +114,9 @@
   <div class="form-group col-sm btn-sm">
     <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label>
     @if($comprobante->comp_de_sal_nom != null)
-      <a href="{{ Storage::url($comprobante->comp_de_sal_rut.$comprobante->comp_de_sal_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
+      <a href="{{ $comprobante->comp_de_sal_rut.$comprobante->comp_de_sal_nom }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
       <div class="pad box-pane-right no-padding" style="min-height: 280px">
-        <iframe src="{{ Storage::url($comprobante->comp_de_sal_rut.$comprobante->comp_de_sal_nom) }}" style="width:100%;border:none;height:25rem;"></iframe>
+        <iframe src="{{ $comprobante->comp_de_sal_rut.$comprobante->comp_de_sal_nom }}" style="width:100%;border:none;height:25rem;"></iframe>
       </div>
     @else
       <span class="badge" style="background:{{ config('app.color_c') }};color:{{ config('app.color_0') }};">{{ __('Falta cargar comprobante de salida') }}</span>
@@ -124,10 +124,10 @@
   </div>
   @if($comprobante->comp_ent_nom != null)
     <div class="form-group col-sm btn-sm">
-      <a href="{{ Storage::url($comprobante->comp_ent_rut.$comprobante->comp_ent_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
+      <a href="{{ $comprobante->comp_ent_rut.$comprobante->comp_ent_nom }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
       <label for="comprobante_de_entrega">{{ __('Comprobante de entrega') }}</label>
       <div class="pad box-pane-right no-padding" style="min-height: 280px">
-        <iframe src="{{ Storage::url($comprobante->comp_ent_rut.$comprobante->comp_ent_nom) }}" style="width:100%;border:none;height:25rem;"></iframe>
+        <iframe src="{{ $comprobante->comp_ent_rut.$comprobante->comp_ent_nom }}" style="width:100%;border:none;height:25rem;"></iframe>
       </div>
     </div>
   @endif
@@ -135,10 +135,10 @@
 <div class="row">
   @if($comprobante->comp_cost_por_env_log_nom != null)
     <div class="form-group col-sm btn-sm">
-      <a href="{{ Storage::url($comprobante->comp_cost_por_env_log_rut.$comprobante->comp_cost_por_env_log_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
+      <a href="{{ $comprobante->comp_cost_por_env_log_rut.$comprobante->comp_cost_por_env_log_nom }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
       <label for="comprobante_de_entrega">{{ __('Comprobante costo por envío') }}</label>
       <div class="pad box-pane-right no-padding" style="min-height: 280px">
-        <iframe src="{{ Storage::url($comprobante->comp_cost_por_env_log_rut.$comprobante->comp_cost_por_env_log_nom) }}" style="width:100%;border:none;height:25rem;"></iframe>
+        <iframe src="{{ $comprobante->comp_cost_por_env_log_rut.$comprobante->comp_cost_por_env_log_nom }}" style="width:100%;border:none;height:25rem;"></iframe>
       </div>
     </div>
   @endif

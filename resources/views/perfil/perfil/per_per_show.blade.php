@@ -2,9 +2,9 @@
   <div class="card-body box-profile">
     <div class="text-center">
     @if(Auth::user()->img_us != null)
-      <img src="{{ Storage::url(Auth::user()->img_us_rut . Auth::user()->img_us) }}" class="profile-user-img img-fluid img-circle"  alt="{{ Sistema::datos()->sistemaFindOrFail()->defau_img_perf }}">
+      <img src="{{ Auth::user()->img_us_rut . Auth::user()->img_us }}" class="profile-user-img img-fluid img-circle"  alt="{{ Sistema::datos()->sistemaFindOrFail()->defau_img_perf }}">
     @else
-      <img src="{{ Storage::url(Sistema::datos()->sistemaFindOrFail()->defau_img_perf_rut . Sistema::datos()->sistemaFindOrFail()->defau_img_perf) }}" class="profile-user-img img-fluid img-circle"  alt="{{ Sistema::datos()->sistemaFindOrFail()->defau_img_perf }}">
+      <img src="{{ Sistema::datos()->sistemaFindOrFail()->defau_img_perf_rut . Sistema::datos()->sistemaFindOrFail()->defau_img_perf }}" class="profile-user-img img-fluid img-circle"  alt="{{ Sistema::datos()->sistemaFindOrFail()->defau_img_perf }}">
     @endif
     </div>
     <h3 class="profile-username text-center">{{ Auth::user()->nom . ' ' . Auth::user()->apell }}</h3>

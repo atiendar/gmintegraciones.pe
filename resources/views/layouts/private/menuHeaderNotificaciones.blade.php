@@ -32,7 +32,7 @@
         <span class="dropdown-item dropdown-header">{{ __('Descargas generadas') }}</span>
         <div class="dropdown-divider"></div>
         @foreach(Auth::user()->unreadNotifications->where('type', 'App\Notifications\servicio\NotificacionAchivoGenerado')->take(5) as $notif_no_leidas)
-          <a href="{{ Storage::url($notif_no_leidas->data['arch_rut'].$notif_no_leidas->data['arch_nom']) }}" class="dropdown-item">
+          <a href="{{ $notif_no_leidas->data['arch_rut'].$notif_no_leidas->data['arch_nom'] }}" class="dropdown-item">
             <small>
               @if($notif_no_leidas->data['tip'] == 'XLSX')
                 <i class="fas fa-file-excel"></i> 
@@ -87,9 +87,9 @@
   <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
     <li class="user-header bg-white mb-3">
       @if(Auth::user()->img_us != null)
-        <img src="{{ Storage::url(Auth::user()->img_us_rut . Auth::user()->img_us) }}" class="img-circle elevation-2" alt="{{ Auth::user()->defau_img_perf }}">
+        <img src="{{ Auth::user()->img_us_rut . Auth::user()->img_us }}" class="img-circle elevation-2" alt="{{ Auth::user()->defau_img_perf }}">
       @else
-        <img src="{{ Storage::url(Sistema::datos()->sistemaFindOrFail()->defau_img_perf_rut . Sistema::datos()->sistemaFindOrFail()->defau_img_perf) }}" class="img-circle elevation-2" alt="{{ Sistema::datos()->sistemaFindOrFail()->defau_img_perf }}">
+        <img src="{{ Sistema::datos()->sistemaFindOrFail()->defau_img_perf_rut . Sistema::datos()->sistemaFindOrFail()->defau_img_perf }}" class="img-circle elevation-2" alt="{{ Sistema::datos()->sistemaFindOrFail()->defau_img_perf }}">
       @endif
       <p>
         {{ Auth::user()->nom }} {{ Auth::user()->apell }}

@@ -16,7 +16,7 @@
         <div class="form-group col-sm btn-sm">
           <label for="tarjeta_disenada_por_el_cliente">{{ __('Tarjeta diseñada por el cliente') }} *</label>
           @if($direccion->tarj_dise_nom != null)
-            <a href="{{ Storage::url($direccion->tarj_dise_rut.$direccion->tarj_dise_nom) }}" download="">{{ __('Descargar') }}</a>
+            <a href="{{ $direccion->tarj_dise_rut.$direccion->tarj_dise_nom }}" download="">{{ __('Descargar') }}</a>
           @endif
           <div style="display: none;">
             {!! Form::text('tarjeta_disenada_por_el_cliente_url', $direccion->tarj_dise_rut.$direccion->tarj_dise_nom, ['class' => 'form-control disabled', 'maxlength' => 0, 'readonly' => 'readonly']) !!}

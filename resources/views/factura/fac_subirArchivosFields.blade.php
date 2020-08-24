@@ -3,7 +3,7 @@
     <label for="factura_pdf">{{ __('Factura PDF') }}</label>
     <div class="input-group">
       @if($factura->fact_pdf_nom != null)
-        <a href="{{ Storage::url($factura->fact_pdf_rut.$factura->fact_pdf_nom) }}" class="btn btn-light border mr-2" title="{{ __('Descargar factura PDF') }}"><i class="fas fa-download"></i></a>
+        <a href="{{ $factura->fact_pdf_rut.$factura->fact_pdf_nom }}" class="btn btn-light border mr-2" title="{{ __('Descargar factura PDF') }}"><i class="fas fa-download"></i></a>
       @endif
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
@@ -19,7 +19,7 @@
     <label for="factura_xlm">{{ __('Factura XLM') }}</label>
     <div class="input-group">
       @if($factura->fact_xlm_nom != null)
-        <a href="{{ Storage::url($factura->fact_xlm_rut.$factura->fact_xlm_nom) }}" class="btn btn-light border mr-2" title="{{ __('Descargar factura XLM') }}"><i class="fas fa-download"></i></a>
+        <a href="{{ $factura->fact_xlm_rut.$factura->fact_xlm_nom }}" class="btn btn-light border mr-2" title="{{ __('Descargar factura XLM') }}"><i class="fas fa-download"></i></a>
       @endif
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
@@ -37,7 +37,7 @@
     <label for="ppd_pdf">{{ __('PPD PDF') }}</label>
     <div class="input-group">
       @if($factura->ppd_pdf_nom != null)
-        <a href="{{ Storage::url($factura->ppd_pdf_rut.$factura->ppd_pdf_nom) }}" class="btn btn-light border mr-2" title="{{ __('Descargar PPD PDF') }}"><i class="fas fa-download"></i></a>
+        <a href="{{ $factura->ppd_pdf_rut.$factura->ppd_pdf_nom }}" class="btn btn-light border mr-2" title="{{ __('Descargar PPD PDF') }}"><i class="fas fa-download"></i></a>
       @endif
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
@@ -53,7 +53,7 @@
     <label for="ppd_xlm">{{ __('PPD XLM') }}</label>
     <div class="input-group">
       @if($factura->ppd_xlm_nom != null)
-        <a href="{{ Storage::url($factura->ppd_xlm_rut.$factura->ppd_xlm_nom) }}" class="btn btn-light border mr-2" title="{{ __('Descargar PPD XLM') }}"><i class="fas fa-download"></i></a>
+        <a href="{{ $factura->ppd_xlm_rut.$factura->ppd_xlm_nom }}" class="btn btn-light border mr-2" title="{{ __('Descargar PPD XLM') }}"><i class="fas fa-download"></i></a>
       @endif
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-folder-open"></i></span>

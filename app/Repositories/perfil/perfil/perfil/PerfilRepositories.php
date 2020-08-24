@@ -68,9 +68,9 @@ class PerfilRepositories implements PerfilInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('imagen'), // Archivo blob
-          'public/perfil/'.$acceso.date("Y").'/', // Ruta en la que guardara el archivo
+          'perfil/'.$acceso.date("Y"), // Ruta en la que guardara el archivo
           'perfil-'.time().'.', // Nombre del archivo
-          $perfil->img_us_rut.$perfil->img_us // Ruta y nombre del archivo anterior
+          $perfil->img_us // Ruta y nombre del archivo anterior
         ); 
         $perfil->img_us_rut = $imagen[0]['ruta'];
         $perfil->img_us     = $imagen[0]['nombre'];

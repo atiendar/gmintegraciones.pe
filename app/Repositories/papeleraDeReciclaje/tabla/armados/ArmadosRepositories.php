@@ -14,7 +14,7 @@ class ArmadosRepositories implements ArmadosInterface {
     $hastaC = count($consulta->imagenes) - 1;
     $imagenes = [];
     for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
-      $imagenes[$contador2] = $consulta->imagenes[$contador2]->img_rut.$consulta->imagenes[$contador2]->img_nom;
+      $imagenes[$contador2] = $consulta->imagenes[$contador2]->img_nom;
     }
     if($consulta->img_nom != null) { array_push($imagenes, $consulta->img_rut.$consulta->img_nom); } // Agrega la imagen asignada al armado para tambien eliminarla
     // Dispara el evento registrado en App\Providers\EventServiceProvider.php

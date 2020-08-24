@@ -12,7 +12,7 @@ class ArmadoTieneImagenesRepositories implements ArmadoTieneImagenesInteface {
   public function metDestroy($consulta) {
     // Dispara el evento registrado en App\Providers\EventServiceProvider.php
     ArchivosEliminados::dispatch(
-      array($consulta->img_rut.$consulta->img_nom), 
+      array($consulta->img_nom), 
     );
   }
 }

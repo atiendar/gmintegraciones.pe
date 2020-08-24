@@ -39,9 +39,9 @@
   <div class="form-group col-sm btn-sm">
     <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label>
     @if($direccion->comp_de_sal_nom != NULL)
-      <a href="{{ Storage::url($direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
+      <a href="{{ $direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
       <div class="pad box-pane-right no-padding" style="min-height: 280px">
-        <iframe src="{{ Storage::url($direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom) }}" style="width:100%;border:none;height:15rem;"></iframe>
+        <iframe src="{{ $direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom }}" style="width:100%;border:none;height:15rem;"></iframe>
       </div>
     @endif
   </div>

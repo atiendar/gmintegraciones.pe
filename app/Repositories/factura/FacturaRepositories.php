@@ -161,9 +161,9 @@ class FacturaRepositories implements FacturaInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('factura_pdf'), // Archivo blob
-          'public/facturas/'.date("Y").'/'.$factura->id.'/', // Ruta en la que guardara el archivo
+          'facturas/'.date("Y").'/'.$factura->id, // Ruta en la que guardara el archivo
           'factura_pdf-' . time() . '.', // Nombre del archivo
-          $factura->fact_pdf_rut.$factura->fact_pdf_nom // Ruta y nombre del archivo anterior
+          $factura->fact_pdf_nom // Ruta y nombre del archivo anterior
         ); 
         $factura->fact_pdf_rut  = $imagen[0]['ruta'];
         $factura->fact_pdf_nom  = $imagen[0]['nombre'];
@@ -173,9 +173,9 @@ class FacturaRepositories implements FacturaInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('factura_xlm'), // Archivo blob
-          'public/facturas/'.date("Y").'/'.$factura->id.'/', // Ruta en la que guardara el archivo
+          'facturas/'.date("Y").'/'.$factura->id, // Ruta en la que guardara el archivo
           'factura_xlm-' . time() . '.', // Nombre del archivo
-          $factura->fact_xlm_rut.$factura->fact_xlm_nom // Ruta y nombre del archivo anterior
+          $factura->fact_xlm_nom // Ruta y nombre del archivo anterior
         ); 
         $factura->fact_xlm_rut  = $imagen[0]['ruta'];
         $factura->fact_xlm_nom  = $imagen[0]['nombre'];
@@ -185,9 +185,9 @@ class FacturaRepositories implements FacturaInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('ppd_pdf'), // Archivo blob
-          'public/facturas/'.date("Y").'/'.$factura->id.'/', // Ruta en la que guardara el archivo
+          'facturas/'.date("Y").'/'.$factura->id, // Ruta en la que guardara el archivo
           'ppd_pdf-' . time() . '.', // Nombre del archivo
-          $factura->ppd_pdf_rut.$factura->ppd_pdf_nom // Ruta y nombre del archivo anterior
+          $factura->ppd_pdf_nom // Ruta y nombre del archivo anterior
         ); 
         $factura->ppd_pdf_rut  = $imagen[0]['ruta'];
         $factura->ppd_pdf_nom  = $imagen[0]['nombre'];
@@ -197,9 +197,9 @@ class FacturaRepositories implements FacturaInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('ppd_xlm'), // Archivo blob
-          'public/facturas/'.date("Y").'/'.$factura->id.'/', // Ruta en la que guardara el archivo
+          'facturas/'.date("Y").'/'.$factura->id, // Ruta en la que guardara el archivo
           'ppd_xlm-' . time() . '.', // Nombre del archivo
-          $factura->ppd_xlm_rut.$factura->ppd_xlm_nom // Ruta y nombre del archivo anterior
+          $factura->ppd_xlm_nom // Ruta y nombre del archivo anterior
         ); 
         $factura->ppd_xlm_rut = $imagen[0]['ruta'];
         $factura->ppd_xlm_nom = $imagen[0]['nombre'];

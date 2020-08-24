@@ -65,7 +65,7 @@ class ProveedorRepositories implements ProveedorInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $archivo = ArchivoCargado::dispatch(
           $request->file('archivo'), // Archivo blob
-          'public/proveedores/'.date("Y").'/', // Ruta en la que guardara el archivo
+          'proveedores/'.date("Y"), // Ruta en la que guardara el archivo
           'proveedor-'.time().'.', // Nombre del archivo
           null // Ruta y nombre del archivo anterior
         ); 
@@ -118,9 +118,9 @@ class ProveedorRepositories implements ProveedorInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $archivo = ArchivoCargado::dispatch(
           $request->file('archivo'), // Archivo blob
-          'public/proveedores/'.date("Y").'/', // Ruta en la que guardara el archivo
+          'proveedores/'.date("Y"), // Ruta en la que guardara el archivo
           'proveedor-'.time().'.', // Nombre del archivo
-          $proveedor->arch_rut.$proveedor->arch_nom // Ruta y nombre del archivo anterior
+          $proveedor->arch_nom // Ruta y nombre del archivo anterior
         ); 
         $proveedor->arch_rut  = $archivo[0]['ruta'];
         $proveedor->arch_nom  = $archivo[0]['nombre'];

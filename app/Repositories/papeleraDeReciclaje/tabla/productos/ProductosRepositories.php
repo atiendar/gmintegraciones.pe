@@ -12,7 +12,7 @@ class ProductosRepositories implements ProductosInterface {
   public function metDestroy($consulta) {
     // Dispara el evento registrado en App\Providers\EventServiceProvider.php
     ArchivosEliminados::dispatch(
-      array($consulta->img_prod_rut.$consulta->img_prod_nom), 
+      array($consulta->img_prod_nom), 
     );
   }
 }

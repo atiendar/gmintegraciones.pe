@@ -27,7 +27,7 @@
            <div class="input-group-prepend">
              <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></span>
            </div>
-           {!! Form::text('numero_serie', $inventario->num_ser, ['class' => 'form-control' .($errors->has('numero_serie') ? ' is-invalid' : ''), 'maxlength' => 70, 'placeholder' => __('Número de serie')]) !!}
+           {!! Form::text('numero_serie', $inventario->num_ser, ['class' => 'form-control' .($errors->has('numero_serie') ? ' is-invalid' : ''), 'maxlength' => 40, 'placeholder' => __('Número de serie')]) !!}
         </div>
         <span class="text-danger">{{ $errors->first('numero_serie')}}</span>
      </div>
@@ -37,7 +37,7 @@
          <div class="input-group-prepend">
            <span class="input-group-text"><i class="fas fa-text-width"></i></span>
          </div>
-         {!! Form::text('marca', $inventario->mar, ['class' => 'form-control' .($errors->has('marca') ? ' is-invalid' : ''), 'maxlength' => 70, 'placeholder' => __('Marca')]) !!}
+         {!! Form::text('marca', $inventario->mar, ['class' => 'form-control' .($errors->has('marca') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Marca')]) !!}
       </div>
       <span class="text-danger">{{ $errors->first('marca')}}</span>
    </div>
@@ -49,7 +49,7 @@
            <div class="input-group-prepend">
              <span class="input-group-text"><i class="fas fa-text-width"></i></span>
            </div>
-           {!! Form::text('modelo', $inventario->mod, ['class' => 'form-control' .($errors->has('modelo') ? ' is-invalid' : ''), 'maxlength' => 70, 'placeholder' => __('Modelo')]) !!}
+           {!! Form::text('modelo', $inventario->mod, ['class' => 'form-control' .($errors->has('modelo') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Modelo')]) !!}
         </div>
         <span class="text-danger">{{ $errors->first('modelo')}}</span>
      </div>

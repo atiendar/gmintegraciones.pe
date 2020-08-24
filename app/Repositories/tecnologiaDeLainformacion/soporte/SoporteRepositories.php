@@ -57,7 +57,7 @@ class SoporteRepositories implements  SoporteInterface{
                     // Dispara el evento registrado en App\Providers\EventServiceProvider.php
                     $archivos = ArchivoCargado::dispatch(
                         $request->archivos[$contador2], // Archivos blob
-                        'public/tecnologiasDeLaInformacion/soporte/' . date("Y-m") . '/', // Ruta en la que guardara el archivo
+                        'tecnologiasDeLaInformacion/soporte/' . date("Y-m"), // Ruta en la que guardara el archivo
                         'soporte-' . $contador2 . time() . '.', // Nombre del archivo
                         null // Ruta y nombre del archivo anterior
                     ); 

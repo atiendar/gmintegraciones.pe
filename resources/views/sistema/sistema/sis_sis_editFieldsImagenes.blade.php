@@ -2,7 +2,7 @@
 <div class="border border-primary rounded p-2">
   <div class="row">
     <div class="form-group col-sm btn-sm">
-      <a href="{{ Storage::url(Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg) }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="logo_color_negr">{{ __('Logo color negro') }} (583 x 239px)</label></a>
+      <a href="{{ Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="logo_color_negr">{{ __('Logo color negro') }} (583 x 239px)</label></a>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
@@ -16,7 +16,7 @@
       <span class="text-danger">{{ $errors->first('logo_color_negro') }}</span>
     </div>
     <div class="form-group col-sm btn-sm">
-      <a href="{{ Storage::url(Sistema::datos()->sistemaFindOrFail()->log_blan_rut . Sistema::datos()->sistemaFindOrFail()->log_blan) }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="logo_color_blanc">{{ __('Logo color blanco') }} (583 x 239px)</label></a>
+      <a href="{{ Sistema::datos()->sistemaFindOrFail()->log_blan_rut . Sistema::datos()->sistemaFindOrFail()->log_blan }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="logo_color_blanc">{{ __('Logo color blanco') }} (583 x 239px)</label></a>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
@@ -44,7 +44,7 @@
   </div>
   <div class="row">
     <div class="form-group col-sm btn-sm">
-      <a href="{{ Storage::url(Sistema::datos()->sistemaFindOrFail()->carrus_login_rut . Sistema::datos()->sistemaFindOrFail()->carrus_login) }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="imagen_logi">{{ __('Imagen login') }} (1200 x 800px)</label></a>
+      <a href="{{ Sistema::datos()->sistemaFindOrFail()->carrus_login_rut . Sistema::datos()->sistemaFindOrFail()->carrus_login }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="imagen_logi">{{ __('Imagen login') }} (1200 x 800px)</label></a>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
@@ -58,7 +58,7 @@
       <span class="text-danger">{{ $errors->first('imagen_login') }}</span>
     </div>
     <div class="form-group col-sm btn-sm">
-      <a href="{{ Storage::url(Sistema::datos()->sistemaFindOrFail()->carrus_reque_rut . Sistema::datos()->sistemaFindOrFail()->carrus_reque) }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="imagen_restablecer_la_contraseñ">{{ __('Imagen restablecer la contraseña') }} (1200 x 800px)</label></a>
+      <a href="{{ Sistema::datos()->sistemaFindOrFail()->carrus_reque_rut . Sistema::datos()->sistemaFindOrFail()->carrus_reque }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="imagen_restablecer_la_contraseñ">{{ __('Imagen restablecer la contraseña') }} (1200 x 800px)</label></a>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
@@ -86,7 +86,7 @@
   </div>
   <div class="row">
     <div class="form-group col-sm btn-sm">
-      <a href="{{ Storage::url(Sistema::datos()->sistemaFindOrFail()->carrus_rese_rut . Sistema::datos()->sistemaFindOrFail()->carrus_rese) }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="imagen_nueva_contraseñ">{{ __('Imagen nueva contraseña') }} (1200 x 800px)</label></a>
+      <a href="{{ Sistema::datos()->sistemaFindOrFail()->carrus_rese_rut . Sistema::datos()->sistemaFindOrFail()->carrus_rese }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="imagen_nueva_contraseñ">{{ __('Imagen nueva contraseña') }} (1200 x 800px)</label></a>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
@@ -100,7 +100,7 @@
       <span class="text-danger">{{ $errors->first('imagen_nueva_contraseña') }}</span>
     </div>
     <div class="form-group col-sm btn-sm">
-      <a href="{{ Storage::url(Sistema::datos()->sistemaFindOrFail()->defau_img_perf_rut . Sistema::datos()->sistemaFindOrFail()->defau_img_perf) }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="imagen_predeterminada_del_perfi">{{ __('Imagen predeterminada del perfil') }} (300 x 300px)</label></a>
+      <a href="{{ Sistema::datos()->sistemaFindOrFail()->defau_img_perf_rut . Sistema::datos()->sistemaFindOrFail()->defau_img_perf }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="imagen_predeterminada_del_perfi">{{ __('Imagen predeterminada del perfil') }} (300 x 300px)</label></a>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
@@ -128,7 +128,7 @@
   </div>
   <div class="row">
     <div class="form-group col-sm btn-sm">
-      <a href="{{ Storage::url(Sistema::datos()->sistemaFindOrFail()->img_construc_rut . Sistema::datos()->sistemaFindOrFail()->img_construc) }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="imagen_modulo_en_desarroll">{{ __('Imagen módulo en desarrollo') }} (860 x 563px)</label></a>
+      <a href="{{ Sistema::datos()->sistemaFindOrFail()->img_construc_rut . Sistema::datos()->sistemaFindOrFail()->img_construc }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="imagen_modulo_en_desarroll">{{ __('Imagen módulo en desarrollo') }} (860 x 563px)</label></a>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
@@ -142,7 +142,7 @@
       <span class="text-danger">{{ $errors->first('imagen_modulo_en_desarrollo') }}</span>
     </div>
     <div class="form-group col-sm btn-sm">
-      <a href="{{ Storage::url(Sistema::datos()->sistemaFindOrFail()->error_rut . Sistema::datos()->sistemaFindOrFail()->error) }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="imagen_erro">{{ __('Imagen error') }} (960 x 752px)</label></a>
+      <a href="{{ Sistema::datos()->sistemaFindOrFail()->error_rut . Sistema::datos()->sistemaFindOrFail()->error }}" class="alert-link" title="{{ __('Descargar') }}" download><label for="imagen_erro">{{ __('Imagen error') }} (960 x 752px)</label></a>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-folder-open"></i></span>

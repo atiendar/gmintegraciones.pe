@@ -13,10 +13,10 @@
                   {!! Form::button(__('Eliminar'), ['type' => 'submit', 'class' => 'btn btn-danger btn-sm w-100 p-0', 'id' => "btnsub$imagen->id", 'onclick' => "return check('btnsub$imagen->id', 'armadoImagenDestroy$imagen->id', '¡Alerta!', 'Enviaras este registro a la papelera de reciclaje junto con toda su información. ¿Estás seguro que quieres realizar esta acción para el registro: $imagen->id ($imagen->img_nom) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
                 </form>
               @endif
-              <img src="{{ Storage::url($imagen->img_rut.$imagen->img_nom) }}" class="card-img-top" alt="{{ $imagen->img_nom }}">
+              <img src="{{ $imagen->img_rut.$imagen->img_nom }}" class="card-img-top" alt="{{ $imagen->img_nom }}">
               <div class="card-body">
                 <p class="card-text text-muted text-sm">
-                  <a href="{{ Storage::url($imagen->img_rut.$imagen->img_nom) }}" download>{{ $imagen->img_nom }}</a>
+                  <a href="{{ $imagen->img_rut.$imagen->img_nom }}" download>{{ $imagen->img_nom }}</a>
                 </p>
               </div>
             </div>

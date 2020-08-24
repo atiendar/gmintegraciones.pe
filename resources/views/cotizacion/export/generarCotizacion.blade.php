@@ -11,7 +11,7 @@
   <table class="table table-sm table-bordered" style="font-size:12px;">
     <tr>
       <td style="text-align:center">
-        <dt><img src="{{ substr(\Storage::url(Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg), 1)  }}" class="brand-image rounded elevation-0" style="width:10rem;"></dt>
+        <dt><img src="{{ Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg  }}" class="brand-image rounded elevation-0" style="width:10rem;"></dt>
         <dt><a href="{{ Sistema::datos()->sistemaFindOrFail()->pag }}" target="_blank">{{ Sistema::datos()->sistemaFindOrFail()->pag }}</a></dt>
         <dt>¡Fortalecemos tus Relaciones Comerciales!</dt>
       </td>
@@ -56,7 +56,7 @@
           <tr>
             <td>
               @if($armado->img_nom != null)
-                <img src="{{ substr(\Storage::url($armado->img_rut.$armado->img_nom), 1)  }}">
+                <img src="{{ armado->img_rut.$armado->img_nom }}">
               @endif
             </td>
             <td>{{ $armado->tip }}</td>

@@ -30,10 +30,10 @@
     <div class="col-md-4">
       @if($direccion->tarj_dise_nom != null)
         <div class="form-group col-sm btn-sm">
-          <a href="{{ Storage::url($direccion->tarj_dise_rut.$direccion->tarj_dise_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
+          <a href="{{ $direccion->tarj_dise_rut.$direccion->tarj_dise_nom }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
           <label for="comentarios">{{ __('Tarjeta diseñada por el cliente') }}</label>
           <div class="pad box-pane-right no-padding" style="min-height: 280px">
-            <iframe src="{{ Storage::url($direccion->tarj_dise_rut.$direccion->tarj_dise_nom) }}" style="width:100%;border:none;height:25rem;"></iframe>
+            <iframe src="{{ $direccion->tarj_dise_rut.$direccion->tarj_dise_nom }}" style="width:100%;border:none;height:25rem;"></iframe>
           </div>
         </div>
       @endif

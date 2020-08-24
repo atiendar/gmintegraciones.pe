@@ -2,7 +2,7 @@
   <div class="form-group col-sm btn-sm">
     <div class="input-group justify-content-center">
       @if($producto->img_prod_rut != null)
-        <img src="{{ Storage::url($producto->img_prod_rut.$producto->img_prod_nom) }}" class="profile-user-img img-fluid" alt="{{ $producto->img_prod_nom }}">
+        <img src="{{ $producto->img_prod_rut.$producto->img_prod_nom }}" class="profile-user-img img-fluid" alt="{{ $producto->img_prod_nom }}">
       @endif
     </div>
   </div>

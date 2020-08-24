@@ -42,7 +42,7 @@ class QuejasYSugerenciasRepositories implements QuejasYSugerenciasInterface {
           // Dispara el evento registrado en App\Providers\EventServiceProvider.php
           $imagen = ArchivoCargado::dispatch(
             $request->archivos[$contador2], // Archivo blob
-            'public/queja-y-sugerencia/' . $queja_y_sugerencia->id . '/', // Ruta en la que guardara el archivo
+            'queja-y-sugerencia/' . $queja_y_sugerencia->id, // Ruta en la que guardara el archivo
             'qys-' . $contador2 . time() . '.', // Nombre del archivo
             null // Ruta y nombre del archivo anterior
           ); 

@@ -831,9 +831,9 @@ return array(
     'id_equipo'      =>     'Id Equipo',
   ],
   'select_inventario_historial' => [
-    ''                    =>     'Buscar por. . .',
-    'des_de_la_falla'     =>     'Descripción de la falla',
-    'solu'                =>     'Solución',
-    'tec'                 =>     'Técnico',
+    ''                  =>     'Buscar por. . .',
+    'grup_de_falla'     =>     'Agruáción de falla',
+    'area_dep'          =>     'Area o Departamento',
+    'tec'               =>     'Técnico',
   ]
 );

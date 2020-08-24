@@ -2,9 +2,9 @@
   <div class="form-group col-sm btn-sm">
     <div class="input-group justify-content-center">
       @if($usuario->img_us != null)
-        <img src="{{ Storage::url($usuario->img_us_rut.$usuario->img_us) }}" class="profile-user-img img-fluid img-circle" alt="{{ $usuario->img_us }}">
+        <img src="{{ $usuario->img_us_rut.$usuario->img_us }}" class="profile-user-img img-fluid img-circle" alt="{{ $usuario->img_us }}">
       @else
-        <img src="{{ Storage::url(Sistema::datos()->sistemaFindOrFail()->defau_img_perf_rut . Sistema::datos()->sistemaFindOrFail()->defau_img_perf) }}" class="profile-user-img img-fluid img-circle" alt="{{ Sistema::datos()->sistemaFindOrFail()->defau_img_perf }}">
+        <img src="{{ Sistema::datos()->sistemaFindOrFail()->defau_img_perf_rut . Sistema::datos()->sistemaFindOrFail()->defau_img_perf }}" class="profile-user-img img-fluid img-circle" alt="{{ Sistema::datos()->sistemaFindOrFail()->defau_img_perf }}">
       @endif
     </div>
   </div>

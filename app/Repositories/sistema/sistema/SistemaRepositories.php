@@ -73,13 +73,13 @@ class SistemaRepositories implements SistemaInterface {
       ); 
       $sistema->updated_at_sis  = Auth::user()->email_registro;
     }
-    $ruta_arch = 'public/sistema/';
+    $ruta_arch = 'sistema';
     if($request->hasfile('logo_color_negro')) {
       $logo_color_negro = ArchivoCargado::dispatch(
         $request->file('logo_color_negro'), // Archivo (blob)
         $ruta_arch, // Ruta donde se guardara el archivo
         'logo-negro-' . time() . '.', // Nombre del archivo
-        $sistema->log_neg_rut.$sistema->log_neg // Ruta original del archivo en caso de se este remplazando por uno nuevo
+        $sistema->log_neg // Ruta original del archivo en caso de se este remplazando por uno nuevo
       ); 
       $sistema->log_neg_rut     = $logo_color_negro[0]['ruta'];
       $sistema->log_neg         = $logo_color_negro[0]['nombre'];
@@ -89,7 +89,7 @@ class SistemaRepositories implements SistemaInterface {
         $request->file('logo_color_blanco'),  // Archivo (blob)
         $ruta_arch, // Ruta donde se guardara el archivo
         'logo-blanco-' . time() . '.',  // Nombre del archivo
-        $sistema->log_blan_rut.$sistema->log_blan // Ruta original del archivo en caso de se este remplazando por uno nuevo
+        $sistema->log_blan // Ruta original del archivo en caso de se este remplazando por uno nuevo
       );
       $sistema->log_blan_rut    = $logo_color_blanco[0]['ruta'];
       $sistema->log_blan        = $logo_color_blanco[0]['nombre'];
@@ -99,7 +99,7 @@ class SistemaRepositories implements SistemaInterface {
         $request->file('imagen_login'),  // Archivo (blob)
         $ruta_arch, // Ruta donde se guardara el archivo
         'carrusel-login-' . time() . '.',  // Nombre del archivo
-        $sistema->carrus_login_rut.$sistema->carrus_login // Ruta original del archivo en caso de se este remplazando por uno nuevo
+        $sistema->carrus_login // Ruta original del archivo en caso de se este remplazando por uno nuevo
       );
       $sistema->carrus_login_rut     = $imagen_login[0]['ruta'];
       $sistema->carrus_login         = $imagen_login[0]['nombre'];
@@ -109,7 +109,7 @@ class SistemaRepositories implements SistemaInterface {
         $request->file('imagen_restablecer_la_contraseña'),  // Archivo (blob)
         $ruta_arch, // Ruta donde se guardara el archivo
         'carrusel-request-' . time() . '.',  // Nombre del archivo
-        $sistema->carrus_reque_rut.$sistema->carrus_reque // Ruta original del archivo en caso de se este remplazando por uno nuevo
+        $sistema->carrus_reque // Ruta original del archivo en caso de se este remplazando por uno nuevo
       );
       $sistema->carrus_reque_rut    = $imagen_restablecer_la_contraseña[0]['ruta'];
       $sistema->carrus_reque        = $imagen_restablecer_la_contraseña[0]['nombre'];
@@ -119,7 +119,7 @@ class SistemaRepositories implements SistemaInterface {
         $request->file('imagen_nueva_contraseña'),  // Archivo (blob)
         $ruta_arch, // Ruta donde se guardara el archivo
         'carrusel-reset-' . time() . '.',  // Nombre del archivo
-        $sistema->carrus_rese_rut.$sistema->carrus_rese // Ruta original del archivo en caso de se este remplazando por uno nuevo
+        $sistema->carrus_rese // Ruta original del archivo en caso de se este remplazando por uno nuevo
       );
       $sistema->carrus_rese_rut     = $imagen_nueva_contraseña[0]['ruta'];
       $sistema->carrus_rese         = $imagen_nueva_contraseña[0]['nombre'];
@@ -129,7 +129,7 @@ class SistemaRepositories implements SistemaInterface {
         $request->file('imagen_predeterminada_del_perfil'),  // Archivo (blob)
         $ruta_arch, // Ruta donde se guardara el archivo
         'default-perfil-' . time() . '.',  // Nombre del archivo
-        $sistema->defau_img_perf_rut.$sistema->defau_img_perf // Ruta original del archivo en caso de se este remplazando por uno nuevo
+        $sistema->defau_img_perf // Ruta original del archivo en caso de se este remplazando por uno nuevo
       );
       $sistema->defau_img_perf_rut    = $imagen_predeterminada_del_perfil[0]['ruta'];
       $sistema->defau_img_perf        = $imagen_predeterminada_del_perfil[0]['nombre'];
@@ -139,7 +139,7 @@ class SistemaRepositories implements SistemaInterface {
         $request->file('imagen_modulo_en_desarrollo'),  // Archivo (blob)
         $ruta_arch, // Ruta donde se guardara el archivo
         'en-construccion-' . time() . '.',  // Nombre del archivo
-        $sistema->img_construc_rut.$sistema->img_construc // Ruta original del archivo en caso de se este remplazando por uno nuevo
+        $sistema->img_construc // Ruta original del archivo en caso de se este remplazando por uno nuevo
       );
       $sistema->img_construc_rut     = $imagen_modulo_en_desarrollo[0]['ruta'];
       $sistema->img_construc         = $imagen_modulo_en_desarrollo[0]['nombre'];
@@ -149,7 +149,7 @@ class SistemaRepositories implements SistemaInterface {
         $request->file('imagen_error'),  // Archivo (blob)
         $ruta_arch, // Ruta donde se guardara el archivo
         'error-' . time() . '.',  // Nombre del archivo
-        $sistema->error_rut.$sistema->error // Ruta original del archivo en caso de se este remplazando por uno nuevo
+        $sistema->error // Ruta original del archivo en caso de se este remplazando por uno nuevo
       );
       $sistema->error_rut     = $imagen_error[0]['ruta'];
       $sistema->error         = $imagen_error[0]['nombre'];

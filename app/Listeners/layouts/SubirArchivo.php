@@ -25,12 +25,13 @@ class SubirArchivo { // No implementar ShouldQueue
   public function handle(ArchivoCargado $event) {
     // Se encarga de copiar la imagen seleccionada en el servidor y retorna el nombre y la ruta del archivo
     ArchivosEliminados::dispatch(
-        $ruta_nombre = array($event->original_archivo), 
-      ); 
-    $nombre_archivo =  $event->nom . $event->blob_archivo->getClientOriginalExtension();
-    $event->blob_archivo->storeAs($event->ruta, $nombre_archivo);
+      array($event->original_archivo), 
+    );
+    $nombre_archivo = \Storage::disk('s3')->put($event->ruta, $event->blob_archivo, 'public');
+  //  $nombre_archivo =  $event->nom . $event->blob_archivo->getClientOriginalExtension();
+  //  $event->blob_archivo->storeAs($event->ruta, $nombre_archivo);
     return [
-      'ruta'    => $event->ruta,
+      'ruta'    => env('PREFIX'),
       'nombre'  => $nombre_archivo
     ];
   }

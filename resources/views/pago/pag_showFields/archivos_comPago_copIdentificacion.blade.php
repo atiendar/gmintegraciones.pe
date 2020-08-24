@@ -1,10 +1,10 @@
 <div class="row">
   @if($pago->comp_de_pag_nom != null)
     <div class="form-group col-sm btn-sm">
-      <a href="{{ Storage::url($pago->comp_de_pag_rut.$pago->comp_de_pag_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
+      <a href="{{ $pago->comp_de_pag_rut.$pago->comp_de_pag_nom }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
       <label for="comprobante_de_pago">{{ __('Comprobante de pago') }}</label>
       <div class="pad box-pane-right no-padding" style="min-height: 280px">
-        <iframe src="{{ Storage::url($pago->comp_de_pag_rut.$pago->comp_de_pag_nom) }}" style="width:100%;border:none;height:25rem;"></iframe>
+        <iframe src="{{ $pago->comp_de_pag_rut.$pago->comp_de_pag_nom }}" style="width:100%;border:none;height:25rem;"></iframe>
       </div>
     </div>
   @else
@@ -18,10 +18,10 @@
   @if($pago->form_de_pag == 'Paypal' OR $pago->form_de_pag == 'Tarjeta de credito (Pagina)' AND $pago->cop_de_indent_nom == NULL)
     @if($pago->cop_de_indent_nom != NULL)
       <div class="form-group col-sm btn-sm">
-        <a href="{{ Storage::url($pago->cop_de_indent_rut.$pago->cop_de_indent_nom) }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
+        <a href="{{ $pago->cop_de_indent_rut.$pago->cop_de_indent_nom }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
         <label for="copia_de_identificacion">{{ __('Copia de identificación') }}</label>
         <div class="pad box-pane-right no-padding" style="min-height: 280px">
-          <iframe src="{{ Storage::url($pago->cop_de_indent_rut.$pago->cop_de_indent_nom) }}" style="width:100%;border:none;height:25rem;"></iframe>
+          <iframe src="{{ $pago->cop_de_indent_rut.$pago->cop_de_indent_nom }}" style="width:100%;border:none;height:25rem;"></iframe>
         </div>
       </div>
     @else

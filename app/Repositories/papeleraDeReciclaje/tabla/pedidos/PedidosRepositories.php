@@ -20,23 +20,23 @@ class PedidosRepositories implements PedidosInterface {
     foreach($armados as $armado) {
       // AÑADE LA RUTA Y NOMBRE DE LAS TARJETAS DE FELICITACION
       if($armado->tarj_dise_nom != null) {
-        $archivos_a_eliminar[$cont1] = $armado->tarj_dise_rut.$armado->tarj_dise_nom;
+        $archivos_a_eliminar[$cont1] = $armado->tarj_dise_nom;
         $cont1 +=1;
       }
       foreach($armado->direcciones as $direccion) {
         // AÑADE LA RUTA Y NOMBRE DE LOS COMPROBANTES DE SALIDA
         if($direccion->comp_de_sal_nom != null) {
-          $archivos_a_eliminar[$cont1] = $direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom;
+          $archivos_a_eliminar[$cont1] = $direccion->comp_de_sal_nom;
           $cont1 +=1;
         }
         // AÑADE LA RUTA Y NOMBRE DE LOS COMPROBANTES DE ENTREGA Y COMPROBANTE COSTO POR ENVIO
         foreach($direccion->comprobantesDeEntrega as $comprobanteDeEntrega) {
           if($comprobanteDeEntrega->comp_ent_nom != null) {
-            $archivos_a_eliminar[$cont1] = $comprobanteDeEntrega->comp_ent_rut.$comprobanteDeEntrega->comp_ent_nom;
+            $archivos_a_eliminar[$cont1] = $comprobanteDeEntrega->comp_ent_nom;
             $cont1 +=1;
           }
           if($comprobanteDeEntrega->comp_cost_por_env_log_nom != null) {
-            $archivos_a_eliminar[$cont1] = $comprobanteDeEntrega->comp_cost_por_env_log_rut.$comprobanteDeEntrega->comp_cost_por_env_log_nom;
+            $archivos_a_eliminar[$cont1] = $comprobanteDeEntrega->comp_cost_por_env_log_nom;
             $cont1 +=1;
           }
         }
@@ -50,11 +50,11 @@ class PedidosRepositories implements PedidosInterface {
 
     foreach($pagos as $pago) {
       if($pago->comp_de_pag_nom != null) {
-        $archivos_a_eliminar[$cont1] = $pago->comp_de_pag_rut.$pago->comp_de_pag_nom;
+        $archivos_a_eliminar[$cont1] = $pago->comp_de_pag_nom;
         $cont1 +=1;
       }
       if($pago->cop_de_indent_nom != null) {
-        $archivos_a_eliminar[$cont1] = $pago->cop_de_indent_rut.$pago->cop_de_indent_nom;
+        $archivos_a_eliminar[$cont1] = $pago->cop_de_indent_nom;
         $cont1 +=1;
       }
 
@@ -64,19 +64,19 @@ class PedidosRepositories implements PedidosInterface {
       $factura = $pago->factura;
       if(empty($factura) == false) {
         if($factura->fact_pdf_nom != null) {
-          $archivos_a_eliminar[$cont1] = $factura->fact_pdf_rut.$factura->fact_pdf_nom;
+          $archivos_a_eliminar[$cont1] = $factura->fact_pdf_nom;
           $cont1 +=1;
         }
         if($factura->fact_xlm_nom != null) {
-          $archivos_a_eliminar[$cont1] = $factura->fact_xlm_rut.$factura->fact_xlm_nom;
+          $archivos_a_eliminar[$cont1] = $factura->fact_xlm_nom;
           $cont1 +=1;
         }
         if($factura->ppd_pdf_nom != null) {
-          $archivos_a_eliminar[$cont1] = $factura->ppd_pdf_rut.$factura->ppd_pdf_nom;
+          $archivos_a_eliminar[$cont1] = $factura->ppd_pdf_nom;
           $cont1 +=1;
         }
         if($factura->ppd_xlm_nom != null) {
-          $archivos_a_eliminar[$cont1] = $factura->ppd_xlm_rut.$factura->ppd_xlm_nom;
+          $archivos_a_eliminar[$cont1] = $factura->ppd_xlm_nom;
           $cont1 +=1;
         }
       }

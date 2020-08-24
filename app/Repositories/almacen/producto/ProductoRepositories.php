@@ -69,7 +69,7 @@ class ProductoRepositories implements ProductoInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $archivo = ArchivoCargado::dispatch(
           $request->file('imagen_del_producto'), // Archivo blob
-          'public/almacen/productos/'.date("Y").'/', // Ruta en la que guardara el archivo
+          'almacen/productos/'.date("Y"), // Ruta en la que guardara el archivo
           'producto-'.time().'.', // Nombre del archivo
           null // Ruta y nombre del archivo anterior
         ); 
@@ -122,9 +122,9 @@ class ProductoRepositories implements ProductoInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $archivo = ArchivoCargado::dispatch(
           $request->file('imagen_del_producto'), // Archivo blob
-          'public/almacen/productos/'.date("Y").'/', // Ruta en la que guardara el archivo
+          'almacen/productos/'.date("Y"), // Ruta en la que guardara el archivo
           'producto-'.time().'.', // Nombre del archivo
-          $producto->img_prod_rut.$producto->img_prod_nom // Ruta y nombre del archivo anterior
+          $producto->img_prod_nom // Ruta y nombre del archivo anterior
         ); 
         $producto->img_prod_rut  = $archivo[0]['ruta'];
         $producto->img_prod_nom  = $archivo[0]['nombre'];

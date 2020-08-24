@@ -44,22 +44,8 @@ class NotificacionFacturaGenerada extends Notification {
      */
     public function toMail($notifiable) {
       $year = Carbon::parse(Sistema::datos()->sistemaFindOrFail()->year_de_ini);
-/*
-      if($this->factura->fact_pdf_nom != null) {
-        $fact_pdf = file_get_contents(env('APP_URL').\Storage::url($this->factura->fact_pdf_rut.$this->factura->fact_pdf_nom));
-        $fact_xlm = file_get_contents(env('APP_URL').\Storage::url($this->factura->fact_xlm_rut.$this->factura->fact_xlm_nom));
-      }
-      if($this->factura->ppd_pdf_nom != null) {
-        $ppd_pdf = file_get_contents(env('APP_URL').\Storage::url($this->factura->ppd_pdf_rut.$this->factura->ppd_pdf_nom));
-        $ppd_xlm = file_get_contents(env('APP_URL').\Storage::url($this->factura->ppd_xlm_rut.$this->factura->ppd_xlm_nom));
-      }
-*/
         return (new MailMessage)
           ->subject($this->plantilla->asunt)
-        //  ->attachData($fact_pdf, 'factura.pdf')
-        //  ->attachData($fact_xlm, 'factura.xlm')
-        //  ->attachData($ppd_pdf, 'ppd.pdf')
-        //  ->attachData($ppd_xlm, 'ppd.xlm')
           ->view(
             'correo.' . $this->plantilla->id, [
                 // SISTEMA

@@ -7,7 +7,7 @@
       @can('sistema.edit')
         <li class="nav-item">
           <a href="{{ route('sistema.edit') }}" class="nav-link {{ Request::is('sistema/editar') ? 'bg-primary rounded' : '' }}">
-            <i class=""><img src="{{ Storage::url(Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg) }}" alt="{{ Sistema::datos()->sistemaFindOrFail()->log_neg }}" class="brand-image rounded elevation-2 bg-white" style="opacity: .7; width:2.5rem;"></i>
+            <i class=""><img src="{{ Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg }}" alt="{{ Sistema::datos()->sistemaFindOrFail()->log_neg }}" class="brand-image rounded elevation-2 bg-white" style="opacity: .7; width:2.5rem;"></i>
             {{ Sistema::datos()->sistemaFindOrFail()->emp_abrev }}
           </a>
         </li>

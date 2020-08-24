@@ -84,11 +84,11 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
       $direccion->fech_car_comp_de_sal      = date('Y-m-d h:i:s');
 
       if($request->hasfile('comprobante_de_salida')) {
-        \Storage::delete($direccion->comp_de_sal_rut.$direccion->comp_de_sal_nom);
-        $direccion->comp_de_sal_rut   = 'public/comprobante/'.date("Y").'/'.$direccion->id.'/';
-        $direccion->comp_de_sal_nom   = 'comprobante_de_salida-'.time().'.jpg';
         $comprobante_de_salida        = $request->file('comprobante_de_salida');
-        $comprobante_de_salida->storeAs($direccion->comp_de_sal_rut, $direccion->comp_de_sal_nom);
+        $direccion->comp_de_sal_rut   = env('PREFIX');
+        \Storage::disk('s3')->delete($direccion->comp_de_sal_nom);
+        $nombre_archivo = \Storage::disk('s3')->put('comprobante/'.date("Y").'/'.$direccion->id, $comprobante_de_salida, 'public');
+        $direccion->comp_de_sal_nom   = $nombre_archivo;
       }
       $direccion->save();
 
@@ -106,23 +106,20 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
       $direccion->save();
 
       $this->estatusArmadoRepo->estatusArmado($direccion);
-
-      // GUARDA LA IMAGEN DEL COMRPBANTE
+      
       $comprobante = new PedidoArmadoDireccionTieneComprobante();
-
-
-
       $comprobante->paq             = $request->paqueteria;
       $comprobante->num_guia        = $request->numero_de_guia;
       $comprobante->direccion_id    = $id_direccion;
       $comprobante->created_at_comp = Auth::user()->email_registro;
-
+      
+      // GUARDA LA IMAGEN DEL COMRPBANTE
       if($request->hasfile('comprobante_de_entrega')) {
-        \Storage::delete($comprobante->comp_ent_rut.$comprobante->comp_ent_nom);
-        $comprobante->comp_ent_rut           = 'public/comprobante/'.date("Y").'/'.$direccion->id.'/';
-        $comprobante->comp_ent_nom           = 'comprobante_de_entrega-'.time().'.jpg';
-        $comprobante_de_entrega = $request->file('comprobante_de_entrega');
-        $comprobante_de_entrega->storeAs($comprobante->comp_ent_rut, $comprobante->comp_ent_nom);
+        $comprobante_de_entrega        = $request->file('comprobante_de_entrega');
+        $comprobante->comp_ent_rut       = env('PREFIX') ;
+        \Storage::disk('s3')->delete($comprobante->comp_ent_nom);
+        $nombre_archivo = \Storage::disk('s3')->put('comprobante/'.date("Y").'/'.$direccion->id, $comprobante_de_entrega, 'public');
+        $comprobante->comp_ent_nom   = $nombre_archivo;
       }
 
       $comprobante->save();   

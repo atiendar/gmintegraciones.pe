@@ -3,7 +3,7 @@
 </button>
 <div class="collapse navbar-collapse order-3" id="menuPerfil">
   <a href="{{ Sistema::datos()->sistemaFindOrFail()->pag }}" class="navbar-brand" target="_blank" title="{{ Sistema::datos()->sistemaFindOrFail()->pag }}">
-    <img src="{{ Storage::url(Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg) }}" alt="{{ Sistema::datos()->sistemaFindOrFail()->log_neg }}" class="brand-image rounded elevation-3 bg-light" style="opacity: .8">
+    <img src="{{ Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg }}" alt="{{ Sistema::datos()->sistemaFindOrFail()->log_neg }}" class="brand-image rounded elevation-3 bg-light" style="opacity: .8">
   </a>
   <ul class="navbar-nav">
     <li class="nav-item pr-3">

@@ -180,9 +180,9 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
         $hastaC = count($consulta->archivos) - 1;
         $archivos = [];
         for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
-          $archivos[$contador2] = $consulta->archivos[$contador2]->arc_rut.$consulta->archivos[$contador2]->arc_nom;
+          $archivos[$contador2] = $consulta->archivos[$contador2]->arc_nom;
         }
-        if($consulta->arc_nom != null) { array_push($archivos, $consulta->arc_rut.$consulta->arc_nom); }
+        if($consulta->arc_nom != null) { array_push($archivos, $consulta->arc_nom); }
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ArchivosEliminados::dispatch(
           $archivos,
@@ -196,9 +196,9 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
         $hastaC = count($consulta->archivos) - 1;
         $archivos = [];
         for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
-          $archivos[$contador2] = $consulta->archivos[$contador2]->arc_rut.$consulta->archivos[$contador2]->arc_nom;
+          $archivos[$contador2] = $consulta->archivos[$contador2]->arc_nom;
         }
-        if($consulta->arc_nom != null) { array_push($archivos, $consulta->arc_rut.$consulta->arc_nom); }
+        if($consulta->arc_nom != null) { array_push($archivos, $consulta->arc_nom); }
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ArchivosEliminados::dispatch(
           $archivos,
@@ -215,7 +215,7 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
      */ if($metodo == 'destroy') {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ArchivosEliminados::dispatch(
-          array($consulta->arc_rut.$consulta->arc_nom), 
+          array($consulta->arc_nom), 
         );
       }
       elseif($metodo == 'restore') {

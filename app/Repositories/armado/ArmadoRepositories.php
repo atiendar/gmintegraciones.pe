@@ -48,7 +48,7 @@ class ArmadoRepositories implements ArmadoInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('imagen_del_armado'), // Archivo blob
-          'public/armados/'.date("Y").'/', // Ruta en la que guardara el archivo
+          'armados/'.date("Y"), // Ruta en la que guardara el archivo
           'armado-'.time().'.', // Nombre del archivo
           null // Ruta y nombre del archivo anterior
         ); 
@@ -94,9 +94,9 @@ class ArmadoRepositories implements ArmadoInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('imagen_del_armado'), 
-          'public/armados/'.date("Y").'/', 
+          'armados/'.date("Y"), 
           'armado-'.time().'.',
-          $armado->img_rut.$armado->img_nom
+          $armado->img_nom
         ); 
         $armado->img_rut = $imagen[0]['ruta'];
         $armado->img_nom = $imagen[0]['nombre'];

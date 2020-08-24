@@ -14,7 +14,7 @@ class QuejasYSugerenciasRepositories implements QuejasYSugerenciasInterface {
     foreach($consulta as $consulta) {
       foreach($consulta->archivos as $archivo) {
         if($archivo->arch_nom != null) {
-          $archivos_a_eliminar[$cont2] = $archivo->arch_rut.$archivo->arch_nom;
+          $archivos_a_eliminar[$cont2] = $archivo->arch_nom;
           $cont2 +=1;
         }
       }

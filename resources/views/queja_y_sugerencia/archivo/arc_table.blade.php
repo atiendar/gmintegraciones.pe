@@ -7,7 +7,7 @@
         @foreach($archivos as $archivo)
           <tr title="{{ $archivo->arch_nom }}">
             <td>
-              <a href="{{ Storage::url($archivo->arch_rut.$archivo->arch_nom) }}" download>{{ $archivo->arch_nom }}</a>
+              <a href="{{ $archivo->arch_rut.$archivo->arch_nom }}" download>{{ $archivo->arch_nom }}</a>
             </td>
           </tr>
           @endforeach

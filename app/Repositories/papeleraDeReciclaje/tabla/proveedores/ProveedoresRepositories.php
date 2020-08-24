@@ -12,7 +12,7 @@ class ProveedoresRepositories implements ProveedoresInterface {
   public function metDestroy($consulta) {
     // Dispara el evento registrado en App\Providers\EventServiceProvider.php
     ArchivosEliminados::dispatch(
-      array($consulta->arch_rut.$consulta->arch_nom), 
+      array($consulta->arch_nom), 
     );
   }
 }

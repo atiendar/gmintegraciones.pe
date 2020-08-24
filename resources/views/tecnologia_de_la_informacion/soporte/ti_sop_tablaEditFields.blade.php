@@ -13,7 +13,7 @@
          @foreach ($archivos as $archivo)
            <tr title="{{ $archivo->id }}">
               <td>
-                <a href="{{Storage::url($archivo->arc_rut.$archivo->arc_nom)}}" download title="Detalles: {{ $archivo->arc_nom}}" >{{$archivo->arc_nom}}</a>
+                <a href="{{ $archivo->arc_rut.$archivo->arc_nom }}" download title="Detalles: {{ $archivo->arc_nom}}" >{{$archivo->arc_nom}}</a>
               </td>
             </tr>
           @endforeach 

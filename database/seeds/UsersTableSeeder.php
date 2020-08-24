@@ -14,8 +14,8 @@ class UsersTableSeeder extends Seeder {
         $user1 = App\User::create([
             'acceso'                => '1',
             'registros_tab_acces'   => 'on',
-            'img_us_rut'            => 'public/perfil/2020-02/',
-            'img_us'                => 'perfil-1582071257.png',
+            'img_us_rut'            => env('PREFIX'),
+            'img_us'                => 'perfil/2020/perfil-1582071257.png',
             'nom'      			        => 'Aaron Josue',
             'apell'     		        => 'Sánchez Mendoza',
             'email_registro'  	    => 'desarrolloweb.ewmx@gmail.com',
@@ -36,57 +36,6 @@ class UsersTableSeeder extends Seeder {
             'created_at_us'  	          => 'desarrolloweb.ewmx@gmail.com',
         ]);
         $user1->assignRole('desarrollador');
-        $user2 = App\User::create([
-            'acceso'                => '1',
-            'registros_tab_acces'   => 'on',
-            'nom'      			    => 'Juan',
-            'apell'     		    => 'Rodriguez',
-            'email_registro'  	    => 'bdesarrollo71@gmail.com',
-            'email'  			    => 'bdesarrollo71@gmail.com',
-            'lad_mov'  			    => '55',
-            'tel_mov'  			    => '00000000',
-            'emp'  				    => 'GM',
-            'password'  		    => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token'  	    => Str::random(10),
-            'col_barr_de_naveg'     => 'navbar-dark',
-            'asignado_us'  	        => 'desarrolloweb.ewmx@gmail.com',
-            'created_at_us'  	    => 'desarrolloweb.ewmx@gmail.com',
-        ]);
-        $user2->assignRole('desarrollador');
-        $user3 = App\User::create([
-            'acceso'                => '1',
-            'registros_tab_acces'   => 'on',
-            'nom'      			    => 'Isaura',
-            'apell'     		    => 'Martinez',
-            'email_registro'  	    => 'b.desarrollo2@gmail.com',
-            'email'  			    => 'b.desarrollo2@gmail.com',
-            'lad_mov'  			    => '55',
-            'tel_mov'  			    => '00000000',
-            'emp'  				    => 'GM',
-            'password'  		    => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token'  	    => Str::random(10),
-            'col_barr_de_naveg'     => 'navbar-dark',
-            'asignado_us'  	        => 'desarrolloweb.ewmx@gmail.com',
-            'created_at_us'  	    => 'desarrolloweb.ewmx@gmail.com',
-        ]);
-        $user3->assignRole('desarrollador');
-        $user4 = App\User::create([
-            'acceso'                => '1',
-            'registros_tab_acces'   => 'on',
-            'nom'      			    => 'Silvia',
-            'apell'     		    => 'Gutierrez',
-            'email_registro'  	    => 'b.desarrollo3@gmail.com',
-            'email'  			    => 'b.desarrollo3@gmail.com',
-            'lad_mov'  			    => '55',
-            'tel_mov'  			    => '00000000',
-            'emp'  				    => 'GM',
-            'password'  		    => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token'  	    => Str::random(10),
-            'col_barr_de_naveg'     => 'navbar-dark',
-            'asignado_us'  	        => 'desarrolloweb.ewmx@gmail.com',
-            'created_at_us'  	    => 'desarrolloweb.ewmx@gmail.com',
-        ]);
-        $user4->assignRole('desarrollador');
         $user5 = App\User::create([
             'acceso'                => '1',
             'registros_tab_acces'   => 'on',
@@ -104,57 +53,6 @@ class UsersTableSeeder extends Seeder {
             'created_at_us'  	    => 'desarrolloweb.ewmx@gmail.com',
         ]);
         $user5->assignRole('desarrollador');
-        $user15 = App\User::create([
-            'acceso'                => '1',
-            'registros_tab_acces'   => 'on',
-            'nom'      			    => 'Test A',
-            'apell'     		    => 'test test',
-            'email_registro'  	    => 'aaaa_test@example.com',
-            'email'  			    => 'aaaa_test@example.com',
-            'lad_mov'  			    => '55',
-            'tel_mov'  			    => '514750013',
-            'emp'  				    => 'Example',
-            'password'  		    => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token'  	    => Str::random(10),
-            'col_barr_de_naveg'     => 'navbar-dark',
-            'asignado_us'  	        => 'desarrolloweb.ewmx@gmail.com',
-            'created_at_us'  	    => 'desarrolloweb.ewmx@gmail.com',
-        ]);
-        $user15->assignRole('desarrollador');
-        $user16 = App\User::create([
-            'acceso'                => '1',
-            'registros_tab_acces'   => 'on',
-            'nom'      			    => 'Test B',
-            'apell'     		    => 'test test',
-            'email_registro'  	    => 'aabb_test@example.com',
-            'email'  			    => 'aabb_test@example.com',
-            'lad_mov'  			    => '55',
-            'tel_mov'  			    => '56105713',
-            'emp'  				    => 'Example',
-            'password'  		    => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token'  	    => Str::random(10),
-            'col_barr_de_naveg'     => 'navbar-dark',
-            'asignado_us'  	        => 'desarrolloweb.ewmx@gmail.com',
-            'created_at_us'  	    => 'desarrolloweb.ewmx@gmail.com',
-        ]);
-        $user16->assignRole('desarrollador');
-        $user17 = App\User::create([
-            'acceso'                => '1',
-            'registros_tab_acces'   => 'on',
-            'nom'      			    => 'Test C',
-            'apell'     		    => 'test test',
-            'email_registro'  	    => 'aacc_test@example.com',
-            'email'  			    => 'aacc_test@example.com',
-            'lad_mov'  			    => '55',
-            'tel_mov'  			    => '56105713',
-            'emp'  				    => 'Example',
-            'password'  		    => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token'  	    => Str::random(10),
-            'col_barr_de_naveg'     => 'navbar-dark',
-            'asignado_us'  	        => 'desarrolloweb.ewmx@gmail.com',
-            'created_at_us'  	    => 'desarrolloweb.ewmx@gmail.com',
-        ]);
-        $user17->assignRole('pruebas');
         factory(User::class, 1000)->create();
 
         // Asigna roles a los usuarios
