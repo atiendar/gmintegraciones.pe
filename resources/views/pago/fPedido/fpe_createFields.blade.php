@@ -6,7 +6,7 @@
         <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
       </div>
       <div class="custom-file"> 
-        {!! Form::file('comprobante_de_pago', ['class' => 'custom-file-input', 'accept' => 'image/jpeg,image/png,image/jpg,application/pdf', 'lang' => Auth::user()->lang]) !!}
+        {!! Form::file('comprobante_de_pago', ['class' => 'custom-file-input' . ($errors->has('comprobante_de_pago') ? ' is-invalid' : ''), 'accept' => 'image/jpeg,image/png,image/jpg,application/pdf', 'lang' => Auth::user()->lang]) !!}
         <label class="custom-file-label" for="archivo">Max. 1MB</label>
       </div>
       <a href="https://www.ilovepdf.com/es/comprimir_pdf/" target="_blank" class="btn btn-light border ml-1" title="Si tu archivo rebasa 1MB comprímela aquí"><i class="fas fa-compress-arrows-alt"></i></a>
@@ -32,7 +32,7 @@
         <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
       </div>
       <div class="custom-file"> 
-        {!! Form::file('copia_de_identificacion', ['class' => 'custom-file-input', 'accept' => 'image/jpeg,image/png,image/jpg,application/pdf', 'lang' => Auth::user()->lang]) !!}
+        {!! Form::file('copia_de_identificacion', ['class' => 'custom-file-input' . ($errors->has('copia_de_identificacion') ? ' is-invalid' : ''), 'accept' => 'image/jpeg,image/png,image/jpg,application/pdf', 'lang' => Auth::user()->lang]) !!}
         <label class="custom-file-label" for="archivo">Max. 1MB</label>
       </div>
       <a href="https://www.ilovepdf.com/es/comprimir_pdf/" target="_blank" class="btn btn-light border ml-1" title="Si tu archivo rebasa 1MB comprímela aquí"><i class="fas fa-compress-arrows-alt"></i></a>
@@ -53,14 +53,6 @@
       </div>
     </div>
     <span class="text-danger">{{ $errors->first('monto_del_pago') }}</span>
-  </div>
-</div>
-<div class="row">
-  <div class="form-group col-sm btn-sm">
-    <a href="{{ route('pago.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2"><i class="fas fa-check-circle text-dark"></i> {{ __('Registrar') }}</button>
   </div>
 </div>
 @include('layouts.private.plugins.priv_plu_select2')

@@ -28,6 +28,11 @@ class Pedido extends Model{
       return $query->where("$opcion_buscador", 'LIKE', "%$buscador%");
     }
   }
+  public function scopeEstatus($query, $estatus) {
+    if($estatus != null) {
+      return $query->where('estat_log', '!=', $estatus);
+    }
+  }
   // Rastrear
   public function scopeRastrear($query, $opcion_buscador, $buscador) {
     if($opcion_buscador != null) {

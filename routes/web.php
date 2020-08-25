@@ -12,7 +12,8 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
   
   Route::group(['middleware' => ['sinAccesoAlSistema', 'auth', 'idiomaSistema', 'primerAcceso']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
-    
+    require_once __DIR__ . '/material/materialRoutes.php';
+
     Route::group(['middleware' => ['rolCliente'], 'prefix' => 'rc'], function() {
       require_once __DIR__ . '/rolCliente/datoFiscalRoutes/datoFiscalRoutes.php';
       require_once __DIR__ . '/rolCliente/direccionRoutes/direccionRoutes.php';

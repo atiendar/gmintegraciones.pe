@@ -1,4 +1,4 @@
-<li class="nav-item has-treeview {{ Request::is('rc/pagos*') ? 'menu-open' : '' }}">
+<li class="nav-item has-treeview {{ Request::is('rc/pago*') ? 'menu-open' : '' }}">
   <a href="#" class="nav-link {{ Request::is('rc/pago*') ? 'active' : '' }}">
     <i class="nav-icon far fa-money-bill-alt"></i>
     <p>

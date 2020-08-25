@@ -45,10 +45,12 @@
   'logistica.direccionLocal.index', 'logistica.direccionLocal.show', 'logistica.direccionLocal.create', 'logistica.direccionLocal.createEntrega',
   'logistica.direccionForaneo.index', 'logistica.direccionForaneo.show', 'logistica.direccionForaneo.create', 'logistica.direccionForaneo.createEntrega',
   'logistica.pedidoEntregado.index','logistica.pedidoEntregado.show',
-  'factura.index', 'factura.create', 'factura.show', 'factura.edit', 'factura.destroy'
+  'factura.index', 'factura.create', 'factura.show', 'factura.edit', 'factura.destroy',
+  'material.index', 'material.create', 'material.show', 'material.edit', 'material.destroy'
 ])
   <li class="nav-header">{{ __('MÓDULOS') }}</li>
 @endcanany
+@include('layouts.private.escritorio.menu.material')
 @include('layouts.private.escritorio.menu.tecnologiaDeLaInformacion')
 @include('layouts.private.escritorio.menu.rastrear')
 @include('layouts.private.escritorio.menu.pagos')

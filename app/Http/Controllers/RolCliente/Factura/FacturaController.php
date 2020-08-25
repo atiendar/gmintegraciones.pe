@@ -8,7 +8,7 @@ use App\Http\Requests\rolCliente\factura\UpdateFacturaRequest;
 // Repositories
 use App\Repositories\rolCliente\factura\FacturaClienteRepositories;
 use App\Repositories\rolCliente\datoFiscal\DatoFiscalRepositories;
-use App\Repositories\rolCliente\pago\PagoRepositories;
+use App\Repositories\rolCliente\pago\PagoClienteRepositories;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 
@@ -16,12 +16,12 @@ class FacturaController extends Controller {
   protected $serviceCrypt;
   protected $facturaRepo;
   protected $datoFiscalRepo;
-  protected $pagoRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, FacturaClienteRepositories $facturaRepositories, DatoFiscalRepositories $datoFiscalRepositories, PagoRepositories $pagoRepositories) {
-    $this->serviceCrypt   = $serviceCrypt;
-    $this->facturaRepo    = $facturaRepositories;
-    $this->datoFiscalRepo = $datoFiscalRepositories;
-    $this->pagoRepo       = $pagoRepositories;
+  protected $pagoClienteRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, FacturaClienteRepositories $facturaRepositories, DatoFiscalRepositories $datoFiscalRepositories, PagoClienteRepositories $pagoClienteRepositories) {
+    $this->serviceCrypt     = $serviceCrypt;
+    $this->facturaRepo      = $facturaRepositories;
+    $this->datoFiscalRepo   = $datoFiscalRepositories;
+    $this->pagoClienteRepo  = $pagoClienteRepositories;
   }
   public function index(Request $request) {
     $facturas = $this->facturaRepo->getPagination($request);
@@ -29,7 +29,7 @@ class FacturaController extends Controller {
   }
   public function create() {
     $datos_fiscales         = $this->datoFiscalRepo->getAllDatosFiscalesClientePluck();
-    $codigos_de_facturacion = $this->pagoRepo->getAllCodigosFacturaClientePluck();
+    $codigos_de_facturacion = $this->pagoClienteRepo->getAllCodigosFacturaClientePluck();
     return view('rolCliente.factura.fac_create', compact('datos_fiscales', 'codigos_de_facturacion'));
   }
   public function store(StoreFacturaRequest $request) {

@@ -1,6 +1,6 @@
 <?php
 namespace App\Repositories\rolCliente\pago;
 
-interface PagoInterface {
+interface PagoClienteInterface {
   public function getAllCodigosFacturaClientePluck();
 }

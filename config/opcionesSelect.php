@@ -317,13 +317,22 @@ return array(
     'col'           => 'Colonia',
     'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
   ],
-  /* ===================== ROL CLIENTES [ FACTURAS ] ===================== */
+/* ===================== ROL CLIENTES [ FACTURAS ] ===================== */
   'select_facturas_index'  => [
     ''              => 'Buscar por. . .',
     'id'            => 'ID',
     'est_fact'      => 'Estatus factura',
     'nom_o_raz_soc' => 'Nombre o razón social',
     'rfc'           => 'RFC',
+  ],
+/* ===================== ROL CLIENTES [ PAGOS ] ===================== */
+  'select_pagos_rol_cliente_index'  => [
+      ''              => 'Buscar por. . .',
+      'cod_fact'      => 'Código de facturación',
+      'estat_pag'     => 'Estatus de pago',
+      'form_de_pag'   => 'Forma de pago',
+      'mont_de_pag'   => 'Monto de pago',
+    //  'pedido.num_pedido' => 'Número de pedido',
   ],
 /* ===================== [ PROVEEDOR ] ===================== */
   'select_proveedor_index'      => [
@@ -825,15 +834,22 @@ return array(
   ],
   /* ====================== TI [ INVENTARIO ] ===================== */
   'select_inventario_index' => [ 
-    ''               =>     'Buscar por. . .',
-    'emp'            =>     'Empresa',
-    'resp'           =>     'Responsable ',
-    'id_equipo'      =>     'Id Equipo',
+    ''               => 'Buscar por. . .',
+    'emp'            => 'Empresa',
+    'resp'           => 'Responsable ',
+    'id_equipo'      => 'Id Equipo',
   ],
   'select_inventario_historial' => [
-    ''                  =>     'Buscar por. . .',
-    'grup_de_falla'     =>     'Agruáción de falla',
-    'area_dep'          =>     'Area o Departamento',
-    'tec'               =>     'Técnico',
-  ]
+    ''                  => 'Buscar por. . .',
+    'grup_de_falla'     => 'Agruáción de falla',
+    'area_dep'          => 'Area o Departamento',
+    'tec'               => 'Técnico',
+  ],
+/* ====================== [ MATERIALES ] ===================== */
+  'select_material_index' => [ 
+    ''                => 'Buscar por. . .',
+    'sku'             => 'SKU',
+    'prec_pag_al_cli' => 'Precio a cliente',
+    'created_at'      => 'Fecha de registro (YYYY-MM-DD)',
+  ],
 );

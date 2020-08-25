@@ -10,6 +10,8 @@ interface PagoInterface {
 
   public function update($request, $id_pago);
 
+  public function updateFpedido($request, $id_pago);
+
   public function destroy($id_pago);
 
   public function marcarComoFacturado($id_pago);

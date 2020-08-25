@@ -124,6 +124,63 @@ class PagoRepositories implements PagoInterface {
       return $pago;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
+  public function updateFpedido($request, $id_pago) {
+    try { DB::beginTransaction();
+      $pago = $this->getPagoFindOrFailById($id_pago, ['pedido'], config('app.rechazado'));
+      $pago->estat_pag    = $request->estatus_pago;
+      $pago->form_de_pag  = $request->forma_de_pago;
+      $pago->mont_de_pag  = $request->monto_del_pago;
+      
+      if($pago->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Pagos (F. por pedido)', // Módulo
+          'pago.fPedido.show', // Nombre de la ruta
+          $id_pago, // Id del registro debe ir encriptado
+          $pago->cod_fact, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('Estatus pago', 'Forma de pago', 'Monto del pago'), // Nombre de los inputs del formulario
+          $pago, // Request
+          array('estat_pag', 'form_de_pag', 'mont_de_pag') // Nombre de los campos en la BD
+        ); 
+        $pago->updated_at_pag  = Auth::user()->email_registro;
+      }
+      // ELIMINA LA COPIA DE IDENTIFICACION EN CASO DE QUE LA FORMA DE PAGO SE MODIFIQUE
+      if($pago->isDirty('form_de_pag')) {
+        ArchivosEliminados::dispatch(
+          $ruta_nombre = array($pago->cop_de_indent_rut.$pago->cop_de_indent_nom), 
+        );
+        $pago->cop_de_indent_rut  = null;
+        $pago->cop_de_indent_nom  = null;
+      }
+      if($request->hasfile('comprobante_de_pago')) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        $imagen = ArchivoCargado::dispatch(
+          $request->file('comprobante_de_pago'), // Archivo blob
+          'pedidos/'.date("Y").'/'.$pago->pedido->num_pedido, // Ruta en la que guardara el archivo
+          'comprobante_de_pago-'.time().'.', // Nombre del archivo
+          $pago->comp_de_pag_nom // Ruta y nombre del archivo anterior
+        ); 
+        $pago->comp_de_pag_rut  = $imagen[0]['ruta'];
+        $pago->comp_de_pag_nom  = $imagen[0]['nombre'];
+      }
+      if($request->hasfile('copia_de_identificacion')) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        $imagen = ArchivoCargado::dispatch(
+          $request->file('copia_de_identificacion'), // Archivo blob
+          'pedidos/'.date("Y").'/'.$pago->pedido->num_pedido, // Ruta en la que guardara el archivo
+          'copia_de_identificacion-'.time().'.', // Nombre del archivo
+          $pago->cop_de_indent_nom // Ruta y nombre del archivo anterior
+        ); 
+        $pago->cop_de_indent_rut  = $imagen[0]['ruta'];
+        $pago->cop_de_indent_nom  = $imagen[0]['nombre'];
+      }
+      $pago->save();
+      $this->pedidoActivoRepo->getEstatusPagoPedido($pago->pedido);
+
+      DB::commit();
+      return $pago;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
   public function destroy($id_pago) {
     try { DB::beginTransaction();
       $pago = $this->getPagoFindOrFailById($id_pago, ['pedido', 'factura'], null);
