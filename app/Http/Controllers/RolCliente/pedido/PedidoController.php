@@ -28,9 +28,9 @@ class PedidoController extends Controller {
     $armados  = $pedido->armados()->with('direcciones')->get();
     return view('rolCliente.pedido.ped_edit', compact('pedido', 'armados'));
   }
-  public function update(Request $request, $id_pago) {
+  public function update(Request $request, $id_pedido) {
     dd('update');
-    $this->pagoRepo->updateFpedido($request, $id_pago);
+    $this->pagoRepo->updateFpedido($request, $id_pedido);
     toastr()->success('¡Pago actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return redirect(route('rolCliente.pago.index'));
   }
