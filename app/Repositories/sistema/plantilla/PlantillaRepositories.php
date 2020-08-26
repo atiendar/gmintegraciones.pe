@@ -40,7 +40,7 @@ class PlantillaRepositories implements PlantillaInterface {
       if(env('APP_ENV') == 'local') {
         $ruta = 'resources\views\correo\\';
       } elseif(env('APP_ENV') == 'production') {
-        $ruta= 'resources\views\correo\\';
+        $ruta= 'resources/views/correo/';
       }
       $plantilla = new Plantilla();
       $plantilla->nom 			      = $request->nombre_de_la_plantilla;
@@ -60,7 +60,7 @@ class PlantillaRepositories implements PlantillaInterface {
       if(env('APP_ENV') == 'local') {
         $ruta = 'resources\views\correo\\';
       } elseif(env('APP_ENV') == 'production') {
-        $ruta= 'resources\views\correo\\';
+        $ruta= $ruta= 'resources/views/correo/';
       }
       $plantilla = $this->plantillaAsignadoFindOrFailById($id_plantilla);
       $plantilla->nom             = $request->nombre_de_la_plantilla;
