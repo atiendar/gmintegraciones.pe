@@ -37,9 +37,9 @@ class PlantillaRepositories implements PlantillaInterface {
   }
   public function store($request) {
     try { DB::beginTransaction();
-      if(env('APP_ENV') == 'Local') {
+      if(env('APP_ENV') == 'local') {
         $ruta = 'resources\views\correo\\';
-      } elseif(env('APP_ENV') == 'Production') {
+      } elseif(env('APP_ENV') == 'production') {
         $ruta= 'resources\views\correo\\';
       }
       $plantilla = new Plantilla();
@@ -57,9 +57,9 @@ class PlantillaRepositories implements PlantillaInterface {
   }
   public function update($request, $id_plantilla) {
     try { DB::beginTransaction();
-      if(env('APP_ENV') == 'Local') {
+      if(env('APP_ENV') == 'local') {
         $ruta = 'resources\views\correo\\';
-      } elseif(env('APP_ENV') == 'Production') {
+      } elseif(env('APP_ENV') == 'production') {
         $ruta= 'resources\views\correo\\';
       }
       $plantilla = $this->plantillaAsignadoFindOrFailById($id_plantilla);
