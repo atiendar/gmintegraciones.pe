@@ -27,7 +27,7 @@ class MaterialRepositories implements MaterialInterface {
     try { DB::beginTransaction();
       $material = new Material();
       $material->sku                = $request->sku;
-      $material->des                = $request->descripcion;
+      $material->des                = $request->descripcion_en_ingles;
       $material->lob                = $request->lob;
       $material->produc_lin         = $request->product_line;
       $material->produc_lin_sub_gro = $request->product_line_sub_group;
@@ -47,9 +47,9 @@ class MaterialRepositories implements MaterialInterface {
   }
   public function update($request, $id_material) {
     try { DB::beginTransaction();
-      $material = $this->materialAsignadoFindOrFailById($id_material, '1', []);
+      $material = $this->materialAsignadoFindOrFailById($id_material, []);
       $material->sku                = $request->sku;
-      $material->des                = $request->descripcion;
+      $material->des                = $request->descripcion_en_ingles;
       $material->lob                = $request->lob;
       $material->produc_lin         = $request->product_line;
       $material->produc_lin_sub_gro = $request->product_line_sub_group;
@@ -66,8 +66,8 @@ class MaterialRepositories implements MaterialInterface {
           'Materiales', // Módulo
           'material.show', // Nombre de la ruta
           $id_material, // Id del registro debe ir encriptado
-          $this->serviceCrypt->decrypt($id_material), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('SKU', 'Descripción', 'Lob', 'Product Line', 'Product Line Sub-Group', 'Familia de producto', 'Línea de producto', 'Sub Línea de producto', 'Precio Lista Pagina', 'Descuento', 'Precio Pagina (Al cliente)'), // Nombre de los inputs del formulario
+          $material->sku, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('SKU', 'Descripción en ingles', 'Lob', 'Product Line', 'Product Line Sub-Group', 'Familia de producto', 'Línea de producto', 'Sub Línea de producto', 'Precio Lista Pagina', 'Descuento', 'Precio Pagina (Al cliente)'), // Nombre de los inputs del formulario
           $material, // Request
           array('sku', 'des', 'lob', 'produc_lin', 'produc_lin_sub_gro', 'fam_de_prod', 'lin_de_prod', 'sub_lin_de_prod', 'prec_list_pag', 'desc', 'prec_pag_al_cli') // Nombre de los campos en la BD
         ); 
@@ -87,5 +87,12 @@ class MaterialRepositories implements MaterialInterface {
       DB::commit();
       return $material;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
+  public function getAllMaterialesPlunk() {
+    return Material::orderBy('sku', 'ASC')->pluck('sku', 'id');
+  }
+  public function getMaterialFind($id_material) {
+    $material = Material::find($id_material);
+    return $material;
   }
 }

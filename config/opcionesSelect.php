@@ -849,6 +849,9 @@ return array(
   'select_material_index' => [ 
     ''                => 'Buscar por. . .',
     'sku'             => 'SKU',
+    'produc_lin'      => 'Product Line',
+    'lin_de_prod'     => 'Línea de producto',
+    'prec_list_pag'   => 'Precio Lista Pagina',
     'prec_pag_al_cli' => 'Precio a cliente',
     'created_at'      => 'Fecha de registro (YYYY-MM-DD)',
   ],

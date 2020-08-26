@@ -24,6 +24,14 @@
           </a>
         </li>
       @endcan
+      @can('material.consultarPrecio')
+        <li class="nav-item">
+          <a href="{{ route('material.consultarPrecio') }}" class="nav-link {{ Request::is('material/consultar-precio') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-search"></i>
+            <p>{{ __('Consultar precio') }}</p>
+          </a>
+        </li>
+      @endcan
     </ul>
   </li>
 @endcanany

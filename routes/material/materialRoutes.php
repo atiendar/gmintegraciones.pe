@@ -8,4 +8,5 @@ Route::group(['prefix' => 'material'], function() {
   Route::match(['GET', 'HEAD'],'editar/{id_material}', 'Material\MaterialController@edit')->name('material.edit')->middleware('permission:material.edit');
   Route::match(['PUT', 'PATCH'],'actualizar/{id_material}', 'Material\MaterialController@update')->name('material.update')->middleware('permission:material.edit');
   Route::match(['DELETE'],'eliminar/{id_material}', 'Material\MaterialController@destroy')->name('material.destroy')->middleware('permission:material.destroy');
+  Route::match(['GET', 'HEAD'],'consultar-precio', 'Material\MaterialController@consultarPrecio')->name('material.consultarPrecio')->middleware('permission:material.consultarPrecio');
 });

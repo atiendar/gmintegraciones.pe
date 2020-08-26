@@ -17,7 +17,7 @@ class CreateMaterialesTable extends Migration {
         $table->collation = 'utf8mb4_unicode_ci';
         $table->bigIncrements('id');
 
-        $table->string('sku',30)->unique()->comment('SKU');
+        $table->string('sku',30)->comment('SKU');
         $table->text('des')->comment('Descripción');
         $table->string('lob',30)->comment('Lob');
         $table->string('produc_lin',50)->comment('Product Line');

@@ -11,4 +11,8 @@ interface MaterialInterface {
   public function update($request, $id_material);
 
   public function destroy($id_material);
+
+  public function getAllMaterialesPlunk();
+
+  public function getMaterialFind($id_material);
 }

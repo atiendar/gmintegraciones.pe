@@ -37,6 +37,11 @@ class PlantillaRepositories implements PlantillaInterface {
   }
   public function store($request) {
     try { DB::beginTransaction();
+      if(env('APP_ENV') == 'Local') {
+        $ruta = 'resources\views\correo\\';
+      } elseif(env('APP_ENV') == 'Production') {
+        $ruta= 'resources\views\correo\\';
+      }
       $plantilla = new Plantilla();
       $plantilla->nom 			      = $request->nombre_de_la_plantilla;
       $plantilla->mod             = $request->modulo;
@@ -45,13 +50,18 @@ class PlantillaRepositories implements PlantillaInterface {
       $plantilla->asignado_plan   = Auth::user()->email_registro;
       $plantilla->created_at_plan	= Auth::user()->email_registro;
       $plantilla->save();
-      $this->serviceFopen->fopen('resources\views\correo\\', $plantilla->id, $plantilla->dis_de_la_plant);
+      $this->serviceFopen->fopen($ruta, $plantilla->id, $plantilla->dis_de_la_plant); // Este en local
       DB::commit();
       return $plantilla;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function update($request, $id_plantilla) {
-    DB::transaction(function() use($request, $id_plantilla) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
+    try { DB::beginTransaction();
+      if(env('APP_ENV') == 'Local') {
+        $ruta = 'resources\views\correo\\';
+      } elseif(env('APP_ENV') == 'Production') {
+        $ruta= 'resources\views\correo\\';
+      }
       $plantilla = $this->plantillaAsignadoFindOrFailById($id_plantilla);
       $plantilla->nom             = $request->nombre_de_la_plantilla;
       $plantilla->asunt           = $request->asunto;
@@ -70,9 +80,10 @@ class PlantillaRepositories implements PlantillaInterface {
         $plantilla->updated_at_plan  = Auth::user()->email_registro;
       }
       $plantilla->save();
-      $this->serviceFopen->fopen('resources\views\correo\\', $plantilla->id, $plantilla->dis_de_la_plant);
+      $this->serviceFopen->fopen($ruta, $plantilla->id, $plantilla->dis_de_la_plant);
+      DB::commit();
       return $plantilla;
-    });
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function destroy($id_plantilla) {
     try { DB::beginTransaction();

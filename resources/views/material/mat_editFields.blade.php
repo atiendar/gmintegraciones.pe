@@ -12,14 +12,14 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="descripcion">{{ __('Descripción') }}</label>
+    <label for="descripcion_en_ingles">{{ __('Descripción en ingles') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      {!! Form::textarea('descripcion', null, ['class' => 'form-control' . ($errors->has('descripcion') ? ' is-invalid' : ''), 'maxlength' => 30000, 'placeholder' => __('Descripción'), 'rows' => 4, 'cols' => 4]) !!}
+      {!! Form::textarea('descripcion_en_ingles', $material->des, ['class' => 'form-control' . ($errors->has('descripcion_en_ingles') ? ' is-invalid' : ''), 'maxlength' => 30000, 'placeholder' => __('Descripción en ingles'), 'rows' => 4, 'cols' => 4]) !!}
     </div>
-    <span class="text-danger">{{ $errors->first('descripcion') }}</span>
+    <span class="text-danger">{{ $errors->first('descripcion_en_ingles') }}</span>
   </div>
 </div>
 <div class="row">
@@ -29,7 +29,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-       {!! Form::text('lob', null, ['class' => 'form-control' . ($errors->has('lob') ? ' is-invalid' : ''), 'maxlength' => 30, 'placeholder' => __('Lob')]) !!}
+       {!! Form::text('lob', $material->lob, ['class' => 'form-control' . ($errors->has('lob') ? ' is-invalid' : ''), 'maxlength' => 30, 'placeholder' => __('Lob')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('lob') }}</span>
   </div>
@@ -39,7 +39,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-       {!! Form::text('product_line', null, ['class' => 'form-control' . ($errors->has('product_line') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Product Line')]) !!}
+       {!! Form::text('product_line', $material->produc_lin, ['class' => 'form-control' . ($errors->has('product_line') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Product Line')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('product_line') }}</span>
   </div>
@@ -51,7 +51,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-       {!! Form::text('product_line_sub_group', null, ['class' => 'form-control' . ($errors->has('product_line_sub_group') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Product Line Sub-Group')]) !!}
+       {!! Form::text('product_line_sub_group', $material->produc_lin_sub_gro, ['class' => 'form-control' . ($errors->has('product_line_sub_group') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Product Line Sub-Group')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('product_line_sub_group') }}</span>
   </div>
@@ -61,7 +61,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-       {!! Form::text('familia_de_producto', null, ['class' => 'form-control' . ($errors->has('familia_de_producto') ? ' is-invalid' : ''), 'maxlength' => 60, 'placeholder' => __('Familia de producto')]) !!}
+       {!! Form::text('familia_de_producto', $material->fam_de_prod, ['class' => 'form-control' . ($errors->has('familia_de_producto') ? ' is-invalid' : ''), 'maxlength' => 60, 'placeholder' => __('Familia de producto')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('familia_de_producto') }}</span>
   </div>
@@ -73,7 +73,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-       {!! Form::text('linea_de_producto', null, ['class' => 'form-control' . ($errors->has('linea_de_producto') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Línea de producto')]) !!}
+       {!! Form::text('linea_de_producto', $material->lin_de_prod, ['class' => 'form-control' . ($errors->has('linea_de_producto') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Línea de producto')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('linea_de_producto') }}</span>
   </div>
@@ -83,7 +83,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-       {!! Form::text('sub_linea_de_producto', null, ['class' => 'form-control' . ($errors->has('sub_linea_de_producto') ? ' is-invalid' : ''), 'maxlength' => 60, 'placeholder' => __('Sub Línea de producto')]) !!}
+       {!! Form::text('sub_linea_de_producto', $material->sub_lin_de_prod, ['class' => 'form-control' . ($errors->has('sub_linea_de_producto') ? ' is-invalid' : ''), 'maxlength' => 60, 'placeholder' => __('Sub Línea de producto')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('sub_linea_de_producto') }}</span>
   </div>
@@ -95,7 +95,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
       </div>
-      {!! Form::text('precio_lista_pagina', null, ['id' => 'precio_lista_pagina', 'class' => 'form-control' . ($errors->has('precio_lista_pagina') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Precio Lista Pagina'), 'onChange' => 'getDecimales("precio_lista_pagina");']) !!}
+      {!! Form::text('precio_lista_pagina', $material->prec_list_pag, ['id' => 'precio_lista_pagina', 'class' => 'form-control' . ($errors->has('precio_lista_pagina') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Precio Lista Pagina'), 'onChange' => 'getDecimales("precio_lista_pagina");']) !!}
       <div class="input-group-append">
         <span class="input-group-text">.00</span>
       </div>
@@ -108,7 +108,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
       </div>
-      {!! Form::text('descuento', null, ['id' => 'descuento', 'class' => 'form-control' . ($errors->has('descuento') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Descuento'), 'onChange' => 'getDecimales("descuento");']) !!}
+      {!! Form::text('descuento', $material->desc, ['id' => 'descuento', 'class' => 'form-control' . ($errors->has('descuento') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Descuento'), 'onChange' => 'getDecimales("descuento");']) !!}
       <div class="input-group-append">
         <span class="input-group-text">.00</span>
       </div>
@@ -123,7 +123,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
       </div>
-      {!! Form::text('precio_pagina_al_cliente', null, ['id' => 'precio_pagina_al_cliente', 'class' => 'form-control' . ($errors->has('precio_pagina_al_cliente') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Precio Pagina (Al cliente)'), 'onChange' => 'getDecimales("precio_pagina_al_cliente");']) !!}
+      {!! Form::text('precio_pagina_al_cliente', $material->prec_pag_al_cli, ['id' => 'precio_pagina_al_cliente', 'class' => 'form-control' . ($errors->has('precio_pagina_al_cliente') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Precio Pagina (Al cliente)'), 'onChange' => 'getDecimales("precio_pagina_al_cliente");']) !!}
       <div class="input-group-append">
         <span class="input-group-text">.00</span>
       </div>

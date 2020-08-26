@@ -26,7 +26,6 @@ class MaterialController extends Controller {
     return back();
   }
   public function show($id_material) {
-    dd('');
     $material = $this->materialRepo->materialAsignadoFindOrFailById($id_material, []);
     return view('material.mat_show', compact('material'));
   }
@@ -35,7 +34,6 @@ class MaterialController extends Controller {
     return view('material.mat_edit', compact('material'));
   }
   public function update(UpdateMaterialRequest $request, $id_material) {
-    dd('');
     $this->materialRepo->update($request, $id_material);
     toastr()->success('¡Material actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
@@ -44,5 +42,10 @@ class MaterialController extends Controller {
     $this->materialRepo->destroy($id_material);
     toastr()->success('¡Material eliminado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
+  }
+  public function consultarPrecio(Request $request) {
+    $materiales = $this->materialRepo->getAllMaterialesPlunk();
+    $material = $this->materialRepo->getMaterialFind($request->modelo_buscado);
+    return view('material.mat_consultarPrecio', compact('materiales', 'material'));
   }
 }

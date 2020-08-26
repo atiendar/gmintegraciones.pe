@@ -12,14 +12,14 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="descripcion">{{ __('Descripción') }}</label>
+    <label for="descripcion_en_ingles">{{ __('Descripción en ingles') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      {!! Form::textarea('descripcion', null, ['class' => 'form-control' . ($errors->has('descripcion') ? ' is-invalid' : ''), 'maxlength' => 30000, 'placeholder' => __('Descripción'), 'rows' => 4, 'cols' => 4]) !!}
+      {!! Form::textarea('descripcion_en_ingles', null, ['class' => 'form-control' . ($errors->has('descripcion_en_ingles') ? ' is-invalid' : ''), 'maxlength' => 30000, 'placeholder' => __('Descripción en ingles'), 'rows' => 4, 'cols' => 4]) !!}
     </div>
-    <span class="text-danger">{{ $errors->first('descripcion') }}</span>
+    <span class="text-danger">{{ $errors->first('descripcion_en_ingles') }}</span>
   </div>
 </div>
 <div class="row">

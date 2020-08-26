@@ -9,7 +9,7 @@ class StoreMaterialRequest extends FormRequest {
   public function rules() {
     return [
       'sku'                       => 'required|max:30|unique:materiales,sku',
-      'descripcion'               => 'required|max:30000|string',
+      'descripcion_en_ingles'     => 'required|max:30000|string',
       'lob'                       => 'required|max:30',
       'product_line'              => 'required|max:50',
       'product_line_sub_group'    => 'required|max:50',

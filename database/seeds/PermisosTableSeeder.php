@@ -1139,23 +1139,48 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Eliminar cualquier registro del módulo 'Inventario'",
       'created_at_perm' => 'desarrolloweb.ewmx@gmail.com',
     ]);
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// PERMISOS DEL MÓDULO MATERIALES
+    Spatie\Permission\Models\Permission::create([
+  //    'id'              => 23,
+      'nom'             => "Navegar por tabla 'Materiales'",
+      'name'				    => 'material.index',
+      'desc'            => "Lista y navega por todos los registros del módulo 'Materiales'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+  //    'id'              => 24,
+      'nom'             => "Registrar nuevo 'Materiales'",
+      'name'				    => 'material.create',
+      'desc'            => "Crear nuevo registro en el módulo 'Materiales'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+  //    'id'              => 25,
+      'nom'             => "Ver detalles 'Materiales'",
+      'name'				    => 'material.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo 'Materiales'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+  //    'id'              => 26,
+      'nom'             => "Editar registro 'Materiales'",
+      'name'				    => "material.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo 'Materiales'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+  //    'id'              => 27,
+      'nom'             => "Eliminar registro 'Materiales'",
+      'name'				    => "material.destroy",
+      'desc'            => "Eliminar cualquier registro del módulo 'Materiales'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+      //    'id'              => 23,
+      'nom'             => "Consultar precio 'Materiales'",
+      'name'				    => 'material.consultarPrecio',
+      'desc'            => "Consultar precio de cualquier registro del módulo 'Materiales'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
   }
 }

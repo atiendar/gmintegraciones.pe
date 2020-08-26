@@ -9,6 +9,7 @@ class MaterialTableSeeder extends Seeder {
    * @return void
    */
   public function run() {
+    factory(Material::class, 70)->create();
     /*
     Material::create([
       'sku'                 => '',
