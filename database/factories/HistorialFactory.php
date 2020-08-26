@@ -9,6 +9,7 @@ $factory->define(Historial::class, function (Faker $faker) {
     $inventario_equipo_id = $faker->randomElement(InventarioEquipo::pluck('id'));
 
     return [
+        'fec_sol_sop'            => $faker->dateTime($max = 'now', $timezone = null),
         'fec_ent'                => $faker->dateTime($max = 'now', $timezone = null),
         'sol'                    => $faker->name,
         'area_dep'               => $faker->name,
