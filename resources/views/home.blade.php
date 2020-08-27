@@ -4,5 +4,5 @@
 @endsection
 @section('contenido')
 <title>@section('title', __('Inicio'))</title>
-
+sssssss
 @endsection
