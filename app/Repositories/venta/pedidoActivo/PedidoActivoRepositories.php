@@ -51,7 +51,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
           'Ventas (Pedidos activos)', // Módulo
           'venta.pedidoActivo.show', // Nombre de la ruta
           $id_pedido, // Id del registro debe ir encriptado
-          $pedido->serie, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          $pedido->num_pedido, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
           array('Fecha de entrega', '¿Se puede entregar antes?', '¿Cuántos días antes?', '¿Es pedido urgente?', 'Comentarios ventas'), // Nombre de los inputs del formulario
           $pedido, // Request
           array('fech_de_entreg', 'se_pued_entreg_ant', 'cuant_dia_ant', 'urg', 'coment_vent') // Nombre de los campos en la BD

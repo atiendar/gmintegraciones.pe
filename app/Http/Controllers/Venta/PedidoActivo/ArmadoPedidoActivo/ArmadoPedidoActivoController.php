@@ -17,7 +17,7 @@ class ArmadoPedidoActivoController extends Controller {
     $armado       = $this->armadoPedidoActivoRepo->armadoFindOrFailById($id_armado, ['productos', 'direcciones', 'pedido']);
     $pedido       = $armado->pedido()->firstOrFail();
     $productos    = $armado->productos()->with('sustitutos')->get();
-    $direcciones  = $armado->direcciones()->paginate(9);
+    $direcciones  = $armado->direcciones()->paginate(99999999);
     return view('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_show', compact('armado', 'pedido', 'productos', 'direcciones'));
   }
   public function edit($id_armado) {

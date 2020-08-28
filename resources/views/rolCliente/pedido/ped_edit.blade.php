@@ -20,11 +20,11 @@
 @if($pedido->fech_de_entreg == null)
   <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
     <div class="card-body">
-      {!! Form::open(['route' => ['venta.pedidoActivo.update', Crypt::encrypt($pedido->id)], 'method' => 'patch', 'id' => 'ventaPedidoActivoUpdate', 'files' => true]) !!}
-        @include('venta.pedido.pedido_activo.ven_pedAct_editFields')
+      {!! Form::open(['route' => ['rolCliente.pedido.update', Crypt::encrypt($pedido->id)], 'method' => 'patch', 'id' => 'rolClientePedidoUpdate']) !!}
+        @include('rolCliente.pedido.ped_editFields')
       {!! Form::close() !!}
     </div>
   </div>
 @endif
-@include('rolCliente.pedido.direccion.dir_index')
+@include('rolCliente.pedido.armado.direccion.dir_index')
 @endsection

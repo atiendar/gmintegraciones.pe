@@ -2,6 +2,8 @@
 namespace App\Repositories\rolCliente\pedido;
 // Models
 use App\Models\Pedido;
+// Repositories
+use App\Repositories\venta\pedidoActivo\PedidoActivoRepositories;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Events
@@ -12,8 +14,10 @@ use DB;
 
 class PedidoClienteRepositories implements PedidoClienteInterface {
   protected $serviceCrypt;
-  public function __construct(ServiceCrypt $serviceCrypt) {
-    $this->serviceCrypt = $serviceCrypt;
+  protected $pedidoActivoRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, PedidoActivoRepositories $pedidoActivoRepositories) {
+    $this->serviceCrypt     = $serviceCrypt;
+    $this->pedidoActivoRepo = $pedidoActivoRepositories;
   }
   public function getPedidoFindOrFailById($id_pedido, $relaciones, $estatus) {
     $id_pedido = $this->serviceCrypt->decrypt($id_pedido);
@@ -21,6 +25,42 @@ class PedidoClienteRepositories implements PedidoClienteInterface {
   }
   public function getPagination($request) {
     return Pedido::where('user_id', Auth::user()->id)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
+  }
+  public function update($request, $id_pedido) {
+    try { DB::beginTransaction();
+      $pedido = $this->getPedidoFindOrFailById($id_pedido, ['armados'], config('app.entregado'));
+      if($pedido->fech_de_entreg != null) {
+        return abort('404', 'Ya se estableció esta información con anterioridad.');
+      }
+      $pedido->fech_de_entreg     = $request->fecha_de_entrega;
+      $pedido->se_pued_entreg_ant = $request->se_puede_entregar_antes;
+      if($pedido->se_pued_entreg_ant == 'Si') {
+        $pedido->cuant_dia_ant    = $request->cuantos_dias_antes;
+      } elseif($pedido->se_pued_entreg_ant == 'No') {
+        $pedido->cuant_dia_ant    = null;
+      }
+      $pedido->coment_client      = $request->comentarios;
+      if($pedido->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Pedidos (Cliente)', // Módulo
+          'rolCliente.pedido.show', // Nombre de la ruta
+          $id_pedido, // Id del registro debe ir encriptado
+          $pedido->num_pedido, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('Fecha de entrega', '¿Se puede entregar antes?', '¿Cuántos días antes?', 'Comentarios ventas'), // Nombre de los inputs del formulario
+          $pedido, // Request
+          array('fech_de_entreg', 'se_pued_entreg_ant', 'cuant_dia_ant', 'coment_vent') // Nombre de los campos en la BD
+        ); 
+        $pedido->updated_at_ped  = Auth::user()->email_registro;
+      }
+      $fecha_original = $pedido->getOriginal('fech_de_entreg');
+      $fecha_nueva    = $pedido->getAttribute('fech_de_entreg');
+      $pedido->save();
+      Pedido::getEstatusVentas($pedido);
+      $this->pedidoActivoRepo->unificarPedido($pedido, $fecha_original, $fecha_nueva);
+      DB::commit();
+      return $pedido;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function getPedidosSinPagarClientePluck() {
     return Pedido::where('user_id', Auth::user()->id)->where('estat_pag', '!=', config('app.pagado'))->orderBy('num_pedido', 'ASC')->pluck('num_pedido', 'id');

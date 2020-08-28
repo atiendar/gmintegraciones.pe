@@ -4,8 +4,6 @@ namespace App\Repositories\rolCliente\pago;
 use App\Models\Pago;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
-// Events
-use App\Events\layouts\ArchivoCargado;
 // Otros
 use Illuminate\Support\Facades\Auth;
 

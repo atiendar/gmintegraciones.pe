@@ -56,7 +56,7 @@
           <tr>
             <td>
               @if($armado->img_nom != null)
-                <img src="{{ armado->img_rut.$armado->img_nom }}">
+                <img src="{{ $armado->img_rut.$armado->img_nom }}">
               @endif
             </td>
             <td>{{ $armado->tip }}</td>
