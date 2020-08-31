@@ -16,7 +16,8 @@ class CotizacionesTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        factory(Cotizacion::class, 100)->create();
+        // factory(Cotizacion::class, 100)->create(); // min
+        factory(Cotizacion::class, 10000)->create(); // max
         $cotizaciones = Cotizacion::get();
         $hastaC = count($cotizaciones) - 1;
         for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {

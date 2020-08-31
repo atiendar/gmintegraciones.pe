@@ -8,6 +8,7 @@ class ProveedoresTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        factory(App\Models\Proveedor::class, 100)->create();
+        //factory(App\Models\Proveedor::class, 100)->create(); // min
+        factory(App\Models\Proveedor::class, 10000)->create(); // max
     }
 }

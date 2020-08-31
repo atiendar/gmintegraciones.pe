@@ -8,6 +8,7 @@ class QuejasYSugerenciasTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        factory(App\Models\QuejaYSugerencia::class, 800)->create();
+        //factory(App\Models\QuejaYSugerencia::class, 800)->create();
+        factory(App\Models\QuejaYSugerencia::class, 10000)->create();
     }
 }

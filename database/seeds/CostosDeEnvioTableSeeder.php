@@ -9,6 +9,7 @@ class CostosDeEnvioTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-      factory(App\Models\CostoDeEnvio::class, 350)->create();
+      // factory(App\Models\CostoDeEnvio::class, 350)->create(); // min
+      factory(App\Models\CostoDeEnvio::class, 10000)->create(); // max
     }
 }

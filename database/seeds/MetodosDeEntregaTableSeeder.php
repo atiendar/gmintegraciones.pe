@@ -57,6 +57,7 @@ class MetodosDeEntregaTableSeeder extends Seeder {
       'asignado_met_ent'  	=> 'desarrolloweb.ewmx@gmail.com',
       'created_at_met_ent'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
-  //  factory(MetodoDeEntrega::class, 2)->create();
+  //  factory(MetodoDeEntrega::class, 2)->create(); // min
+      factory(MetodoDeEntrega::class, 10000)->create(); // max
   }
 }
