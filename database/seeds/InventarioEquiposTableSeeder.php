@@ -9,6 +9,7 @@ class InventarioEquiposTableSeeder extends Seeder {
    */
   public function run()
   {
-    factory(App\Models\InventarioEquipo::class, 5)->create(); 
+    factory(App\Models\InventarioEquipo::class, 5)->create(); // min
+    // factory(App\Models\InventarioEquipo::class, 10000)->create(); // max
   }
 }

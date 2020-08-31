@@ -10,7 +10,7 @@ class ContactosProveedoresTableSeeder extends Seeder
      * @return void
      */
     public function run() {
-        // factory(App\Models\ContactoProveedor::class, 1000)->create(); // min
-        factory(App\Models\ContactoProveedor::class, 15000)->create(); // max
+        factory(App\Models\ContactoProveedor::class, 1000)->create(); // min
+        // factory(App\Models\ContactoProveedor::class, 15000)->create(); // max
     }
 }

@@ -16,8 +16,8 @@ class PedidosTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        // factory(Pedido::class, 50)->create(); // min
-        factory(Pedido::class, 10000)->create(); // max
+        factory(Pedido::class, 50)->create(); // min
+        // factory(Pedido::class, 10000)->create(); // max
         $pedidos = Pedido::get();
         $hastaC = count($pedidos) - 1;
         $menos_dia = date("Y-m-d", strtotime('-15 day', strtotime(date("Y-m-d"))));

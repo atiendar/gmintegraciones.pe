@@ -9,7 +9,7 @@ class PedidoArmadoTieneProductosTableSeeder extends Seeder {
    * @return void
    */
   public function run() {
-    // factory(PedidoArmadoTieneProducto::class, 1500)->create(); // min
-    factory(PedidoArmadoTieneProducto::class, 19000)->create(); // max
+    factory(PedidoArmadoTieneProducto::class, 1500)->create(); // min
+    // factory(PedidoArmadoTieneProducto::class, 19000)->create(); // max
   }
 }

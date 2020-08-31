@@ -36,8 +36,8 @@ class UsersTableSeeder extends Seeder {
         'created_at_us'  	          => 'desarrolloweb.ewmx@gmail.com',
     ]);
     $user1->assignRole('desarrollador');
-//    factory(User::class, 1000)->create(); // min
-    factory(User::class, 10000)->create();  // max
+    factory(User::class, 1000)->create(); // min
+    // factory(User::class, 10000)->create();  // max
     
     // Asigna roles a los usuarios
     $roles_usuario = Role::where('name', '!=', config('app.rol_cliente'))->get();

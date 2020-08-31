@@ -8,6 +8,7 @@ class FacturasTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        factory(App\Models\Factura::class, 350)->create();
+        factory(App\Models\Factura::class, 350)->create(); // min
+        //factory(App\Models\Factura::class, 10000)->create(); // max
     }
 }

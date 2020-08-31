@@ -8,6 +8,7 @@ class SoporteArchivosTableSeeder extends Seeder {
    * @return void
    */
   public function run() {
-    factory(App\Models\SoporteArchivo::class, 5)->create();
+    factory(App\Models\SoporteArchivo::class, 250)->create(); // min
+    // factory(App\Models\SoporteArchivo::class, 5000)->create(); // max
   }
 }

@@ -8,6 +8,7 @@ class PagosTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        factory(App\Models\Pago::class, 500)->create();
+        factory(App\Models\Pago::class, 500)->create(); // min
+        // factory(App\Models\Pago::class, 12000)->create(); // max
     }
 }

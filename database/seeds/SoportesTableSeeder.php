@@ -9,6 +9,7 @@ class SoportesTableSeeder extends Seeder {
    */
   public function run()
   {
-    factory(App\Models\Soporte::class, 5)->create(); 
+    factory(App\Models\Soporte::class, 500)->create(); // min
+    // factory(App\Models\Soporte::class, 10000)->create(); // max
   }
 }

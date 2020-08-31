@@ -10,8 +10,8 @@ class PedidoArmadosTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-      // factory(PedidoArmado::class, 1200)->create(); // min
-      factory(PedidoArmado::class, 18000)->create(); // max
+      factory(PedidoArmado::class, 1200)->create(); // min
+      // factory(PedidoArmado::class, 18000)->create(); // max
       $pedidos = Pedido::with('armados')->get();
       $cant_armados = null;
 
