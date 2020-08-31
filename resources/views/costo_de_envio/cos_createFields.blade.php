@@ -105,7 +105,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-sort-numeric-down"></i></span>
       </div>
-      {!! Form::text('tiempo_de_entrega', null, ['v-model' => 'tiempo_de_entrega', 'class' => 'form-control' . ($errors->has('tiempo_de_entrega') ? ' is-invalid' : ''), 'placeholder' => __('Tiempo de entrega')]) !!}
+      {!! Form::text('tiempo_de_entrega', null, ['v-model' => 'tiempo_de_entrega', 'class' => 'form-control' . ($errors->has('tiempo_de_entrega') ? ' is-invalid' : ''), 'maxlength' => 25, 'placeholder' => __('Tiempo de entrega')]) !!}
     </div>
     <span v-if="errors.tiempo_de_entrega" class="text-danger" v-text="errors.tiempo_de_entrega[0]"></span>
   </div>
@@ -115,7 +115,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
       </div>
-      {!! Form::text('costo_por_envio', null, ['v-model' => 'costo_por_envio', 'v-on:change' => 'getDecimal()', 'id' => 'costo_por_envio', 'class' => 'form-control' . ($errors->has('costo_por_envio') ? ' is-invalid' : ''), 'placeholder' => __('Costo por envío')]) !!}
+      {!! Form::text('costo_por_envio', null, ['v-model' => 'costo_por_envio', 'v-on:change' => 'getDecimal()', 'id' => 'costo_por_envio', 'class' => 'form-control' . ($errors->has('costo_por_envio') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Costo por envío')]) !!}
       <div class="input-group-append">
         <span class="input-group-text">.00</span>
       </div>

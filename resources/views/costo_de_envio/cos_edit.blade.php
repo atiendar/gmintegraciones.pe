@@ -62,35 +62,50 @@
     },
     methods: {
       async update() {
-        this.checarBotonSubmitDisabled("btnsubmit")
-        axios.put('/costo-de-envio/actualizar/'+{{ $costo_de_envio->id }}, {
-          foraneo_o_local:              this.foraneo_o_local,
-          metodo_de_entrega:            this.metodo_de_entrega,
-          metodo_de_entrega_espesifico: this.metodo_de_entrega_espesifico,
-          cuenta_con_seguro:            this.cuenta_con_seguro,
-          estado:                       this.estado,
-          tamano:                       this.tamano,
-          tipo_de_empaque:              this.tipo_de_empaque,
-          tiempo_de_entrega:            this.tiempo_de_entrega,
-          tipo_de_envio:                this.tipo_de_envio,
-          costo_por_envio:              this.costo_por_envio,
-          tipos_de_envio:               this.tipos_de_envio,
-        }).then(res => {
-          Swal.fire({
-            title: 'Éxito',
-            text: '¡Costo de envío actualizado exitosamente!',
-          }).then((value) => {
-            location.reload()
-          })
-        }).catch(error => {
-          this.checarBotonSubmitEnabled("btnsubmit")
-          if(error.response.status == 422) {
-            this.errors   = error.response.data.errors
-          } else {
-            Swal.fire({
-              title: 'Algo salio mal',
-              text: error,
-            })
+        event.preventDefault();   
+        Swal.fire({
+          title: '¡Alerta!',
+          text: '¿Estás seguro quieres actualizar el registro?',
+          type: 'info',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Continuar',
+          cancelButtonText: 'Cancelar',
+          reverseButtons: true,
+        }).then((result) => {
+          if (result.value) {
+            this.checarBotonSubmitDisabled("btnsubmit")
+            axios.put('/costo-de-envio/actualizar/'+{{ $costo_de_envio->id }}, {
+              foraneo_o_local:              this.foraneo_o_local,
+              metodo_de_entrega:            this.metodo_de_entrega,
+              metodo_de_entrega_espesifico: this.metodo_de_entrega_espesifico,
+              cuenta_con_seguro:            this.cuenta_con_seguro,
+              estado:                       this.estado,
+              tamano:                       this.tamano,
+              tipo_de_empaque:              this.tipo_de_empaque,
+              tiempo_de_entrega:            this.tiempo_de_entrega,
+              tipo_de_envio:                this.tipo_de_envio,
+              costo_por_envio:              this.costo_por_envio,
+              tipos_de_envio:               this.tipos_de_envio,
+            }).then(res => {
+              Swal.fire({
+                title: 'Éxito',
+                text: '¡Costo de envío actualizado exitosamente!',
+              }).then((value) => {
+                location.reload()
+              })
+            }).catch(error => {
+              this.checarBotonSubmitEnabled("btnsubmit")
+              if(error.response.status == 422) {
+                this.errors   = error.response.data.errors
+              } else {
+                Swal.fire({
+                  title: 'Algo salio mal',
+                  text: error,
+                })
+              }
+            });
           }
         });
       },

@@ -174,7 +174,7 @@
 
       <div class="custom-control custom-switch" style="padding-bottom:20px;">
         <input type="checkbox" class="custom-control-input" id="darkSwitch">
-        <label class="custom-control-label" for="darkSwitch" style="margin-top: 6px;">Dark Mode</label>
+      <label class="custom-control-label" for="darkSwitch" style="margin-top: 6px;">{{ __('Modo oscuro') }}</label>
       </div>
 
       <div class="list-group div-scroll">
@@ -206,20 +206,20 @@
     <div class="col-10 table-container">
       @if ($logs === null)
         <div>
-          Log file >50M, please download it.
+          {{ __('Archivo de registro> 50M, descárguelo.') }}
         </div>
       @else
         <table id="table-log" class="table table-striped" data-ordering-index="{{ $standardFormat ? 2 : 0 }}">
           <thead>
           <tr>
             @if ($standardFormat)
-              <th>Level</th>
-              <th>Context</th>
-              <th>Date</th>
+              <th>{{ __('Level') }}</th>
+              <th>{{ __('Contexto') }}</th>
+              <th>{{ __('Fecha') }}</th>
             @else
-              <th>Line number</th>
+              <th>{{ __('Número de línea') }}</th>
             @endif
-            <th>Content</th>
+            <th>{{ __('Contenido') }}</th>
           </tr>
           </thead>
           <tbody>
@@ -260,20 +260,20 @@
       <div class="p-3">
         @if($current_file)
           <a href="?dl={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
-            <span class="fa fa-download"></span> Download file
+            <span class="fa fa-download"></span> {{ __('Descargar archivo') }}
           </a>
           -
           <a id="clean-log" href="?clean={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
-            <span class="fa fa-sync"></span> Clean file
+            <span class="fa fa-sync"></span> {{ __('Limpiar archivo') }}
           </a>
           -
           <a id="delete-log" href="?del={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
-            <span class="fa fa-trash"></span> Delete file
+            <span class="fa fa-trash"></span> {{ __('Borrar archivo') }}
           </a>
           @if(count($files) > 1)
             -
             <a id="delete-all-log" href="?delall=true{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
-              <span class="fa fa-trash-alt"></span> Delete all files
+              <span class="fa fa-trash-alt"></span> {{ __('Borrar todos los archivos') }}
             </a>
           @endif
         @endif
@@ -321,6 +321,30 @@
     $('#table-log').DataTable({
       "order": [$('#table-log').data('orderingIndex'), 'desc'],
       "stateSave": true,
+      "language": {
+        "sProcessing":    "Procesando...",
+           "sLengthMenu":    "Mostrar _MENU_ registros",
+           "sZeroRecords":   "No se encontraron resultados",
+           "sEmptyTable":    "Ningún dato disponible en esta tabla",
+           "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+           "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
+           "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+           "sInfoPostFix":   "",
+           "sSearch":        "Buscar:",
+           "sUrl":           "",
+           "sInfoThousands":  ",",
+           "sLoadingRecords": "Cargando...",
+           "oPaginate": {
+               "sFirst":    "Primero",
+               "sLast":    "Último",
+               "sNext":    "Siguiente",
+               "sPrevious": "Anterior"
+           },
+           "oAria": {
+               "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+               "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+           }
+        },
       "stateSaveCallback": function (settings, data) {
         window.localStorage.setItem("datatable", JSON.stringify(data));
       },
@@ -331,7 +355,7 @@
       }
     });
     $('#delete-log, #clean-log, #delete-all-log').click(function () {
-      return confirm('Are you sure?');
+      return confirm('¿Estas seguro?');
     });
   });
 </script>

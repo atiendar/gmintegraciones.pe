@@ -63,7 +63,7 @@
           cancelButtonColor: '#d33',
           confirmButtonText: 'Continuar',
           cancelButtonText: 'Cancelar',
-          reverseButtons: false,
+          reverseButtons: true,
         }).then((result) => {
           if (result.value) {
             this.checarBotonSubmitDisabled("btnsubmit")

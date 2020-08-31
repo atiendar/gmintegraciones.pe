@@ -25,7 +25,7 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
     return $costo_de_envio;
   }
   public function getPagination($request) {
-    return CostoDeEnvio::buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
+    return CostoDeEnvio::asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
   }
   public function store($request) {
     try { DB::beginTransaction();
