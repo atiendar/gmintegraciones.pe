@@ -9,21 +9,21 @@ class SeriesTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        Serie::create([
-            'input'             => 'Cotizaciones (Serie)',
-            'value'             => 'CYA-',
-            'vista'             => 'CYA-',
-            'asignado_ser'  	  => 'desarrolloweb.ewmx@gmail.com',
-            'created_at_ser'    => 'desarrolloweb.ewmx@gmail.com',
-        ]);
-        Serie::create([
-            'input'             => 'Pedidos (Serie)',
-            'value'             => 'CYA-',
-            'vista'             => 'CYA-',
-            'asignado_ser'  	  => 'desarrolloweb.ewmx@gmail.com',
-            'created_at_ser'    => 'desarrolloweb.ewmx@gmail.com',
-        ]);
-        factory(Serie::class, 300)->create(); // min
-        //factory(Serie::class, 10000)->create(); // max
+      Serie::create([
+        'input'             => 'Cotizaciones (Serie)',
+        'value'             => 'CYA-',
+        'vista'             => 'CYA-',
+        'asignado_ser'  	  => 'desarrolloweb.ewmx@gmail.com',
+        'created_at_ser'    => 'desarrolloweb.ewmx@gmail.com',
+      ]);
+      Serie::create([
+        'input'             => 'Pedidos (Serie)',
+        'value'             => 'CYA-',
+        'vista'             => 'CYA-',
+        'asignado_ser'  	  => 'desarrolloweb.ewmx@gmail.com',
+        'created_at_ser'    => 'desarrolloweb.ewmx@gmail.com',
+      ]);
+      //factory(Serie::class, 300)->create(); // min
+      //factory(Serie::class, 10000)->create(); // max
     }
 }

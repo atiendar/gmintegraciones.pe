@@ -12,17 +12,17 @@ class UsersTableSeeder extends Seeder {
    */
   public function run() {
     $user1 = App\User::create([
-        'acceso'                => '1',
-        'registros_tab_acces'   => 'on',
-        'img_us_rut'            => env('PREFIX'),
-        'img_us'                => 'perfil/2020/perfil-1582071257.png',
-        'nom'      			        => 'Aaron Josue',
-        'apell'     		        => 'Sánchez Mendoza',
-        'email_registro'  	    => 'desarrolloweb.ewmx@gmail.com',
-        'email'  			          => 'desarrolloweb.ewmx@gmail.com',
-        'email_secund'  	      => 'diseno2.ewmx@gmail.com',
-        'lad_fij'  			        => '55',
-        'tel_fij'  			        => '71596103',
+        'acceso'                    => '1',
+        'registros_tab_acces'       => 'on',
+        'img_us_rut'                => env('PREFIX'),
+        'img_us'                    => 'perfil/2020/perfil-1582071257.png',
+        'nom'      			            => 'Aaron Josue',
+        'apell'     		            => 'Sánchez Mendoza',
+        'email_registro'  	        => 'desarrolloweb.ewmx@gmail.com',
+        'email'  			              => 'desarrolloweb.ewmx@gmail.com',
+        'email_secund'  	          => 'diseno2.ewmx@gmail.com',
+        'lad_fij'  			            => '55',
+        'tel_fij'  			            => '71596103',
         'ext'  				              => '1209',
         'lad_mov'  			            => '55',
         'tel_mov'  			            => '17552250',
@@ -36,6 +36,7 @@ class UsersTableSeeder extends Seeder {
         'created_at_us'  	          => 'desarrolloweb.ewmx@gmail.com',
     ]);
     $user1->assignRole('desarrollador');
+    /*
     factory(User::class, 1000)->create(); // min
     // factory(User::class, 10000)->create();  // max
     
@@ -68,5 +69,6 @@ class UsersTableSeeder extends Seeder {
       $cliente->assignRole($rol_cliente);
       if($contador4 == $hasta_roles_cliente) { $contador4 = 0; }
     }
+    */
   }
 }
