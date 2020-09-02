@@ -426,7 +426,7 @@ class PlantillasTableSeeder extends Seeder {
         ]);
         App\Models\Plantilla::create([
           'id'               => 13,
-          'nom'			         => '(Pedido entregado) CYA',
+          'nom'			         => 'Pedido entregado CYA',
           'mod'              => 'Logística (Pedido entregado)',
           'asunt'            => 'Pedido entregado',
           'dis_de_la_plant'  => '        
