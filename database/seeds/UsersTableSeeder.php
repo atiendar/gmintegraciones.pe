@@ -36,6 +36,25 @@ class UsersTableSeeder extends Seeder {
         'created_at_us'  	          => 'desarrolloweb.ewmx@gmail.com',
     ]);
     $user1->assignRole('desarrollador');
+    $user1 = App\User::create([
+      'acceso'                    => '1',
+      'registros_tab_acces'       => 'on',
+      'nom'      			            => 'b.desarrollo2',
+      'apell'     		            => 'Usuario',
+      'email_registro'  	        => 'b.desarrollo2@gmail.com',
+      'email'  			              => 'b.desarrollo2@gmail.com',
+      'lad_mov'  			            => '55',
+      'tel_mov'  			            => '00000000',
+      'emp'  				              => 'CYA',
+      'password'  		            => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+      'remember_token'  	        => 'bzXvIS0JrfdMth7eDBgxjE6lSQ66ESHSEUJSnqldoxhBUPaoeQFfrw3zrVg1',
+      'col_barr_de_naveg'         => 'navbar-dark navbar-purple',
+      'col_barr_lat_oscu_o_clar'  => 'sidebar-light-navy',
+      'col_logot'                 => 'navbar-pink',
+      'asignado_us'  	            => 'desarrolloweb.ewmx@gmail.com',
+      'created_at_us'  	          => 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    $user1->assignRole('desarrollador');
     /*
     factory(User::class, 1000)->create(); // min
     // factory(User::class, 10000)->create();  // max
