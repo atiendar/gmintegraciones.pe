@@ -32,7 +32,7 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
       $costo_de_envio = new CostoDeEnvio();
       $costo_de_envio->for_loc            = $request->foraneo_o_local;
       $costo_de_envio->met_de_entreg      = $request->metodo_de_entrega;
-      $costo_de_envio->met_de_entreg_esp  = $request->metodo_de_entrega_espesifico;
+      $costo_de_envio->met_de_entreg_esp  = $request->metodo_de_entrega_especifico;
       $costo_de_envio->est                = $request->estado;
       $costo_de_envio->tam                = $request->tamano;
       $costo_de_envio->tip_env            = $request->tipo_de_envio;
@@ -53,7 +53,7 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
       $costo_de_envio                     = $this->costoDeEnvioAsignadoFindOrFailById($this->serviceCrypt->encrypt($id_costo));
       $costo_de_envio->for_loc            = $request->foraneo_o_local;
       $costo_de_envio->met_de_entreg      = $request->metodo_de_entrega;
-      $costo_de_envio->met_de_entreg_esp  = $request->metodo_de_entrega_espesifico;
+      $costo_de_envio->met_de_entreg_esp  = $request->metodo_de_entrega_especifico;
       $costo_de_envio->est                = $request->estado;
       $costo_de_envio->tam                = $request->tamano;
       $costo_de_envio->tip_env            = $request->tipo_de_envio;
@@ -69,7 +69,7 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
           'costoDeEnvio.show', // Nombre de la ruta
           $this->serviceCrypt->encrypt($id_costo), // Id del registro debe ir encriptado
           $id_costo, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Foráneo o local', 'Método de entrega', 'Método de entrega espesifico', 'Estado', 'Tipo de envío', 'Tamaño', 'Tipo de empaque', 'Cuenta con seguro', 'Tiempo de entrega (Dias)', 'Costo por envío'), // Nombre de los inputs del formulario
+          array('Foráneo o local', 'Método de entrega', 'Método de entrega especifico', 'Estado', 'Tipo de envío', 'Tamaño', 'Tipo de empaque', 'Cuenta con seguro', 'Tiempo de entrega (Dias)', 'Costo por envío'), // Nombre de los inputs del formulario
           $costo_de_envio, // Request
           array('for_loc', 'met_de_entreg', 'met_de_entreg_esp', 'est', 'tam', 'tip_env', 'tip_emp', 'seg', 'tiemp_ent', 'cost_por_env') // Nombre de los campos en la BD
         ); 

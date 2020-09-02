@@ -21,7 +21,7 @@ class CreateCostosDeEnvioTable extends Migration
 
         $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
         $table->string('met_de_entreg',150)->comment('Método de entrega');
-        $table->string('met_de_entreg_esp',150)->nullable()->comment('Método de entrega espesifico');
+        $table->string('met_de_entreg_esp',150)->nullable()->comment('Método de entrega especifico');
         $table->string('est', 150)->comment('Estado');
         $table->string('tip_env', 80)->nullable()->comment('Tipo de envío');
         $table->enum('tam', config('opcionesSelect.select_tamano'))->comment('Tamaño');

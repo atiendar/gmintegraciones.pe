@@ -31,13 +31,13 @@
     data: {
       errors:                         [],
       metodos_de_entrega:             [],
-      metodos_de_entrega_espesificos: [],
+      metodos_de_entrega_especificos: [],
       estados:                        [],
       tipos_de_envio:                 [],
 
       foraneo_o_local:              null,
       metodo_de_entrega:            null,
-      metodo_de_entrega_espesifico: null,
+      metodo_de_entrega_especifico: null,
       cuenta_con_seguro:            null,
       estado:                       null,
       tamano:                       null,
@@ -52,7 +52,7 @@
         axios.post('/costo-de-envio/almacenar', {
           foraneo_o_local:              this.foraneo_o_local,
           metodo_de_entrega:            this.metodo_de_entrega,
-          metodo_de_entrega_espesifico: this.metodo_de_entrega_espesifico,
+          metodo_de_entrega_especifico: this.metodo_de_entrega_especifico,
           cuenta_con_seguro:            this.cuenta_con_seguro,
           estado:                       this.estado,
           tamano:                       this.tamano,
@@ -82,7 +82,7 @@
       },
       async getMetodosDeEntrega($val) {
         this.metodo_de_entrega            = null
-        this.metodo_de_entrega_espesifico = null
+        this.metodo_de_entrega_especifico = null
         this.estado                       = null
         this.tipo_de_envio                = null
         this.tiempo_de_entrega            = null
@@ -127,7 +127,7 @@
         });
       },
       async getTiposDeEnvio($val) {
-        this.metodo_de_entrega_espesifico = null
+        this.metodo_de_entrega_especifico = null
         this.tipo_de_envio                = null
 
          // TREA TODOS LOS METODOS DE ENVIO
@@ -147,20 +147,20 @@
           });
         }
         if(this.metodo_de_entrega == 'Paquetería') {
-          this.getMetodosDeEntregaEspesificos()
+          this.getMetodosDeEntregaEspecificos()
         } else {
-          metodo_de_entrega_espesifico = document.getElementById('metodo_de_entrega_espesifico')
-          metodo_de_entrega_espesifico.style.display = 'none';
+          metodo_de_entrega_especifico = document.getElementById('metodo_de_entrega_especifico')
+          metodo_de_entrega_especifico.style.display = 'none';
         }
       },
-      async getMetodosDeEntregaEspesificos() {
+      async getMetodosDeEntregaEspecificos() {
         if(this.metodo_de_entrega != '') {
           axios.get('/logistica/direccion/metodo-de-entrega-espescifico/'+this.metodo_de_entrega).then(res => {
-            this.metodos_de_entrega_espesificos = res.data
-            metodo_de_entrega_espesifico = document.getElementById('metodo_de_entrega_espesifico')
-            metodo_de_entrega_espesifico.style.display = 'none';
+            this.metodos_de_entrega_especificos = res.data
+            metodo_de_entrega_especifico = document.getElementById('metodo_de_entrega_especifico')
+            metodo_de_entrega_especifico.style.display = 'none';
             if(Object.keys(res.data).length != 0) { 
-              metodo_de_entrega_espesifico.style.display = 'block';
+              metodo_de_entrega_especifico.style.display = 'block';
             }
           }).catch(error => {
             Swal.fire({

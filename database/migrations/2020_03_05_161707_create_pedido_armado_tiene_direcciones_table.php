@@ -34,7 +34,7 @@ class CreatePedidoArmadoTieneDireccionesTable extends Migration
             $table->string('created_com_sal',75)->nullable()->comment('Correo del usuario que subio el comprobante de salida');
             $table->timestamp('fech_car_comp_de_sal')->nullable()->comment('Fecha en que que subio el comprobante de salida');
             $table->string('met_de_entreg_de_log',150)->nullable()->comment('Método de entrega de logística');
-            $table->string('met_de_entreg_de_log_esp',150)->nullable()->comment('Método de entrega espesifico de logística');
+            $table->string('met_de_entreg_de_log_esp',150)->nullable()->comment('Método de entrega especifico de logística');
             $table->string('comp_de_sal_rut', 200)->nullable()->comment('Ruta de donde se guardo el comprobante de salida');
             $table->string('comp_de_sal_nom', 200)->nullable()->comment('Nombre del comprobante de salida');
             $table->string('url',200)->nullable()->comment('URL rastreo');

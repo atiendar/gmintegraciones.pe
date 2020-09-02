@@ -1,16 +1,16 @@
 <div class="row">
-  <div class="form-group col-sm btn-sm" id="metodo_de_entrega_espesifico" style="display:none">
-    <label for="metodo_de_entrega_espesifico">{{ __('Método de entrega espesifico') }}</label>
+  <div class="form-group col-sm btn-sm" id="metodo_de_entrega_especifico" style="display:none">
+    <label for="metodo_de_entrega_especifico">{{ __('Método de entrega especifico') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      <select v-model='metodo_de_entrega_espesifico' v-on:change='displatNumeroDeGuia()' class ='form-control' data-old='{{ old('metodo_de_entrega_espesifico')}}' name='metodo_de_entrega_espesifico'>
+      <select v-model='metodo_de_entrega_especifico' v-on:change='displatNumeroDeGuia()' class ='form-control' data-old='{{ old('metodo_de_entrega_especifico')}}' name='metodo_de_entrega_especifico'>
         <option value="">Seleccione. . .</option>
-        <option v-for="metodo_de_entrega_esp in metodos_de_entrega_espesificos" v-bind:value="metodo_de_entrega_esp" v-text="metodo_de_entrega_esp"></option>
+        <option v-for="metodo_de_entrega_esp in metodos_de_entrega_especificos" v-bind:value="metodo_de_entrega_esp" v-text="metodo_de_entrega_esp"></option>
       </select>
     </div>
-    <span v-if="errors.metodo_de_entrega_espesifico" class="text-danger" v-text="errors.metodo_de_entrega_espesifico[0]"></span>
+    <span v-if="errors.metodo_de_entrega_especifico" class="text-danger" v-text="errors.metodo_de_entrega_especifico[0]"></span>
   </div>
   <div class="form-group col-sm btn-sm" id="paqueteria" style="display:none">
     <label for="paqueteria">{{ __('Paquetería') }}</label>
@@ -38,7 +38,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="comprobante_de_salida">{{ __('Comprobante de salida') }}</label>
+    <label for="comprobante_de_entrega">{{ __('Comprobante de entrega') }}</label>
   </div>
 </div>
 <div class="row">

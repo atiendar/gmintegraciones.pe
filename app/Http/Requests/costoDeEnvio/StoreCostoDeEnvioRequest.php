@@ -10,7 +10,7 @@ class StoreCostoDeEnvioRequest extends FormRequest {
     return [
       'foraneo_o_local'               => 'required|in:Foráneo,Local',
       'metodo_de_entrega'             => 'required|exists:metodos_de_entrega,nom_met_ent',
-      'metodo_de_entrega_espesifico'  => 'nullable|required_if:metodo_de_entrega,Paquetería',
+      'metodo_de_entrega_especifico'  => 'nullable|required_if:metodo_de_entrega,Paquetería',
       'estado'                        => 'required|exists:estados,est',
       'tipo_de_envio'                 => 'required_with:tipos_de_envio|nullable|exists:tipos_de_envio,tip_de_env',
       'tamano'                        => 'required|in:Chico,Mediano,Grande',

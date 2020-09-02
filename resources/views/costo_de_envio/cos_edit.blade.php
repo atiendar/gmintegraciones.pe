@@ -41,13 +41,13 @@
     data: {
       errors:                         [],
       metodos_de_entrega:             [],
-      metodos_de_entrega_espesificos: [],
+      metodos_de_entrega_especificos: [],
       estados:                        [],
       tipos_de_envio:                 [],
 
       foraneo_o_local:              "{{ $costo_de_envio->for_loc }}",
       metodo_de_entrega:            "{{ $costo_de_envio->met_de_entreg }}",
-      metodo_de_entrega_espesifico: "{{ $costo_de_envio->met_de_entreg_esp }}",
+      metodo_de_entrega_especifico: "{{ $costo_de_envio->met_de_entreg_esp }}",
       cuenta_con_seguro:            "{{ $costo_de_envio->seg }}",
       estado:                       "{{ $costo_de_envio->est }}",
       tamano:                       "{{ $costo_de_envio->tam }}",
@@ -79,7 +79,7 @@
             axios.put('/costo-de-envio/actualizar/'+{{ $costo_de_envio->id }}, {
               foraneo_o_local:              this.foraneo_o_local,
               metodo_de_entrega:            this.metodo_de_entrega,
-              metodo_de_entrega_espesifico: this.metodo_de_entrega_espesifico,
+              metodo_de_entrega_especifico: this.metodo_de_entrega_especifico,
               cuenta_con_seguro:            this.cuenta_con_seguro,
               estado:                       this.estado,
               tamano:                       this.tamano,
@@ -112,7 +112,7 @@
       async getMetodosDeEntrega($val) {
         if($val == 2) {
           this.metodo_de_entrega            = null
-          this.metodo_de_entrega_espesifico = null
+          this.metodo_de_entrega_especifico = null
           this.estado                       = null
           this.tipo_de_envio                = null
           this.tiempo_de_entrega            = null
@@ -159,7 +159,7 @@
       },
       async getTiposDeEnvio($val) {
         if($val == 2) {
-          this.metodo_de_entrega_espesifico = null
+          this.metodo_de_entrega_especifico = null
           this.tipo_de_envio                = null
         }
 
@@ -180,20 +180,20 @@
           });
         }
         if(this.metodo_de_entrega == 'Paquetería') {
-          this.getMetodosDeEntregaEspesificos()
+          this.getMetodosDeEntregaEspecificos()
         } else {
-          metodo_de_entrega_espesifico = document.getElementById('metodo_de_entrega_espesifico')
-          metodo_de_entrega_espesifico.style.display = 'none';
+          metodo_de_entrega_especifico = document.getElementById('metodo_de_entrega_especifico')
+          metodo_de_entrega_especifico.style.display = 'none';
         }
       },
-      async getMetodosDeEntregaEspesificos() {
+      async getMetodosDeEntregaEspecificos() {
         if(this.metodo_de_entrega != '') {
           axios.get('/logistica/direccion/metodo-de-entrega-espescifico/'+this.metodo_de_entrega).then(res => {
-            this.metodos_de_entrega_espesificos = res.data
-            metodo_de_entrega_espesifico = document.getElementById('metodo_de_entrega_espesifico')
-            metodo_de_entrega_espesifico.style.display = 'none';
+            this.metodos_de_entrega_especificos = res.data
+            metodo_de_entrega_especifico = document.getElementById('metodo_de_entrega_especifico')
+            metodo_de_entrega_especifico.style.display = 'none';
             if(Object.keys(res.data).length != 0) { 
-              metodo_de_entrega_espesifico.style.display = 'block';
+              metodo_de_entrega_especifico.style.display = 'block';
             }
           }).catch(error => {
             Swal.fire({

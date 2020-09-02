@@ -69,15 +69,15 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   public function store($request, $id_direccion) {
     try { DB::beginTransaction();
       $direccion                            = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), null, ['armado'], 'edit');
-      $metodo_de_entrega_espesifico         = $this->metodoDeEntregaEspecificoRepo->metodoEspecificoFirstByNombreMetodo($request->metodo_de_entrega_espesifico, []);
-      if($metodo_de_entrega_espesifico == null) {
+      $metodo_de_entrega_especifico         = $this->metodoDeEntregaEspecificoRepo->metodoEspecificoFirstByNombreMetodo($request->metodo_de_entrega_especifico, []);
+      if($metodo_de_entrega_especifico == null) {
         $url = null;
       }else {
-        $url = $metodo_de_entrega_espesifico->url;
+        $url = $metodo_de_entrega_especifico->url;
       }
       $direccion->estat                     = config('app.en_ruta');
       $direccion->met_de_entreg_de_log      = $request->metodo_de_entrega;
-      $direccion->met_de_entreg_de_log_esp  = $request->metodo_de_entrega_espesifico;
+      $direccion->met_de_entreg_de_log_esp  = $request->metodo_de_entrega_especifico;
       $direccion->url                       = $url;
       $direccion->cost_por_env_log          = $request->costo_por_envio;
       $direccion->created_com_sal           = Auth::user()->email_registro;
@@ -101,7 +101,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   public function storeEntrega($request, $id_direccion) {
     try { DB::beginTransaction();
       $direccion        = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), null, ['armado'], 'edit');
-      $direccion->estat = $request->metodo_de_entrega_espesifico;
+      $direccion->estat = $request->metodo_de_entrega_especifico;
       $direccion->estat = config('app.entregado');
       $direccion->save();
 
