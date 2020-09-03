@@ -25,13 +25,17 @@
           <tr title="{{ $producto->sku }}" class="{{ empty($producto->stock < config('app.cantidad_stock_minimo_producto')) ? '' : 'bg-warning' }}">
             @include('almacen.producto.alm_pro_table.td.id')
             <td>
-              @canany(['armado.producto.editCantidad', 'armado.clon.producto.editCantidad'])
-                {!! Form::open(['route' => ['armado.producto.editCantidad', Crypt::encrypt($producto->id), Crypt::encrypt($armado->id)], 'method' => 'patch', 'id' => 'armadoProductoEditCantidad']) !!}
-                  {!! Form::select('cantidad', config('opcionesSelect.select_cantidad_table_productos_edit'), $producto->pivot->cant, ['class' => 'form-control form-control-sm' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'onchange' => 'this.form.submit()']) !!}
-                {!! Form::close() !!}
+              @if(Request::route()->getName() == 'armado.edit' OR Request::route()->getName() == 'armado.clon.edit')
+                @canany(['armado.producto.editCantidad', 'armado.clon.producto.editCantidad'])
+                  {!! Form::open(['route' => ['armado.producto.editCantidad', Crypt::encrypt($producto->id), Crypt::encrypt($armado->id)], 'method' => 'patch', 'id' => 'armadoProductoEditCantidad']) !!}
+                    {!! Form::select('cantidad', config('opcionesSelect.select_cantidad_table_productos_edit'), $producto->pivot->cant, ['class' => 'form-control form-control-sm' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'onchange' => 'this.form.submit()']) !!}
+                  {!! Form::close() !!}
+                @else
+                  {{ $producto->pivot->cant }}
+                @endcanany
               @else
-                {{ $producto->pivot->cant }}
-              @endcanany
+              {{ Sistema::dosDecimales($producto->pivot->cant) }}
+              @endif
             </td>
             @include('almacen.producto.alm_pro_table.td.producto', ['id_producto' => Crypt::encrypt($producto->id), 'target' => '_blank'])
             @include('almacen.producto.alm_pro_table.td.proveedor')

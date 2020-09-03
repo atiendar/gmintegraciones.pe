@@ -73,7 +73,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-       {!! Form::text('linea_de_producto', $material->lin_de_prod, ['class' => 'form-control' . ($errors->has('linea_de_producto') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Línea de producto')]) !!}
+       {!! Form::text('linea_de_producto', $material->lin_de_prod, ['class' => 'form-control' . ($errors->has('linea_de_producto') ? ' is-invalid' : ''), 'maxlength' => 60, 'placeholder' => __('Línea de producto')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('linea_de_producto') }}</span>
   </div>

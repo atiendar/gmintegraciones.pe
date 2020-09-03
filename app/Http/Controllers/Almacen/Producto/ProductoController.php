@@ -94,7 +94,7 @@ class ProductoController extends Controller {
     $info_archivo = (object) [
       'tip'             => 'XLSX', // Tipo de archivo (JPG, PNG, PDF, XLM, XLSX, ETC) siempre en mayusculas
       'arch_rut'        => env('PREFIX'), // Ruta de donde se guardara el archivo (Mismo que se espesifica en el archivo config/filesystems.php)
-      'arch_nom'        => 'almacen/producto/archivosGenerados/ReporteDeCompra-' . date('Y-m-d') . '-' . time() . '.xlsx', // Nombre del archivo
+      'arch_nom'        => 'almacen/productos/archivosGenerados/ReporteDeCompra-' . date('Y-m-d') . '-' . time() . '.xlsx', // Nombre del archivo
       'arch_nom_abrev'  => 'ReporteDeCompra-' . date('Y-m-d'), // Nombre del archivo abreviado para mostrar en la campana de notificaciones
       'filesystems'     => 's3' // Nombre de la fuction espesificada en el archivo config/filesystems.php la cual se encargara de espesificar la ruta donde se guardara el archivo
     ];

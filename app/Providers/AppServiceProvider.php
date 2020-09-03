@@ -33,8 +33,10 @@ class AppServiceProvider extends ServiceProvider {
     });
     Validator::extend('alpha_cierre_fiscal', function ($attribute, $value) { // Validación
       $year_actual = date("Y");
-      $pago = \App\Models\Pago::where('cod_fact', $value)->firstOrFail('created_at');
-
+      $pago = \App\Models\Pago::where('cod_fact', $value)->first('created_at');
+      if($pago == null) {
+        return false;
+      }
       if($pago->created_at->format('Y') < $year_actual) {
         return false;
       }
@@ -55,16 +57,20 @@ class AppServiceProvider extends ServiceProvider {
         return true; 
     });
     Validator::extend('alpha_codigo_de_facturacion_pertenece_al_usuario', function ($attribute, $value, $user_id) { // Validación
-      $resultado = \App\Models\Pago::where('cod_fact', $value)->firstOrFail('user_id');
-
+      $resultado = \App\Models\Pago::where('cod_fact', $value)->first('user_id');
+      if($resultado == null) {
+        return false;
+      }
       if($resultado->user_id != $user_id[0]) {
         return false;
       }
       return true; 
     });
     Validator::extend('alpha_estatus_codigo_de_facturacion', function ($attribute, $value) { // Validación
-      $resultado = \App\Models\Pago::where('cod_fact', $value)->firstOrFail('est_fact');
-
+      $resultado = \App\Models\Pago::where('cod_fact', $value)->first('est_fact');
+      if($resultado == null) {
+        return false;
+      }
       if($resultado->est_fact != config('app.no_solicitada') AND $resultado->est_fact != config('app.cancelado')) {
         return false;
       }
@@ -73,7 +79,10 @@ class AppServiceProvider extends ServiceProvider {
     Validator::extend('alpha_con_o_sin_iva', function ($attribute, $value) { // Validación     
       $resultado = \App\Models\Pago::where('cod_fact', $value)->with(['pedido'=> function ($query) {
         $query->select('id', 'con_iva');
-      }])->firstOrFail(['id', 'pedido_id']);
+      }])->first(['id', 'pedido_id']);
+      if($resultado == null) {
+        return false;
+      }
       if($resultado->pedido->con_iva == null) {
         return false;
       }
