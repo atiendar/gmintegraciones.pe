@@ -46,14 +46,15 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
       $cot_armado = new CotizacionArmado();
         // FALTA COPIAR Y GUARGAR LA IMAGEN (REDIMENCIONAR A 500X500 para no hacer tann pesada la generacion de PDF)
     //  dd( $armado->img_rut);
-    //  $cot_armado->img_rut        = $armado->img_rut;
-    //  $cot_armado->img_nom        = $armado->img_nom;
+      $cot_armado->img_rut        = $armado->img_rut;
+      $cot_armado->img_nom        = $armado->img_nom;
       $cot_armado->id_armado      = $armado->id;
       $cot_armado->tip            = $armado->tip;
       $cot_armado->nom            = $armado->nom;
       $cot_armado->sku            = $armado->sku;
       $cot_armado->gama           = $armado->gama;
       $cot_armado->dest           = $armado->dest;
+      $cot_armado->tam            = $armado->tam;
       $cot_armado->pes            = $armado->pes;
       $cot_armado->alto           = $armado->alto;
       $cot_armado->ancho          = $armado->ancho;

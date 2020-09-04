@@ -55,8 +55,8 @@
         @foreach($armados as $armado)
           <tr>
             <td>
-              @if($armado->img_nom != null)
-                <img src="{{ $armado->img_rut.$armado->img_nom }}">
+              @if($armado->ya_mod == '0')
+                <img src="{{ $armado->img_rut.$armado->img_nom }}" style="width:5rem">
               @endif
             </td>
             <td>{{ $armado->tip }}</td>
