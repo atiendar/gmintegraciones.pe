@@ -111,9 +111,9 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
       if($direccion->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
-          'Cotizaciones', // Módulo
-          'cotizacion.show', // Nombre de la ruta
-          $this->serviceCrypt->encrypt($id_direccion), // Id del registro debe ir encriptado
+          'Direcciones cotizaciones', // Módulo
+          'cotizacion.armado.show', // Nombre de la ruta
+          $this->serviceCrypt->encrypt($direccion->armado_id), // Id del registro debe ir encriptado
           $id_direccion, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
           array('Tipo de empaque', 'Cuenta con seguro', 'Tiempo de entrega (minutos)', 'Método de entrega', 'Estado al que se cotizó', 'Foráneo o local', 'Tipo de envío', 'Costo de envío', 'Cantidad', 'Detalles de la ubicación'), // Nombre de los inputs del formulario
           $direccion, // Request

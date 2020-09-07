@@ -125,7 +125,7 @@
             </td>
           <td>
             @php $tot=$cotizacion->tot*0.0105 @endphp
-            <a href="https://www.paypal.me/canastasyarconesmx/{{ Sistema::dosDecimales($cotizacion->tot + $tot) }}" target="_blank">Para pago con tarjeta clic aquí</a>
+            <a href="https://www.paypal.me/canastasyarcones/{{ Sistema::dosDecimales($cotizacion->tot + $tot) }}" target="_blank">Para pago con tarjeta clic aquí</a>
           </td>
         </tr>
       </tbody>
