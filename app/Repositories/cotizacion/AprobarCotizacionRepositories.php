@@ -54,6 +54,10 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       $armados_cotizacion = $cotizacion->armados()->with('productos', 'direcciones')->get();
       $nom_tabla = (new \App\Models\Producto())->getTable();
 
+      if($cotizacion->tot == 0 ) {
+        return abort('404', 'La cotización seleccionada no puede convertirce en un pedido ya que el total es de $0.00');
+      }
+
       // CREA EL PEDIDO
       $pedido = new \App\Models\Pedido();
       $pedido->serie            = $this->sistemaRepo->datos('ser_pedidos');

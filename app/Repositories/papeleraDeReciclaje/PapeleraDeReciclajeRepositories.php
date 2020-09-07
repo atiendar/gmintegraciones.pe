@@ -159,7 +159,7 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
     }
     if($registro->tab == 'pedidos') {
       $consulta = \App\Models\Pedido::with(['armados', 'pagos'])->withTrashed()->findOrFail($registro->id_reg);
-      $this->$this->pedidosRepo->metodo($metodo, $consulta);
+      $this->pedidosRepo->metodo($metodo, $consulta);
     }
 
 

@@ -260,9 +260,11 @@ class PagoRepositories implements PagoInterface {
         $up_estat .= ' WHEN '. $armado->id. ' THEN "'. config('app.en_espera_de_compra').'"';
         $ids      .= $armado->id.',';
       }
-      $nom_tabla = (new \App\Models\PedidoArmado())->getTable();
-      $ids = substr($ids, 0, -1);
-      DB::UPDATE("UPDATE ".$nom_tabla." SET estat = CASE id". $up_estat." END WHERE id IN (".$ids.")");
+      if($up_estat != null) {
+        $nom_tabla = (new \App\Models\PedidoArmado())->getTable();
+        $ids = substr($ids, 0, -1);
+        DB::UPDATE("UPDATE ".$nom_tabla." SET estat = CASE id". $up_estat." END WHERE id IN (".$ids.")");
+      }
     }
   }
   public function getPagoForCodigoFacturacionFindOrFail($codigo_de_facturacion, $relaciones) {
