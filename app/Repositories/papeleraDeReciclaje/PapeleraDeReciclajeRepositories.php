@@ -13,6 +13,7 @@ use App\Repositories\papeleraDeReciclaje\tabla\armados\ArmadosRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\armados\ArmadoTieneImagenesRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\productos\ProductosRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\pedidos\PedidosRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\cotizaciones\CotizacionesRepositories;
 //Otro
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -28,7 +29,8 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
   protected $armadoTieneImagenesRepo;
   protected $productosRepo;
   protected $pedidosRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, UsuariosRepositories $usuariosRepositories, PlantillasRepositories $plantillasRepositories, QuejasYSugerenciasRepositories $quejasYSugerenciasRepositories, ProveedoresRepositories $proveedoresRepositories, ArmadosRepositories $armadosRepositories, ArmadoTieneImagenesRepositories $armadoTieneImagenesRepositories, ProductosRepositories $productosRepositories, PedidosRepositories $pedidosRepositories) {
+  protected $cotizacionesRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, UsuariosRepositories $usuariosRepositories, PlantillasRepositories $plantillasRepositories, QuejasYSugerenciasRepositories $quejasYSugerenciasRepositories, ProveedoresRepositories $proveedoresRepositories, ArmadosRepositories $armadosRepositories, ArmadoTieneImagenesRepositories $armadoTieneImagenesRepositories, ProductosRepositories $productosRepositories, PedidosRepositories $pedidosRepositories, CotizacionesRepositories $cotizacionesRepositories) {
     $this->serviceCrypt             = $serviceCrypt;
     $this->usuariosRepo             = $usuariosRepositories;
     $this->plantillasRepo           = $plantillasRepositories;
@@ -38,6 +40,7 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
     $this->armadoTieneImagenesRepo  = $armadoTieneImagenesRepositories;
     $this->productosRepo            = $productosRepositories;
     $this->pedidosRepo              = $pedidosRepositories;
+    $this->cotizacionesRepo         = $cotizacionesRepositories;
   }
   public function papeleraAsignadoFindOrFailById($id_registro) {
     $id_registro = $this->serviceCrypt->decrypt($id_registro);
@@ -152,7 +155,8 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
       $this->productosRepo->metodo($metodo, $consulta);
     }
     if($registro->tab == 'cotizaciones') {
-      $consulta = \App\Models\Cotizacion::withTrashed()->findOrFail($registro->id_reg);
+      $consulta = \App\Models\Cotizacion::with(['armados'])->withTrashed()->findOrFail($registro->id_reg);
+      $this->cotizacionesRepo->metodo($metodo, $consulta);
     }
     if($registro->tab == 'costos_de_envio') {
       $consulta = \App\Models\CostoDeEnvio::withTrashed()->findOrFail($registro->id_reg);

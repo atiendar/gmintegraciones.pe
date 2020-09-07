@@ -3,6 +3,7 @@ namespace App\Repositories\cotizacion\armadoCotizacion;
 // Models
 use App\Models\CotizacionArmado;
 // Events
+use App\Events\layouts\ArchivosEliminados;
 use App\Events\layouts\ActividadRegistrada;
 // Repositories
 use App\Repositories\armado\ArmadoRepositories;
@@ -44,13 +45,15 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
       
       // GUARDA EL REGISTRO DEL ARMADO
       $cot_armado = new CotizacionArmado();
-      // FALTA COPIAR LA IMAGEN DEL ARMADO AL ARMADO DE LA COTIZACION
-      $nueva_ruta = 'cotizacion/'.time().'.jpeg';
-      $s3 = \Storage::disk("s3");
-      $s3->copy($armado->img_nom_min, $nueva_ruta);
-
-      $cot_armado->img_rut        = $armado->img_rut_min;
-      $cot_armado->img_nom        = $nueva_ruta;
+      if($armado->img_nom_min != null) {
+        // Clona la imagen
+        $nueva_ruta = 'cotizacion/'.time().'.jpeg';
+        $s3 = \Storage::disk("s3");
+        $s3->copy($armado->img_nom_min, $nueva_ruta);
+        $cot_armado->img_rut        = $armado->img_rut_min;
+        $cot_armado->img_nom        = $nueva_ruta;
+      }
+      
       $cot_armado->id_armado      = $armado->id;
       $cot_armado->tip            = $armado->tip;
       $cot_armado->nom            = $armado->nom;
@@ -127,6 +130,11 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
       $this->verificarElEstatusDeLaCotizacion($armado->cotizacion->estat);
       $cotizacion = $armado->cotizacion;
       $armado->forceDelete();
+
+      // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+      ArchivosEliminados::dispatch(
+        array($armado->img_nom), 
+      );
 
       // GENERA LOS NUEVOS PRECIOS DE LA COTIZACIÓN
       $this->calcularValoresCotizacionRepo->calculaValoresCotizacion($cotizacion);

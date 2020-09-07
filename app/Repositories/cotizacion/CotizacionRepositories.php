@@ -139,6 +139,7 @@ class CotizacionRepositories implements CotizacionInterface {
           
       $contador2    = 0;
       $contador3    = 0;
+      $contador4    = 0;
       $productos    = null;
       $direcciones  = null;
       foreach($armados as $armado) {
@@ -146,6 +147,15 @@ class CotizacionRepositories implements CotizacionInterface {
         $clonArmado                = $armado->replicate();
         $clonArmado->cotizacion_id = $clonCotizacion->id;
         $clonArmado->created_at    = date("Y-m-d h:i:s");
+
+        if($armado->img_nom != null) {
+          // Clona la imagen
+          $nueva_ruta = 'cotizacion/'.time().$contador4.'.jpeg';
+          $s3 = \Storage::disk("s3");
+          $s3->copy($armado->img_nom, $nueva_ruta);
+          $clonArmado->img_nom        = $nueva_ruta;
+        }
+
         $clonArmado->save();
         
         // CLONA LOS PRODUCTOS DE LOS ARMADOS
@@ -165,6 +175,7 @@ class CotizacionRepositories implements CotizacionInterface {
           $direcciones[$contador3]['created_at']= date("Y-m-d h:i:s");
           $contador3 +=1;
         }
+        $contador4 +=1;
       }
       if($productos != null) {
         \App\Models\CotizacionArmadoProductos::insert($productos);
