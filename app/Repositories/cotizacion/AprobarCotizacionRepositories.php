@@ -61,8 +61,8 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       // CREA EL PEDIDO
       $pedido = new \App\Models\Pedido();
       $pedido->serie            = $this->sistemaRepo->datos('ser_pedidos');
-      $pedido->num_pedido       = $cotizacion->serie;
-    //  $pedido->num_pedido       = $this->serieRepo->sumaUnoALaUltimaSerie('Pedidos (Serie)', $this->sistemaRepo->datos('ser_pedidos'));
+    //  $pedido->num_pedido       = $cotizacion->serie;
+      $pedido->num_pedido       = $this->serieRepo->sumaUnoALaUltimaSerie('Pedidos (Serie)', $this->sistemaRepo->datos('ser_pedidos'));
       $pedido->ult_let          = 'A';
       $pedido->user_id          = $cotizacion->user_id;
       $pedido->tot_de_arm       = $cotizacion->tot_arm;
@@ -89,7 +89,8 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
 
         // REGISTRA LOS ARMADOS AL PEDIDO
         $armado_pedido               = new \App\Models\PedidoArmado();
-
+        $armado_pedido->img_rut      = $armado_cotizacion->img_rut;
+        $armado_pedido->img_nom      = $armado_cotizacion->img_nom;
         // DEFINE SI EL PEDIDO ES FORANEO O NO
         if($modificado == null) {
           $modificado = $this->elPedidoTieneDireccionesForaneas($pedido, $armado_cotizacion, $modificado);
