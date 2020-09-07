@@ -26,9 +26,9 @@ class CreateMaterialesTable extends Migration {
         $table->string('lin_de_prod',60)->comment('Linea de producto');
         $table->string('sub_lin_de_prod',60)->comment('Sub Linea de producto');
        
-        $table->decimal('prec_list_pag', 20,2)->unsigned()->comment('Precio Lista Pagina');
-        $table->decimal('desc', 20,2)->unsigned()->comment('Descuento');
-        $table->decimal('prec_pag_al_cli', 20,2)->unsigned()->comment('Precio Pagina (Al cliente)');
+        $table->string('prec_list_pag', 22)->comment('Precio Lista Pagina');
+        $table->string('desc', 22)->comment('Descuento');
+        $table->string('prec_pag_al_cli', 22)->comment('Precio Pagina (Al cliente)');
 
 
         $table->string('asignado_mat', 75)->comment('Correo del usuario al qu se le asigno este registro');

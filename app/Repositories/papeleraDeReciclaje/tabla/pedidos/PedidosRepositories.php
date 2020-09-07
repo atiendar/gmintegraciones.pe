@@ -9,21 +9,28 @@ class PedidosRepositories implements PedidosInterface {
   }
   public function metDestroy($consulta) {
     $armados = $consulta->armados()->with(['direcciones'=> function ($query) {
-                $query->select('id', 'comp_de_sal_rut', 'comp_de_sal_nom', 'pedido_armado_id')->with(['comprobantesDeEntrega'=> function ($query) {
-                $query->select('id', 'comp_ent_rut', 'comp_ent_nom', 'comp_cost_por_env_log_rut', 'comp_cost_por_env_log_nom', 'direccion_id')->withTrashed();
-              }])->withTrashed();
-            }])->withTrashed()->get(['id', 'tarj_dise_rut', 'tarj_dise_nom']);
+                $query->select('id', 'tarj_dise_rut', 'tarj_dise_nom', 'comp_de_sal_rut', 'comp_de_sal_nom', 'pedido_armado_id')->with(['comprobantesDeEntrega'=> function ($query) {
+                  $query->select('id', 'comp_ent_rut', 'comp_ent_nom', 'comp_cost_por_env_log_rut', 'comp_cost_por_env_log_nom', 'direccion_id')->withTrashed();
+                }])->withTrashed();
+              }])->withTrashed()->get(['id', 'img_rut', 'img_nom']);
                                       
     // FUNCION QUE ELIMINA TODOS LOS ARCHIVOS DE LOS ARMADOS, DIRECCIONES, COMPROBANTES DE ENTREGA QUE ESTEN RELACIONADOS AL PEDIDO
     $cont1 = 0;
     $archivos_a_eliminar = null;
     foreach($armados as $armado) {
-      // AÑADE LA RUTA Y NOMBRE DE LAS TARJETAS DE FELICITACION
-      if($armado->tarj_dise_nom != null) {
-        $archivos_a_eliminar[$cont1] = $armado->tarj_dise_nom;
+      // AÑADE LA RUTA Y NOMBRE DE LA IMAGEN DEL ARMADO
+      if($armado->img_nom != null) {
+        $archivos_a_eliminar[$cont1] = $armado->img_nom;
         $cont1 +=1;
       }
+
       foreach($armado->direcciones as $direccion) {
+        // AÑADE LA RUTA Y NOMBRE DE LAS TARJETAS DE FELICITACION
+        if($direccion->tarj_dise_nom != null) {
+          $archivos_a_eliminar[$cont1] = $direccion->tarj_dise_nom;
+          $cont1 +=1;
+        }
+
         // AÑADE LA RUTA Y NOMBRE DE LOS COMPROBANTES DE SALIDA
         if($direccion->comp_de_sal_nom != null) {
           $archivos_a_eliminar[$cont1] = $direccion->comp_de_sal_nom;

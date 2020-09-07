@@ -44,10 +44,9 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
       
       // GUARDA EL REGISTRO DEL ARMADO
       $cot_armado = new CotizacionArmado();
-        // FALTA COPIAR Y GUARGAR LA IMAGEN (REDIMENCIONAR A 500X500 para no hacer tann pesada la generacion de PDF)
-    //  dd( $armado->img_rut);
-      $cot_armado->img_rut        = $armado->img_rut;
-      $cot_armado->img_nom        = $armado->img_nom;
+      // FALTA COPIAR Y GUARGAR LA IMAGEN (REDIMENCIONAR A 500X500 para no hacer tann pesada la generacion de PDF)
+      $cot_armado->img_rut        = $armado->img_rut_min;
+      $cot_armado->img_nom        = $armado->img_nom_min;
       $cot_armado->id_armado      = $armado->id;
       $cot_armado->tip            = $armado->tip;
       $cot_armado->nom            = $armado->nom;

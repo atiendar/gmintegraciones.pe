@@ -13,6 +13,8 @@ use App\Repositories\servicio\crypt\ServiceCrypt;
 // Otros
 use Illuminate\Support\Facades\Auth;
 use DB;
+use Intervention\Image\ImageManagerStatic as Image;
+use Storage;
 
 class ArmadoRepositories implements ArmadoInterface {
   protected $serviceCrypt;
@@ -45,15 +47,29 @@ class ArmadoRepositories implements ArmadoInterface {
       $armado->asignado_arm    = Auth::user()->email_registro;
       $armado->created_at_arm  = Auth::user()->email_registro;
       if($request->hasfile('imagen_del_armado')) {
+        $imagen_blob = request()->file('imagen_del_armado');
+
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
-          $request->file('imagen_del_armado'), // Archivo blob
+          $imagen_blob, // Archivo blob
           'armados/'.date("Y"), // Ruta en la que guardara el archivo
           'armado-'.time().'.', // Nombre del archivo
           null // Ruta y nombre del archivo anterior
         ); 
         $armado->img_rut = $imagen[0]['ruta'];
         $armado->img_nom = $imagen[0]['nombre'];
+
+        // Minimiza el tamaño de la imagen
+        $img = Image::make($imagen_blob);
+        $img_nom = $imagen_blob->getClientOriginalName();
+        $img->resize(200, 200, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+        $imagen_blob_min = $img->stream()->detach();
+        $nom = 'armados/'.date("Y").'/'.time().'min'.$img_nom;
+        Storage::disk('s3')->put($nom, $imagen_blob_min, 'public');
+        $armado->img_rut_min = $imagen[0]['ruta'];
+        $armado->img_nom_min = $nom;
       }
       $armado->save();
       DB::commit();
@@ -91,15 +107,29 @@ class ArmadoRepositories implements ArmadoInterface {
         $armado->updated_at_arm  = Auth::user()->email_registro;
       }
       if($request->hasfile('imagen_del_armado')) {
+        $imagen_blob = $request->file('imagen_del_armado');
+
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
-          $request->file('imagen_del_armado'), 
+          $imagen_blob, 
           'armados/'.date("Y"), 
           'armado-'.time().'.',
-          $armado->img_nom
+          [$armado->img_nom, $armado->img_nom_min],
         ); 
         $armado->img_rut = $imagen[0]['ruta'];
         $armado->img_nom = $imagen[0]['nombre'];
+
+        // Minimiza el tamaño de la imagen
+        $img = Image::make($imagen_blob);
+        $img_nom = $imagen_blob->getClientOriginalName();
+        $img->resize(200, 200, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+        $imagen_blob_min = $img->stream()->detach();
+        $nom = 'armados/'.date("Y").'/'.time().'min'.$img_nom;
+        Storage::disk('s3')->put($nom, $imagen_blob_min, 'public');
+        $armado->img_rut_min = $imagen[0]['ruta'];
+        $armado->img_nom_min = $nom;
       }
       $armado->save();
       return $armado;
