@@ -3,9 +3,9 @@ namespace App\Repositories\factura;
 // Models
 use App\Models\Factura;
 // Notifications
-use App\Notifications\Factura\NotificacionFacturaGenerada;
-use App\Notifications\Factura\NotificacionFacturaCancelada;
-use App\Notifications\Factura\NotificacionFacturaErrorDelCliente;
+use App\Notifications\factura\NotificacionFacturaGenerada;
+use App\Notifications\factura\NotificacionFacturaCancelada;
+use App\Notifications\factura\NotificacionFacturaErrorDelCliente;
 // Events
 use App\Events\layouts\ActividadRegistrada;
 use App\Events\layouts\ArchivoCargado;
@@ -83,9 +83,6 @@ class FacturaRepositories implements FacturaInterface {
     $factura->coment_u_obs_us                 = $request->comentarios_cliente;
     return $factura;
   }
-
-
-
   public function update($request, $id_factura) {
     try { DB::beginTransaction();
       $factura = $this->getFacturaFindOrFailById($id_factura, ['usuario', 'pago'], config('app.facturado'));
