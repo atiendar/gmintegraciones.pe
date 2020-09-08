@@ -10,7 +10,7 @@ class PedidosRepositories implements PedidosInterface {
   public function metDestroy($consulta) {
     $armados = $consulta->armados()->with(['direcciones'=> function ($query) {
                 $query->select('id', 'tarj_dise_rut', 'tarj_dise_nom', 'comp_de_sal_rut', 'comp_de_sal_nom', 'pedido_armado_id')->with(['comprobantes'=> function ($query) {
-                  $query->select('id', 'comp_ent_rut', 'comp_ent_nom', 'comp_cost_por_env_log_rut', 'comp_cost_por_env_log_nom', 'direccion_id')->withTrashed();
+                  $query->select('id', 'comp_ent_rut', 'comp_ent_nom', 'direccion_id')->withTrashed();
                 }])->withTrashed();
               }])->withTrashed()->get(['id', 'img_rut', 'img_nom']);
                                       
@@ -42,10 +42,12 @@ class PedidosRepositories implements PedidosInterface {
             $archivos_a_eliminar[$cont1] = $comprobanteDeEntrega->comp_ent_nom;
             $cont1 +=1;
           }
+          /*
           if($comprobanteDeEntrega->comp_cost_por_env_log_nom != null) {
             $archivos_a_eliminar[$cont1] = $comprobanteDeEntrega->comp_cost_por_env_log_nom;
             $cont1 +=1;
           }
+          */
         }
       }
     }
