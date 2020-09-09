@@ -58,10 +58,10 @@
       <td colspan="12">
         <dt>Comentarios generales ventas</dt>
         <dt>
-          @if($pedido->coment_venta == null)
+          @if($pedido->coment_vent == null)
           Sin comentarios
         @else
-          {{ $pedido->coment_venta }}
+          {{ $pedido->coment_vent }}
         @endif
         </dt>
       </td>

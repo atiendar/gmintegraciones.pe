@@ -58,10 +58,10 @@
       <td colspan="12">
         <dt>Comentarios generales ventas</dt>
         <dt>
-          @if($pedido->coment_venta == null)
+          @if($pedido->coment_vent == null)
             Sin comentarios
           @else
-            {{ $pedido->coment_venta }}
+            {{ $pedido->coment_vent }}
           @endif
         </dt>
       </td>
@@ -130,17 +130,17 @@
             </td>
             <td>{{ $armado->ubic_rack }}</td>
             <td>
-              @if($pedido->coment_vent == null)
+              @if($armado->coment_vent == null)
                 Sin comentarios
               @else
-                {{ $pedido->coment_vent }}
+                {{ $armado->coment_vent }}
               @endif
             </td>
             <td>
-              @if($pedido->coment_client == null)
+              @if($armado->coment_client == null)
                 Sin comentarios
               @else
-                {{ $pedido->coment_client }}
+                {{ $armado->coment_client }}
               @endif            
             </td>
           </tr>
