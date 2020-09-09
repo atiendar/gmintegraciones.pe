@@ -21,7 +21,7 @@ class CreateCotizacionArmadoTieneDireccionesTable extends Migration
            
             $table->enum('tip_emp',config('opcionesSelect.select_tipo_de_empaque'))->comment('Tipo de empaque');
             $table->enum('seg',config('opcionesSelect.select_si_no'))->comment('Cuenta con seguro');
-            $table->string('tiemp_ent', 20)->comment('Tiempo de entrega en minutos');
+            $table->string('tiemp_ent', 25)->comment('Tiempo de entrega en dias');
             $table->integer('cant')->unsigned()->default(0)->comment('Cantidad');
             $table->string('met_de_entreg', 150)->comment('Método de entrega de ventas');
             $table->string('est',150)->comment('Estado a la que se cotizó');
