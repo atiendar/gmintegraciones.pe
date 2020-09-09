@@ -806,13 +806,6 @@ Spatie\Permission\Models\Permission::create([
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-//      'id'              => 105,
-      'nom'             => "Registrar nuevo Pagos 'Individual'",
-      'name'				    => 'pago.create',
-      'desc'            => "Crear nuevo registro en el módulo Pagos 'Individual'",
-      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
-    ]);
-    Spatie\Permission\Models\Permission::create([
 //      'id'              => 106,
       'nom'             => "Ver detalles Pagos 'Individual'",
       'name'				    => 'pago.show',

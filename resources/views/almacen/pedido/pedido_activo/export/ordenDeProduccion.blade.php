@@ -138,17 +138,17 @@
               @endforeach
             </td>
             <td>
-              @if($pedido->coment_vent == null)
+              @if($armado->coment_vent == null)
                 Sin comentarios
               @else
-                {{ $pedido->coment_vent }}
+                {{ $armado->coment_vent }}
               @endif
             </td>
             <td>
-              @if($pedido->coment_client == null)
+              @if($armado->coment_client == null)
               Sin comentarios
             @else
-              {{ $pedido->coment_client }}
+              {{ $armados->coment_client }}
             @endif 
             </td>
           </tr>
