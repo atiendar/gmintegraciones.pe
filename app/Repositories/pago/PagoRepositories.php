@@ -192,18 +192,18 @@ class PagoRepositories implements PagoInterface {
       // ELIMINA LOS ARCHIVOS DEL PAGO
       // Dispara el evento registrado en App\Providers\EventServiceProvider.php
       ArchivosEliminados::dispatch([
-        $pago->comp_de_pag_rut.$pago->comp_de_pag_nom,
-        $pago->cop_de_indent_rut.$pago->cop_de_indent_nom
+        $pago->comp_de_pag_nom,
+        $pago->cop_de_indent_nom
       ]);
 
       // ELIMINA LOS ARCHIVOS DE LA COTIZACION RELACIONADA AL PAGO
       if(empty($pago->factura) == FALSE) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ArchivosEliminados::dispatch([
-          $pago->factura->fact_pdf_rut.$pago->factura->fact_pdf_nom,
-          $pago->factura->fact_xlm_rut.$pago->factura->fact_xlm_nom,
-          $pago->factura->ppd_pdf_rut.$pago->factura->ppd_pdf_nom,
-          $pago->factura->ppd_xlm_rut.$pago->factura->ppd_xlm_nom
+          $pago->factura->fact_pdf_nom,
+          $pago->factura->fact_xlm_nom,
+          $pago->factura->ppd_pdf_nom,
+          $pago->factura->ppd_xlm_nom
         ]);
       }
   
