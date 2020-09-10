@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\logistica\pedidoActivo\armadoPedidoActivo\UpdateArmadoPedidoActivoRequest;
 // Repositories
-use App\Repositories\logistica\PedidoActivo\armadoPedidoActivo\ArmadoPedidoActivoRepositories;
+use App\Repositories\logistica\pedidoActivo\armadoPedidoActivo\ArmadoPedidoActivoRepositories;
 
 class ArmadoPedidoActivoController extends Controller {
   protected $armadoPedidoActivoRepo;
