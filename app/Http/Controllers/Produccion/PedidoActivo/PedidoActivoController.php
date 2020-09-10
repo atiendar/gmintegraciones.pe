@@ -43,16 +43,23 @@ class PedidoActivoController extends Controller {
     return back();
   }
   public function generarOrdenDeProduccion($id_pedido) {
-    $pedido   = $this->pedidoActivoRepo->pedidoActivoProduccionFindOrFailById($id_pedido, ['usuario', 'unificar']);
-
+    $pedido   = $this->pedidoActivoRepo->pedidoActivoProduccionFindOrFailById($id_pedido, ['usuario'=> function ($query) {
+      $query->select('id', 'nom', 'email_registro');
+    }, 'unificar' => function ($query) {
+      $query->select('num_pedido');
+    }]);
+    
     $codigoQRAlmacen = $this->generarQRRepo->qr($pedido->id, 'Almacén');
     $codigoQRProduccion = $this->generarQRRepo->qr($pedido->id, 'Producción');
     $codigoQRLogistica = $this->generarQRRepo->qr($pedido->id, 'Logística');
       
     $armados  = $pedido->armados()->with(['productos'=> function ($query) {
       $query->with('sustitutos');
+    }, 'direcciones'=> function ($query) {
+      $query->select('cant', 'tip_tarj_felic', 'mens_dedic', 'pedido_armado_id');
     }])->get();
-    $orden_de_produccion  = \PDF::loadView('produccion.pedido.pedido_activo.export.ordenDeProduccion', compact('pedido', 'armados', 'codigoQRAlmacen', 'codigoQRProduccion', 'codigoQRLogistica'));
+
+    $orden_de_produccion  = \PDF::loadView('produccion.pedido.pedido_activo.export.ordenDeProduccion', compact('pedido', 'armados', 'codigoQRAlmacen', 'codigoQRProduccion', 'codigoQRLogistica'))->setPaper('a4', 'landscape');;
     return $orden_de_produccion->stream();
   }
 }

@@ -21,7 +21,7 @@ class UpdateDireccionRequest extends FormRequest {
                                                           config('opcionesSelect.select_tarjeta_de_felicitacion.Sin tarjeta'),
       'tarjeta_disenada_por_el_cliente' => $validacion,
       
-      'mensaje_de_dedicatoria'          => 'nullable|max:30000|string|required_if:tipo_de_tarjeta_de_felicitacion,'.config('opcionesSelect.select_tarjeta_de_felicitacion.Personalizada'),
+      'mensaje_de_dedicatoria'      => 'nullable|max:30000|string|required_if:tipo_de_tarjeta_de_felicitacion,'.config('opcionesSelect.select_tarjeta_de_felicitacion.Personalizada'),
       'nombre_de_referencia_uno'    => 'required|max:30000|string',
       'nombre_de_referencia_dos'    => 'nullable|max:30000|string',
       'lada_telefono_fijo'          => 'nullable|max:9999|min:1|numeric|required_with:telefono_fijo',

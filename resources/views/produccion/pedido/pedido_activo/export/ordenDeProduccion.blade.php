@@ -107,6 +107,7 @@
           <th>RACK</th>
           <th>COM. VENTAS</th>
           <th>COM. CLIENTE</th>
+          <th>DEDIC.</th>
         </tr>
       </thead>
       <tbody>
@@ -142,6 +143,13 @@
               @else
                 {{ $armado->coment_client }}
               @endif            
+            </td>
+            <td>
+              @foreach($armado->direcciones as $direccion)
+                  <div class="input-group text-muted ml-4">
+                    {{ $direccion->cant }} - {{ $direccion->tip_tarj_felic }}
+                  </div>
+                @endforeach
             </td>
           </tr>
         @endforeach
