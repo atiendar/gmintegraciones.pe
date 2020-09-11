@@ -21,6 +21,8 @@ class CreatePreciosPorYearTable extends Migration
       $table->decimal('prec', 20,2)->unsigned()->comment('Precio');
       $table->unsignedBigInteger('producto_id')->comment('Foreign Key productos');
       $table->foreign('producto_id')->references('id')->on('productos')->onUpdate('restrict')->onDelete('cascade');
+      $table->string('created_at_pre', 75)->nullable()->comment('correo del usuario que realizo el registro');
+      $table->string('updated_at_pre', 75)->nullable()->comment('correo del usuario que realizo la última modificacion');
       $table->timestamps();
       $table->softDeletes(); 
     });

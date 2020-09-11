@@ -23,4 +23,5 @@
 </div>
 @include('almacen.producto.proveedor_producto.alm_pro_proPro_index')
 @include('almacen.producto.sustitutos_producto.alm_pro_susPro_index')
+@include('almacen.producto.precios.pre_index')
 @endsection

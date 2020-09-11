@@ -146,10 +146,8 @@
             </td>
             <td>
               @foreach($armado->direcciones as $direccion)
-                  <div class="input-group text-muted ml-4">
-                    {{ $direccion->cant }} - {{ $direccion->tip_tarj_felic }}
-                  </div>
-                @endforeach
+                {{ $direccion->cant }} - {{ $direccion->tip_tarj_felic }}<br>
+              @endforeach
             </td>
           </tr>
         @endforeach

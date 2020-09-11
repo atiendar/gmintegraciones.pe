@@ -266,4 +266,10 @@ class ProductoRepositories implements ProductoInterface {
     }
     return $producto->proveedores()->paginate($request->paginador);
   }
+  public function getPreciosProducto($producto, $request) {
+    if($request->opcion_buscador != null) {
+      return $producto->precios()->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
+    }
+    return $producto->precios()->paginate($request->paginador);
+  }
 }

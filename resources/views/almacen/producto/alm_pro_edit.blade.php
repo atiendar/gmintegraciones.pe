@@ -30,5 +30,8 @@
 @endcan
 @include('almacen.producto.proveedor_producto.alm_pro_proPro_index')
 @include('almacen.producto.sustitutos_producto.alm_pro_susPro_index')
+@can('almacen.producto.edit')
+  @include('almacen.producto.precios.pre_index')
+@endcan
 @include('layouts.private.plugins.priv_plu_select2')
 @endsection

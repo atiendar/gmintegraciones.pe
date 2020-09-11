@@ -94,7 +94,8 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
       require_once __DIR__ . '/logistica/logisticaRoutes.php';
       require_once __DIR__ . '/logistica/pedidoActivoRoutes.php';
       require_once __DIR__ . '/logistica/pedidoEntregadoRoutes.php';
-
+      require_once __DIR__ . '/logistica/direccionEstregadaRoutes.php';
+      
       Route::group(['prefix' => 'direccion'], function() {
         Route::match(['GET', 'HEAD'],'metodo-de-entrega/{for_loc}', 'Logistica\DireccionLocal\DireccionLocalController@metodoDeEntrega')->name('logistica.metodoDeEntrega')->middleware('permission:costoDeEnvio.create|costoDeEnvio.edit');
         Route::match(['GET', 'HEAD'],'metodo-de-entrega-espescifico/{id_metodo_de_entrega}', 'Logistica\DireccionLocal\DireccionLocalController@metodoDeEntregaEspecifico')->name('logistica.metodoDeEntregaEspecifico')->middleware('permission:logistica.direccionLocal.create|logistica.direccionForaneo.create');
