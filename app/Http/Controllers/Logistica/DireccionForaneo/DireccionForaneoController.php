@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Logistica\DireccionForaneo;
 use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
+use App\Http\Requests\logistica\direccionLocal\UpdateEstatusDireccionRequest;
 // Repositories
 use App\Repositories\logistica\direccionLocal\DireccionLocalRepositories;
 use App\Repositories\metodoDeEntrega\MetodoDeEntregaRepositories;
@@ -38,6 +39,15 @@ class DireccionForaneoController extends Controller {
     $direccion          = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Foráneo'), [], 'show', true);
     $armado             = $direccion->armado;
     return view('logistica.pedido.direccion_foraneo.dirFor_edit', compact('direccion', 'armado'));
+  }
+  public function update(UpdateEstatusDireccionRequest $request, $id_direccion) {
+    $direccion = $this->direccionLocalRepo->update($request, $id_direccion, config('opcionesSelect.select_foraneo_local.Foráneo'));
+    toastr()->success('¡Dirección actualizada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+
+    if($direccion->armado->estat == config('app.productos_completos')){
+      return redirect(route('logistica.direccionForaneo.index')); 
+    }
+    return back();
   }
   public function createEntrega($id_direccion) { 
     $direccion  = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Foráneo'), [], 'edit', null);

@@ -5,7 +5,7 @@ Route::group(['prefix' => 'local'], function() {
   Route::match(['GET', 'HEAD'],'detalles/{id_direccion}', 'Logistica\DireccionLocal\DireccionLocalController@show')->name('logistica.direccionLocal.show')->middleware('permission:logistica.direccionLocal.show');
 
   Route::match(['GET', 'HEAD'],'editar/{id_direccion}', 'Logistica\DireccionLocal\DireccionLocalController@edit')->name('logistica.direccionLocal.edit')->middleware('permission:logistica.direccionLocal.edit');
-  Route::match(['PUT', 'PATCH'],'actualizar/{id_direccion}', 'Logistica\DireccionLocal\DireccionLocalController@update')->name('logistica.direccionLocal.update')->middleware('permission:logistica.direccionLocal.edit|logistica.direccionForaneo.edit');
+  Route::match(['PUT', 'PATCH'],'actualizar/{id_direccion}', 'Logistica\DireccionLocal\DireccionLocalController@update')->name('logistica.direccionLocal.update')->middleware('permission:logistica.direccionLocal.edit');
 
   Route::group(['prefix' => 'comprobante-de-salida'], function() {
     Route::match(['GET', 'HEAD'],'registrar/{id_direccion}', 'Logistica\DireccionLocal\DireccionLocalController@create')->name('logistica.direccionLocal.create')->middleware('permission:logistica.direccionLocal.create');

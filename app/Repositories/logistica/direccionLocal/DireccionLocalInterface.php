@@ -10,7 +10,7 @@ interface DireccionLocalInterface {
 
   public function storeEntrega($request, $id_direccion);
 
-  public function update($request, $id_direccion);
+  public function update($request, $id_direccion, $loc_for);
   
   public function cambiarEstatusDireccionAlmacenDeSalida($direcciones);
 }

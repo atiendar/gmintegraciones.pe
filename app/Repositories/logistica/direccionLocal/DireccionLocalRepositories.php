@@ -4,6 +4,8 @@ namespace App\Repositories\logistica\direccionLocal;
 use App\Models\PedidoArmadoTieneDireccion;
 use App\Models\PedidoArmadoDireccionTieneComprobante;
 // Notifications
+// Events
+use App\Events\layouts\ActividadRegistrada;
 use App\Notifications\logistica\NotificacionPedidoEntregado;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
@@ -134,11 +136,34 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
       return $direccion;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
-  public function update($request, $id_direccion) {
+  public function update($request, $id_direccion, $loc_for) {
     try { DB::beginTransaction();
       $direccion        = $this->direccionLocalFindOrFailById($id_direccion, null, ['armado'], 'show', true);
       if($request->estatus == config('app.sin_entrega_por_falta_de_informacion') OR $request->estatus == config('app.intento_de_entrega_fallido')) {
         $direccion->estat = $request->estatus;
+
+        if($direccion->isDirty()) {
+          if($loc_for == config('opcionesSelect.select_foraneo_local.Local')) {
+            $modulo = 'Direccion local';
+            $nom_ruta = 'logistica.direccionLocal.show';
+          }elseif($loc_for == config('opcionesSelect.select_foraneo_local.Foráneo')) {
+            $modulo = 'Direccion fonarea';
+            $nom_ruta = 'logistica.direccionForaneo.show';
+          }
+            
+          // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+          ActividadRegistrada::dispatch(
+            $modulo, // Módulo
+            $nom_ruta, // Nombre de la ruta
+            $id_direccion, // Id del registro debe ir encriptado
+            $direccion->armado->cod, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+            array('Estatus'), // Nombre de los inputs del formulario
+            $direccion, // Request
+            array('estat') // Nombre de los campos en la BD
+          ); 
+          $direccion->updated_at_direc_arm  = Auth::user()->email_registro;
+        }
+
         $direccion->save();
         $this->estatusArmadoRepo->estatusArmado($direccion);
       } else {

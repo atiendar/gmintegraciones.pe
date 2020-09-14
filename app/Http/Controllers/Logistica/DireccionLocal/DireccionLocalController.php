@@ -57,12 +57,11 @@ class DireccionLocalController extends Controller {
     return view('logistica.pedido.direccion_local.dirLoc_edit', compact('direccion', 'armado'));
   }
   public function update(UpdateEstatusDireccionRequest $request, $id_direccion) {
-    $direccion = $this->direccionLocalRepo->update($request, $id_direccion);
+    $direccion = $this->direccionLocalRepo->update($request, $id_direccion, config('opcionesSelect.select_foraneo_local.Local'));
     toastr()->success('¡Dirección actualizada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
 
-  //  dd( $direccion );
     if($direccion->armado->estat == config('app.productos_completos')){
-      return redirect(route('logistica.index')); 
+      return redirect(route('logistica.direccionLocal.index')); 
     }
     return back();
   }
