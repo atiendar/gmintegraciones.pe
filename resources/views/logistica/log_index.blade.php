@@ -29,6 +29,9 @@
               @canany(['logistica.pedidoEntregado.index','logistica.pedidoEntregado.show'])
                 <a href="{{ route('logistica.pedidoEntregado.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos entregados') }} (-90d)</a>
               @endcanany
+              @canany(['logistica.pedidoEntregado.index','logistica.pedidoEntregado.show'])
+                <a href="{{ route('logistica.direccionEntregada.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de direcciones entregadas') }} (-90d)</a>
+              @endcanany
             </div>
           </div>
         </div>

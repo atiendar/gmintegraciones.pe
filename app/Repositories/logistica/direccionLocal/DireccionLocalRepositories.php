@@ -63,7 +63,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
         ->orWhere('estat', config('app.intento_de_entrega_fallido'));
       })
     ->buscar($request->opcion_buscador, $request->buscador)
-    ->orderBy('id', 'DESC')
+    ->orderBy('fech_en_alm_salida', 'DESC')
     ->paginate($request->paginador);
   }
   public function store($request, $id_direccion) {
@@ -147,6 +147,8 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function cambiarEstatusDireccionAlmacenDeSalida($direcciones) {
+    $fecha = date('Y-m-d h:i:s');
+    $up_fecha = null;
     $up_estaus     = NULL;
     $up_regresados = null;
     $ids           = NULL;
@@ -155,6 +157,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
     foreach($direcciones as $direccion) {
       if($direccion->estat == config('app.pendiente')) {
         $up_estaus  .= ' WHEN '. $direccion->id. ' THEN "'. config('app.en_almacen_de_salida').'"';
+        $up_fecha   .= ' WHEN '. $direccion->id. ' THEN "'.  $fecha.'"';
         $ids        .= $direccion->id.',';
       } else {
         $up_regresados  .= ' WHEN '. $direccion->id. ' THEN "false"';
@@ -164,7 +167,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
 
     if($up_estaus != NULL) {
       $ids = substr($ids, 0, -1);
-      DB::UPDATE("UPDATE ".$nom_tabla." SET estat = CASE id". $up_estaus." END WHERE id IN (".$ids.")");
+      DB::UPDATE("UPDATE ".$nom_tabla." SET estat = CASE id". $up_estaus." END, fech_en_alm_salida = CASE id". $up_fecha." END WHERE id IN (".$ids.")");
     }
     if($up_regresados != NULL) {
       $ids = substr($ids, 0, -1);

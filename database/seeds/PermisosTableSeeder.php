@@ -1056,14 +1056,14 @@ Spatie\Permission\Models\Permission::create([
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 104,
       'nom'             => "Navegar por tabla Logística 'Pedidos entregados'",
-      'name'				    => 'logistica.pedidoTerminado.index',
+      'name'				    => 'logistica.pedidoEntregado.index',
       'desc'            => "Lista y navega por todos los registros del módulo Logística 'Pedidos entregados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 105,
       'nom'             => "Ver detalles Logística 'Pedidos entregados'",
-      'name'				    => 'logistica.pedidoTerminado.show',
+      'name'				    => 'logistica.pedidoEntregado.show',
       'desc'            => "Ver detalles de cualquier registro del módulo Logística 'Pedidos entregados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);

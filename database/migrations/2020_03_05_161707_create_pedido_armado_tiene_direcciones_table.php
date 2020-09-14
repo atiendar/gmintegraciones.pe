@@ -26,6 +26,7 @@ class CreatePedidoArmadoTieneDireccionesTable extends Migration
             $table->string('tarj_dise_rut',200)->nullable()->comment('Ruta tarjeta diseñada');
             $table->string('tarj_dise_nom',200)->nullable()->comment('Nombre tarjeta diseñada');
             $table->string('met_de_entreg', 150)->comment('Método de entrega de ventas');
+            $table->timestamp('fech_en_alm_salida')->nullable()->comment('Fecha en la que la direccion cambio a almacén de salida');
             $table->string('est',150)->comment('Estado a la que se cotizó');
             $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
             $table->text('detalles_de_la_ubicacion')->comment('Detalles de la ubicación');
