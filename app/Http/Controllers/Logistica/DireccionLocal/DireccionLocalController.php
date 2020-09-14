@@ -52,7 +52,7 @@ class DireccionLocalController extends Controller {
     return view('logistica.pedido.direccion_local.dirLoc_show', compact('direccion', 'comprobantes', 'armado'));
   }
   public function edit($id_direccion) {
-    $direccion          = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Local'), [], 'show', true);
+    $direccion          = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Local'), [], 'edit', true);
     $armado             = $direccion->armado;
     return view('logistica.pedido.direccion_local.dirLoc_edit', compact('direccion', 'armado'));
   }
