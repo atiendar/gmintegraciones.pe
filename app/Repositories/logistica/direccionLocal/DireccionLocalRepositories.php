@@ -29,16 +29,18 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
     $this->plantillaRepo                  = $plantillaRepositories;
     $this->sistemaRepo                    = $sistemaRepositories;
   }
-  public function direccionLocalFindOrFailById($id_direccion, $for_loc, $relaciones, $accion) {
+  public function direccionLocalFindOrFailById($id_direccion, $for_loc, $relaciones, $accion, $regresado) {
     $id_direccion = $this->serviceCrypt->decrypt($id_direccion);
     $direccion = PedidoArmadoTieneDireccion::with($relaciones);
     
     if($for_loc != null) {
       $direccion->where('for_loc', $for_loc);
     }
+    if($regresado == true OR $accion == 'edit') {
+      $direccion->where('regresado', 'Falso');
+    }
     if($accion == 'edit') {
-      $direccion->where('regresado', 'falso')
-      ->where(function ($query) {
+      $direccion->where(function ($query) {
         $query->where('estat', config('app.en_almacen_de_salida'))
         ->orWhere('estat', config('app.en_ruta'))
         ->orWhere('estat', config('app.sin_entrega_por_falta_de_informacion'))
@@ -68,7 +70,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   }
   public function store($request, $id_direccion) {
     try { DB::beginTransaction();
-      $direccion                            = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), null, ['armado'], 'edit');
+      $direccion                            = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), null, ['armado'], 'edit', null);
       $metodo_de_entrega_especifico         = $this->metodoDeEntregaEspecificoRepo->metodoEspecificoFirstByNombreMetodo($request->metodo_de_entrega_especifico, []);
       if($metodo_de_entrega_especifico == null) {
         $url = null;
@@ -100,7 +102,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   }
   public function storeEntrega($request, $id_direccion) {
     try { DB::beginTransaction();
-      $direccion        = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), null, ['armado'], 'edit');
+      $direccion        = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), null, ['armado'], 'edit', null);
       $direccion->estat = $request->metodo_de_entrega_especifico;
       $direccion->estat = config('app.entregado');
       $direccion->save();
@@ -134,7 +136,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   }
   public function update($request, $id_direccion) {
     try { DB::beginTransaction();
-      $direccion        = $this->direccionLocalFindOrFailById($id_direccion, null, ['armado'], 'show');
+      $direccion        = $this->direccionLocalFindOrFailById($id_direccion, null, ['armado'], 'show', true);
       if($request->estatus == config('app.sin_entrega_por_falta_de_informacion') OR $request->estatus == config('app.intento_de_entrega_fallido')) {
         $direccion->estat = $request->estatus;
         $direccion->save();
@@ -160,7 +162,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
         $up_fecha   .= ' WHEN '. $direccion->id. ' THEN "'.  $fecha.'"';
         $ids        .= $direccion->id.',';
       } else {
-        $up_regresados  .= ' WHEN '. $direccion->id. ' THEN "false"';
+        $up_regresados  .= ' WHEN '. $direccion->id. ' THEN "Falso"';
         $ids        .= $direccion->id.',';
       }
     }
