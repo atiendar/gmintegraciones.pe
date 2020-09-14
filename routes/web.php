@@ -98,7 +98,7 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
       
       Route::group(['prefix' => 'direccion'], function() {
         Route::match(['GET', 'HEAD'],'metodo-de-entrega/{for_loc}', 'Logistica\DireccionLocal\DireccionLocalController@metodoDeEntrega')->name('logistica.metodoDeEntrega')->middleware('permission:costoDeEnvio.create|costoDeEnvio.edit');
-        Route::match(['GET', 'HEAD'],'metodo-de-entrega-espescifico/{id_metodo_de_entrega}', 'Logistica\DireccionLocal\DireccionLocalController@metodoDeEntregaEspecifico')->name('logistica.metodoDeEntregaEspecifico')->middleware('permission:logistica.direccionLocal.createEntrega|logistica.direccionForaneo.create');
+        Route::match(['GET', 'HEAD'],'metodo-de-entrega-espescifico/{id_metodo_de_entrega}', 'Logistica\DireccionLocal\DireccionLocalController@metodoDeEntregaEspecifico')->name('logistica.metodoDeEntregaEspecifico')->middleware('permission:logistica.direccionLocal.create|logistica.direccionLocal.createEntrega|logistica.direccionForaneo.create|logistica.direccionForaneo.createEntrega');
         Route::match(['GET', 'HEAD'],'generar-comprobante-de-entrega/{id_direccion}/{for_loc}', 'Logistica\DireccionLocal\DireccionLocalController@generarComprobanteDeEntrega')->name('logistica.direccion.generarComprobanteDeEntrega')->middleware('permission:logistica.direccionLocal.index|logistica.direccionForaneo.index');
         require_once __DIR__ . '/logistica/direccionLocalRoutes.php';
         require_once __DIR__ . '/logistica/direccionForaneaRoutes.php';
