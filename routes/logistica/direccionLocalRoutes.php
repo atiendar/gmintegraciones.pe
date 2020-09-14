@@ -13,7 +13,7 @@ Route::group(['prefix' => 'local'], function() {
   });
 
   Route::group(['prefix' => 'comprobante-de-entrega'], function() {
-    Route::match(['GET', 'HEAD'],'registrar/{id_comprobante}', 'Logistica\DireccionLocal\DireccionLocalController@createEntrega')->name('logistica.direccionLocal.createEntrega')->middleware('permission:logistica.direccionLocal.create|logistica.direccionLocal.createEntrega|logistica.direccionLocal.create|logistica.direccionLocal.createEntrega|logistica.direccionLocFor.createEntrega');
-    Route::post('almacenar/{id_comprobante}', 'Logistica\DireccionLocal\DireccionLocalController@storeEntrega')->name('logistica.direccionLocal.storeEntrega')->middleware('permission:logistica.direccionLocal.create|logistica.direccionLocal.createEntrega|logistica.direccionLocal.create|logistica.direccionLocal.createEntrega|logistica.direccionLocFor.createEntrega');
+    Route::match(['GET', 'HEAD'],'registrar/{id_comprobante}', 'Logistica\DireccionLocal\DireccionLocalController@createEntrega')->name('logistica.direccionLocal.createEntrega')->middleware('permission:logistica.direccionLocal.create|logistica.direccionLocal.createEntrega|logistica.direccionLocFor.createEntrega');
+    Route::post('almacenar/{id_comprobante}', 'Logistica\DireccionLocal\DireccionLocalController@storeEntrega')->name('logistica.direccionLocal.storeEntrega')->middleware('permission:logistica.direccionLocal.create|logistica.direccionLocal.createEntrega|logistica.direccionForaneo.create|logistica.direccionForaneo.createEntrega|logistica.direccionLocFor.createEntrega');
   });
 });
