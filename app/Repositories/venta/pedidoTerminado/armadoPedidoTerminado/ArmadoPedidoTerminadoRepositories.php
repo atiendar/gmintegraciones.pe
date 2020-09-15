@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\venta\pedidoActivo\armadoPedidoTerminado;
+namespace App\Repositories\venta\pedidoTerminado\armadoPedidoTerminado;
 // Models
 use App\Models\PedidoArmado;
 // Servicios
