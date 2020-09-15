@@ -55,7 +55,6 @@ class UsersTableSeeder extends Seeder {
       'created_at_us'  	          => 'desarrolloweb.ewmx@gmail.com',
     ]);
     $user1->assignRole('desarrollador');
-    /*
     factory(User::class, 1000)->create(); // min
     // factory(User::class, 10000)->create();  // max
     
@@ -88,6 +87,5 @@ class UsersTableSeeder extends Seeder {
       $cliente->assignRole($rol_cliente);
       if($contador4 == $hasta_roles_cliente) { $contador4 = 0; }
     }
-    */
   }
 }
