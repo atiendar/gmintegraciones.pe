@@ -5,11 +5,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 // Repositories
 use App\Repositories\venta\pedidoTerminado\PedidoTerminadoRepositories;
+use App\Repositories\venta\pedidoActivo\PedidoActivoRepositories;
 
 class PedidoTerminadoController extends Controller {
   protected $pedidoTerminadoRepo;
-  public function __construct(PedidoTerminadoRepositories $PedidoTerminadoRepositories) {
-    $this->pedidoTerminadoRepo  = $PedidoTerminadoRepositories;    
+  protected $pedidoActivoRepo;
+  public function __construct(PedidoTerminadoRepositories $PedidoTerminadoRepositories, PedidoActivoRepositories $pedidoActivoRepositories) {
+    $this->pedidoTerminadoRepo  = $PedidoTerminadoRepositories;
+    $this->pedidoActivoRepo = $pedidoActivoRepositories;    
   }
   public function index(Request $request) {
     $pedidos = $this->pedidoTerminadoRepo->getPagination($request, ['usuario', 'unificar']);
@@ -20,7 +23,8 @@ class PedidoTerminadoController extends Controller {
     $unificados     = $pedido->unificar()->paginate(99999999);
     $armados        = $pedido->armados()->paginate(99999999);
     $pagos          = $pedido->pagos()->paginate(99999999);
-    return view('venta.pedido.pedido_terminado.ven_pedTer_show', compact('pedido', 'unificados', 'armados', 'pagos'));
+    $mont_pag_aprov =  $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
+    return view('venta.pedido.pedido_terminado.ven_pedTer_show', compact('pedido', 'unificados', 'armados', 'pagos', 'mont_pag_aprov'));
   }
   public function destroy($id_pedido) {
     $this->pedidoTerminadoRepo->destroy($id_pedido);

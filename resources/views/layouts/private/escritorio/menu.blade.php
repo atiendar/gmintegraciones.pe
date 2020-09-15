@@ -31,6 +31,7 @@
   'produccion.pedidoActivo.index', 'produccion.pedidoActivo.show', 'produccion.pedidoActivo.edit', 'produccion.pedidoActivo.armado.show', 'produccion.pedidoActivo.armado.edit',
   'produccion.pedidoTerminado.index','produccion.pedidoTerminado.show',
   'venta.pedidoActivo.index', 'venta.pedidoActivo.show', 'venta.pedidoActivo.edit', 'venta.pedidoActivo.destroy', 'venta.pedidoActivo.armado.show' ,'venta.pedidoActivo.armado.edit', 'venta.pedidoActivo.pago.create', 'venta.pedidoActivo.pago.show', 'venta.pedidoActivo.pago.edit',
+  'venta.pedidoTerminado.index', 'venta.pedidoTerminado.show',
   'rastrea.pedido.show', 'rastrea.pedido.showFull',
   'pago.fPedido.index', 'pago.fPedido.create', 'pago.fPedido.show', 'pago.fPedido.edit',
   'pago.index', 'pago.show', 'pago.edit', 'pago.destroy', 'pago.marcarComoFacturado',

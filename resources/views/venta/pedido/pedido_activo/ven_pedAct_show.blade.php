@@ -24,6 +24,11 @@
   @can('venta.pedidoActivo.show')
     <div class="card-body">
       @include('venta.pedido.pedido_activo.ven_pedAct_showFields')
+      <div class="row">
+        <div class="form-group col-sm btn-sm">
+          <center><a href="{{ route('venta.pedidoActivo.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a></center>
+        </div>
+      </div>
     </div>
   @endcan
 </div>

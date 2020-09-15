@@ -695,6 +695,13 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Lista y navega por todos los registros del módulo Ventas 'Pedidos terminados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+    Spatie\Permission\Models\Permission::create([
+      //  'id'              => 105,
+        'nom'             => "Ver detalles Ventas 'Pedidos terminados'",
+        'name'				    => 'venta.pedidoTerminado.show',
+        'desc'            => "Ver detalles de cualquier registro del módulo Ventas 'Pedidos terminados'",
+        'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+      ]);
 // PERMISOS DEL MÓDULO COTIZACIONES
     Spatie\Permission\Models\Permission::create([
 //      'id'              => 90,

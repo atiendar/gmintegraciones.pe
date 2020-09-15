@@ -16,14 +16,15 @@
       <small>{{ $pedido->num_pedido }}</small>
     </div>
   </div>
-  @can('venta.pedidoActivo.show')
-    <div class="card-body">
-      @include('venta.pedido.pedido_activo.ven_pedAct_showFields')
+  <div class="card-body">
+    @include('venta.pedido.pedido_activo.ven_pedAct_showFields')
+    <div class="row">
+      <div class="form-group col-sm btn-sm">
+        <center><a href="{{ route('venta.pedidoTerminado.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a></center>
+      </div>
     </div>
-  @endcan
+  </div>
 </div>
 @include('venta.pedido.pedido_terminado.armado.arm_index')
-{{-- 
-@include('venta.pedido.pedido_activo.pago_pedidoActivo.ven_pedAct_pag_index')
---}}
+@include('venta.pedido.pedido_terminado.pago.pag_index')
 @endsection

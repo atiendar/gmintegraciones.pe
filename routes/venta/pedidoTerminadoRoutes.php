@@ -7,5 +7,9 @@ Route::group(['prefix' => 'pedido-terminado'], function() {
 
   Route::group(['prefix' => 'armado'], function() {
     Route::match(['GET', 'HEAD'],'detalles/{id_armado}', 'Venta\PedidoTerminado\ArmadoPedidoTerminado\ArmadoPedidoTerminadoController@show')->name('venta.pedidoTerminado.armado.show')->middleware('permission:venta.pedidoTerminado.show');
+ 
+    Route::group(['prefix' => 'direccion'], function() {
+      Route::match(['GET', 'HEAD'],'detalles/{id_direccion}', 'Venta\PedidoTerminado\ArmadoPedidoTerminado\Direccion\DireccionController@show')->name('venta.pedidoTerminado.armado.direccion.show')->middleware('permission:venta.pedidoTerminado.armado.show|venta.pedidoTerminado.show');
+    });
   });
 });
