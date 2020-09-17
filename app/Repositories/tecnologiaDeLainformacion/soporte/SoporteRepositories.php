@@ -18,7 +18,6 @@ use DB;
 class SoporteRepositories implements  SoporteInterface {  
   protected $serviceCrypt;
   protected $papeleraDeReciclajeRepo;
-  protected $actyalizarRepo;
   protected $historialRepo;
   public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories,HistorialRepositories $historialRepositories){
     $this->serviceCrypt             = $serviceCrypt;
@@ -127,7 +126,7 @@ class SoporteRepositories implements  SoporteInterface {
   public function agregarSoporteaHistorial($request, $soporte) {
     $request->fecha_en_la_que_se_solicito_el_soporte = \Carbon\Carbon::parse($soporte->created_at)->format('Y-m-d h:i:s');
     $this->historialRepo->store($request, $soporte->archivos);
-    $soporte->delete();
+    $soporte->forceDelete();
     return 'Eliminado';
   }
 }
