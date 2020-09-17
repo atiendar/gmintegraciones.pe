@@ -92,23 +92,23 @@ class InventarioEquipoRepositories implements InventarioEquipoInterface {
       $inventario->created_at_inv_equ    = Auth::user()->email_registro;
       $inventario->save();
 
-      if($request->archivos > 0 ) {
+      if($request->imagenes > 0 ) { 
         $camposBD   = array('arc_rut', 'arc_nom', 'inventario_equipo_id', 'created_at');
-        $hastaC     = count($request->archivos) - 1;
+        $hastaC     = count($request->imagenes) - 1;
         $datos      = null;
         $contador3  = 0;
 
         for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
           // Dispara el evento registrado en App\Providers\EventServiceProvider.php
-            $archivos = ArchivoCargado::dispatch(
-            $request->archivos[$contador2], // Archivos blob
-            'public/tecnologiasDeLaInformacion/inventario/' . date("Y-m") . '/', // Ruta en la que guardara el archivo
+            $imagenes = ArchivoCargado::dispatch(
+            $request->imagenes[$contador2], // Archivos blob
+            'tecnologiasDeLaInformacion/inventario/' . date("Y"), // Ruta en la que guardara el archivo
             'inventario-' . $contador2 . time() . '.', // Nombre del archivo
             null // Ruta y nombre del archivo anterior
           );
-          $datos[$contador2][$camposBD[$contador3]] = $archivos[0]['ruta'];
+          $datos[$contador2][$camposBD[$contador3]] = $imagenes[0]['ruta'];
           $contador3 += 1;
-          $datos[$contador2][$camposBD[$contador3]] = $archivos[0]['nombre'];
+          $datos[$contador2][$camposBD[$contador3]] = $imagenes[0]['nombre'];
           $contador3 += 1;
           $datos[$contador2][$camposBD[$contador3]] = $inventario->id;
           $contador3 += 1;
