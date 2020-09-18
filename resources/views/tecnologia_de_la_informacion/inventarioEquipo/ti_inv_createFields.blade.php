@@ -1,6 +1,6 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="id_del_equipo"> {{ __('Id equipo')}} *</label>
+    <label for="id_del_equipo"> {{ __('Id equipo') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></span>
@@ -27,7 +27,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="far fa-building"></i></span>
       </div>
-      {!! Form::text('empresa', null, ['class' => 'form-control' . ($errors->has('empresa') ? ' is-invalid' : ''), 'maxlength' => 60, 'placeholder' => __('Empresa')]) !!}
+      {!! Form::text('empresa', null, ['class' => 'form-control' . ($errors->has('empresa') ? ' is-invalid' : ''), 'maxlength' => 100, 'placeholder' => __('Empresa')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('empresa') }}</span>
   </div>

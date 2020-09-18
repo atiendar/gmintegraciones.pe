@@ -10,7 +10,7 @@ class StoreInventarioEquipoRequest extends FormRequest {
     return [
       'id_del_equipo'         => 'required|max:25|unique:inventario_equipos,id_equipo',
       'responsable'           => 'required|max:80',
-      'empresa'               => 'required|max:80',
+      'empresa'               => 'required|max:100',
       'marca'                 => 'required|max:50',
       'modelo'                => 'required|max:50',
       'numero_serie'          => 'required|max:40',
@@ -19,7 +19,6 @@ class StoreInventarioEquipoRequest extends FormRequest {
       'imagenes.*'            => 'nullable|image|max:1024',
       'descripciom_equipo'    => 'nullable|max:30000|string',
       'observaciones'         => 'nullable|max:30000|string',
-
     ];
   }
 }

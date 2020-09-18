@@ -49,25 +49,16 @@
     </div>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="ultimo_mantenimiento">{{ __('Último mantenimiento')}}</label>
+    <label for="responsable">{{ __('Responsable')}}</label>
     <div class="input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+        <span class="input-group-text"><i class="fas fa-user"></i></span>
       </div>
-      {!! Form::text('ultimo_mantenimiento', $inventario->ult_fec_de_man, ['class' => 'form-control disabled', 'maxlength' => 40, 'placeholder' => __('Último mantenimiento'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('responsable', $inventario->resp, ['class' => 'form-control disabled', 'maxlength' => 40, 'placeholder' => __('Responsable'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>
 <div class="row">
-  <div class="form-group col-sm btn-sm">
-  <label for="proximo_mantenimiento">{{ __('Próximo mantenimiento')}}</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-      </div>
-      {!! Form::text('proximo_mantenimiento', $inventario->prox_fec_de_man, ['class' => 'form-control disabled', 'maxlength' => 40, 'placeholder' => __('Próximo mantenimiento'), 'readonly' => 'readonly']) !!}
-    </div>
-  </div>
   <div class="form-group col-sm btn-sm">
     <label for="empresa">{{ __('Empresa')}}</label>
     <div class="input-group">
@@ -77,15 +68,24 @@
       {!! Form::text('empresa', $inventario->emp, ['class' => 'form-control disabled', 'maxlength' => 40, 'placeholder' => __('Empresa'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="marca">{{ __('Marca')}}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+      </div>
+      {!! Form::text('marca', $inventario->mar, ['class' => 'form-control disabled', 'maxlength' => 40, 'placeholder' => __('Marca'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="responsable">{{ __('Responsable')}}</label>
+    <label for="modelo">{{ __('Modelo')}}</label>
     <div class="input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-user"></i></span>
+        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      {!! Form::text('responsable', $inventario->resp, ['class' => 'form-control disabled', 'maxlength' => 40, 'placeholder' => __('Responsable'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('modelo', $inventario->mod, ['class' => 'form-control disabled', 'maxlength' => 40, 'placeholder' => __('Modelo'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
   <div class="form-group col-sm btn-sm">
@@ -100,21 +100,21 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-  <label for="marca">{{ __('Marca')}}</label>
+    <label for="ultimo_mantenimiento">{{ __('Último mantenimiento')}}</label>
     <div class="input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
       </div>
-      {!! Form::text('marca', $inventario->mar, ['class' => 'form-control disabled', 'maxlength' => 40, 'placeholder' => __('Marca'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('ultimo_mantenimiento', $inventario->ult_fec_de_man, ['class' => 'form-control disabled', 'maxlength' => 40, 'placeholder' => __('Último mantenimiento'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="modelo">{{ __('Modelo')}}</label>
+  <label for="proximo_mantenimiento">{{ __('Próximo mantenimiento')}}</label>
     <div class="input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
       </div>
-      {!! Form::text('modelo', $inventario->mod, ['class' => 'form-control disabled', 'maxlength' => 40, 'placeholder' => __('Modelo'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('proximo_mantenimiento', $inventario->prox_fec_de_man, ['class' => 'form-control disabled', 'maxlength' => 40, 'placeholder' => __('Próximo mantenimiento'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>

@@ -8,8 +8,8 @@ class  StoreArchivosInventarioRequest extends  FormRequest {
   }
   public function rules() {
     return [
-      "archivos"     =>    "required|array",
-      "archivos.*"   =>    "required|image|max:1024",
+      "imagenes"     =>    "required|array",
+      "imagenes.*"   =>    "required|image|max:1024",
     ];
   }
 } 

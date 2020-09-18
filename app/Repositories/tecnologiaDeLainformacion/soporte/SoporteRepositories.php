@@ -8,7 +8,7 @@ use App\Events\layouts\ActividadRegistrada;
 use App\Events\layouts\ArchivoCargado;
 // Repositories
 use App\Repositories\papeleraDeReciclaje\PapeleraDeReciclajeRepositories;
-use App\Repositories\tecnologiaDeLainformacion\historial\historialRepositories;
+use App\Repositories\tecnologiaDeLainformacion\inventarioEquipo\historial_inventario\HistorialInvRepositories;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 //Otros
@@ -18,11 +18,11 @@ use DB;
 class SoporteRepositories implements  SoporteInterface {  
   protected $serviceCrypt;
   protected $papeleraDeReciclajeRepo;
-  protected $historialRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories,HistorialRepositories $historialRepositories){
+  protected $historialInvRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories,HistorialInvRepositories $historialInvRepositories){
     $this->serviceCrypt             = $serviceCrypt;
     $this->papeleraDeReciclajeRepo  = $papeleraDeReciclajeRepositories;
-    $this->historialRepo            = $historialRepositories;
+    $this->historialInvRepo         = $historialInvRepositories;
   }
   public function soporteFindOrFailById($id_soporte, $relaciones){
     $id_soporte = $this->serviceCrypt->decrypt($id_soporte);
@@ -125,7 +125,7 @@ class SoporteRepositories implements  SoporteInterface {
   }
   public function agregarSoporteaHistorial($request, $soporte) {
     $request->fecha_en_la_que_se_solicito_el_soporte = \Carbon\Carbon::parse($soporte->created_at)->format('Y-m-d h:i:s');
-    $this->historialRepo->store($request, $soporte->archivos);
+    $this->historialInvRepo->store($request, $soporte->archivos);
     $soporte->forceDelete();
     return 'Eliminado';
   }

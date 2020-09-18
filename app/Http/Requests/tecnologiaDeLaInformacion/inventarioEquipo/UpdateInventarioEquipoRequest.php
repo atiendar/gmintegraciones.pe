@@ -8,12 +8,12 @@ class UpdateInventarioEquipoRequest extends FormRequest {
   }
   public function rules() {
     return [
-      'empresa'               => 'required|max:80',
       'responsable'           => 'required|max:80',
-      'numero_serie'          => 'required|max:40',
-      'ultimo_mantenimiento'  => 'nullable|date',
+      'empresa'               => 'required|max:100',
       'marca'                 => 'required|max:50',
       'modelo'                => 'required|max:50',
+      'numero_serie'          => 'required|max:40',
+      'ultimo_mantenimiento'  => 'nullable|date',
       'descripciom_equipo'    => 'nullable|max:30000|string',
       'observaciones'         => 'nullable|max:30000|string',
     ];

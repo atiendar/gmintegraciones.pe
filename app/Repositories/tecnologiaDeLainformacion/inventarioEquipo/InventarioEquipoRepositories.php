@@ -27,7 +27,7 @@ class InventarioEquipoRepositories implements InventarioEquipoInterface {
     return $inventario;
   }
   public function getPagination($request) {
-    return InventarioEquipo::buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
+    return InventarioEquipo::asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
   }
   public function getAllInventarioEquiposPlunk() {
     return InventarioEquipo::orderBy('id', 'ASC')->pluck('id', 'id');
@@ -49,7 +49,7 @@ class InventarioEquipoRepositories implements InventarioEquipoInterface {
           'Inventario', //Modulo
           'inventario.show', //Nombre de la ruta 
           $id_inventario, //Id del registro a mostrar, este valor no debe de sobrepasar los 100 caracteres 
-          $this->serviceCrypt->decrypt($id_inventario), //id del registro encriptado
+          $inventario->id_equipo, //id del registro encriptado
           array('Empresa', 'Responsable', 'Número de Serie', 'Último mantenimiento', 'Marca', 'Modelo', 'Creación Inventario Equipo', 'Actualización Inventario Equipo', 'Descripción del Equipo', 'Observaciones'), //Nombre de lsos Inputs del formulario 
           $inventario, //Request
           array('emp', 'resp', 'num_ser', 'ult_fec_de_man','mar', 'mod', 'created_at_inv_equ', 'updated_at_inv_equ', 'des_del_equ', 'obs')

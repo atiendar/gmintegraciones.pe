@@ -14,6 +14,9 @@ use App\Repositories\papeleraDeReciclaje\tabla\armados\ArmadoTieneImagenesReposi
 use App\Repositories\papeleraDeReciclaje\tabla\productos\ProductosRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\pedidos\PedidosRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\cotizaciones\CotizacionesRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\inventarioEquipos\InventarioEquiposRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\inventarioEquipos\InventarioEquiposImagenesRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\soportes\SoportesRepositories;
 //Otro
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -30,17 +33,36 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
   protected $productosRepo;
   protected $pedidosRepo;
   protected $cotizacionesRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, UsuariosRepositories $usuariosRepositories, PlantillasRepositories $plantillasRepositories, QuejasYSugerenciasRepositories $quejasYSugerenciasRepositories, ProveedoresRepositories $proveedoresRepositories, ArmadosRepositories $armadosRepositories, ArmadoTieneImagenesRepositories $armadoTieneImagenesRepositories, ProductosRepositories $productosRepositories, PedidosRepositories $pedidosRepositories, CotizacionesRepositories $cotizacionesRepositories) {
-    $this->serviceCrypt             = $serviceCrypt;
-    $this->usuariosRepo             = $usuariosRepositories;
-    $this->plantillasRepo           = $plantillasRepositories;
-    $this->quejasYSugerenciasRepo   = $quejasYSugerenciasRepositories;
-    $this->proveedoresRepo          = $proveedoresRepositories;
-    $this->armadosRepo              = $armadosRepositories;
-    $this->armadoTieneImagenesRepo  = $armadoTieneImagenesRepositories;
-    $this->productosRepo            = $productosRepositories;
-    $this->pedidosRepo              = $pedidosRepositories;
-    $this->cotizacionesRepo         = $cotizacionesRepositories;
+  protected $inventarioEquiposRepo;
+  protected $inventarioEquiposImagenesRepo;
+  protected $soportesRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, 
+                              UsuariosRepositories $usuariosRepositories, 
+                              PlantillasRepositories $plantillasRepositories, 
+                              QuejasYSugerenciasRepositories $quejasYSugerenciasRepositories, 
+                              ProveedoresRepositories $proveedoresRepositories, 
+                              ArmadosRepositories $armadosRepositories, 
+                              ArmadoTieneImagenesRepositories $armadoTieneImagenesRepositories, 
+                              ProductosRepositories $productosRepositories, 
+                              PedidosRepositories $pedidosRepositories, 
+                              CotizacionesRepositories $cotizacionesRepositories,
+                              InventarioEquiposRepositories $inventarioEquiposRepositories,
+                              InventarioEquiposImagenesRepositories $inventarioEquiposImagenesRepositories,
+                              SoportesRepositories $soportesRepositories
+  ) {
+    $this->serviceCrypt                   = $serviceCrypt;
+    $this->usuariosRepo                   = $usuariosRepositories;
+    $this->plantillasRepo                 = $plantillasRepositories;
+    $this->quejasYSugerenciasRepo         = $quejasYSugerenciasRepositories;
+    $this->proveedoresRepo                = $proveedoresRepositories;
+    $this->armadosRepo                    = $armadosRepositories;
+    $this->armadoTieneImagenesRepo        = $armadoTieneImagenesRepositories;
+    $this->productosRepo                  = $productosRepositories;
+    $this->pedidosRepo                    = $pedidosRepositories;
+    $this->cotizacionesRepo               = $cotizacionesRepositories;
+    $this->inventarioEquiposRepo          = $inventarioEquiposRepositories;
+    $this->inventarioEquiposImagenesRepo  = $inventarioEquiposImagenesRepositories;
+    $this->soportesRepo                   = $soportesRepositories;
   }
   public function papeleraAsignadoFindOrFailById($id_registro) {
     $id_registro = $this->serviceCrypt->decrypt($id_registro);
@@ -165,90 +187,21 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
       $consulta = \App\Models\Pedido::with(['armados', 'pagos'])->withTrashed()->findOrFail($registro->id_reg);
       $this->pedidosRepo->metodo($metodo, $consulta);
     }
-
-
-
-
-
-
-
-
-    
-
-
-
     if($registro->tab == 'soportes') {
       $consulta = \App\Models\Soporte::with('archivos')->withTrashed()->findOrFail($registro->id_reg);
-      if($metodo == 'destroy') {
-        // Elimina todas las imagenes relacionadas a este registro
-        $hastaC = count($consulta->archivos) - 1;
-        $archivos = [];
-        for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
-          $archivos[$contador2] = $consulta->archivos[$contador2]->arc_nom;
-        }
-        if($consulta->arc_nom != null) { array_push($archivos, $consulta->arc_nom); }
-        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
-        ArchivosEliminados::dispatch(
-          $archivos,
-        );
-      }
+      $this->soportesRepo->metodo($metodo, $consulta);
     }
     if($registro->tab == 'inventario_equipos') {
-      $consulta = \App\Models\InventarioEquipo::with('archivos')->withTrashed()->findOrFail($registro->id_reg);
-      if($metodo == 'destroy') {
-        // Elimina todas las imagenes relacionadas a este registro
-        $hastaC = count($consulta->archivos) - 1;
-        $archivos = [];
-        for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
-          $archivos[$contador2] = $consulta->archivos[$contador2]->arc_nom;
-        }
-        if($consulta->arc_nom != null) { array_push($archivos, $consulta->arc_nom); }
-        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
-        ArchivosEliminados::dispatch(
-          $archivos,
-        );
-      }
+      $consulta = \App\Models\InventarioEquipo::with(['archivos', 'historiales'])->withTrashed()->findOrFail($registro->id_reg);
+      $this->inventarioEquiposRepo->metodo($metodo, $consulta);
     }
     if($registro->tab == 'inventario_equipos_archivos') {
       $consulta = \App\Models\InventarioEquipoArchivo::with('inventario')->withTrashed()->findOrFail($registro->id_reg);
-/*
       if($consulta->inventario == null) {
         $existe_llave_primaria = false;
       }
-
-     */ if($metodo == 'destroy') {
-        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
-        ArchivosEliminados::dispatch(
-          array($consulta->arc_nom), 
-        );
-      }
-      elseif($metodo == 'restore') {
-        $consulta->inventario()->restore();
-      }
+      $this->inventarioEquiposImagenesRepo->metodo($metodo, $consulta);      
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     if($consulta == null) {return abort(403, 'Registro no encontrado.');} // ABORTA LA OPERACIÓN EN CASO DE QUE LA CONSULTA SEA NULL
     return [

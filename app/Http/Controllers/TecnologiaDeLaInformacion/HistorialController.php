@@ -18,7 +18,7 @@ class HistorialController extends Controller {
   }
   public function show($id_historial) {
     $historial = $this->historialRepo->historialFindOrFailById($id_historial);
-    $archivos = $historial->historialarchivos()->paginate(99999999);
+    $archivos = $historial->historialArchivos()->paginate(99999999);
     return view('tecnologia_de_la_informacion.inventarioEquipo.historiales.ti_inv_hisInv_show', compact('historial', 'archivos'));
   }
 }
