@@ -42,6 +42,7 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
     });
 
     Route::group(['prefix' => 'ti'], function(){
+      require_once __DIR__ . '/tecnologiaDeLaInformacion/tiRoutes.php';
       require_once __DIR__ . '/tecnologiaDeLaInformacion/soporteRoutes.php';
       require_once __DIR__ . '/tecnologiaDeLaInformacion/inventarioRoutes.php';
     });

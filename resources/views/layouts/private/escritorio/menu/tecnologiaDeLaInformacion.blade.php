@@ -8,6 +8,12 @@
     </p>
   </a>
   <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{ route('ti.index') }}" class="nav-link {{ Request::is('inicio-ti') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>{{ __('Inicio TI') }}</p>
+      </a>
+    </li>
     @canany(['soporte.index', 'soporte.show', 'soporte.edit', 'soporte.destroy'])
     <li class="nav-item">
       <a href="{{ route('soporte.index') }}" class="nav-link {{ Request::is('ti/soporte*') ? 'active' : '' }}">
@@ -16,7 +22,7 @@
       </a>
     </li>
     @endcanany
-    @canany(['inventario.edit', 'inventario.index', 'inventario.create', 'inventario.show', 'inventario.destroy', ])
+    @canany(['inventario.edit', 'inventario.index', 'inventario.create', 'inventario.show', 'inventario.destroy'])
       <li class="nav-item has-treeview {{ Request::is('ti/inventario*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ Request::is('ti/inventario*') ? 'active' : '' }}">
           <i class="nav-icon fas fa-dolly-flatbed"></i>
