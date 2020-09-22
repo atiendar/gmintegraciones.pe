@@ -18,12 +18,13 @@ class PedidosRepositories implements PedidosInterface {
     $cont1 = 0;
     $archivos_a_eliminar = null;
     foreach($armados as $armado) {
+      /*
       // AÑADE LA RUTA Y NOMBRE DE LA IMAGEN DEL ARMADO
       if($armado->img_nom != null) {
         $archivos_a_eliminar[$cont1] = $armado->img_nom;
         $cont1 +=1;
       }
-
+*/
       foreach($armado->direcciones as $direccion) {
         // AÑADE LA RUTA Y NOMBRE DE LAS TARJETAS DE FELICITACION
         if($direccion->tarj_dise_nom != null) {
@@ -90,8 +91,7 @@ class PedidosRepositories implements PedidosInterface {
         }
       }
     }
-    
     // Se implementa esta forma de eliminar archivos ya que con la funcion "ArchivosEliminados::dispatch" no lo hace
-    \Storage::delete($archivos_a_eliminar);
+    \Storage::disk('s3')->delete($archivos_a_eliminar);
   }
 }

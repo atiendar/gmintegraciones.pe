@@ -51,7 +51,7 @@ class PagoRepositories implements PagoInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('comprobante_de_pago'), // Archivo blob
-          'venta/pedidos/'.date("Y").'/'.$pedido->num_pedido, // Ruta en la que guardara el archivo
+          'pedidos/'.date("Y").'/'.$pedido->num_pedido, // Ruta en la que guardara el archivo
           'comprobante_de_pago-'.time().'.', // Nombre del archivo
           null // Ruta y nombre del archivo anterior
         ); 
@@ -62,7 +62,7 @@ class PagoRepositories implements PagoInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('copia_de_identificacion'), // Archivo blob
-          'venta/pedidos/'.date("Y").'/'.$pedido->num_pedido, // Ruta en la que guardara el archivo
+          'pedidos/'.date("Y").'/'.$pedido->num_pedido, // Ruta en la que guardara el archivo
           'copia_de_identificacion-'.time().'.', // Nombre del archivo
           null // Ruta y nombre del archivo anterior
         ); 

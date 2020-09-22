@@ -63,7 +63,7 @@ class DireccionArmadoRepositories implements DireccionInterface {
           // Dispara el evento registrado en App\Providers\EventServiceProvider.php
           $imagen = ArchivoCargado::dispatch(
             $request->file('tarjeta_disenada_por_el_cliente'), // Archivo blob
-            'venta/pedidos/'.date("Y").'/tarjetas_diseñadas_por_el_cliente', // Ruta en la que guardara el archivo
+            'pedidos/'.date("Y").'/tarjetas_diseñadas_por_el_cliente', // Ruta en la que guardara el archivo
             'tarjeta_diseñadas_por_el_cliente-'.time().'.', // Nombre del archivo
             $direccion->tarj_dise_nom // Ruta y nombre del archivo anterior
           ); 

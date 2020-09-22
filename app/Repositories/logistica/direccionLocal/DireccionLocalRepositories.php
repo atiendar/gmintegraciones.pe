@@ -91,7 +91,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
         $comprobante_de_salida        = $request->file('comprobante_de_salida');
         $direccion->comp_de_sal_rut   = env('PREFIX');
         \Storage::disk('s3')->delete($direccion->comp_de_sal_nom);
-        $nombre_archivo = \Storage::disk('s3')->put('comprobante/'.date("Y").'/'.$direccion->id, $comprobante_de_salida, 'public');
+        $nombre_archivo = \Storage::disk('s3')->put('pedidos/'.date("Y").'/comprobante/direc-'.$direccion->id, $comprobante_de_salida, 'public');
         $direccion->comp_de_sal_nom   = $nombre_archivo;
       }
       $direccion->save();
@@ -122,7 +122,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
         $comprobante_de_entrega        = $request->file('comprobante_de_entrega');
         $comprobante->comp_ent_rut       = env('PREFIX') ;
         \Storage::disk('s3')->delete($comprobante->comp_ent_nom);
-        $nombre_archivo = \Storage::disk('s3')->put('comprobante/'.date("Y").'/'.$direccion->id, $comprobante_de_entrega, 'public');
+        $nombre_archivo = \Storage::disk('s3')->put('pedidos/'.date("Y").'/comprobante/direc-'.$direccion->id, $comprobante_de_entrega, 'public');
         $comprobante->comp_ent_nom   = $nombre_archivo;
       }
 
