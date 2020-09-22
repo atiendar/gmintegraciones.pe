@@ -12,6 +12,7 @@
   <li class="nav-header">{{ __('SISTEMA') }}</li>
 @endcanany
 @include('layouts.private.escritorio.menu.logs')
+@include('layouts.private.escritorio.menu.jobs')
 @include('layouts.private.escritorio.menu.sistema')
 @include('layouts.private.escritorio.menu.quejasYSugerencias')
 @include('layouts.private.escritorio.menu.usuarios')
