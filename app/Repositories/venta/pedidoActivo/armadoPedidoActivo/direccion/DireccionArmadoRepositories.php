@@ -81,7 +81,7 @@ class DireccionArmadoRepositories implements DireccionInterface {
   }
 
   public function estatusDireccionesDetalladas($direccion, $armado) {
-    if($direccion->cant != $direccion->cant_direc_carg) {
+    if($armado->cant != $armado->cant_direc_carg) {
       $armado->cant_direc_carg += $direccion->cant;
       $armado->save();
       \App\Models\Pedido::getEstatusVentas($armado->pedido);
