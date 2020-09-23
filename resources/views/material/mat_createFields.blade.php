@@ -12,7 +12,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="descripcion_en_ingles">{{ __('Descripción en ingles') }}</label>
+    <label for="descripcion_en_ingles">{{ __('Descripción en ingles') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>

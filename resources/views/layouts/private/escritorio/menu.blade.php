@@ -48,7 +48,7 @@
   'logistica.direccionForaneo.index', 'logistica.direccionForaneo.show', 'logistica.direccionForaneo.create', 'logistica.direccionForaneo.createEntrega',
   'logistica.pedidoEntregado.index','logistica.pedidoEntregado.show',
   'factura.index', 'factura.create', 'factura.show', 'factura.edit', 'factura.destroy',
-  'material.index', 'material.create', 'material.show', 'material.edit', 'material.destroy',
+  'material.index', 'material.create', 'material.show', 'material.edit', 'material.destroy', 'material.consultarPrecio',
   'soporte.index', 'soporte.show', 'soporte.edit', 'soporte.destroy', 
   'inventario.index', 'inventario.create', 'inventario.show', 'inventario.edit', 'inventario.destroy'
 ])
