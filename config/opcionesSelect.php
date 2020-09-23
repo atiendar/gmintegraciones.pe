@@ -118,6 +118,20 @@ return array(
     'navbar-white'      => 'navbar-white',
     'navbar-orange'     => 'navbar-orange',
   ],
+/* ===================== JOBS [ JOBS ] ===================== */
+  'select_job_index'  => [
+    ''                    => 'Buscar por. . .',
+    'id'                  => 'ID',
+    'queue'               => 'Queue',
+    'payload'             => 'Payload',
+    'created_at'          => 'Fecha de modificación (YYYY-MM-DD)',
+  ],
+/* ===================== JOBS [ FAILED JOBS ] ===================== */
+  'select_failed_job_index'  => [
+    ''                    => 'Buscar por. . .',
+    'id'                  => 'ID',
+    'queue'               => 'Queue',
+  ],
 /* ===================== PERFIL [ ACTIVIDAD ] ===================== */
   'select_perfil_actividad_index'  => [
     ''                    => 'Buscar por. . .',

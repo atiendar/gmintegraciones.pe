@@ -124,17 +124,23 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
       $this->usuariosRepo->metodo($metodo, $consulta);
 
       if($consulta->acceso == '2') { // 2 = Cliente, 1 = Usuario
+        //ELIMINA LAS COTIZACIONES CON TODA SU INFORMACIÓN
+        $cotizaciones = \App\Models\Cotizacion::with(['armados'])->withTrashed()->where('user_id', $consulta->id)->get();
+        foreach($cotizaciones as $cotizacion) {
+          $this->cotizacionesRepo->metodo($metodo, $cotizacion);
+        }
+
+        // ELIMINA LOS PEDIDOS CON TODA SU INFORMACIÓN
         $pedidos = \App\Models\Pedido::with(['armados', 'pagos'])->withTrashed()->where('user_id', $consulta->id)->get();
         foreach($pedidos as $pedido) {
           $this->pedidosRepo->metodo($metodo, $pedido);
         }
       }
-      if($consulta->acceso == '1' OR $consulta->acceso == '2') { // 2 = Cliente, 1 = Usuario
-        $qys = \App\Models\QuejaYSugerencia::with(['archivos'=> function ($query) {
-          $query->withTrashed();
-        }])->withTrashed()->where('user_id', $consulta->id)->get();
-        $this->quejasYSugerenciasRepo->metodo($metodo, $qys);
-      }
+
+      $qys = \App\Models\QuejaYSugerencia::with(['archivos'=> function ($query) {
+        $query->withTrashed();
+      }])->withTrashed()->where('user_id', $consulta->id)->get();
+      $this->quejasYSugerenciasRepo->metodo($metodo, $qys);
     }
     if($registro->tab == 'roles') {
       $consulta = \Spatie\Permission\Models\Role::withTrashed()->findOrFail($registro->id_reg);

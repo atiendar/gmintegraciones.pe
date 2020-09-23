@@ -11,7 +11,7 @@ class StoreProveedorRequest extends FormRequest {
       'razon_social'                    => 'required|max:60|unique:proveedores,raz_soc',
       'nombre_comercial'                => 'required|max:100|unique:proveedores,nom_comerc',
       'fabricante_distribuidor'         => 'required|in:Fabricante,Distribuidor',
-      'rfc'                             => 'required|max:40',
+      'rfc'                             => 'nullable|max:40',
       'nombre_del_representante_legal'  => 'max:80',
       'pagina_web'                      => 'nullable|max:100|active_url',
       'lada_telefono_fijo'              => 'nullable|max:9999|min:1|numeric|required_with:telefono_fijo',

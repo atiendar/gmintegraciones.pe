@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder {
         'acceso'                    => '1',
         'registros_tab_acces'       => 'on',
         'img_us_rut'                => env('PREFIX'),
-        'img_us'                    => 'perfil/2020/perfil-1582071257.png',
+        'img_us'                    => 'perfil/perfil-1582071257.png',
         'nom'      			            => 'Aaron Josue',
         'apell'     		            => 'Sánchez Mendoza',
         'email_registro'  	        => 'desarrolloweb.ewmx@gmail.com',

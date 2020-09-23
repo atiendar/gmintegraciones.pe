@@ -31,6 +31,8 @@
     "pulsa aquí para que te enviemos otro": "click here to request another",
     
     "_comment": "===================== [ SISTEMA ] =====================",
+    "Lista de failed jobs": "List of failed jobs",
+    "Lista de jobs": "List of jobs",
     "Último inicio de sesión": "Last login",
     "Actualmente no estás conectado a ninguna red": "You are not currently connected to any network",
     "Lista de quejas y sugerencias": "List of complaints and suggestions",
@@ -620,8 +622,6 @@
     "Imagenes": "Images",
     "Detalles historial": "History details",
     "Inicio TI": "Home IT",
-    "": "",
-    "": "",
     "": "",
     "": "",
     "": "",
