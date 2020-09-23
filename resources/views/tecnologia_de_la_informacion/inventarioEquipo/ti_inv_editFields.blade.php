@@ -59,7 +59,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
       </div>
-      {!! Form::date('ultimo_mantenimiento', $inventario->ult_fec_de_man, ['class' => 'form-control', 'min' => date('Y-m-d')]) !!}
+      {!! Form::date('ultimo_mantenimiento', $inventario->ult_fec_de_man, ['class' => 'form-control']) !!}
     </div>
     <span class="text-danger">{{ $errors->first('ultimo_mantenimiento') }}</span>
   </div>
