@@ -151,7 +151,7 @@
     <span class="text-danger">{{ $errors->first('categoria') }}</span>
   </div>
   <div class="form-group col-sm-6 btn-sm">
-    <label for="etiqueta">{{ __('Etiqueta') }} *</label>
+    <label for="etiqueta">{{ __('Etiqueta') }}</label>
     @can('sistema.catalogo.create')
       <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar catálogo') }}</a>
     @endcan

@@ -19,7 +19,7 @@ class StoreProductoRequest extends FormRequest {
       'largo'                     => 'nullable|required_if:tipo,Canasta|min:0|numeric|alpha_decimal7',
       'costo_de_armado'           => 'nullable|required_if:tipo,Canasta|min:0|numeric|alpha_decimal15',
       'categoria'                 => 'required|max:150|exists:catalogos,value',
-      'etiqueta'                  => 'required|max:150|exists:catalogos,value',
+      'etiqueta'                  => 'nullable|max:150|exists:catalogos,value',
       'peso'                      => 'required|min:0|numeric|alpha_decimal7',
       'codigo_de_barras'          => 'required|max:250',
       'descripcion_del_producto'  => 'nullable|max:30000|string',
