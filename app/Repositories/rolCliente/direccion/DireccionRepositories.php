@@ -85,4 +85,10 @@ class DireccionRepositories implements DireccionInterface {
       return $direccion;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
+  public function getDireccionesClientePluck() {
+    return Direccion::where('user_id', Auth::user()->id)->orderBy('del_o_munic', 'ASC')->pluck('del_o_munic', 'id');
+  }
+  public function getDireccionFind($id_direccion) {
+    return Direccion::where('user_id', Auth::user()->id)->where('id', $id_direccion)->findOrFail($id_direccion);
+  }
 }

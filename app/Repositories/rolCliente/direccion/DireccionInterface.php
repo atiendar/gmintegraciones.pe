@@ -13,4 +13,8 @@ interface DireccionInterface {
   public function update($request, $id_direccion);
 
   public function destroy($id_direccion);
+
+  public function getDireccionesClientePluck();
+
+  public function getDireccionFind($id_direccion);
 }

@@ -46,4 +46,10 @@ class DireccionController extends Controller {
     toastr()->success('¡Dirección eliminada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
+  public function getDireccionFind(Request $request, $id_direccion) {
+    if($request->ajax()) {
+      $direccion = $this->direccionRepo->getDireccionFind($id_direccion);
+      return response()->json($direccion);
+    } 
+  }
 }

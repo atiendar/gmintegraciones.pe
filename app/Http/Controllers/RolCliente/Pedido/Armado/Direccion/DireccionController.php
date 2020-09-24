@@ -9,15 +9,18 @@ use App\Models\PedidoArmadoTieneDireccion;
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
 use App\Repositories\venta\pedidoActivo\armadoPedidoActivo\direccion\DireccionArmadoRepositories;
+use App\Repositories\rolCliente\direccion\DireccionRepositories;
 // Otros
 use Illuminate\Support\Facades\Auth;
 
 class DireccionController extends Controller {
   protected $serviceCrypt;
   protected $direccionArmadoRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, DireccionArmadoRepositories $direccionArmadoRepositories) {
+  protected $direccionRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, DireccionArmadoRepositories $direccionArmadoRepositories, DireccionRepositories $direccionRepositories) {
     $this->serviceCrypt        = $serviceCrypt;
     $this->direccionArmadoRepo = $direccionArmadoRepositories;
+    $this->direccionRepo       = $direccionRepositories;
   }
   public function edit($id_direccion) {
     $id_direccion = $this->serviceCrypt->decrypt($id_direccion);
@@ -28,7 +31,8 @@ class DireccionController extends Controller {
     abort('404');
     }
 
-    return view('rolCliente.pedido.armado.direccion.dir_edit', compact('direccion'));
+    $direcciones = $this->direccionRepo->getDireccionesClientePluck();
+    return view('rolCliente.pedido.armado.direccion.dir_edit', compact('direccion', 'direcciones'));
   }
   public function update(UpdateDireccionRequest $request, $id_direccion) {
     // VALIDAR QUE SOLO PUEDA MODIFICAR SI EL NOMBRE DE LA PERSONA QUE RECIBE ES NULL
