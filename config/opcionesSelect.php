@@ -268,9 +268,6 @@ return array(
   'select_cliente_pedido_index'  => [
     ''                        => 'Buscar por. . .',
     'estat_pag'               => 'Estatus pago',
-    'estat_vent_gen'          => 'Estatus venta general',
-    'estat_vent_arm'          => 'Estatus venta armado(s)',
-    'estat_vent_dir'          => 'Estatus venta dirección(es)',
     'fech_de_entreg'          => 'Fecha de entrega',
     'num_pedido'              => 'Número de pedido',
     'tot_de_arm'              => 'Total de armados',    

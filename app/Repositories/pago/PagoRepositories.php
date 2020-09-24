@@ -147,7 +147,7 @@ class PagoRepositories implements PagoInterface {
       // ELIMINA LA COPIA DE IDENTIFICACION EN CASO DE QUE LA FORMA DE PAGO SE MODIFIQUE
       if($pago->isDirty('form_de_pag')) {
         ArchivosEliminados::dispatch(
-          $ruta_nombre = array($pago->cop_de_indent_rut.$pago->cop_de_indent_nom), 
+          $ruta_nombre = array($pago->cop_de_indent_nom), 
         );
         $pago->cop_de_indent_rut  = null;
         $pago->cop_de_indent_nom  = null;
