@@ -38,8 +38,11 @@ class PedidoActivoController extends Controller {
     return view('produccion.pedido.pedido_activo.pedAct_edit', compact('pedido', 'unificados', 'armados', 'armados_terminados_produccion'));
   }
   public function update(UpdatePedidoActivoRequest $request, $id_pedido) {
-    $this->pedidoActivoRepo->update($request, $id_pedido);
+    $pedido = $this->pedidoActivoRepo->update($request, $id_pedido);
     toastr()->success('¡Pedido actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    if($pedido->estat_produc == config('app.en_almacen_de_salida_terminado')) {
+      return redirect(route('produccion.pedidoActivo.index'));
+    }
     return back();
   }
   public function generarOrdenDeProduccion($id_pedido) {

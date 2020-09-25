@@ -9,6 +9,10 @@
     {{ $pago->cod_fact }}
   @endif
 
+  @if($pago->not != null)
+    <span class="badge"><i class="fas fa-exclamation"></i></span>
+  @endif
+
   @if($pago->comp_de_pag_nom == null)
     <span class="badge" style="background:{{ config('app.color_c') }};color:{{ config('app.color_0') }};">{{ __('Falta cargar comprobante') }}</span>
   @endif

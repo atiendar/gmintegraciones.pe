@@ -26,8 +26,9 @@ class CreatePagosTable extends Migration
             $table->enum('estat_pag',[config('app.pendiente'), config('app.aprobado'), config('app.rechazado')])->default('Pendiente')->nullable()->comment('Estatus de pago');
             $table->string('est_fact',100)->default(config('app.no_solicitada'))->comment('Estatus factura');
             $table->decimal('mont_de_pag',20,2)->unsigned()->comment('Monto de pago');
-            $table->enum('form_de_pag',config('opcionesSelect.select_forma_de_pago'))->comment('Forma de pago');
+            $table->enum('form_de_pag',config('opcionesSelect.select_forma_de_pago'))->nullable()->comment('Forma de pago');
             $table->text('coment_pag')->nullable()->comment('Comentarios pagos');
+            $table->text('not')->nullable()->comment('Nota del pago para indicar que primero se genera factura y despues pago');
             $table->unsignedBigInteger('pedido_id')->comment('Foreign Key del código de factura');
             $table->foreign('pedido_id')->references('id')->on('pedidos')->onUpdate('restrict')->onDelete('cascade');
             $table->unsignedBigInteger('user_id')->comment('Foreign Key usuario');

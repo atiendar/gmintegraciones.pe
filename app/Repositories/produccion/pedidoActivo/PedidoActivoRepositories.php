@@ -39,7 +39,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     return $pedido;
   }
   public function update($request, $id_pedido) {
-    DB::transaction(function() use($request, $id_pedido) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
+    try { DB::beginTransaction();
       $pedido                    = $this->pedidoActivoProduccionFindOrFailById($id_pedido, []);
       $pedido->lid_de_ped_produc = $request->lider_de_pedido_produccion;
       $pedido->coment_produc     = $request->comentario_produccion;
@@ -58,8 +58,10 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       }
       $pedido->save();
       Pedido::getEstatusPedido($pedido, 'Todos');
+
+      DB::commit();
       return $pedido;
-    });
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function getArmadosPedidoPaginate($pedido, $request) {
     if($pedido->lid_de_ped_produc != null) {

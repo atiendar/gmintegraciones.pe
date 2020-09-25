@@ -48,6 +48,11 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
     $pedido->save();
     return $pedido->num_pedido.'-'.$pedido->ult_let;
   }
+  public function sumaUnoALaUltimaLetraDireccionesCargadas($armado) {
+    $armado->ult_let  = ++ $armado->ult_let;
+    $armado->save();
+    return $armado->cod.'-'.$armado->ult_let;
+  }
   public function aprobar($id_cotizacion) {
     try { DB::beginTransaction();
       $cotizacion = $this->cotizacionRepo->cotizacionAsignadoFindOrFailById($id_cotizacion, 'armados', config('app.abierta'));
@@ -148,6 +153,8 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
 
         // REGISTRA LAS DIRECCIONES AL ARMADO
         foreach($armado_cotizacion->direcciones as $direccion) {
+
+          $direcciones[$contador3]['cod']                       = $this->sumaUnoALaUltimaLetraDireccionesCargadas($armado_pedido);
           $direcciones[$contador3]['cant']                      = $direccion->cant;
           $direcciones[$contador3]['met_de_entreg']             = $direccion->met_de_entreg;
           $direcciones[$contador3]['est']                       = $direccion->est;

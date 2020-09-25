@@ -39,6 +39,7 @@
         <tr>
           <th>IMG</th>
           <th>TIPO</th>
+          <th>SKU</th>
           <th>DESCRIPCIÓN</th>
           <th>CANT.</th>
           <th>PRECIO UNIT.</th>
@@ -60,8 +61,9 @@
               @endif
             </td>
             <td>{{ $armado->tip }}</td>
+            <td>{{ $armado->sku }}</td>
             <td>
-              <strong>{{ $armado->nom }} ({{ $armado->sku }})</strong><br>
+              <strong>{{ $armado->nom }}</strong><br>
               @foreach($armado->productos as $producto)
                 <div class="input-group text-muted ml-4">
                   {{ $producto->cant }} - {{ $producto->produc }}

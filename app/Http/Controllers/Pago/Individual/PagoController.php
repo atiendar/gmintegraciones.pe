@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
 use App\Http\Requests\pago\individual\StorePagoRequest;
+use App\Http\Requests\pago\individual\StorePagoCodigoRequest;
 use App\Http\Requests\pago\individual\UpdatePagoRequest;
 // Repositories
 use App\Repositories\pago\PagoRepositories;
@@ -20,6 +21,12 @@ class PagoController extends Controller {
   public function store(StorePagoRequest $request, $id_pedido) {
     $this->pagoRepo->store($request, $id_pedido);
     toastr()->success('¡Pago registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
+  }
+  public function storeCodigo(StorePagoCodigoRequest $request, $id_pedido) {
+    $request->not = 'Comentario del sistema: Primero se genera factura y después se carga el comprobante de pago.';
+    $this->pagoRepo->store($request, $id_pedido);
+    toastr()->success('¡Código generado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
   public function show($id_pago) {

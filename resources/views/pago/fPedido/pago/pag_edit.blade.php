@@ -24,6 +24,9 @@
         @include('pago.pag_showFields.numeroDePedido')
       </div>
       <div class="row">
+        @include('pago.pag_showFields.nota')
+      </div>
+      <div class="row">
         @include('pago.pag_showFields.codigoDeFacturacion')
         @include('pago.pag_showFields.estatusPago')
       </div>

@@ -47,7 +47,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
       </div>
-      {!! Form::text('monto_del_pago', null, ['id' => 'monto_del_pago', 'class' => 'form-control' . ($errors->has('monto_del_pago') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Precio proveedor'), 'onChange' => 'getMontoDelPago();']) !!}
+      {!! Form::text('monto_del_pago', null, ['id' => 'monto_del_pago', 'class' => 'form-control' . ($errors->has('monto_del_pago') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Monto del pago'), 'onChange' => 'getMontoDelPago();']) !!}
       <div class="input-group-append">
         <span class="input-group-text">.00</span>
       </div>
@@ -55,30 +55,3 @@
     <span class="text-danger">{{ $errors->first('monto_del_pago') }}</span>
   </div>
 </div>
-@include('layouts.private.plugins.priv_plu_select2')
-@section('js5')
-<script>
-  window.onload = function() { 
-    getFormaDePago();
-  }
-  function getFormaDePago() {
-    selectFormaDePago           = document.getElementById("forma_de_pago"),
-    forma_de_pago               = selectFormaDePago.value;
-    div_copia_de_identificacion = document.getElementById('div_copia_de_identificacion');
-
-    if(forma_de_pago == 'Paypal' || forma_de_pago == 'Tarjeta de credito (Pagina)') {
-      div_copia_de_identificacion.style.display = 'block';
-    } else {
-      div_copia_de_identificacion.style.display = 'none';
-    }
-  }
-  function getMontoDelPago() {
-    monto_del_pago = document.getElementById("monto_del_pago").value;
-    if (isNaN(parseFloat(monto_del_pago))) {
-      monto_del_pago = 0;
-    }
-    monto_del_pago = Number.parseFloat(monto_del_pago).toFixed(2);
-    document.getElementById("monto_del_pago").value = monto_del_pago
-  }
-</script>
-@endsection

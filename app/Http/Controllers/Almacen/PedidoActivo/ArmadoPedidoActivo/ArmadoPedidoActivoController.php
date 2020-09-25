@@ -31,7 +31,7 @@ class ArmadoPedidoActivoController extends Controller {
   public function update(UpdateArmadoPedidoActivoRequest $request, $id_armado) {
     $armado = $this->armadoPedidoActivoRepo->update($request, $id_armado);
     toastr()->success('¡Armado actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
-    if($armado->estat == config('app.productos_completos')) {
+    if($armado->estat == config('app.productos_completos') OR $armado->estat == config('app.en_almacen_de_salida')) {
       if($armado->pedido->estat_alm == config('app.productos_completos_terminado')) {
         toastr()->info('¡Pedido terminado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
         return redirect(route('almacen.pedidoActivo.index')); 

@@ -44,4 +44,10 @@ class PagoPedidoController extends Controller {
     toastr()->success('¡Pago actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return redirect(route('pago.fPedido.create', $this->serviceCrypt->encrypt($pago->pedido->id)));
   }
+  public function generarCodigo($id_pedido) {
+    $pedido         = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['pagos']);
+    $pagos          = $this->pedidoActivoRepo->getPagosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
+    $mont_pag_aprov =  $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
+    return view('pago.fPedido.fpe_generarCodigo', compact('pedido', 'pagos', 'mont_pag_aprov'));
+  }
 }
