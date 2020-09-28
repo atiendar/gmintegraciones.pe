@@ -119,17 +119,16 @@
           <td>TOTAL</td>
           <td>${{ Sistema::dosDecimales($cotizacion->tot) }}</td>
         </tr>
-        <tr>
-          <td>
-            @if($cotizacion->con_iva == 'on')
+        @if($cotizacion->con_iva == 'on')
+          <tr>
+            <td>
               <a href="{{ route('rolCliente.factura.create') }}" target="_blank">Para solicitar factura clic aquí</a>
-            @endif
             </td>
-          <td>
-            @php $tot=$cotizacion->tot*0.0105 @endphp
-            <a href="https://www.paypal.me/canastasyarcones/{{ Sistema::dosDecimales($cotizacion->tot + $tot) }}" target="_blank">Para pago con tarjeta clic aquí</a>
-          </td>
-        </tr>
+            <td>
+              <a href="https://www.paypal.me/canastasyarcones/{{ Sistema::dosDecimales($cotizacion->tot*1.05) }}" target="_blank">Para pago con tarjeta clic aquí, comisión incluida del 5% ${{ Sistema::dosDecimales($cotizacion->tot*1.05) }}</a>
+            </td>
+          </tr>
+        @endif
       </tbody>
     </table>
   @endif
