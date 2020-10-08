@@ -41,7 +41,7 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
       $costo_de_envio->aplic_cos_caj      = $request->aplicar_costo_de_caja;
 
       $costo = 0;
-      if($costo_de_envio->aplic_cos_caj == true) {
+      if($costo_de_envio->aplic_cos_caj == 'Si') {
         switch ($costo_de_envio->tam) {
           case 'Chico':
             $costo = env('COSTO_CHICO');
@@ -82,7 +82,7 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
       $costo_de_envio->aplic_cos_caj      = $request->aplicar_costo_de_caja;
 
       $costo = 0;
-      if($costo_de_envio->aplic_cos_caj == true) {
+      if($request->aplicar_costo_de_caja == 'Si') {
         switch ($costo_de_envio->tam) {
           case 'Chico':
             $costo = env('COSTO_CHICO');

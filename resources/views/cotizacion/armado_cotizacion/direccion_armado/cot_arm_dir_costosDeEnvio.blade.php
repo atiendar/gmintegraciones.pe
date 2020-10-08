@@ -36,9 +36,13 @@
             @include('costo_de_envio.cos_table.th.#')
             @include('costo_de_envio.cos_table.th.foraneoOLocal')
             @include('costo_de_envio.cos_table.th.metodoDeEntrega')
+            @include('costo_de_envio.cos_table.th.metodoDeEntregaEspecifico')
+            @include('costo_de_envio.cos_table.th.cantidad')
+            @include('costo_de_envio.cos_table.th.transporte')
             @include('costo_de_envio.cos_table.th.estado')
             @include('costo_de_envio.cos_table.th.tipoDeEnvio')
             @include('costo_de_envio.cos_table.th.tamano')
+            @include('costo_de_envio.cos_table.th.costoCaja')
             @include('costo_de_envio.cos_table.th.tipoDeEmpaque')
             @include('costo_de_envio.cos_table.th.cuentaConSeguro')
             @include('costo_de_envio.cos_table.th.tiempoDeEntrega')
@@ -47,14 +51,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-if="!costos.length"><td colspan="11">@include('layouts.private.busquedaSinResultados')</td></tr>
+          <tr v-if="!costos.length"><td colspan="15">@include('layouts.private.busquedaSinResultados')</td></tr>
           <tr v-for="costo in costos">
             <td v-text="costo.id"></td>
             <td v-text="costo.for_loc"></td>
             <td v-text="costo.met_de_entreg"></td>
+            <td v-text="costo.met_de_entreg_esp"></td>
+            <td v-text="costo.cant"></td>
+            <td v-text="costo.trans"></td>
             <td v-text="costo.est"></td>
             <td v-text="costo.tip_env"></td>
             <td v-text="costo.tam"></td>
+            <td v-text="costo.cost_tam_caj"></td>
             <td v-text="costo.tip_emp"></td>
             <td v-text="costo.seg"></td>
             <td v-text="costo.tiemp_ent"></td>

@@ -41,19 +41,30 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
 
       // GUARDA LA DIRECCIÓN AL ARMADO
       $direccion = new CotizacionArmadoTieneDirecciones();
+      $direccion->for_loc                   = $request->costo_seleccionado['for_loc'];
+      $direccion->met_de_entreg             = $request->costo_seleccionado['met_de_entreg'];
+      $direccion->met_de_entreg_esp         = $request->costo_seleccionado['met_de_entreg_esp'];
+      $direccion->cantt                     = $request->costo_seleccionado['cant'];
+      $direccion->trans                     = $request->costo_seleccionado['trans'];
+      $direccion->est                       = $request->costo_seleccionado['est'];
+      $direccion->tip_env                   = $request->costo_seleccionado['tip_env'];
+      $direccion->tam                       = $request->costo_seleccionado['tam'];
+      $direccion->cost_tam_caj              = $request->costo_seleccionado['cost_tam_caj'];
       $direccion->tip_emp                   = $request->costo_seleccionado['tip_emp'];
       $direccion->seg                       = $request->costo_seleccionado['seg'];
       $direccion->tiemp_ent                 = $request->costo_seleccionado['tiemp_ent'];
-      $direccion->met_de_entreg             = $request->costo_seleccionado['met_de_entreg'];
-      $direccion->est                       = $request->costo_seleccionado['est'];
-      $direccion->for_loc                   = $request->costo_seleccionado['for_loc'];
-      $direccion->tip_env                   = $request->costo_seleccionado['tip_env'];
       $direccion->cost_por_env_individual   = $request->costo_seleccionado['cost_por_env'];
+
       if($direccion->tip_env == 'Consolidado') {
         $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'];
       } else {
         $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'] *  $request->cantidad;
       }
+
+      if($request->costo_seleccionado['cost_tam_caj'] > 0) {
+        $direccion->cost_por_env += $request->costo_seleccionado['cost_tam_caj'] *  $request->cantidad;
+      }
+
       $direccion->cant                      = $request->cantidad;
       $direccion->detalles_de_la_ubicacion  = $request->detalles_de_la_ubicacion;
       $direccion->armado_id                 = $id_armado;
@@ -80,23 +91,32 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
       $armado     = $direccion->armado()->with('cotizacion')->first();
       $this->armadoCotizacionRepo->verificarElEstatusDeLaCotizacion($armado->cotizacion->estat);
 
-      // ACTUALIZA LOS DATOS DE LA DIRECCIÓN
       $cant_direc_orig                      = $direccion->cant;
       $cost_por_env_vent_orig               = $direccion->cost_por_env;
 
       if($request->costo_seleccionado != []) {
+        $direccion->for_loc                   = $request->costo_seleccionado['for_loc'];
+        $direccion->met_de_entreg             = $request->costo_seleccionado['met_de_entreg'];
+        $direccion->met_de_entreg_esp         = $request->costo_seleccionado['met_de_entreg_esp'];
+        $direccion->cantt                     = $request->costo_seleccionado['cant'];
+        $direccion->trans                     = $request->costo_seleccionado['trans'];
+        $direccion->est                       = $request->costo_seleccionado['est'];
+        $direccion->tip_env                   = $request->costo_seleccionado['tip_env'];
+        $direccion->tam                       = $request->costo_seleccionado['tam'];
+        $direccion->cost_tam_caj              = $request->costo_seleccionado['cost_tam_caj'];
         $direccion->tip_emp                   = $request->costo_seleccionado['tip_emp'];
         $direccion->seg                       = $request->costo_seleccionado['seg'];
         $direccion->tiemp_ent                 = $request->costo_seleccionado['tiemp_ent'];
-        $direccion->met_de_entreg             = $request->costo_seleccionado['met_de_entreg'];
-        $direccion->est                       = $request->costo_seleccionado['est'];
-        $direccion->for_loc                   = $request->costo_seleccionado['for_loc'];
-        $direccion->tip_env                   = $request->costo_seleccionado['tip_env'];
         $direccion->cost_por_env_individual   = $request->costo_seleccionado['cost_por_env'];
+
         if($direccion->tip_env == 'Consolidado') {
           $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'];
         } else {
           $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'] *  $request->cantidad;
+        }
+
+        if($request->costo_seleccionado['cost_tam_caj'] > 0) {
+          $direccion->cost_por_env += $request->costo_seleccionado['cost_tam_caj'] *  $request->cantidad;
         }
       } else {
         if($direccion->tip_env == 'Consolidado') {
@@ -104,10 +124,43 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
         } else {
           $direccion->cost_por_env = $direccion->cost_por_env_individual * $request->cantidad;
         }
+
+        if($direccion->cost_tam_caj > 0) {
+          $direccion->cost_por_env += $direccion->cost_tam_caj *  $request->cantidad;
+        }
       }
+
       $direccion->cant                      = $request->cantidad;
       $direccion->detalles_de_la_ubicacion  = $request->detalles_de_la_ubicacion;
+      
+      // ACTUALIZA LOS DATOS DE LA DIRECCIÓN
+  //    $cant_direc_orig                      = $direccion->cant;
+  //    $cost_por_env_vent_orig               = $direccion->cost_por_env;
 
+  //    if($request->costo_seleccionado != []) {
+    //    $direccion->tip_emp                   = $request->costo_seleccionado['tip_emp'];
+    //    $direccion->seg                       = $request->costo_seleccionado['seg'];
+   //     $direccion->tiemp_ent                 = $request->costo_seleccionado['tiemp_ent'];
+    //    $direccion->met_de_entreg             = $request->costo_seleccionado['met_de_entreg'];
+    //    $direccion->est                       = $request->costo_seleccionado['est'];
+    //    $direccion->for_loc                   = $request->costo_seleccionado['for_loc'];
+    //    $direccion->tip_env                   = $request->costo_seleccionado['tip_env'];
+     //   $direccion->cost_por_env_individual   = $request->costo_seleccionado['cost_por_env'];
+        
+    //    if($direccion->tip_env == 'Consolidado') {
+    //      $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'];
+    //    } else {
+    //      $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'] *  $request->cantidad;
+    //    }
+ //     } else {
+ //       if($direccion->tip_env == 'Consolidado') {
+ //         $direccion->cost_por_env = $direccion->cost_por_env_individual;
+ //       } else {
+ //         $direccion->cost_por_env = $direccion->cost_por_env_individual * $request->cantidad;
+ //       }
+ //     }
+    //  $direccion->cant                      = $request->cantidad;
+    //  $direccion->detalles_de_la_ubicacion  = $request->detalles_de_la_ubicacion;
       if($direccion->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
@@ -115,12 +168,13 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
           'cotizacion.armado.show', // Nombre de la ruta
           $this->serviceCrypt->encrypt($direccion->armado_id), // Id del registro debe ir encriptado
           $id_direccion, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Tipo de empaque', 'Cuenta con seguro', 'Tiempo de entrega (minutos)', 'Método de entrega', 'Estado al que se cotizó', 'Foráneo o local', 'Tipo de envío', 'Costo de envío', 'Cantidad', 'Detalles de la ubicación'), // Nombre de los inputs del formulario
+          array('Foráneo o local', 'Método de entrega', 'Método de entrega especifico', 'Cantidad', 'Transporte', 'Estado al que se cotizó', 'Tipo de envío', 'Tamaño', 'Costo de caja', 'Tipo de empaque', 'Cuenta con seguro', 'Tiempo de entrega (Dias)', 'Costo de envío individual', 'Costo de envío', 'Cantidad', 'Detalles de la ubicación'), // Nombre de los inputs del formulario
           $direccion, // Request
-          array('tip_emp', 'seg', 'tiemp_ent', 'met_de_entreg', 'est', 'for_loc', 'tip_env', 'cost_por_env', 'cant',  'detalles_de_la_ubicacion') // Nombre de los campos en la BD
+          array(
+            'for_loc', 'met_de_entreg', 'met_de_entreg_esp', 'cantt', 'trans', 'est', 'tip_env', 'tam', 'cost_tam_caj', 'tip_emp', 'seg', 'tiemp_ent', 'cost_por_env_individual', 'cost_por_env', 'cant', 'detalles_de_la_ubicacion') // Nombre de los campos en la BD
         ); 
         $direccion->updated_at_dir  = Auth::user()->email_registro;
-      }
+      }      
       $direccion->save();
 
       // ACTUALIZA Y GENERA LOS NUEVOS PRECIOS DEL ARMADO

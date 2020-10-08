@@ -97,14 +97,15 @@
       <span v-if="errors.tamano" class="text-danger" v-text="errors.tamano[0]"></span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <div class="input-group pt-4">
-      <div class="custom-control custom-switch">
-        {!! Form::checkbox('aplicar_costo_de_caja', null, null, ['v-model' => 'aplicar_costo_de_caja', 'id' => 'aplicar_costo_de_caja', 'class' => 'custom-control-input' . ($errors->has('aplicar_costo_de_caja') ? ' is-invalid' : '')]) !!}
-        <label class="custom-control-label" for="aplicar_costo_de_caja">{{ __('Aplicar costos de caja') }}</label>
-        ({{ __('Chico') }} ${{ env('COSTO_CHICO') }} {{ __('Mediano') }}, ${{ env('COSTO_MEDIANO') }}, {{ __('Grande') }} ${{ env('COSTO_GRANDE') }})
+    <label for="aplicar_costo_de_caja">{{ __('Aplicar costos de caja') }} *</label>
+    ({{ __('Chico') }} ${{ env('COSTO_CHICO') }} {{ __('Mediano') }}, ${{ env('COSTO_MEDIANO') }}, {{ __('Grande') }} ${{ env('COSTO_GRANDE') }})
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-    </div>
-    <span class="text-danger">{{ $errors->first('aplicar_costo_de_caja') }}</span>
+      {!! Form::select('aplicar_costo_de_caja', config('opcionesSelect.select_si_no'), null, ['v-model' => 'aplicar_costo_de_caja', 'class' => 'form-control select2' . ($errors->has('aplicar_costo_de_caja') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+      </div>
+      <span v-if="errors.aplicar_costo_de_caja" class="text-danger" v-text="errors.aplicar_costo_de_caja[0]"></span>
   </div>
 </div>
 <div class="row">

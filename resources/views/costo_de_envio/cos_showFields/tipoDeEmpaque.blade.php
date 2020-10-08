@@ -1,5 +1,5 @@
 <div class="form-group col-sm btn-sm">
-  <label for="tipo_de_empaque">{{ __('Tipo de empaque') }} ({{ __('Dias') }})</label>
+  <label for="tipo_de_empaque">{{ __('Tipo de empaque') }}</label>
   <div class="input-group">
     <div class="input-group-prepend">
       <span class="input-group-text"><i class="fas fa-list"></i></span>

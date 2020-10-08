@@ -26,7 +26,7 @@ class CreateCostosDeEnvioTable extends Migration
         $table->string('est', 150)->comment('Estado');
         $table->string('tip_env', 80)->nullable()->comment('Tipo de envío');
         $table->enum('tam', config('opcionesSelect.select_tamano'))->comment('Tamaño');
-        $table->enum('aplic_cos_caj', ['0', '1'])->nullable()->comment('Aplicar costos de caja 0=verdadero, null=false');
+        $table->enum('aplic_cos_caj', ['Si', 'No'])->nullable()->comment('Aplicar costos de caja');
         $table->decimal('cost_tam_caj',20,2)->unsigned()->default(0.00)->comment('Costo del tamaño de la caja');
         $table->enum('tip_emp',config('opcionesSelect.select_tipo_de_empaque'))->comment('Tipo de empaque');
         $table->enum('seg',config('opcionesSelect.select_si_no'))->comment('Cuenta con seguro');
