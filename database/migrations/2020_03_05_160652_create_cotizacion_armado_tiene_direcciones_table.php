@@ -21,13 +21,13 @@ class CreateCotizacionArmadoTieneDireccionesTable extends Migration
         
             $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
             $table->string('met_de_entreg',150)->comment('Método de entrega');
-            $table->string('met_de_entreg_esp',150)->nullable()->comment('Método de entrega especifico'); // Este se agrego
-            $table->string('cantt', 10)->nullable()->comment('Cantidad de productos'); // Este se agrego
-            $table->string('trans', 100)->nullable()->comment('Transporte');  // Este se agrego
+            $table->string('met_de_entreg_esp',150)->nullable()->comment('Método de entrega especifico');
+            $table->string('cantt', 10)->nullable()->comment('Cantidad de productos');
+            $table->string('trans', 100)->nullable()->comment('Transporte');
             $table->string('est', 150)->comment('Estado');
             $table->string('tip_env', 80)->nullable()->comment('Tipo de envío');
-            $table->enum('tam', config('opcionesSelect.select_tamano'))->comment('Tamaño');  // Este se agrego
-            $table->decimal('cost_tam_caj',20,2)->unsigned()->default(0.00)->comment('Costo del tamaño de la caja');  // Este se agrego
+            $table->enum('tam', config('opcionesSelect.select_tamano'))->comment('Tamaño');
+            $table->decimal('cost_tam_caj',20,2)->unsigned()->default(0.00)->comment('Costo del tamaño de la caja');
             $table->enum('tip_emp',config('opcionesSelect.select_tipo_de_empaque'))->comment('Tipo de empaque');
             $table->enum('seg',config('opcionesSelect.select_si_no'))->comment('Cuenta con seguro');
             $table->string('tiemp_ent', 25)->comment('Tiempo de entrega en dias');
