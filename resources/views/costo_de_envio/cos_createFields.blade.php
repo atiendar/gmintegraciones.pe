@@ -28,7 +28,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      <select v-model='metodo_de_entrega_especifico' v-on:change='tipPaquteria()' class ='form-control' data-old='{{ old('metodo_de_entrega_especifico')}}' name='metodo_de_entrega_especifico'>
+      <select v-model='metodo_de_entrega_especifico' v-on:change='tipPaqueteria(2)' class ='form-control' data-old='{{ old('metodo_de_entrega_especifico')}}' name='metodo_de_entrega_especifico'>
         <option value="">Seleccione. . .</option>
         <option v-for="metodo_de_entrega_esp in metodos_de_entrega_especificos" v-bind:value="metodo_de_entrega_esp" v-text="metodo_de_entrega_esp"></option>
       </select>
@@ -36,10 +36,6 @@
     <span v-if="errors.metodo_de_entrega_especifico" class="text-danger" v-text="errors.metodo_de_entrega_especifico[0]"></span>
   </div>
 </div>
-
-
-
-
 <div class="row">
   <div class="form-group col-sm btn-sm" id="divcantidad" style="display:none">
     <label for="cantidad">{{ __('Cantidad') }} *</label>
@@ -90,8 +86,6 @@
     </div>
     <span v-if="errors.estado" class="text-danger" v-text="errors.estado[0]"></span>
   </div>
-</div>
-<div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="tamano">{{ __('Tamaño') }} *</label>
     <div class="input-group">
@@ -101,6 +95,16 @@
       {!! Form::select('tamano', config('opcionesSelect.select_tamano'), null, ['v-model' => 'tamano', 'class' => 'form-control select2' . ($errors->has('tamano') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
       </div>
       <span v-if="errors.tamano" class="text-danger" v-text="errors.tamano[0]"></span>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <div class="input-group pt-4">
+      <div class="custom-control custom-switch">
+        {!! Form::checkbox('aplicar_costo_de_caja', null, null, ['v-model' => 'aplicar_costo_de_caja', 'id' => 'aplicar_costo_de_caja', 'class' => 'custom-control-input' . ($errors->has('aplicar_costo_de_caja') ? ' is-invalid' : '')]) !!}
+        <label class="custom-control-label" for="aplicar_costo_de_caja">{{ __('Aplicar costos de caja') }}</label>
+        ({{ __('Chico') }} ${{ env('COSTO_CHICO') }} {{ __('Mediano') }}, ${{ env('COSTO_MEDIANO') }}, {{ __('Grande') }} ${{ env('COSTO_GRANDE') }})
+      </div>
+    </div>
+    <span class="text-danger">{{ $errors->first('aplicar_costo_de_caja') }}</span>
   </div>
 </div>
 <div class="row">

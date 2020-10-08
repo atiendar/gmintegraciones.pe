@@ -48,17 +48,21 @@
       foraneo_o_local:              "{{ $costo_de_envio->for_loc }}",
       metodo_de_entrega:            "{{ $costo_de_envio->met_de_entreg }}",
       metodo_de_entrega_especifico: "{{ $costo_de_envio->met_de_entreg_esp }}",
-      cuenta_con_seguro:            "{{ $costo_de_envio->seg }}",
+      cantidad:                     "{{ $costo_de_envio->cant }}",
+      transporte:                   "{{ $costo_de_envio->trans }}",
       estado:                       "{{ $costo_de_envio->est }}",
-      tamano:                       "{{ $costo_de_envio->tam }}",
-      tipo_de_empaque:              "{{ $costo_de_envio->tip_emp }}",
-      tiempo_de_entrega:            "{{ $costo_de_envio->tiemp_ent }}",
       tipo_de_envio:                "{{ $costo_de_envio->tip_env }}",
+      tamano:                       "{{ $costo_de_envio->tam }}",
+      aplicar_costo_de_caja:        "{{ $costo_de_envio->aplic_cos_caj }}",
+      tipo_de_empaque:              "{{ $costo_de_envio->tip_emp }}",
+      cuenta_con_seguro:            "{{ $costo_de_envio->seg }}",
+      tiempo_de_entrega:            "{{ $costo_de_envio->tiemp_ent }}",
       costo_por_envio:              "{{ $costo_de_envio->cost_por_env }}"
     },
     mounted() {
       this.getMetodosDeEntrega(1)
       this.getTiposDeEnvio(1)
+      this.tipPaqueteria(1)
     },
     methods: {
       async update() {
@@ -80,12 +84,15 @@
               foraneo_o_local:              this.foraneo_o_local,
               metodo_de_entrega:            this.metodo_de_entrega,
               metodo_de_entrega_especifico: this.metodo_de_entrega_especifico,
-              cuenta_con_seguro:            this.cuenta_con_seguro,
+              cantidad:                     this.cantidad,
+              transporte:                   this.transporte,
               estado:                       this.estado,
-              tamano:                       this.tamano,
-              tipo_de_empaque:              this.tipo_de_empaque,
-              tiempo_de_entrega:            this.tiempo_de_entrega,
               tipo_de_envio:                this.tipo_de_envio,
+              tamano:                       this.tamano,
+              aplicar_costo_de_caja:        this.aplicar_costo_de_caja,
+              tipo_de_empaque:              this.tipo_de_empaque,
+              cuenta_con_seguro:            this.cuenta_con_seguro,
+              tiempo_de_entrega:            this.tiempo_de_entrega,
               costo_por_envio:              this.costo_por_envio,
               tipos_de_envio:               this.tipos_de_envio,
             }).then(res => {
@@ -113,9 +120,22 @@
         if($val == 2) {
           this.metodo_de_entrega            = null
           this.metodo_de_entrega_especifico = null
+          this.cantidad                     = null
+          this.transporte                   = null
           this.estado                       = null
           this.tipo_de_envio                = null
-          this.tiempo_de_entrega            = null
+         
+          metodo_de_entrega_especifico  = document.getElementById('metodo_de_entrega_especifico')
+          metodo_de_entrega_especifico.style.display = 'none';
+
+          cantidad  = document.getElementById('divcantidad')
+          cantidad.style.display = 'none';
+
+          transporte  = document.getElementById('divtransporte')
+          transporte.style.display = 'none';
+
+          tipo_de_envio  = document.getElementById('tipo_de_envio')
+          tipo_de_envio.style.display = 'none';
         }
 
         if(this.foraneo_o_local != '') {
@@ -160,7 +180,21 @@
       async getTiposDeEnvio($val) {
         if($val == 2) {
           this.metodo_de_entrega_especifico = null
+          this.cantidad                     = null
+          this.transporte                   = null
           this.tipo_de_envio                = null
+          
+          metodo_de_entrega_especifico  = document.getElementById('metodo_de_entrega_especifico')
+          metodo_de_entrega_especifico.style.display = 'none';
+          
+          cantidad  = document.getElementById('divcantidad')
+          cantidad.style.display = 'none';
+
+          transporte  = document.getElementById('divtransporte')
+          transporte.style.display = 'none';
+
+          tipo_de_envio  = document.getElementById('tipo_de_envio')
+          tipo_de_envio.style.display = 'none';
         }
 
         // TREA TODOS LOS METODOS DE ENVIO
@@ -181,6 +215,9 @@
         }
         if(this.metodo_de_entrega == 'Paquetería') {
           this.getMetodosDeEntregaEspecificos()
+        } else if(this.metodo_de_entrega == 'Transportes Ferro') {
+          transporte  = document.getElementById('divtransporte')
+          transporte.style.display = 'block';
         } else {
           metodo_de_entrega_especifico = document.getElementById('metodo_de_entrega_especifico')
           metodo_de_entrega_especifico.style.display = 'none';
@@ -201,6 +238,20 @@
               text: error,
             })
           });
+        }
+      },
+      async tipPaqueteria($val) {
+        cantidad  = document.getElementById('divcantidad')
+
+        if($val == 2) {
+          this.cantidad                     = null
+          this.tipo_de_envio                = null
+          
+          cantidad.style.display = 'none';
+        }
+
+        if(this.metodo_de_entrega_especifico == 'TresGuerras') {
+          cantidad.style.display = 'block';
         }
       },
       async getDecimal() {

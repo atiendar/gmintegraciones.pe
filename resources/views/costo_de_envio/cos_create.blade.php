@@ -43,6 +43,7 @@
       estado:                       null,
       tipo_de_envio:                null,
       tamano:                       null,
+      aplicar_costo_de_caja:        null,
       tipo_de_empaque:              null,
       cuenta_con_seguro:            null,
       tiempo_de_entrega:            null,
@@ -55,12 +56,15 @@
           foraneo_o_local:              this.foraneo_o_local,
           metodo_de_entrega:            this.metodo_de_entrega,
           metodo_de_entrega_especifico: this.metodo_de_entrega_especifico,
-          cuenta_con_seguro:            this.cuenta_con_seguro,
+          cantidad:                     this.cantidad,
+          transporte:                   this.transporte,
           estado:                       this.estado,
-          tamano:                       this.tamano,
-          tipo_de_empaque:              this.tipo_de_empaque,
-          tiempo_de_entrega:            this.tiempo_de_entrega,
           tipo_de_envio:                this.tipo_de_envio,
+          tamano:                       this.tamano,
+          aplicar_costo_de_caja:        this.aplicar_costo_de_caja,
+          tipo_de_empaque:              this.tipo_de_empaque,
+          cuenta_con_seguro:            this.cuenta_con_seguro,
+          tiempo_de_entrega:            this.tiempo_de_entrega,
           costo_por_envio:              this.costo_por_envio,
           tipos_de_envio:               this.tipos_de_envio,
         }).then(res => {
@@ -94,6 +98,18 @@
         this.cuenta_con_seguro            = null
         this.tiempo_de_entrega            = null
         this.costo_por_envio              = null
+
+        metodo_de_entrega_especifico  = document.getElementById('metodo_de_entrega_especifico')
+        metodo_de_entrega_especifico.style.display = 'none';
+
+        cantidad  = document.getElementById('divcantidad')
+        cantidad.style.display = 'none';
+
+        transporte  = document.getElementById('divtransporte')
+        transporte.style.display = 'none';
+
+        tipo_de_envio  = document.getElementById('tipo_de_envio')
+        tipo_de_envio.style.display = 'none';
 
         if(this.foraneo_o_local != '') {
           if(this.foraneo_o_local == 'Local') {
@@ -143,11 +159,14 @@
         metodo_de_entrega_especifico  = document.getElementById('metodo_de_entrega_especifico')
         metodo_de_entrega_especifico.style.display = 'none';
         
-        transporte                    = document.getElementById('divtransporte')
-        tipo_de_envio                 = document.getElementById('tipo_de_envio')
-       
+        cantidad  = document.getElementById('divcantidad')
+        cantidad.style.display = 'none';
 
+        transporte  = document.getElementById('divtransporte')
+        transporte.style.display = 'none';
 
+        tipo_de_envio  = document.getElementById('tipo_de_envio')
+        tipo_de_envio.style.display = 'none';
 
          // TREA TODOS LOS METODOS DE ENVIO
         if(this.metodo_de_entrega != '') {
@@ -168,7 +187,7 @@
           this.getMetodosDeEntregaEspecificos()
         } else if(this.metodo_de_entrega == 'Transportes Ferro') {
           transporte.style.display = 'block';
-        }else {
+        } else {
           metodo_de_entrega_especifico.style.display = 'none';
         }
       },
@@ -189,10 +208,13 @@
           });
         }
       },
-      async tipPaquteria() {
+      async tipPaqueteria() {
         this.cantidad                     = null
-        cantidad                      = document.getElementById('divcantidad')
+        this.tipo_de_envio                = null
+
+        cantidad  = document.getElementById('divcantidad')
         cantidad.style.display = 'none';
+
         if(this.metodo_de_entrega_especifico == 'TresGuerras') {
           cantidad.style.display = 'block';
         }

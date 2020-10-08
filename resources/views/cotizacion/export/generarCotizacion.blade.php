@@ -64,11 +64,11 @@
             <td>{{ $armado->sku }}</td>
             <td>
               <strong>{{ $armado->nom }}</strong><br>
-              @foreach($armado->productos as $producto)
-                <div class="input-group text-muted ml-4">
-                  {{ $producto->cant }} - {{ $producto->produc }}
-                </div>
-              @endforeach
+                @foreach($armado->productos as $producto)
+                  <div class="input-group text-muted ml-3">
+                    <p>{{ $producto->cant }} - {{ $producto->produc }}</p>
+                  </div>
+                @endforeach
             </td>
             <td>{{ Sistema::dosDecimales($armado->cant) }}</td>
             <td>${{ Sistema::dosDecimales($armado->prec_redond) }}</td>
