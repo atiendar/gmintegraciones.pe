@@ -38,12 +38,14 @@
       foraneo_o_local:              null,
       metodo_de_entrega:            null,
       metodo_de_entrega_especifico: null,
-      cuenta_con_seguro:            null,
+      cantidad:                     null,
+      transporte:                   null,
       estado:                       null,
+      tipo_de_envio:                null,
       tamano:                       null,
       tipo_de_empaque:              null,
+      cuenta_con_seguro:            null,
       tiempo_de_entrega:            null,
-      tipo_de_envio:                null,
       costo_por_envio:              null
     },
     methods: {
@@ -83,9 +85,15 @@
       async getMetodosDeEntrega($val) {
         this.metodo_de_entrega            = null
         this.metodo_de_entrega_especifico = null
+        this.cantidad                     = null
+        this.transporte                   = null
         this.estado                       = null
         this.tipo_de_envio                = null
+        this.tamano                       = null
+        this.tipo_de_empaque              = null
+        this.cuenta_con_seguro            = null
         this.tiempo_de_entrega            = null
+        this.costo_por_envio              = null
 
         if(this.foraneo_o_local != '') {
           if(this.foraneo_o_local == 'Local') {
@@ -128,13 +136,23 @@
       },
       async getTiposDeEnvio($val) {
         this.metodo_de_entrega_especifico = null
+        this.cantidad                     = null
+        this.transporte                   = null
         this.tipo_de_envio                = null
+        
+        metodo_de_entrega_especifico  = document.getElementById('metodo_de_entrega_especifico')
+        metodo_de_entrega_especifico.style.display = 'none';
+        
+        transporte                    = document.getElementById('divtransporte')
+        tipo_de_envio                 = document.getElementById('tipo_de_envio')
+       
+
+
 
          // TREA TODOS LOS METODOS DE ENVIO
         if(this.metodo_de_entrega != '') {
           axios.get('/metodo-de-entrega/obtener/'+this.metodo_de_entrega).then(res => {
             this.tipos_de_envio = res.data
-            tipo_de_envio = document.getElementById('tipo_de_envio')
             tipo_de_envio.style.display = 'none';
             if(Object.keys(res.data).length != 0) { 
               tipo_de_envio.style.display = 'block';
@@ -148,8 +166,9 @@
         }
         if(this.metodo_de_entrega == 'Paquetería') {
           this.getMetodosDeEntregaEspecificos()
-        } else {
-          metodo_de_entrega_especifico = document.getElementById('metodo_de_entrega_especifico')
+        } else if(this.metodo_de_entrega == 'Transportes Ferro') {
+          transporte.style.display = 'block';
+        }else {
           metodo_de_entrega_especifico.style.display = 'none';
         }
       },
@@ -168,6 +187,14 @@
               text: error,
             })
           });
+        }
+      },
+      async tipPaquteria() {
+        this.cantidad                     = null
+        cantidad                      = document.getElementById('divcantidad')
+        cantidad.style.display = 'none';
+        if(this.metodo_de_entrega_especifico == 'TresGuerras') {
+          cantidad.style.display = 'block';
         }
       },
       async getDecimal() {

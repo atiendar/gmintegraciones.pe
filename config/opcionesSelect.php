@@ -694,6 +694,13 @@ return array(
       'Cuenta con caja de cartón'     => 'Cuenta con caja de cartón',
       'No cuenta con caja de cartón'  => 'No cuenta con caja de cartón',
     ],
+    'select_transporte'  => [
+      'Tráiler' => 'Tráiler',
+      'Torton'  => 'Torton',
+      'C. 3.5'  => 'C. 3.5',
+      'C. 1.5'  => 'C. 1.5',
+      'Rabón'   => 'Rabón',
+    ],
   /* ===================== [ FACTURACIÓN ] ===================== */
   'select_factura_index'  => [
     ''              => 'Buscar por. . .',

@@ -28,7 +28,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      <select v-model='metodo_de_entrega_especifico' class ='form-control' data-old='{{ old('metodo_de_entrega_especifico')}}' name='metodo_de_entrega_especifico'>
+      <select v-model='metodo_de_entrega_especifico' v-on:change='tipPaquteria()' class ='form-control' data-old='{{ old('metodo_de_entrega_especifico')}}' name='metodo_de_entrega_especifico'>
         <option value="">Seleccione. . .</option>
         <option v-for="metodo_de_entrega_esp in metodos_de_entrega_especificos" v-bind:value="metodo_de_entrega_esp" v-text="metodo_de_entrega_esp"></option>
       </select>
@@ -36,19 +36,30 @@
     <span v-if="errors.metodo_de_entrega_especifico" class="text-danger" v-text="errors.metodo_de_entrega_especifico[0]"></span>
   </div>
 </div>
+
+
+
+
 <div class="row">
-  <div class="form-group col-sm btn-sm" id="estado" style="display:none">
-    <label for="estado">{{ __('Estado') }} *</label>
+  <div class="form-group col-sm btn-sm" id="divcantidad" style="display:none">
+    <label for="cantidad">{{ __('Cantidad') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+        <span class="input-group-text"><i class="fas fa-sort-numeric-down"></i></span>
       </div>
-      <select v-model='estado' class ='form-control' data-old='{{ old('estado')}}' name='estado'>
-        <option value="">Seleccione. . .</option>
-        <option v-for="estado in estados" v-bind:value="estado" v-text="estado"></option>
-      </select>
+      {!! Form::text('cantidad', null, ['v-model' => 'cantidad', 'class' => 'form-control' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'maxlength' => 10, 'placeholder' => __('Cantidad')]) !!}
     </div>
-    <span v-if="errors.estado" class="text-danger" v-text="errors.estado[0]"></span>
+    <span v-if="errors.cantidad" class="text-danger" v-text="errors.cantidad[0]"></span>
+  </div>
+  <div class="form-group col-sm btn-sm" id="divtransporte" style="display:none">
+    <label for="transporte">{{ __('Transporte') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::select('transporte', config('opcionesSelect.select_transporte'), null, ['v-model' => 'transporte','id' => 'transporte', 'class' => 'form-control select2' . ($errors->has('transporte') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+    </div>
+    <span v-if="errors.transporte" class="text-danger" v-text="errors.transporte[0]"></span>
   </div>
   <div class="form-group col-sm btn-sm" id="tipo_de_envio" style="display:none">
     <label for="tipo_de_envio">{{ __('Tipo de envío') }} *</label>
@@ -62,6 +73,22 @@
       </select>
     </div>
     <span v-if="errors.tipo_de_envio" class="text-danger" v-text="errors.tipo_de_envio[0]"></span>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="form-group col-sm btn-sm" id="estado" style="display:none">
+    <label for="estado">{{ __('Estado') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+      </div>
+      <select v-model='estado' class ='form-control' data-old='{{ old('estado')}}' name='estado'>
+        <option value="">Seleccione. . .</option>
+        <option v-for="estado in estados" v-bind:value="estado" v-text="estado"></option>
+      </select>
+    </div>
+    <span v-if="errors.estado" class="text-danger" v-text="errors.estado[0]"></span>
   </div>
 </div>
 <div class="row">
