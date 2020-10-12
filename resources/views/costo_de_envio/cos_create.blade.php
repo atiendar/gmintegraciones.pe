@@ -44,7 +44,6 @@
       tipo_de_envio:                null,
       tamano:                       null,
       aplicar_costo_de_caja:        null,
-      tipo_de_empaque:              null,
       cuenta_con_seguro:            null,
       tiempo_de_entrega:            null,
       costo_por_envio:              null
@@ -62,7 +61,6 @@
           tipo_de_envio:                this.tipo_de_envio,
           tamano:                       this.tamano,
           aplicar_costo_de_caja:        this.aplicar_costo_de_caja,
-          tipo_de_empaque:              this.tipo_de_empaque,
           cuenta_con_seguro:            this.cuenta_con_seguro,
           tiempo_de_entrega:            this.tiempo_de_entrega,
           costo_por_envio:              this.costo_por_envio,
@@ -94,7 +92,6 @@
         this.estado                       = null
         this.tipo_de_envio                = null
         this.tamano                       = null
-        this.tipo_de_empaque              = null
         this.cuenta_con_seguro            = null
         this.tiempo_de_entrega            = null
         this.costo_por_envio              = null

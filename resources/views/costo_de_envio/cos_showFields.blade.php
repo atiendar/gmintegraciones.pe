@@ -17,7 +17,6 @@
   @include('costo_de_envio.cos_showFields.costo_caja')
 </div>
 <div class="row">
-  @include('costo_de_envio.cos_showFields.tipoDeEmpaque')
   @include('costo_de_envio.cos_showFields.cuentaConSeguro')
 </div>
 <div class="row">

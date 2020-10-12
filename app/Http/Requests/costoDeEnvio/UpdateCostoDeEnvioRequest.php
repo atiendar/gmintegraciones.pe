@@ -17,7 +17,6 @@ class UpdateCostoDeEnvioRequest extends FormRequest {
       'tipo_de_envio'                 => 'required_with:tipos_de_envio|nullable|exists:tipos_de_envio,tip_de_env',
       'tamano'                        => 'required|in:Chico,Mediano,Grande',
       'aplicar_costo_de_caja'         => 'nullable|in:Si,No',
-      'tipo_de_empaque'               => 'required|in:Cuenta con caja de cartón,No cuenta con caja de cartón',
       'cuenta_con_seguro'             => 'required|in:Si,No',
       'tiempo_de_entrega'             => 'required|max:25',
       'costo_por_envio'               => 'required|min:0|numeric|alpha_decimal15',

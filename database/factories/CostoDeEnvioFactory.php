@@ -17,7 +17,6 @@ $factory->define(CostoDeEnvio::class, function (Faker $faker) {
 
   $randomDigit        = $faker->randomDigit();
   return [
-    'tip_emp'         => $faker->randomElement(config('opcionesSelect.select_tipo_de_empaque')),
     'seg'             => $faker->randomElement(config('opcionesSelect.select_si_no')),
     'tam'             => $faker->randomElement(config('opcionesSelect.select_tamano')),
     'tiemp_ent'       => 'De '.$randomDigit.' a '.($randomDigit+2).' dias',

@@ -122,7 +122,6 @@
         this.tipo_de_envio                = costo_env.tip_env
         this.taman                        = costo_env.tam
         this.costo_de_caja                = costo_env.cost_tam_caj
-        this.tipo_de_empaque              = costo_env.tip_emp
         this.cuenta_con_seguro            = costo_env.seg
         this.tiempo_de_entrega            = costo_env.tiemp_ent
         this.costo_de_envio_individual    = costo_env.cost_por_env

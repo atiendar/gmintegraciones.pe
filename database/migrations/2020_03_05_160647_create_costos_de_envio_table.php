@@ -28,7 +28,6 @@ class CreateCostosDeEnvioTable extends Migration
         $table->enum('tam', config('opcionesSelect.select_tamano'))->comment('Tamaño');
         $table->enum('aplic_cos_caj', ['Si', 'No'])->nullable()->comment('Aplicar costos de caja');
         $table->decimal('cost_tam_caj',20,2)->unsigned()->default(0.00)->comment('Costo del tamaño de la caja');
-        $table->enum('tip_emp',config('opcionesSelect.select_tipo_de_empaque'))->comment('Tipo de empaque');
         $table->enum('seg',config('opcionesSelect.select_si_no'))->comment('Cuenta con seguro');
         $table->string('tiemp_ent', 25)->comment('Tiempo de entrega en dias');
         $table->decimal('cost_por_env',20,2)->unsigned()->comment('Costo por envío');

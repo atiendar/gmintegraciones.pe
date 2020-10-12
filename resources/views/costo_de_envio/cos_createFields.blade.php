@@ -109,16 +109,6 @@
   </div>
 </div>
 <div class="row">
-  <div class="form-group col-sm btn-sm" id="tipo_de_empaque">
-    <label for="tipo_de_empaque">{{ __('Tipo de empaque') }} *</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-list"></i></span>
-      </div>
-      {!! Form::select('tipo_de_empaque', config('opcionesSelect.select_tipo_de_empaque'), null, ['v-model' => 'tipo_de_empaque', 'class' => 'form-control select2' . ($errors->has('tipo_de_empaque') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
-    </div>
-    <span v-if="errors.tipo_de_empaque" class="text-danger" v-text="errors.tipo_de_empaque[0]"></span>
-  </div>
   <div class="form-group col-sm btn-sm" id="cuenta_con_seguro">
     <label for="cuenta_con_seguro">{{ __('Cuenta con seguro') }} *</label>
     <div class="input-group">

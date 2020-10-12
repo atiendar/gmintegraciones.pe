@@ -43,7 +43,6 @@
             @include('costo_de_envio.cos_table.th.tipoDeEnvio')
             @include('costo_de_envio.cos_table.th.tamano')
             @include('costo_de_envio.cos_table.th.costoCaja')
-            @include('costo_de_envio.cos_table.th.tipoDeEmpaque')
             @include('costo_de_envio.cos_table.th.cuentaConSeguro')
             @include('costo_de_envio.cos_table.th.tiempoDeEntrega')
             @include('costo_de_envio.cos_table.th.costoPorEnvio')
@@ -63,7 +62,6 @@
             <td v-text="costo.tip_env"></td>
             <td v-text="costo.tam"></td>
             <td v-text="costo.cost_tam_caj"></td>
-            <td v-text="costo.tip_emp"></td>
             <td v-text="costo.seg"></td>
             <td v-text="costo.tiemp_ent"></td>
             <td v-text="costo.cost_por_env"></td>

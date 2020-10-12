@@ -54,7 +54,6 @@
       tipo_de_envio:                "{{ $costo_de_envio->tip_env }}",
       tamano:                       "{{ $costo_de_envio->tam }}",
       aplicar_costo_de_caja:        "{{ $costo_de_envio->aplic_cos_caj }}",
-      tipo_de_empaque:              "{{ $costo_de_envio->tip_emp }}",
       cuenta_con_seguro:            "{{ $costo_de_envio->seg }}",
       tiempo_de_entrega:            "{{ $costo_de_envio->tiemp_ent }}",
       costo_por_envio:              "{{ $costo_de_envio->cost_por_env }}"
@@ -90,7 +89,6 @@
               tipo_de_envio:                this.tipo_de_envio,
               tamano:                       this.tamano,
               aplicar_costo_de_caja:        this.aplicar_costo_de_caja,
-              tipo_de_empaque:              this.tipo_de_empaque,
               cuenta_con_seguro:            this.cuenta_con_seguro,
               tiempo_de_entrega:            this.tiempo_de_entrega,
               costo_por_envio:              this.costo_por_envio,
