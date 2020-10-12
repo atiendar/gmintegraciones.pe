@@ -44,6 +44,7 @@
       metodos_de_entrega_especificos: [],
       estados:                        [],
       tipos_de_envio:                 [],
+      unitario_o_total:               "unitario",
 
       foraneo_o_local:              "{{ $costo_de_envio->for_loc }}",
       metodo_de_entrega:            "{{ $costo_de_envio->met_de_entreg }}",
@@ -137,11 +138,7 @@
         }
 
         if(this.foraneo_o_local != '') {
-          if(this.foraneo_o_local == 'Local') {
-            this.tiempo_de_entrega = 'De 1 a 4 dias'
-          } else {
-            this.tiempo_de_entrega = 'De 7 a 10 dias'
-          }
+          this.getForLoc()
           // TREA TODOS LOS METODOS DE ENTREGA CORRESPONDIENTES
           axios.get('/logistica/direccion/metodo-de-entrega/'+this.foraneo_o_local).then(res => {
             this.metodos_de_entrega = res.data
@@ -213,7 +210,9 @@
         }
         if(this.metodo_de_entrega == 'Paquetería') {
           this.getMetodosDeEntregaEspecificos()
+          this.tipo_de_envio="Normal";
         } else if(this.metodo_de_entrega == 'Transportes Ferro') {
+          this.tipo_de_envio="Directo";
           transporte  = document.getElementById('divtransporte')
           transporte.style.display = 'block';
         } else {
@@ -250,6 +249,23 @@
 
         if(this.metodo_de_entrega_especifico == 'TresGuerras') {
           cantidad.style.display = 'block';
+        }
+      },
+      async getTipoDeEnvio() {
+        this.unitario_o_total = "unitario";
+          this.getForLoc()
+
+        if(this.tipo_de_envio == "Consolidado") {
+          this.unitario_o_total = "total";
+        } else if(this.tipo_de_envio == "Directo") {
+          this.tiempo_de_entrega = "Express";
+        }
+      },
+      async getForLoc() {
+        if(this.foraneo_o_local == 'Local') {
+          this.tiempo_de_entrega = 'De 1 a 4 dias'
+        } else {
+          this.tiempo_de_entrega = 'De 7 a 10 dias'
         }
       },
       async getDecimal() {

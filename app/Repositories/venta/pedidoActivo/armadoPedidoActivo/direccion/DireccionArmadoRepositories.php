@@ -73,16 +73,15 @@ class DireccionArmadoRepositories implements DireccionInterface {
       }
 
       $direccion->save();
-      $this->estatusDireccionesDetalladas($direccion, $direccion->armado);
+      $this->estatusDireccionesDetalladas($direccion->cant, $direccion->armado);
       
       DB::commit();
       return $direccion;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
-
-  public function estatusDireccionesDetalladas($direccion, $armado) {
+  public function estatusDireccionesDetalladas($cant_direccion, $armado) {
     if($armado->cant != $armado->cant_direc_carg) {
-      $armado->cant_direc_carg += $direccion->cant;
+      $armado->cant_direc_carg += $cant_direccion;
       $armado->save();
       \App\Models\Pedido::getEstatusVentas($armado->pedido);
     }

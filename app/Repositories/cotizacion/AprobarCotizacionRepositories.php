@@ -10,6 +10,7 @@ use App\Repositories\sistema\serie\SerieRepositories;
 use App\Repositories\usuario\UsuarioRepositories;
 use App\Repositories\sistema\sistema\SistemaRepositories;
 use App\Repositories\sistema\plantilla\PlantillaRepositories;
+use App\Repositories\venta\pedidoActivo\armadoPedidoActivo\direccion\DireccionArmadoRepositories;
 // Otro
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -20,12 +21,14 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
   protected $usuarioRepo;
   protected $sistemaRepo;
   protected $plantillaRepo;
-  public function __construct(CotizacionRepositories $cotizacionRepositories, SerieRepositories $serieRepositories, UsuarioRepositories $usuarioRepositories, SistemaRepositories $sistemaRepositories, PlantillaRepositories $plantillaRepositories) {
-    $this->cotizacionRepo   = $cotizacionRepositories;
-    $this->serieRepo        = $serieRepositories;
-    $this->usuarioRepo      = $usuarioRepositories;
-    $this->sistemaRepo      = $sistemaRepositories;
-    $this->plantillaRepo    = $plantillaRepositories;
+  protected $direccionArmadoRepo;
+  public function __construct(CotizacionRepositories $cotizacionRepositories, SerieRepositories $serieRepositories, UsuarioRepositories $usuarioRepositories, SistemaRepositories $sistemaRepositories, PlantillaRepositories $plantillaRepositories, DireccionArmadoRepositories $direccionArmadoRepositories) {
+    $this->cotizacionRepo       = $cotizacionRepositories;
+    $this->serieRepo            = $serieRepositories;
+    $this->usuarioRepo          = $usuarioRepositories;
+    $this->sistemaRepo          = $sistemaRepositories;
+    $this->plantillaRepo        = $plantillaRepositories;
+    $this->direccionArmadoRepo  = $direccionArmadoRepositories;
   } 
   public function elPedidoEsDeRegalo($cotizacion, $armados_cotizacion) {
     if($armados_cotizacion->where('es_de_regalo', 'Si')->sum('cant')  ==  $cotizacion->tot_arm ) {
@@ -163,11 +166,43 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
           $direcciones[$contador3]['tip_env']                   = $direccion->tip_env;
           $direcciones[$contador3]['cost_por_env']              = $direccion->cost_por_env;
           $direcciones[$contador3]['created_at_direc_arm']      = Auth::user()->email_registro;
+
+          // Si el metodo de entrega es "Entregado en bodega" se llenara la demas informacion con la de la empresa
+          if($direccion->met_de_entreg == 'Entregado en bodega') {
+            $direcciones[$contador3]['nom_ref_uno'] = 'Encargado de logística';
+            $direcciones[$contador3]['lad_mov']     = '1';
+            $direcciones[$contador3]['tel_mov']     = '00000000';
+            $direcciones[$contador3]['calle']       = 'Blvrd Manuel Ávila Camacho';
+            $direcciones[$contador3]['no_ext']      = '80';
+            $direcciones[$contador3]['no_int']      = '204';
+            $direcciones[$contador3]['pais']        = 'México';
+            $direcciones[$contador3]['ciudad']      = 'Estado de México';
+            $direcciones[$contador3]['col']         = 'El Parque';
+            $direcciones[$contador3]['del_o_munic'] = 'Naucalpan de Juárez';
+            $direcciones[$contador3]['cod_post']    = '53398';
+
+            // ACTUALIZA EL ESTATUS DE LAS DIRECCIONES DEL PEDIDO
+            $this->direccionArmadoRepo->estatusDireccionesDetalladas($direcciones[$contador3]['cant'], $armado_pedido);
+          } else {
+            $direcciones[$contador3]['nom_ref_uno'] = null;
+            $direcciones[$contador3]['lad_mov']     = null;
+            $direcciones[$contador3]['tel_mov']     = null;
+            $direcciones[$contador3]['calle']       = null;
+            $direcciones[$contador3]['no_ext']      = null;
+            $direcciones[$contador3]['no_int']      = null;
+            $direcciones[$contador3]['pais']        = null;
+            $direcciones[$contador3]['ciudad']      = null;
+            $direcciones[$contador3]['col']         = null;
+            $direcciones[$contador3]['del_o_munic'] = null;
+            $direcciones[$contador3]['cod_post']    = null;
+          }
+
           $direcciones[$contador3]['pedido_armado_id']          = $armado_pedido->id;
           $direcciones[$contador3]['created_at']                = date("Y-m-d h:i:s");
           $contador3 +=1;
         }
       }
+    //  dd(  $direcciones    );
       if($productos_armado != null) {
         \App\Models\PedidoArmadoTieneProducto::insert($productos_armado);
       }

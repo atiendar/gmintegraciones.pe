@@ -34,6 +34,7 @@
       metodos_de_entrega_especificos: [],
       estados:                        [],
       tipos_de_envio:                 [],
+      unitario_o_total:               "unitario",
 
       foraneo_o_local:              null,
       metodo_de_entrega:            null,
@@ -43,8 +44,8 @@
       estado:                       null,
       tipo_de_envio:                null,
       tamano:                       null,
-      aplicar_costo_de_caja:        null,
-      cuenta_con_seguro:            null,
+      aplicar_costo_de_caja:        "Si",
+      cuenta_con_seguro:            "No",
       tiempo_de_entrega:            null,
       costo_por_envio:              null
     },
@@ -92,7 +93,6 @@
         this.estado                       = null
         this.tipo_de_envio                = null
         this.tamano                       = null
-        this.cuenta_con_seguro            = null
         this.tiempo_de_entrega            = null
         this.costo_por_envio              = null
 
@@ -109,11 +109,7 @@
         tipo_de_envio.style.display = 'none';
 
         if(this.foraneo_o_local != '') {
-          if(this.foraneo_o_local == 'Local') {
-            this.tiempo_de_entrega = 'De 1 a 4 dias'
-          } else {
-            this.tiempo_de_entrega = 'De 7 a 10 dias'
-          }
+          this.getForLoc()
           // TREA TODOS LOS METODOS DE ENTREGA CORRESPONDIENTES
           axios.get('/logistica/direccion/metodo-de-entrega/'+this.foraneo_o_local).then(res => {
             this.metodos_de_entrega = res.data
@@ -182,7 +178,9 @@
         }
         if(this.metodo_de_entrega == 'Paquetería') {
           this.getMetodosDeEntregaEspecificos()
+          this.tipo_de_envio="Normal";
         } else if(this.metodo_de_entrega == 'Transportes Ferro') {
+          this.tipo_de_envio="Directo";
           transporte.style.display = 'block';
         } else {
           metodo_de_entrega_especifico.style.display = 'none';
@@ -214,6 +212,23 @@
 
         if(this.metodo_de_entrega_especifico == 'TresGuerras') {
           cantidad.style.display = 'block';
+        }
+      },
+      async getTipoDeEnvio() {
+        this.unitario_o_total = "unitario";
+          this.getForLoc()
+
+        if(this.tipo_de_envio == "Consolidado") {
+          this.unitario_o_total = "total";
+        } else if(this.tipo_de_envio == "Directo") {
+          this.tiempo_de_entrega = "Express";
+        }
+      },
+      async getForLoc() {
+        if(this.foraneo_o_local == 'Local') {
+          this.tiempo_de_entrega = 'De 1 a 4 dias'
+        } else {
+          this.tiempo_de_entrega = 'De 7 a 10 dias'
         }
       },
       async getDecimal() {

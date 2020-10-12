@@ -63,7 +63,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      <select v-model='tipo_de_envio' class ='form-control' data-old='{{ old('tipo_de_envio')}}' name='tipo_de_envio'>
+      <select v-model='tipo_de_envio' v-on:change='getTipoDeEnvio()' class ='form-control' data-old='{{ old('tipo_de_envio')}}' name='tipo_de_envio'>
         <option value="">Seleccione. . .</option>
         <option v-for="tipo_de_envio in tipos_de_envio" v-bind:value="tipo_de_envio" v-text="tipo_de_envio"></option>
       </select>
@@ -110,7 +110,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm" id="cuenta_con_seguro">
-    <label for="cuenta_con_seguro">{{ __('Cuenta con seguro') }} *</label>
+    <label for="cuenta_con_seguro">{{ __('Cuenta con seguro') }} {{ __('Seguro de envío') }}  *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
@@ -132,7 +132,9 @@
     <span v-if="errors.tiempo_de_entrega" class="text-danger" v-text="errors.tiempo_de_entrega[0]"></span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="costo_por_envio">{{ __('Costo por envío') }} ({{ __('Con IVA') }}) *</label>
+    <label for="costo_por_envio">{{ __('Costo por envío') }}</label>
+    <label for="unit_o_toto" v-text="unitario_o_total"></label>
+    <label for="lbl_con_iva"> ({{ __('Con IVA') }}) *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>

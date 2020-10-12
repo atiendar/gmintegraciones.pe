@@ -13,7 +13,7 @@
       <div class="form-group col-sm btn-sm">
         <label for="filtrar_estado">{{ __('Filtrar estado') }}</label>
         <div class="input-group">
-          {!! Form::select('filtrar_estado', $estados, null, ['v-on:change' => 'getCostos', 'v-model' => 'filtrar.estado', 'class' => 'form-control form-control-sm select2', 'placeholder' => __('')]) !!}   
+          {!! Form::select('filtrar_estado', $estados, null, ['v-on:change' => 'getCostos', 'v-model' => 'filtrar.estado', 'class' => 'form-control form-control-sm select2 border border-success', 'placeholder' => __('')]) !!}   
         </div>
       </div>
       <div class="form-group col-sm btn-sm">
@@ -25,8 +25,16 @@
       <div class="form-group col-sm btn-sm">
         <label for="filtrar_tamano">{{ __('Filtrar tamaño') }}</label>
         <div class="input-group">
-          {!! Form::select('filtrar_tamano', config('opcionesSelect.select_tamano'), null, ['v-on:change' => 'getCostos', 'v-model' => 'tamano', 'class' => 'form-control form-control-sm select2', 'placeholder' => __('')]) !!}   
+          {!! Form::select('filtrar_tamano', config('opcionesSelect.select_tamano'), null, ['v-on:change' => 'getCostos', 'v-model' => 'tamano', 'class' => 'form-control form-control-sm select2 border border-success', 'placeholder' => __('')]) !!}   
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm btn-sm">
+        <p class="bg-danger rounded p-1">{{ __('NOTA: COTIZAR ENVIOS CON TRESGUERRAS Y FRANSPORTES FERRO (DIRECTO)') }}</p>
+      </div>
+      <div class="form-group col-sm btn-sm">
+        <p class="float-right bg-danger rounded p-1">{{ __('IMPORTANTE: PREFERENTE SELECCIONAR EL MÁS BARATO') }}</p>
       </div>
     </div>
     <div class="card-body table-responsive p-0" style="height: 15em;">
