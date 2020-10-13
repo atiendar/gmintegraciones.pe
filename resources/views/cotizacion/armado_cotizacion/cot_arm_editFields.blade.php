@@ -14,6 +14,7 @@
     </div>
     <span class="text-danger">{{ $errors->first('es_de_regalo') }}</span>
   </div>
+  @include('armado.arm_showFields.descuentoEspecial')
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">

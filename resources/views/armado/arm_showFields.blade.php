@@ -13,6 +13,9 @@
   @include('armado.arm_showFields.urlPagina')
 </div>
 <div class="row">
+  @include('armado.arm_showFields.descuentoEspecial')
+</div>
+<div class="row">
   @include('armado.arm_showFields.precioOriginal')
   @include('armado.arm_showFields.precioRedondeado')
 </div>

@@ -30,6 +30,7 @@ class CreateArmadosTable extends Migration
             $table->string('gama', 150)->comment('Gama');
             $table->enum('dest', config('opcionesSelect.select_destacado'))->comment('Destacado');
             $table->decimal('prec_origin',20,2)->unsigned()->default(0.00)->comment('Precio original');
+            $table->decimal('desc_esp',20,2)->unsigned()->default(0.00)->comment('Descuento especial');
             $table->decimal('prec_redond',20,2)->unsigned()->default(0.00)->comment('Precio redondeado');
             $table->string('url_pagina', 150)->nullable()->comment('URL página');
             $table->enum('tam', config('opcionesSelect.select_tamano'))->nullable()->comment('Tamaño');

@@ -102,50 +102,40 @@
     </center>
   </div>
 </div>
-
-
-{{-- 
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="descuento">{{ __('Descuento') }} *</label>
+    <label for="descuento_especial">{{ __('Descuento especial') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
       </div>
-      {!! Form::text('descuento', null, ['id' => 'descuento', 'class' => 'form-control' . ($errors->has('descuento') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Descuento'), 'onChange' => 'dosDecimales();']) !!}
+      {!! Form::text('descuento_especial', $armado->desc_esp, ['id' => 'descuento_especial', 'class' => 'form-control' . ($errors->has('descuento_especial') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Descuento especial'), 'onChange' => 'dosDecimales();']) !!}
       <div class="input-group-append">
         <span class="input-group-text">.00</span>
       </div>
     </div>
-    <span class="text-danger">{{ $errors->first('descuento') }}</span>
+    <span class="text-danger">{{ $errors->first('descuento_especial') }}</span>
   </div>
 </div>
-
-
-
-
 @section('js6')
 <script>
   function dosDecimales() {
     // Obtiene los valores de los inputs
-    descuento = document.getElementById("descuento").value;
+    descuento_especial = document.getElementById("descuento_especial").value;
 
     // Verifica si los inputs son de tipo float de lo contrario les asigan el valor de 0
-    if (isNaN(parseFloat(descuento))) {
-      descuento = 0;
+    if (isNaN(parseFloat(descuento_especial))) {
+      descuento_especial = 0;
     }
 
     // Agrega o solo deja dos decimales
-    descuento_decimal  = Number.parseFloat(descuento).toFixed(2);
+    descuento_especial_decimal  = Number.parseFloat(descuento_especial).toFixed(2);
 
     // Pega el resultado en los inputs
-    document.getElementById("descuento").value = descuento_decimal;
+    document.getElementById("descuento_especial").value = descuento_especial_decimal;
   }
 </script>
 @endsection
---}}
-
-
 <div class="row">
   @include('armado.arm_showFields.precioOriginal')
   @include('armado.arm_showFields.precioRedondeado')

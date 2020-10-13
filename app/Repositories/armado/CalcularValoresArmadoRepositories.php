@@ -37,7 +37,13 @@ class CalcularValoresArmadoRepositories implements CalcularValoresArmadoInterfac
       $ancho += $productos[$contador2]->ancho * $cant;
       $largo += $productos[$contador2]->largo * $cant;
     }
-    $armado->prec_origin   = $prec_origin;
+
+    if($armado->desc_esp >= $prec_origin) {
+      return abort('404', 'ERROR: No se puede modificar el precio del armado '. $armado->nom .' ya que el precio original es menor o igual al descuento especial.');
+    } else {
+      $armado->prec_origin   = $prec_origin-$armado->desc_esp;
+    }
+    
     $armado->tam           = $tamano;
     $armado->pes           = $peso;
     $armado->alto          = $alto;

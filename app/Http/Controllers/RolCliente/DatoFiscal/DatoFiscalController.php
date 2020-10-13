@@ -48,7 +48,7 @@ class DatoFiscalController extends Controller {
   }
   public function getInformacionDatoFiscal(Request $request, $id_dato_fiscal) {
     if($request->ajax()) {
-      $dato_fiscal = $this->datoFiscalRepo->getDatoFiscalFindOrFail($this->serviceCrypt->encrypt($id_dato_fiscal), []);
+      $dato_fiscal = $this->datoFiscalRepo->getDatoFiscal($this->serviceCrypt->encrypt($id_dato_fiscal));
       return response()->json($dato_fiscal);
     }
   }

@@ -68,12 +68,26 @@ class AppServiceProvider extends ServiceProvider {
     });
     Validator::extend('alpha_estatus_codigo_de_facturacion', function ($attribute, $value) { // Validación
       $resultado = \App\Models\Pago::where('cod_fact', $value)->first('est_fact');
+
       if($resultado == null) {
         return false;
       }
       if($resultado->est_fact != config('app.no_solicitada') AND $resultado->est_fact != config('app.cancelado')) {
         return false;
       }
+      return true; 
+    });
+    Validator::extend('alpha_solo_facturar_si_ya_esta_pagado', function ($attribute, $value) { // Validación
+      $resultado = \App\Models\Pago::where('cod_fact', $value)->first('estat_pag');
+
+      if($resultado == null) {
+        return false;
+      }
+
+      if($resultado->estat_pag != config('app.aprobada')) {
+        return false;
+      }
+
       return true; 
     });
     Validator::extend('alpha_con_o_sin_iva', function ($attribute, $value) { // Validación     
@@ -84,6 +98,19 @@ class AppServiceProvider extends ServiceProvider {
         return false;
       }
       if($resultado->pedido->con_iva == null) {
+        return false;
+      }
+      return true; 
+    });
+    Validator::extend('alpha_total_armado', function ($attribute, $value, $id) { // Validación  
+      $resultado = \App\Models\Armado::with('productos')->where('id', $id[0])->first();
+      $precio_original = 0;
+
+      foreach($resultado->productos as $producto) {
+        $precio_original += $producto->prec_clien * $producto->pivot->cant;
+      }
+
+      if($value >= $precio_original) {
         return false;
       }
       return true; 

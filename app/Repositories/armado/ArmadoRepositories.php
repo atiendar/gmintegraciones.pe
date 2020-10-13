@@ -8,6 +8,7 @@ use App\Events\layouts\ArchivoCargado;
 // Repositories
 use App\Repositories\papeleraDeReciclaje\PapeleraDeReciclajeRepositories;
 use App\Repositories\servicio\calculo\CalculoRepositories;
+use App\Repositories\armado\CalcularValoresArmadoRepositories;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Otros
@@ -20,10 +21,12 @@ class ArmadoRepositories implements ArmadoInterface {
   protected $serviceCrypt;
   protected $papeleraDeReciclajeRepo;
   protected $calculoRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories, CalculoRepositories $calculoRepositories) {
+  protected $calcularValoresArmadoRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories, CalculoRepositories $calculoRepositories, CalcularValoresArmadoRepositories $calcularValoresArmadoRepositories) {
     $this->serviceCrypt             = $serviceCrypt;
     $this->papeleraDeReciclajeRepo  = $papeleraDeReciclajeRepositories;
     $this->calculoRepo              = $calculoRepositories;
+    $this->calcularValoresArmadoRepo  = $calcularValoresArmadoRepositories;
   }
   public function armadoAsignadoFindOrFailById($id_armado, $clon, $relaciones = null) { // 'productos', 'imagenes'
     $id_armado = $this->serviceCrypt->decrypt($id_armado);
@@ -78,13 +81,14 @@ class ArmadoRepositories implements ArmadoInterface {
   }
   public function update($request, $id_armado, $clon) {
     DB::transaction(function() use($request, $id_armado, $clon) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
-      $armado = $this->armadoAsignadoFindOrFailById($id_armado, $clon, []);
+      $armado = $this->armadoAsignadoFindOrFailById($id_armado, $clon, ['productos']);
       $armado->tip         = $request->tipo;
       $armado->nom         = $request->nombre;
       $armado->sku         = $request->sku;
       $armado->gama        = $request->gama;
       $armado->dest        = $request->destacado;
       $armado->url_pagina  = $request->url_pagina;
+      $armado->desc_esp    = $request->descuento_especial;
       $armado->obs         = $request->observaciones;
       if($armado->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
@@ -100,9 +104,9 @@ class ArmadoRepositories implements ArmadoInterface {
           $nom_ruta, // Nombre de la ruta
           $id_armado, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_armado), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Tipo', 'Nombre', 'SKU', 'Gama', 'Destacado', 'URL página', 'Observaciones'), // Nombre de los inputs del formulario
+          array('Tipo', 'Nombre', 'SKU', 'Gama', 'Destacado', 'URL página', 'Descuento especial', 'Observaciones'), // Nombre de los inputs del formulario
           $armado, // Request
-          array('tip', 'nom', 'sku', 'gama', 'dest', 'url_pagina', 'obs') // Nombre de los campos en la BD
+          array('tip', 'nom', 'sku', 'gama', 'dest', 'url_pagina', 'desc_esp', 'obs') // Nombre de los campos en la BD
         ); 
         $armado->updated_at_arm  = Auth::user()->email_registro;
       }
@@ -132,6 +136,9 @@ class ArmadoRepositories implements ArmadoInterface {
         $armado->img_nom_min = $nom;
       }
       $armado->save();
+
+      $armado = $this->calcularValoresArmadoRepo->calcularValoresArmado($armado, $armado->productos);
+
       return $armado;
     });
   }

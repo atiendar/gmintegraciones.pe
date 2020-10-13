@@ -6,6 +6,7 @@
 </div>
 <div class="row">
   @include('cotizacion.armado_cotizacion.cot_arm_show.es_de_regalo')
+  @include('armado.arm_showFields.descuentoEspecial')
 </div>
 <div class="row">
   @include('cotizacion.armado_cotizacion.cot_arm_show.cantidad')

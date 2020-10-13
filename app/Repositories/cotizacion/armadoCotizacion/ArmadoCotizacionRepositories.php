@@ -66,6 +66,7 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
       $cot_armado->ancho          = $armado->ancho;
       $cot_armado->largo          = $armado->largo;
       $cot_armado->prec_origin    = $armado->prec_origin;
+      $cot_armado->desc_esp       = $armado->desc_esp;
       $cot_armado->prec_redond    = $armado->prec_redond;
       $cot_armado->sub_total      = $armado->prec_redond;
 
