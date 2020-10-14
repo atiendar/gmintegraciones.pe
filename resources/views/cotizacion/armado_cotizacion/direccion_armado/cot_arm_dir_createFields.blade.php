@@ -60,6 +60,17 @@
       </div>
     </div>
     <div class="form-group col-sm btn-sm">
+      <label for="municipio">{{ __('Municipio') }}</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+        </div>
+        {!! Form::text('municipio', null, ['v-model' => 'municipio', 'class' => 'form-control form-control-sm disabled', 'maxlength' => 0, 'placeholder' => __('Municipio'), 'readonly' => 'readonly']) !!}  
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-sm btn-sm">
       <label for="tipo_de_envio">{{ __('Tipo de envío') }}</label>
       <div class="input-group">
         <div class="input-group-prepend">
@@ -68,8 +79,6 @@
         {!! Form::text('tipo_de_envio', null, ['v-model' => 'tipo_de_envio', 'class' => 'form-control form-control-sm disabled', 'maxlength' => 0, 'placeholder' => __('Tipo de envío'), 'readonly' => 'readonly']) !!}    
       </div>
     </div>
-  </div>
-  <div class="row">
     <div class="form-group col-sm btn-sm">
       <label for="taman">{{ __('Tamaño') }}</label>
       <div class="input-group">
@@ -79,6 +88,8 @@
         {!! Form::text('taman', null, ['v-model' => 'taman', 'class' => 'form-control form-control-sm disabled', 'maxlength' => 0, 'placeholder' => __('Tamaño'), 'readonly' => 'readonly']) !!}    
       </div>
     </div>
+  </div>
+  <div class="row">
     <div class="form-group col-sm btn-sm">
       <label for="costo_de_caja">{{ __('Costo de caja') }}</label>
       <div class="input-group">
@@ -86,17 +97,6 @@
           <span class="input-group-text"><i class="fas fa-text-width"></i></span>
         </div>
         {!! Form::text('costo_de_caja', null, ['v-model' => 'costo_de_caja', 'class' => 'form-control form-control-sm disabled', 'maxlength' => 0, 'placeholder' => __('Costo de caja'), 'readonly' => 'readonly']) !!}    
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="form-group col-sm btn-sm">
-      <label for="tipo_de_empaque">{{ __('Tipo de empaque') }}</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-text-width"></i></span>
-        </div>
-        {!! Form::text('tipo_de_empaque', null, ['v-model' => 'tipo_de_empaque', 'class' => 'form-control form-control-sm disabled', 'maxlength' => 0, 'placeholder' => __('Tipo de empaque'), 'readonly' => 'readonly']) !!}  
       </div>
     </div>
     <div class="form-group col-sm btn-sm">

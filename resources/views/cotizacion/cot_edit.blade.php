@@ -1,6 +1,13 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
 <title>@section('title', __('Editar cotización').' '.$cotizacion->cliente->email_registro )</title>
+@if($cotizacion->tot_arm >=50 AND $cotizacion->desc == 0)
+  <div class="bg-danger rounded p-1 m-1">
+    <strong>
+      <h4>{{ __('ESTE PEDIDO ES ACREEDOR A') }} {{ intval($cotizacion->tot_arm/50) }} {{ __('ARCÓN DE REGALO') }}</h4>
+    </strong>
+  </div>
+@endif
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     @canany(['cotizacion.index', 'cotizacion.show', 'cotizacion.edit'])

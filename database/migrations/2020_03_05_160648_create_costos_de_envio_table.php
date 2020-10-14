@@ -24,6 +24,7 @@ class CreateCostosDeEnvioTable extends Migration
         $table->string('cant', 10)->nullable()->comment('Cantidad');
         $table->string('trans', 100)->nullable()->comment('Transporte');
         $table->string('est', 150)->comment('Estado');
+        $table->string('mun', 150)->nullable()->comment('Municipio');
         $table->string('tip_env', 80)->nullable()->comment('Tipo de envío');
         $table->enum('tam', config('opcionesSelect.select_tamano'))->comment('Tamaño');
         $table->enum('aplic_cos_caj', ['Si', 'No'])->nullable()->comment('Aplicar costos de caja');

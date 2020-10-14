@@ -48,6 +48,7 @@
             @include('costo_de_envio.cos_table.th.cantidad')
             @include('costo_de_envio.cos_table.th.transporte')
             @include('costo_de_envio.cos_table.th.estado')
+            @include('costo_de_envio.cos_table.th.municipio')
             @include('costo_de_envio.cos_table.th.tipoDeEnvio')
             @include('costo_de_envio.cos_table.th.tamano')
             @include('costo_de_envio.cos_table.th.costoCaja')
@@ -58,7 +59,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-if="!costos.length"><td colspan="15">@include('layouts.private.busquedaSinResultados')</td></tr>
+          <tr v-if="!costos.length"><td colspan="16">@include('layouts.private.busquedaSinResultados')</td></tr>
           <tr v-for="costo in costos">
             <td v-text="costo.id"></td>
             <td v-text="costo.for_loc"></td>
@@ -67,6 +68,7 @@
             <td v-text="costo.cant"></td>
             <td v-text="costo.trans"></td>
             <td v-text="costo.est"></td>
+            <td v-text="costo.mun"></td>
             <td v-text="costo.tip_env"></td>
             <td v-text="costo.tam"></td>
             <td v-text="costo.cost_tam_caj"></td>

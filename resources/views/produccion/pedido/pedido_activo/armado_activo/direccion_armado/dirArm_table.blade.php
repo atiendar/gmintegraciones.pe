@@ -8,6 +8,7 @@
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.cantidad')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.metodoDeEntrega')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.estado')
+          @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.delegacionOMunicipio')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.tipoDeEnvio')
         </tr>
       </thead>
@@ -17,6 +18,7 @@
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => false])
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntrega')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.estado')
+            @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.delegacionOMunicipio')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.tipoDeEnvio')
           </tr>
           @endforeach

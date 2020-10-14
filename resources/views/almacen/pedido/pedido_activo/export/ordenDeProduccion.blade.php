@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body style="font-family: Segoe UI;">
-  <table class="table table-sm table-bordered" style="font-size:10px;">
+  <table class="table table-sm table-bordered" style="font-size:12px;">
     <tr>
       <td colspan="2" style="text-align:center">
         <dt><img src="{{ Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg  }}" class="brand-image rounded elevation-0" style="width:10rem;"></dt>
@@ -104,7 +104,7 @@
       <td colspan="3"></td>
     </tr>
   </table>
-  <table class="table table-hover table-striped table-sm table-bordered" style="font-size:8px;">
+  <table class="table table-hover table-striped table-sm table-bordered" style="font-size:12px;">
     @if(sizeof($armados) == 0)
       @include('layouts.private.busquedaSinResultados')
     @else 
@@ -128,11 +128,11 @@
               <strong>{{ $armado->nom }} ({{ $armado->sku }})</strong><br>
               @foreach($armado->productos as $producto)
                 <div class="input-group text-muted ml-2">
-                  <u>[{{ $producto->cant }} - {{ $producto->produc }}]</u>
+                  <p class="m-0">[{{ $producto->cant }} - {{ $producto->produc }}]</p>
                 </div>
                 @foreach($producto->sustitutos as $sustituto)
                   <div class="input-group text-muted ml-4">
-                    {{ $sustituto->cant }} - {{ $sustituto->produc }}
+                    <p class="m-0">{{ $sustituto->cant }} - {{ $sustituto->produc }}</p>
                   </div>
                 @endforeach
               @endforeach

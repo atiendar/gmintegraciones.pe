@@ -16,7 +16,6 @@
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
       <select v-model='metodo_de_entrega' v-on:change='getTiposDeEnvio(2)' class ='form-control' data-old='{{ old('metodo_de_entrega')}}' name='metodo_de_entrega'>
-        <option value="">Seleccione. . .</option>
         <option v-for="metodo_de_entrega in metodos_de_entrega" v-bind:value="metodo_de_entrega" v-text="metodo_de_entrega"></option>
       </select>
     </div>
@@ -29,7 +28,6 @@
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
       <select v-model='metodo_de_entrega_especifico' v-on:change='tipPaqueteria(2)' class ='form-control' data-old='{{ old('metodo_de_entrega_especifico')}}' name='metodo_de_entrega_especifico'>
-        <option value="">Seleccione. . .</option>
         <option v-for="metodo_de_entrega_esp in metodos_de_entrega_especificos" v-bind:value="metodo_de_entrega_esp" v-text="metodo_de_entrega_esp"></option>
       </select>
     </div>
@@ -64,7 +62,6 @@
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
       <select v-model='tipo_de_envio' v-on:change='getTipoDeEnvio()' class ='form-control' data-old='{{ old('tipo_de_envio')}}' name='tipo_de_envio'>
-        <option value="">Seleccione. . .</option>
         <option v-for="tipo_de_envio in tipos_de_envio" v-bind:value="tipo_de_envio" v-text="tipo_de_envio"></option>
       </select>
     </div>
@@ -79,13 +76,26 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      <select v-model='estado' class ='form-control' data-old='{{ old('estado')}}' name='estado'>
-        <option value="">Seleccione. . .</option>
+      <select v-model='estado' v-on:change='getMunicipios()' class ='form-control' data-old='{{ old('estado')}}' name='estado'>
         <option v-for="estado in estados" v-bind:value="estado" v-text="estado"></option>
       </select>
     </div>
     <span v-if="errors.estado" class="text-danger" v-text="errors.estado[0]"></span>
   </div>
+  <div class="form-group col-sm btn-sm" id="municipio" style="display:none">
+    <label for="municipio">{{ __('Municipio') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+      </div>
+      <select v-model='municipio' v-on:change='getMunicipios()' class ='form-control' data-old='{{ old('municipio')}}' name='municipio'>
+        <option v-for="municipio in municipios" v-bind:value="municipio" v-text="municipio"></option>
+      </select>
+    </div>
+    <span v-if="errors.municipio" class="text-danger" v-text="errors.municipio[0]"></span>
+  </div>
+</div>
+<div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="tamano">{{ __('Tamaño') }} *</label>
     <div class="input-group">

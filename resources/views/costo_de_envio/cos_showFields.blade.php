@@ -10,19 +10,18 @@
 </div>
 <div class="row">
   @include('costo_de_envio.cos_showFields.estado')
+  @include('costo_de_envio.cos_showFields.municipio')
+</div>
+<div class="row">
   @include('costo_de_envio.cos_showFields.tipoDeEnvio')
-</div>
-<div class="row">
   @include('costo_de_envio.cos_showFields.tamano')
-  @include('costo_de_envio.cos_showFields.costo_caja')
 </div>
 <div class="row">
+  @include('costo_de_envio.cos_showFields.costo_caja')
   @include('costo_de_envio.cos_showFields.cuentaConSeguro')
 </div>
 <div class="row">
   @include('costo_de_envio.cos_showFields.tiempoDeEntrega')
-</div>
-<div class="row">
   @include('costo_de_envio.cos_showFields.costoPorEnvio')
 </div>
 <div class="row">

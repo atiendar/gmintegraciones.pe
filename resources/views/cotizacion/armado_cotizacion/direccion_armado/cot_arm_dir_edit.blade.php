@@ -47,6 +47,7 @@
       cantid:                       "{{ $direccion->cant }}",
       transporte:                   "{{ $direccion->trans }}",
       estado_al_que_se_cotizo:      "{{ $direccion->est }}",
+      municipio:                    "{{ $direccion->mun }}",
       tipo_de_envio:                "{{ $direccion->tip_env }}",
       taman:                        "{{ $direccion->tam }}",
       costo_de_caja:                "{{ $direccion->cost_tam_caj }}",
@@ -132,6 +133,7 @@
         this.cantid                       = costo_env.cant
         this.transporte                   = costo_env.trans
         this.estado_al_que_se_cotizo      = costo_env.est
+        this.municipio                    = costo_env.mun
         this.tipo_de_envio                = costo_env.tip_env
         this.taman                        = costo_env.tam
         this.costo_de_caja                = costo_env.cost_tam_caj
@@ -144,13 +146,13 @@
       async getCostoDeEnvio() {
         // VERIFICA SI EL OBJETO "costo_seleccionado" ESTA VACIO O NO
         if(Object.keys(this.costo_seleccionado).length === 0) {
-          if(this.tipo_de_envio == 'Consolidado') {
+          if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo') {
             this.cost_por_env = parseFloat(this.costo_de_envio_individual)
           } else {
             this.cost_por_env = parseFloat(this.costo_de_envio_individual) * parseFloat(this.cantidad)
           }
         } else {
-          if(this.tipo_de_envio == 'Consolidado') {
+          if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo') {
             this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env)
           } else {
             this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env) * parseFloat(this.cantidad)
@@ -158,6 +160,8 @@
         }
         if(this.costo_seleccionado.cost_tam_caj > 0) {
           this.cost_por_env += this.costo_seleccionado.cost_tam_caj *  parseFloat(this.cantidad); 
+        } else if(this.costo_de_caja > 0) {
+          this.cost_por_env += this.costo_de_caja *  parseFloat(this.cantidad); 
         }
 
         if (isNaN(parseFloat(this.cost_por_env))) {

@@ -18,13 +18,14 @@ class CreateCotizacionArmadoTieneDireccionesTable extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
-        
+            
             $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
             $table->string('met_de_entreg',150)->comment('Método de entrega');
             $table->string('met_de_entreg_esp',150)->nullable()->comment('Método de entrega especifico');
             $table->string('cantt', 10)->nullable()->comment('Cantidad de productos');
             $table->string('trans', 100)->nullable()->comment('Transporte');
             $table->string('est', 150)->comment('Estado');
+            $table->string('mun', 150)->nullable()->comment('Municipio');
             $table->string('tip_env', 80)->nullable()->comment('Tipo de envío');
             $table->enum('tam', config('opcionesSelect.select_tamano'))->comment('Tamaño');
             $table->decimal('cost_tam_caj',20,2)->unsigned()->default(0.00)->comment('Costo del tamaño de la caja');

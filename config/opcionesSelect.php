@@ -687,8 +687,10 @@ return array(
     ],
     'select_tipo_de_envio_plus'  => [
       'Consolidado' => 'Consolidado',
+      'Directo'     => 'Directo',
       'Normal'      => 'Normal',
       'Express'     => 'Express',
+      'Paquetería'  => 'Paquetería',
     ],
     'select_tipo_de_empaque'  => [
       'Cuenta con caja de cartón'     => 'Cuenta con caja de cartón',

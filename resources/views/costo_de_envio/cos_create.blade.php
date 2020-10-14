@@ -35,6 +35,7 @@
       estados:                        [],
       tipos_de_envio:                 [],
       unitario_o_total:               "unitario",
+      municipios:                     [],
 
       foraneo_o_local:              null,
       metodo_de_entrega:            null,
@@ -42,6 +43,7 @@
       cantidad:                     null,
       transporte:                   null,
       estado:                       null,
+      municipio:                    null,
       tipo_de_envio:                null,
       tamano:                       null,
       aplicar_costo_de_caja:        "Si",
@@ -59,6 +61,7 @@
           cantidad:                     this.cantidad,
           transporte:                   this.transporte,
           estado:                       this.estado,
+          municipio:                    this.municipio,
           tipo_de_envio:                this.tipo_de_envio,
           tamano:                       this.tamano,
           aplicar_costo_de_caja:        this.aplicar_costo_de_caja,
@@ -95,6 +98,7 @@
         this.tamano                       = null
         this.tiempo_de_entrega            = null
         this.costo_por_envio              = null
+        this.getUnitarioOTotal()
 
         metodo_de_entrega_especifico  = document.getElementById('metodo_de_entrega_especifico')
         metodo_de_entrega_especifico.style.display = 'none';
@@ -143,12 +147,42 @@
           })
         });
       },
+      async getMunicipios() {
+        municipio  = document.getElementById('municipio')
+        municipio.style.display = 'none';
+
+        $estad = '';
+        for (var i = 0; i< this.estado.length; i++) {
+          var caracter = this.estado.charAt(i);
+          if(caracter == "(") {
+            break;
+          } else {
+            $estad = $estad + caracter;
+          }
+          
+        }
+        $estad.substring(0, $estad.length - 2);
+
+        axios.get('https://api-sepomex.hckdrk.mx/query/get_municipio_por_estado/'+$estad).then(res => {
+          this.municipios = res.data.response.municipios;
+          municipio.style.display = 'block';
+        }).catch(error => {
+          Swal.fire({
+            title: 'Algo salio mal',
+            text: error,
+          })
+        });
+      },
       async getTiposDeEnvio($val) {
         this.metodo_de_entrega_especifico = null
         this.cantidad                     = null
         this.transporte                   = null
         this.tipo_de_envio                = null
-        
+        this.getUnitarioOTotal()
+
+        if(this.metodo_de_entrega == 'Transportes Ferro') {
+          this.unitario_o_total = "total";
+        }
         metodo_de_entrega_especifico  = document.getElementById('metodo_de_entrega_especifico')
         metodo_de_entrega_especifico.style.display = 'none';
         
@@ -160,6 +194,8 @@
 
         tipo_de_envio  = document.getElementById('tipo_de_envio')
         tipo_de_envio.style.display = 'none';
+
+        
 
          // TREA TODOS LOS METODOS DE ENVIO
         if(this.metodo_de_entrega != '') {
@@ -216,14 +252,18 @@
         }
       },
       async getTipoDeEnvio() {
-        this.unitario_o_total = "unitario";
-          this.getForLoc()
-
-        if(this.tipo_de_envio == "Consolidado") {
-          this.unitario_o_total = "total";
-        } else if(this.tipo_de_envio == "Directo") {
+        this.getForLoc()
+        this.getUnitarioOTotal()
+        if(this.tipo_de_envio == "Directo") {
           this.tiempo_de_entrega = "Express";
         }
+      },
+      async getUnitarioOTotal() {
+        this.unitario_o_total = "unitario";
+        if(this.tipo_de_envio == "Consolidado" || this.tipo_de_envio == "Directo") {
+          this.unitario_o_total = "total";
+        }
+ 
       },
       async getForLoc() {
         if(this.foraneo_o_local == 'Local') {

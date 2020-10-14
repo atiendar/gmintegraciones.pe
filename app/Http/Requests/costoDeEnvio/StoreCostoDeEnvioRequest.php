@@ -14,6 +14,7 @@ class StoreCostoDeEnvioRequest extends FormRequest {
       'cantidad'                      => 'nullable|required_if:metodo_de_entrega_especifico,TresGuerras|max:10',
       'transporte'                    => 'nullable|required_if:metodo_de_entrega,Transportes Ferro',
       'estado'                        => 'required|exists:estados,est',
+      'municipio'                     => 'nullable|max:150',
       'tipo_de_envio'                 => 'required_with:tipos_de_envio|nullable|exists:tipos_de_envio,tip_de_env',
       'tamano'                        => 'required|in:Chico,Mediano,Grande',
       'aplicar_costo_de_caja'         => 'nullable|in:Si,No',
