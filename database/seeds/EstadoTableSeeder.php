@@ -158,7 +158,7 @@ class EstadoTableSeeder extends Seeder {
     ]);
     Estado::create([
       'id'              => 22,
-      'est'             => 'Querétaro Arteaga (Santiago de Querétaro)',
+      'est'             => 'Querétaro (Santiago de Querétaro)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
@@ -214,7 +214,7 @@ class EstadoTableSeeder extends Seeder {
     ]);
     Estado::create([
       'id'              => 30,
-      'est'             => 'Veracruz (Xalapa de Enríquez)',
+      'est'             => 'Veracruz de Ignacio de la Llave (Xalapa de Enríquez)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',

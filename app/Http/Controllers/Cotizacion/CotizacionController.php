@@ -50,7 +50,7 @@ class CotizacionController extends Controller {
   }
   public function edit($id_cotizacion) {
     $cotizacion   = $this->cotizacionRepo->cotizacionAsignadoFindOrFailById($id_cotizacion, ['armados', 'cliente'], config('app.abierta'));
-    $armados      = $cotizacion->armados()->with('productos')->paginate(99999999);
+    $armados      = $cotizacion->armados()->with('productos', 'direcciones')->paginate(99999999);
     $armados_list = $this->armadoRepo->getAllArmadosPlunk();
     return view('cotizacion.cot_edit', compact('cotizacion', 'armados', 'armados_list'));
   }

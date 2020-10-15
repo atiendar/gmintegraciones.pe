@@ -195,9 +195,7 @@
         tipo_de_envio  = document.getElementById('tipo_de_envio')
         tipo_de_envio.style.display = 'none';
 
-        
-
-         // TREA TODOS LOS METODOS DE ENVIO
+        // TREA TODOS LOS METODOS DE ENVIO
         if(this.metodo_de_entrega != '') {
           axios.get('/metodo-de-entrega/obtener/'+this.metodo_de_entrega).then(res => {
             this.tipos_de_envio = res.data
