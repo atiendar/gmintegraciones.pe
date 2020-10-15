@@ -214,6 +214,7 @@
           this.getMetodosDeEntregaEspecificos()
           this.tipo_de_envio="Normal";
           this.metodo_de_entrega_especifico="TresGuerras";
+          cantidad.style.display = 'block';
         } else if(this.metodo_de_entrega == 'Transportes Ferro') {
           this.tipo_de_envio="Directo";
           transporte.style.display = 'block';

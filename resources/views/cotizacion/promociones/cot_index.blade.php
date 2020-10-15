@@ -27,3 +27,26 @@
     </div>
   </div>
 </div>
+
+{{--
+'Querétaro (Santiago de Querétaro)'
+'Puebla (H. Puebla de Zaragoza)'
+'Hidalgo (Pachuca de Soto)'
+'Tlaxcala (Tlaxcala de Xicohténcatl)'
+'Morelos (Cuernavaca)'
+'México (Edo. México)'
+----------
+'Jalisco (Guadalajara)'
+'Guanajuato (Guanajuato)'
+'Guerrero (Chilpancingo de los Bravo)'
+'Veracruz de Ignacio de la Llave (Xalapa de Enríquez)'
+---------------------
+'Nuevo León (Monterrey)'
+'Tamaulipas (Ciudad Victoria)'
+'Oaxaca (Oaxaca de Juárez)'
+'Durango (Victoria de Durango)'
+'San Luis Potosí (San Luis Potosí)'
+'Colima (Colima)'
+'Zacatecas (Zacatecas)'
+--}}
+
