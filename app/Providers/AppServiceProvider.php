@@ -9,6 +9,10 @@ class AppServiceProvider extends ServiceProvider {
     //
   }
   public function boot() {
+    if(config('app.env') === 'production') {
+      \URL::forceScheme('https');
+    }
+
     Schema::defaultStringLength(120); // Longitud maxima de los campos en la base de datos esto es al generar las migraciones
     Validator::extend('alpha_solo_espacios_letras_punto', function ($attribute, $value) { // Validación
         return preg_match('/^[\pL\s\.]+$/u', $value); 
