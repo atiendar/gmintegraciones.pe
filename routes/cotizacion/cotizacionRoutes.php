@@ -9,6 +9,7 @@ Route::group(['prefix' => 'cotizacion'], function() {
     Route::match(['DELETE'],'eliminar/{id_cotizacion}', 'Cotizacion\CotizacionController@destroy')->name('cotizacion.destroy')->middleware('permission:cotizacion.destroy');
 
     Route::match(['PUT', 'PATCH'],'actualizar-iva/{id_cotizacion}', 'Cotizacion\CotizacionController@updateIva')->name('cotizacion.updateIva')->middleware('permission:cotizacion.edit');
+    Route::match(['PUT', 'PATCH'],'actualizar-comision/{id_cotizacion}', 'Cotizacion\CotizacionController@updateComision')->name('cotizacion.updateComision')->middleware('permission:cotizacion.edit');
     Route::match(['GET', 'HEAD'],'generar-cotizacion/{id_cotizacion}', 'Cotizacion\CotizacionController@generar')->name('cotizacion.generarCotizacion')->middleware('permission:cotizacion.index|cotizacion.show|cotizacion.edit');
     Route::match(['GET', 'HEAD'],'clonar-cotizacion/{id_cotizacion}', 'Cotizacion\CotizacionController@clonar')->name('cotizacion.clonar')->middleware('permission:cotizacion.edit');
     Route::match(['GET', 'HEAD'],'aprobar-cotizacion/{id_cotizacion}', 'Cotizacion\CotizacionController@aprobar')->name('cotizacion.aprobar')->middleware('permission:cotizacion.edit');

@@ -32,6 +32,10 @@ class CreateCotizacionesTable extends Migration
             $table->decimal('sub_total', 20,2)->unsigned()->default(0.00)->comment('Sub total');
             $table->decimal('iva', 20,2)->unsigned()->default(0.00)->comment('IVA');
             $table->string('con_iva',3)->default('on')->nullable()->comment('¿Con o sin IVA? on=Si, off=No');
+
+            $table->decimal('com', 20,2)->unsigned()->default(0.00)->comment('Comisión');
+            $table->string('con_com',3)->default(null)->nullable()->comment('¿Con o sin comisión? on=Si, off=No');
+
             $table->decimal('tot', 20,2)->unsigned()->default(0.00)->comment('Precio total');
             
             $table->unsignedBigInteger('user_id')->comment('Foreign Key usuario');

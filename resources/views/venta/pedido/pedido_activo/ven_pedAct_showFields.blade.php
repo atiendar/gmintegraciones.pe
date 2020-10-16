@@ -13,6 +13,7 @@
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.sePuedeEntregarAntes')
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cuantosDiasAntes')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cotizacionGenerada')
 </div>
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosCliente')

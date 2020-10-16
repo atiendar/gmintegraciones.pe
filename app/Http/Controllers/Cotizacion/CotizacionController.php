@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\cotizacion\StoreCotizacionRequest;
 use App\Http\Requests\cotizacion\UpdateIvaCotizacionRequest;
+use App\Http\Requests\cotizacion\UpdateComisionCotizacionRequest;
 //Repositories
 use App\Repositories\cotizacion\CotizacionRepositories;
 use App\Repositories\cotizacion\AprobarCotizacionRepositories;
@@ -62,6 +63,11 @@ class CotizacionController extends Controller {
   public function updateIva(UpdateIvaCotizacionRequest $request, $id_cotizacion) {
     $this->cotizacionRepo->updateIva($request, $id_cotizacion);
     toastr()->success('¡IVA actualizada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
+  }
+  public function updateComision(UpdateComisionCotizacionRequest $request, $id_cotizacion) {
+    $this->cotizacionRepo->updateComision($request, $id_cotizacion);
+    toastr()->success('¡Comisión agregada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
   public function generar($id_cotizacion) {

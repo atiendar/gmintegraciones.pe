@@ -20,6 +20,7 @@ class CreatePedidosTable extends Migration
             $table->bigIncrements('id');
             $table->string('serie',20)->comment('Serie');
             $table->string('num_pedido',45)->unique()->comment('Número de pedido');
+            $table->string('cot_gen',45)->nullable()->comment('Cotización de la que salio este pedido');
             $table->string('ult_let',4)->default('A')->comment('Última letra');
             $table->integer('tot_de_arm')->default(0)->unsigned()->comment('Total de armados');
             $table->integer('arm_carg')->default(0)->unsigned()->comment('Armados cargados');
