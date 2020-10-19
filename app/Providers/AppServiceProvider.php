@@ -89,7 +89,7 @@ class AppServiceProvider extends ServiceProvider {
         return false;
       }
 
-      if($resultado->estat_pag != config('app.aprobada')) {
+      if($resultado->estat_pag != config('app.aprobado')) {
         return false;
       }
 
