@@ -1,5 +1,5 @@
-<div class="card card-info">
-  <div class="card-header p-1 border-bottom bg-info">
+<div class="card card-danger">
+  <div class="card-header p-1 border-bottom bg-danger">
     <h5>{{ __('PROMOCIONES QUE APLICAN PARA ESTA COTIZACIÓN') }}</h5>
   </div>
   <div class="card-body">
