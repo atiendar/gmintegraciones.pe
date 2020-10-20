@@ -108,7 +108,9 @@
   </div>
   <div class="form-group col-sm btn-sm">
     <label for="aplicar_costo_de_caja">{{ __('Aplicar costos de caja') }} *</label>
-    ({{ __('Chico') }} ${{ env('COSTO_CHICO') }} {{ __('Mediano') }}, ${{ env('COSTO_MEDIANO') }}, {{ __('Grande') }} ${{ env('COSTO_GRANDE') }})
+    ({{ __('Chico') }} $<label for="metChico" v-text="metChico"></label>,
+    {{ __('Mediano') }} $<label for="metMediano" v-text="metMediano"></label>,
+    {{ __('Grande') }} $<label for="metGrande" v-text="metGrande"></label>)
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>

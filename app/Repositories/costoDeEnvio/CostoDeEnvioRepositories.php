@@ -43,16 +43,30 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
 
       $costo = 0;
       if($costo_de_envio->aplic_cos_caj == 'Si') {
-        switch ($costo_de_envio->tam) {
-          case 'Chico':
-            $costo = env('COSTO_CHICO');
-            break;
-          case 'Mediano':
-            $costo = env('COSTO_MEDIANO');
-            break;
-          case 'Grande':
-            $costo = env('COSTO_GRANDE');
-            break;
+        if($costo_de_envio->met_de_entreg == 'Transportes Ferro' AND $costo_de_envio->tip_env == 'Consolidado') {
+          switch ($costo_de_envio->tam) {
+            case 'Chico':
+              $costo = env('COSTO_CHICO_ESP');
+              break;
+            case 'Mediano':
+              $costo = env('COSTO_MEDIANO_ESP');
+              break;
+            case 'Grande':
+              $costo = env('COSTO_GRANDE_ESP');
+              break;
+          }
+        } else {
+          switch ($costo_de_envio->tam) {
+            case 'Chico':
+              $costo = env('COSTO_CHICO');
+              break;
+            case 'Mediano':
+              $costo = env('COSTO_MEDIANO');
+              break;
+            case 'Grande':
+              $costo = env('COSTO_GRANDE');
+              break;
+          }
         }
       }
 
@@ -83,17 +97,31 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
       $costo_de_envio->aplic_cos_caj      = $request->aplicar_costo_de_caja;
 
       $costo = 0;
-      if($request->aplicar_costo_de_caja == 'Si') {
-        switch ($costo_de_envio->tam) {
-          case 'Chico':
-            $costo = env('COSTO_CHICO');
-            break;
-          case 'Mediano':
-            $costo = env('COSTO_MEDIANO');
-            break;
-          case 'Grande':
-            $costo = env('COSTO_GRANDE');
-            break;
+      if($costo_de_envio->aplic_cos_caj == 'Si') {
+        if($costo_de_envio->met_de_entreg == 'Transportes Ferro' AND $costo_de_envio->tip_env == 'Consolidado') {
+          switch ($costo_de_envio->tam) {
+            case 'Chico':
+              $costo = env('COSTO_CHICO_ESP');
+              break;
+            case 'Mediano':
+              $costo = env('COSTO_MEDIANO_ESP');
+              break;
+            case 'Grande':
+              $costo = env('COSTO_GRANDE_ESP');
+              break;
+          }
+        } else {
+          switch ($costo_de_envio->tam) {
+            case 'Chico':
+              $costo = env('COSTO_CHICO');
+              break;
+            case 'Mediano':
+              $costo = env('COSTO_MEDIANO');
+              break;
+            case 'Grande':
+              $costo = env('COSTO_GRANDE');
+              break;
+          }
         }
       }
 

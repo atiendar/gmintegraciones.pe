@@ -51,6 +51,32 @@
       tiempo_de_entrega:            null,
       costo_por_envio:              null
     },
+    computed: {
+      metChico: function () {
+        if(this.metodo_de_entrega == 'Transportes Ferro' && this.tipo_de_envio == 'Consolidado') {
+          return "{{ env('COSTO_CHICO_ESP') }}"
+        } else {
+      
+          return "{{ env('COSTO_CHICO') }}"
+        }
+      },
+      metMediano: function () {
+        if(this.metodo_de_entrega == 'Transportes Ferro' && this.tipo_de_envio == 'Consolidado') {
+          return "{{ env('COSTO_MEDIANO_ESP') }}"
+        } else {
+      
+          return "{{ env('COSTO_MEDIANO') }}"
+        }
+      },
+      metGrande: function () {
+        if(this.metodo_de_entrega == 'Transportes Ferro' && this.tipo_de_envio == 'Consolidado') {
+          return "{{ env('COSTO_GRANDE_ESP') }}"
+        } else {
+      
+          return "{{ env('COSTO_GRANDE') }}"
+        }
+      }
+    },
     methods: {
       async create() {
         this.checarBotonSubmitDisabled("btnsubmit")

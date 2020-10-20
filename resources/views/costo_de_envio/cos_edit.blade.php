@@ -61,6 +61,32 @@
       tiempo_de_entrega:            "{{ $costo_de_envio->tiemp_ent }}",
       costo_por_envio:              "{{ $costo_de_envio->cost_por_env }}"
     },
+    computed: {
+      metChico: function () {
+        if(this.metodo_de_entrega == 'Transportes Ferro' && this.tipo_de_envio == 'Consolidado') {
+          return "{{ env('COSTO_CHICO_ESP') }}"
+        } else {
+      
+          return "{{ env('COSTO_CHICO') }}"
+        }
+      },
+      metMediano: function () {
+        if(this.metodo_de_entrega == 'Transportes Ferro' && this.tipo_de_envio == 'Consolidado') {
+          return "{{ env('COSTO_MEDIANO_ESP') }}"
+        } else {
+      
+          return "{{ env('COSTO_MEDIANO') }}"
+        }
+      },
+      metGrande: function () {
+        if(this.metodo_de_entrega == 'Transportes Ferro' && this.tipo_de_envio == 'Consolidado') {
+          return "{{ env('COSTO_GRANDE_ESP') }}"
+        } else {
+      
+          return "{{ env('COSTO_GRANDE') }}"
+        }
+      }
+    },
     mounted() {
       this.getMetodosDeEntrega(1)
       this.getTiposDeEnvio(1)
