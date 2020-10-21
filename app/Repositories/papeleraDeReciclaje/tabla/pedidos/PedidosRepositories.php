@@ -19,93 +19,36 @@ class PedidosRepositories implements PedidosInterface {
                 }])->withTrashed();
               }])->withTrashed()->get(['id', 'img_rut', 'img_nom', 'cant']);
       
-    // FUNCION QUE ELIMINA TODOS LOS ARCHIVOS DE LOS ARMADOS, DIRECCIONES, COMPROBANTES DE ENTREGA QUE ESTEN RELACIONADOS AL PEDIDO
     $cont1 = 0;
     $archivos_a_eliminar = null;
     foreach($armados as $armado) {
       /*
-      // AÑADE LA RUTA Y NOMBRE DE LA IMAGEN DEL ARMADO
-      if($armado->img_nom != null) {
-        $archivos_a_eliminar[$cont1] = $armado->img_nom;
-        $cont1 +=1;
-      }
-      */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      /*
       * RESTABLECE EL STOCK DE LOS PRODUCTOS RELACIONADOS A ESTE PEDIDO SI EL ESTATUS DEL PEDIDO ES DIFERENTE A ENTREGADO
       */
-      /*
-      foreach($armado->productos as $producto) {
-  //      dd(   $armado    );
-//dd($producto->cant * $armado->cant);
-        // 
-        $producto_original1         = \App\Models\Producto::findOrFail($producto->id_producto);
-        if($producto_original1 != NULL) {
-          $producto_original1->stock += $producto->cant;
-          $producto_original1->save();
-        }
+      if($consulta->estat_log != config('app.entregado')) {
+        foreach($armado->productos as $producto) {
+          $total_sustitutos = 0;
+          // AUMENTA STOCK AL SUSTITUTO ORIGINAL
+          foreach($producto->sustitutos as $sustituto) {
+            $sustituto_original1         = \App\Models\Producto::findOrFail($sustituto->id_producto);
+            if($sustituto_original1 != NULL) {
+              $sustituto_original1->stock += $sustituto->cant;
+              $total_sustitutos           += $sustituto->cant;
+              $sustituto_original1->save();
+            }
+          }
 
-        // 
-        foreach($producto->sustitutos as $sustituto) {
-
-          dd($sustituto->cant);
-
-          $sustituto_original1         = \App\Models\Producto::findOrFail($sustituto->id_producto);
-          if($sustituto_original1 != NULL) {
-            $sustituto_original1->stock += $sustituto->cant;
-            $sustituto_original1->save();
+          // AUMENTA STOCK AL PRODUCTO ORIGINAL
+          $producto_original1         = \App\Models\Producto::findOrFail($producto->id_producto);
+          if($producto_original1 != NULL) {
+            $cant = $producto->cant * $armado->cant;
+            $producto_original1->stock += $cant-$total_sustitutos;
+            $producto_original1->save();
           }
         }
       }
- 
 
-      dd('paso');
-
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      // FUNCION QUE ELIMINA TODOS LOS ARCHIVOS DE LOS ARMADOS, DIRECCIONES, COMPROBANTES DE ENTREGA QUE ESTEN RELACIONADOS AL PEDIDO
       foreach($armado->direcciones as $direccion) {
         // AÑADE LA RUTA Y NOMBRE DE LAS TARJETAS DE FELICITACION
         if($direccion->tarj_dise_nom != null) {
@@ -174,10 +117,5 @@ class PedidosRepositories implements PedidosInterface {
     }
     // Se implementa esta forma de eliminar archivos ya que con la funcion "ArchivosEliminados::dispatch" no lo hace
     \Storage::disk('s3')->delete($archivos_a_eliminar);
-
-
-
-
-
   }
 }
