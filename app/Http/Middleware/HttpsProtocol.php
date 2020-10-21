@@ -8,6 +8,7 @@ class HttpsProtocol {
       // Redirecciona al https
       if (!$request->secure()) {
         // return redirect()->secure($request->getRequestUri());
+        return redirect()->secure(\URL::forceScheme('https'));
       }
     }
     return $next($request);

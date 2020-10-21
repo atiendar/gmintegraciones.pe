@@ -6,6 +6,7 @@
       <thead>
         <tr>
           @include('cotizacion.cot_table.th.serie')
+          @include('cotizacion.cot_table.th.ultimaModificacion')
           @include('cotizacion.cot_table.th.estatus')
           @include('cotizacion.cot_table.th.validez')
           @include('cotizacion.cot_table.th.correo')
@@ -17,6 +18,7 @@
         @foreach($cotizaciones as $cotizacion)
           <tr title="{{ $cotizacion->serie }}">
             @include('cotizacion.cot_table.td.serie')
+            @include('cotizacion.cot_table.td.ultimaModificacion')
             @include('cotizacion.cot_table.td.estatus')
             @include('cotizacion.cot_table.td.validez')
             @include('cotizacion.cot_table.td.correo')

@@ -580,6 +580,7 @@ return array(
   //  'cliente.email_registro'  => 'Correo cliente',
     'tot'                     => 'Total',
     'created_at'              => 'Fecha de creación (YYYY-MM-DD)',
+    'updated_at'              => 'Fecha última modificación (YYYY-MM-DD)',
   ],
 /* ===================== COTIZACIONES/ARMADO [ DIRECCIONES ] ===================== */
   'select_metodo_de_entrega'  => [
