@@ -146,13 +146,13 @@
       async getCostoDeEnvio() {
         // VERIFICA SI EL OBJETO "costo_seleccionado" ESTA VACIO O NO
         if(Object.keys(this.costo_seleccionado).length === 0) {
-          if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo') {
+          if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo' || this.estado_al_que_se_cotizo == 'Ciudad de México (Ciudad de México)' || this.estado_al_que_se_cotizo == 'México (Edo. México)') {
             this.cost_por_env = parseFloat(this.costo_de_envio_individual)
           } else {
             this.cost_por_env = parseFloat(this.costo_de_envio_individual) * parseFloat(this.cantidad)
           }
         } else {
-          if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo') {
+          if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo' || this.estado_al_que_se_cotizo == 'Ciudad de México (Ciudad de México)' || this.estado_al_que_se_cotizo == 'México (Edo. México)') {
             this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env)
           } else {
             this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env) * parseFloat(this.cantidad)

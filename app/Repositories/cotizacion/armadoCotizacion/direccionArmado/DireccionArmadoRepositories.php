@@ -55,7 +55,7 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
       $direccion->tiemp_ent                 = $request->costo_seleccionado['tiemp_ent'];
       $direccion->cost_por_env_individual   = $request->costo_seleccionado['cost_por_env'];
 
-      if($direccion->tip_env == 'Consolidado' or $direccion->tip_env == 'Directo') {
+      if($direccion->tip_env == 'Consolidado' or $direccion->tip_env == 'Directo' OR $direccion->est == 'Ciudad de México (Ciudad de México)' OR  $direccion->est == 'México (Edo. México)') {
         $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'];
       } else {
         $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'] *  $request->cantidad;
@@ -109,7 +109,7 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
         $direccion->tiemp_ent                 = $request->costo_seleccionado['tiemp_ent'];
         $direccion->cost_por_env_individual   = $request->costo_seleccionado['cost_por_env'];
 
-        if($direccion->tip_env == 'Consolidado' or $direccion->tip_env == 'Directo') {
+        if($direccion->tip_env == 'Consolidado' or $direccion->tip_env == 'Directo' OR $direccion->est == 'Ciudad de México (Ciudad de México)' OR  $direccion->est == 'México (Edo. México)') {
           $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'];
         } else {
           $direccion->cost_por_env              = $request->costo_seleccionado['cost_por_env'] *  $request->cantidad;
@@ -119,7 +119,7 @@ class DireccionArmadoRepositories implements DireccionArmadoInterface {
           $direccion->cost_por_env += $request->costo_seleccionado['cost_tam_caj'] *  $request->cantidad;
         }
       } else {
-        if($direccion->tip_env == 'Consolidado' or $direccion->tip_env == 'Directo') {
+        if($direccion->tip_env == 'Consolidado' or $direccion->tip_env == 'Directo' OR $direccion->est == 'Ciudad de México (Ciudad de México)' OR  $direccion->est == 'México (Edo. México)') {
           $direccion->cost_por_env = $direccion->cost_por_env_individual;
         } else {
           $direccion->cost_por_env = $direccion->cost_por_env_individual * $request->cantidad;

@@ -131,7 +131,7 @@
         this.getCostoDeEnvio()
       },
       async getCostoDeEnvio() {
-        if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo') {
+        if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo' || this.estado_al_que_se_cotizo == 'Ciudad de México (Ciudad de México)' || this.estado_al_que_se_cotizo == 'México (Edo. México)') {
           this.cost_por_env = parseFloat(this.costo_de_envio_individual)
         } else {
           this.cost_por_env = parseFloat(this.costo_de_envio_individual) * parseFloat(this.cantidad)
