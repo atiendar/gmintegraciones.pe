@@ -1,6 +1,6 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Registrar direccion'))</title>
+<title>@section('title', __('Registrar pago'))</title>
 <div class="card">
   <div class="card-header p-1">
     <ul class="nav nav-pills">
@@ -9,6 +9,17 @@
   </div>
   <div class="card-body">
     {!! Form::open(['route' => 'rolCliente.pago.store', 'onsubmit' => 'return checarBotonSubmit("btnsubmit")', 'files' => true]) !!}
+      <strong class="float-right border border-info rounded p-1">
+        Datos Bancarios: Canastas Y Arcones S.A de C.V
+        <ul>
+          <li>*Todos los pagos realizados a esta cuenta, deben de pagar IVA</li>
+          <li>Banco: BBVA Bancomer</li>
+          <li>Clabe: 012180001111120906</li>
+          <li>Sucursal: 4122</li>
+          <li>Cuenta: 0111112090</li>
+          <li>SWIT/BIC: BCMRMXMM</li>
+        </ul>
+      </strong>
       <div class="row">
         <div class="form-group col-sm btn-sm">
           <label for="numero_de_pedido">{{ __('Número de pedido') }} *</label>

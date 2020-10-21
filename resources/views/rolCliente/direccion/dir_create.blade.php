@@ -9,6 +9,11 @@
   </div>
   <div class="card-body">
     {!! Form::open(['route' => 'rolCliente.direccion.store', 'onsubmit' => 'return checarBotonSubmit("btnsubmit")']) !!}
+    <div class="row border border-danger rounded">
+      <div class="form-group col-sm btn-sm">
+        {{ __('IMPORTANTE: Las direcciones registradas en esta ventana no seran tomadas en cuenta para la entrega de sus productos hasta no asignarla al pedido, desde el módulo pedidos.') }}
+      </div>
+    </div>
       @include('rolCliente.direccion.dir_createFields')
       <div class="row">
         <div class="form-group col-sm btn-sm">

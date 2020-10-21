@@ -215,12 +215,17 @@ class ProductoRepositories implements ProductoInterface {
     }
     return $producto->sustitutos()->with('sustitutos')->paginate($request->paginador);
   }
-  public function getproductoFindOrFailById($id_producto, $relaciones = null) { // 'sustitutos', 'armados', 'proveedores'
+  public function getproductoFindOrFailById($id_producto, $relaciones) {
     $id_producto = $this->serviceCrypt->decrypt($id_producto);
     $producto = Producto::with($relaciones)->findOrFail($id_producto);
     return $producto;
   }
-  public function getproductoFindById($id_producto, $relaciones = null) { // 'sustitutos', 'armados', 'proveedores'
+  public function getproductoFindWithTrashed($id_producto, $relaciones) {
+    $id_producto = $this->serviceCrypt->decrypt($id_producto);
+    $producto = Producto::with($relaciones)->withTrashed()->find($id_producto);
+    return $producto;
+  }
+  public function getproductoFindById($id_producto, $relaciones) {
     $id_producto = $this->serviceCrypt->decrypt($id_producto);
     $producto = Producto::with($relaciones)->find($id_producto);
     return $producto;

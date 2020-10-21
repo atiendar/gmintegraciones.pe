@@ -645,7 +645,9 @@ return array(
   ],
   'select_forma_de_pago'  => [
     'Cheque'                      => 'Cheque',
-    'Efectivo'                    => 'Efectivo',
+    'Efectivo (Jonathan)'         => 'Efectivo (Jonathan)',
+    'Efectivo (Gabriel)'          => 'Efectivo (Gabriel)',
+    'Efectivo (Fernando)'         => 'Efectivo (Fernando)',
     'Paypal'                      => 'Paypal',
     'Tarjeta de credito (Pagina)' => 'Tarjeta de credito (Pagina)',
     'Tarjeta de credito (Clip)'   => 'Tarjeta de credito (Clip)',

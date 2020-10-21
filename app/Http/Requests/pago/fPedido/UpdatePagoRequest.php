@@ -18,9 +18,10 @@ class UpdatePagoRequest extends FormRequest {
     return [
       'estatus_pago'            => 'required|in:Pendiente',
       'comprobante_de_pago'     => 'nullable|mimes:pdf,jpg,jpeg,png|max:1024',
-      'forma_de_pago'           => 'required|in:Cheque,Efectivo,Paypal,Tarjeta de credito (Pagina),Tarjeta de credito (Clip),Tarjeta de debito,Transferencia RUT,Transferencia CYA,Otro',
+      'forma_de_pago'           => 'required|in:Cheque,Efectivo (Jonathan),Efectivo (Gabriel),Efectivo (Fernando),Paypal,Tarjeta de credito (Pagina),Tarjeta de credito (Clip),Tarjeta de debito,Transferencia RUT,Transferencia CYA,Otro',
       'copia_de_identificacion' => 'nullable|required_if:forma_de_pago,Paypal,Tarjeta de credito (Pagina)|mimes:pdf,jpg,jpeg,png|max:1024',
       'monto_del_pago'          => 'required|numeric|min:0|max:'.$max_monto.'|alpha_decimal15',
     ];
   }
 }
+

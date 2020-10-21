@@ -1,6 +1,6 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="fecha_de_entrega">{{ __('Fecha de entrega') }} *</label>
+    <label for="fecha_de_entrega">{{ __('Fecha de entrega') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></i></span>
@@ -10,7 +10,7 @@
     <span class="text-danger">{{ $errors->first('fecha_de_entrega') }}</span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="se_puede_entregar_antes">{{ __('¿Se puede entregar antes?') }} *</label>
+    <label for="se_puede_entregar_antes">{{ __('¿Se puede entregar antes?') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-question"></i></span>

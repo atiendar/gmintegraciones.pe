@@ -51,12 +51,12 @@ class SustitutoArmadoController extends Controller {
       $this->verificarEstatusArmado($producto_armado_pedido);
 
       // SUMA AL STOCK LA CANTIDAD ESCRITA EN EL FORMULARIO AL PRODUCTO QUE ESTA ASIGNADO DIRECTAMENTE AL ARMADO
-      $producto_original1         = $this->productoRepo->getproductoFindOrFailById($this->serviceCrypt->encrypt($producto_armado_pedido->id_producto), []);
+      $producto_original1         = $this->productoRepo->getproductoFindWithTrashed($this->serviceCrypt->encrypt($producto_armado_pedido->id_producto), []);
       $producto_original1->stock += $request->cantidad;
       $producto_original1->save();
 
       // RESTA AL STOCK LA CANTIDAD ESCRITA EN EL FORMULARIO AL NUEVO PRODUCTO QUE SE ESTA TOMANDO COMO SUSTITUTO DEL PRODUCTO QUE ESTA ASIGNADO DIRECTAMENTE AL ARMADO
-      $producto_original2         = $this->productoRepo->getproductoFindOrFailById($this->serviceCrypt->encrypt($request->sustituto), []);
+      $producto_original2         = $this->productoRepo->getproductoFindWithTrashed($this->serviceCrypt->encrypt($request->sustituto), []);
       $producto_original2->stock -= $request->cantidad;
       $producto_original2->save();
       
@@ -82,13 +82,13 @@ class SustitutoArmadoController extends Controller {
       $sustituto->forceDelete();
 
       // RESTA AL STOCK LA CANTIDAD ESCRITA EN EL FORMULARIO AL PRODUCTO QUE ESTA ASIGNADO DIRECTAMENTE AL ARMADO
-      $producto_original1         = $this->productoRepo->getproductoFindById($this->serviceCrypt->encrypt($sustituto->producto->id_producto), []);
+      $producto_original1         = $this->productoRepo->getproductoFindWithTrashed($this->serviceCrypt->encrypt($sustituto->producto->id_producto), []);
       if($producto_original1 != NULL) {
         $producto_original1->stock -= $sustituto->cant;
         $producto_original1->save();
       }
       // SUMA AL STOCK LA CANTIDAD ESCRITA EN EL FORMULARIO AL NUEVO PRODUCTO QUE SE ESTA TOMANDO COMO SUSTITUTO DEL PRODUCTO QUE ESTA ASIGNADO DIRECTAMENTE AL ARMADO
-      $producto_original2         = $this->productoRepo->getproductoFindById($this->serviceCrypt->encrypt($sustituto->id_producto), []);
+      $producto_original2         = $this->productoRepo->getproductoFindWithTrashed($this->serviceCrypt->encrypt($sustituto->id_producto), []);
       if($producto_original2 != NULL) {
         $producto_original2->stock += $sustituto->cant;
         $producto_original2->save();

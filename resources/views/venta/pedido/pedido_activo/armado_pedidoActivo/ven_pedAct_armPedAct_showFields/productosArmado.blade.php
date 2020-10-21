@@ -10,11 +10,20 @@
               @if($producto->sustitutos()->sum('cant') == $producto->cant * $armado->cant)
                 <del>{{ $producto->produc }}</del>
               @else
-                {{ $producto->produc }}
+                @can('almacen.producto.show')
+                  <a href="{{ route('almacen.producto.show', Crypt::encrypt($producto->id_producto)) }}" target="_blank">{{ $producto->produc }}</a>
+                @else
+                  {{ $producto->produc }}
+                @endcan
               @endif
               @foreach($producto->sustitutos as $sustituto)
                 <div class="input-group text-muted ml-4">
-                  {{ $sustituto->cant }} - {{ $sustituto->produc }}
+                  {{ $sustituto->cant }} -
+                  @can('almacen.producto.show')
+                    <a href="{{ route('almacen.producto.show', Crypt::encrypt($sustituto->id_producto)) }}" target="_blank">{{ $sustituto->produc }}</a>
+                  @else
+                    {{ $sustituto->produc }}
+                  @endcan
                 </div>
               @endforeach
             </td>

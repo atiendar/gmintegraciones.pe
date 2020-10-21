@@ -14,7 +14,7 @@ class StorePagoRequest extends FormRequest {
     $max_monto = $pedido->mont_tot_de_ped - $sum_mont_de_pag;
     return [
       'comprobante_de_pago'     => 'nullable|mimes:pdf,jpg,jpeg,png|max:1024',
-      'forma_de_pago'           => 'required|in:Cheque,Efectivo,Paypal,Tarjeta de credito (Pagina),Tarjeta de credito (Clip),Tarjeta de debito,Transferencia RUT,Transferencia CYA,Otro',
+      'forma_de_pago'           => 'required|in:Cheque,Efectivo (Jonathan),Efectivo (Gabriel),Efectivo (Fernando),Paypal,Tarjeta de credito (Pagina),Tarjeta de credito (Clip),Tarjeta de debito,Transferencia RUT,Transferencia CYA,Otro',
       'copia_de_identificacion' => 'nullable|mimes:pdf,jpg,jpeg,png|max:1024',
       'monto_del_pago'          => 'required|numeric|min:0|max:'.$max_monto.'|alpha_decimal15',
     ];
