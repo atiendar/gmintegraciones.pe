@@ -23,11 +23,12 @@
       <div class="row">
         <div class="form-group col-sm btn-sm">
           <label for="numero_de_pedido">{{ __('Número de pedido') }} *</label>
+          <label for="restante_a_pagar" v-text="restante_a_pagar"></label>
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-list"></i></span>
             </div>
-            {!! Form::select('numero_de_pedido', $num_pedidos, null, ['class' => 'form-control select2' . ($errors->has('numero_de_pedido') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+            {!! Form::select('numero_de_pedido', $num_pedidos, null, ['v-model' => 'numero_de_pedido', 'v-on:change' => 'getFaltanteDePago()', 'class' => 'form-control select2' . ($errors->has('numero_de_pedido') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
           </div>
           <span class="text-danger">{{ $errors->first('numero_de_pedido') }}</span>
         </div>
@@ -44,4 +45,30 @@
     {!! Form::close() !!}
   </div>
 </div>
+@endsection
+
+@section('vuejs')
+<script>
+  var app4 = new Vue({
+    el: '#dashboard',
+    data: {
+      numero_de_pedido: null,
+      restante_a_pagar: null
+    },
+    methods: {
+      async getFaltanteDePago() {
+        if(this.numero_de_pedido != '') {
+          axios.get('/rc/pedido/faltante-de-pago/'+this.numero_de_pedido).then(res => {
+            this.restante_a_pagar = 'Restan: $'+res.data+' por pagar para este pedido.'
+          }).catch(error => {
+            Swal.fire({
+              title: 'Algo salio mal',
+              text: error,
+            })
+          });
+        }
+      },
+    }
+  });
+</script>
 @endsection
