@@ -35,7 +35,8 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
     require_once __DIR__ . '/factura/facturaRoutes.php';
     require_once __DIR__ . '/estado/estadoRoutes.php';
     require_once __DIR__ . '/metodoDeEntrega/tipoDeEnvioRoutes.php';
-
+    require_once __DIR__ . '/stock/stockRoutes.php';
+    
     Route::group(['prefix' => 'job'], function() {
       require_once __DIR__ . '/jobs/jobsRoutes.php';
     });

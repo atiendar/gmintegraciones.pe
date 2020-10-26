@@ -50,7 +50,8 @@
   'factura.index', 'factura.create', 'factura.show', 'factura.edit', 'factura.destroy',
   'material.index', 'material.create', 'material.show', 'material.edit', 'material.destroy', 'material.consultarPrecio',
   'soporte.index', 'soporte.show', 'soporte.edit', 'soporte.destroy', 
-  'inventario.index', 'inventario.create', 'inventario.show', 'inventario.edit', 'inventario.destroy'
+  'inventario.index', 'inventario.create', 'inventario.show', 'inventario.edit', 'inventario.destroy',
+  'stock.index', 'stock.create', 'stock.show', 'stock.edit', 'stock.destroy'
 ])
   <li class="nav-header">{{ __('MÓDULOS') }}</li>
 @endcanany
@@ -65,5 +66,9 @@
 @include('layouts.private.escritorio.menu.produccion')
 @include('layouts.private.escritorio.menu.proveedores')
 @include('layouts.private.escritorio.menu.rastrear')
+
+@if(auth()->user()->email == 'desarrolloweb.ewmx@gmail.com')
+  @include('layouts.private.escritorio.menu.stock')
+@endif
 @include('layouts.private.escritorio.menu.tecnologiaDeLaInformacion')
 @include('layouts.private.escritorio.menu.ventas')

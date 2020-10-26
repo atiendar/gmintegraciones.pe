@@ -1,8 +1,8 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
 <title>@section('title', __('Editar producto').' '.$producto->produc)</title>
-<div class="card {{ empty($producto->stock < config('app.cantidad_stock_minimo_producto')) ? config('app.color_card_primario') : config('app.color_card_warning') }} card-outline card-tabs position-relative bg-white">
-  <div class="card-header p-1 border-bottom {{ empty($producto->stock < config('app.cantidad_stock_minimo_producto')) ? config('app.color_bg_primario') : config('app.color_bg_warning') }}">
+<div class="card {{ empty($producto->stock < $producto->min_stock) ? config('app.color_card_primario') : config('app.color_card_warning') }} card-outline card-tabs position-relative bg-white">
+  <div class="card-header p-1 border-bottom {{ empty($producto->stock < $producto->min_stock) ? config('app.color_bg_primario') : config('app.color_bg_warning') }}">
     <h5>
       <strong>{{ __('Editar registro') }}: </strong>
       @can('almacen.producto.show')
@@ -13,7 +13,7 @@
     </h5>
   </div>
   <div class="ribbon-wrapper">
-    <div class="ribbon {{ empty($producto->stock < config('app.cantidad_stock_minimo_producto')) ? config('app.color_bg_primario') : config('app.color_bg_warning') }}"> 
+    <div class="ribbon {{ empty($producto->stock < $producto->min_stock) ? config('app.color_bg_primario') : config('app.color_bg_warning') }}"> 
       <small>{{ $producto->id }}</small>
     </div>
   </div>

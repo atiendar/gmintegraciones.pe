@@ -30,7 +30,8 @@ class CreateProductosTable extends Migration
             $table->decimal('largo', 10, 2)->default(0.00)->unsigned()->comment('Largo de la canasta');
             $table->decimal('cost_arm', 20, 2)->default(0.00)->unsigned()->comment('Costo de armado');
             $table->integer('vend')->default(0)->unsigned()->comment('Productos vendidos');
-            $table->integer('cant_requerida')->default(0)->unsigned()->comment('Cantidad requerida');
+            $table->integer('cant_requerida')->default(0)->unsigned()->comment('Cantidad vendida');
+            $table->integer('min_stock')->default(100)->comment('Stock minimo del producto');
             $table->integer('stock')->default(0)->comment('Stock del producto');
             $table->string('prove', 130)->nullable()->comment('Nombre del proveedor');
             $table->decimal('prec_prove', 20,2)->nullable()->unsigned()->comment('Precio del proveedor');

@@ -75,9 +75,6 @@ return [
     'color_o' => '#', // 
     
     # ===================== VENTAS [ PEDIDOS ACTIVOS ] =====================
-    # --- PRODUCTOS
-    'cantidad_stock_minimo_producto' => 100,
-
     # --- ESTATUS COTIZACIONES
     'abierta'   => 'Abierta',
     'aprobada'  => 'Aprobada',

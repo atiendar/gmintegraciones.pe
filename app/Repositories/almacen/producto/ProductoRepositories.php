@@ -2,6 +2,7 @@
 namespace App\Repositories\almacen\producto;
 // Models
 use App\Models\Producto;
+use App\Models\ReporteStock;
 // Events
 use App\Events\layouts\ActividadRegistrada;
 use App\Events\layouts\ArchivoCargado;
@@ -62,6 +63,7 @@ class ProductoRepositories implements ProductoInterface {
       $producto->etiq            = $request->etiqueta;
       $producto->pes             = $request->peso;
       $producto->cod_barras      = $request->codigo_de_barras;
+      $producto->min_stock      = $request->cantidad_minima_de_stock;
       $producto->desc_del_prod   = $request->descripcion_del_producto;
       $producto->asignado_prod   = Auth::user()->email_registro;
       $producto->created_at_prod = Auth::user()->email_registro;
@@ -104,6 +106,7 @@ class ProductoRepositories implements ProductoInterface {
       $producto->etiq           = $request->etiqueta;
       $producto->pes            = $request->peso;
       $producto->cod_barras     = $request->codigo_de_barras;
+      $producto->min_stock      = $request->cantidad_minima_de_stock;
       $producto->desc_del_prod  = $request->descripcion_del_producto;
       if($producto->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
@@ -112,10 +115,10 @@ class ProductoRepositories implements ProductoInterface {
           'almacen.producto.show', // Nombre de la ruta
           $id_producto, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_producto), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Nombre del producto', 'SKU', 'Marca', 'Tamaño ', 'Alto', 'Ancho', 'Largo', 'Costo de armado', 'Nombre del proveedor', 'Precio proveedor', 'Utilidad', 'Precio cliente', 'Categoría', 'Etiqueta', 'Peso', 'Código de barras', 'Descripción del producto'), // Nombre de los inputs del formulario
+          array('Nombre del producto', 'SKU', 'Marca', 'Tamaño ', 'Alto', 'Ancho', 'Largo', 'Costo de armado', 'Nombre del proveedor', 'Precio proveedor', 'Utilidad', 'Precio cliente', 'Categoría', 'Etiqueta', 'Peso', 'Código de barras', 'Cantidad mínima de stock', 'Descripción del producto'), // Nombre de los inputs del formulario
           $producto, // Request
-          array('produc', 'sku', 'marc', 'tam', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'etiq', 'pes', 'cod_barras','desc_del_prod') // Nombre de los campos en la BD
-        ); 
+          array('produc', 'sku', 'marc', 'tam', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'etiq', 'pes', 'cod_barras', 'min_stock', 'desc_del_prod') // Nombre de los campos en la BD
+        );
         $producto->updated_at_prod = Auth::user()->email_registro;
       }
       if($request->hasfile('imagen_del_producto')) {
@@ -160,6 +163,16 @@ class ProductoRepositories implements ProductoInterface {
         array('stock') // Nombre de los campos en la BD
       ); 
       $producto->updated_at_prod = Auth::user()->email_registro;
+
+      // GENERA REGISTRO PARA EL REPORTE DE STOCKS
+      $reporte                = new ReporteStock();
+      $reporte->reg           = $producto->produc;
+      $reporte->email_usuario = Auth::user()->email_registro;
+      $reporte->acc           = 'aumentarStock';
+      $reporte->stock_ant     = $producto->getOriginal('stock');
+      $reporte->stock_nuev    = $producto->getAttribute('stock');
+      $reporte->dif           = $request->aumentar_stock;
+      $reporte->save();
     }
     $producto->save();
     return $producto;
@@ -180,6 +193,16 @@ class ProductoRepositories implements ProductoInterface {
         array('stock') // Nombre de los campos en la BD
       ); 
       $producto->updated_at_prod = Auth::user()->email_registro;
+
+      // GENERA REGISTRO PARA EL REPORTE DE STOCKS
+      $reporte                = new ReporteStock();
+      $reporte->reg           = $producto->produc;
+      $reporte->email_usuario = Auth::user()->email_registro;
+      $reporte->acc           = 'disminuirStock';
+      $reporte->stock_ant     = $producto->getOriginal('stock');
+      $reporte->stock_nuev    = $producto->getAttribute('stock');
+      $reporte->dif           = $request->disminuir_stock;
+      $reporte->save();
     }
     $producto->save();
     return $producto;

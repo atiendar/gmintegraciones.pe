@@ -16,6 +16,7 @@ Route::group(['prefix' => 'producto'], function() {
   Route::match(['DELETE'],'eliminar/{id_producto}', 'Almacen\Producto\ProductoController@destroy')->name('almacen.producto.destroy')->middleware('permission:almacen.producto.destroy');
   Route::match(['GET', 'HEAD'],'precio-proveedor', 'Almacen\Producto\ProductoController@getPrecioProveedor')->name('almacen.producto.getPrecioProveedor')->middleware('permission:almacen.producto.edit');
   Route::match(['GET', 'HEAD'],'generar-reporte-de-compra', 'Almacen\Producto\ProductoController@generarReporteDeCompra')->name('almacen.producto.generarReporteDeCompra')->middleware('permission:almacen.producto.index');
+  Route::match(['GET', 'HEAD'],'generar-reporte-de-stock', 'Almacen\Producto\ProductoController@generarReporteDeStock')->name('almacen.producto.generarReporteDeStock')->middleware('permission:almacen.producto.index');
 
   Route::group(['prefix' => 'sustituto'], function() {
     Route::post('almacenar/{id_producto}', 'Almacen\Producto\SustitutoProducto\SustitutoProductoController@store')->name('almacen.producto.sustituto.store')->middleware('permission:almacen.producto.sustituto.create');

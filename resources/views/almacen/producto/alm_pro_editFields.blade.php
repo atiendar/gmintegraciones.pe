@@ -263,6 +263,16 @@
     </div>
     <span class="text-danger">{{ $errors->first('codigo_de_barras') }}</span>
   </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="cantidad_minima_de_stock">{{ __('Cantidad mínima de stock') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
+      </div>
+      {!! Form::text('cantidad_minima_de_stock', $producto->min_stock, ['class' => 'form-control' . ($errors->has('cantidad_minima_de_stock') ? ' is-invalid' : ''), 'maxlength' => 5, 'placeholder' => __('Cantidad mínima de stock')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('cantidad_minima_de_stock') }}</span>
+  </div>
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
