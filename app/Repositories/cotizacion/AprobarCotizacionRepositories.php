@@ -137,13 +137,15 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
           $ids                    .= $producto->id_producto.',';
 
           // REGISTRA LOS PRODUCTOS AL ARMADO
-          $productos_armado[$contador2]['id_producto']      = $producto->id_producto;
-          $productos_armado[$contador2]['cant']             = $producto->cant;
-          $productos_armado[$contador2]['produc']           = $producto->produc;
-          $productos_armado[$contador2]['sku']              = $producto->sku;
-          $productos_armado[$contador2]['pedido_armado_id'] = $armado_pedido->id;
-          $productos_armado[$contador2]['created_at']       = date("Y-m-d h:i:s");
-          $contador2 +=1;
+          $productos_armado_ped = new \App\Models\PedidoArmadoTieneProducto();
+          $productos_armado_ped->id_producto      = $producto->id_producto;
+          $productos_armado_ped->cant             = $producto->cant;
+          $productos_armado_ped->produc           = $producto->produc;
+          $productos_armado_ped->sku              = $producto->sku;
+          $productos_armado_ped->pedido_armado_id = $armado_pedido->id;
+          $productos_armado_ped->created_at       = date("Y-m-d h:i:s");
+          $productos_armado_ped->save();
+          $productos_armado_ped->productos_original()->attach($producto->id_producto);
         }
 
         // DISMINUYE EL STOCK DEL PRODUCTO QUE TIENE EL ARMADO
@@ -202,10 +204,6 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
           $direcciones[$contador3]['created_at']                = date("Y-m-d h:i:s");
           $contador3 +=1;
         }
-      }
-    //  dd(  $direcciones    );
-      if($productos_armado != null) {
-        \App\Models\PedidoArmadoTieneProducto::insert($productos_armado);
       }
       if($direcciones != null) {
         \App\Models\PedidoArmadoTieneDireccion::insert($direcciones);

@@ -39,4 +39,7 @@ class Producto extends Model {
   public function precios(){
     return $this->hasMany('App\Models\PrecioPorYear')->orderBy('id', 'DESC');
   }
+  public function productos_pedido(){
+    return $this->belongsToMany('App\Models\PedidoArmadoTieneProducto', 'prod_orig_tiene_prod_ped')->withTimestamps();
+  }
 }

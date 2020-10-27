@@ -576,6 +576,7 @@ return array(
     ''                        => 'Buscar por. . .',
     'serie'                   => 'Serie',
     'estat'                   => 'Estatus',
+    'num_pedido_gen'          => 'Num. Pedido generado',
     'valid'                   => 'Validez',
   //  'cliente.email_registro'  => 'Correo cliente',
     'tot'                     => 'Total',

@@ -32,7 +32,7 @@ class FacturaController extends Controller {
   }
   public function show($id_factura) {
     $factura = $this->facturaRepo->getFacturaFindOrFailById($id_factura, ['usuario', 'pago'], null);
-    $pago = $factura->pago;
+    $pago = $factura->pago()->with('pedido')->first();
     return view('factura.fac_show', compact('factura', 'pago'));
   }
   public function edit($id_factura) {

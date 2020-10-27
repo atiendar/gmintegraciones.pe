@@ -12,7 +12,11 @@ class generarReporteDeCompraExport implements FromView, ShouldQueue {
     use Exportable;
     public function view(): View {
         return view('almacen.producto.exports.alm_pro_exp_generarReporteDeCompra', [
-            'productos' => Producto::with('sustitutos')->orderBy('id', 'DESC')->get()
+            'productos' => Producto::with(['sustitutos', 'productos_pedido' => function($query) {
+                $query->with(['armado' => function($query) {
+                    $query->where('estat', config('app.pendiente'))->orWhere('estat', config('app.en_espera_de_compra'))->orWhere('estat', config('app.en_revision_de_productos'));
+                }]);
+            }])->orderBy('id', 'DESC')->get()
         ]);
     }
 }
