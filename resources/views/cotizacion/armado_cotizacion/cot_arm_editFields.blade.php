@@ -17,6 +17,9 @@
   @include('armado.arm_showFields.descuentoEspecial')
 </div>
 <div class="row">
+  @include('armado.arm_showFields.precioDeCompra')
+</div>
+<div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="cantidad">{{ __('Cantidad') }} *</label>
     <div class="input-group">

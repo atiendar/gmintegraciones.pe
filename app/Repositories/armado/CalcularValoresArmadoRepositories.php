@@ -10,6 +10,7 @@ class CalcularValoresArmadoRepositories implements CalcularValoresArmadoInterfac
   }
   public function calcularValoresArmado($armado, $productos) {
     $hastaC       = count($productos) - 1;
+    $prec_orig_proveedor  = 0;
     $prec_origin  = 0;
     $tamano       = null;
     $peso         = 0;
@@ -22,6 +23,9 @@ class CalcularValoresArmadoRepositories implements CalcularValoresArmadoInterfac
       }else {
         $cant = $productos[$contador2]->cant;
       }
+
+      // Calcular precio original con la suma de los productos precio proveedor
+      $prec_orig_proveedor += $productos[$contador2]->prec_prove * $cant;
 
       // Calcular nuevo precio
       $prec_origin += $productos[$contador2]->prec_clien * $cant;
@@ -44,6 +48,7 @@ class CalcularValoresArmadoRepositories implements CalcularValoresArmadoInterfac
       $armado->prec_origin   = $prec_origin-$armado->desc_esp;
     }
     
+    $armado->prec_de_comp  = $prec_orig_proveedor;
     $armado->tam           = $tamano;
     $armado->pes           = $peso;
     $armado->alto          = $alto;

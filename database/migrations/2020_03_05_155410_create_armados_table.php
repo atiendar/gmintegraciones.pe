@@ -29,6 +29,7 @@ class CreateArmadosTable extends Migration
             $table->string('sku',60)->unique()->comment('SKU');
             $table->string('gama', 150)->comment('Gama');
             $table->enum('dest', config('opcionesSelect.select_destacado'))->comment('Destacado');
+            $table->decimal('prec_de_comp',20,2)->unsigned()->default(0.00)->comment('Precio de compra');
             $table->decimal('prec_origin',20,2)->unsigned()->default(0.00)->comment('Precio original');
             $table->decimal('desc_esp',20,2)->unsigned()->default(0.00)->comment('Descuento especial');
             $table->decimal('prec_redond',20,2)->unsigned()->default(0.00)->comment('Precio redondeado');
