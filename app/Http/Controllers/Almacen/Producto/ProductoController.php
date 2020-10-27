@@ -94,7 +94,7 @@ class ProductoController extends Controller {
   }
   public function generarReporteDeCompra(ArchivoGeneradoRepositories $archivoGeneradoRepo) {
 
-return (new \App\Exports\almacen\producto\generarReporteDeCompraExport)->download('ssss.xlsx')
+return (new \App\Exports\almacen\producto\generarReporteDeCompraExport)->download('ssss.xlsx');
 
 
     $info_archivo = (object) [
