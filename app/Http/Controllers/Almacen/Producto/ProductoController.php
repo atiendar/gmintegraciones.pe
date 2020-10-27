@@ -93,10 +93,8 @@ class ProductoController extends Controller {
     return back();
   }
   public function generarReporteDeCompra(ArchivoGeneradoRepositories $archivoGeneradoRepo) {
-
-return (new \App\Exports\almacen\producto\generarReporteDeCompraExport)->download('ssss.xlsx');
-
-
+    return (new \App\Exports\almacen\producto\generarReporteDeCompraExport)->download('ReporteDeCompra-'.date('Y-m-d').'.xlsx');
+  /*
     $info_archivo = (object) [
       'tip'             => 'XLSX', // Tipo de archivo (JPG, PNG, PDF, XLM, XLSX, ETC) siempre en mayusculas
       'arch_rut'        => env('PREFIX'), // Ruta de donde se guardara el archivo (Mismo que se espesifica en el archivo config/filesystems.php)
@@ -108,6 +106,7 @@ return (new \App\Exports\almacen\producto\generarReporteDeCompraExport)->downloa
     $archivoGeneradoRepo->store($info_archivo, $tipo);
     toastr()->success('¡El reporte se esta generando una vez que haya terminado se mostrará en la barra superior!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
+  */
   }
   public function generarReporteDeStock(ArchivoGeneradoRepositories $archivoGeneradoRepo) {
     $info_archivo = (object) [

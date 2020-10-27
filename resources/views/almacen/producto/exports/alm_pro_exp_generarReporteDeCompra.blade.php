@@ -7,7 +7,7 @@
     <th>CANTIDAD VENDIDA</th>
     <th>STOCK</th>
     <th>EXISTENCIA EQUIVALENTE</th>
-    <th>ARMADO</th>
+    <th>ARMADOS PENDIENTES</th>
   </tr>
   </thead>
   <tbody>
