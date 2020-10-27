@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 // Models
 use App\Models\Producto;
 
-class generarReporteDeCompraExport implements FromView, ShouldQueue {
+class generarReporteDeCompraExport implements FromView {
     use Exportable;
     public function view(): View {
 
