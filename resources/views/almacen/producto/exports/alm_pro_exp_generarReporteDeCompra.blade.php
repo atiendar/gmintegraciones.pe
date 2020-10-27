@@ -27,7 +27,9 @@
       </td>
       <td>
         @foreach($producto->productos_pedido as $producto_pedido)
-        
+          @if($producto_pedido->armado != null)
+            ({{ $producto_pedido->armado->cod }}) - {{ $producto_pedido->armado->cant * $producto_pedido->cant }}<br>
+          @endif
         @endforeach
       </td>
     </tr>
