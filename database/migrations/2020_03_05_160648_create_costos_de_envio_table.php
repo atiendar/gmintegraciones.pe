@@ -24,6 +24,10 @@ class CreateCostosDeEnvioTable extends Migration
         $table->string('cant', 10)->nullable()->comment('Cantidad');
         $table->string('trans', 100)->nullable()->comment('Transporte');
         $table->string('est', 150)->comment('Estado');
+
+        $table->enum('tot_unit', ['Total','Unitario'])->nullable()->comment('Total o unitario');
+
+
         $table->string('mun', 150)->nullable()->comment('Municipio');
         $table->string('tip_env', 80)->nullable()->comment('Tipo de envío');
         $table->enum('tam', config('opcionesSelect.select_tamano'))->comment('Tamaño');
@@ -32,6 +36,8 @@ class CreateCostosDeEnvioTable extends Migration
         $table->enum('seg',config('opcionesSelect.select_si_no'))->comment('Cuenta con seguro');
         $table->string('tiemp_ent', 25)->comment('Tiempo de entrega en dias');
         $table->decimal('cost_por_env',20,2)->unsigned()->comment('Costo por envío');
+        $table->text('registr')->nullable()->comment('Registro campo para validacion de unico de entrega en dias');
+
         $table->string('asignado_env', 75)->comment('Correo del usuario al qu se le asigno este registro');
         $table->string('created_at_env',75)->comment('Correo del usuario que realizo el registro');
         $table->string('updated_at_env',75)->nullable()->comment('Correo del usuario que realizo la última modificación');

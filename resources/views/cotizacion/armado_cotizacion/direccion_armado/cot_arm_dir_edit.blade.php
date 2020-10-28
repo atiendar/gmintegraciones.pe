@@ -47,6 +47,7 @@
       cantid:                       "{{ $direccion->cant }}",
       transporte:                   "{{ $direccion->trans }}",
       estado_al_que_se_cotizo:      "{{ $direccion->est }}",
+      total_o_unitario:             "{{ $direccion->tot_unit }}",
       municipio:                    "{{ $direccion->mun }}",
       tipo_de_envio:                "{{ $direccion->tip_env }}",
       taman:                        "{{ $direccion->tam }}",
@@ -133,6 +134,7 @@
         this.cantid                       = costo_env.cant
         this.transporte                   = costo_env.trans
         this.estado_al_que_se_cotizo      = costo_env.est
+        this.total_o_unitario             = costo_env.tot_unit
         this.municipio                    = costo_env.mun
         this.tipo_de_envio                = costo_env.tip_env
         this.taman                        = costo_env.tam
@@ -146,13 +148,25 @@
       async getCostoDeEnvio() {
         // VERIFICA SI EL OBJETO "costo_seleccionado" ESTA VACIO O NO
         if(Object.keys(this.costo_seleccionado).length === 0) {
-          if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo' || this.estado_al_que_se_cotizo == 'Ciudad de México (Ciudad de México)' || this.estado_al_que_se_cotizo == 'México (Edo. México)') {
+          if(this.estado_al_que_se_cotizo == 'Ciudad de México (Ciudad de México)' || this.estado_al_que_se_cotizo == 'México (Edo. México)') {
+            if(this.total_o_unitario == 'Total') {
+              this.cost_por_env = parseFloat(this.costo_de_envio_individual)
+            } else if(this.total_o_unitario == 'Unitario') {
+              this.cost_por_env = parseFloat(this.costo_de_envio_individual) * parseFloat(this.cantidad)
+            }
+          } else if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo') {
             this.cost_por_env = parseFloat(this.costo_de_envio_individual)
           } else {
             this.cost_por_env = parseFloat(this.costo_de_envio_individual) * parseFloat(this.cantidad)
           }
         } else {
-          if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo' || this.estado_al_que_se_cotizo == 'Ciudad de México (Ciudad de México)' || this.estado_al_que_se_cotizo == 'México (Edo. México)') {
+          if(this.estado_al_que_se_cotizo == 'Ciudad de México (Ciudad de México)' || this.estado_al_que_se_cotizo == 'México (Edo. México)') {
+            if(this.total_o_unitario == 'Total') {
+              this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env)
+            } else if(this.total_o_unitario == 'Unitario') {
+              this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env) * parseFloat(this.cantidad)
+            }
+          } else if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo') {
             this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env)
           } else {
             this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env) * parseFloat(this.cantidad)

@@ -47,12 +47,14 @@
       unitario_o_total:               "unitario",
       municipios:                     [],
 
+      concatenado:                  "",
       foraneo_o_local:              "{{ $costo_de_envio->for_loc }}",
       metodo_de_entrega:            "{{ $costo_de_envio->met_de_entreg }}",
       metodo_de_entrega_especifico: "{{ $costo_de_envio->met_de_entreg_esp }}",
       cantidad:                     "{{ $costo_de_envio->cant }}",
       transporte:                   "{{ $costo_de_envio->trans }}",
       estado:                       "{{ $costo_de_envio->est }}",
+      total_o_unitario:             "{{ $costo_de_envio->tot_unit }}",
       municipio:                    "{{ $costo_de_envio->mun }}",
       tipo_de_envio:                "{{ $costo_de_envio->tip_env }}",
       tamano:                       "{{ $costo_de_envio->tam }}",
@@ -110,13 +112,16 @@
         }).then((result) => {
           if (result.value) {
             this.checarBotonSubmitDisabled("btnsubmit")
+            this.getConcatenado()
             axios.put('/costo-de-envio/actualizar/'+{{ $costo_de_envio->id }}, {
+              registro:                     this.concatenado,
               foraneo_o_local:              this.foraneo_o_local,
               metodo_de_entrega:            this.metodo_de_entrega,
               metodo_de_entrega_especifico: this.metodo_de_entrega_especifico,
               cantidad:                     this.cantidad,
               transporte:                   this.transporte,
               estado:                       this.estado,
+              total_o_unitario:             this.total_o_unitario,
               municipio:                    this.municipio,
               tipo_de_envio:                this.tipo_de_envio,
               tamano:                       this.tamano,
@@ -146,6 +151,51 @@
           }
         });
       },
+      async getConcatenado() {
+        this.concatenado = ""
+        if(this.foraneo_o_local != null) {
+          this.concatenado += this.foraneo_o_local
+        }
+        if(this.metodo_de_entrega != null) {
+          this.concatenado += this.metodo_de_entrega
+        }
+        if(this.metodo_de_entrega_especifico != null) {
+          this.concatenado += this.metodo_de_entrega_especifico
+        }
+        if(this.cantidad != null) {
+          this.concatenado += this.cantidad
+        }
+        if(this.transporte != null) {
+          this.concatenado += this.transporte
+        }
+        if(this.estado != null) {
+          this.concatenado += this.estado
+        }
+        if(this.total_o_unitario != null) {
+          this.concatenado += this.total_o_unitario
+        }
+        if(this.municipio != null) {
+          this.concatenado += this.municipio
+        }
+        if(this.tipo_de_envio != null) {
+          this.concatenado += this.tipo_de_envio
+        }
+        if(this.tamano != null) {
+          this.concatenado += this.tamano
+        }
+        if(this.aplicar_costo_de_caja != null) {
+          this.concatenado += this.aplicar_costo_de_caja
+        }
+        if(this.cuenta_con_seguro != null) {
+          this.concatenado += this.cuenta_con_seguro
+        }
+        if(this.tiempo_de_entrega != null) {
+          this.concatenado += this.tiempo_de_entrega
+        }
+        if(this.costo_por_envio != null) {
+          this.concatenado += this.costo_por_envio
+        }
+      },
       async getMetodosDeEntrega($val) {
         if($val == 2) {
           this.metodo_de_entrega            = null
@@ -153,11 +203,15 @@
           this.cantidad                     = null
           this.transporte                   = null
           this.estado                       = null
+          this.total_o_unitario             = null
           this.tipo_de_envio                = null
           this.getUnitarioOTotal()
 
           metodo_de_entrega_especifico  = document.getElementById('metodo_de_entrega_especifico')
           metodo_de_entrega_especifico.style.display = 'none';
+
+          divtotal_o_unitario  = document.getElementById('divtotal_o_unitario')
+          divtotal_o_unitario.style.display = 'none';
 
           cantidad  = document.getElementById('divcantidad')
           cantidad.style.display = 'none';
@@ -328,6 +382,8 @@
       async getForLoc() {
         if(this.foraneo_o_local == 'Local') {
           this.tiempo_de_entrega = 'De 1 a 4 dias'
+          divtotal_o_unitario  = document.getElementById('divtotal_o_unitario')
+          divtotal_o_unitario.style.display = 'block';
         } else {
           this.tiempo_de_entrega = 'De 7 a 10 dias'
         }

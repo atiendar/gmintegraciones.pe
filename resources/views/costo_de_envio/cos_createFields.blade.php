@@ -1,5 +1,10 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
+    <span v-if="errors.registro" class="text-danger border border-danger p-2 rounded" v-text="errors.registro[0]"></span>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
     <label for="foraneo_o_local">{{ __('Foráneo o local') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
@@ -93,6 +98,16 @@
       </select>
     </div>
     <span v-if="errors.municipio" class="text-danger" v-text="errors.municipio[0]"></span>
+  </div>
+  <div class="form-group col-sm btn-sm" id="divtotal_o_unitario" style="display:none">
+    <label for="total_o_unitario">{{ __('Total o unitario') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+      </div>
+      {!! Form::select('total_o_unitario', ['Unitario' => 'Unitario','Total' => 'Total'], null, ['v-model' => 'total_o_unitario','id' => 'total_o_unitario', 'class' => 'form-control select2' . ($errors->has('total_o_unitario') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+    </div>
+    <span v-if="errors.total_o_unitario" class="text-danger" v-text="errors.total_o_unitario[0]"></span>
   </div>
 </div>
 <div class="row">

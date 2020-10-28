@@ -74,7 +74,9 @@
             <td v-text="costo.cost_tam_caj"></td>
             <td v-text="costo.seg"></td>
             <td v-text="costo.tiemp_ent"></td>
-            <td v-text="costo.cost_por_env"></td>
+            <td v-if="costo.tot_unit == 'Total'">@{{costo.cost_por_env}} (T)</td>
+            <td v-if="costo.tot_unit == 'Unitario'">@{{costo.cost_por_env}} (U)</td>
+            <td v-if="costo.tot_unit == null">@{{costo.cost_por_env}}</td>
             <td width="1rem" title="Seleccionar">
               <a href="" class="btn btn-light btn-sm" @click.prevent="getCostoSeleccionado(costo)"><i class="fas fa-check"></i></a>
             </td>

@@ -25,6 +25,7 @@ class CreateCotizacionArmadoTieneDireccionesTable extends Migration
             $table->string('cantt', 10)->nullable()->comment('Cantidad de productos');
             $table->string('trans', 100)->nullable()->comment('Transporte');
             $table->string('est', 150)->comment('Estado');
+            $table->enum('tot_unit', ['Total','Unitario'])->nullable()->comment('Total o unitario');
             $table->string('mun', 150)->nullable()->comment('Municipio');
             $table->string('tip_env', 80)->nullable()->comment('Tipo de envío');
             $table->enum('tam', config('opcionesSelect.select_tamano'))->comment('Tamaño');

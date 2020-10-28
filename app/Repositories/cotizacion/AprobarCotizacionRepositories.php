@@ -162,6 +162,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
 
           $direcciones[$contador3]['cod']                       = $this->sumaUnoALaUltimaLetraDireccionesCargadas($armado_pedido);
           $direcciones[$contador3]['cant']                      = $direccion->cant;
+          $direcciones[$contador3]['tip_tarj_felic']            = 'Estandar';
           $direcciones[$contador3]['met_de_entreg']             = $direccion->met_de_entreg;
           $direcciones[$contador3]['est']                       = $direccion->est;
           $direcciones[$contador3]['for_loc']                   = $direccion->for_loc;

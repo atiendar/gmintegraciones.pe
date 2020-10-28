@@ -36,10 +36,12 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
       $costo_de_envio->cant               = $request->cantidad;
       $costo_de_envio->trans              = $request->transporte;
       $costo_de_envio->est                = $request->estado;
+      $costo_de_envio->tot_unit           = $request->total_o_unitario;
       $costo_de_envio->mun                = $request->municipio;
       $costo_de_envio->tip_env            = $request->tipo_de_envio;
       $costo_de_envio->tam                = $request->tamano;
       $costo_de_envio->aplic_cos_caj      = $request->aplicar_costo_de_caja;
+      $costo_de_envio->registr            = $request->foraneo_o_local.$request->metodo_de_entrega.$request->metodo_de_entrega_especifico.$request->cantidad.$request->transporte.$request->estado.$request->total_o_unitario.$request->municipio.$request->tipo_de_envio.$request->tamano.$request->aplicar_costo_de_caja.$request->cuenta_con_seguro.$request->tiempo_de_entrega.$request->costo_por_envio;
 
       $costo = 0;
       if($costo_de_envio->aplic_cos_caj == 'Si') {
@@ -91,6 +93,7 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
       $costo_de_envio->cant               = $request->cantidad;
       $costo_de_envio->trans              = $request->transporte;
       $costo_de_envio->est                = $request->estado;
+      $costo_de_envio->tot_unit           = $request->total_o_unitario;
       $costo_de_envio->mun                = $request->municipio;
       $costo_de_envio->tip_env            = $request->tipo_de_envio;
       $costo_de_envio->tam                = $request->tamano;
@@ -137,12 +140,13 @@ class CostoDeEnvioRepositories implements CostoDeEnvioInterface {
           'costoDeEnvio.show', // Nombre de la ruta
           $this->serviceCrypt->encrypt($id_costo), // Id del registro debe ir encriptado
           $id_costo, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Foráneo o local', 'Método de entrega', 'Método de entrega especifico', 'Cantidad', 'Transporte', 'Estado', 'Municipio', 'Tipo de envío', 'Tamaño', 'Aplicar costos de caja', 'Costo de caja', 'Cuenta con seguro', 'Tiempo de entrega (Dias)', 'Costo por envío'), // Nombre de los inputs del formulario
+          array('Foráneo o local', 'Método de entrega', 'Método de entrega especifico', 'Cantidad', 'Transporte', 'Estado', 'Total o unitario', 'Municipio', 'Tipo de envío', 'Tamaño', 'Aplicar costos de caja', 'Costo de caja', 'Cuenta con seguro', 'Tiempo de entrega (Dias)', 'Costo por envío'), // Nombre de los inputs del formulario
           $costo_de_envio, // Request
-          array('for_loc', 'met_de_entreg', 'met_de_entreg_esp', 'cant', 'trans', 'est', 'mun', 'tip_env', 'tam', 'aplic_cos_caj', 'cost_tam_caj', 'seg', 'tiemp_ent', 'cost_por_env') // Nombre de los campos en la BD
+          array('for_loc', 'met_de_entreg', 'met_de_entreg_esp', 'cant', 'trans', 'est', 'tot_unit', 'mun', 'tip_env', 'tam', 'aplic_cos_caj', 'cost_tam_caj', 'seg', 'tiemp_ent', 'cost_por_env') // Nombre de los campos en la BD
         ); 
         $costo_de_envio->updated_at_env  = Auth::user()->email_registro;
       }
+      $costo_de_envio->registr            = $request->foraneo_o_local.$request->metodo_de_entrega.$request->metodo_de_entrega_especifico.$request->cantidad.$request->transporte.$request->estado.$request->total_o_unitario.$request->municipio.$request->tipo_de_envio.$request->tamano.$request->aplicar_costo_de_caja.$request->cuenta_con_seguro.$request->tiempo_de_entrega.$request->costo_por_envio;
       $costo_de_envio->save();
 
       DB::commit();

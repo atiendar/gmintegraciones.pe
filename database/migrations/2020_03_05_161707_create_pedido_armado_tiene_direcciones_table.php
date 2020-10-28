@@ -22,7 +22,7 @@ class CreatePedidoArmadoTieneDireccionesTable extends Migration
             $table->string('regresado',10)->default('Falso')->comment('Opción para bloquear el editar las direcciones si el armado se refresa de logística a producción (falso o verdadero)');  
             $table->integer('cant')->unsigned()->comment('Cantidad');
             $table->string('estat',70)->default('Pendiente')->comment('Estatus');
-            $table->string('tip_tarj_felic',30)->nullable()->comment('Tipo de tarjeta de felicitación');
+            $table->string('tip_tarj_felic',30)->default('Estandar')->comment('Tipo de tarjeta de felicitación');
             $table->text('mens_dedic')->nullable()->comment('Mensaje dedicatoria');
             $table->string('tarj_dise_rut',200)->nullable()->comment('Ruta tarjeta diseñada');
             $table->string('tarj_dise_nom',200)->nullable()->comment('Nombre tarjeta diseñada');

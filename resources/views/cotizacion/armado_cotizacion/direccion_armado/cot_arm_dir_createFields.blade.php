@@ -68,6 +68,15 @@
         {!! Form::text('municipio', null, ['v-model' => 'municipio', 'class' => 'form-control form-control-sm disabled', 'maxlength' => 0, 'placeholder' => __('Municipio'), 'readonly' => 'readonly']) !!}  
       </div>
     </div>
+    <div class="form-group col-sm btn-sm">
+      <label for="total_o_unitario">{{ __('Total o unitario') }}</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+        </div>
+        {!! Form::text('total_o_unitario', null, ['v-model' => 'total_o_unitario', 'class' => 'form-control form-control-sm disabled', 'maxlength' => 0, 'placeholder' => __('Total o unitario'), 'readonly' => 'readonly']) !!}  
+      </div>
+    </div>
   </div>
   <div class="row">
     <div class="form-group col-sm btn-sm">

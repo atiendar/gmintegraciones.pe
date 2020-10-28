@@ -48,6 +48,7 @@
       cantid:                       null,
       transporte:                   null,
       estado_al_que_se_cotizo:      null,
+      total_o_unitario:             null,
       municipio:                    null,
       tipo_de_envio:                null,
       taman:                        null,
@@ -120,6 +121,7 @@
         this.cantid                       = costo_env.cant
         this.transporte                   = costo_env.trans
         this.estado_al_que_se_cotizo      = costo_env.est
+        this.total_o_unitario             = costo_env.tot_unit
         this.municipio                    = costo_env.mun
         this.tipo_de_envio                = costo_env.tip_env
         this.taman                        = costo_env.tam
@@ -131,7 +133,13 @@
         this.getCostoDeEnvio()
       },
       async getCostoDeEnvio() {
-        if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo' || this.estado_al_que_se_cotizo == 'Ciudad de México (Ciudad de México)' || this.estado_al_que_se_cotizo == 'México (Edo. México)') {
+        if(this.estado_al_que_se_cotizo == 'Ciudad de México (Ciudad de México)' || this.estado_al_que_se_cotizo == 'México (Edo. México)') {
+          if(this.total_o_unitario == 'Total') {
+            this.cost_por_env = parseFloat(this.costo_de_envio_individual)
+          } else if(this.total_o_unitario == 'Unitario') {
+            this.cost_por_env = parseFloat(this.costo_de_envio_individual) * parseFloat(this.cantidad)
+          }
+        }else if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo') {
           this.cost_por_env = parseFloat(this.costo_de_envio_individual)
         } else {
           this.cost_por_env = parseFloat(this.costo_de_envio_individual) * parseFloat(this.cantidad)
