@@ -83,13 +83,16 @@ class AppServiceProvider extends ServiceProvider {
       return true; 
     });
     Validator::extend('alpha_solo_facturar_si_ya_esta_pagado', function ($attribute, $value) { // Validación
-      $resultado = \App\Models\Pago::where('cod_fact', $value)->first('estat_pag');
+      $resultado = \App\Models\Pago::where('cod_fact', $value)->first(['estat_pag','not']);
 
       if($resultado == null) {
         return false;
       }
 
       if($resultado->estat_pag != config('app.aprobado')) {
+        if($resultado->not != null) {
+          return true;
+        }
         return false;
       }
 

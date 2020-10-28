@@ -19,7 +19,7 @@
         {{ __('Reportes') }}
       </button>
       <div class="dropdown-menu">
-        {!! Form::open(['route' => 'almacen.producto.generarReporteDeCompra', 'method' => 'get', 'onsubmit' => 'return checarBotonSubmit("btnsubmit1")']) !!}
+        {!! Form::open(['route' => 'almacen.producto.generarReporteDeCompra', 'method' => 'get']) !!}
           <button type="submit" id="btnsubmit1" class="dropdown-item"><i class="fas fa-file-excel"></i>  {{ __('Reporte de compra') }}</button>
         {!! Form::close() !!}
         

@@ -13,6 +13,7 @@
   @include('armado.arm_showFields.urlPagina')
 </div>
 <div class="row">
+  @include('armado.arm_showFields.precioDeCompra')
   @include('armado.arm_showFields.descuentoEspecial')
 </div>
 <div class="row">

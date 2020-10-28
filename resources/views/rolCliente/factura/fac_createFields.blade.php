@@ -12,7 +12,7 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="datos_fiscales">{{ __('Datos fiscales') }}</label>
-    <a href="{{ route('rolCliente.datoFiscal.create') }}" class="btn btn-success btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar dato fiscal') }}</a>
+    <a href="{{ route('rolCliente.datoFiscal.create') }}" class="btn btn-success btn-sm rounded ml-3 p-1" target="_blank">{{ __('Registrar datos fiscales') }}</a>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
