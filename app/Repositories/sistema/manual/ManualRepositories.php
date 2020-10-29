@@ -102,7 +102,7 @@ class ManualRepositories implements ManualInterface {
       $this->papeleraDeReciclajeRepo->store([
         'modulo'      => 'Sistema (Manuales)', // Nombre del módulo del sistema
         'registro'    => $manual->valor, // Información a mostrar en la papelera
-        'tab'         => 'manual', // Nombre de la tabla en la BD
+        'tab'         => 'manuales', // Nombre de la tabla en la BD
         'id_reg'      => $manual->id, // ID de registro eliminado
         'id_fk'       => null // ID de la llave foranea con la que tiene relación          
       ]);

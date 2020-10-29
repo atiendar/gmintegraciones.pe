@@ -44,7 +44,7 @@ class DireccionArmadoRepositories implements DireccionInterface {
           'venta.pedidoActivo.armado.direccion.show', // Nombre de la ruta
           $id_direccion, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_direccion), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Tipo de tarjeta de felicitación', 'Mensaje de dedicatoria', 'Nombre de referencia uno', 'Nombre de referencia dos', 'Lada teléfono fijo', 'Teléfono fijo', 'Extensión', 'Lada teléfono móvil', 'Teléfono móvil', 'Calle ', 'No. Exterior', 'No. Interior', 'País', 'Ciudad', 'Colonia', 'Delegación o municipio', 'Código postal', 'Referencias zona de entrega'), // Nombre de los inputs del formulario
+          array('Tipo de tarjeta de felicitación', 'Mensaje de dedicatoria', 'Nombre de la persona que recibe uno', 'Nombre de la persona que recibe dos', 'Lada teléfono fijo', 'Teléfono fijo', 'Extensión', 'Lada teléfono móvil', 'Teléfono móvil', 'Calle ', 'No. Exterior', 'No. Interior', 'País', 'Ciudad', 'Colonia', 'Delegación o municipio', 'Código postal', 'Referencias zona de entrega'), // Nombre de los inputs del formulario
           $direccion, // Request
           array('tip_tarj_felic', 'mens_dedic', 'nom_ref_uno', 'nom_ref_dos', 'lad_fij', 'tel_fij', 'ext', 'lad_mov', 'tel_mov', 'calle', 'no_ext', 'no_int', 'pais', 'ciudad', 'col', 'del_o_munic', 'cod_post', 'ref_zon_de_entreg') // Nombre de los campos en la BD
         ); 

@@ -321,8 +321,8 @@ return array(
   'select_direcciones_index'      => [
     ''              => 'Buscar por. . .',
     'id'            => 'ID',
-    'nom_ref_uno'   => 'Nombre de referencia uno',
-    'nom_ref_dos'   => 'Nombre de referencia dos',
+    'nom_ref_uno'   => 'Nombre de la persona que recibe uno',
+    'nom_ref_dos'   => 'Nombre de la persona que recibe dos',
     'pais'          => 'País',
     'ciudad'        => 'Ciudad',
     'col'           => 'Colonia',

@@ -29,8 +29,8 @@
 <script>
   $("#direcciones").change(function(event){
     $.get("/rc/direccion-de-entrega/obtener/"+event.target.value+"",function(response,b_rfc) {
-      $("#nombre_de_referencia_uno").val(response.nom_ref_uno);
-      $("#nombre_de_referencia_dos").val(response.nom_ref_dos);
+      $("#nombre_de_la_persona_que_recibe_uno").val(response.nom_ref_uno);
+      $("#nombre_de_la_persona_que_recibe_dos").val(response.nom_ref_dos);
       $("#lada_telefono_fijo").val(response.lad_fij);
       $("#telefono_fijo").val(response.tel_fij);
       $("#extension").val(response.ext);

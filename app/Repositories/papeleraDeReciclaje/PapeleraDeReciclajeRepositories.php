@@ -17,6 +17,7 @@ use App\Repositories\papeleraDeReciclaje\tabla\cotizaciones\CotizacionesReposito
 use App\Repositories\papeleraDeReciclaje\tabla\inventarioEquipos\InventarioEquiposRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\inventarioEquipos\InventarioEquiposImagenesRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\soportes\SoportesRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\manual\ManualRepositories;
 //Otro
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -36,6 +37,7 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
   protected $inventarioEquiposRepo;
   protected $inventarioEquiposImagenesRepo;
   protected $soportesRepo;
+  protected $manualRepo;
   public function __construct(ServiceCrypt $serviceCrypt, 
                               UsuariosRepositories $usuariosRepositories, 
                               PlantillasRepositories $plantillasRepositories, 
@@ -48,7 +50,8 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
                               CotizacionesRepositories $cotizacionesRepositories,
                               InventarioEquiposRepositories $inventarioEquiposRepositories,
                               InventarioEquiposImagenesRepositories $inventarioEquiposImagenesRepositories,
-                              SoportesRepositories $soportesRepositories
+                              SoportesRepositories $soportesRepositories,
+                              ManualRepositories $manualRepositories
   ) {
     $this->serviceCrypt                   = $serviceCrypt;
     $this->usuariosRepo                   = $usuariosRepositories;
@@ -63,6 +66,7 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
     $this->inventarioEquiposRepo          = $inventarioEquiposRepositories;
     $this->inventarioEquiposImagenesRepo  = $inventarioEquiposImagenesRepositories;
     $this->soportesRepo                   = $soportesRepositories;
+    $this->manualRepo                     = $manualRepositories;
   }
   public function papeleraAsignadoFindOrFailById($id_registro) {
     $id_registro = $this->serviceCrypt->decrypt($id_registro);
@@ -208,7 +212,10 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
       }
       $this->inventarioEquiposImagenesRepo->metodo($metodo, $consulta);      
     }
-
+    if($registro->tab == 'manuales') {
+      $consulta = \App\Models\Manual::withTrashed()->findOrFail($registro->id_reg);
+      $this->manualRepo->metodo($metodo, $consulta);
+    }
     if($consulta == null) {return abort(403, 'Registro no encontrado.');} // ABORTA LA OPERACIÓN EN CASO DE QUE LA CONSULTA SEA NULL
     return [
       'consulta'              => $consulta,

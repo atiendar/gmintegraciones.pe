@@ -38,8 +38,8 @@
         </dt>
         @if($direccion->nom_ref_uno != null)
           <p>
-            <strong>Nombre de referencia uno: </strong>{{ $direccion->nom_ref_uno }}<br>
-            <strong>Nombre de referencia dos: </strong>{{ $direccion->nom_ref_dos }}<br>
+            <strong>Nombre de la persona que recibe uno: </strong>{{ $direccion->nom_ref_uno }}<br>
+            <strong>Nombre de la persona que recibe dos: </strong>{{ $direccion->nom_ref_dos }}<br>
 
             <strong>Teléfono fijo: </strong>({{ $direccion->lad_fij }}) {{ $direccion->tel_fij }} <strong>Ext.</strong> {{ $direccion->ext }},
             <strong>Teléfono móvil: </strong>({{ $direccion->lad_mov }}) {{ $direccion->tel_mov }}<br>
