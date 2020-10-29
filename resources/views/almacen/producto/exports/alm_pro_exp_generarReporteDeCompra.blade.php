@@ -7,7 +7,7 @@
     <th>CANTIDAD VENDIDA</th>
     <th>STOCK</th>
     <th>EXISTENCIA EQUIVALENTE</th>
-    <th>ARMADOS PENDIENTES</th>
+    <th>ARMADOS</th>
   </tr>
   </thead>
   <tbody>
@@ -27,7 +27,7 @@
         @foreach($producto->productos_pedido as $producto_pedido)
           @if($producto_pedido->armado != null)
 
-            @if($producto_pedido->estat == config('app.pendiente') OR $producto_pedido->estat == config('app.en_espera_de_compra') OR $producto_pedido->estat == config('app.en_revision_de_productos'))
+            @if($producto_pedido->armado->estat == config('app.pendiente') OR $producto_pedido->armado->estat == config('app.en_espera_de_compra') OR $producto_pedido->armado->estat == config('app.en_revision_de_productos'))
             @else
               [Ent]
             @endif
