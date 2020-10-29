@@ -19,16 +19,21 @@
       <td>{{ $producto->vend }}</td>
       <td>{{ $producto->stock }}</td>
       <td>
-        @php $suma = 0 @endphp
         @foreach($producto->sustitutos as $sustituto)
-          @php $suma += $sustituto->stock @endphp
+          {{ $sustituto->produc }} - ({{ $sustituto->stock }})<br>
         @endforeach
-        {{ $suma }}
       </td>
       <td>
         @foreach($producto->productos_pedido as $producto_pedido)
           @if($producto_pedido->armado != null)
+
+            @if($producto_pedido->estat == config('app.pendiente') OR $producto_pedido->estat == config('app.en_espera_de_compra') OR $producto_pedido->estat == config('app.en_revision_de_productos'))
+            @else
+              [Ent]
+            @endif
+          
             ({{ $producto_pedido->armado->cod }}) - {{ $producto_pedido->armado->cant * $producto_pedido->cant }}<br>
+
           @endif
         @endforeach
       </td>

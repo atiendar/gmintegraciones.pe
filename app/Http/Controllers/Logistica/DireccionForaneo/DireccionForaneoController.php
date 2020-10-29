@@ -38,7 +38,7 @@ class DireccionForaneoController extends Controller {
   public function edit($id_direccion) {
     $direccion  = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Foráneo'), [], 'edit', true);
     $armado     = $direccion->armado;
-    $productos  = $armado->productos()->with('sustitutos')->get();
+    $productos  = $armado->productos()->with(['sustitutos', 'productos_original'])->get();
     return view('logistica.pedido.direccion_foraneo.dirFor_edit', compact('direccion', 'armado', 'productos'));
   }
   public function update(UpdateEstatusDireccionRequest $request, $id_direccion) {
