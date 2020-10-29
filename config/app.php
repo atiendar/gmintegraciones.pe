@@ -357,6 +357,7 @@ return [
 /* ===================== [ SISTEMA ] ===================== */
         'Debugbar'      => Barryvdh\Debugbar\Facade::class,
         'Sistema'       => \App\Models\Sistema::class,
+        'Manual'        => \App\Models\Manual::class,
         'Image' => Intervention\Image\Facades\Image::class
     ],
 ];

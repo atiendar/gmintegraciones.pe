@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
         SoporteArchivosTableSeeder::class,
         HistorialesArchivosTableSeeder::class,
         MaterialTableSeeder::class,
+        ManualesTableSeeder::class,
       ]);
     }
 }

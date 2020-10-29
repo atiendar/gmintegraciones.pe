@@ -786,6 +786,7 @@ return array(
   ],
   'select_costos_de_envio_index'  => [
     ''              => 'Buscar por. . .',
+    'id'            => '#',
     'cost_por_env'  => 'Costo por envío',
     'est'           => 'Estado',
     'met_de_entreg' => 'Método de entrega',
@@ -879,5 +880,11 @@ return array(
     'prec_list_pag'   => 'Precio Lista Pagina',
     'prec_pag_al_cli' => 'Precio a cliente',
     'created_at'      => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+/* ====================== [ MANUALES ] ===================== */
+  'select_usu_cli_ambos' => [ 
+    'Usuario' => 'Usuario',
+    'Cliente' => 'Cliente',
+    'Ambos'   => 'Ambos',
   ],
 );

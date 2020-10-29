@@ -12,7 +12,7 @@
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
     <h3><i class="icon fas fa-info"></i> Info</h3>
     <h4>
-      Bienvenido a {{ Sistema::datos()->sistemaFindOrFail()->emp }} en este portal podrás darle seguimiento a tus pedido, solicitar tus facturas y registrar tus pagos.
+      {{ __('Bienvenido a') }} {{ Sistema::datos()->sistemaFindOrFail()->emp }} {{ __('en este portal podrás darle seguimiento a tus pedidos, solicitar tus facturas y registrar tus pagos') }}.
     </h4>
   </div>
 
