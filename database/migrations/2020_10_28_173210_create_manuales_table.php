@@ -20,7 +20,7 @@ class CreateManualesTable extends Migration
             $table->bigIncrements('id');
 
             $table->enum('usu_cli_ambos', config('opcionesSelect.select_usu_cli_ambos'))->comment('Usuario, cliente o ambos');
-            $table->string('valor', 150)->comment('Valor que se guardara en la BD');
+            $table->string('valor', 150)->unique()->comment('Valor que se guardara en la BD');
             $table->string('rut', 200)->nullable()->comment('Ruta de donde se guardo');
             $table->string('nom', 200)->nullable()->comment('Nombre del archivo');
 

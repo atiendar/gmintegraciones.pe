@@ -882,6 +882,12 @@ return array(
     'created_at'      => 'Fecha de registro (YYYY-MM-DD)',
   ],
 /* ====================== [ MANUALES ] ===================== */
+'select_manual_index' => [ 
+  ''            => 'Buscar por. . .',
+  'id'          => 'Id',
+  'valor'       => 'Valor',
+  'created_at'  => 'Fecha de registro (YYYY-MM-DD)',
+],
   'select_usu_cli_ambos' => [ 
     'Usuario' => 'Usuario',
     'Cliente' => 'Cliente',

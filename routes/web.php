@@ -65,6 +65,7 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
 
     Route::group(['prefix' => 'sistema'], function() {
       require_once __DIR__ . '/sistema/sistemaRoutes.php';
+      require_once __DIR__ . '/sistema/manualRoutes.php';
       require_once __DIR__ . '/sistema/plantillaRoutes.php';
       require_once __DIR__ . '/sistema/notificacionRoutes.php';
       require_once __DIR__ . '/sistema/actividadRoutes.php';

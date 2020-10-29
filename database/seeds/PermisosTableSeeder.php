@@ -1182,5 +1182,41 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Consultar precio de cualquier registro del módulo 'Materiales'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+    // PERMISOS DEL MÓDULO SISTEMA (MANUALES)
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 3,
+      'nom'             => "Navegar por tabla 'Sistema (Manuales)'",
+      'name'            => 'manual.index',
+      'desc'            => "Lista y navega por todos los registros del módulo 'Sistema (Manuales)'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 4,
+      'nom'             => "Registrar nuevo 'Sistema (Manuales)'",
+      'name'			    	=> 'manual.create',
+      'desc'            => "Crear nuevo registro en el módulo 'Sistema (Manuales)'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 5,
+      'nom'             => "Ver detalles 'Sistema (Manuales)'",
+      'name'				    => 'manual.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo 'Sistema (Manuales)'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 6,
+      'nom'             => "Editar registro 'Sistema (Manuales)'",
+      'name'				    => "manual.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo 'Sistema (Manuales)'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 7,
+      'nom'             => "Eliminar registro 'Sistema (Manuales)'",
+      'name'				    => "manual.destroy",
+      'desc'            => "Eliminar cualquier registro del módulo 'Sistema (Manuales)'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
   }
 }

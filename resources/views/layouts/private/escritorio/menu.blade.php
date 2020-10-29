@@ -1,5 +1,6 @@
 @canany(['logs.index',
-'sistema.edit', 
+'sistema.edit',
+'manual.index', 'manual.create', 'manual.show', 'manual.edit', 'manual.destroy', 
 'sistema.plantilla.index', 'sistema.plantilla.create', 'sistema.plantilla.show', 'sistema.plantilla.edit', 'sistema.plantilla.destroy', 
 'sistema.notificacion.create', 
 'sistema.actividad.index',
