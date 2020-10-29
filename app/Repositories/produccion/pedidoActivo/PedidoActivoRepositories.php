@@ -18,6 +18,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   public function getPagination($request, $relaciones, $opc_consulta) {
     return Pedido::pendientesPedido($opc_consulta)
       ->with($relaciones)
+      ->where('estat_produc', '!=', config('app.en_almacen_de_salida_terminado'))
       /*
       ->where(function ($query) {
         $query->where('estat_produc', config('app.asignar_lider_de_pedido'))

@@ -22,7 +22,13 @@
           @else
             <tr title="{{ $pedido->num_pedido }}" class="text-muted cursor-allowed" style="background:#bcbcbc">
           @endif
-            @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['produccion.pedidoActivo.show', 'produccion.pedidoActivo.armado.show'], 'ruta' => route('produccion.pedidoActivo.show',  Crypt::encrypt($pedido->id))])
+
+            @if($pedido->estat_produc == config('app.asignar_lider_de_pedido') OR $pedido->estat_produc == config('app.en_espera_de_almacen') OR $pedido->estat_produc == config('app.productos_completos') OR $pedido->estat_produc == config('app.en_produccion'))
+              @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['produccion.pedidoActivo.show', 'produccion.pedidoActivo.armado.show'], 'ruta' => route('produccion.pedidoActivo.show',  Crypt::encrypt($pedido->id))])
+            @else
+              @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['rastrea.pedido.show', 'rastrea.pedido.showFull'], 'ruta' => route('rastrea.pedido.show',  Crypt::encrypt($pedido->id)), 'target' => '_blank'])
+            @endif
+
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.numeroDePedidoUnificado')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.fechaDeEntrega')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusPago')
