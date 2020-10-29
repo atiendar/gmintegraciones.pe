@@ -24,7 +24,7 @@
           @if($direccion->estat != config('app.pendiente') AND $direccion->estat != config('app.entregado'))
             <tr title="{{ $direccion->est }}">
           @else
-            <tr title="{{ $direccion->est }}" class="text-muted cursor-allowed">
+            <tr title="{{ $direccion->est }}" class="text-muted cursor-allowed" style="background:#bcbcbc">
           @endif
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.#')
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.armado', ['show' => true, 'canany' => ['logistica.pedidoActivo.armado.show'], 'ruta' => 'logistica.pedidoActivo.armado.show', 'target' => 'target="_blank"'])

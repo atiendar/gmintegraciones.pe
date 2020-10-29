@@ -242,16 +242,18 @@
           
         }
         $estad.substring(0, $estad.length - 2);
-
-        axios.get('https://api-sepomex.hckdrk.mx/query/get_municipio_por_estado/'+$estad).then(res => {
-          this.municipios = res.data.response.municipios;
-          municipio.style.display = 'block';
-        }).catch(error => {
-          Swal.fire({
-            title: 'Algo salio mal',
-            text: error,
-          })
-        });
+        
+        if($estad != 'Tarifa única ') {
+          axios.get('https://api-sepomex.hckdrk.mx/query/get_municipio_por_estado/'+$estad).then(res => {
+            this.municipios = res.data.response.municipios;
+            municipio.style.display = 'block';
+          }).catch(error => {
+            Swal.fire({
+              title: 'Algo salio mal',
+              text: error,
+            })
+          });
+        }
       },
       async getTiposDeEnvio($val) {
         this.metodo_de_entrega_especifico = null

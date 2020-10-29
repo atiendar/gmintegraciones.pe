@@ -18,29 +18,36 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   public function getPagination($request, $relaciones, $opc_consulta) {
     return Pedido::pendientesPedido($opc_consulta)
       ->with($relaciones)
+      /*
       ->where(function ($query) {
         $query->where('estat_produc', config('app.asignar_lider_de_pedido'))
         ->orWhere('estat_produc', config('app.en_espera_de_almacen'))
         ->orWhere('estat_produc', config('app.productos_completos'))
         ->orWhere('estat_produc', config('app.en_produccion'));
       })
+      */
       ->buscar($request->opcion_buscador, $request->buscador)
       ->orderBy('fech_estat_produc', 'DESC')
       ->paginate($request->paginador);
   }
-  public function pedidoActivoProduccionFindOrFailById($id_pedido, $relaciones) {
+  public function pedidoActivoProduccionFindOrFailById($id_pedido, $relaciones, $accion) {
     $id_pedido = $this->serviceCrypt->decrypt($id_pedido);
-    $pedido = Pedido::with($relaciones)->where(function ($query) {
-      $query->where('estat_produc', config('app.asignar_lider_de_pedido'))
-        ->orWhere('estat_produc', config('app.en_espera_de_almacen'))
-        ->orWhere('estat_produc', config('app.productos_completos'))
-        ->orWhere('estat_produc', config('app.en_produccion'));
-      })->findOrFail($id_pedido);
-    return $pedido;
+    $consulta = Pedido::with($relaciones);
+    
+    if($accion == 'edit') {
+      $consulta->where(function ($query) {
+        $query->where('estat_produc', config('app.asignar_lider_de_pedido'))
+          ->orWhere('estat_produc', config('app.en_espera_de_almacen'))
+          ->orWhere('estat_produc', config('app.productos_completos'))
+          ->orWhere('estat_produc', config('app.en_produccion'));
+      });
+    }
+   
+    return $consulta->findOrFail($id_pedido);
   }
   public function update($request, $id_pedido) {
     try { DB::beginTransaction();
-      $pedido                    = $this->pedidoActivoProduccionFindOrFailById($id_pedido, []);
+      $pedido                    = $this->pedidoActivoProduccionFindOrFailById($id_pedido, [], 'edit');
       $pedido->lid_de_ped_produc = $request->lider_de_pedido_produccion;
       $pedido->coment_produc     = $request->comentario_produccion;
       if($pedido->isDirty()) {

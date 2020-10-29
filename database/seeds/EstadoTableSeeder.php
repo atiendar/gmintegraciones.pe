@@ -233,5 +233,12 @@ class EstadoTableSeeder extends Seeder {
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
+    Estado::create([
+      'id'              => 33,
+      'est'             => 'Tarifa única (Varios estados)',
+      'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Ambos'),
+      'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
+      'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
+    ]);
   }
 }
