@@ -8,8 +8,8 @@ class StoreStockeRequest extends FormRequest {
   }
   public function rules() {
     return [
-      'armado'      => 'required|min:40|string',
-      'cantidad'    => 'required|max:40|string',
+      'armado'    => 'required|exists:armados,id',
+      'cantidad'  => 'required|numeric|min:0|max:99999',
     ];
   }
 }

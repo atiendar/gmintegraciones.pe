@@ -191,11 +191,11 @@ class ArmadoRepositories implements ArmadoInterface {
       }
     })->orderBy('nom', 'ASC')->pluck('nom', 'id');
   }
-  public function getAllArmadosPlunkMenosId($armados) {
-    return Armado::where(function($query) use($armados) {
-      $hastaC = count($armados) -1;
+  public function getAllArmadosPlunkMenosId($id_armados) {
+    return Armado::where(function($query) use($id_armados) {
+      $hastaC = count($id_armados) -1;
       for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
-        $query->where('id', '!=', $armados[$contador2]->id);
+        $query->where('id', '!=', $id_armados);
       }
     })->orderBy('nom', 'ASC')->pluck('nom', 'id');
   }

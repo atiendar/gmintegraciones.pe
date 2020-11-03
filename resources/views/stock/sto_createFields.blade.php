@@ -5,7 +5,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('armado', [$armados_list], null, ['class' => 'form-control select2' . ($errors->has('armado') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+      {!! Form::select('armado', $armados_list, null, ['class' => 'form-control select2' . ($errors->has('armado') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('armado') }}</span>
   </div>

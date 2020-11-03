@@ -22,13 +22,19 @@ class StockController extends Controller {
   }
   public function create() {
     $stocks = $this->stockRepo->stocksRegistrados();
-  
-    foreach($stocks as $stock) {
-      foreach($stock->armados as $armado) {
-      //  $ids[] = 
+ 
+    if(isset($stocks[0]) ) {
+      $ids = [];
+      foreach($stocks as $stock) {
+        foreach($stock->armados as $armado) {
+          array_push($ids, $armado->id);
+        }
       }
+      $armados_list = $this->armadoRepo->getAllArmadosPlunkMenosId($ids);
+    } else {
+      $armados_list = $this->armadoRepo->getAllArmadosPlunk();
     }
-    $armados_list = $this->armadoRepo->getAllArmadosPlunkMenosId($stock->armados);
+
     return view('stock.sto_create', compact('armados_list'));
   }
   public function store(StoreStockeRequest $request) {
@@ -37,12 +43,12 @@ class StockController extends Controller {
 	return back();
   }
   public function show($id_stock) {
-    $stock = $this->stockRepo->stockFindOrFailById($id_stock, []);
+    $stock = $this->stockRepo->stockFindOrFailById($id_stock, ['armados']);
     return view('stock.sto_show', compact('stock'));
   }
   public function edit($id_stock) {
-    $stock = $this->stockRepo->stockFindOrFailById($id_stock, []);
-    return view('stock.sto_edit', compact('stock',));
+    $stock = $this->stockRepo->stockFindOrFailById($id_stock, ['armados']);
+    return view('stock.sto_edit', compact('stock'));
   }
   public function update(UpdateStockRequest $request, $id_stock) {
     $this->stockRepo->update($request, $id_stock);

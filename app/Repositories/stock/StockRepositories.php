@@ -25,20 +25,20 @@ class StockRepositories implements StockInterface {
   public function store($request) {
     DB::transaction(function() use($request) { // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
       $stock = new Stock();
-      $stock->input 			   = $request->input;
-      $stock->value          = $request->value;
-      $stock->vista          = $request->value;
-      $stock->asignado_ser   = Auth::user()->email_registro;
-      $stock->created_at_ser = Auth::user()->email_registro;
+      $stock->cant 			      = $request->cantidad;
+      $stock->created_at_sto  = Auth::user()->email_registro;
       $stock->save();
+
+      $stock->armados()->attach($request->armado);
+
       return $stock;
     });
   }
   public function update($request, $id_stock) {
     DB::transaction(function() use($request, $id_stock) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
-      $stock         = $this->stockFindOrFailById($id_stock, []);
-      $stock->input  = $request->input;
-      $stock->value  = $request->value;
+      $stock        = $this->stockFindOrFailById($id_stock, []);
+      $stock->cant  = $request->cantidad;
+  
       if($stock->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
@@ -46,14 +46,14 @@ class StockRepositories implements StockInterface {
           'stock.show', // Nombre de la ruta
           $id_stock, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_stock), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array(''), // Nombre de los inputs del formulario
+          array('Cantidad'), // Nombre de los inputs del formulario
           $stock, // Request
-          array('') // Nombre de los campos en la BD
+          array('cant') // Nombre de los campos en la BD
         ); 
-        $stock->updated_at_ser  = Auth::user()->email_registro;
+        $stock->updated_at_sto  = Auth::user()->email_registro;
       }
-      $stock->vista  = $request->value;
       $stock->save();
+      
       return $stock;
     });
   }

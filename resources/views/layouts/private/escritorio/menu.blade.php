@@ -67,9 +67,6 @@
 @include('layouts.private.escritorio.menu.produccion')
 @include('layouts.private.escritorio.menu.proveedores')
 @include('layouts.private.escritorio.menu.rastrear')
-
-@if(auth()->user()->email == 'desarrolloweb.ewmx@gmail.com')
-  @include('layouts.private.escritorio.menu.stock')
-@endif
+@include('layouts.private.escritorio.menu.stock')
 @include('layouts.private.escritorio.menu.tecnologiaDeLaInformacion')
 @include('layouts.private.escritorio.menu.ventas')
