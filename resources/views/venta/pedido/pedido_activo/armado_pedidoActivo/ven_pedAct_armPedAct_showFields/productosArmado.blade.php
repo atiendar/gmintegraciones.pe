@@ -5,7 +5,9 @@
       <thead>
         <tr >
           <th>{{ __('NOMBRE') }}</th>
-          <th>{{ __('STOCK') }}</th>
+          @if(Request::route()->getName() == 'almacen.pedidoActivo.armado.show')
+            <th>{{ __('STOCK') }}</th>
+          @endif
         </tr>
       </thead>
       <tbody> 
@@ -29,11 +31,13 @@
                 </div>
               @endforeach
             </td>
-            <td>
-              @foreach($producto->productos_original as $producto_original)
-                {{ $producto_original->stock }}
-              @endforeach
-            </td>
+            @if(Request::route()->getName() == 'almacen.pedidoActivo.armado.show')
+              <td>
+                @foreach($producto->productos_original as $producto_original)
+                  {{ $producto_original->stock }}
+                @endforeach
+              </td>
+            @endif
           </tr>
           @endforeach
       </tbody>
