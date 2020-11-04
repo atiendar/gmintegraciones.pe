@@ -22,6 +22,12 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
       require_once __DIR__ . '/rolCliente/pedidoRoutes/pedidoRoutes.php';
     }); 
 
+    Route::group(['middleware' => ['rolFerro'], 'prefix' => 'f'], function() {
+      Route::get('index', function () {
+        return 'index ';
+      });
+    }); 
+
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('logs.index')->middleware('permission:logs.index');
     require_once __DIR__ . '/layouts/layoutsRoutes.php';
     require_once __DIR__ . '/usuario/usuarioRoutes.php';

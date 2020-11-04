@@ -37,6 +37,15 @@ class RolesTableSeeder extends Seeder {
       'asignado_rol'    => 'desarrolloweb.ewmx@gmail.com',
       'created_at_rol'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+    $rolEspecialFerro = Spatie\Permission\Models\Role::create([
+      'id'              => 40,
+      'nom'				      => 'Transportes Ferro',
+      'name'            => 'transportesFerro',
+      'desc'            => "Acceso especial como Transportes Ferro",
+      'asignado_rol'    => 'desarrolloweb.ewmx@gmail.com',
+      'created_at_rol'  => 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    $rolEspecialFerro->syncPermissions([21]);
     $rolLogs = Spatie\Permission\Models\Role::create([
       'nom'				      => 'Administrador de logs',
       'name'				    => 'adminDeLogs',

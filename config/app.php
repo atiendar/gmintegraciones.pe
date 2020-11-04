@@ -36,6 +36,8 @@ return [
     'rol_desarrollador'         => env('ROL_DESARROLLADOR'),
     'rol_sin_acceso_al_sistema' => env('ROL_SIN_ACCESO_AL_SISTEMA'),
     'rol_cliente' => env('ROL_CLIENTE'),
+    'rol_ferro' => env('ROL_FERRO'),
+
     
     'tiempo_max_de_cache_minutos' => env('TIEMPO_MAX_DE_CACHE_MINUTOS'),
     'tiempo_med_de_cache_minutos' => env('TIEMPO_MED_DE_CACHE_MINUTOS'),

@@ -27,7 +27,10 @@
   @include('layouts.private.escritorio.menu.rolCliente.pagos')
   @include('layouts.private.escritorio.menu.rolCliente.facturas')
 @endif
-
+<!-- ****************************************************************************************** -->
+@if(auth()->user()->hasRole(config('app.rol_ferro')))
+  @include('layouts.private.escritorio.menu.rolFerro.rutas')
+@endif
 <!-- ****************************************************************************************** -->
 @canany([
   'produccion.pedidoActivo.index', 'produccion.pedidoActivo.show', 'produccion.pedidoActivo.edit', 'produccion.pedidoActivo.armado.show', 'produccion.pedidoActivo.armado.edit',
