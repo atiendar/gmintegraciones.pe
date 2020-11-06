@@ -30,6 +30,7 @@
 <!-- ****************************************************************************************** -->
 @if(auth()->user()->hasRole(config('app.rol_ferro')))
   @include('layouts.private.escritorio.menu.rolFerro.rutas')
+  @include('layouts.private.escritorio.menu.rolFerro.envios')
 @endif
 <!-- ****************************************************************************************** -->
 @canany([

@@ -118,6 +118,12 @@ return array(
     'navbar-white'      => 'navbar-white',
     'navbar-orange'     => 'navbar-orange',
   ],
+/* ====================== ROL FERRO [ RUTAS ] ===================== */
+  'select_rolFerro_ruta_index' => [ 
+    ''    => 'Buscar por. . .',
+    'id'  => 'Id',
+    'nom' => 'Nombre de la ruta',
+  ],
 /* ===================== JOBS [ JOBS ] ===================== */
   'select_job_index'  => [
     ''                    => 'Buscar por. . .',

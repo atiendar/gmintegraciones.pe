@@ -23,6 +23,8 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
     }); 
 
     Route::group(['middleware' => ['rolFerro'], 'prefix' => 'f'], function() {
+      require_once __DIR__ . '/rolFerro/rutaRoutes.php';
+      require_once __DIR__ . '/rolFerro/envioRoutes.php';
       Route::get('index', function () {
         return 'index ';
       });
