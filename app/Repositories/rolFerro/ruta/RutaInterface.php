@@ -11,4 +11,6 @@ interface RutaInterface {
   public function update($request, $id_ruta);
 
   Public function destroy($id_ruta);
+
+  public function allRutasPlunk();
 }

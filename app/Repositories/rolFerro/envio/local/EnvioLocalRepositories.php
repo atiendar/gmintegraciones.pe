@@ -19,10 +19,9 @@ class EnvioLocalRepositories implements EnvioLocalInterface {
     $this->serviceCrypt               = $serviceCrypt;
     $this->papeleraDeReciclajeRepo    = $papeleraDeReciclajeRepositories;
   }
-  public function envioFindOrFailById($id_ruta, $relaciones) {
-		dd('');
-    $id_ruta = $this->serviceCrypt->decrypt($id_ruta);
-    return PedidoArmadoTieneDireccion::with($relaciones)->findOrFail($id_ruta);
+  public function envioFindOrFailById($id_envio, $relaciones) {
+    $id_envio = $this->serviceCrypt->decrypt($id_envio);
+    return PedidoArmadoTieneDireccion::with($relaciones)->findOrFail($id_envio);
   }
   public function getPagination($request, $for_loc, $relaciones) {
 		return PedidoArmadoTieneDireccion::with($relaciones)
@@ -44,30 +43,29 @@ class EnvioLocalRepositories implements EnvioLocalInterface {
     ->orderBy('fech_en_alm_salida', 'DESC')
 		->paginate($request->paginador);
   }
-  public function update($request, $id_ruta) {
-		dd('');
+  public function update($request, $id_envio) {
     try { DB::beginTransaction();
-      $ruta       = $this->envioFindOrFailById($id_ruta, []);
-      $ruta->nom  = $request->nombre_de_la_ruta;
-     
-      if($ruta->isDirty()) {
+      $envio       = $this->envioFindOrFailById($id_envio, []);
+      $envio->rut  = $request->ruta;
+    
+      if($envio->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
-          'Rutas (Rol Ferro)', // Módulo
-          'rolFerro.ruta.show', // Nombre de la ruta
-          $id_ruta, // Id del registro debe ir encriptado
-          $this->serviceCrypt->decrypt($id_ruta), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Nombre de la ruta'), // Nombre de los inputs del formulario
-          $ruta, // Request
-          array('nom') // Nombre de los campos en la BD
+          'Envios locales (Rol Ferro)', // Módulo
+          'rolFerro.envioLocal.show', // Nombre de la ruta
+          $id_envio, // Id del registro debe ir encriptado
+          $this->serviceCrypt->decrypt($id_envio), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('Ruta'), // Nombre de los inputs del formulario
+          $envio, // Request
+          array('rut') // Nombre de los campos en la BD
         ); 
-        $ruta->updated_at_reg  = Auth::user()->email_registro;
+        $envio->updated_at_direc_arm  = Auth::user()->email_registro;
       }
     
-      $ruta->save();
+      $envio->save();
 
       DB::commit();
-      return $ruta;
+      return $envio;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
 }

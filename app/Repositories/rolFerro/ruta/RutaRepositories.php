@@ -29,7 +29,7 @@ class RutaRepositories implements RutaInterface {
   public function store($request) {
     try { DB::beginTransaction();
       $ruta = new Ruta();
-      $ruta->nom 			   = $request->nombre_de_la_ruta;
+      $ruta->nom 			      = $request->nombre_de_la_ruta;
       $ruta->created_at_reg = Auth::user()->email_registro;
       $ruta->save();
       
@@ -73,5 +73,8 @@ class RutaRepositories implements RutaInterface {
       DB::commit();
       return $ruta;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
+  public function allRutasPlunk() {
+    return Ruta::orderBy('nom', 'ASC')->pluck('nom', 'rut');
   }
 }

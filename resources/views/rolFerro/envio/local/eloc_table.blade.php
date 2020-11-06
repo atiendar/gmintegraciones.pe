@@ -13,7 +13,7 @@
 					@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.metodoDeEntrega')
 					@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.estado')
 					@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.delegacionOMunicipio')
-					<th colspan="4">&nbsp</th>
+					<th colspan="1">&nbsp</th>
 				</tr>
 			</thead>
 			<tbody> 
@@ -31,6 +31,7 @@
 						@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntrega')
 						@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.estado')
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.delegacionOMunicipio')
+						@include('rolFerro.envio.local.eloc_tableOpciones')
 					</tr>
 				@endforeach
 			</tbody>

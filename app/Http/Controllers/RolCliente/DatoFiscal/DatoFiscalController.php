@@ -25,7 +25,7 @@ class DatoFiscalController extends Controller {
   }
   public function store(StoreDatoFiscalRequest $request) {
     $this->datoFiscalRepo->store($request);
-    toastr()->success('¡Dato fiscal registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    toastr()->success('¡Dato fiscal registrado exitosamente, AHORA DEBES SOLICITAR TU FACTURA!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
   public function show($id_dato_fiscal) {
