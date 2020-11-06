@@ -18,7 +18,7 @@ class CreateRutasTable extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
-
+            $table->string('rut',50)->nullable()->comment('Ruta');
             $table->string('nom',100)->unique()->comment('Nombre de la ruta');
 
             $table->string('created_at_reg',75)->nullable()->comment('Correo del usuario que realizo el registro');

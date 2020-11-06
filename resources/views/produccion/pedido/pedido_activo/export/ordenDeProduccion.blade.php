@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body style="font-family: Segoe UI;">
-  <table class="table table-sm table-bordered" style="font-size:12px;">
+  <table class="table table-sm table-bordered" style="font-size:12px;margin-right:1rem;">
     <tr>
       <td colspan="2" style="text-align:center">
         <dt><img src="{{ Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg }}" class="brand-image rounded elevation-0" style="width:10rem;"></dt>
@@ -94,7 +94,7 @@
       <td colspan="3"></td>
     </tr>
   </table>
-  <table class="table table-hover table-striped table-sm table-bordered" style="font-size:12px;">
+  <table class="table table-hover table-striped table-sm table-bordered" style="font-size:12px;margin-right:1rem;margin-bottom:0px">
     @if(sizeof($armados) == 0)
       @include('layouts.private.busquedaSinResultados')
     @else 

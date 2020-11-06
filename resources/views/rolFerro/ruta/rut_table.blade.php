@@ -13,7 +13,7 @@
       <tbody>
         @foreach($rutas as $ruta)
           <tr title="{{ $ruta->nom }}">
-            <td width="1rem">{{ $ruta->id }}</td>
+            <td width="1rem">{{ $ruta->rut }}</td>
             <td>
               <a href="{{ route('rolFerro.ruta.show', Crypt::encrypt($ruta->id)) }}" title="Detalles: {{ $ruta->nom }}">{{ $ruta->nom }}</a>
             </td>

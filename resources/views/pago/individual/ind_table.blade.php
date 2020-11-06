@@ -24,7 +24,7 @@
             @include('pago.pag_table.td.estatusPago')
             @include('pago.pag_table.td.formaDePago')
             @include('pago.pag_table.td.montoDePago')
-            @include('pago.pag_table.td.numeroDePedido')
+            @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['pedido' => $pago->pedido, 'canany' => ['rastrea.pedido.show', 'rastrea.pedido.showFull'], 'ruta' => route('rastrea.pedido.show', Crypt::encrypt($pago->pedido->id)), 'target' => '_blank'])
             @include('pago.individual.ind_tableOpciones')
           </tr>
           @endforeach

@@ -19,6 +19,10 @@ class CreatePedidoArmadoTieneDireccionesTable extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
             $table->string('cod',60)->comment('Código');
+            
+            
+            $table->string('rut',50)->nullable()->comment('Ruta asignada');
+
             $table->string('regresado',10)->default('Falso')->comment('Opción para bloquear el editar las direcciones si el armado se refresa de logística a producción (falso o verdadero)');  
             $table->integer('cant')->unsigned()->comment('Cantidad');
             $table->string('estat',70)->default('Pendiente')->comment('Estatus');

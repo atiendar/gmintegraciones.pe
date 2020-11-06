@@ -14,10 +14,14 @@
       <tbody> 
         @foreach($pedidos as $pedido)
           <tr title="{{ $pedido->num_pedido }}">
-            @include('venta.pedido.pedido_activo.ven_pedAct_table.td.numeroDePedido')
+            @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['rastrea.pedido.show', 'rastrea.pedido.showFull'], 'ruta' => route('rastrea.pedido.show', Crypt::encrypt($pedido->id)), 'target' => '_blank'])
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusPago')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.montoTotal')
-            @include('pago.fPedido.fpe_tableOpciones')
+            @if($pedido->estat_log !=  config('app.entregado'))
+              @include('pago.fPedido.fpe_tableOpciones')
+            @else
+              <td></td>
+            @endif
           </tr>
           @endforeach
       </tbody>

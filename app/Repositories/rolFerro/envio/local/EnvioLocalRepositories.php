@@ -1,7 +1,7 @@
 <?php
-namespace App\Repositories\rolFerro\ruta;
+namespace App\Repositories\rolFerro\envio\local;
 // Models
-use App\Models\Ruta;
+use App\Models\PedidoArmadoTieneDireccion;
 // Events
 use App\Events\layouts\ActividadRegistrada;
 // Servicios
@@ -12,37 +12,42 @@ use App\Repositories\papeleraDeReciclaje\PapeleraDeReciclajeRepositories;
 use Illuminate\Support\Facades\Auth;
 use DB;
 
-class RutaRepositories implements RutaInterface {
+class EnvioLocalRepositories implements EnvioLocalInterface {
   protected $serviceCrypt;
   protected $papeleraDeReciclajeRepo;
   public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories) {
     $this->serviceCrypt               = $serviceCrypt;
     $this->papeleraDeReciclajeRepo    = $papeleraDeReciclajeRepositories;
   }
-  public function rutaFindOrFailById($id_ruta, $relaciones) {
+  public function envioFindOrFailById($id_ruta, $relaciones) {
+		dd('');
     $id_ruta = $this->serviceCrypt->decrypt($id_ruta);
-    return Ruta::with($relaciones)->findOrFail($id_ruta);
+    return PedidoArmadoTieneDireccion::with($relaciones)->findOrFail($id_ruta);
   }
-  public function getPagination($request) {
-    return Ruta::buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
-  }
-  public function store($request) {
-    try { DB::beginTransaction();
-      $ruta = new Ruta();
-      $ruta->nom 			   = $request->nombre_de_la_ruta;
-      $ruta->created_at_reg = Auth::user()->email_registro;
-      $ruta->save();
-      
-      $ruta->rut = 'R'.$ruta->id;
-      $ruta->save();
-
-      DB::commit();
-      return $ruta;
-    } catch(\Exception $e) { DB::rollback(); throw $e; }
+  public function getPagination($request, $for_loc, $relaciones) {
+		return PedidoArmadoTieneDireccion::with($relaciones)
+    ->with(['armado'=> function ($query) {
+      $query->select('id', 'cod', 'pedido_id')->with(['pedido'=> function ($query) {
+        $query->select('id', 'fech_de_entreg');
+      }]);
+    }])
+    ->where('for_loc', $for_loc)
+    ->where(function ($query) {
+      $query->where('estat', config('app.pendiente'))
+      ->orWhere('estat', config('app.en_almacen_de_salida'))
+        ->orWhere('estat', config('app.en_ruta'))
+        ->orWhere('estat', config('app.sin_entrega_por_falta_de_informacion'))
+        ->orWhere('estat', config('app.intento_de_entrega_fallido'));
+			})
+			->where('met_de_entreg', 'Transportes Ferro')			
+    ->buscar($request->opcion_buscador, $request->buscador)
+    ->orderBy('fech_en_alm_salida', 'DESC')
+		->paginate($request->paginador);
   }
   public function update($request, $id_ruta) {
+		dd('');
     try { DB::beginTransaction();
-      $ruta       = $this->rutaFindOrFailById($id_ruta, []);
+      $ruta       = $this->envioFindOrFailById($id_ruta, []);
       $ruta->nom  = $request->nombre_de_la_ruta;
      
       if($ruta->isDirty()) {
@@ -60,15 +65,6 @@ class RutaRepositories implements RutaInterface {
       }
     
       $ruta->save();
-
-      DB::commit();
-      return $ruta;
-    } catch(\Exception $e) { DB::rollback(); throw $e; }
-  }
-  public function destroy($id_ruta) {
-    try { DB::beginTransaction();
-      $ruta = $this->rutaFindOrFailById($id_ruta, []);
-      $ruta->forceDelete();
 
       DB::commit();
       return $ruta;
