@@ -3,8 +3,8 @@ namespace App\Http\Controllers\RolFerro\Ruta;
 use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
-use App\Http\Requests\RolFerro\ruta\StoreRutaRequest;
-use App\Http\Requests\RolFerro\ruta\UpdateRutaRequest;
+use App\Http\Requests\rolFerro\ruta\StoreRutaRequest;
+use App\Http\Requests\rolFerro\ruta\UpdateRutaRequest;
 // Repositories
 use App\Repositories\rolFerro\ruta\RutaRepositories;
 
