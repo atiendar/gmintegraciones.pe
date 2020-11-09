@@ -19,9 +19,36 @@ class EnvioLocalRepositories implements EnvioLocalInterface {
     $this->serviceCrypt               = $serviceCrypt;
     $this->papeleraDeReciclajeRepo    = $papeleraDeReciclajeRepositories;
   }
-  public function envioFindOrFailById($id_envio, $relaciones) {
+  public function envioFindOrFailById($id_envio, $for_loc, $relaciones) {
+   
+    
+
+
     $id_envio = $this->serviceCrypt->decrypt($id_envio);
-    return PedidoArmadoTieneDireccion::with($relaciones)->findOrFail($id_envio);
+    $envio = PedidoArmadoTieneDireccion::with($relaciones);
+    $envio->where('met_de_entreg', 'Transportes Ferro');		
+    if($for_loc != null) {
+      $envio->where('for_loc', $for_loc);
+    }
+  
+   
+      $envio->where(function ($query) {
+        $query->where('estat', config('app.en_almacen_de_salida'))
+        ->orWhere('estat', config('app.en_ruta'))
+        ->orWhere('estat', config('app.sin_entrega_por_falta_de_informacion'))
+        ->orWhere('estat', config('app.intento_de_entrega_fallido'));
+      });
+    
+    return $envio->findOrFail($id_envio);
+
+
+
+
+
+
+
+
+
   }
   public function getPagination($request, $for_loc, $relaciones) {
 		return PedidoArmadoTieneDireccion::with($relaciones)
@@ -38,7 +65,7 @@ class EnvioLocalRepositories implements EnvioLocalInterface {
         ->orWhere('estat', config('app.sin_entrega_por_falta_de_informacion'))
         ->orWhere('estat', config('app.intento_de_entrega_fallido'));
 			})
-			->where('met_de_entreg', 'Transportes Ferro')			
+				
     ->buscar($request->opcion_buscador, $request->buscador)
     ->orderBy('fech_en_alm_salida', 'DESC')
 		->paginate($request->paginador);

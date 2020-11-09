@@ -2,7 +2,7 @@
 namespace App\Repositories\rolFerro\envio\local;
 
 interface EnvioLocalInterface {
-  public function envioFindOrFailById($id_envio, $relaciones);
+  public function envioFindOrFailById($id_envio, $for_loc, $relaciones);
 
   public function getPagination($request, $for_loc, $relaciones);
 

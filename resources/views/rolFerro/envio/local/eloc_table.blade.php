@@ -31,7 +31,11 @@
 						@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntrega')
 						@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.estado')
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.delegacionOMunicipio')
-						@include('rolFerro.envio.local.eloc_tableOpciones')
+						@if($direccion->met_de_entreg == 'Transportes Ferro')
+              @include('rolFerro.envio.local.eloc_tableOpciones')
+            @else
+              <td></td>
+            @endif
 					</tr>
 				@endforeach
 			</tbody>

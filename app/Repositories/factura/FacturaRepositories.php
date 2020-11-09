@@ -35,7 +35,9 @@ class FacturaRepositories implements FacturaInterface {
     return Factura::with($relaciones)->estatus($estatus)->findOrFail($id_factura);
   }
   public function getPagination($request) {
-    return Factura::with('usuario', 'pago')->buscar($request->opcion_buscador, $request->buscador)->orderByRaw('est_fact DESC, id DESC')->paginate($request->paginador);
+    return Factura::with(['usuario', 'pago' => function($query) {
+      $query->with('pedido');
+    }])->buscar($request->opcion_buscador, $request->buscador)->orderByRaw('est_fact DESC, id DESC')->paginate($request->paginador);
   }
   public function store($request) {
     try { DB::beginTransaction();

@@ -20,11 +20,11 @@ class EnvioLocalController extends Controller {
     return view('rolFerro.envio.local.eloc_index', compact('envios'));
   }
   public function show($id_envio) {
-    $envio = $this->envioLocalRepo->envioFindOrFailById($id_envio, []);
+    $envio = $this->envioLocalRepo->envioFindOrFailById($id_envio, 'Foráneo', []);
     return view('rolFerro.envio.local.eloc_show', compact('envio'));
   }
   public function edit($id_envio) {
-    $envio = $this->envioLocalRepo->envioFindOrFailById($id_envio, []);
+    $envio = $this->envioLocalRepo->envioFindOrFailById($id_envio, 'Foráneo', []);
     $rutas = $this->rutaRepo->allRutasPlunk();
     return view('rolFerro.envio.local.eloc_edit', compact('envio', 'rutas'));
   }
