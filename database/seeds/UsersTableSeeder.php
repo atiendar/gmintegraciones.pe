@@ -59,7 +59,7 @@ class UsersTableSeeder extends Seeder {
     // factory(User::class, 10000)->create();  // max
     
     // Asigna roles a los usuarios
-    $roles_usuario = Role::where('name', '!=', config('app.rol_cliente'))->get();
+    $roles_usuario = Role::where('name', '!=', config('app.rol_cliente'))->where('name', '!=', config('app.rol_ferro'))->get();
     $hasta_roles_usuario = count($roles_usuario) - 1;
     $usuarios = User::where('acceso', '1')->get();
     $hasta_usuarios = count($usuarios) - 1;
@@ -72,6 +72,23 @@ class UsersTableSeeder extends Seeder {
       $usuario->assignRole($rol_usuario);
       if($contador3 == $hasta_roles_usuario) { $contador3 = 0; }
     }
+
+
+    // Asigna roles a los de ferro
+    $roles_ferro = array(config('app.rol_ferro'), config('app.rol_sin_acceso_al_sistema'));
+    $hasta_roles_ferro = count($roles_ferro);
+    $ferros = User::where('acceso', '3')->get();
+    $hasta_ferro = count($ferros) - 1;
+    $contador6 = 0;
+
+    for($contador7 = 0; $contador7 <= $hasta_ferro; $contador7++) {
+      $rol_ferro = $roles_ferro[$contador6];
+      $contador6 += 1;
+      $ferro = $ferros[$contador7];
+      $ferro->assignRole($rol_ferro);
+      if($contador6 == $hasta_roles_ferro) { $contador6 = 0; }
+    }
+
 
     // Asigna roles a los clientes
     $roles_cliente = array(config('app.rol_cliente'), config('app.rol_sin_acceso_al_sistema'));
