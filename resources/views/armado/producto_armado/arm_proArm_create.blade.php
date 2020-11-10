@@ -17,7 +17,7 @@
         <label for="productos" class="col-sm-3 col-form-label">{{ __('Registrar productos') }} *</label>
         <div class="col-sm-9">
           <div class="input-group-append text-dark"> 
-            <select name="ids_productos"  class="form-control select2" placeholder='Seleccione. . .' multiple>
+            <select name="ids_productos[]"  class="form-control select2" placeholder='Seleccione. . .' multiple>
               <option value="">Seleccione. . .</option>
               @foreach ($productos_list as $producto)
                 @if($producto->pro_de_cat == 'Producto de catálogo')
