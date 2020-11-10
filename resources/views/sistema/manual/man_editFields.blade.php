@@ -22,6 +22,19 @@
   </div>
   <div class="row">
     <div class="form-group col-sm btn-sm">
+      <label for="archivo_editable">{{ __('Archivo editable') }} *</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
+        </div>
+        <div class="custom-file"> 
+          {!! Form::file('archivo_editable', ['id' => 'archivo_editable', 'class' => 'custom-file-input', 'lang' => Auth::user()->lang]) !!}
+          <label class="custom-file-label" for="archivo_editable">Max. 1MB</label>
+        </div>
+      </div>
+      <span class="text-danger">{{ $errors->first('archivo_editable') }}</span>
+    </div>
+    <div class="form-group col-sm btn-sm">
       <label for="archivo">{{ __('Archivo') }}</label>
       <div class="input-group">
         <div class="input-group-prepend">

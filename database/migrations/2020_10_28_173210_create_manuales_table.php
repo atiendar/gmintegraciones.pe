@@ -18,12 +18,12 @@ class CreateManualesTable extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
-
             $table->enum('usu_cli_ambos', config('opcionesSelect.select_usu_cli_ambos'))->comment('Usuario, cliente o ambos');
             $table->string('valor', 150)->unique()->comment('Valor que se guardara en la BD');
-            $table->string('rut', 200)->nullable()->comment('Ruta de donde se guardo');
-            $table->string('nom', 200)->nullable()->comment('Nombre del archivo');
-
+            $table->string('rut', 200)->comment('Ruta de donde se guardo');
+            $table->string('nom', 200)->comment('Nombre del archivo');
+            $table->string('rut_edit', 200)->comment('Ruta de donde se guardo el archivo editable');
+            $table->string('nom_edit', 200)->comment('Nombre del archivo editable');
             $table->string('created_at_reg',75)->nullable()->comment('Correo del usuario que realizo el registro');
             $table->string('updated_at_reg',75)->nullable()->comment('Correo del usuario que realizo la última modificación');
             $table->timestamps();

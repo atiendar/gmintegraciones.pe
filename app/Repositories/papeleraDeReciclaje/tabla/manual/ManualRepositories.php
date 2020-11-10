@@ -12,7 +12,7 @@ class ManualRepositories implements ManualInterface {
   public function metDestroy($consulta) {
     // Dispara el evento registrado en App\Providers\EventServiceProvider.php
     ArchivosEliminados::dispatch(
-      array($consulta->nom), 
+      array([$consulta->nom, $consulta->nom_edit]), 
     );
   }
 }

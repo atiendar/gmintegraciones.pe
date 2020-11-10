@@ -39,12 +39,24 @@ class ManualRepositories implements ManualInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('archivo'), // Archivo blob
-          'sistema/manuales', // Ruta en la que guardara el archivo
+          'sistema/manuales/'.$manual->valor, // Ruta en la que guardara el archivo
           'manual-'.time().'.', // Nombre del archivo
           null // Ruta y nombre del archivo anterior
         ); 
         $manual->rut  = $imagen[0]['ruta'];
         $manual->nom  = $imagen[0]['nombre'];
+      }
+
+      if($request->hasfile('archivo_editable')) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        $imagen_edit = ArchivoCargado::dispatch(
+          $request->file('archivo_editable'), // Archivo blob
+          'sistema/manuales/'.$manual->valor, // Ruta en la que guardara el archivo
+          'manual-'.time().'.', // Nombre del archivo
+          null // Ruta y nombre del archivo anterior
+        ); 
+        $manual->rut_edit  = $imagen_edit[0]['ruta'];
+        $manual->nom_edit  = $imagen_edit[0]['nombre'];
       }
 
       $manual->save();
@@ -78,12 +90,24 @@ class ManualRepositories implements ManualInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('archivo'), // Archivo blob
-          'sistema/manuales', // Ruta en la que guardara el archivo
+          'sistema/manuales/'.$manual->valor, // Ruta en la que guardara el archivo
           'manual-'.time().'.', // Nombre del archivo
           $manual->nom // Ruta y nombre del archivo anterior
         ); 
         $manual->rut  = $imagen[0]['ruta'];
         $manual->nom  = $imagen[0]['nombre'];
+      }
+
+      if($request->hasfile('archivo_editable')) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        $imagen_edit = ArchivoCargado::dispatch(
+          $request->file('archivo_editable'), // Archivo blob
+          'sistema/manuales/'.$manual->valor, // Ruta en la que guardara el archivo
+          'manual-'.time().'.', // Nombre del archivo
+          $manual->nom_edit // Ruta y nombre del archivo anterior
+        ); 
+        $manual->rut_edit  = $imagen_edit[0]['ruta'];
+        $manual->nom_edit  = $imagen_edit[0]['nombre'];
       }
 
       $manual->save();

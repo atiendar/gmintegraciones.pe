@@ -59,6 +59,11 @@
   </div>
 </div>
 <div class="row">
+  @if($manual->nom_edit != null)
+    <a href="{{ $manual->rut_edit.$manual->nom_edit }}" class="btn btn-primary" download>{{ __('Descargar editable') }}</a>
+  @endif
+</div>
+<div class="row">
   @if($manual->nom != null)
     <div class="form-group col-sm btn-sm">
       <a href="{{ $manual->rut.$manual->nom }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>

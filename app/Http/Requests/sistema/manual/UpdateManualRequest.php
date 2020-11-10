@@ -13,7 +13,8 @@ class UpdateManualRequest extends FormRequest {
     return [
       'usuario_que_puede_visualizarlo'  => 'required|in:Usuario,Cliete,Ambos',
       'valor'                           => 'required|max:42|unique:manuales,valor,'.$id_manual,
-      'archivo'                         => 'nullable|max:1024|mimes:pdf,jpg,jpeg,png',
+      'archivo_editable'                => 'required|max:3000|file',
+      'archivo'                         => 'nullable|max:3000|mimes:pdf,jpg,jpeg,png',
     ];
   }
 }
