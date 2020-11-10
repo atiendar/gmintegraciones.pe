@@ -38,13 +38,23 @@ class AppServiceProvider extends ServiceProvider {
     });
     Validator::extend('alpha_cierre_fiscal', function ($attribute, $value) { // Validación
       $year_actual = date("Y");
-      $pago = \App\Models\Pago::where('cod_fact', $value)->first('created_at');
+      $mes_limite = '12';
+      $dia_limite = '28';
+
+      $pago = \App\Models\Pago::where('cod_fact', $value)->first(['created_at', 'id']);
       if($pago == null) {
         return false;
       }
-      if($pago->created_at->format('Y') < $year_actual) {
+     
+      if($pago->created_at->format('Y') != $year_actual) {
         return false;
       }
+      if($pago->created_at->format('m') <= $mes_limite) {
+        if($pago->created_at->format('d') > $dia_limite) {
+          return false;
+        }
+      }
+
       return true; 
     });
     Validator::extend('alpha_unique_where', function ($attribute, $value, $otros) { // Validación

@@ -21,6 +21,7 @@ class CreateProductosTable extends Migration
             $table->string('img_prod_rut', 200)->nullable()->comment('Ruta de donde se guardo la imagen del producto');
             $table->string('img_prod_nom', 200)->nullable()->comment('Nombre de la imagen');
             $table->string('produc', 70)->unique()->comment('Nombre del producto');
+            $table->string('pro_de_cat', 100)->comment('Producto de catálogo');
             $table->string('sku',30)->unique()->comment('SKU');
             $table->string('marc', 70)->comment('Marca del producto');
             $table->enum('tip', config('opcionesSelect.select_tipo'))->comment('Tipo de producto');

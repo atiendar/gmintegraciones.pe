@@ -13,6 +13,7 @@ class ProductosTableSeeder extends Seeder
       Producto::create([
         'id'                => 1,
         'produc'            => 'Viruta',
+        'pro_de_cat'        => 'Producto de catálogo',
         'sku'               => '123456',
         'marc'              => 'sin',
         'tip'               => 'Producto',
@@ -29,6 +30,7 @@ class ProductosTableSeeder extends Seeder
       Producto::create([
         'id'                => 2,
         'produc'            => 'Tarjeta Navideña',
+        'pro_de_cat'        => 'Producto de catálogo',
         'sku'               => '12345',
         'marc'              => 'sin',
         'tip'               => 'Producto',
@@ -45,6 +47,7 @@ class ProductosTableSeeder extends Seeder
       Producto::create([
         'id'                => 3,
         'produc'            => 'Moño',
+        'pro_de_cat'        => 'Producto de catálogo',
         'sku'               => '1234',
         'marc'              => 'sin',
         'tip'               => 'Producto',
@@ -61,6 +64,7 @@ class ProductosTableSeeder extends Seeder
       Producto::create([
         'id'                => 4,
         'produc'            => 'Emplayado',
+        'pro_de_cat'        => 'Producto de catálogo',
         'sku'               => '123',
         'marc'              => 'sin',
         'tip'               => 'Producto',
@@ -77,6 +81,7 @@ class ProductosTableSeeder extends Seeder
       Producto::create([
         'id'                => 5,
         'produc'            => 'Armado',
+        'pro_de_cat'        => 'Producto de catálogo',
         'sku'               => '3456',
         'marc'              => 'sin',
         'tip'               => 'Producto',

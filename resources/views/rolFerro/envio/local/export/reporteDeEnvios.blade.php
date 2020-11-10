@@ -15,16 +15,14 @@
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.metodoDeEntregaLogistica')
 					@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.estado')
 					@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.delegacionOMunicipio')
-					<th colspan="1">&nbsp</th>
+	
 				</tr>
 			</thead>
 			<tbody> 
 				@foreach($envios as $direccion)
-					@if($direccion->estat != config('app.pendiente') AND $direccion->estat != config('app.entregado'))
-						<tr title="{{ $direccion->est }}">
-					@else
-						<tr title="{{ $direccion->est }}" class="text-muted cursor-allowed" style="background:#bcbcbc">
-          @endif
+				
+						<tr>
+         
             <td width="1rem">{{ $direccion->rut }}</td>
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.#')
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.fechaDeEntrega')
@@ -35,11 +33,7 @@
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntregaLogistica')
 						@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.estado')
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.delegacionOMunicipio')
-						@if($direccion->met_de_entreg == 'Transportes Ferro')
-              @include('rolFerro.envio.local.eloc_tableOpciones')
-            @else
-              <td></td>
-            @endif
+						
 					</tr>
 				@endforeach
 			</tbody>

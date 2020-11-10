@@ -183,6 +183,9 @@ class ArmadoRepositories implements ArmadoInterface {
   public function getAllArmadosPlunk() {
     return Armado::orderBy('nom', 'ASC')->pluck('nom', 'id');
   }
+  public function getAllArmados() {
+    return Armado::orderBy('nom', 'ASC')->get(['nom', 'id', 'sku']);
+  }
   public function getAllArmadosPlunkMenos($armados) {
     return Armado::where(function($query) use($armados) {
       $hastaC = count($armados) -1;

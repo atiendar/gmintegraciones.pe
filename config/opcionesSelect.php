@@ -441,6 +441,10 @@ return array(
     'sku'           => 'SKU',
     'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
   ],
+  'select_producto_de_catalogo' => [
+    'Producto de catálogo'  => 'Producto de catálogo',
+    'Producto externo'      => 'Producto externo',
+  ],
   'select_utilidad' => [
     '.1'           => '10%',
     '.2'           => '20%',
@@ -867,6 +871,8 @@ return array(
   'select_inventario_index' => [ 
     ''               => 'Buscar por. . .',
     'emp'            => 'Empresa',
+    'mar'            => 'Marca',
+    'num_ser'        => 'Num. Serie',
     'resp'           => 'Responsable ',
     'id_equipo'      => 'Id Equipo',
   ],

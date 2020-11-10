@@ -6,6 +6,8 @@
       <thead>
         <th>{{ __('ID') }}</th>
         <th>{{ __('ID EQUIPO')}}</th>
+        <th>{{ __('MARCA')}}</th>
+        <th>{{ __('NUM. SERIE')}}</th>
         <th>{{ __('PROXIMO MANTENIMIENTO')}}</th>
         <th>{{ __('EMPRESA')}}</th>
         <th>{{ __('RESPONSABLE')}}</th>
@@ -22,6 +24,8 @@
                 {{ $inventario->id_equipo}}
               @endcan
             </td>
+            <td>{{ $inventario->mar}}</td>
+            <td>{{ $inventario->num_ser}}</td>
             <td>{{ $inventario->prox_fec_de_man}}</td>
             <td>{{ $inventario->emp}}</td>
             <td>{{ $inventario->resp}}</td>

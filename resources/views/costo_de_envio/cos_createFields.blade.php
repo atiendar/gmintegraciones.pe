@@ -161,7 +161,7 @@
   <div class="form-group col-sm btn-sm">
     <label for="costo_por_envio">{{ __('Costo por envío') }}</label>
     <label for="unit_o_toto" v-text="unitario_o_total"></label>
-    <label for="lbl_con_iva"> ({{ __('Con IVA') }}) *</label>
+    <label for="lbl_con_iva"> ({{ __('Sin IVA') }}) *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>

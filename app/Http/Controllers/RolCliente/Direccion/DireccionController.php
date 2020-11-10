@@ -25,7 +25,7 @@ class DireccionController extends Controller {
   }
   public function store(StoreDireccionRequest $request) {
     $this->direccionRepo->store($request);
-    toastr()->success('¡Dirección registrada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    toastr()->success('¡Dirección registrada exitosamente! RECUERDA ASIGNARLA A LOS PRODUCTOS DE TU PEDIDO'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
   public function show($id_direccion) {

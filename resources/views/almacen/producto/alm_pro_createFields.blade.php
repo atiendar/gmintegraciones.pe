@@ -43,6 +43,30 @@
     <span class="text-danger">{{ $errors->first('sku') }}</span>
   </div>
 </div>
+
+
+
+<div class="row">
+  <div class="form-group col-sm btn-sm">
+    <label for="es_producto_de_catalogo">{{ __('Es producto de catálogo') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
+      </div>
+      {!! Form::select('es_producto_de_catalogo', config('opcionesSelect.select_producto_de_catalogo'), null, ['class' => 'form-control select2' . ($errors->has('es_producto_de_catalogo') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('es_producto_de_catalogo') }}</span>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="marca">{{ __('Marca') }} *</label>

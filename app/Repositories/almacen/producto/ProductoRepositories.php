@@ -44,6 +44,7 @@ class ProductoRepositories implements ProductoInterface {
       $producto                  = new Producto();
       $producto->produc          = $request->nombre_del_producto;
       $producto->sku             = $request->sku;
+      $producto->pro_de_cat      = $request->es_producto_de_catalogo;
       $producto->marc            = $request->marca;
       $producto->tip             = $request->tipo;
       if($producto->tip == 'Canasta') {
@@ -89,6 +90,7 @@ class ProductoRepositories implements ProductoInterface {
       $producto                 = $this->productoAsignadoFindOrFailById($id_producto, ['proveedores', 'armados']);
       $producto->produc         = $request->nombre_del_producto;
       $producto->sku            = $request->sku;
+      $producto->pro_de_cat      = $request->es_producto_de_catalogo;
       $producto->marc           = $request->marca;
       if($producto->tip == 'Canasta') {
         $producto->tam          = $request->tamano;
@@ -115,9 +117,9 @@ class ProductoRepositories implements ProductoInterface {
           'almacen.producto.show', // Nombre de la ruta
           $id_producto, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_producto), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Nombre del producto', 'SKU', 'Marca', 'Tamaño ', 'Alto', 'Ancho', 'Largo', 'Costo de armado', 'Nombre del proveedor', 'Precio proveedor', 'Utilidad', 'Precio cliente', 'Categoría', 'Etiqueta', 'Peso', 'Código de barras', 'Cantidad mínima de stock', 'Descripción del producto'), // Nombre de los inputs del formulario
+          array('Nombre del producto', 'SKU', 'Es producto de catálogo', 'Marca', 'Tamaño ', 'Alto', 'Ancho', 'Largo', 'Costo de armado', 'Nombre del proveedor', 'Precio proveedor', 'Utilidad', 'Precio cliente', 'Categoría', 'Etiqueta', 'Peso', 'Código de barras', 'Cantidad mínima de stock', 'Descripción del producto'), // Nombre de los inputs del formulario
           $producto, // Request
-          array('produc', 'sku', 'marc', 'tam', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'etiq', 'pes', 'cod_barras', 'min_stock', 'desc_del_prod') // Nombre de los campos en la BD
+          array('produc', 'sku', 'pro_de_cat', 'marc', 'tam', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'etiq', 'pes', 'cod_barras', 'min_stock', 'desc_del_prod') // Nombre de los campos en la BD
         );
         $producto->updated_at_prod = Auth::user()->email_registro;
       }
@@ -274,6 +276,18 @@ class ProductoRepositories implements ProductoInterface {
         }
       }
     })->orderBy('produc', 'ASC')->pluck('produc', 'id');
+  }
+  public function getAllSustitutosOrProductosMenos($sustitutos_o_productos, $opcion) {
+    return Producto::where(function($query) use($sustitutos_o_productos, $opcion) {
+      $hastaC = count($sustitutos_o_productos) -1;
+      for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
+        if($opcion == 'original') {
+          $query->where('id', '!=', $sustitutos_o_productos[$contador2]->id);
+        } elseif($opcion == 'copia') {
+          $query->where('id', '!=', $sustitutos_o_productos[$contador2]->id_producto);
+        }
+      }
+    })->orderBy('produc', 'ASC')->get(['id', 'produc', 'prec_prove', 'prec_clien', 'pro_de_cat']);
   }
   public function getProductosFindOrFail($ids_productos, $hastaC) {
     for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {

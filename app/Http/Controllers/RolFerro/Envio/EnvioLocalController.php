@@ -33,4 +33,7 @@ class EnvioLocalController extends Controller {
     toastr()->success('¡Envio actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
+  public function generarReporteDeLocales() {
+    return (new \App\Exports\rolFerro\envio\generarReporteDeEnviosLocalesExport)->download('ReporteDeEnviosLocales-'.date('Y-m-d').'.xlsx');
+  }
 }

@@ -11,6 +11,7 @@ class StoreProductoRequest extends FormRequest {
       'imagen_del_producto'       => 'nullable|max:1024|image',
       'nombre_del_producto'       => 'required|max:70|unique:productos,produc',
       'sku'                       => 'required|max:30|unique:productos,sku',
+      'es_producto_de_catalogo'   => 'required|in:Producto de catálogo,Producto externo',
       'marca'                     => 'required|max:70',
       'tipo'                      => 'required|in:Producto,Canasta',
       'tamano'                    => 'nullable|required_if:tipo,Canasta|in:Chico,Mediano,Grande',
