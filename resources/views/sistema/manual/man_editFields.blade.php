@@ -35,7 +35,7 @@
       <span class="text-danger">{{ $errors->first('archivo_editable') }}</span>
     </div>
     <div class="form-group col-sm btn-sm">
-      <label for="archivo">{{ __('Archivo') }}</label>
+      <label for="archivo">{{ __('Archivo') }} *</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-folder-open"></i></span>
