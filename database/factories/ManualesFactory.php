@@ -12,6 +12,8 @@ $factory->define(Manual::class, function (Faker $faker) {
         'valor'           => $faker->name,
         'rut'             => env('PREFIX'),
         'nom'             => 'manuales/'.$faker->name,
+        'rut_edit'        => env('PREFIX'),
+        'nom_edit'        => 'manuales/'.$faker->name,
         'created_at_reg'  => $usuario,
         'updated_at_reg'  => $usuario,
     ];

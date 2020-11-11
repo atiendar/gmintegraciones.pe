@@ -18,6 +18,8 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   public function getPagination($request, $relaciones, $opc_consulta) {
     return Pedido::pendientesPedido($opc_consulta)
     ->with($relaciones)
+    ->Where('estat_log', '!=', config('app.entregado'))
+/*
     ->where(function ($query) {
       $query->where('estat_log', config('app.en_espera_de_produccion'))
       ->orWhere('estat_log', config('app.en_almacen_de_salida'))
@@ -25,6 +27,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       ->orWhere('estat_log', config('app.sin_entrega_por_falta_de_informacion'))
       ->orWhere('estat_log', config('app.intento_de_entrega_fallido'));
     })
+*/
     ->buscar($request->opcion_buscador, $request->buscador)
     ->orderBy('fech_estat_log', 'DESC')
     ->paginate($request->paginador);

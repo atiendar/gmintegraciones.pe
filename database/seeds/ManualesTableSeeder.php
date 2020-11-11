@@ -14,6 +14,8 @@ class ManualesTableSeeder extends Seeder {
       'valor'           => 'Administrador de usuarios',
       'rut'             => env('PREFIX'),
       'nom'	            => 'sistema/manuales/Usuarios.pdf',
+      'rut_edit'        => env('PREFIX'),
+      'nom_edit'	      => 'sistema/manuales/Usuarios.pdf',
       'created_at_reg'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Manual::create([
@@ -21,6 +23,8 @@ class ManualesTableSeeder extends Seeder {
       'valor'           => 'Administrador de clientes',
       'rut'             => env('PREFIX'),
       'nom'	            => 'sistema/manuales/Clientes.pdf',
+      'rut_edit'        => env('PREFIX'),
+      'nom_edit'	      => 'sistema/manuales/Clientes.pdf',
       'created_at_reg'  => 'desarrolloweb.ewmx@gmail.com',
     ]); 
 

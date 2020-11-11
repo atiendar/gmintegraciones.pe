@@ -1023,6 +1023,13 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Registrar nuevo comprobante de entrega en el módulo Logística 'Direcciones locales'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 103,
+      'nom'             => "Editar registro Logística 'Direcciones locales'",
+      'name'				    => "logistica.direccionLocal.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo Logística 'Direcciones locales'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
     //PERMISOS DEL MÓDULO LOGÍSTICA (DIRECCIONES FORANEOS)
     Spatie\Permission\Models\Permission::create([
       //  'id'              => 104,
@@ -1057,6 +1064,13 @@ Spatie\Permission\Models\Permission::create([
       'nom'             => "Registrar nuevo comprobante de entrega Logística 'Direcciones locales y foraneos'",
       'name'				    => 'logistica.direccionLocFor.createEntrega',
       'desc'            => "Registrar nuevo comprobante de entrega en el módulo Logística 'Direcciones locales y foraneos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 103,
+      'nom'             => "Editar registro Logística 'Direcciones foraneos'",
+      'name'				    => "logistica.direccionForaneo.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo Logística 'Direcciones foraneos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
 //PERMISOS DEL MÓDULO LOGÍSTICA (PEDIDO ENTREGADO)
