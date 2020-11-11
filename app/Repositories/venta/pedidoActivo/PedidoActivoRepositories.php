@@ -26,6 +26,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   }
   public function getPagination($request, $relaciones, $opc_consulta) { // 'usuario', 'unificar'
     return Pedido::pendientesPedido($opc_consulta)
+                  ->Where('estat_log', '!=', config('app.entregado'))
                   ->with($relaciones)
                   ->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)
                   ->buscar($request->opcion_buscador, $request->buscador)

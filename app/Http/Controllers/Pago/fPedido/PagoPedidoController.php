@@ -9,6 +9,7 @@ use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
 use App\Repositories\venta\pedidoActivo\PedidoActivoRepositories;
 use App\Repositories\pago\PagoRepositories;
+use Illuminate\Support\Facades\Auth;
 
 class PagoPedidoController extends Controller {
   protected $serviceCrypt;
@@ -20,7 +21,10 @@ class PagoPedidoController extends Controller {
     $this->pagoRepo         = $pagoRepositories;
   }
   public function index(Request $request) {
-    $pedidos =  $this->pedidoActivoRepo->getPagination($request, [], null);
+    $pedidos =  \App\Models\Pedido::asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)
+                  ->buscar($request->opcion_buscador, $request->buscador)
+                  ->orderBy('id', 'DESC')
+                  ->paginate($request->paginador);
     return view('pago.fPedido.fpe_index', compact('pedidos'));
   }
   public function create($id_pedido) {
