@@ -169,6 +169,13 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
           $direcciones[$contador3]['detalles_de_la_ubicacion']  = $direccion->detalles_de_la_ubicacion;
           $direcciones[$contador3]['tip_env']                   = $direccion->tip_env;
           $direcciones[$contador3]['cost_por_env']              = $direccion->cost_por_env;
+
+          if($direccion->cost_tam_caj > 0.00) {
+            $direcciones[$contador3]['caj']              = 'Con caja ('.$direccion->tam.')';
+          } else {
+            $direcciones[$contador3]['caj']              = 'Sin caja';
+          }
+
           $direcciones[$contador3]['created_at_direc_arm']      = Auth::user()->email_registro;
 
           // Si el metodo de entrega es "Entregado en bodega" se llenara la demas informacion con la de la empresa

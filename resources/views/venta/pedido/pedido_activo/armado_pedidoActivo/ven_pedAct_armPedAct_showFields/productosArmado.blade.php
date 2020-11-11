@@ -40,6 +40,20 @@
             @endif
           </tr>
           @endforeach
+
+          @if(Request::route()->getName() == 'venta.pedidoActivo.armado.show' OR Request::route()->getName() == 'almacen.pedidoActivo.armado.show' OR Request::route()->getName() == 'produccion.pedidoActivo.armado.show')
+            <tr>
+              <td>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</td>
+            </tr>
+            @foreach($direcciones as $direccion)
+              <tr>
+                <td>
+                  {{ $direccion->cant }} - {{ $direccion->caj }}
+                </td>
+              </tr>
+            @endforeach
+          @endif
+
       </tbody>
     </table>
   </div>

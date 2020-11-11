@@ -17,10 +17,11 @@ class ArmadoPedidoActivoController extends Controller {
     $this->armadoPedidoActivoRepo = $armadoPedidoActivoRepositories;
   }
   public function show(Request $request, $id_armado) {
-    $armado     = $this->armadoPedidoActivoRepo->armadoPedidoActivoFindOrFailById($id_armado, ['pedido', 'productos'], 'show');
+    $armado     = $this->armadoPedidoActivoRepo->armadoPedidoActivoFindOrFailById($id_armado, ['pedido', 'direcciones', 'productos'], 'show');
     $pedido     = $armado->pedido()->firstOrFail();
     $productos  = $armado->productos()->with(['sustitutos', 'productos_original'])->get();
-    return view('almacen.pedido.pedido_activo.armado_activo.alm_pedAct_armAct_show', compact('armado', 'pedido', 'productos'));
+    $direcciones  = $armado->direcciones()->paginate(99999999);
+    return view('almacen.pedido.pedido_activo.armado_activo.alm_pedAct_armAct_show', compact('armado', 'pedido', 'productos', 'direcciones'));
   }
   public function edit(Request $request, $id_armado) { 
     $armado     = $this->armadoPedidoActivoRepo->armadoPedidoActivoFindOrFailById($id_armado, ['pedido'], 'edit');

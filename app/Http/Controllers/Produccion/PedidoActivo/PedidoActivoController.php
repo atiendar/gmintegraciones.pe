@@ -59,7 +59,7 @@ class PedidoActivoController extends Controller {
     $armados  = $pedido->armados()->with(['productos'=> function ($query) {
       $query->with('sustitutos');
     }, 'direcciones'=> function ($query) {
-      $query->select('cant', 'tip_tarj_felic', 'mens_dedic', 'pedido_armado_id');
+      $query->select('cant', 'tip_tarj_felic', 'mens_dedic', 'pedido_armado_id', 'caj');
     }])->get();
 
     $orden_de_produccion  = \PDF::loadView('produccion.pedido.pedido_activo.export.ordenDeProduccion', compact('pedido', 'armados', 'codigoQRAlmacen', 'codigoQRProduccion', 'codigoQRLogistica'))->setPaper('a4', 'landscape');;

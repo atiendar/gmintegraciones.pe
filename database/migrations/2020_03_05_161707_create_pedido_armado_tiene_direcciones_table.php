@@ -37,6 +37,10 @@ class CreatePedidoArmadoTieneDireccionesTable extends Migration
             $table->text('detalles_de_la_ubicacion')->comment('Detalles de la ubicación');
             $table->string('tip_env', 80)->nullable()->comment('Tipo de envío');
             $table->decimal('cost_por_env',20,2)->unsigned()->nullable()->comment('Costo por envío venta');
+
+
+            $table->string('caj', 80)->nullable()->comment('Cuenta o no con caja y tamaño');
+
             $table->string('created_com_sal',75)->nullable()->comment('Correo del usuario que subio el comprobante de salida');
             $table->timestamp('fech_car_comp_de_sal')->nullable()->comment('Fecha en que que subio el comprobante de salida');
             $table->string('met_de_entreg_de_log',150)->nullable()->comment('Método de entrega de logística');

@@ -128,6 +128,16 @@
                   </div>
                 @endforeach
               @endforeach
+
+              <div class="input-group text-muted ml-2">
+                <p class="m-0">- - - - - - - - - - - </p>
+              </div>
+              @foreach($armado->direcciones as $direccion)
+                <div class="input-group text-muted ml-2">
+                  <p class="m-0">{{ $direccion->cant }} - {{ $direccion->caj }}</p>
+                </div>
+              @endforeach
+
             </td>
             <td>{{ $armado->ubic_rack }}</td>
             <td>

@@ -58,7 +58,7 @@ class PedidoActivoController extends Controller {
     $codigoQRProduccion = $this->generarQRRepo->qr($pedido->id, 'Producción');
     $codigoQRLogistica = $this->generarQRRepo->qr($pedido->id, 'Logística');
 
-    $armados              = $pedido->armados()->with(['productos'=> function ($query) {
+    $armados              = $pedido->armados()->with(['direcciones', 'productos'=> function ($query) {
                                                             $query->with('sustitutos');
                                                           }])->get();
     $orden_de_produccion  = \PDF::loadView('almacen.pedido.pedido_activo.export.ordenDeProduccion', compact('pedido', 'armados', 'codigoQRAlmacen', 'codigoQRProduccion', 'codigoQRLogistica'));
