@@ -12,3 +12,9 @@
     </a>
   </li>
 @endcan
+
+<li class="nav-item ml-auto">
+  <a href="{{ route('inventario.generarReporte') }}" class="btn btn-info" target="_blank">
+    {{__('Generar reporte')}}
+  </a>
+</li>

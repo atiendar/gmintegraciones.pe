@@ -52,6 +52,7 @@
   'logistica.direccionLocal.index', 'logistica.direccionLocal.show', 'logistica.direccionLocal.create', 'logistica.direccionLocal.createEntrega',
   'logistica.direccionForaneo.index', 'logistica.direccionForaneo.show', 'logistica.direccionForaneo.create', 'logistica.direccionForaneo.createEntrega',
   'logistica.pedidoEntregado.index','logistica.pedidoEntregado.show',
+  'logistica.direccionLocal.edit', 'logistica.direccionForaneo.edit',
   'factura.index', 'factura.create', 'factura.show', 'factura.edit', 'factura.destroy',
   'material.index', 'material.create', 'material.show', 'material.edit', 'material.destroy', 'material.consultarPrecio',
   'soporte.index', 'soporte.show', 'soporte.edit', 'soporte.destroy', 

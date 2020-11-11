@@ -110,7 +110,7 @@ class EstadoTableSeeder extends Seeder {
     Estado::create([
       'id'              => 15,
       'est'             => 'México (Edo. México)',
-      'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Local'),
+      'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo y Local'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);

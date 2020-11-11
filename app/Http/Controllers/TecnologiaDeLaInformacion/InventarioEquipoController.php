@@ -47,4 +47,7 @@ class InventarioEquipoController extends Controller {
     toastr()->success('¡Inventario eliminado exitosamente!');
     return back();
   }
+  public function generarReporte() {
+    return (new \App\Exports\tecnologiaDeLaInformacion\inventario\generarReporteTIExport)->download('reporteTI-'.date('Y-m-d').'.xlsx');
+  }
 }

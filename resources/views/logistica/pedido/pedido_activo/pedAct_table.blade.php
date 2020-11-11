@@ -24,7 +24,12 @@
             <tr title="{{ $pedido->num_pedido }}" class="text-muted cursor-allowed" style="background:#bcbcbc">
           @endif
 
-            @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['logistica.pedidoActivo.show', 'logistica.pedidoActivo.armado.show'], 'ruta' => route('logistica.pedidoActivo.show',  Crypt::encrypt($pedido->id))])
+            @if($pedido->estat_log == config('app.en_espera_de_produccion') OR $pedido->estat_log == config('app.en_almacen_de_salida') OR $pedido->estat_log == config('app.en_ruta') OR $pedido->estat_log == config('app.sin_entrega_por_falta_de_informacion') OR $pedido->estat_log == config('app.intento_de_entrega_fallido'))
+              @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['logistica.pedidoActivo.show', 'logistica.pedidoActivo.armado.show'], 'ruta' => route('logistica.pedidoActivo.show',  Crypt::encrypt($pedido->id))])
+            @else
+              @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['rastrea.pedido.show', 'rastrea.pedido.showFull'], 'ruta' => route('rastrea.pedido.show',  Crypt::encrypt($pedido->id)), 'target' => '_blank'])
+            @endif
+           
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.numeroDePedidoUnificado')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.fechaDeEntrega')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusPago')
