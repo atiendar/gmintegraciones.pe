@@ -14,9 +14,15 @@
       {{ __('Reportes') }}
     </button>
     <div class="dropdown-menu">
-      {!! Form::open(['route' => 'rolFerro.envioLocal.generarReporteDeLocales', 'method' => 'get']) !!}
-        <button type="submit" id="btnsubmit1" class="dropdown-item"><i class="fas fa-file-excel"></i>  {{ __('Reporte de envios locales') }}</button>
+      @if(Request::route()->getName()  == 'rolFerro.envioLocal.index')
+        {!! Form::open(['route' => 'rolFerro.envioLocal.generarReporteDeLocales', 'method' => 'get']) !!}
+          <button type="submit" id="btnsubmit1" class="dropdown-item"><i class="fas fa-file-excel"></i>  {{ __('Reporte de envios locales') }}</button>
+        {!! Form::close() !!}
+      @else
+      {!! Form::open(['route' => 'rolFerro.envioForaneo.generarReporteDeForaneos', 'method' => 'get']) !!}
+        <button type="submit" id="btnsubmit1" class="dropdown-item"><i class="fas fa-file-excel"></i>  {{ __('Reporte de envios foráneos') }}</button>
       {!! Form::close() !!}
+      @endif
     </div>
   </div>
 </li>

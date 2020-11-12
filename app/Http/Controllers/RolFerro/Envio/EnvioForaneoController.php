@@ -29,7 +29,7 @@ class EnvioForaneoController extends Controller {
     toastr()->success('¡Envio actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
-  public function generarReporteDeLocales() {
+  public function generarReporteDeForaneos() {
     return (new \App\Exports\rolFerro\envio\generarReporteDeEnviosForaneosExport)->download('ReporteDeEnviosForaneos-'.date('Y-m-d').'.xlsx');
   }
 }
