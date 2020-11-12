@@ -7,14 +7,30 @@
 				<tr>
 					<th>{{ __('RUTA') }}</th>
 					@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.#')
-					@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.fechaDeEntrega')
+          @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.fechaDeEntrega')
+          <th>{{ __('TAMAÑO') }}</th>
+          <th>{{ __('PESO') }}</th>
+          <th>{{ __('ALTO') }}</th>
+          <th>{{ __('ANCHO') }}</th>
+          <th>{{ __('LARGO') }}</th>
+          <th>{{ __('RACK') }}</th>
+          @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.estatus')
+          @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.cantidad')
 					@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.nombreDeReferenciaUno')
-					@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.cantidad')
-					@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.estatus')
+          <th>{{ __('TELEFONO FIJO') }}</th>
+          <th>{{ __('EXTENSION') }}</th>
+          <th>{{ __('TELEFONO MOVIL') }}</th>
+          <th>{{ __('CALLE') }}</th>
+          <th>{{ __('NO. EXTERIOR') }}</th>
+          <th>{{ __('NO. INTERIOR') }}</th>
+          <th>{{ __('PAIS') }}</th>
+          <th>{{ __('CIUDAD') }}</th>
+          <th>{{ __('COLONIA') }}</th>
+          <th>{{ __('DELEGACION O MUNICIPIO') }}</th>
+          <th>{{ __('C.P.') }}</th>
+          <th>{{ __('REFERENCIAS') }}</th>
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.metodoDeEntrega')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.metodoDeEntregaLogistica')
-					@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.estado')
-					@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.delegacionOMunicipio')
 				</tr>
 			</thead>
 			<tbody> 
@@ -22,14 +38,30 @@
 					<tr>
             <td>{{ $direccion->rut }}</td>
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.#')
-						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.fechaDeEntrega')
+            @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.fechaDeEntrega')
+            <td>{{ $direccion->armado->tam }}</td>
+            <td>{{ $direccion->armado->pes }}</td>
+            <td>{{ $direccion->armado->alto }}</td>
+            <td>{{ $direccion->armado->ancho }}</td>
+            <td>{{ $direccion->armado->largo }}</td>
+            <td>{{ $direccion->armado->ubic_rack }}</td>
+            @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.estatus')
+            @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => false])
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.nombreDeReferenciaUno')
-						@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => false])
-						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.estatus')
+            <td>{{ $direccion->armado->lad_fij.$direccion->armado->tel_fij }}</td>
+            <td>{{ $direccion->armado->ext }}</td>
+            <td>{{ $direccion->armado->lad_mov.$direccion->armado->tel_mov }}</td>
+            <td>{{ $direccion->armado->calle }}</td>
+            <td>{{ $direccion->armado->no_ext }}</td>
+            <td>{{ $direccion->armado->no_int }}</td>
+            <td>{{ $direccion->armado->pais }}</td>
+            <td>{{ $direccion->armado->ciudad }}</td>
+            <td>{{ $direccion->armado->col }}</td>
+            <td>{{ $direccion->armado->del_o_munic }}</td>
+            <td>{{ $direccion->armado->cod_post }}</td>
+            <td>{{ $direccion->armado->ref_zon_de_entreg }}</td>
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntrega')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntregaLogistica')
-						@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.estado')
-						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.delegacionOMunicipio')
 					</tr>
 				@endforeach
 			</tbody>

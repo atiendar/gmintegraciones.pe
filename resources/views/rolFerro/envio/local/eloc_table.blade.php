@@ -35,8 +35,12 @@
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntregaLogistica')
 						@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.estado')
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.delegacionOMunicipio')
-						@if($direccion->met_de_entreg == 'Transportes Ferro')
-              @include('rolFerro.envio.local.eloc_tableOpciones')
+            @if($direccion->met_de_entreg == 'Transportes Ferro')
+              @if($direccion->estat == config('app.en_almacen_de_salida') OR $direccion->estat == config('app.sin_entrega_por_falta_de_informacion') OR $direccion->estat == config('app.intento_de_entrega_fallido'))
+                @include('rolFerro.envio.local.eloc_tableOpciones')
+              @else
+                <td></td>
+              @endif
             @else
               <td></td>
             @endif

@@ -12,7 +12,7 @@ class generarReporteDeEnviosForaneosExport implements FromView {
 	use Exportable;
 	public function view(): View {
 		return view('rolFerro.envio.export.reporteDeEnvios', [
-			'envios' => PedidoArmadoTieneDireccion::where('for_loc', 'Foráneo')->get(),
+			'envios' => PedidoArmadoTieneDireccion::where('for_loc', 'Foráneo')->where('estat', '!=', config('app.entregado'))->with(['armado'])->get()
 		]);
 	}
 }

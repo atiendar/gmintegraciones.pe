@@ -13,14 +13,14 @@
     </div>
   </div>
   <div class="card-body">
-    {!! Form::open(['route' => ['rolFerro.envioLocal.update', Crypt::encrypt($envio->id)], 'method' => 'patch', 'id' => 'rolFerroEnvioLocalUpdate']) !!}
+    {!! Form::open(['route' => ['rolFerro.envioForaneo.update', Crypt::encrypt($envio->id)], 'method' => 'patch', 'id' => 'rolFerroEnvioForaneoUpdate']) !!}
       @include('rolFerro.envio.local.eloc_editFields')
       <div class="row">
         <div class="form-group col-sm btn-sm" >
-          <a href="{{ route('rolFerro.envioLocal.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
+          <a href="{{ route('rolFerro.envioForaneo.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
         </div>
         <div class="form-group col-sm btn-sm">
-          <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2" onclick="return check('btnsubmit', 'rolFerroEnvioLocalUpdate', '¡Alerta!', '¿Estás seguro quieres actualizar el registro?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-edit text-dark"></i> {{ __('Actualizar') }}</button>
+          <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2" onclick="return check('btnsubmit', 'rolFerroEnvioForaneoUpdate', '¡Alerta!', '¿Estás seguro quieres actualizar el registro?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-edit text-dark"></i> {{ __('Actualizar') }}</button>
         </div>
       </div>
     {!! Form::close() !!}

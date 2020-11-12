@@ -16,20 +16,16 @@ class EnvioLocalController extends Controller {
     $this->rutaRepo       = $rutaRepositories;
   }
   public function index(Request $request) {
-    $envios = $this->envioLocalRepo->getPagination($request, 'Foráneo', []);
+    $envios = $this->envioLocalRepo->getPagination($request, 'Local', []);
     return view('rolFerro.envio.local.eloc_index', compact('envios'));
   }
-  public function show($id_envio) {
-    $envio = $this->envioLocalRepo->envioFindOrFailById($id_envio, 'Foráneo', []);
-    return view('rolFerro.envio.local.eloc_show', compact('envio'));
-  }
   public function edit($id_envio) {
-    $envio = $this->envioLocalRepo->envioFindOrFailById($id_envio, 'Foráneo', []);
+    $envio = $this->envioLocalRepo->envioFindOrFailById($id_envio, 'Local', []);
     $rutas = $this->rutaRepo->allRutasPlunk();
     return view('rolFerro.envio.local.eloc_edit', compact('envio', 'rutas'));
   }
   public function update(UpdateEnvioLocalRequest $request, $id_envio) {
-    $this->envioLocalRepo->update($request, $id_envio);
+    $this->envioLocalRepo->update($request, $id_envio, 'Local', 'Envios locales (Rol Ferro)', 'rolFerro.envioLocal.show');
     toastr()->success('¡Envio actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }

@@ -20,35 +20,14 @@ class EnvioLocalRepositories implements EnvioLocalInterface {
     $this->papeleraDeReciclajeRepo    = $papeleraDeReciclajeRepositories;
   }
   public function envioFindOrFailById($id_envio, $for_loc, $relaciones) {
-    
-    
-    
-
     $id_envio = $this->serviceCrypt->decrypt($id_envio);
-    $envio = PedidoArmadoTieneDireccion::with($relaciones);
-    $envio->where('met_de_entreg', 'Transportes Ferro');		
-    if($for_loc != null) {
-      $envio->where('for_loc', $for_loc);
-    }
-  
-   
-      $envio->where(function ($query) {
-        $query->where('estat', config('app.en_almacen_de_salida'))
-        ->orWhere('estat', config('app.en_ruta'))
-        ->orWhere('estat', config('app.sin_entrega_por_falta_de_informacion'))
-        ->orWhere('estat', config('app.intento_de_entrega_fallido'));
-      });
-    
+    $envio = PedidoArmadoTieneDireccion::with($relaciones)->where('met_de_entreg', 'Transportes Ferro')->where('for_loc', $for_loc);
+    $envio->where(function ($query) {
+      $query->where('estat', config('app.en_almacen_de_salida'))
+      ->orWhere('estat', config('app.sin_entrega_por_falta_de_informacion'))
+      ->orWhere('estat', config('app.intento_de_entrega_fallido'));
+    });
     return $envio->findOrFail($id_envio);
-
-
-
-
-
-
-
-
-
   }
   public function getPagination($request, $for_loc, $relaciones) {
 		return PedidoArmadoTieneDireccion::with($relaciones)
@@ -58,6 +37,8 @@ class EnvioLocalRepositories implements EnvioLocalInterface {
       }]);
     }])
     ->where('for_loc', $for_loc)
+  //  ->where('estat', '!=', config('app.entregado')
+    
     ->where(function ($query) {
       $query->where('estat', config('app.pendiente'))
       ->orWhere('estat', config('app.en_almacen_de_salida'))
@@ -70,16 +51,16 @@ class EnvioLocalRepositories implements EnvioLocalInterface {
     ->orderBy('fech_en_alm_salida', 'DESC')
 		->paginate($request->paginador);
   }
-  public function update($request, $id_envio) {
+  public function update($request, $id_envio, $for_loc, $modulo, $ruta) {
     try { DB::beginTransaction();
-      $envio       = $this->envioFindOrFailById($id_envio, []);
+      $envio       = $this->envioFindOrFailById($id_envio,  $for_loc, []);
       $envio->rut  = $request->ruta;
     
       if($envio->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
-          'Envios locales (Rol Ferro)', // Módulo
-          'rolFerro.envioLocal.show', // Nombre de la ruta
+          $modulo, // Módulo
+          $ruta, // Nombre de la ruta
           $id_envio, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_envio), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
           array('Ruta'), // Nombre de los inputs del formulario

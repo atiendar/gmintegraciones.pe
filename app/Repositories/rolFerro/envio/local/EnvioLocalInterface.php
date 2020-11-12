@@ -6,5 +6,5 @@ interface EnvioLocalInterface {
 
   public function getPagination($request, $for_loc, $relaciones);
 
-  public function update($request, $id_envio);
+  public function update($request, $id_envio, $for_loc, $modulo, $ruta);
 }
