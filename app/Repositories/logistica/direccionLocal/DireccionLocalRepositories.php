@@ -110,9 +110,8 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
       $direccion->save();
 
       $this->estatusArmadoRepo->estatusArmado($direccion);
-      $ss11 = $direccion->comprobantes[0];
-      $ss = $direccion->comprobantes[0];
-      if($direccion->comprobantes[0] != null) {
+    
+      if(!$direccion->comprobantes->isEmpty()) {
         $comprobante = PedidoArmadoDireccionTieneComprobante::find($direccion->comprobantes[0]->id);
         $comprobante->updated_at_comp = Auth::user()->email_registro;
       } else {
