@@ -21,4 +21,9 @@ class DireccionEntregadaController extends Controller {
     $armado       = $direccion->armado;
     return view('logistica.pedido.direccion_entregada.dirEnt_show', compact('direccion', 'comprobantes', 'armado'));
   }
+  public function regresarEnRuta($id_direccion) {
+    $this->direccionEntregadaRepo->regresarEnRuta($id_direccion);
+    toastr()->success('¡Dirección regresada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
+  }
 }

@@ -104,18 +104,26 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
   }
   public function storeEntrega($request, $id_direccion) {
     try { DB::beginTransaction();
-      $direccion        = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), null, ['armado'], 'edit', null);
+      $direccion        = $this->direccionLocalFindOrFailById($this->serviceCrypt->encrypt($id_direccion), null, ['armado', 'comprobantes'], 'edit', null);
       $direccion->estat = $request->metodo_de_entrega_especifico;
       $direccion->estat = config('app.entregado');
       $direccion->save();
 
       $this->estatusArmadoRepo->estatusArmado($direccion);
-      
-      $comprobante = new PedidoArmadoDireccionTieneComprobante();
+      $ss11 = $direccion->comprobantes[0];
+      $ss = $direccion->comprobantes[0];
+      if($direccion->comprobantes[0] != null) {
+        $comprobante = PedidoArmadoDireccionTieneComprobante::find($direccion->comprobantes[0]->id);
+        $comprobante->updated_at_comp = Auth::user()->email_registro;
+      } else {
+        $comprobante = new PedidoArmadoDireccionTieneComprobante();
+        $comprobante->created_at_comp = Auth::user()->email_registro;
+      }
+
       $comprobante->paq             = $request->paqueteria;
       $comprobante->num_guia        = $request->numero_de_guia;
       $comprobante->direccion_id    = $id_direccion;
-      $comprobante->created_at_comp = Auth::user()->email_registro;
+      
       
       // GUARDA LA IMAGEN DEL COMRPBANTE
       if($request->hasfile('comprobante_de_entrega')) {

@@ -61,9 +61,9 @@
       errors: [],
     
       metodo_de_entrega: "{{ $direccion->met_de_entreg_de_log }}",
-      metodo_de_entrega_especifico: [],
-      paqueteria: [],
-      numero_de_guia: [],
+      metodo_de_entrega_especifico: "{{ $direccion->met_de_entreg_de_log_esp }}",
+      paqueteria: "{{ $direccion->comprobantes[0]->paq }}",
+      numero_de_guia: "{{ $direccion->comprobantes[0]->num_guia }}",
 
       mydata: null
     },

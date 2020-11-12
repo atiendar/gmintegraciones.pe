@@ -16,6 +16,7 @@
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.tipoDeEnvio')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.costo')
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.delegacionOMunicipio')
+            <th colspan="1">&nbsp</th>
           </tr>
         </thead>
         <tbody> 
@@ -32,6 +33,14 @@
               @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.tipoDeEnvio')
               @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.costo')
               @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.delegacionOMunicipio')
+              <td width="1rem" title="Regresar al estatus En Ruta: {{ $direccion->est }}">
+                @canany(['logistica.direccionForaneo.edit', 'logistica.direccionLocal.edit'])
+                  <form action="{{ route('logistica.direccionEntregada.regresarEnRuta', Crypt::encrypt($direccion->id)) }}" id="logisticaDireccionEntregadaRegresarEnRuta{{ $direccion->id }}">
+                    @method('GET')@csrf
+                    {!! Form::button('<i class="fas fa-undo-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-sm', 'id' => "btnsub$direccion->id", 'onclick' => "return check('btnsub$direccion->id', 'logisticaDireccionEntregadaRegresarEnRuta$direccion->id', '¡Alerta!', '¿Estás seguro que quieres realizar esta acción para el registro: $direccion->cod ($direccion->est) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+                  </form>
+                @endcanany
+              </td>
             </tr>
           @endforeach
         </tbody>

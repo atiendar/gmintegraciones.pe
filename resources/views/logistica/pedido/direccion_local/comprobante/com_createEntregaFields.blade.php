@@ -39,6 +39,18 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="comprobante_de_entrega">{{ __('Comprobante de entrega') }}</label>
+    @if($direccion->comprobantes[0]->comp_ent_nom != NULL)
+      <a href="{{ $direccion->comprobantes[0]->comp_ent_rut.$direccion->comprobantes[0]->comp_ent_nom }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
+    @endif
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
+    @if($direccion->comprobantes[0]->comp_ent_nom != NULL)
+      <div class="pad box-pane-right no-padding" style="min-height: 280px">
+        <iframe src="{{ $direccion->comprobantes[0]->comp_ent_rut.$direccion->comprobantes[0]->comp_ent_nom }}" style="width:100%;border:none;height:15rem;"></iframe>
+      </div>
+    @endif
   </div>
 </div>
 <div class="row">
