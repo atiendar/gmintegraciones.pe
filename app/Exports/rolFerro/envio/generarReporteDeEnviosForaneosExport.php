@@ -8,11 +8,11 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 
-class generarReporteDeEnviosLocalesExport implements FromView {
+class generarReporteDeEnviosForaneosExport implements FromView {
 	use Exportable;
 	public function view(): View {
 		return view('rolFerro.envio.export.reporteDeEnvios', [
-			'envios' => PedidoArmadoTieneDireccion::where('for_loc', 'Local')->get(),
+			'envios' => PedidoArmadoTieneDireccion::where('for_loc', 'Foráneo')->get(),
 		]);
 	}
 }

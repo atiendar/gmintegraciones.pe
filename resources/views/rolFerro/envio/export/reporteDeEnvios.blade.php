@@ -15,15 +15,12 @@
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.metodoDeEntregaLogistica')
 					@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.estado')
 					@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.delegacionOMunicipio')
-	
 				</tr>
 			</thead>
 			<tbody> 
 				@foreach($envios as $direccion)
-				
-						<tr>
-         
-            <td width="1rem">{{ $direccion->rut }}</td>
+					<tr>
+            <td>{{ $direccion->rut }}</td>
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.#')
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.fechaDeEntrega')
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.nombreDeReferenciaUno')
@@ -33,7 +30,6 @@
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntregaLogistica')
 						@include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.estado')
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.delegacionOMunicipio')
-						
 					</tr>
 				@endforeach
 			</tbody>

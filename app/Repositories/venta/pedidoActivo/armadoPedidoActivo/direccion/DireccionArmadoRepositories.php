@@ -29,7 +29,11 @@ class DireccionArmadoRepositories implements DireccionInterface {
   public function update($request, $id_direccion) {
     try { DB::beginTransaction();
       $direccion = $this->direccionFindOrFailById($id_direccion, ['armado']);
-      $direccion->tip_tarj_felic  = $request->tipo_de_tarjeta_de_felicitacion;
+   
+      if($request->tipo_de_tarjeta_de_felicitacion != NULL) {
+        $direccion->tip_tarj_felic  = $request->tipo_de_tarjeta_de_felicitacion;
+      }
+      
       if($direccion->tip_tarj_felic ==  config('opcionesSelect.select_tarjeta_de_felicitacion.Personalizada')) {
         $direccion->mens_dedic      = $request->mensaje_de_dedicatoria;
       } else {
