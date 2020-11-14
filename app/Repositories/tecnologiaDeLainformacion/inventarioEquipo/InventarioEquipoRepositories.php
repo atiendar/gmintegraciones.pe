@@ -30,7 +30,7 @@ class InventarioEquipoRepositories implements InventarioEquipoInterface {
     return InventarioEquipo::asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
   }
   public function getAllInventarioEquiposPlunk() {
-    return InventarioEquipo::orderBy('id', 'ASC')->pluck('id', 'id');
+    return InventarioEquipo::orderBy('id_equipo', 'ASC')->pluck('id_equipo', 'id');
   }
   public function update($request, $id_inventario) {
     DB::transaction(function()use($request, $id_inventario) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
