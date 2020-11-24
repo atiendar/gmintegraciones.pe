@@ -26,7 +26,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('datos_fiscales', [], null, ['id' => 'datos_fiscales', 'class' => 'form-control select2' . ($errors->has('datos_fiscales') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+      {!! Form::select('datos_fiscales', [], null, ['id' => 'datos_fiscales', 'class' => 'form-control select2' . ($errors->has('datos_fiscales') ? ' is-invalid' : ''), 'placeholder' => __('Seleccione. . .')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('datos_fiscales') }}</span>
   </div>
@@ -141,6 +141,7 @@
   $("#cliente").change(function(event){
     $.get("/factura/datos-fiscales-cliente/"+event.target.value+"",function(response,datos_fiscales) {
       $("#datos_fiscales").empty();
+      $("#datos_fiscales").append("<option value=''> Seleccione. . .</option>");
       for(i=0; i<response.length; i++) {
         $("#datos_fiscales").append("<option value='"+response[i].id+"'> "+response[i].rfc+"</option>");
       }
