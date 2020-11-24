@@ -1,7 +1,7 @@
 <div class="card-body table-responsive p-0" id="div-tabla-scrollbar" style="height: 40em;">
   <table class="table table-head-fixed table-hover table-striped table-sm table-bordered">
     @if(sizeof($pedidos) == 0)
-      @include('layouts.private.busquedaSinResultados')
+      @include('layouts.private.busquedaSinResultados', ['mensaje' => 'Si aún no tienes un numero de pedido favor de mandar tu cotización final firmada al correo contacto@canastasyarcones.mx para que te carguen tu pedido'])
     @else 
       <thead>
         <tr>

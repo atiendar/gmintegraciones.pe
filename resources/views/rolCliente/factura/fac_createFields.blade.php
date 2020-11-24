@@ -30,7 +30,7 @@
 <div class="border border-primary rounded p-2">
   <div class="row">
     <div class="form-group col-sm btn-sm">
-      <label for="codigo_de_facturacion">{{ __('Código de facturación') }} ({{ __('Se obtiene al registrar un pago') }}) *</label>
+      <label for="codigo_de_facturacion">{{ __('Código de facturación') }} ({{ __('Se obtiene al registrar un pago') }} <a href="{{ route('rolCliente.pago.create') }}">{{ __('Clic aquí para registrar pago') }}</a>) *</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-list"></i></span>

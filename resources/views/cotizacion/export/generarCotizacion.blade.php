@@ -126,6 +126,10 @@
               <a href="{{ route('rolCliente.factura.create') }}" target="_blank">Para solicitar factura clic aquí</a>
             </td>
             <td>
+
+              <img src="https://s3-us-west-2.amazonaws.com/archivos.arconesycanastas/sistema/icono_tarjetas_credito.png"class="brand-image elevation-0" style="width:3rem;">
+
+
               @if($cotizacion->con_com == 'on')
                 <a href="https://www.paypal.me/canastasyarcones/{{ Sistema::dosDecimales($cotizacion->tot) }}" target="_blank">Para pago con tarjeta clic aquí, comisión incluida del 5% ${{ Sistema::dosDecimales($cotizacion->tot) }}</a>
               @else

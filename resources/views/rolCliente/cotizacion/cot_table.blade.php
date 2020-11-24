@@ -6,6 +6,7 @@
       <thead>
         <tr>
           @include('cotizacion.cot_table.th.serie')
+          @include('cotizacion.cot_table.th.numPedGen')
           @include('cotizacion.cot_table.th.estatus')
           @include('cotizacion.cot_table.th.validez')
           @include('cotizacion.cot_table.th.total')
@@ -13,13 +14,16 @@
       </thead>
       <tbody> 
         @foreach($cotizaciones as $cotizacion)
-          <tr title="{{ $cotizacion->id }}">
-            @include('cotizacion.cot_table.td.serie', ['show' => true, 'canany' => ['cotizacion.show'], 'ruta' => 'cotizacion.show',  'target' => 'target="_blank"'])
+          <tr title="{{ $cotizacion->serie }}">
+            <td>
+              <a href="{{ route('rolCliente.cotizacion.show', Crypt::encrypt($cotizacion->id)) }}" title="Detalles: {{ $cotizacion->serie }}">{{ $cotizacion->serie }}</a>
+            </td>
+            @include('cotizacion.cot_table.td.numPedGen')
             @include('cotizacion.cot_table.td.estatus')
             @include('cotizacion.cot_table.td.validez')
             @include('cotizacion.cot_table.td.total')
           </tr>
-          @endforeach
+        @endforeach
       </tbody>
     @endif
   </table>

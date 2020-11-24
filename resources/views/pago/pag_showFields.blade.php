@@ -28,4 +28,5 @@
   @include('pago.pag_showFields.montoDePago')
 </div>
 @include('pago.pag_showFields.comentarios')
+@include('pago.pag_showFields.comentariosVentas')
 @include('pago.pag_showFields.archivos_comPago_copIdentificacion')

@@ -11,5 +11,6 @@
     @include('pago.pag_showFields.formaDePago')
     @include('pago.pag_showFields.montoDePago')
   </div>
+  @include('pago.pag_showFields.comentariosVentas')
   @include('pago.pag_showFields.archivos_comPago_copIdentificacion')
 </div>

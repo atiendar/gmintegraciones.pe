@@ -34,6 +34,7 @@
         @include('pago.pag_showFields.formaDePago')
         @include('pago.pag_showFields.montoDePago')
       </div>
+      @include('pago.pag_showFields.comentariosVentas')
     </div>
     {!! Form::open(['route' => ['pago.update', Crypt::encrypt($pago->id)], 'method' => 'patch', 'id' => 'pagoUpdate']) !!}
       @include('pago.individual.ind_editFields')

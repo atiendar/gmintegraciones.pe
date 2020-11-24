@@ -45,6 +45,7 @@ class PagoRepositories implements PagoInterface {
       $pago->not            = $request->not; // Este campo solo se le asigna un valor cuando solo se genera un codigo de facuración
       $pago->form_de_pag    = $request->forma_de_pago;
       $pago->mont_de_pag    = $request->monto_del_pago;
+      $pago->coment_pag_vent  = $request->comentarios_ventas;
       $pago->pedido_id      = $pedido->id;   
       $pago->user_id        = $pedido->user_id; 
       $pago->created_at_pag = Auth::user()->email_registro;
@@ -128,10 +129,11 @@ class PagoRepositories implements PagoInterface {
   public function updateFpedido($request, $id_pago) {
     try { DB::beginTransaction();
       $pago = $this->getPagoFindOrFailById($id_pago, ['pedido'], config('app.rechazado'));
-      $pago->estat_pag    = $request->estatus_pago;
-      $pago->form_de_pag  = $request->forma_de_pago;
-      $pago->mont_de_pag  = $request->monto_del_pago;
-      
+      $pago->estat_pag        = $request->estatus_pago;
+      $pago->form_de_pag      = $request->forma_de_pago;
+      $pago->mont_de_pag      = $request->monto_del_pago;
+      $pago->coment_pag_vent  = $request->comentarios_ventas;
+
       if($pago->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
@@ -139,9 +141,9 @@ class PagoRepositories implements PagoInterface {
           'pago.fPedido.show', // Nombre de la ruta
           $id_pago, // Id del registro debe ir encriptado
           $pago->cod_fact, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Estatus pago', 'Forma de pago', 'Monto del pago'), // Nombre de los inputs del formulario
+          array('Estatus pago', 'Forma de pago', 'Monto del pago', 'Comentarios ventas'), // Nombre de los inputs del formulario
           $pago, // Request
-          array('estat_pag', 'form_de_pag', 'mont_de_pag') // Nombre de los campos en la BD
+          array('estat_pag', 'form_de_pag', 'mont_de_pag', 'coment_pag_vent') // Nombre de los campos en la BD
         ); 
         $pago->updated_at_pag  = Auth::user()->email_registro;
       }

@@ -33,6 +33,15 @@
     </div>
     {!! Form::open(['route' => ['rolCliente.pago.update', Crypt::encrypt($pago->id)], 'method' => 'patch', 'id' => 'pagofPedidoUpdate', 'files' => true]) !!}
       @include('pago.fPedido.pago.pag_editFields')
+      @include('pago.pag_showFields.archivos_comPago_copIdentificacion')
+      <div class="row">
+        <div class="form-group col-sm btn-sm" >
+          <a href="{{ route('pago.fPedido.create', Crypt::encrypt($pedido->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
+        </div>
+        <div class="form-group col-sm btn-sm">
+          <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2" onclick="return check('btnsubmit', 'pagofPedidoUpdate', '¡Alerta!', '¿Estás seguro quieres actualizar el registro?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-edit text-dark"></i> {{ __('Actualizar') }}</button>
+        </div>
+      </div>
     {!! Form::close() !!}
   </div>
 </div>

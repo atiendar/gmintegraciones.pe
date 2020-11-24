@@ -24,6 +24,7 @@
         <div class="form-group col-sm btn-sm">
           <label for="numero_de_pedido">{{ __('Número de pedido') }} *</label>
           <label for="restante_a_pagar" v-text="restante_a_pagar"></label>
+          {{ __('Si aún no tienes un numero de pedido favor de mandar tu cotización final firmada al correo contacto@canastasyarcones.mx para que te carguen tu pedido') }}
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-list"></i></span>
