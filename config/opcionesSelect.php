@@ -813,6 +813,11 @@ return array(
     'tot_de_arm'              => 'Total de armados',
     'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
+  'select_bodega_donde_se_armara'  => [
+    'Temas'     => 'Temas',
+    'Naucalpan' => 'Naucalpan',
+
+  ],
 /* ===================== PRODUCCIÓN PEDIDO ACTIVO [ ARMADOS ] ===================== */
   'select_produccion_pedido_armados_index' => [
     ''            => 'Buscar por. . .',

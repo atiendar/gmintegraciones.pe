@@ -44,7 +44,8 @@ class CreatePedidosTable extends Migration
             $table->string('estat_alm',100)->default(config('app.pendiente'))->comment('Estatus almacén');
             $table->timestamp('fech_estat_alm')->nullable()->comment('Fecha estatus almacén');
             $table->text('coment_alm')->nullable()->comment('Comentarios Almacen');
-            $table->string('lid_de_ped_produc',80)->nullable()->comment('Líder de pedido del producto'); 
+            $table->string('lid_de_ped_produc',80)->nullable()->comment('Líder de pedido del producto');
+            $table->string('bod',150)->nullable()->comment('Bodega donde se armara el pedido');
             $table->string('estat_produc',100)->default(config('app.pendiente'))->comment('Estatus del producto');
             $table->timestamp('fech_estat_produc')->nullable()->comment('Fecha estatus producto');
             $table->text('coment_produc')->nullable()->comment('Comentarios producción');

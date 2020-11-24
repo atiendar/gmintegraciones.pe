@@ -50,6 +50,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     try { DB::beginTransaction();
       $pedido                    = $this->pedidoActivoProduccionFindOrFailById($id_pedido, [], 'edit');
       $pedido->lid_de_ped_produc = $request->lider_de_pedido_produccion;
+      $pedido->bod               = $request->bodega_donde_se_armara;
       $pedido->coment_produc     = $request->comentario_produccion;
       if($pedido->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
@@ -58,9 +59,9 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
           'produccion.pedidoActivo.show', // Nombre de la ruta
           $id_pedido, // Id del registro debe ir encriptado
           $pedido->num_pedido, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Líder de pedido producción', 'Comentario producción'), // Nombre de los inputs del formulario
+          array('Líder de pedido producción', 'Bodega donde se armara', 'Comentario producción'), // Nombre de los inputs del formulario
           $pedido, // Request
-          array('lid_de_ped_produc', 'coment_produc') // Nombre de los campos en la BD
+          array('lid_de_ped_produc', 'bod', 'coment_produc') // Nombre de los campos en la BD
         );
         $pedido->updated_at_ped = Auth::user()->email_registro;
       }

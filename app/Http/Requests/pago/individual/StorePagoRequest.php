@@ -12,6 +12,8 @@ class StorePagoRequest extends FormRequest {
     $pedido = \App\Models\Pedido::select('id', 'mont_tot_de_ped')->with('pagos')->findOrFail($id_pedido);
     $sum_mont_de_pag = $pedido->pagos()->sum('mont_de_pag');
     $max_monto = $pedido->mont_tot_de_ped - $sum_mont_de_pag;
+    $max_monto = number_format($max_monto, 2, '.', '');
+
     return [
       'comprobante_de_pago'     => 'nullable|mimes:pdf,jpg,jpeg,png|max:1024',
       'forma_de_pago'           => 'required|in:Cheque,Efectivo (Jonathan),Efectivo (Gabriel),Efectivo (Fernando),Paypal,Tarjeta de credito (Pagina),Tarjeta de credito (Clip),Tarjeta de debito,Transferencia RUT Yolanda,Transferencia Canastas y Arcones S.A de C.V,Otro',
