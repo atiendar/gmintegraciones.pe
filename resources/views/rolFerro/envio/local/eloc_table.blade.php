@@ -6,6 +6,7 @@
 			<thead>
 				<tr>
 					<th>{{ __('RUTA') }}</th>
+					@include('venta.pedido.pedido_activo.ven_pedAct_table.th.bodega')
 					@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.#')
 					@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.fechaDeEntrega')
 					@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.nombreDeReferenciaUno')
@@ -26,6 +27,7 @@
 						<tr title="{{ $direccion->est }}" class="text-muted cursor-allowed" style="background:#bcbcbc">
           @endif
             <td width="1rem">{{ $direccion->rut }}</td>
+            @include('venta.pedido.pedido_activo.ven_pedAct_table.td.bodega', ['pedido' => $direccion->armado->pedido])
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.#')
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.fechaDeEntrega')
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.nombreDeReferenciaUno')

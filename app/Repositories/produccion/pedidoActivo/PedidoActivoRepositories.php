@@ -16,6 +16,11 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     $this->serviceCrypt = $serviceCrypt;
   }
   public function getPagination($request, $relaciones, $opc_consulta) {
+    if($request->paginador == null) {
+      $paginador = 50;
+    }else {
+      $paginador = $request->paginador;
+    }
     return Pedido::pendientesPedido($opc_consulta)
       ->with($relaciones)
       ->where('estat_produc', '!=', config('app.en_almacen_de_salida_terminado'))
@@ -29,7 +34,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       */
       ->buscar($request->opcion_buscador, $request->buscador)
       ->orderBy('fech_estat_produc', 'DESC')
-      ->paginate($request->paginador);
+      ->paginate($paginador);
   }
   public function pedidoActivoProduccionFindOrFailById($id_pedido, $relaciones, $accion) {
     $id_pedido = $this->serviceCrypt->decrypt($id_pedido);

@@ -5,7 +5,8 @@
 		@else 
 			<thead>
 				<tr>
-					<th>{{ __('RUTA') }}</th>
+          <th>{{ __('RUTA') }}</th>
+          @include('venta.pedido.pedido_activo.ven_pedAct_table.th.bodega')
 					@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.#')
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.fechaDeEntrega')
           <th>{{ __('TAMAÑO') }}</th>
@@ -31,12 +32,14 @@
           <th>{{ __('REFERENCIAS') }}</th>
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.metodoDeEntrega')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.metodoDeEntregaLogistica')
+          @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.estado')
 				</tr>
 			</thead>
 			<tbody> 
 				@foreach($envios as $direccion)
 					<tr>
             <td>{{ $direccion->rut }}</td>
+            @include('venta.pedido.pedido_activo.ven_pedAct_table.td.bodega', ['pedido' => $direccion->armado->pedido])
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.#')
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.fechaDeEntrega')
             <td>{{ $direccion->armado->tam }}</td>
@@ -62,6 +65,7 @@
             <td>{{ $direccion->armado->ref_zon_de_entreg }}</td>
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntrega')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntregaLogistica')
+            @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.estado')
 					</tr>
 				@endforeach
 			</tbody>

@@ -36,9 +36,10 @@ class PagoController extends Controller {
   }
   public function edit($id_pago) {
     $pago           = $this->pagoRepo->getPagoFindOrFailById($id_pago, ['pedido'], null);
-    $pedido         = $pago->pedido()->firstOrFail();
-    $mont_pag_aprov =  $this->pagoRepo->getMontoDePagosAprobados($pedido);
-    return view('pago.individual.ind_edit', compact('pago', 'pedido', 'mont_pag_aprov'));
+    $pedido         = $pago->pedido()->with(['pagos'])->firstOrFail();
+    $mont_pag_aprov = $this->pagoRepo->getMontoDePagosAprobados($pedido);
+    $pagos =  $pedido->pagos()->with(['usuario'])->paginate(99999999);
+    return view('pago.individual.ind_edit', compact('pago', 'pagos', 'pedido', 'mont_pag_aprov'));
   }
   public function update(UpdatePagoRequest $request, $id_pago) {
     $this->pagoRepo->update($request, $id_pago);

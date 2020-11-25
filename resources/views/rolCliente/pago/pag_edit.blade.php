@@ -17,6 +17,7 @@
     <div class="border border-primary rounded p-2">
       <div class="row">
         @include('pago.pag_showFields.numeroDePedido')
+        @include('venta.pedido.pedido_activo.ven_pedAct_showFields.montoTotalDelPedido1')
       </div>
       <div class="row">
         @include('pago.pag_showFields.nota')

@@ -11,8 +11,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class generarReporteDeEnviosLocalesExport implements FromView {
 	use Exportable;
 	public function view(): View {
+		$consulta = PedidoArmadoTieneDireccion::where('for_loc', 'Local')->where('estat', '!=', config('app.entregado'))->with(['armado' => function($query) {
+			$query->with(['pedido']);
+		}])->get();
+
 		return view('rolFerro.envio.export.reporteDeEnvios', [
-			'envios' => PedidoArmadoTieneDireccion::where('for_loc', 'Local')->where('estat', '!=', config('app.entregado'))->with(['armado'])->get()
+			'envios' => $consulta
 		]);
 	}
 }

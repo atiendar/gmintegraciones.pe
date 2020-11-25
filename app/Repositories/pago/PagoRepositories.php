@@ -94,7 +94,15 @@ class PagoRepositories implements PagoInterface {
       $pago = $this->getPagoFindOrFailById($id_pago, ['pedido', 'usuario'], null);
       $pago->estat_pag  = $request->estatus_pago;
       $pago->coment_pag = $request->comentarios;
-      
+
+      if($pago->isDirty('estat_pag')) {
+        if($pago->estat_pag == config('app.aprobado')) {
+          $pago->user_aut = Auth::user()->email_registro;
+        } else {
+          $pago->user_aut = null;
+        }
+      }
+
       if($pago->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
@@ -102,9 +110,9 @@ class PagoRepositories implements PagoInterface {
           'pago.show', // Nombre de la ruta
           $id_pago, // Id del registro debe ir encriptado
           $pago->cod_fact, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Estatus pago', 'Comentarios'), // Nombre de los inputs del formulario
+          array('Estatus pago', 'Comentarios', 'Usuario que autorizo el pago'), // Nombre de los inputs del formulario
           $pago, // Request
-          array('estat_pag', 'coment_pag') // Nombre de los campos en la BD
+          array('estat_pag', 'coment_pag', 'user_aut') // Nombre de los campos en la BD
         ); 
         $pago->updated_at_pag  = Auth::user()->email_registro;
       }

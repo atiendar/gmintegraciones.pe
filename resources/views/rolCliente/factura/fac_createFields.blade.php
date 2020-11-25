@@ -108,7 +108,7 @@
   </div>
   <div class="row">
     <div class="form-group col-sm btn-sm">
-      <label for="comentarios_cliente">{{ __('Comentarios cliente') }}</label>
+      <label for="comentarios_cliente">{{ __('Comentarios cliente') }} ({{ __('Agregar aquí cualquier comentario adicional ya sea desglose de información etc.') }} )</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-text-width"></i></span>
