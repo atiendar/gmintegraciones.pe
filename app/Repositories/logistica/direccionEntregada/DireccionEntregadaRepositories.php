@@ -28,6 +28,12 @@ class DireccionEntregadaRepositories implements DireccionEntregadaInterface {
     return $direccion;
   }
   public function getPagination($request, $relaciones) {
+    if($request->paginador == null) {
+      $paginador = 50;
+    }else {
+      $paginador = $request->paginador;
+    }
+    
     return PedidoArmadoTieneDireccion::with($relaciones)
     ->whereBetween('updated_at', [date("Y-m-d", strtotime('-90 day', strtotime(date("Y-m-d")))), date("Y-m-d", strtotime('+1 day', strtotime(date("Y-m-d"))))])
     ->with(['armado'=> function ($query) {
@@ -38,7 +44,7 @@ class DireccionEntregadaRepositories implements DireccionEntregadaInterface {
     ->where('estat', config('app.entregado'))
     ->buscar($request->opcion_buscador, $request->buscador)
     ->orderBy('updated_at', 'DESC')
-    ->paginate($request->paginador);
+    ->paginate($paginador);
   }
   public function regresarEnRuta($id_direccion) {
     try { DB::beginTransaction();

@@ -51,18 +51,18 @@
             @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.estatus')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => false])
 						@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.nombreDeReferenciaUno')
-            <td>{{ $direccion->armado->lad_fij.$direccion->armado->tel_fij }}</td>
-            <td>{{ $direccion->armado->ext }}</td>
-            <td>{{ $direccion->armado->lad_mov.$direccion->armado->tel_mov }}</td>
-            <td>{{ $direccion->armado->calle }}</td>
-            <td>{{ $direccion->armado->no_ext }}</td>
-            <td>{{ $direccion->armado->no_int }}</td>
-            <td>{{ $direccion->armado->pais }}</td>
-            <td>{{ $direccion->armado->ciudad }}</td>
-            <td>{{ $direccion->armado->col }}</td>
-            <td>{{ $direccion->armado->del_o_munic }}</td>
-            <td>{{ $direccion->armado->cod_post }}</td>
-            <td>{{ $direccion->armado->ref_zon_de_entreg }}</td>
+            <td>{{ $direccion->lad_fij.$direccion->tel_fij }}</td>
+            <td>{{ $direccion->ext }}</td>
+            <td>{{ $direccion->lad_mov.$direccion->tel_mov }}</td>
+            <td>{{ $direccion->calle }}</td>
+            <td>{{ $direccion->no_ext }}</td>
+            <td>{{ $direccion->no_int }}</td>
+            <td>{{ $direccion->pais }}</td>
+            <td>{{ $direccion->ciudad }}</td>
+            <td>{{ $direccion->col }}</td>
+            <td>{{ $direccion->del_o_munic }}</td>
+            <td>{{ $direccion->cod_post }}</td>
+            <td>{{ $direccion->ref_zon_de_entreg }}</td>
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntrega')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.metodoDeEntregaLogistica')
             @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.estado')

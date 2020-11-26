@@ -52,6 +52,12 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
     return $direccion->findOrFail($id_direccion);
   }
   public function getPagination($request, $for_loc, $relaciones) {
+    if($request->paginador == null) {
+      $paginador = 50;
+    }else {
+      $paginador = $request->paginador;
+    }
+
     return PedidoArmadoTieneDireccion::with($relaciones)
     ->with(['armado'=> function ($query) {
       $query->select('id', 'cod', 'pedido_id')->with(['pedido'=> function ($query) {
@@ -68,7 +74,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
       })
     ->buscar($request->opcion_buscador, $request->buscador)
     ->orderBy('fech_en_alm_salida', 'DESC')
-    ->paginate($request->paginador);
+    ->paginate($paginador);
   }
   public function store($request, $id_direccion) {
     try { DB::beginTransaction();
