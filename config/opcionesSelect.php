@@ -658,7 +658,7 @@ return array(
     'Transferencia Canastas y Arcones S.A de C.V' => 'Transferencia Canastas y Arcones S.A de C.V',
     'Paypal'                                      => 'Paypal',
     'Tarjeta de credito (Clip)'                   => 'Tarjeta de credito (Clip)',
-    'Transferencia RUT Yolanda'                   => 'Transferencia RUT Yolanda',
+    'Transferencia RUTH Yolanda'                   => 'Transferencia RUTH Yolanda',
     'Efectivo (Jonathan)'                         => 'Efectivo (Jonathan)',
     'Efectivo (Gabriel)'                          => 'Efectivo (Gabriel)',
     'Efectivo (Fernando)'                         => 'Efectivo (Fernando)',

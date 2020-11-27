@@ -51,8 +51,9 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   }
   public function update($request, $id_pedido) {
     DB::transaction(function() use($request, $id_pedido) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
-      $pedido                    = $this->pedidoActivoLogisticaFindOrFailById($id_pedido, []);
-      $pedido->coment_log     = $request->comentario_logistica;
+      $pedido             = $this->pedidoActivoLogisticaFindOrFailById($id_pedido, []);
+      $pedido->bod        = $request->bodega_donde_se_armara;
+      $pedido->coment_log = $request->comentario_logistica;
       if($pedido->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
@@ -60,9 +61,9 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
           'logistica.pedidoActivo.show', // Nombre de la ruta
           $id_pedido, // Id del registro debe ir encriptado
           $pedido->num_pedido, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Comentario logística'), // Nombre de los inputs del formulario
+          array('Bodega donde se armara', 'Comentario logística'), // Nombre de los inputs del formulario
           $pedido, // Request
-          array('coment_log') // Nombre de los campos en la BD
+          array('bod', 'coment_log') // Nombre de los campos en la BD
         );
         $pedido->updated_at_ped = Auth::user()->email_registro;
       }
