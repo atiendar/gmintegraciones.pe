@@ -21,6 +21,20 @@
     </div>
   </div>
   <div class="card-body">
+    <div class="row">
+      @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cliente', ['pedido' => $armado->pedido])
+    </div>
+    <div class="row">
+      @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.nombreDeArmado')
+      @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.tipo')
+      @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.codigo')
+    </div>
+    <div class="row">
+      @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_showFields.cantidad')
+      @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.sku')
+    </div>
+    <hr>
+
     <form @submit.prevent="create" enctype="multipart/form-data">
       @include('logistica.pedido.direccion_local.comprobante.com_createEntregaFields')
       <div class="row">

@@ -21,8 +21,8 @@ class PagoPedidoController extends Controller {
     $this->pagoRepo         = $pagoRepositories;
   }
   public function index(Request $request) {
-    $pedidos =  \App\Models\Pedido::withCount(['pagos AS pagos_sum' => function ($query) {
-                      $query->select(\DB::raw("SUM(mont_de_pag) as monto_pagado"));
+    $pedidos =  \App\Models\Pedido::withCount(['pagos AS mont_pagado' => function ($query) {
+                      $query->select(\DB::raw("SUM(mont_de_pag)"));
                     }
                   ])
                   ->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)
