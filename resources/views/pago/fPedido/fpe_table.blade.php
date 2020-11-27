@@ -8,6 +8,7 @@
           @include('venta.pedido.pedido_activo.ven_pedAct_table.th.numeroDePedido')
           @include('venta.pedido.pedido_activo.ven_pedAct_table.th.estatusPago')
           @include('venta.pedido.pedido_activo.ven_pedAct_table.th.montoTotal')
+          <th>{{ __('MONT. RESTANTE') }}</th>
           <th colspan="1">&nbsp</th>
         </tr>
       </thead>
@@ -17,6 +18,9 @@
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['rastrea.pedido.show', 'rastrea.pedido.showFull'], 'ruta' => route('rastrea.pedido.show', Crypt::encrypt($pedido->id)), 'target' => '_blank'])
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusPago')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.montoTotal')
+            <td>
+              ${{ Sistema::dosDecimales($pedido->mont_tot_de_ped-$pedido->pagos_sum) }}
+            </td>
             @if($pedido->estat_log !=  config('app.entregado'))
               @include('pago.fPedido.fpe_tableOpciones')
             @else

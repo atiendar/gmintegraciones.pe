@@ -21,10 +21,16 @@ class PagoPedidoController extends Controller {
     $this->pagoRepo         = $pagoRepositories;
   }
   public function index(Request $request) {
-    $pedidos =  \App\Models\Pedido::asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)
+    $pedidos =  \App\Models\Pedido::withCount(['pagos AS pagos_sum' => function ($query) {
+                      $query->select(\DB::raw("SUM(mont_de_pag) as monto_pagado"));
+                    }
+                  ])
+                  ->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)
                   ->buscar($request->opcion_buscador, $request->buscador)
                   ->orderBy('id', 'DESC')
                   ->paginate($request->paginador);
+
+               //   dd($pedidos[0]);
     return view('pago.fPedido.fpe_index', compact('pedidos'));
   }
   public function create($id_pedido) {
