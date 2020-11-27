@@ -22,7 +22,7 @@ class PagoPedidoController extends Controller {
   }
   public function index(Request $request) {
     $pedidos =  \App\Models\Pedido::withCount(['pagos AS mont_pagado' => function ($query) {
-                      $query->select(\DB::raw("SUM(mont_de_pag)"));
+                      $query->select(\DB::raw("SUM(mont_de_pag)"))->where('estat_pag', config('app.aprobado'));
                     }
                   ])
                   ->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)
@@ -30,7 +30,6 @@ class PagoPedidoController extends Controller {
                   ->orderBy('id', 'DESC')
                   ->paginate($request->paginador);
 
-               //   dd($pedidos[0]);
     return view('pago.fPedido.fpe_index', compact('pedidos'));
   }
   public function create($id_pedido) {
