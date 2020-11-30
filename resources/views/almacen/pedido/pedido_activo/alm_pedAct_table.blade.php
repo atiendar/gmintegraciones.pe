@@ -17,15 +17,31 @@
       </thead>
       <tbody> 
         @foreach($pedidos as $pedido)
-          <tr title="{{ $pedido->num_pedido }}">
-            @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['almacen.pedidoActivo.show', 'almacen.pedidoActivo.armado.show'], 'ruta' => route('almacen.pedidoActivo.show', Crypt::encrypt($pedido->id))])
+          @if($pedido->estat_alm == config('app.asignar_persona_que_recibe') OR $pedido->estat_alm == config('app.en_espera_de_ventas') OR $pedido->estat_alm == config('app.en_espera_de_compra') OR $pedido->estat_alm == config('app.en_revision_de_productos'))
+            <tr title="{{ $pedido->num_pedido }}">
+          @else
+            <tr title="{{ $pedido->num_pedido }}" class="text-muted cursor-allowed" style="background:#bcbcbc">
+          @endif
+
+            @if($pedido->estat_alm == config('app.asignar_persona_que_recibe') OR $pedido->estat_alm == config('app.en_espera_de_ventas') OR $pedido->estat_alm == config('app.en_espera_de_compra') OR $pedido->estat_alm == config('app.en_revision_de_productos'))
+              @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['almacen.pedidoActivo.show', 'almacen.pedidoActivo.armado.show'], 'ruta' => route('almacen.pedidoActivo.show', Crypt::encrypt($pedido->id))])
+            @else
+              @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['rastrea.pedido.show', 'rastrea.pedido.showFull'], 'ruta' => route('rastrea.pedido.show',  Crypt::encrypt($pedido->id)), 'target' => '_blank'])
+            @endif
+
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.numeroDePedidoUnificado')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.fechaDeEntrega')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusPago')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusAlmacen')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.cliente')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.totalDeArmados')
-            @include('almacen.pedido.pedido_activo.alm_pedAct_tableOpciones')
+
+            @if($pedido->estat_alm == config('app.asignar_persona_que_recibe') OR $pedido->estat_alm == config('app.en_espera_de_ventas') OR $pedido->estat_alm == config('app.en_espera_de_compra') OR $pedido->estat_alm == config('app.en_revision_de_productos'))
+              @include('almacen.pedido.pedido_activo.alm_pedAct_tableOpciones')
+            @else
+              <td></td>
+              <td></td>
+            @endif
           </tr>
         @endforeach
       </tbody>

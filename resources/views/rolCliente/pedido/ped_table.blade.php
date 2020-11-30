@@ -10,13 +10,13 @@
           @include('venta.pedido.pedido_activo.ven_pedAct_table.th.estatusPago')
           @include('venta.pedido.pedido_activo.ven_pedAct_table.th.estatusProduccion')
           @include('venta.pedido.pedido_activo.ven_pedAct_table.th.totalDeArmados')
-          <th colspan="1">&nbsp</th>
+          <th colspan="2">&nbsp</th>
         </tr>
       </thead>
       <tbody> 
         @foreach($pedidos as $pedido)
           <tr title="{{ $pedido->num_pedido }}">
-            @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => [null], 'ruta' => route('rolCliente.pedido.show', Crypt::encrypt($pedido->id))])
+            @include('venta.pedido.pedido_activo.ven_pedAct_table.td.numeroDePedido')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.fechaDeEntrega')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusPago')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusProduccionCliente')

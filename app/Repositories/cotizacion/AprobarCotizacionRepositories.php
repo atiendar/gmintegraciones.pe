@@ -164,7 +164,18 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
           $direcciones[$contador3]['cant']                      = $direccion->cant;
           $direcciones[$contador3]['tip_tarj_felic']            = 'Estandar';
           $direcciones[$contador3]['met_de_entreg']             = $direccion->met_de_entreg;
-          $direcciones[$contador3]['est']                       = $direccion->est;
+
+          // DEFINE EL NUEVO VALOR DEL ESTADO SIN LA CAMPITAL
+          $nuevo_est = null;
+          for($i=0;$i<strlen($direccion->est);$i++) {
+            if($direccion->est[$i] == '(') {
+              break;
+            }
+            $nuevo_est .= $direccion->est[$i];
+          }
+          $direcciones[$contador3]['est']                       = $nuevo_est;
+          // -----
+          
           $direcciones[$contador3]['for_loc']                   = $direccion->for_loc;
           $direcciones[$contador3]['detalles_de_la_ubicacion']  = $direccion->detalles_de_la_ubicacion;
           $direcciones[$contador3]['tip_env']                   = $direccion->tip_env;

@@ -26,7 +26,7 @@ return [
     'alpha_cierre_fiscal'               => 'El :attribute introducido no es valido ya que el cierre fiscal ha concluido.',
     'alpha_con_o_sin_iva'               => 'El :attribute introducido no es valido para facturar ya que no se pago IVA.',
     'alpha_total_armado'                => 'El campo :attribute no puede ser mayor o igual al precio original.',
-    'alpha_solo_facturar_si_ya_esta_pagado' => 'El pago con el :attribute introducido no ha sido aprobado.',
+    'alpha_solo_facturar_si_ya_esta_pagado' => 'Aun no puedes facturar este código porque aun no hemos validado tu pago, regresa mas tarde para continuar con tu factura o espera hasta que tu estatus de pago sea Aprobado..',
 /* ======================================================= */
     'accepted'             => 'El campo :attribute debe ser aceptado.',
     'active_url'           => 'El campo :attribute no es una URL válida.',

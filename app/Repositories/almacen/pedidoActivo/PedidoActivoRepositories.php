@@ -28,12 +28,16 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   public function getPagination($request, $relaciones, $opc_consulta) {
     return Pedido::pendientesPedido($opc_consulta)
                 ->with($relaciones)
+                ->where('estat_alm', '!=', config('app.productos_completos_terminado'))
+                /*
                 ->where(function ($query){
                 $query->where('estat_alm', config('app.asignar_persona_que_recibe'))
                     ->orWhere('estat_alm', config('app.en_espera_de_ventas'))
                     ->orWhere('estat_alm', config('app.en_espera_de_compra'))
                     ->orWhere('estat_alm', config('app.en_revision_de_productos'));
-                })->buscar($request->opcion_buscador, $request->buscador)
+                })
+                */
+                ->buscar($request->opcion_buscador, $request->buscador)
                 ->orderBy('fech_estat_alm', 'DESC')
                 ->paginate($request->paginador);
   }

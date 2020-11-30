@@ -91,4 +91,7 @@ class DireccionRepositories implements DireccionInterface {
   public function getDireccionFind($id_direccion) {
     return Direccion::where('user_id', Auth::user()->id)->where('id', $id_direccion)->findOrFail($id_direccion);
   }
+  public function getDireccion($id_direccion) {
+    return Direccion::findOrFail($id_direccion);
+  }
 }

@@ -15,7 +15,7 @@
           <th>{{ __('SUBTOTAL') }}</th>
           <th>{{ __('IVA') }}</th>
           <th>{{ __('TOTAL') }}</th>
-          <th colspan="2">&nbsp</th>
+          <th colspan="3">&nbsp</th>
         </tr>
       </thead>
       <tbody> 

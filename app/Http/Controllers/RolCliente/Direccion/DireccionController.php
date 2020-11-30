@@ -52,4 +52,10 @@ class DireccionController extends Controller {
       return response()->json($direccion);
     } 
   }
+  public function getDireccion(Request $request, $id_direccion) {
+    if($request->ajax()) {
+      $direccion = $this->direccionRepo->getDireccion($id_direccion);
+      return response()->json($direccion);
+    } 
+  }
 }

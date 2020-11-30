@@ -26,7 +26,7 @@ return [
     'alpha_cierre_fiscal'               => 'The :attribute entered is not valid since the fiscal closing has concluded.',
     'alpha_con_o_sin_iva'               => 'The :attribute entered is not valid for invoicing since VAT was not paid.',
     'alpha_total_armado'                => 'The :attribute field cannot be greater than or equal to the original price.',
-    'alpha_solo_facturar_si_ya_esta_pagado' => 'The payment with the :attribute entered has not been approved.',
+    'alpha_solo_facturar_si_ya_esta_pagado' => 'You still cannot invoice this code because we have not validated your payment yet, come back later to continue with your invoice or wait until your payment status is Approved..',
 /* ======================================================= */
     'accepted' => 'The :attribute must be accepted.',
     'active_url' => 'The :attribute is not a valid URL.',

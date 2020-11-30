@@ -17,4 +17,6 @@ interface DireccionInterface {
   public function getDireccionesClientePluck();
 
   public function getDireccionFind($id_direccion);
+
+  public function getDireccion($id_direccion);
 }

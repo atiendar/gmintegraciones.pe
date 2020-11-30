@@ -1,3 +1,9 @@
+<td width="1rem" title="Clonar: {{ $armado->nom }}">
+  <form method="post" action="{{ route('armado.clon.store', Crypt::encrypt($armado->id)) }}" id="armadoClonStore{{ $armado->id }}">
+    @method('GET')@csrf
+    {!! Form::button('<i class="far fa-clone"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-sm', 'id' => "btnsubArmadoClonStore$armado->id", 'onclick' => "return check('btnsubArmadoClonStore$armado->id', 'armadoClonStore$armado->id', '¡Alerta!', '¿Estás seguro quieres clonar el registro, $armado->id ($armado->sku) ?', 'info', 'Continuar', 'Cancelar', 'false');"]) !!}
+  </form>
+</td>
 <td width="1rem" title="Editar: {{ $armado->nom }}">
   <a href="{{ route('cotizacion.armado.edit', Crypt::encrypt($armado->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-edit"></i></a>
 </td>

@@ -17,8 +17,17 @@ class DireccionController extends Controller {
     return view('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_show', compact('comprobantes', 'direccion'));
   }
   public function edit($id_direccion) {
-    $direccion = $this->direccionArmadoRepo->direccionFindOrFailById($id_direccion, ['armado']);
-    return view('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_edit', compact('direccion'));
+    $direccion = $this->direccionArmadoRepo->direccionFindOrFailById($id_direccion, ['armado'=> function($query){
+      $query->with(['pedido' => function($query) {
+        $query->with(['usuario' => function($query) {
+          $query->with(['direcciones']);
+        }]);
+      }]);
+    }]);
+
+$direcciones = $direccion->armado->pedido->usuario->direcciones()->pluck('nom_ref_uno', 'id');
+ 
+    return view('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_edit', compact('direccion', 'direcciones'));
   }
   public function update(UpdateDireccionRequest $request, $id_direccion) {
     $this->direccionArmadoRepo->update($request, $id_direccion);
