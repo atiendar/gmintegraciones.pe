@@ -49,12 +49,20 @@ class AppServiceProvider extends ServiceProvider {
       if($pago->created_at->format('Y') != $year_actual) {
         return false;
       }
+
+      if(date("m") == $mes_limite) {
+        if(date("d") > $dia_limite) {
+          return false;
+        }
+      }
+
+/*
       if($pago->created_at->format('m') <= $mes_limite) {
         if($pago->created_at->format('d') > $dia_limite) {
           return false;
         }
       }
-
+*/
       return true; 
     });
     Validator::extend('alpha_unique_where', function ($attribute, $value, $otros) { // Validación

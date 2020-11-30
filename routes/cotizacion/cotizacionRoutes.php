@@ -22,6 +22,8 @@ Route::group(['prefix' => 'cotizacion'], function() {
         Route::match(['PUT', 'PATCH'],'actualizar/{id_armado}', 'Cotizacion\ArmadoCotizacion\ArmadoCotizacionController@update')->name('cotizacion.armado.update')->middleware('permission:cotizacion.edit');
         Route::match(['DELETE'],'eliminar/{id_armado}', 'Cotizacion\ArmadoCotizacion\ArmadoCotizacionController@destroy')->name('cotizacion.armado.destroy')->middleware('permission:cotizacion.edit');
     
+        Route::match(['GET', 'HEAD'],'clonar/{id_armado}', 'Cotizacion\ArmadoCotizacion\ArmadoCotizacionController@clonar')->name('cotizacion.armado.clonar')->middleware('permission:cotizacion.edit');
+
         Route::group(['prefix' => 'direccion'], function() {
             Route::match(['GET', 'HEAD'],'crear/{id_armado}', 'Cotizacion\ArmadoCotizacion\DireccionArmado\DireccionArmadoController@create')->name('cotizacion.armado.direccion.create')->middleware('permission:cotizacion.edit');
             Route::post('almacenar/{id_armado}', 'Cotizacion\ArmadoCotizacion\DireccionArmado\DireccionArmadoController@store')->name('cotizacion.armado.direccion.store')->middleware('permission:cotizacion.edit');

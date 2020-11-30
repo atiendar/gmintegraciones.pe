@@ -159,4 +159,43 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
       return abort(404); 
     }
   }
+  public function clonar($id_armado) { 
+    try { DB::beginTransaction();
+      $armado                  = $this->armadoFindOrFailById($id_armado, 'productos');
+
+      dd($armado);
+
+      // CLONA EL ARMADO
+      $clon_armado                = $armado->replicate();
+      $clon_armado->img_rut       = null;
+      $clon_armado->img_nom       = null;
+      $clon_armado->clon          = '1';
+      $clon_armado->nom           .= ' - clon' .  $armado->num_clon;
+      $clon_armado->sku           .= ' - clon' .  $armado->num_clon;
+
+      $clon_armado->created_at_arm = Auth::user()->email_registro;
+      $clon_armado->save();
+
+      // CLONA LOS PRODUCTOS DEL ARMADO
+      $datos = null;
+      foreach($armado->productos as $producto_armado) {
+        $datos[$producto_armado->id] = [
+          'cant' => $producto_armado->pivot->cant,
+        ];
+      }
+      $clon_armado->productos()->sync($datos);
+
+      DB::commit();
+      return $clon_armado;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
+
+
+
+
+
+
+
+
+
+  }
 }

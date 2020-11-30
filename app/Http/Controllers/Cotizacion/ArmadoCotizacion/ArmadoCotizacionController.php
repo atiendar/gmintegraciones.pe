@@ -44,4 +44,14 @@ class ArmadoCotizacionController extends Controller {
     toastr()->success('¡Armado eliminado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
+  public function clonar($id_armado) {
+    return 'Opción en construcción';  
+    $respuesta = $this->armadoCotizacionRepo->clonar($id_armado);
+    if($respuesta == false) {
+      toastr()->error('¡Este armado no se puede clonar!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+      return back();
+    }
+    toastr()->success('¡Armado clonado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
+  }
 }

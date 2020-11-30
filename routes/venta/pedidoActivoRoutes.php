@@ -17,13 +17,7 @@ Route::group(['prefix' => 'pedido-activo'], function() {
       Route::match(['GET', 'HEAD'],'detalles/{id_direccion}', 'Venta\PedidoActivo\ArmadoPedidoActivo\Direccion\DireccionController@show')->name('venta.pedidoActivo.armado.direccion.show')->middleware('permission:venta.pedidoActivo.armado.show|venta.pedidoActivo.show');
       Route::match(['GET', 'HEAD'],'editar/{id_direccion}', 'Venta\PedidoActivo\ArmadoPedidoActivo\Direccion\DireccionController@edit')->name('venta.pedidoActivo.armado.direccion.edit')->middleware('permission:venta.pedidoActivo.armado.edit');
       Route::match(['PUT', 'PATCH'],'actualizar/{id_direccion}', 'Venta\PedidoActivo\ArmadoPedidoActivo\Direccion\DireccionController@update')->name('venta.pedidoActivo.armado.direccion.update')->middleware('permission:venta.pedidoActivo.armado.edit');
-    
-    
-
       Route::match(['GET', 'HEAD'],'obt-direccion/{id_direccion}', 'RolCliente\Direccion\DireccionController@getDireccion')->middleware('permission:venta.pedidoActivo.armado.edit');
-    
-    
-    
     });
   });
 });
