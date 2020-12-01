@@ -9,7 +9,7 @@
   </div>
   <div class="card-body">
     {!! Form::model(Request::all(), ['route' => 'logistica.direccionEntregada.index', 'method' => 'GET']) !!}
-      @include('global.buscador.buscador', ['ruta_recarga' => route('logistica.direccionEntregada.index'), 'opciones_buscador' => config('opcionesSelect.select_logistica_direcciones_index')])
+      @include('global.buscador.buscador', ['num_pag' => 50, 'ruta_recarga' => route('logistica.direccionEntregada.index'), 'opciones_buscador' => config('opcionesSelect.select_logistica_direcciones_index')])
     {!! Form::close() !!}
     @include('logistica.pedido.direccion_entregada.dirEnt_table')
     @include('global.paginador.paginador', ['paginar' => $direcciones_entregadas])

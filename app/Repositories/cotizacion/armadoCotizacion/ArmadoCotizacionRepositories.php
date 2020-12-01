@@ -161,26 +161,32 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
   }
   public function clonar($id_armado) { 
     try { DB::beginTransaction();
-      $armado                  = $this->armadoFindOrFailById($id_armado, 'productos');
-
-      dd($armado);
-
-      // CLONA EL ARMADO
-      $clon_armado                = $armado->replicate();
-      $clon_armado->img_rut       = null;
-      $clon_armado->img_nom       = null;
-      $clon_armado->clon          = '1';
-      $clon_armado->nom           .= ' - clon' .  $armado->num_clon;
-      $clon_armado->sku           .= ' - clon' .  $armado->num_clon;
-
-      $clon_armado->created_at_arm = Auth::user()->email_registro;
+      $armado = $this->armadoFindOrFailById($id_armado, 'productos');
+      $clon_armado                  = new \App\Models\Armado();
+      $clon_armado->clon            = '1'; // 1=Si
+      $clon_armado->tip             = $armado->tip;
+      $clon_armado->nom             = $armado->nom. '- clon'.time();
+      $clon_armado->sku             = $armado->sku. '- clon'.time();
+      $clon_armado->gama            = $armado->gama;
+      $clon_armado->dest            = $armado->dest;
+      $clon_armado->prec_de_comp    = $armado->prec_de_comp;
+      $clon_armado->prec_origin     = $armado->prec_origin;
+      $clon_armado->desc_esp        = $armado->desc_esp;
+      $clon_armado->prec_redond     = $armado->prec_redond;
+      $clon_armado->tam             = $armado->tam;
+      $clon_armado->pes             = $armado->pes;
+      $clon_armado->alto            = $armado->alto;
+      $clon_armado->ancho           = $armado->ancho;
+      $clon_armado->largo           = $armado->largo;
+      $clon_armado->asignado_arm    = Auth::user()->email_registro;
+      $clon_armado->created_at_arm  = Auth::user()->email_registro;
       $clon_armado->save();
 
       // CLONA LOS PRODUCTOS DEL ARMADO
       $datos = null;
       foreach($armado->productos as $producto_armado) {
-        $datos[$producto_armado->id] = [
-          'cant' => $producto_armado->pivot->cant,
+        $datos[$producto_armado->id_producto] = [
+          'cant' => $producto_armado->cant,
         ];
       }
       $clon_armado->productos()->sync($datos);
@@ -188,14 +194,5 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
       DB::commit();
       return $clon_armado;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
-
-
-
-
-
-
-
-
-
   }
 }
