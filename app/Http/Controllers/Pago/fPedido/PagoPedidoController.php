@@ -59,4 +59,7 @@ class PagoPedidoController extends Controller {
     $mont_pag_aprov =  $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
     return view('pago.fPedido.fpe_generarCodigo', compact('pedido', 'pagos', 'mont_pag_aprov'));
   }
+  public function generarReporte() {
+    return (new \App\Exports\pago\fPedido\generarReporteDePagoExport)->download('ReporteDePagos-'.date('Y-m-d').'.xlsx');
+  }
 }
