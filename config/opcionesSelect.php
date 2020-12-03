@@ -847,13 +847,13 @@ return array(
 /* ===================== LOGISTICA [ DIRECCIONES ] ===================== */
   'select_logistica_direcciones_index' => [
     ''                      => 'Buscar por. . .',
-    'id'                    => '#',
+    'cod'                   => 'Codigo',
     'cant'                  => 'Cantidad',
     'est'                   => 'Estado',
     'estat'                 => 'Estatus',
     'met_de_entreg'         => 'Metodo de entrega',
     'tip_env'               => 'Tipo de envío',
-    'created_at'            => 'Fecha de registro (YYYY-MM-DD)',
+    'created_at'            => 'Fecha de registro (YYYY-MM-DD)', 
   ],
   'select_estatus_logistica_direcciones' => [
     config('app.sin_entrega_por_falta_de_informacion')  => config('app.sin_entrega_por_falta_de_informacion'),

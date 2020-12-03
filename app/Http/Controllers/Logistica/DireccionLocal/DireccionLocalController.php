@@ -79,17 +79,18 @@ class DireccionLocalController extends Controller {
     }
   }
   public function generarComprobanteDeEntrega($id_direccion, $for_loc) { // config('opcionesSelect.select_foraneo_local.Local')
-    $direccion                      = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, $for_loc, ['armado'], 'show', null);
-    $armado                         = $direccion->armado()->with('pedido')->first();
+    $direccion  = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, $for_loc, ['armado'], 'show', null);
+    $armado     = $direccion->armado()->with('pedido')->first();
+    $pedido     = $armado->pedido;
 
-    if($armado->pedido->estat_pag != config('app.pagado')) {
+    if($pedido->estat_pag != config('app.pagado')) {
       return abort('404', 'IMPORTANTE: Este pedido aun no sido pagado.');
     }
 
     $codigoQRDComprobanteDeSalida   = $this->generarQRRepo->qr($direccion->id, 'Comprobante de salida', $for_loc);
     $codigoQRDComprobanteDeEntrega  = $this->generarQRRepo->qr($direccion->id, 'Comprobante de entrega', $for_loc);
 
-    $comprobante_de_entrega  = \PDF::loadView('logistica.pedido.pedido_activo.export.comprobanteDeEntrega', compact('direccion', 'armado', 'codigoQRDComprobanteDeSalida', 'codigoQRDComprobanteDeEntrega'));
+    $comprobante_de_entrega  = \PDF::loadView('logistica.pedido.pedido_activo.export.comprobanteDeEntrega', compact('pedido', 'direccion', 'armado', 'codigoQRDComprobanteDeSalida', 'codigoQRDComprobanteDeEntrega'));
     return $comprobante_de_entrega->stream();
 //  return $comprobante_de_entrega->download('OrdenDeProduccionAlmacen-'$pedido->num_pedido.'.pdf'); // Descargar
   }

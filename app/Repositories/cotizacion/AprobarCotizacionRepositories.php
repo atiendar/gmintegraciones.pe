@@ -11,6 +11,7 @@ use App\Repositories\usuario\UsuarioRepositories;
 use App\Repositories\sistema\sistema\SistemaRepositories;
 use App\Repositories\sistema\plantilla\PlantillaRepositories;
 use App\Repositories\venta\pedidoActivo\armadoPedidoActivo\direccion\DireccionArmadoRepositories;
+use App\Repositories\pago\PagoRepositories;
 // Otro
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -22,13 +23,22 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
   protected $sistemaRepo;
   protected $plantillaRepo;
   protected $direccionArmadoRepo;
-  public function __construct(CotizacionRepositories $cotizacionRepositories, SerieRepositories $serieRepositories, UsuarioRepositories $usuarioRepositories, SistemaRepositories $sistemaRepositories, PlantillaRepositories $plantillaRepositories, DireccionArmadoRepositories $direccionArmadoRepositories) {
+  protected $pagoRepo;
+  public function __construct(CotizacionRepositories $cotizacionRepositories, 
+  SerieRepositories $serieRepositories, 
+  UsuarioRepositories $usuarioRepositories, 
+  SistemaRepositories $sistemaRepositories, 
+  PlantillaRepositories $plantillaRepositories, 
+  DireccionArmadoRepositories $direccionArmadoRepositories,
+  PagoRepositories $pagoRepositories
+  ) {
     $this->cotizacionRepo       = $cotizacionRepositories;
     $this->serieRepo            = $serieRepositories;
     $this->usuarioRepo          = $usuarioRepositories;
     $this->sistemaRepo          = $sistemaRepositories;
     $this->plantillaRepo        = $plantillaRepositories;
     $this->direccionArmadoRepo  = $direccionArmadoRepositories;
+    $this->pagoRepo             = $pagoRepositories;
   } 
   public function elPedidoEsDeRegalo($cotizacion, $armados_cotizacion) {
     if($armados_cotizacion->where('es_de_regalo', 'Si')->sum('cant')  ==  $cotizacion->tot_arm ) {
@@ -71,6 +81,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       $pedido->serie            = $this->sistemaRepo->datos('ser_pedidos');
     //  $pedido->num_pedido       = $cotizacion->serie;
       $pedido->num_pedido       = $this->serieRepo->sumaUnoALaUltimaSerie('Pedidos (Serie)', $this->sistemaRepo->datos('ser_pedidos'));
+      $pedido->estat_alm        = config('app.pendiente');
       $pedido->cot_gen          = $cotizacion->serie;
       $pedido->ult_let          = 'A';
       $pedido->user_id          = $cotizacion->user_id;
@@ -83,9 +94,9 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       $pedido->created_at_ped   = Auth::user()->email_registro;
       $pedido->save();
 
-      $contador2              = 0;
+    //  $contador2              = 0;
       $contador3              = 0;
-      $productos_armado       = NULL;
+    //  $productos_armado       = NULL;
       $up_stock_productos     = NULL;
       $up_vendidos_productos  = NULL;
       $ids                    = NULL;
@@ -237,6 +248,13 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       $cotizacion->estat = config('app.aprobada');
       $cotizacion->num_pedido_gen = $pedido->num_pedido;
       $cotizacion->save();
+
+
+   //   DD(  $pedido->mont_tot_de_ped <= 25000 );
+      // SI CUMPLE CON LA CONFICION SE MODIFICA EL ESTATUS DE PRODUCCIÓN Y ALMACEN PARA QUE LO PUEDAN VISUALIZAR
+      if($pedido->mont_tot_de_ped <= 25000) {
+        $this->pagoRepo->modificarEstatusProduccionYAlmacen($pedido);
+      }
 
       DB::commit();
       return (object) [
