@@ -184,7 +184,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
           if($direccion->cost_tam_caj > 0.00) {
             $direcciones[$contador3]['caj']              = 'Con caja ('.$direccion->tam.')';
           } else {
-            $direcciones[$contador3]['caj']              = 'Sin caja';
+            $direcciones[$contador3]['caj']              = 'En canasta';
           }
 
           $direcciones[$contador3]['created_at_direc_arm']      = Auth::user()->email_registro;
