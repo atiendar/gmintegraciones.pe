@@ -35,7 +35,12 @@
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-list"></i></span>
         </div>
-        {!! Form::select('codigo_de_facturacion', $codigos_de_facturacion, null, ['id' => 'codigo_de_facturacion', 'class' => 'form-control select2' . ($errors->has('codigo_de_facturacion') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+        <select id="codigo_de_facturacion" class="form-control select2 @error('codigo_de_facturacion') is-invalid @enderror" name="codigo_de_facturacion"  placeholder='Seleccione. . .' required autocomplete="codigo_de_facturacion" autofocus>
+          <option value="">Seleccione. . .</option>
+          @foreach ($codigos_de_facturacion as $armado)
+            <option value="{{ $armado->cod_fact }}" {{ old('codigo_de_facturacion') == $armado->cod_fact ? 'selected' : '' }}  >{{ $armado->cod_fact }} (Pago de: ${{ Sistema::dosDecimales($armado->mont_de_pag) }})</option>
+          @endforeach
+        </select>
       </div>
       <span class="text-danger">{{ $errors->first('codigo_de_facturacion') }}</span>
     </div>
