@@ -1,4 +1,6 @@
-@include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_editInformacionExtra')
+@if($direccion->armado->estat != config('app.en_produccion') AND $direccion->armado->estat != config('app.en_almacen_de_salida') AND $direccion->armado->estat != config('app.en_ruta') AND $direccion->armado->estat != config('app.sin_entrega_por_falta_de_informacion') AND $direccion->armado->estat != config('app.intento_de_entrega_fallido'))
+  @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_editInformacionExtra')
+@endif
 
 <div class="row">
   <div class="form-group col-sm btn-sm">

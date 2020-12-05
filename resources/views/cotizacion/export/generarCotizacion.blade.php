@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body style="font-family: Segoe UI;">
-  
   <table class="table table-sm table-bordered" style="font-size:12px;">
     <tr>
       <td style="text-align:center">
@@ -30,10 +29,16 @@
         <dt>Fecha de Cotización: {{ $cotizacion->created_at }}</dt>
       </td>
     </tr>
+      @if($cotizacion->coment != null)
+        <tr>
+          <td colspan="3">
+            <dt>{{ $cotizacion->coment }}</dt>
+          </td>
+        </tr>
+      @endif
   </table>
 
   @if(sizeof($armados) == 0)
-    @include('layouts.private.busquedaSinResultados')
   @else 
     <table class="table table-hover table-striped table-sm table-bordered" style="font-size:12px;">
       <thead class="thead-dark">
@@ -121,15 +126,13 @@
           <td>${{ Sistema::dosDecimales($cotizacion->tot) }}</td>
         </tr>
         @if($cotizacion->con_iva == 'on')
-          <tr>
+          <tr style="font-size:17px;">
             <td>
               <a href="{{ route('rolCliente.factura.create') }}" target="_blank">Para solicitar factura clic aquí</a>
             </td>
             <td>
-
-              <img src="https://s3-us-west-2.amazonaws.com/archivos.arconesycanastas/sistema/icono_tarjetas_credito.png"class="brand-image elevation-0" style="width:3rem;">
-
-
+              <img src="https://s3-us-west-2.amazonaws.com/archivos.arconesycanastas/sistema/icono_tarjetas_credito.png"class="brand-image elevation-0" style="width:3.5rem;">
+              <img src="https://s3-us-west-2.amazonaws.com/archivos.arconesycanastas/sistema/icono_paypal.png"class="brand-image elevation-0" style="width:3.5rem;">
               @if($cotizacion->con_com == 'on')
                 <a href="https://www.paypal.me/canastasyarcones/{{ Sistema::dosDecimales($cotizacion->tot) }}" target="_blank">Para pago con tarjeta clic aquí, comisión incluida del 5% ${{ Sistema::dosDecimales($cotizacion->tot) }}</a>
               @else

@@ -54,6 +54,30 @@ class CotizacionRepositories implements CotizacionInterface {
       return $cotizacion;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
+  public function update($request, $id_cotizacion) {
+    try { DB::beginTransaction();
+      $cotizacion = $this->cotizacionAsignadoFindOrFailById($id_cotizacion, [], null);
+      $cotizacion->coment = $request->comentarios;
+     
+      if($cotizacion->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Cotizaciones', // Módulo
+          'cotizacion.show', // Nombre de la ruta
+          $id_cotizacion, // Id del registro debe ir encriptado
+          $this->serviceCrypt->decrypt($id_cotizacion), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('Comentarios'), // Nombre de los inputs del formulario
+          $cotizacion, // Request
+          array('coment') // Nombre de los campos en la BD
+        ); 
+        $cotizacion->updated_at_cot  = Auth::user()->email_registro;
+      }
+
+      $cotizacion->save();     
+    DB::commit();
+    return $cotizacion;
+  } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
   public function destroy($id_cotizacion) {
     try { DB::beginTransaction();
       $cotizacion = $this->cotizacionAsignadoFindOrFailById($id_cotizacion, 'armados', null);

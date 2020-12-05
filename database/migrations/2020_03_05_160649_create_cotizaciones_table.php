@@ -25,6 +25,7 @@ class CreateCotizacionesTable extends Migration
             $table->date('valid')->comment('Fecha de validez');
         //    $table->string('email_cliente',75)->comment('Correo del cliente que solicita la cotización');
             $table->text('desc_cot')->comment('Descripción de la cotización');
+            $table->text('coment')->nullable()->comment('Comentarios');
             
             $table->integer('tot_arm')->unsigned()->default(0)->comment('Total de armados');
             $table->decimal('cost_env', 20,2)->unsigned()->default(0.00)->comment('Costo de envio');

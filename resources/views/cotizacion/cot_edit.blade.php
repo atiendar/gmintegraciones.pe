@@ -43,7 +43,9 @@
     </div>
   </div>
   <div class="card-body">
-    @include('cotizacion.cot_editFields')
+    {!! Form::open(['route' => ['cotizacion.update', Crypt::encrypt($cotizacion->id)], 'method' => 'patch', 'id' => 'cotizacionUpdate']) !!}
+      @include('cotizacion.cot_editFields')
+    {!! Form::close() !!}
   </div>
 </div>
 @include('cotizacion.armado_cotizacion.cot_arm_index')

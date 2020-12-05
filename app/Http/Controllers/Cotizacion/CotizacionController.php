@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\cotizacion\StoreCotizacionRequest;
 use App\Http\Requests\cotizacion\UpdateIvaCotizacionRequest;
 use App\Http\Requests\cotizacion\UpdateComisionCotizacionRequest;
+use App\Http\Requests\cotizacion\UpdateCotizacionRequest;
 //Repositories
 use App\Repositories\cotizacion\CotizacionRepositories;
 use App\Repositories\cotizacion\AprobarCotizacionRepositories;
@@ -54,6 +55,11 @@ class CotizacionController extends Controller {
     $armados      = $cotizacion->armados()->with('productos', 'direcciones')->paginate(99999999);
     $armados_list = $this->armadoRepo->getAllArmados();
     return view('cotizacion.cot_edit', compact('cotizacion', 'armados', 'armados_list'));
+  }
+  public function update(UpdateCotizacionRequest $request, $id_cotizacion) {
+    $this->cotizacionRepo->update($request, $id_cotizacion);
+    toastr()->success('¡Cotización actualizada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
   }
   public function destroy($id_cotizacion) {
     $this->cotizacionRepo->destroy($id_cotizacion);
