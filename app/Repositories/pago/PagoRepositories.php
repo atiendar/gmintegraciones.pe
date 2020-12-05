@@ -59,6 +59,8 @@ class PagoRepositories implements PagoInterface {
         ); 
         $pago->comp_de_pag_rut  = $imagen[0]['ruta'];
         $pago->comp_de_pag_nom  = $imagen[0]['nombre'];
+      } else {
+        $pago->estat_pag = config('app.rechazado');
       }
       if($request->hasfile('copia_de_identificacion')) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php

@@ -29,13 +29,6 @@
         <dt>Fecha de Cotización: {{ $cotizacion->created_at }}</dt>
       </td>
     </tr>
-      @if($cotizacion->coment != null)
-        <tr>
-          <td colspan="3">
-            <dt>{{ $cotizacion->coment }}</dt>
-          </td>
-        </tr>
-      @endif
   </table>
 
   @if(sizeof($armados) == 0)
@@ -141,6 +134,15 @@
             </td>
           </tr>
         @endif
+
+        @if($cotizacion->coment != null)
+          <tr>
+            <td colspan="2">
+              <dt>{{ $cotizacion->coment }}</dt>
+            </td>
+          </tr>
+        @endif
+
       </tbody>
     </table>
   @endif
