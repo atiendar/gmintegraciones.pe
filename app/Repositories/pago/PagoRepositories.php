@@ -139,7 +139,8 @@ class PagoRepositories implements PagoInterface {
   public function updateFpedido($request, $id_pago) {
     try { DB::beginTransaction();
       $pago = $this->getPagoFindOrFailById($id_pago, ['pedido'], config('app.rechazado'));
-      $pago->estat_pag        = $request->estatus_pago;
+      $pago->estat_pag        = config('app.pendiente');
+      //  $pago->estat_pag        = $request->estatus_pago;
       $pago->form_de_pag      = $request->forma_de_pago;
       $pago->mont_de_pag      = $request->monto_del_pago;
       $pago->coment_pag_vent  = $request->comentarios_ventas;

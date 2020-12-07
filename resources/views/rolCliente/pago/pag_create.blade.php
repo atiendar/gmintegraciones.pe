@@ -48,6 +48,25 @@
 </div>
 @endsection
 
+@section('js5')
+<script>
+  window.onload = function() { 
+    getEstatusPago();
+  }
+  function getEstatusPago() {
+    selectEstatusPago = document.getElementById("estatus_pago"),
+    estatus_pago      = selectEstatusPago.value;
+    div_comentarios   = document.getElementById('div_comentarios');
+
+    if(estatus_pago == 'Rechazado') {
+      div_comentarios.style.display = 'block';
+    } else {
+      div_comentarios.style.display = 'none';
+    }
+  }
+</script>
+@endsection
+
 @section('vuejs')
 <script>
   var app4 = new Vue({

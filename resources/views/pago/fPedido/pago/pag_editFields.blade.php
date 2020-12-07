@@ -1,3 +1,4 @@
+{{--
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="estatus_pago">{{ __('Estatus pago') }} *</label>
@@ -10,6 +11,7 @@
     <span class="text-danger">{{ $errors->first('estatus_pago') }}</span>
   </div>
 </div>
+--}}
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="comprobante_de_pago">{{ __('Comprobante de pago') }}</label>
