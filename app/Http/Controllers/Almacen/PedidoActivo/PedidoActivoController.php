@@ -23,9 +23,10 @@ class PedidoActivoController extends Controller {
     $this->generarQRRepo            = $generarQRRepositories;
   }
   public function index(Request $request, $opc_consulta = null) {
-    $pedidos = $this->pedidoActivoRepo->getPagination($request, ['usuario', 'unificar'], $opc_consulta);
-    $pen = $this->pedidoActivoRepo->getPendientes();
-    return view('almacen.pedido.pedido_activo.alm_pedAct_index', compact('pedidos', 'pen'));
+    $pedidos        = $this->pedidoActivoRepo->getPagination($request, ['usuario', 'unificar'], $opc_consulta);
+    $pen            = $this->pedidoActivoRepo->getPendientes();
+    $pedidos_plunk  = $this->pedidoActivoRepo->getAllPedidosPlunk();
+    return view('almacen.pedido.pedido_activo.alm_pedAct_index', compact('pedidos', 'pen', 'pedidos_plunk'));
   }
   public function show(Request $request, $id_pedido) {
     $pedido                     = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_pedido, ['usuario', 'unificar']);
@@ -73,5 +74,8 @@ class PedidoActivoController extends Controller {
     }
     toastr()->success('¡Armados modificados exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return redirect(route('almacen.pedidoActivo.edit', $this->serviceCrypt->encrypt($pedido->id))); 
+  }
+  public function generarReporte(Request $request) {
+    return (new \App\Exports\almacen\pedido\generarReporteExport($request->id_pedidos))->download('Reporte-'.date('Y-m-d').'.xlsx');
   }
 }

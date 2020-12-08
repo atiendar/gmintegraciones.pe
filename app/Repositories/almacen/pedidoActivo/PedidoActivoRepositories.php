@@ -135,4 +135,14 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
 
     return $consulta; 
   }
+  public function getAllPedidosPlunk() {
+    return Pedido::where(function ($query){
+                $query->where('estat_alm', config('app.asignar_persona_que_recibe'))
+                    ->orWhere('estat_alm', config('app.en_espera_de_ventas'))
+                    ->orWhere('estat_alm', config('app.en_espera_de_compra'))
+                    ->orWhere('estat_alm', config('app.en_revision_de_productos'));
+                })
+                ->orderBy('fech_estat_alm', 'DESC')
+                ->pluck('num_pedido', 'id');
+  }
 }

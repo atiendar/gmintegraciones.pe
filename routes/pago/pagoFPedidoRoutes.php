@@ -9,5 +9,5 @@ Route::group(['prefix' => 'f-pedido'], function() {
   Route::match(['GET', 'HEAD'],'detalles/d/{id_pago}', 'Pago\fPedido\PagoPedidoController@show')->name('pago.fPedido.show')->middleware('permission:pago.fPedido.show|venta.pedidoActivo.show|venta.pedidoActivo.pago.show');
   Route::match(['GET', 'HEAD'],'editar/{id_pago}', 'Pago\fPedido\PagoPedidoController@edit')->name('pago.fPedido.edit')->middleware('permission:pago.fPedido.edit|venta.pedidoActivo.pago.edit');
   Route::match(['PUT', 'PATCH'],'actualizar/{id_pago}', 'Pago\fPedido\PagoPedidoController@update')->name('pago.fPedido.update')->middleware('permission:pago.fPedido.edit|venta.pedidoActivo.pago.edit');
-  Route::match(['GET', 'HEAD'],'generar-reporte', 'Pago\fPedido\PagoPedidoController@generarReporte')->name('pago.fPedido.generarReporte')->middleware('permission:pago.fPedido.inde');
+  Route::match(['GET', 'HEAD'],'generar-reporte', 'Pago\fPedido\PagoPedidoController@generarReporte')->name('pago.fPedido.generarReporte')->middleware('permission:pago.fPedido.index');
 });
