@@ -10,5 +10,6 @@ Route::group(['prefix' => 'pedido-activo'], function() {
     Route::match(['GET', 'HEAD'],'detalles/{id_armado}', 'Logistica\PedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@show')->name('logistica.pedidoActivo.armado.show')->middleware('permission:logistica.pedidoActivo.armado.show|logistica.pedidoActivo.show');
     Route::match(['GET', 'HEAD'],'editar/{id_armado}', 'Logistica\PedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@edit')->name('logistica.pedidoActivo.armado.edit')->middleware('permission:logistica.pedidoActivo.armado.edit');
     Route::match(['PUT', 'PATCH'],'actualizar/{id_armado}', 'Logistica\PedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@update')->name('logistica.pedidoActivo.armado.update')->middleware('permission:logistica.pedidoActivo.armado.edit');
+    Route::match(['PUT', 'PATCH'],'actualizar-modal/{id_armado}', 'Logistica\PedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@updateModal')->name('logistica.pedidoActivo.armado.updateModal')->middleware('permission:logistica.pedidoActivo.armado.edit');
   });
 });
