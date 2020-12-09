@@ -1,7 +1,3 @@
-@if($direccion->armado->estat != config('app.en_produccion') AND $direccion->armado->estat != config('app.en_almacen_de_salida') AND $direccion->armado->estat != config('app.en_ruta') AND $direccion->armado->estat != config('app.sin_entrega_por_falta_de_informacion') AND $direccion->armado->estat != config('app.intento_de_entrega_fallido'))
-  @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_editInformacionExtra')
-@endif
-
 @if($direccion->armado->estat != config('app.en_ruta'))
   <div class="form-group col-sm btn-sm">
     <label for="direcciones">{{ __('Direcciones') }}</label>
@@ -45,7 +41,7 @@
       <a href="{{  route('venta.pedidoActivo.armado.edit', Crypt::encrypt($direccion->pedido_armado_id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con el armado') }}</a>
     </div>
     <div class="form-group col-sm btn-sm">
-      <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2" onclick="return check('btnsubmit', 'ventaPedidoActivoArmadoDirecionUpdate', '¡Alerta!', '¿Estás seguro quieres actualizar el registro?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-edit text-dark"></i> {{ __('Actualizar') }}</button>
+      <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2" onclick="return check('btnsubmit', 'ventaPedidoActivoArmadoDirecionUpdate', '¡Alerta!', '¿Estás seguro quieres actualizar el registro?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-edit text-dark"></i> {{ __('Actualizar dirección') }}</button>
     </div>
   </div>
 @endif

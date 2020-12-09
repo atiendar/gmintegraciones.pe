@@ -681,8 +681,15 @@ return array(
   /* =====================  RASTREAR [ RASTREAR PEDIDO ] ===================== */
   'select_rastrear_pedido_index'  => [
     ''                        => 'Buscar por. . .',
-  //  'usuario.email_registro'  => 'Cliente', // este marca error
+    //  'usuario.email_registro'  => 'Cliente', // este marca error
+    'estat_pag'               => 'Estatus pago',
+    'estat_vent_gen'          => 'Estatus venta general',
+    'estat_vent_arm'          => 'Estatus venta armado(s)',
+    'estat_vent_dir'          => 'Estatus venta dirección(es)',
+    'fech_de_entreg'          => 'Fecha de entrega',
     'num_pedido'              => 'Número de pedido',
+    'tot_de_arm'              => 'Total de armados',
+    'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ], 
   /* ===================== [ COSTOS DE ENVIO ] ===================== */
   	'select_foraneo_local' => [

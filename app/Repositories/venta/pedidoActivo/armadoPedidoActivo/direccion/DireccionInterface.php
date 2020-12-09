@@ -6,5 +6,7 @@ interface DireccionInterface {
 
   public function update($request, $id_direccion);
 
+  public function updateTarjeta($request, $id_direccion);
+  
   public function estatusDireccionesDetalladas($cant_direccion, $armado);
 }

@@ -29,6 +29,32 @@ class DireccionArmadoRepositories implements DireccionInterface {
   public function update($request, $id_direccion) {
     try { DB::beginTransaction();
       $direccion = $this->direccionFindOrFailById($id_direccion, ['armado']);
+      $direccion = $this->direccionRepo->storeFields($direccion, $request);
+
+      if($direccion->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Ventas/Pedido Activo/Armado (direcciones)', // Módulo
+          'venta.pedidoActivo.armado.direccion.show', // Nombre de la ruta
+          $id_direccion, // Id del registro debe ir encriptado
+          $this->serviceCrypt->decrypt($id_direccion), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('Nombre de la persona que recibe uno', 'Nombre de la persona que recibe dos', 'Lada teléfono fijo', 'Teléfono fijo', 'Extensión', 'Lada teléfono móvil', 'Teléfono móvil', 'Calle ', 'No. Exterior', 'No. Interior', 'País', 'Ciudad', 'Colonia', 'Delegación o municipio', 'Código postal', 'Referencias zona de entrega'), // Nombre de los inputs del formulario
+          $direccion, // Request
+          array('nom_ref_uno', 'nom_ref_dos', 'lad_fij', 'tel_fij', 'ext', 'lad_mov', 'tel_mov', 'calle', 'no_ext', 'no_int', 'pais', 'ciudad', 'col', 'del_o_munic', 'cod_post', 'ref_zon_de_entreg') // Nombre de los campos en la BD
+        ); 
+        $direccion->updated_at_direc_arm  = Auth::user()->email_registro;
+      }
+
+      $direccion->save();
+      $this->estatusDireccionesDetalladas($direccion->cant, $direccion->armado);
+      
+      DB::commit();
+      return $direccion;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
+  public function updateTarjeta($request, $id_direccion) {
+    try { DB::beginTransaction();
+      $direccion = $this->direccionFindOrFailById($id_direccion, ['armado']);
    
       if($request->tipo_de_tarjeta_de_felicitacion != NULL) {
         $direccion->tip_tarj_felic  = $request->tipo_de_tarjeta_de_felicitacion;
@@ -39,7 +65,6 @@ class DireccionArmadoRepositories implements DireccionInterface {
       } else {
         $direccion->mens_dedic = null;
       }
-      $direccion = $this->direccionRepo->storeFields($direccion, $request);
 
       if($direccion->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
@@ -48,9 +73,9 @@ class DireccionArmadoRepositories implements DireccionInterface {
           'venta.pedidoActivo.armado.direccion.show', // Nombre de la ruta
           $id_direccion, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_direccion), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Tipo de tarjeta de felicitación', 'Mensaje de dedicatoria', 'Nombre de la persona que recibe uno', 'Nombre de la persona que recibe dos', 'Lada teléfono fijo', 'Teléfono fijo', 'Extensión', 'Lada teléfono móvil', 'Teléfono móvil', 'Calle ', 'No. Exterior', 'No. Interior', 'País', 'Ciudad', 'Colonia', 'Delegación o municipio', 'Código postal', 'Referencias zona de entrega'), // Nombre de los inputs del formulario
+          array('Tipo de tarjeta de felicitación', 'Mensaje de dedicatoria'), // Nombre de los inputs del formulario
           $direccion, // Request
-          array('tip_tarj_felic', 'mens_dedic', 'nom_ref_uno', 'nom_ref_dos', 'lad_fij', 'tel_fij', 'ext', 'lad_mov', 'tel_mov', 'calle', 'no_ext', 'no_int', 'pais', 'ciudad', 'col', 'del_o_munic', 'cod_post', 'ref_zon_de_entreg') // Nombre de los campos en la BD
+          array('tip_tarj_felic', 'mens_dedic') // Nombre de los campos en la BD
         ); 
         $direccion->updated_at_direc_arm  = Auth::user()->email_registro;
       }
@@ -77,8 +102,7 @@ class DireccionArmadoRepositories implements DireccionInterface {
       }
 
       $direccion->save();
-      $this->estatusDireccionesDetalladas($direccion->cant, $direccion->armado);
-      
+
       DB::commit();
       return $direccion;
     } catch(\Exception $e) { DB::rollback(); throw $e; }

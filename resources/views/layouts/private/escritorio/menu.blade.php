@@ -23,7 +23,6 @@
 <!-- ****************************************************************************************** -->
 @if(auth()->user()->hasRole(config('app.rol_cliente')))
   @include('layouts.private.escritorio.menu.rolCliente.cotizaciones')
-  @include('layouts.private.escritorio.menu.rolCliente.direccion')
   @include('layouts.private.escritorio.menu.rolCliente.pedidos')
   @include('layouts.private.escritorio.menu.rolCliente.pagos')
   @include('layouts.private.escritorio.menu.rolCliente.facturas')

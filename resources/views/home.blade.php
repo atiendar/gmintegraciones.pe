@@ -8,6 +8,7 @@
 <title>@section('title', __('Inicio'))</title>
 @if(auth()->user()->hasRole(config('app.rol_cliente')))
 
+
   <div class="alert alert-info alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
     <h3><i class="icon fas fa-info"></i> Info</h3>
@@ -16,10 +17,11 @@
     </h4>
   </div>
   
-  <div class="alert alert-primary alert-dismissible">
+  <div class="alert alert-danger alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h3><i class="icon fas fa-info"></i> Info</h3>
     <h4>
-      {{ __('Te gusto nuestro servicio califícanos en ') }}  <a href="https://www.google.com.mx/maps/place/ARCONES+NAVIDE%C3%91OS+Y+CANASTAS+NAVIDE%C3%91AS/@19.455287,-99.2207556,18.5z/data=!4m8!1m2!2m1!1scanastas+y+arcones!3m4!1s0x0:0xb8c67a4ea0565225!8m2!3d19.45584!4d-99.2203232" target="_blank">{{ __('Google Maps') }}</i></a> y <a href="{{ Sistema::datos()->sistemaFindOrFail()->red_fbk }}" target="_blank">{{ __('Facebook') }}</i></a>.
+      {{ __('Asegúrate de que este completa toda tu información en el sistema: Comprobante de pago cargado, factura solicitada, direcciones de entrega asignadas a cada partida del pedido') }}.
     </h4>
   </div>
 
@@ -78,5 +80,12 @@
     </div>
   </div>
 
+  <div class="alert alert-primary alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4>
+      {{ __('Te gusto nuestro servicio califícanos en ') }}  <a href="https://www.google.com.mx/maps/place/ARCONES+NAVIDE%C3%91OS+Y+CANASTAS+NAVIDE%C3%91AS/@19.455287,-99.2207556,18.5z/data=!4m8!1m2!2m1!1scanastas+y+arcones!3m4!1s0x0:0xb8c67a4ea0565225!8m2!3d19.45584!4d-99.2203232" target="_blank">{{ __('Google Maps') }}</i></a> y <a href="{{ Sistema::datos()->sistemaFindOrFail()->red_fbk }}" target="_blank">{{ __('Facebook') }}</i></a>.
+    </h4>
+  </div>
+  
 @endif
 @endsection

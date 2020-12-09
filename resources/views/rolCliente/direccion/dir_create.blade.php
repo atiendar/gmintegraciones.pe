@@ -12,7 +12,10 @@
     <label for="redes_sociales">{{ __('IMPORTANTE') }}</label>
     <div class="row border border-danger rounded">
       <div class="form-group col-sm btn-sm">
-        {{ __('Las direcciones registradas en esta ventana no seran tomadas en cuenta para la entrega de sus productos hasta no asignarla al pedido, desde el módulo Ver pedidos.') }}
+        <p><strong>
+          {{ __('Las direcciones registradas en esta ventana no seran tomadas en cuenta para la entrega de sus productos hasta no asignarla al pedido, desde el módulo Ver pedidos.') }}
+          <br>{{ __('Si la dirección está mal no se entregara tu pedido y tendrá un costo adicional.') }}
+        </strong></p>
       </div>
     </div>
       @include('rolCliente.direccion.dir_createFields')

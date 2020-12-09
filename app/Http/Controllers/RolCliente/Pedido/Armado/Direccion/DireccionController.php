@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\RolCliente\Pedido\Armado\Direccion;
 use App\Http\Controllers\Controller;
 // Request
-use App\Http\Requests\venta\pedidoActivo\armado\direccion\UpdateDireccionRequest;
+use App\Http\Requests\rolCliente\pedido\armado\direccion\UpdateDireccionRequest;
 // Models
 use App\Models\PedidoArmadoTieneDireccion;
 // Servicios
