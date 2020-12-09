@@ -106,9 +106,9 @@
         <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
       </div>
         @if($direccion->est == 'Tarifa única ') 
-          {!! Form::text('ciudad', $direccion->est, ['id' => 'ciudad', 'class' => 'form-control' . ($errors->has('ciudad') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Ciudad')]) !!}
+          {!! Form::text('ciudad', $direccion->ciudad, ['id' => 'ciudad', 'class' => 'form-control' . ($errors->has('ciudad') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Ciudad')]) !!}
         @else
-          {!! Form::text('ciudad', $direccion->est, ['id' => 'ciudad', 'class' => 'form-control disabled' . ($errors->has('ciudad') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Ciudad'), 'readonly' => 'readonly']) !!}
+          {!! Form::text('ciudad', $direccion->ciudad, ['id' => 'ciudad', 'class' => 'form-control disabled' . ($errors->has('ciudad') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Ciudad'), 'readonly' => 'readonly']) !!}
         @endif
     </div>
     <span class="text-danger">{{ $errors->first('ciudad') }}</span>
