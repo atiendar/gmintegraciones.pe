@@ -1268,5 +1268,11 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Eliminar cualquier registro del módulo 'Stock'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+    Spatie\Permission\Models\Permission::create([
+        'nom'             => "Regresar al estatus En Ruta Logística 'Direcciones entregadas'",
+        'name'				    => 'logistica.direccionEntregada.edit',
+        'desc'            => "Regresar al estatus En Ruta Logística del módulo Logística 'Direcciones entregadas'",
+        'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+      ]);
   }
 }

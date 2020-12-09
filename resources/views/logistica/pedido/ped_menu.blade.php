@@ -26,7 +26,7 @@
     </a>
   </li>
 @endcanany
-@canany(['logistica.pedidoEntregado.index', 'logistica.pedidoEntregado.show'])
+@canany(['logistica.pedidoEntregado.index', 'logistica.pedidoEntregado.show', 'logistica.direccionEntregada.edit'])
   <li class="nav-item">
     <a href="{{ route('logistica.direccionEntregada.index') }}" class="nav-link {{ Request::is('logistica/direccion-entregada') ? 'active' : '' }}">
       <i class="fas fa-list nav-icon"></i> {{ __('Lista de direcciones entregadas') }} (-90d)

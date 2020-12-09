@@ -8,6 +8,7 @@
     'logistica.direccionForaneo.index', 'logistica.direccionForaneo.show', 'logistica.direccionForaneo.create', 'logistica.direccionForaneo.createEntrega',
     'logistica.pedidoEntregado.index','logistica.pedidoEntregado.show',
     'logistica.direccionLocal.edit', 'logistica.direccionForaneo.edit',
+    'logistica.direccionEntregada.edit'
   ])
     <div class="col-lg-3">
       <div class="small-box bg-info">
@@ -30,7 +31,7 @@
               @canany(['logistica.pedidoEntregado.index','logistica.pedidoEntregado.show'])
                 <a href="{{ route('logistica.pedidoEntregado.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos entregados') }} (-90d)</a>
               @endcanany
-              @canany(['logistica.pedidoEntregado.index','logistica.pedidoEntregado.show'])
+              @canany(['logistica.pedidoEntregado.index','logistica.pedidoEntregado.show', 'logistica.direccionEntregada.edit'])
                 <a href="{{ route('logistica.direccionEntregada.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de direcciones entregadas') }} (-90d)</a>
               @endcanany
             </div>
