@@ -37,7 +37,13 @@ class DireccionArmadoRepositories implements DireccionInterface {
       $direccion->no_ext              = $request->no_exterior;
       $direccion->no_int              = $request->no_interior;
       $direccion->pais                = $request->pais;
-      $direccion->ciudad              = $direccion->est;
+
+      if($direccion->est == 'Tarifa única ') {
+        $direccion->ciudad              = $request->ciudad;
+      } else {
+        $direccion->ciudad              = $direccion->est;
+      }
+
       $direccion->col                 = $request->colonia;
       $direccion->del_o_munic         = $request->delegacion_o_municipio;
       $direccion->cod_post            = $request->codigo_postal;

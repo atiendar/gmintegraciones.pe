@@ -105,7 +105,11 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
       </div>
-      {!! Form::text('ciudad', $direccion->ciudad, ['id' => 'ciudad', 'class' => 'form-control disabled' . ($errors->has('ciudad') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Ciudad'), 'readonly' => 'readonly']) !!}
+        @if($direccion->est == 'Tarifa única ') 
+          {!! Form::text('ciudad', $direccion->est, ['id' => 'ciudad', 'class' => 'form-control' . ($errors->has('ciudad') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Ciudad')]) !!}
+        @else
+          {!! Form::text('ciudad', $direccion->est, ['id' => 'ciudad', 'class' => 'form-control disabled' . ($errors->has('ciudad') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Ciudad'), 'readonly' => 'readonly']) !!}
+        @endif
     </div>
     <span class="text-danger">{{ $errors->first('ciudad') }}</span>
   </div>
