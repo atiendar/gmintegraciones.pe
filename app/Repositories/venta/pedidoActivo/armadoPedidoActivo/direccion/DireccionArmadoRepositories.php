@@ -2,8 +2,6 @@
 namespace App\Repositories\venta\pedidoActivo\armadoPedidoActivo\direccion;
 // Models
 use App\Models\PedidoArmadoTieneDireccion;
-// Repositories
-use App\Repositories\rolCliente\direccion\DireccionRepositories;
 // Events
 use App\Events\layouts\ActividadRegistrada;
 use App\Events\layouts\ArchivoCargado;
@@ -17,9 +15,8 @@ use DB;
 class DireccionArmadoRepositories implements DireccionInterface {
   protected $serviceCrypt;
   protected $direccionRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, DireccionRepositories $direccionRepositories) {
+  public function __construct(ServiceCrypt $serviceCrypt) {
     $this->serviceCrypt   = $serviceCrypt;
-    $this->direccionRepo  = $direccionRepositories;
   } 
   public function direccionFindOrFailById($id_direccion, $relaciones) { // 'productos', 'direcciones', 'pedido'
     $id_direccion = $this->serviceCrypt->decrypt($id_direccion);
@@ -29,7 +26,22 @@ class DireccionArmadoRepositories implements DireccionInterface {
   public function update($request, $id_direccion) {
     try { DB::beginTransaction();
       $direccion = $this->direccionFindOrFailById($id_direccion, ['armado']);
-      $direccion = $this->direccionRepo->storeFields($direccion, $request);
+      $direccion->nom_ref_uno         = $request->nombre_de_la_persona_que_recibe_uno;
+      $direccion->nom_ref_dos         = $request->nombre_de_la_persona_que_recibe_dos;
+      $direccion->lad_fij             = $request->lada_telefono_fijo;
+      $direccion->tel_fij             = $request->telefono_fijo;
+      $direccion->ext                 = $request->extension;
+      $direccion->lad_mov             = $request->lada_telefono_movil;
+      $direccion->tel_mov             = $request->telefono_movil;
+      $direccion->calle               = $request->calle;
+      $direccion->no_ext              = $request->no_exterior;
+      $direccion->no_int              = $request->no_interior;
+      $direccion->pais                = $request->pais;
+      $direccion->ciudad              = $direccion->est;
+      $direccion->col                 = $request->colonia;
+      $direccion->del_o_munic         = $request->delegacion_o_municipio;
+      $direccion->cod_post            = $request->codigo_postal;
+      $direccion->ref_zon_de_entreg   = $request->referencias_zona_de_entrega;
 
       if($direccion->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php

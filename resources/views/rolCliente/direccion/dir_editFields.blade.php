@@ -105,7 +105,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
       </div>
-      {!! Form::text('ciudad', $direccion->ciudad, ['id' => 'ciudad', 'class' => 'form-control' . ($errors->has('ciudad') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Ciudad')]) !!}
+      {!! Form::text('ciudad', $direccion->ciudad, ['id' => 'ciudad', 'class' => 'form-control disabled' . ($errors->has('ciudad') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Ciudad'), 'readonly' => 'readonly']) !!}
     </div>
     <span class="text-danger">{{ $errors->first('ciudad') }}</span>
   </div>

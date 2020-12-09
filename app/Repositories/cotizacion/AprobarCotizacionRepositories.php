@@ -224,7 +224,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
             $direcciones[$contador3]['no_ext']      = null;
             $direcciones[$contador3]['no_int']      = null;
             $direcciones[$contador3]['pais']        = null;
-            $direcciones[$contador3]['ciudad']      = null;
+            $direcciones[$contador3]['ciudad']      = $nuevo_est;
             $direcciones[$contador3]['col']         = null;
             $direcciones[$contador3]['del_o_munic'] = null;
             $direcciones[$contador3]['cod_post']    = null;

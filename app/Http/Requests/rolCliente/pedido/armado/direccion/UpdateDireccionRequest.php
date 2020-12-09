@@ -8,9 +8,9 @@ class UpdateDireccionRequest extends FormRequest {
   }
   public function rules() {
     if($this->tarjeta_disenada_por_el_cliente_url == null) {
-      $validacion = 'nullable|max:1024|image|required_if:tipo_de_tarjeta_de_felicitacion,'.config('opcionesSelect.select_tarjeta_de_felicitacion.Diseñada por el cliente');
+      $validacion = 'nullable|max:1024|file|required_if:tipo_de_tarjeta_de_felicitacion,'.config('opcionesSelect.select_tarjeta_de_felicitacion.Diseñada por el cliente');
     } else {
-      $validacion = 'nullable|max:1024|image';
+      $validacion = 'nullable|max:1024|file';
     }
     return [
       'tipo_de_tarjeta_de_felicitacion' => 'nullable|in:'.
