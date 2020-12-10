@@ -42,7 +42,6 @@
       $("#no_exterior").val(response.no_ext);
       $("#no_interior").val(response.no_int);
       $("#pais").val(response.pais);
-      $("#ciudad").val(response.ciudad);
       $("#colonia").val(response.col);
       $("#delegacion_o_municipio").val(response.del_o_munic);
       $("#codigo_postal").val(response.cod_post);
