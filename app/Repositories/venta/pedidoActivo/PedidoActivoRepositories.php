@@ -128,12 +128,22 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       $pedido->estat_pag = config('app.pago_rechazado');
     }
 
-//    Redondea en valor del pedido si solo hay diferencia menos a 1 peso
-//    $monto_restante = $pedido->mont_tot_de_ped  - $sum_pagos_aprobados;
-//    if($monto_restante <= 1) {
-//        dd(   'entro////'.  $monto_restante    );
-//    }
-
+  //  Redondea en valor del pedido si solo hay diferencia menos a 1 peso
+    $monto_restante = $pedido->mont_tot_de_ped  - $sum_pagos_aprobados;
+    if($monto_restante <= 1) {
+/*
+        dd(   $pedido->pagos[0]   );
+        $pago = new \App\Models\Pago();
+        $pago->cod_fact       = $this->generateRandomString();
+        $pago->not            = $request->not; // Este campo solo se le asigna un valor cuando solo se genera un codigo de facuración
+        $pago->form_de_pag    = $request->forma_de_pago;
+        $pago->mont_de_pag    = $request->monto_del_pago;
+        $pago->coment_pag_vent  = $request->comentarios_ventas;
+        $pago->pedido_id      = $pedido->id;   
+        $pago->user_id        = $pedido->user_id; 
+        $pago->created_at_pag = Auth::user()->email_registro;
+*/
+    }
 
     // ESTATUS PAGADO
     if($sum_pagos_aprobados == $pedido->mont_tot_de_ped) {

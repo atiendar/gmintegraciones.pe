@@ -49,7 +49,9 @@ class DireccionArmadoRepositories implements DireccionInterface {
       $direccion->cod_post            = $request->codigo_postal;
       $direccion->ref_zon_de_entreg   = $request->referencias_zona_de_entrega;
 
+      $se_modifico = null;
       if($direccion->isDirty()) {
+        $se_modifico = 'Si';
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
           'Ventas/Pedido Activo/Armado (direcciones)', // Módulo
@@ -64,7 +66,10 @@ class DireccionArmadoRepositories implements DireccionInterface {
       }
 
       $direccion->save();
-      $this->estatusDireccionesDetalladas($direccion->cant, $direccion->armado);
+      if($se_modifico == 'Si') {
+        $this->estatusDireccionesDetalladas($direccion->cant, $direccion->armado);
+      }
+     
       
       DB::commit();
       return $direccion;
