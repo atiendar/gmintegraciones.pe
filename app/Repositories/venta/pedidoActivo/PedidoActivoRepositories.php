@@ -128,6 +128,13 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       $pedido->estat_pag = config('app.pago_rechazado');
     }
 
+//    Redondea en valor del pedido si solo hay diferencia menos a 1 peso
+//    $monto_restante = $pedido->mont_tot_de_ped  - $sum_pagos_aprobados;
+//    if($monto_restante <= 1) {
+//        dd(   'entro////'.  $monto_restante    );
+//    }
+
+
     // ESTATUS PAGADO
     if($sum_pagos_aprobados == $pedido->mont_tot_de_ped) {
       $pedido->estat_pag = config('app.pagado');

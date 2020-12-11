@@ -22,8 +22,6 @@
     <span class="text-danger">{{ $errors->first('comentarios') }}</span>
   </div>
 </div>
-
-
 <div class="row border">
   <div class="form-group col-sm btn-sm ">
     <label for="checkbox_correo"></label>
@@ -36,14 +34,6 @@
     <span class="text-danger">{{ $errors->first('checkbox_correo') }}</span>
   </div>
 </div>
-
-
-
-
-
-
-
-
 @include('pago.pag_showFields.archivos_comPago_copIdentificacion')
 <div class="row">
   <div class="form-group col-sm btn-sm" >

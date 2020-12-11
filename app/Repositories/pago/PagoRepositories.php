@@ -119,7 +119,7 @@ class PagoRepositories implements PagoInterface {
         $pago->updated_at_pag  = Auth::user()->email_registro;
       }
       $pago->save();
-
+      
       $this->pedidoActivoRepo->getEstatusPagoPedido($pago->pedido);
 
       // NOTIFICA AL USUARIO VIA CORREO ELECTRONICO QUE SU PAGO HA SIDO RECHAZADO
