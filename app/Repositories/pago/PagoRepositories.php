@@ -119,12 +119,15 @@ class PagoRepositories implements PagoInterface {
         $pago->updated_at_pag  = Auth::user()->email_registro;
       }
       $pago->save();
+
       $this->pedidoActivoRepo->getEstatusPagoPedido($pago->pedido);
 
       // NOTIFICA AL USUARIO VIA CORREO ELECTRONICO QUE SU PAGO HA SIDO RECHAZADO
-      if($pago->estat_pag == config('app.rechazado')) {
-        $plantilla = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_pag_pag_rech'));
-        $pago->usuario->notify(new NotificacionPagoRechazado($pago->usuario, $pago, $pago->pedido->num_pedido, $plantilla)); // Envió de correo electrónico
+      if($request->checkbox_correo == 'on') {
+        if($pago->estat_pag == config('app.rechazado')) {
+          $plantilla = $this->plantillaRepo->plantillaFindOrFailById($this->sistemaRepo->datos('plant_pag_pag_rech'));
+          $pago->usuario->notify(new NotificacionPagoRechazado($pago->usuario, $pago, $pago->pedido->num_pedido, $plantilla)); // Envió de correo electrónico
+        }
       }
 
       // SI CUMPLE CON LA CONFICION SE MODIFICA EL ESTATUS DE PRODUCCIÓN Y ALMACEN PARA QUE LO PUEDAN VISUALIZAR
