@@ -61,7 +61,7 @@ class DireccionLocalRepositories implements DireccionLocalInterface {
     return PedidoArmadoTieneDireccion::with($relaciones)
     ->with(['armado'=> function ($query) {
       $query->select('id', 'cod', 'pedido_id')->with(['pedido'=> function ($query) {
-        $query->select('id', 'fech_de_entreg', 'estat_pag');
+        $query->select('id', 'fech_de_entreg', 'estat_pag', 'bod');
       }]);
     }])
     ->where('for_loc', $for_loc)
