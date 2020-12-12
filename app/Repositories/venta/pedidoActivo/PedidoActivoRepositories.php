@@ -106,6 +106,23 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     return $pedido;
   }
   public function getEstatusPagoPedido($pedido) {
+
+    //  Redondea en valor del pedido si solo hay diferencia menos a 1 peso
+    $sum_pagos_aprobados1  = $pedido->pagos()->where('estat_pag', config('app.aprobado'))->sum('mont_de_pag');
+    $monto_restante = $pedido->mont_tot_de_ped  - $sum_pagos_aprobados1;
+    if($monto_restante <= 1 AND $monto_restante > 0.00) {
+      $pago = new \App\Models\Pago();
+      $pago->cod_fact       = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 7);
+      $pago->estat_pag      = config('app.aprobado');
+      $pago->mont_de_pag    = $monto_restante;
+      $pago->user_aut       = 'Automático por el sistema';
+      $pago->coment_pag_vent  = 'Este comentario es generado automáticamente por el sistema. Pago registrado automáticamente para cuadrar total del pedido, ya que se tenia una diferencia por centavos.';
+      $pago->pedido_id      = $pedido->id;   
+      $pago->user_id        = $pedido->user_id; 
+      $pago->created_at_pag = 'Automático por el sistema';
+      $pago->save();
+    }
+
     $pagos_rechazado      = $pedido->pagos()->where('estat_pag', config('app.rechazado'))->get();
     $pagos_pendientes     = $pedido->pagos()->where('estat_pag', config('app.pendiente'))->get();
     $sum_pagos_aprobados  = $pedido->pagos()->where('estat_pag', config('app.aprobado'))->sum('mont_de_pag');
@@ -128,27 +145,11 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       $pedido->estat_pag = config('app.pago_rechazado');
     }
 
-  //  Redondea en valor del pedido si solo hay diferencia menos a 1 peso
-    $monto_restante = $pedido->mont_tot_de_ped  - $sum_pagos_aprobados;
-    if($monto_restante <= 1) {
-/*
-        dd(   $pedido->pagos[0]   );
-        $pago = new \App\Models\Pago();
-        $pago->cod_fact       = $this->generateRandomString();
-        $pago->not            = $request->not; // Este campo solo se le asigna un valor cuando solo se genera un codigo de facuración
-        $pago->form_de_pag    = $request->forma_de_pago;
-        $pago->mont_de_pag    = $request->monto_del_pago;
-        $pago->coment_pag_vent  = $request->comentarios_ventas;
-        $pago->pedido_id      = $pedido->id;   
-        $pago->user_id        = $pedido->user_id; 
-        $pago->created_at_pag = Auth::user()->email_registro;
-*/
-    }
-
     // ESTATUS PAGADO
     if($sum_pagos_aprobados == $pedido->mont_tot_de_ped) {
       $pedido->estat_pag = config('app.pagado');
     }
+
     $pedido->save();
   }
   public function unificarPedido($pedido, $fecha_original, $fecha_nueva) {

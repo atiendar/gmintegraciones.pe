@@ -12,7 +12,8 @@ class DireccionEntregadaController extends Controller {
     $this->direccionEntregadaRepo   = $direccionEntregadaRepositories;
   }
   public function index(Request $request) {
-    $direcciones_entregadas = $this->direccionEntregadaRepo->getPagination($request, []);
+    $direcciones_entregadas = $this->direccionEntregadaRepo->getPagination($request, ['comprobantes']);
+  //  dd($direcciones_entregadas[0]->comprobantes[0]);
     return view('logistica.pedido.direccion_entregada.dirEnt_index', compact('direcciones_entregadas'));
   }
   public function show($id_direccion) {
