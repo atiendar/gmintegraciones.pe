@@ -646,7 +646,8 @@ return array(
   ],
   /* =====================  PAGOS [ INDIVIDUAL ] ===================== */
   'select_pago_index'  => [
-    ''              => 'Buscar por. . .',
+    ''                  => 'Buscar por. . .',
+    'fol'               => 'Folio',
     'cod_fact'          => 'Código de facturación',
     'estat_pag'         => 'Estatus de pago',
     'form_de_pag'       => 'Forma de pago',

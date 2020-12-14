@@ -19,6 +19,7 @@ class CreatePagosTable extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
             $table->string('cod_fact',50)->unique()->comment('Código de facturación');
+            $table->string('fol',50)->comment('Folio del comprobantye de pago');
             $table->string('comp_de_pag_rut',200)->nullable()->comment('Ruta de comprobante de pagos');
             $table->string('comp_de_pag_nom',200)->nullable()->comment('Nombre de comprobante de pagos');
             $table->string('cop_de_indent_rut',200)->nullable()->comment('Ruta de la copia de identificación');

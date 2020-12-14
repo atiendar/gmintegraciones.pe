@@ -15,11 +15,12 @@ class StorePagoRequest extends FormRequest {
     $max_monto = number_format($max_monto, 2, '.', '');
 
     return [
-      'comprobante_de_pago'     => 'nullable|mimes:pdf,jpg,jpeg,png|max:1024',
-      'forma_de_pago'           => 'required|in:Cheque,Efectivo (Jonathan),Efectivo (Gabriel),Efectivo (Fernando),Paypal,Tarjeta de credito (Pagina),Tarjeta de credito (Clip),Tarjeta de debito,Transferencia RUTH Yolanda,Transferencia Canastas y Arcones S.A de C.V,Otro',
-      'copia_de_identificacion' => 'nullable|mimes:pdf,jpg,jpeg,png|max:1024',
-      'monto_del_pago'          => 'required|numeric|min:0|max:'.$max_monto.'|alpha_decimal15',
-      'comentarios_ventas'      => 'nullable|max:30000|string',
+      'comprobante_de_pago'                 => 'nullable|mimes:pdf,jpg,jpeg,png|max:1024',
+      'ultimos_5_digitos_del_folio_de_pago' => 'required|unique:pagos,fol|min:5|max:5',
+      'forma_de_pago'                       => 'required|in:Cheque,Efectivo (Jonathan),Efectivo (Gabriel),Efectivo (Fernando),Paypal,Tarjeta de credito (Pagina),Tarjeta de credito (Clip),Tarjeta de debito,Transferencia RUTH Yolanda,Transferencia Canastas y Arcones S.A de C.V,Otro',
+      'copia_de_identificacion'             => 'nullable|mimes:pdf,jpg,jpeg,png|max:1024',
+      'monto_del_pago'                      => 'required|numeric|min:0|max:'.$max_monto.'|alpha_decimal15',
+      'comentarios_ventas'                  => 'nullable|max:30000|string',
     ];
   }
 }
