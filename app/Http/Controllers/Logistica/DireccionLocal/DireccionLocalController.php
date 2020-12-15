@@ -94,4 +94,8 @@ class DireccionLocalController extends Controller {
     return $comprobante_de_entrega->stream();
 //  return $comprobante_de_entrega->download('OrdenDeProduccionAlmacen-'$pedido->num_pedido.'.pdf'); // Descargar
   }
+  public function generarReporte() {
+    dd('Local');
+    return (new \App\Exports\pago\fPedido\generarReporteDePagoExport)->download('ReporteDePagos-'.date('Y-m-d').'.xlsx');
+  }
 }

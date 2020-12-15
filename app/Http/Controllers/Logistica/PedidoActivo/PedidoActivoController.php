@@ -39,4 +39,8 @@ class PedidoActivoController extends Controller {
     toastr()->success('¡Pedido actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
+  public function generarReporte() {
+    dd('pedidoActivo');
+    return (new \App\Exports\pago\fPedido\generarReporteDePagoExport)->download('ReporteDePagos-'.date('Y-m-d').'.xlsx');
+  }
 }

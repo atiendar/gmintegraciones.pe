@@ -42,7 +42,7 @@ class PagoRepositories implements PagoInterface {
       $pedido = $this->pedidoActivoRepo->getPedidoFindOrFail($id_pedido, ['usuario']);
       $pago = new Pago();
       $pago->cod_fact       = $this->generateRandomString();
-      $pago->fol            = $request->ultimos_5_digitos_del_folio_de_pago;
+      $pago->fol            = $request->ultimos_8_digitos_del_folio_de_pago;
       $pago->not            = $request->not; // Este campo solo se le asigna un valor cuando solo se genera un codigo de facuración
       $pago->form_de_pag    = $request->forma_de_pago;
       $pago->mont_de_pag    = $request->monto_del_pago;

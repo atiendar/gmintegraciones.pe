@@ -14,14 +14,14 @@
     <span class="text-danger">{{ $errors->first('comprobante_de_pago') }}</span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="ultimos_5_digitos_del_folio_de_pago">{{ __('Últimos 5 dígitos del folio de pago') }} *</label>
+    <label for="ultimos_8_digitos_del_folio_de_pago">{{ __('Últimos 8 dígitos del folio de pago') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      {!! Form::text('ultimos_5_digitos_del_folio_de_pago', null, ['id' => 'ultimos_5_digitos_del_folio_de_pago', 'class' => 'form-control' . ($errors->has('ultimos_5_digitos_del_folio_de_pago') ? ' is-invalid' : ''), 'maxlength' => 10, 'placeholder' => __('Últimos 5 dígitos del folio de pago')]) !!}
+      {!! Form::text('ultimos_8_digitos_del_folio_de_pago', null, ['id' => 'ultimos_8_digitos_del_folio_de_pago', 'class' => 'form-control' . ($errors->has('ultimos_8_digitos_del_folio_de_pago') ? ' is-invalid' : ''), 'maxlength' => 8, 'placeholder' => __('Últimos 8 dígitos del folio de pago')]) !!}
     </div>
-    <span class="text-danger">{{ $errors->first('ultimos_5_digitos_del_folio_de_pago') }}</span>
+    <span class="text-danger">{{ $errors->first('ultimos_8_digitos_del_folio_de_pago') }}</span>
   </div>
 </div>
 <div class="row">

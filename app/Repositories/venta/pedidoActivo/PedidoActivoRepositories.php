@@ -113,7 +113,6 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     if($monto_restante <= 1 AND $monto_restante > 0.00) {
       $pago = new \App\Models\Pago();
       $pago->cod_fact       = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 7);
-      $pago->fol            = 00000;
       $pago->estat_pag      = config('app.aprobado');
       $pago->mont_de_pag    = $monto_restante;
       $pago->user_aut       = 'Automático por el sistema';

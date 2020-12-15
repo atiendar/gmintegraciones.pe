@@ -33,3 +33,4 @@
     </a>
   </li>
 @endcanany
+@include('logistica.pedido.ped_reportes')
