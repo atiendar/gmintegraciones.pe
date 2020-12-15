@@ -215,7 +215,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
             $direcciones[$contador3]['cod_post']    = '53398';
 
             // ACTUALIZA EL ESTATUS DE LAS DIRECCIONES DEL PEDIDO
-            $this->direccionArmadoRepo->estatusDireccionesDetalladas($direcciones[$contador3]['cant'], $armado_pedido);
+            $this->direccionArmadoRepo->estatusDireccionesDetalladas($direcciones[$contador3]['cant'], $armado_pedido, 'No');
           } else {
             $direcciones[$contador3]['nom_ref_uno'] = null;
             $direcciones[$contador3]['lad_mov']     = null;

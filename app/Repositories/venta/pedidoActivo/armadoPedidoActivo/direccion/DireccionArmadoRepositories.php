@@ -26,6 +26,7 @@ class DireccionArmadoRepositories implements DireccionInterface {
   public function update($request, $id_direccion) {
     try { DB::beginTransaction();
       $direccion = $this->direccionFindOrFailById($id_direccion, ['armado']);
+      $nom_ref_uno_orig               = $direccion->nom_ref_uno;
       $direccion->nom_ref_uno         = $request->nombre_de_la_persona_que_recibe_uno;
       $direccion->nom_ref_dos         = $request->nombre_de_la_persona_que_recibe_dos;
       $direccion->lad_fij             = $request->lada_telefono_fijo;
@@ -49,6 +50,11 @@ class DireccionArmadoRepositories implements DireccionInterface {
       $direccion->cod_post            = $request->codigo_postal;
       $direccion->ref_zon_de_entreg   = $request->referencias_zona_de_entrega;
 
+      $ya_cargado = 'No';
+      if($nom_ref_uno_orig != null) {
+        $ya_cargado = 'Si';
+      }
+
       $se_modifico = null;
       if($direccion->isDirty()) {
         $se_modifico = 'Si';
@@ -67,7 +73,7 @@ class DireccionArmadoRepositories implements DireccionInterface {
 
       $direccion->save();
       if($se_modifico == 'Si') {
-        $this->estatusDireccionesDetalladas($direccion->cant, $direccion->armado);
+        $this->estatusDireccionesDetalladas($direccion->cant, $direccion->armado, $ya_cargado);
       }
      
       
@@ -130,10 +136,12 @@ class DireccionArmadoRepositories implements DireccionInterface {
       return $direccion;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
-  public function estatusDireccionesDetalladas($cant_direccion, $armado) {
+  public function estatusDireccionesDetalladas($cant_direccion, $armado, $ya_se_habia_cargado) {
     if($armado->cant != $armado->cant_direc_carg) {
-      $armado->cant_direc_carg += $cant_direccion;
-      $armado->save();
+      if($ya_se_habia_cargado == 'No') {
+        $armado->cant_direc_carg += $cant_direccion;
+        $armado->save();
+      }
       \App\Models\Pedido::getEstatusVentas($armado->pedido);
     }
   }

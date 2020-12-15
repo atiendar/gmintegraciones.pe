@@ -8,5 +8,5 @@ interface DireccionInterface {
 
   public function updateTarjeta($request, $id_direccion);
   
-  public function estatusDireccionesDetalladas($cant_direccion, $armado);
+  public function estatusDireccionesDetalladas($cant_direccion, $armado, $ya_se_habia_cargado);
 }
