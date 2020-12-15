@@ -41,6 +41,6 @@ class PedidoActivoController extends Controller {
   }
   public function generarReporte() {
     dd('pedidoActivo');
-    return (new \App\Exports\pago\fPedido\generarReporteDePagoExport)->download('ReporteDePagos-'.date('Y-m-d').'.xlsx');
+    return (new \App\Exports\logistica\pedido\pedidoActivo\activoExport)->download('ReporteDePagos-'.date('Y-m-d').'.xlsx');
   }
 }

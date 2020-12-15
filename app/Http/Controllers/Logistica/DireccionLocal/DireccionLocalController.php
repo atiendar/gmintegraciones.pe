@@ -96,6 +96,6 @@ class DireccionLocalController extends Controller {
   }
   public function generarReporte() {
     dd('Local');
-    return (new \App\Exports\pago\fPedido\generarReporteDePagoExport)->download('ReporteDePagos-'.date('Y-m-d').'.xlsx');
+    return (new \App\Exports\logistica\pedido\direccionLocal\localExport)->download('ReporteDePagos-'.date('Y-m-d').'.xlsx');
   }
 }

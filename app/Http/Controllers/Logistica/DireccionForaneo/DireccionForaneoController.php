@@ -58,6 +58,6 @@ class DireccionForaneoController extends Controller {
   }
   public function generarReporte() {
     dd('Foraneo');
-    return (new \App\Exports\pago\fPedido\generarReporteDePagoExport)->download('ReporteDePagos-'.date('Y-m-d').'.xlsx');
+    return (new \App\Exports\logistica\pedido\direccionForaneo\foraneoExport)->download('ReporteDePagos-'.date('Y-m-d').'.xlsx');
   }
 }
