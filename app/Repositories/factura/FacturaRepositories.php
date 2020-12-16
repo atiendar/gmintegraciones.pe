@@ -155,7 +155,8 @@ class FacturaRepositories implements FacturaInterface {
 
       $factura = $this->getFacturaFindOrFailById($id_factura, ['usuario', 'pago'], null);
       $factura->est_fact = config('app.facturado');
-
+      $factura->fech_facturado  = date('Y-m-d');
+       
       if($request->hasfile('factura_pdf')) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(

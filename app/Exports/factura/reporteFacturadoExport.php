@@ -19,12 +19,11 @@ class reporteFacturadoExport implements FromView {
       with(['usuario', 'pago' => function($query) {
           $query->with('pedido');
         }])
-      ->where('created_at', $this->fecha)
+      ->whereDate('fech_facturado', $this->fecha)
       ->where('est_fact', 'Facturado')
       ->orderBy('id', 'DESC')
       ->get();
 
-  //  dd(          $facturas           );
     return view('factura.export.reporteFactura', ['facturas'    => $facturas]);
   }
 }
