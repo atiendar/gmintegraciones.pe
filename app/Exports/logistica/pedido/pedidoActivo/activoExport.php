@@ -12,13 +12,17 @@ class activoExport implements FromView {
 
   public function view(): View {
     $pedidos =  \App\Models\Pedido::
-    where(function ($query) {
+    Where('estat_log', '!=', config('app.entregado'))
+/*
+    ->where(function ($query) {
       $query->where('estat_log', config('app.en_espera_de_produccion'))
       ->orWhere('estat_log', config('app.en_almacen_de_salida'))
       ->orWhere('estat_log', config('app.en_ruta'))
       ->orWhere('estat_log', config('app.sin_entrega_por_falta_de_informacion'))
       ->orWhere('estat_log', config('app.intento_de_entrega_fallido'));
-    })->get();
+    })
+*/
+    ->get();
 
     return view('logistica.pedido.pedido_activo.export.pedidosActivos', ['pedidos'    => $pedidos]);
   }

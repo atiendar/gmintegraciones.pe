@@ -22,7 +22,7 @@
         </thead>
         <tbody> 
           @foreach($direcciones as $direccion)
-              <tr title="{{ $direccion->est }}">
+            <tr title="{{ $direccion->est }}">
               @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.#')
               @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.armado', ['show' => false])
               @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusPago', ['pedido' => $direccion->armado->pedido])
