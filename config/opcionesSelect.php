@@ -227,6 +227,7 @@ return array(
   'select_qys_index'  => [
     ''                        => 'Buscar por. . .',
   //  'usuario.email_registro'  => 'Correo usuario',
+    'tip'                     => 'Tipo',
     'depto'                   => 'Departamento',
     'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
@@ -643,6 +644,15 @@ return array(
     'Personalizada'             => 'Personalizada',
     'Diseñada por el cliente'   => 'Diseñada por el cliente',
     'Sin tarjeta'               => 'Sin tarjeta',
+  ],
+/* ===================== VENTAS [ PEDIDO TERMINADO ] ===================== */
+  'select_com_o_recl'  => [
+    'Comentario'    => 'Comentario',
+    'Reclamación'   => 'Reclamación',
+  ],
+  'select_abierto_cerrado'  => [
+    'Abierto'   => 'Abierto',
+    'Cerrado'   => 'Cerrado',
   ],
   /* =====================  PAGOS [ INDIVIDUAL ] ===================== */
   'select_pago_index'  => [

@@ -44,9 +44,11 @@
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosLogistica')
 </div>
+<div class="row">
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatus')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.tipo')
+</div>
+<div class="row">
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentarioOReclamo')
+</div>
 @include('layouts.private.plugins.priv_plu_select2')
-@section('js2')
-<script>
-  $('.select2').prop("disabled", true);
-</script>
-@endsection

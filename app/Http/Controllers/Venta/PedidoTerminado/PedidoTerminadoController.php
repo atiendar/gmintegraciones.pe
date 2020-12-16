@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Venta\PedidoTerminado;
 use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
+use App\Http\Requests\venta\pedidoTerminado\UpdatePedidoRequest;
 // Repositories
 use App\Repositories\venta\pedidoTerminado\PedidoTerminadoRepositories;
 use App\Repositories\venta\pedidoActivo\PedidoActivoRepositories;
@@ -25,6 +26,11 @@ class PedidoTerminadoController extends Controller {
     $pagos          = $pedido->pagos()->paginate(99999999);
     $mont_pag_aprov =  $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
     return view('venta.pedido.pedido_terminado.ven_pedTer_show', compact('pedido', 'unificados', 'armados', 'pagos', 'mont_pag_aprov'));
+  }
+  public function update(UpdatePedidoRequest $request, $id_pedido) {
+    $this->pedidoTerminadoRepo->update($request, $id_pedido);
+    toastr()->success('¡Pedido actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
   }
   public function destroy($id_pedido) {
     $this->pedidoTerminadoRepo->destroy($id_pedido);

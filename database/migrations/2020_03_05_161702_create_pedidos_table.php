@@ -52,6 +52,12 @@ class CreatePedidosTable extends Migration
             $table->string('estat_log',100)->default(config('app.pendiente'))->comment('Estatus logística');
             $table->timestamp('fech_estat_log')->nullable()->comment('Fecha estatus logística');
             $table->text('coment_log')->nullable()->comment('Comentarios logística');
+
+            $table->string('est', 20)->default('Abierto')->comment('Estatus');
+            $table->string('tip', 50)->nullable()->comment('Tipo es reclamación o comentario');
+            $table->text('coment_o_reclam')->nullable()->comment('Comentario o reclamo');
+
+
             $table->unsignedBigInteger('user_id')->comment('Foreign Key usuario');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('restrict')->onDelete('cascade');
             $table->string('asignado_ped',75)->comment('Correo del usuario al que se le asigno este registro');

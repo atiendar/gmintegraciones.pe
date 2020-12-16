@@ -1,6 +1,9 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
 <title>@section('title', __('Detalles pedido').' '.$pedido->num_pedido)</title>
+@if($pedido->est != 'Cerrado')
+ @include('venta.pedido.pedido_terminado.ven_pedTer_edit')
+@endif
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
     <div class="float-right mr-5">
