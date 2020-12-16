@@ -95,7 +95,6 @@ class DireccionLocalController extends Controller {
 //  return $comprobante_de_entrega->download('OrdenDeProduccionAlmacen-'$pedido->num_pedido.'.pdf'); // Descargar
   }
   public function generarReporte() {
-    dd('Local');
-    return (new \App\Exports\logistica\pedido\direccionLocal\localExport)->download('ReporteDePagos-'.date('Y-m-d').'.xlsx');
+    return (new \App\Exports\logistica\pedido\direccionLocal\localExport)->download('DireccionesLocales-'.date('Y-m-d').'.xlsx');
   }
 }

@@ -57,7 +57,6 @@ class DireccionForaneoController extends Controller {
     return view('logistica.pedido.direccion_local.comprobante.com_createEntrega', compact('direccion', 'armado'));
   }
   public function generarReporte() {
-    dd('Foraneo');
-    return (new \App\Exports\logistica\pedido\direccionForaneo\foraneoExport)->download('ReporteDePagos-'.date('Y-m-d').'.xlsx');
+    return (new \App\Exports\logistica\pedido\direccionForaneo\foraneoExport)->download('DireccionesForaneas-'.date('Y-m-d').'.xlsx');
   }
 }
