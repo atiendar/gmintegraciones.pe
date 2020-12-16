@@ -13,7 +13,7 @@
     </div>
     <span class="text-danger">{{ $errors->first('comprobante_de_pago') }}</span>
   </div>
-  <div class="form-group col-sm btn-sm">
+  <div class="form-group col-sm btn-sm" id="div_ultimos_8_digitos_del_folio_de_pago">
     <label for="ultimos_8_digitos_del_folio_de_pago">{{ __('Últimos 8 dígitos del folio de pago') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
@@ -65,36 +65,3 @@
     <span class="text-danger">{{ $errors->first('monto_del_pago') }}</span>
   </div>
 </div>
-
-
-@section('js4')
-<script>
-  /*
-  @if(Request::route()->getName() == 'pago.fPedido.create')
-    window.onload = function() { 
-      getFormaDePago();
-    }
-  @endif
-  function getFormaDePago() {
-    selectFormaDePago           = document.getElementById("forma_de_pago"),
-    forma_de_pago               = selectFormaDePago.value;
-    div_copia_de_identificacion = document.getElementById('div_copia_de_identificacion');
-
-    if(forma_de_pago == 'Paypal' || forma_de_pago == 'Tarjeta de credito (Pagina)') {
-      div_copia_de_identificacion.style.display = 'block';
-    } else {
-      div_copia_de_identificacion.style.display = 'none';
-    }
-  }
-  function getMontoDelPago() {
-    monto_del_pago = document.getElementById("monto_del_pago").value;
-    if (isNaN(parseFloat(monto_del_pago))) {
-      monto_del_pago = 0;
-    }
-    monto_del_pago = Number.parseFloat(monto_del_pago).toFixed(2);
-    document.getElementById("monto_del_pago").value = monto_del_pago
-  }
-
-  */
-</script>
-@endsection

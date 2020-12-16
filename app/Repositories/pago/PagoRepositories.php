@@ -42,9 +42,15 @@ class PagoRepositories implements PagoInterface {
       $pedido = $this->pedidoActivoRepo->getPedidoFindOrFail($id_pedido, ['usuario']);
       $pago = new Pago();
       $pago->cod_fact       = $this->generateRandomString();
-      $pago->fol            = $request->ultimos_8_digitos_del_folio_de_pago;
       $pago->not            = $request->not; // Este campo solo se le asigna un valor cuando solo se genera un codigo de facuración
       $pago->form_de_pag    = $request->forma_de_pago;
+
+      if($pago->form_de_pag != 'Efectivo (Jonathan)' AND $pago->form_de_pag != 'Efectivo (Gabriel)' AND $pago->form_de_pag != 'Efectivo (Fernando)') {
+        $pago->fol            = $request->ultimos_8_digitos_del_folio_de_pago;
+      } else {
+        $pago->fol            = null;
+      }
+      
       $pago->mont_de_pag    = $request->monto_del_pago;
       $pago->coment_pag_vent  = $request->comentarios_ventas;
       $pago->pedido_id      = $pedido->id;   
@@ -149,6 +155,12 @@ class PagoRepositories implements PagoInterface {
       $pago->mont_de_pag      = $request->monto_del_pago;
       $pago->coment_pag_vent  = $request->comentarios_ventas;
 
+      if($pago->form_de_pag != 'Efectivo (Jonathan)' AND $pago->form_de_pag != 'Efectivo (Gabriel)' AND $pago->form_de_pag != 'Efectivo (Fernando)') {
+        $pago->fol            = $request->ultimos_8_digitos_del_folio_de_pago;
+      } else {
+        $pago->fol            = null;
+      }
+
       if($pago->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
@@ -156,9 +168,9 @@ class PagoRepositories implements PagoInterface {
           'pago.fPedido.show', // Nombre de la ruta
           $id_pago, // Id del registro debe ir encriptado
           $pago->cod_fact, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Estatus pago', 'Forma de pago', 'Monto del pago', 'Comentarios ventas'), // Nombre de los inputs del formulario
+          array('Forma de pago', 'Últimos 8 dígitos del folio de pago', 'Monto del pago', 'Comentarios ventas'), // Nombre de los inputs del formulario
           $pago, // Request
-          array('estat_pag', 'form_de_pag', 'mont_de_pag', 'coment_pag_vent') // Nombre de los campos en la BD
+          array('form_de_pag', 'fol', 'mont_de_pag', 'coment_pag_vent') // Nombre de los campos en la BD
         ); 
         $pago->updated_at_pag  = Auth::user()->email_registro;
       }

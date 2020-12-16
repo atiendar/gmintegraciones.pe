@@ -112,7 +112,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     $monto_restante = $pedido->mont_tot_de_ped  - $sum_pagos_aprobados1;
     if($monto_restante <= 1 AND $monto_restante > 0.00) {
       $pago = new \App\Models\Pago();
-      $pago->cod_fact       = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 7);
+      $pago->cod_fact       = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 4);
       $pago->estat_pag      = config('app.aprobado');
       $pago->mont_de_pag    = $monto_restante;
       $pago->user_aut       = 'Automático por el sistema';
@@ -121,6 +121,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       $pago->user_id        = $pedido->user_id; 
       $pago->created_at_pag = 'Automático por el sistema';
       $pago->save();
+      $pago->cod_fact .= $pago->id;
     }
 
     $pagos_rechazado      = $pedido->pagos()->where('estat_pag', config('app.rechazado'))->get();

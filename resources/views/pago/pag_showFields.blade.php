@@ -20,6 +20,7 @@
 </div>
 <div class="row">
   @include('pago.pag_showFields.usuarioQueAutorizo')
+  @include('pago.pag_showFields.folio')
 </div>
 @include('pago.pag_showFields.comentarios')
 @include('pago.pag_showFields.comentariosVentas')

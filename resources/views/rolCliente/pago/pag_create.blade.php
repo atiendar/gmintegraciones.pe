@@ -57,11 +57,18 @@
     selectFormaDePago           = document.getElementById("forma_de_pago"),
     forma_de_pago               = selectFormaDePago.value;
     div_copia_de_identificacion = document.getElementById('div_copia_de_identificacion');
-
+    div_ultimos_8_digitos_del_folio_de_pago = document.getElementById('div_ultimos_8_digitos_del_folio_de_pago');
+    
     if(forma_de_pago == 'Paypal' || forma_de_pago == 'Tarjeta de credito (Pagina)') {
       div_copia_de_identificacion.style.display = 'block';
     } else {
       div_copia_de_identificacion.style.display = 'none';
+    }
+
+    if(forma_de_pago != 'Efectivo (Jonathan)' && forma_de_pago != 'Efectivo (Gabriel)' && forma_de_pago != 'Efectivo (Fernando)' && forma_de_pago != '') {
+      div_ultimos_8_digitos_del_folio_de_pago.style.display = 'block';
+    } else {
+      div_ultimos_8_digitos_del_folio_de_pago.style.display = 'none';
     }
   }
   function getMontoDelPago() {
