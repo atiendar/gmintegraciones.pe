@@ -1,7 +1,7 @@
 <div class="card-body table-responsive p-0" id="div-tabla-scrollbar2" style="height: 40em;"> 
     <table class="table table-head-fixed table-hover table-striped table-sm table-bordered">
       @if(sizeof($direcciones) == 0)
-        @include('layouts.private.busquedaSinResultados')
+        <th>Sin resultados</th>
       @else 
         <thead>
           <tr>
