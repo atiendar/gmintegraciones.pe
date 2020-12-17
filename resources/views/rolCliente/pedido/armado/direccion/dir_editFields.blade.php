@@ -5,7 +5,7 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="direcciones">{{ __('Direcciones') }}</label>
-    <a href="{{ route('rolCliente.direccion.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar dirección') }}</a>
+    <a href="{{ route('rolCliente.direccion.create') }}" class="btn btn-info btn-sm ml-3 p-1" target="_blank">{{ __('Ver direcciones') }}</a>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
@@ -23,7 +23,7 @@
     <a href="{{  route('rolCliente.pedido.edit', Crypt::encrypt($direccion->armado->pedido_id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con el pedido') }}</a>
   </div>
   <div class="form-group col-sm btn-sm">
-    <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2" onclick="return check('btnsubmit', 'rolClientePedidoArmadoDireccionUpdate', '¡Alerta!', '¿Estás seguro quieres actualizar el registro?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-edit text-dark"></i> {{ __('Actualizar') }}</button>
+    <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2" onclick="return check('btnsubmit', 'rolClientePedidoArmadoDireccionUpdate', '¡Alerta!', '¿Estás seguro quieres actualizar el registro? Una vez asignada la dirección ya no podrás cambiarla', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-edit text-dark"></i> {{ __('Asignar') }}</button>
   </div>
 </div>
 @include('layouts.private.plugins.priv_plu_select2')

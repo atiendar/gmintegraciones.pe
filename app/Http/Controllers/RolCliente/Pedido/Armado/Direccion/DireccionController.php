@@ -15,7 +15,6 @@ use App\Repositories\servicio\crypt\ServiceCrypt;
 use App\Repositories\venta\pedidoActivo\armadoPedidoActivo\direccion\DireccionArmadoRepositories;
 use App\Repositories\rolCliente\direccion\DireccionRepositories;
 // Otros
-// Otros
 use Illuminate\Support\Facades\Auth;
 use DB;
 
@@ -27,6 +26,12 @@ class DireccionController extends Controller {
     $this->serviceCrypt        = $serviceCrypt;
     $this->direccionArmadoRepo = $direccionArmadoRepositories;
     $this->direccionRepo       = $direccionRepositories;
+  }
+  public function show($id_direccion) {
+    $id_direccion = $this->serviceCrypt->decrypt($id_direccion);
+    $direccion    = PedidoArmadoTieneDireccion::with(['comprobantes', 'armado'])->findOrFail($id_direccion);
+    $comprobantes = $direccion->comprobantes;
+    return view('rolCliente.pedido.armado.direccion.dir_show', compact('comprobantes', 'direccion'));
   }
   public function edit($id_direccion) {
     $id_direccion = $this->serviceCrypt->decrypt($id_direccion);
