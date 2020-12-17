@@ -160,7 +160,7 @@ class PagoRepositories implements PagoInterface {
       } else {
         $pago->fol            = null;
       }
-
+    
       if($pago->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
@@ -168,12 +168,12 @@ class PagoRepositories implements PagoInterface {
           'pago.fPedido.show', // Nombre de la ruta
           $id_pago, // Id del registro debe ir encriptado
           $pago->cod_fact, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Forma de pago', 'Últimos 8 dígitos del folio de pago', 'Monto del pago', 'Comentarios ventas'), // Nombre de los inputs del formulario
+          array('Estatus pago', 'Forma de pago', 'Últimos 8 dígitos del folio de pago', 'Monto del pago', 'Comentarios ventas'), // Nombre de los inputs del formulario
           $pago, // Request
-          array('form_de_pag', 'fol', 'mont_de_pag', 'coment_pag_vent') // Nombre de los campos en la BD
+          array('estat_pag', 'form_de_pag', 'fol', 'mont_de_pag', 'coment_pag_vent') // Nombre de los campos en la BD
         ); 
         $pago->updated_at_pag  = Auth::user()->email_registro;
-      }
+      }  
       // ELIMINA LA COPIA DE IDENTIFICACION EN CASO DE QUE LA FORMA DE PAGO SE MODIFIQUE
       if($pago->isDirty('form_de_pag')) {
         ArchivosEliminados::dispatch(

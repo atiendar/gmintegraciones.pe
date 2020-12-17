@@ -5,6 +5,7 @@
     @else 
       <thead>
         <tr>
+          <th></th>
           @include('cotizacion.cot_table.th.serie')
           @include('cotizacion.cot_table.th.numPedGen')
           @include('cotizacion.cot_table.th.estatus')
@@ -15,6 +16,19 @@
       <tbody> 
         @foreach($cotizaciones as $cotizacion)
           <tr title="{{ $cotizacion->serie }}">
+            <td>
+              @if($cotizacion->con_com == 'on')
+                <a href="https://www.paypal.me/canastasyarcones/{{ Sistema::dosDecimales($cotizacion->tot) }}" target="_blank">
+                  <img src="https://s3-us-west-2.amazonaws.com/archivos.arconesycanastas/sistema/icono_paypal.png"class="brand-image elevation-0" style="width:3rem;">
+                  {{ Sistema::dosDecimales($cotizacion->tot) }}
+                </a>
+              @else
+                <a href="https://www.paypal.me/canastasyarcones/{{ Sistema::dosDecimales($cotizacion->tot*1.05) }}" target="_blank">
+                  <img src="https://s3-us-west-2.amazonaws.com/archivos.arconesycanastas/sistema/icono_paypal.png"class="brand-image elevation-0" style="width:3rem;">
+                  {{ Sistema::dosDecimales($cotizacion->tot*1.05) }}
+                </a>
+              @endif
+            </td>
             <td>
               <a href="{{ route('rolCliente.cotizacion.show', Crypt::encrypt($cotizacion->id)) }}" title="Detalles: {{ $cotizacion->serie }}">{{ $cotizacion->serie }}</a>
             </td>
