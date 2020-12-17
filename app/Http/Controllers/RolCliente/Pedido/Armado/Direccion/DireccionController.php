@@ -130,6 +130,15 @@ class DireccionController extends Controller {
         $this->direccionArmadoRepo->estatusDireccionesDetalladas($direccion->cant, $direccion->armado, $ya_cargado);
       }
       
+      // REGISTRA LA DIRECCION AL PERFIN DEL USUARIO SI EL CHECK ESTA ACTIVADO
+      if($request->checkbox_direccion == 'on') {
+        $reg_direccion = new \App\Models\Direccion();
+        $this->direccionRepo->storeFields($reg_direccion, $request);
+        $reg_direccion->user_id             = $direccion->armado->pedido->user_id;
+        $reg_direccion->created_at_direc    = Auth::user()->email_registro; 
+        $reg_direccion->save();
+      }
+
       DB::commit();
     } catch(\Exception $e) { DB::rollback(); throw $e; }
     

@@ -8,6 +8,8 @@ use App\Events\layouts\ArchivoCargado;
 use App\Events\layouts\ArchivosEliminados;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
+// Repositories
+use App\Repositories\rolCliente\direccion\DireccionRepositories;
 // Otros
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -15,8 +17,9 @@ use DB;
 class DireccionArmadoRepositories implements DireccionInterface {
   protected $serviceCrypt;
   protected $direccionRepo;
-  public function __construct(ServiceCrypt $serviceCrypt) {
+  public function __construct(ServiceCrypt $serviceCrypt, DireccionRepositories $direccionRepositories) {
     $this->serviceCrypt   = $serviceCrypt;
+    $this->direccionRepo   = $direccionRepositories;
   } 
   public function direccionFindOrFailById($id_direccion, $relaciones) { // 'productos', 'direcciones', 'pedido'
     $id_direccion = $this->serviceCrypt->decrypt($id_direccion);
@@ -76,6 +79,14 @@ class DireccionArmadoRepositories implements DireccionInterface {
         $this->estatusDireccionesDetalladas($direccion->cant, $direccion->armado, $ya_cargado);
       }
      
+      // REGISTRA LA DIRECCION AL PERFIN DEL USUARIO SI EL CHECK ESTA ACTIVADO
+      if($request->checkbox_direccion == 'on') {
+        $reg_direccion = new \App\Models\Direccion();
+        $this->direccionRepo->storeFields($reg_direccion, $request);
+        $reg_direccion->user_id             = $direccion->armado->pedido->user_id;
+        $reg_direccion->created_at_direc    = Auth::user()->email_registro; 
+        $reg_direccion->save();
+      }
       
       DB::commit();
       return $direccion;

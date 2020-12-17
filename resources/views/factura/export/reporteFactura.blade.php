@@ -5,27 +5,31 @@
     @else 
       <thead>
         <tr>
-          @include('factura.fac_table.th.id')
-          @include('factura.fac_table.th.estatusFactura')
-          @include('pago.pag_table.th.estatusPago')
           @include('venta.pedido.pedido_activo.ven_pedAct_table.th.numeroDePedido')
           @include('factura.fac_table.th.cliente')
-          @include('factura.fac_table.th.rfc')
-          @include('factura.fac_table.th.nombreORazonSocial')
-          @include('factura.fac_table.th.documentosFactura')
+          <th>FECHA DE EMISIÓN</th>
+          <th>MONTO FACTURADO</th>
+          <th>NO. FACTURA CYA</th>
+          <th>NO. REFACTURACION</th>
+          <th>FECHA DE REFACTURACION</th>
+          <th>MONTO</th>
+          <th></th>
+          @include('pago.pag_table.th.formaDePago')
         </tr>
       </thead>
       <tbody> 
         @foreach($facturas as $factura)
-          <tr title="{{ $factura->rfc }}">
-            @include('factura.fac_table.td.id', ['show' => false])
-            @include('factura.fac_table.td.estatusFactura')
-            @include('pago.pag_table.td.estatusPago', ['pago' => $factura->pago])
+          <tr>
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.numeroDePedido', ['pedido' => $factura->pago->pedido])
-            @include('factura.fac_table.td.cliente')
-            @include('factura.fac_table.td.rfc')
             @include('factura.fac_table.td.nombreORazonSocial')
-            @include('factura.fac_table.td.documentosFactura')
+            <td>{{ $factura->fech_facturado }}</td>
+            @include('pago.pag_table.td.montoDePago', ['pago' => $factura->pago])
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            @include('pago.pag_table.td.formaDePago', ['pago' => $factura->pago])
           </tr>
           @endforeach
       </tbody>
