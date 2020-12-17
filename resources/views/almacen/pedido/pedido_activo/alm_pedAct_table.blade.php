@@ -17,12 +17,26 @@
       </thead>
       <tbody> 
         @foreach($pedidos as $pedido)
+          @php
+            $estilos = null;
+            $clase = null; 
+          @endphp
+       
           @if($pedido->estat_alm == config('app.asignar_persona_que_recibe') OR $pedido->estat_alm == config('app.en_espera_de_ventas') OR $pedido->estat_alm == config('app.en_espera_de_compra') OR $pedido->estat_alm == config('app.en_revision_de_productos'))
-            <tr title="{{ $pedido->num_pedido }}">
           @else
-            <tr title="{{ $pedido->num_pedido }}" class="text-muted cursor-allowed" style="background:#bcbcbc">
+            @php
+              $estilos = 'background:#bcbcbc;';
+              $clase = 'text-muted cursor-allowed'; 
+            @endphp
           @endif
 
+          @if($pedido->urg == 'Si')
+            @php
+              $estilos .= 'border:#ff7b5a 2px solid;';
+            @endphp
+          @endif
+
+          <tr title="{{ $pedido->num_pedido }}" class="{{ $clase }}" style="{{ $estilos }}">
             @if($pedido->estat_alm == config('app.asignar_persona_que_recibe') OR $pedido->estat_alm == config('app.en_espera_de_ventas') OR $pedido->estat_alm == config('app.en_espera_de_compra') OR $pedido->estat_alm == config('app.en_revision_de_productos'))
               @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['almacen.pedidoActivo.show', 'almacen.pedidoActivo.armado.show'], 'ruta' => route('almacen.pedidoActivo.show', Crypt::encrypt($pedido->id))])
             @else

@@ -19,12 +19,26 @@
       </thead>
       <tbody> 
         @foreach($pedidos as $pedido)
+          @php
+            $estilos = null;
+            $clase = null; 
+          @endphp
+       
           @if($pedido->estat_log == config('app.en_espera_de_produccion') OR $pedido->estat_log == config('app.en_almacen_de_salida') OR $pedido->estat_log == config('app.en_ruta') OR $pedido->estat_log == config('app.sin_entrega_por_falta_de_informacion') OR $pedido->estat_log == config('app.intento_de_entrega_fallido'))
-            <tr title="{{ $pedido->num_pedido }}">
           @else
-            <tr title="{{ $pedido->num_pedido }}" class="text-muted cursor-allowed" style="background:#bcbcbc">
+            @php
+              $estilos = 'background:#bcbcbc;';
+              $clase = 'text-muted cursor-allowed'; 
+            @endphp
           @endif
 
+          @if($pedido->urg == 'Si')
+            @php
+              $estilos .= 'border:#ff7b5a 2px solid;';
+            @endphp
+          @endif
+
+          <tr title="{{ $pedido->num_pedido }}" class="{{ $clase }}" style="{{ $estilos }}">
             @if($pedido->estat_log == config('app.en_espera_de_produccion') OR $pedido->estat_log == config('app.en_almacen_de_salida') OR $pedido->estat_log == config('app.en_ruta') OR $pedido->estat_log == config('app.sin_entrega_por_falta_de_informacion') OR $pedido->estat_log == config('app.intento_de_entrega_fallido'))
               @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['logistica.pedidoActivo.show', 'logistica.pedidoActivo.armado.show'], 'ruta' => route('logistica.pedidoActivo.show',  Crypt::encrypt($pedido->id))])
             @else

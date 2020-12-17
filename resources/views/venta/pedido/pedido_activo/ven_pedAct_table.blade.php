@@ -17,27 +17,16 @@
       </thead>
       <tbody> 
         @foreach($pedidos as $pedido)
-@php
-   $estilos = null;
-   $clase = null; 
-@endphp
-
-       
-
-
-
-          @if($pedido->estat_alm == config('app.asignar_persona_que_recibe') OR $pedido->estat_alm == config('app.en_espera_de_ventas') OR $pedido->estat_alm == config('app.en_espera_de_compra') OR $pedido->estat_alm == config('app.en_revision_de_productos'))
-          @else
-            @php
-              $estilos = 'background:#bcbcbc;';
-              $clase = 'ext-muted cursor-allowed'; 
+          @php
+            $estilos = null;
           @endphp
-
-       
+          @if($pedido->urg == 'Si')
+            @php
+              $estilos .= 'border:#ff7b5a 2px solid;';
+            @endphp
           @endif
 
-
-          <tr title="{{ $pedido->num_pedido }}" class="{{ $clase }}" style="{{ $estilos }}">
+          <tr title="{{ $pedido->num_pedido }}" style="{{ $estilos }}">
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['venta.pedidoActivo.show', 'venta.pedidoActivo.armado.show', 'venta.pedidoActivo.pago.show'], 'ruta' => route('venta.pedidoActivo.show', Crypt::encrypt($pedido->id))])
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.numeroDePedidoUnificado')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.fechaDeEntrega')
