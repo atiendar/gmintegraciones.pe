@@ -58,7 +58,8 @@ class CotizacionRepositories implements CotizacionInterface {
     try { DB::beginTransaction();
       $cotizacion = $this->cotizacionAsignadoFindOrFailById($id_cotizacion, [], null);
       $cotizacion->coment = $request->comentarios;
-     
+      $cotizacion->coment_vent = $request->comentarios_ventas;
+
       if($cotizacion->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         ActividadRegistrada::dispatch(
@@ -66,9 +67,9 @@ class CotizacionRepositories implements CotizacionInterface {
           'cotizacion.show', // Nombre de la ruta
           $id_cotizacion, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_cotizacion), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Comentarios'), // Nombre de los inputs del formulario
+          array('Comentarios', 'Comentarios ventas'), // Nombre de los inputs del formulario
           $cotizacion, // Request
-          array('coment') // Nombre de los campos en la BD
+          array('coment', 'coment_vent') // Nombre de los campos en la BD
         ); 
         $cotizacion->updated_at_cot  = Auth::user()->email_registro;
       }

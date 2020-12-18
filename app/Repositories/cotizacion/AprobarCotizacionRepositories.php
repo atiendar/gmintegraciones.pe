@@ -81,6 +81,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       $pedido->serie            = $this->sistemaRepo->datos('ser_pedidos');
     //  $pedido->num_pedido       = $cotizacion->serie;
       $pedido->num_pedido       = $this->serieRepo->sumaUnoALaUltimaSerie('Pedidos (Serie)', $this->sistemaRepo->datos('ser_pedidos'));
+      $pedido->coment_vent      = $cotizacion->coment_vent;
       $pedido->estat_alm        = config('app.pendiente');
       $pedido->cot_gen          = $cotizacion->serie;
       $pedido->ult_let          = 'A';

@@ -8,7 +8,8 @@ class UpdateCotizacionRequest extends FormRequest {
   }
   public function rules() {
     return [
-      'comentarios' => 'nullable|max:30000|string',
+      'comentarios'         => 'nullable|max:30000|string',
+      'comentarios_ventas'  => 'nullable|max:30000|string',
     ];
   }
 }
