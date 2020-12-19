@@ -24,11 +24,12 @@ class PedidoActivoController extends Controller {
     return view('produccion.pedido.pedido_activo.pedAct_index', compact('pedidos', 'pen'));
   }
   public function show(Request $request, $id_pedido) {
-    $pedido                        = $this->pedidoActivoRepo->pedidoActivoProduccionFindOrFailById($id_pedido, ['usuario', 'unificar'], 'show');
+    $pedido                        = $this->pedidoActivoRepo->pedidoActivoProduccionFindOrFailById($id_pedido, ['usuario', 'unificar', 'archivos'], 'show');
     $unificados                    = $pedido->unificar()->paginate(99999999);
+    $archivos                      = $pedido->archivos()->paginate(99999999);
     $armados                       = $this->pedidoActivoRepo->getArmadosPedidoPaginate($pedido, $request);
     $armados_terminados_produccion = $this->armadoPedidoActivoRepo->armadosTerminadosProduccion($pedido->id, [config('app.en_almacen_de_salida'), config('app.en_ruta'), config('app.entregado'), config('app.sin_entrega_por_falta_de_informacion'), config('app.intento_de_entrega_fallido')]);
-    return view('produccion.pedido.pedido_activo.pedAct_show', compact('pedido', 'unificados', 'armados', 'armados_terminados_produccion'));
+    return view('produccion.pedido.pedido_activo.pedAct_show', compact('pedido', 'unificados', 'archivos', 'armados', 'armados_terminados_produccion'));
   }
   public function edit(Request $request, $id_pedido) {
     $pedido                         = $this->pedidoActivoRepo->pedidoActivoProduccionFindOrFailById($id_pedido, ['unificar'], 'edit');
@@ -50,8 +51,10 @@ class PedidoActivoController extends Controller {
       $query->select('id', 'nom', 'email_registro');
     }, 'unificar' => function ($query) {
       $query->select('num_pedido');
-    }], 'edit');
+    }, 'archivos'], 'edit');
     
+    $archivos = $pedido->archivos->count();
+
     $codigoQRAlmacen = $this->generarQRRepo->qr($pedido->id, 'Almacén');
     $codigoQRProduccion = $this->generarQRRepo->qr($pedido->id, 'Producción');
     $codigoQRLogistica = $this->generarQRRepo->qr($pedido->id, 'Logística');
@@ -62,7 +65,7 @@ class PedidoActivoController extends Controller {
       $query->select('cant', 'tip_tarj_felic', 'mens_dedic', 'pedido_armado_id', 'caj');
     }])->get();
 
-    $orden_de_produccion  = \PDF::loadView('produccion.pedido.pedido_activo.export.ordenDeProduccion', compact('pedido', 'armados', 'codigoQRAlmacen', 'codigoQRProduccion', 'codigoQRLogistica'))->setPaper('a4', 'landscape');;
+    $orden_de_produccion  = \PDF::loadView('produccion.pedido.pedido_activo.export.ordenDeProduccion', compact('pedido', 'armados', 'archivos', 'codigoQRAlmacen', 'codigoQRProduccion', 'codigoQRLogistica'))->setPaper('a4', 'landscape');;
     return $orden_de_produccion->stream();
   }
 }

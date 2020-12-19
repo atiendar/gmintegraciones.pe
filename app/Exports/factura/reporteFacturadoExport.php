@@ -21,7 +21,7 @@ class reporteFacturadoExport implements FromView {
         }])
       ->whereDate('fech_facturado', $this->fecha)
       ->where('est_fact', 'Facturado')
-      ->orderBy('id', 'DESC')
+      ->orderBy('id', 'ASC')
       ->get();
 
     return view('factura.export.reporteFactura', ['facturas'    => $facturas]);

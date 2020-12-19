@@ -45,9 +45,14 @@
       </td>
     </tr>
     <tr style="text-align:center">
-      <td colspan="8">
+      <td colspan="6">
         <dt>Cliente</dt>
         <dt>{{ $pedido->usuario->nom }} ({{ $pedido->usuario->email_registro }})</dt>
+      </td>
+      <td colspan="2">
+        @if($archivos >= 1)
+          <dt>sss</dt>
+        @endif
       </td>
       <td colspan="4">
         <dt>Total de armados</dt>

@@ -12,7 +12,7 @@ class PedidoTerminadoRepositories implements PedidoTerminadoInterface {
   }
   public function pedidoTerminadoFindOrFailById($id_pedido) {
     $id_pedido = $this->serviceCrypt->decrypt($id_pedido);
-    $pedido = Pedido::with('armados')
+    $pedido = Pedido::with(['usuario', 'archivos', 'unificar', 'armados'])
     ->where('estat_alm', config('app.productos_completos_terminado'))
     ->whereBetween('fech_estat_alm', [date("Y-m-d", strtotime('-90 day', strtotime(date("Y-m-d")))), date("Y-m-d", strtotime('+1 day', strtotime(date("Y-m-d"))))])
     ->findOrFail($id_pedido);

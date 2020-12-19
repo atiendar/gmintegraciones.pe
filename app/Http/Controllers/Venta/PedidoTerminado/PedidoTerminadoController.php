@@ -20,12 +20,13 @@ class PedidoTerminadoController extends Controller {
     return view('venta.pedido.pedido_terminado.ven_pedTer_index', compact('pedidos'));
   }
   public function show(Request $request, $id_pedido) {
-    $pedido         = $this->pedidoTerminadoRepo->pedidoTerminadoFindOrFailById($id_pedido, ['usuario', 'unificar', 'armados', 'pagos']);
+    $pedido         = $this->pedidoTerminadoRepo->pedidoTerminadoFindOrFailById($id_pedido, ['usuario', 'archivos','unificar', 'armados', 'pagos']);
     $unificados     = $pedido->unificar()->paginate(99999999);
+    $archivos       = $pedido->archivos()->paginate(99999999);
     $armados        = $pedido->armados()->paginate(99999999);
     $pagos          = $pedido->pagos()->paginate(99999999);
     $mont_pag_aprov =  $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
-    return view('venta.pedido.pedido_terminado.ven_pedTer_show', compact('pedido', 'unificados', 'armados', 'pagos', 'mont_pag_aprov'));
+    return view('venta.pedido.pedido_terminado.ven_pedTer_show', compact('pedido', 'unificados', 'archivos','armados', 'pagos', 'mont_pag_aprov'));
   }
   public function update(UpdatePedidoRequest $request, $id_pedido) {
     $this->pedidoTerminadoRepo->update($request, $id_pedido);

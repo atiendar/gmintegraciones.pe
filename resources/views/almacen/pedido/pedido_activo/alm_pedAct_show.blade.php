@@ -27,5 +27,16 @@
     </div>
   @endcan
 </div>
-@include('almacen.pedido.pedido_activo.armado_activo.alm_pedAct_armAct_index')
+<div class="row">
+  @can('venta.pedidoActivo.edit')
+    <div class="col-md-4">
+      <div class="pad">
+        @include('venta.pedido.pedido_activo.archivo.arc_index')
+      </div>
+    </div>
+  @endcan
+  <div class="col-md-8">
+    @include('almacen.pedido.pedido_activo.armado_activo.alm_pedAct_armAct_index')
+  </div>
+</div>
 @endsection

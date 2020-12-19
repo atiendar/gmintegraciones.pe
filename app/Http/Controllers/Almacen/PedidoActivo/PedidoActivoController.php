@@ -29,11 +29,12 @@ class PedidoActivoController extends Controller {
     return view('almacen.pedido.pedido_activo.alm_pedAct_index', compact('pedidos', 'pen', 'pedidos_plunk'));
   }
   public function show(Request $request, $id_pedido) {
-    $pedido                     = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_pedido, ['usuario', 'unificar']);
+    $pedido                     = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_pedido, ['usuario', 'archivos','unificar']);
     $unificados                 = $pedido->unificar()->paginate(99999999);
+    $archivos                   = $pedido->archivos()->paginate(99999999);
     $armados                    = $this->pedidoActivoRepo->getArmadosPedidoPaginate($pedido, $request);
     $armados_terminados_almacen = $this->armadoPedidoActivoRepo->armadosTerminadosAlmacen($pedido->id, [config('app.productos_completos'), config('app.en_produccion'), config('app.en_almacen_de_salida'), config('app.en_ruta'), config('app.entregado'), config('app.sin_entrega_por_falta_de_informacion'), config('app.intento_de_entrega_fallido')]);
-    return view('almacen.pedido.pedido_activo.alm_pedAct_show', compact('pedido', 'unificados', 'armados', 'armados_terminados_almacen'));
+    return view('almacen.pedido.pedido_activo.alm_pedAct_show', compact('pedido', 'unificados', 'archivos', 'armados', 'armados_terminados_almacen'));
   }
   public function edit(Request $request, $id_pedido) {
     $pedido                     = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_pedido, ['unificar']);
@@ -53,8 +54,9 @@ class PedidoActivoController extends Controller {
     return redirect(route('almacen.pedidoActivo.edit', $this->serviceCrypt->encrypt($pedido->id)));
   }
   public function generarOrdenDeProduccion($id_pedido){
-    $pedido               = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_pedido, ['usuario', 'unificar']);
-
+    $pedido               = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_pedido, ['usuario', 'unificar', 'archivos']);
+    $archivos = $pedido->archivos->count();
+    
     $codigoQRAlmacen = $this->generarQRRepo->qr($pedido->id, 'Almacén');
     $codigoQRProduccion = $this->generarQRRepo->qr($pedido->id, 'Producción');
     $codigoQRLogistica = $this->generarQRRepo->qr($pedido->id, 'Logística');
@@ -62,7 +64,7 @@ class PedidoActivoController extends Controller {
     $armados              = $pedido->armados()->with(['direcciones', 'productos'=> function ($query) {
                                                             $query->with('sustitutos');
                                                           }])->get();
-    $orden_de_produccion  = \PDF::loadView('almacen.pedido.pedido_activo.export.ordenDeProduccion', compact('pedido', 'armados', 'codigoQRAlmacen', 'codigoQRProduccion', 'codigoQRLogistica'));
+    $orden_de_produccion  = \PDF::loadView('almacen.pedido.pedido_activo.export.ordenDeProduccion', compact('pedido', 'armados', 'archivos', 'codigoQRAlmacen', 'codigoQRProduccion', 'codigoQRLogistica'));
     return $orden_de_produccion->stream();
 //  return $orden_de_produccion->download('OrdenDeProduccionAlmacen-'$pedido->num_pedido.'.pdf'); // Descargar
   }

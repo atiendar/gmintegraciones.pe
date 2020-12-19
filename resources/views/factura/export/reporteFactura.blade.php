@@ -23,7 +23,7 @@
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.numeroDePedido', ['pedido' => $factura->pago->pedido])
             @include('factura.fac_table.td.nombreORazonSocial')
             <td>{{ $factura->fech_facturado }}</td>
-            @include('pago.pag_table.td.montoDePago', ['pago' => $factura->pago])
+            <td>{{ Sistema::dosDecimales($factura->pago->mont_de_pag) }}</td>
             <td></td>
             <td></td>
             <td></td>
