@@ -871,6 +871,7 @@ return array(
     'estat'                 => 'Estatus',
     'met_de_entreg'         => 'Metodo de entrega',
     'tip_env'               => 'Tipo de envío',
+    'nom_ref_uno'           => 'P. Recibe',
     'created_at'            => 'Fecha de registro (YYYY-MM-DD)', 
   ],
   'select_estatus_logistica_direcciones' => [
