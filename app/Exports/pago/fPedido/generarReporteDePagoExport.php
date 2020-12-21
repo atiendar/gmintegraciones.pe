@@ -11,7 +11,7 @@ use App\Models\Pedido;
 class generarReporteDePagoExport implements FromView {
     use Exportable;
     public function view(): View {
-        return view('pago.fpedido.exports.fpe_generarReporteDePago', [
+        return view('pago.fPedido.exports.fpe_generarReporteDePago', [
             'pedidos' => Pedido::withCount(['pagos AS mont_pagado' => function ($query) {
                 $query->select(\DB::raw("SUM(mont_de_pag)"))->where('estat_pag', config('app.aprobado'));
               }
