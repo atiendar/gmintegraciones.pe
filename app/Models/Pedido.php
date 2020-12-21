@@ -14,7 +14,7 @@ class Pedido extends Model{
   protected $guarded = [];
 
   protected $dates = ['deleted_at'];
-  protected $softCascade = ['pedido_tiene_archivos', 'armados', 'pagos']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
+  protected $softCascade = ['archivos', 'armados', 'pagos']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
 
   // Define si vera todos los registros de la tabla o solo los que se le asignaron o los que usuario registro (on = todos los registros null = solo sus registros)
   public function scopeAsignado($query, $opcion_asignado, $usuario) {
