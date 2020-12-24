@@ -14,6 +14,7 @@
 					@include('venta.pedido.pedido_activo.ven_pedAct_table.th.estatusLogistica')
 					@include('venta.pedido.pedido_activo.ven_pedAct_table.th.cliente')
 					@include('venta.pedido.pedido_activo.ven_pedAct_table.th.totalDeArmados')
+					<th>RACK</th>
 				</tr>
 			</thead>
 			<tbody> 
@@ -28,6 +29,13 @@
 						@include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusLogistica')
 						@include('venta.pedido.pedido_activo.ven_pedAct_table.td.cliente')
 						@include('venta.pedido.pedido_activo.ven_pedAct_table.td.totalDeArmados')
+            <td>
+              @foreach($pedido->armados as $armado)
+                @if($armado->ubic_rack != null)
+                  {{ $armado->nom }} ({{ $armado->ubic_rack }})<br>
+                @endif
+              @endforeach
+            </td>
 					</tr>
 				@endforeach
 			</tbody>

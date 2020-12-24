@@ -11,8 +11,8 @@ class activoExport implements FromView {
   use Exportable;
 
   public function view(): View {
-    $pedidos =  \App\Models\Pedido::
-    Where('estat_log', '!=', config('app.entregado'))
+    $pedidos =  \App\Models\Pedido::with('armados')
+    ->where('estat_log', '!=', config('app.entregado'))
 /*
     ->where(function ($query) {
       $query->where('estat_log', config('app.en_espera_de_produccion'))

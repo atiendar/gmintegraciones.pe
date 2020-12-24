@@ -10,6 +10,30 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
     return view('vendor.laravelpwa.offline');
   });
   
+
+
+
+
+
+
+
+
+
+  Route::post('/prueba', function (\Illuminate\Http\Request $request) {
+    $dd = '1';
+    if($request->hasfile('imagen')) {
+      $dd = '2';
+      $imagen        = $request->file('imagen');
+      \Storage::disk('s3')->delete(env('PREFIX'));
+      \Storage::disk('s3')->put('aaaa', $imagen, 'public');
+    }
+    return $dd;
+  });
+
+
+
+
+
   Route::group(['middleware' => ['sinAccesoAlSistema', 'auth', 'idiomaSistema', 'primerAcceso']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     require_once __DIR__ . '/material/materialRoutes.php';

@@ -88,4 +88,372 @@
   </div>
   --}}
 @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- 
+
+<canvas id="canvas">Su navegador no soporta canvas :( </canvas>
+<p id="limpiar">limpiar canvas</p>
+<button type="button" id="png">Click Me!</button>
+
+@section('css')
+<style>
+  body{
+    background-color: $body-bg;
+    font-family:$font1;
+  }
+  canvas {
+    display: block;
+    margin: 0 auto;
+    margin: calc(50vh - 150px) auto 0;
+    background: $canvas-bg;
+    border-radius: 3px;
+    box-shadow: 0px 0px 15px 3px #ccc;
+    cursor:pointer;
+  }
+  p{
+    text-align:center;
+    cursor:pointer;
+  }
+</style>
+@endsection
+
+@section('js1')
+<script>
+  var limpiar = document.getElementById("limpiar");
+  var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext("2d");
+  var cw = canvas.width = 300,
+    cx = cw / 2;
+  var ch = canvas.height = 300,
+    cy = ch / 2;
+    console.log(canvas)
+  var dibujar = false;
+  var factorDeAlisamiento = 5;
+  var Trazados = [];
+  var puntos = [];
+  ctx.lineJoin = "round";
+
+
+
+  var png = document.getElementById("png");
+  png.addEventListener("click",function(){	
+    canvas.src = canvas.toDataURL("image/png");
+
+    fetch(canvas.src)
+      .then(res => res.blob())
+      .then(blob => {
+        const formData = new FormData()
+        formData.append('imagen', blob, 'filename')
+
+        axios.post('/prueba', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then(res => {
+          Swal.fire({
+            title: 'Éxito',
+            text: '¡Imagen guardada exitosamente!',
+          }).then((value) => {
+            console.log(res)
+          })
+        }).catch(error => {
+          if(error.response.status == 422) {
+            this.errors = error.response.data.errors
+          } else {
+            Swal.fire({
+              title: 'Algo salio mal',
+              text: error,
+            })
+          }
+        });
+      });       
+  },false);
+
+  limpiar.addEventListener('click', function(evt) {
+    dibujar = false;
+    ctx.clearRect(0, 0, cw, ch);
+    Trazados.length = 0;
+    puntos.length = 0;
+  }, false);
+  canvas.addEventListener('mousedown', function(evt) {
+    dibujar = true;
+    //ctx.clearRect(0, 0, cw, ch);
+    puntos.length = 0;
+    ctx.beginPath();
+
+  }, false);
+  canvas.addEventListener('mouseup', function(evt) {
+    redibujarTrazados();
+  }, false);
+  canvas.addEventListener("mouseout", function(evt) {
+    redibujarTrazados();
+  }, false);
+  canvas.addEventListener("mousemove", function(evt) {
+    if (dibujar) {
+      var m = oMousePos(canvas, evt);
+      puntos.push(m);
+      ctx.lineTo(m.x, m.y);
+      ctx.stroke();
+    }
+  }, false);
+  function reducirArray(n,elArray) {
+    var nuevoArray = [];
+    nuevoArray[0] = elArray[0];
+    for (var i = 0; i < elArray.length; i++) {
+      if (i % n == 0) {
+        nuevoArray[nuevoArray.length] = elArray[i];
+      }
+    }
+    nuevoArray[nuevoArray.length - 1] = elArray[elArray.length - 1];
+    Trazados.push(nuevoArray);
+  }
+  function calcularPuntoDeControl(ry, a, b) {
+    var pc = {}
+    pc.x = (ry[a].x + ry[b].x) / 2;
+    pc.y = (ry[a].y + ry[b].y) / 2;
+    return pc;
+  }
+  function alisarTrazado(ry) {
+    if (ry.length > 1) {
+      var ultimoPunto = ry.length - 1;
+      ctx.beginPath();
+      ctx.moveTo(ry[0].x, ry[0].y);
+      for (i = 1; i < ry.length - 2; i++) {
+        var pc = calcularPuntoDeControl(ry, i, i + 1);
+        ctx.quadraticCurveTo(ry[i].x, ry[i].y, pc.x, pc.y);
+      }
+      ctx.quadraticCurveTo(ry[ultimoPunto - 1].x, ry[ultimoPunto - 1].y, ry[ultimoPunto].x, ry[ultimoPunto].y);
+      ctx.stroke();
+    }
+  }
+  function redibujarTrazados(){
+    dibujar = false;
+    ctx.clearRect(0, 0, cw, ch);
+    reducirArray(factorDeAlisamiento,puntos);
+    for(var i = 0; i < Trazados.length; i++)
+    alisarTrazado(Trazados[i]);
+  }
+  function oMousePos(canvas, evt) {
+    var ClientRect = canvas.getBoundingClientRect();
+    return { //objeto
+      x: Math.round(evt.clientX - ClientRect.left),
+      y: Math.round(evt.clientY - ClientRect.top)
+    }
+  }
+</script>
+@endsection
+
+--}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- 
+
+
+@section('css')
+<style>
+  canvas {
+      width: 600px;
+      height: 200px;
+      background-color: #fff;
+      border: rgb(0, 0, 0) solid 1px;
+  } 
+</style>
+@endsection
+
+<div class="row">
+  <canvas id="pizarra"></canvas>
+</div>
+<div class="row">
+  <button type="button" id="limpiar" class="btn btn-info btn-sm">Limpiar</button>
+  <button type="button" id="png" class="btn btn-success btn-sm">Guardar</button>
+</div>
+
+@section('js1')
+<script>
+  //======================================================================
+  // VARIABLES
+  //======================================================================
+  let miCanvas = document.querySelector('#pizarra');
+  let lineas = [];
+  let correccionX = 0;
+  let correccionY = 0;
+  let pintarLinea = false;
+  // Marca el nuevo punto
+  let nuevaPosicionX = 0;
+  let nuevaPosicionY = 0;
+
+  let posicion = miCanvas.getBoundingClientRect()
+  correccionX = posicion.x;
+  correccionY = posicion.y;
+
+  miCanvas.width = 600;
+  miCanvas.height = 200;
+
+  //======================================================================
+  // FUNCIONES
+  //======================================================================
+
+/**
+   * Funcion que limpia lo que se escriba
+  */
+  var limpiar = document.getElementById("limpiar");
+  limpiar.addEventListener('click', function(evt) {
+    var ctx = miCanvas.getContext("2d");
+    ctx.clearRect(0, 0, miCanvas.width, miCanvas.height);
+    lineas = [];
+    texto();
+  }, false);
+
+  /**
+   * Funcion que muentra el texto en el canvas
+  */
+  $(document).ready(texto);
+  function texto(){
+    let ctx = miCanvas.getContext('2d')
+    f = new Date();
+    h = f.getHours();
+    m = f.getMinutes();
+    s = f.getSeconds();
+    if(h < 10) h = "0" + h;
+    else h = h;
+    if(m < 10) m = "0" + m;
+    else m = m;
+    if(s < 10) s = "0" + s;
+    else s = s;
+    horafinal = h + ":" + m;
+    ctx.fillStyle = "#ffffff";        
+    ctx.fillStyle = "#111";
+    ctx.font="25px Monospace";
+    ctx.fillText('Nombre:', 5,20);
+    ctx.fillText('Fecha:'+horafinal, 5,100);
+    ctx.fillText('Firma:', 5,180);
+  };
+
+  /**
+   * Funcion que empieza a dibujar la linea
+   */
+  function empezarDibujo () {
+      pintarLinea = true;
+      lineas.push([]);
+  };
+  
+  /**
+   * Funcion que guarda la posicion de la nueva línea
+   */
+  function guardarLinea() {
+      lineas[lineas.length - 1].push({
+          x: nuevaPosicionX,
+          y: nuevaPosicionY
+      });
+  }
+
+  /**
+   * Funcion dibuja la linea
+   */
+  function dibujarLinea (event) {
+      event.preventDefault();
+      if (pintarLinea) {
+          let ctx = miCanvas.getContext('2d')
+
+          // Estilos de linea
+          ctx.lineJoin = ctx.lineCap = 'round';
+          ctx.lineWidth = 1;
+          // Color de la linea
+          ctx.strokeStyle = '#000';
+          // Marca el nuevo punto
+          if (event.changedTouches == undefined) {
+              // Versión ratón
+              nuevaPosicionX = event.layerX;
+              nuevaPosicionY = event.layerY;
+          } else {
+              // Versión touch, pantalla tactil
+              nuevaPosicionX = event.changedTouches[0].pageX - correccionX;
+              nuevaPosicionY = event.changedTouches[0].pageY - correccionY;
+          }
+          // Guarda la linea
+          guardarLinea();
+          // Redibuja todas las lineas guardadas
+          ctx.beginPath();
+          lineas.forEach(function (segmento) {
+              ctx.moveTo(segmento[0].x, segmento[0].y);
+              segmento.forEach(function (punto, index) {
+                  ctx.lineTo(punto.x, punto.y);
+              });
+          });
+          ctx.stroke();
+      }
+  }
+
+  /**
+   * Funcion que deja de dibujar la linea
+   */
+  function pararDibujar () {
+      pintarLinea = false;
+      guardarLinea();
+  }
+
+  //======================================================================
+  // EVENTOS
+  //======================================================================
+
+  // Eventos raton
+  miCanvas.addEventListener('mousedown', empezarDibujo, false);
+  miCanvas.addEventListener('mousemove', dibujarLinea, false);
+  miCanvas.addEventListener('mouseup', pararDibujar, false);
+
+  // Eventos pantallas táctiles
+  miCanvas.addEventListener('touchstart', empezarDibujo, false);
+  miCanvas.addEventListener('touchmove', dibujarLinea, false);
+
+</script>
+@endsection
+
+--}}
+
+
+
+
+
+
+
+
+
+
+
+
+
 @endsection
