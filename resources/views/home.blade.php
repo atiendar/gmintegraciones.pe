@@ -89,71 +89,58 @@
   --}}
 @endif
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {{-- 
-
-<canvas id="canvas">Su navegador no soporta canvas :( </canvas>
-<p id="limpiar">limpiar canvas</p>
-<button type="button" id="png">Click Me!</button>
-
 @section('css')
 <style>
-  body{
-    background-color: $body-bg;
-    font-family:$font1;
-  }
   canvas {
-    display: block;
-    margin: 0 auto;
-    margin: calc(50vh - 150px) auto 0;
-    background: $canvas-bg;
-    border-radius: 3px;
-    box-shadow: 0px 0px 15px 3px #ccc;
-    cursor:pointer;
-  }
-  p{
-    text-align:center;
-    cursor:pointer;
-  }
+      width: 600px;
+      height: 200px;
+      background-color: #fff;
+      border: rgb(0, 0, 0) solid 1px;
+  } 
 </style>
 @endsection
 
+<div class="row">
+  <canvas id="pizarra"></canvas>
+</div>
+<div class="row">
+  <button type="button" id="limpiar" class="btn btn-info btn-sm">Limpiar</button>
+  <button type="button" id="guardar" class="btn btn-success btn-sm">Guardar</button>
+</div>
+
 @section('js1')
 <script>
-  var limpiar = document.getElementById("limpiar");
-  var canvas = document.getElementById("canvas");
-  var ctx = canvas.getContext("2d");
-  var cw = canvas.width = 300,
-    cx = cw / 2;
-  var ch = canvas.height = 300,
-    cy = ch / 2;
-    console.log(canvas)
-  var dibujar = false;
-  var factorDeAlisamiento = 5;
-  var Trazados = [];
-  var puntos = [];
-  ctx.lineJoin = "round";
+  //======================================================================
+  // VARIABLES
+  //======================================================================
+  let miCanvas = document.querySelector('#pizarra');
+  let lineas = [];
+  let correccionX = 0;
+  let correccionY = 0;
+  let pintarLinea = false;
+  // Marca el nuevo punto
+  let nuevaPosicionX = 0;
+  let nuevaPosicionY = 0;
 
+  let posicion = miCanvas.getBoundingClientRect()
+  correccionX = posicion.x;
+  correccionY = posicion.y;
 
+  miCanvas.width = 600;
+  miCanvas.height = 200;
 
-  var png = document.getElementById("png");
-  png.addEventListener("click",function(){	
-    canvas.src = canvas.toDataURL("image/png");
+  //======================================================================
+  // FUNCIONES
+  //======================================================================
+  /**
+   * Funcion que guarda la información
+  */
+  var guardar = document.getElementById("guardar");
+  guardar.addEventListener("click",function(){	
+    miCanvas.src = miCanvas.toDataURL("image/png");
 
-    fetch(canvas.src)
+    fetch(miCanvas.src)
       .then(res => res.blob())
       .then(blob => {
         const formData = new FormData()
@@ -183,151 +170,7 @@
       });       
   },false);
 
-  limpiar.addEventListener('click', function(evt) {
-    dibujar = false;
-    ctx.clearRect(0, 0, cw, ch);
-    Trazados.length = 0;
-    puntos.length = 0;
-  }, false);
-  canvas.addEventListener('mousedown', function(evt) {
-    dibujar = true;
-    //ctx.clearRect(0, 0, cw, ch);
-    puntos.length = 0;
-    ctx.beginPath();
-
-  }, false);
-  canvas.addEventListener('mouseup', function(evt) {
-    redibujarTrazados();
-  }, false);
-  canvas.addEventListener("mouseout", function(evt) {
-    redibujarTrazados();
-  }, false);
-  canvas.addEventListener("mousemove", function(evt) {
-    if (dibujar) {
-      var m = oMousePos(canvas, evt);
-      puntos.push(m);
-      ctx.lineTo(m.x, m.y);
-      ctx.stroke();
-    }
-  }, false);
-  function reducirArray(n,elArray) {
-    var nuevoArray = [];
-    nuevoArray[0] = elArray[0];
-    for (var i = 0; i < elArray.length; i++) {
-      if (i % n == 0) {
-        nuevoArray[nuevoArray.length] = elArray[i];
-      }
-    }
-    nuevoArray[nuevoArray.length - 1] = elArray[elArray.length - 1];
-    Trazados.push(nuevoArray);
-  }
-  function calcularPuntoDeControl(ry, a, b) {
-    var pc = {}
-    pc.x = (ry[a].x + ry[b].x) / 2;
-    pc.y = (ry[a].y + ry[b].y) / 2;
-    return pc;
-  }
-  function alisarTrazado(ry) {
-    if (ry.length > 1) {
-      var ultimoPunto = ry.length - 1;
-      ctx.beginPath();
-      ctx.moveTo(ry[0].x, ry[0].y);
-      for (i = 1; i < ry.length - 2; i++) {
-        var pc = calcularPuntoDeControl(ry, i, i + 1);
-        ctx.quadraticCurveTo(ry[i].x, ry[i].y, pc.x, pc.y);
-      }
-      ctx.quadraticCurveTo(ry[ultimoPunto - 1].x, ry[ultimoPunto - 1].y, ry[ultimoPunto].x, ry[ultimoPunto].y);
-      ctx.stroke();
-    }
-  }
-  function redibujarTrazados(){
-    dibujar = false;
-    ctx.clearRect(0, 0, cw, ch);
-    reducirArray(factorDeAlisamiento,puntos);
-    for(var i = 0; i < Trazados.length; i++)
-    alisarTrazado(Trazados[i]);
-  }
-  function oMousePos(canvas, evt) {
-    var ClientRect = canvas.getBoundingClientRect();
-    return { //objeto
-      x: Math.round(evt.clientX - ClientRect.left),
-      y: Math.round(evt.clientY - ClientRect.top)
-    }
-  }
-</script>
-@endsection
-
---}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{{-- 
-
-
-@section('css')
-<style>
-  canvas {
-      width: 600px;
-      height: 200px;
-      background-color: #fff;
-      border: rgb(0, 0, 0) solid 1px;
-  } 
-</style>
-@endsection
-
-<div class="row">
-  <canvas id="pizarra"></canvas>
-</div>
-<div class="row">
-  <button type="button" id="limpiar" class="btn btn-info btn-sm">Limpiar</button>
-  <button type="button" id="png" class="btn btn-success btn-sm">Guardar</button>
-</div>
-
-@section('js1')
-<script>
-  //======================================================================
-  // VARIABLES
-  //======================================================================
-  let miCanvas = document.querySelector('#pizarra');
-  let lineas = [];
-  let correccionX = 0;
-  let correccionY = 0;
-  let pintarLinea = false;
-  // Marca el nuevo punto
-  let nuevaPosicionX = 0;
-  let nuevaPosicionY = 0;
-
-  let posicion = miCanvas.getBoundingClientRect()
-  correccionX = posicion.x;
-  correccionY = posicion.y;
-
-  miCanvas.width = 600;
-  miCanvas.height = 200;
-
-  //======================================================================
-  // FUNCIONES
-  //======================================================================
-
-/**
+  /**
    * Funcion que limpia lo que se escriba
   */
   var limpiar = document.getElementById("limpiar");
@@ -441,19 +284,5 @@
 
 </script>
 @endsection
-
 --}}
-
-
-
-
-
-
-
-
-
-
-
-
-
 @endsection

@@ -9,16 +9,8 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
   Route::get('/offline', function() {
     return view('vendor.laravelpwa.offline');
   });
-  
 
-
-
-
-
-
-
-
-
+/*
   Route::post('/prueba', function (\Illuminate\Http\Request $request) {
     $dd = '1';
     if($request->hasfile('imagen')) {
@@ -29,10 +21,7 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
     }
     return $dd;
   });
-
-
-
-
+*/
 
   Route::group(['middleware' => ['sinAccesoAlSistema', 'auth', 'idiomaSistema', 'primerAcceso']], function() {
     Route::get('/home', 'HomeController@index')->name('home');

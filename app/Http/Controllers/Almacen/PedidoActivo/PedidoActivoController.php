@@ -36,12 +36,181 @@ class PedidoActivoController extends Controller {
     $armados_terminados_almacen = $this->armadoPedidoActivoRepo->armadosTerminadosAlmacen($pedido->id, [config('app.productos_completos'), config('app.en_produccion'), config('app.en_almacen_de_salida'), config('app.en_ruta'), config('app.entregado'), config('app.sin_entrega_por_falta_de_informacion'), config('app.intento_de_entrega_fallido')]);
     return view('almacen.pedido.pedido_activo.alm_pedAct_show', compact('pedido', 'unificados', 'archivos', 'armados', 'armados_terminados_almacen'));
   }
-  public function edit(Request $request, $id_pedido) {
+  public function edit(Request $request, $id_pedido) { 
+
     $pedido                     = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_pedido, ['unificar']);
     $unificados                 = $pedido->unificar()->paginate(99999999);
     $armados                    = $this->pedidoActivoRepo->getArmadosPedidoPaginate($pedido, $request);
     $armados_terminados_almacen = $this->armadoPedidoActivoRepo->armadosTerminadosAlmacen($pedido->id, [config('app.productos_completos'), config('app.en_produccion'), config('app.en_almacen_de_salida'), config('app.en_ruta'), config('app.entregado'), config('app.sin_entrega_por_falta_de_informacion'), config('app.intento_de_entrega_fallido')]);
     return view('almacen.pedido.pedido_activo.alm_pedAct_edit', compact('pedido', 'unificados', 'armados', 'armados_terminados_almacen'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+    $pedido = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_pedido, ['armados' => function($query1) {
+      $query1->with(['productos' => function($query2) {
+        $query2->with('sustitutos');
+      }])->select(['id', 'nom', 'cant', 'pedido_id']);
+    }]);
+
+
+
+    $nuevo_array = [];
+    $contador2 = 0;
+    $contador3 = 0;
+    $contador4 = 0;
+    foreach($pedido->armados as $armado) {
+      foreach($armado->productos as $producto) {
+        $contador5 = 0;
+        // Verifica si el nuevo array es null
+        if(empty($nuevo_array)) {
+          $nuevo_array[$contador2]['id']= $producto->id;
+          $nuevo_array[$contador2]['id_producto'] = $producto->id_producto;
+          $nuevo_array[$contador2]['cantidad'] = $producto->cant*$armado->cant;
+          $nuevo_array[$contador2]['nombre_producto'] = $producto->produc;
+
+          // Agrega los sustitutos al producto
+          if(isset($producto->sustitutos) == false) {
+            foreach($producto->sustitutos as $sustituto) {
+              $nuevo_array[$contador2]['sustitutos'][$contador5]['id_producto'] = $sustituto->id_producto;
+              $nuevo_array[$contador2]['sustitutos'][$contador5]['cantidad'] = $sustituto->cant;
+              $nuevo_array[$contador2]['sustitutos'][$contador5]['producto'] = $sustituto->produc;
+              $nuevo_array[$contador2]['sustitutos'][$contador5]['producto_id'] = $sustituto->producto_id;
+            }
+          }else {
+            $nuevo_array[$contador2]['sustitutos'] = [];
+          }
+  
+          $contador2 ++;
+        } else {
+          $existe_producto = 'No';
+          for($contador6 = 0;$contador6<count($nuevo_array) ;$contador6++) {
+            if($nuevo_array[$contador6]['id_producto'] == $producto->id_producto) {
+              $existe_producto = 'Si';
+              $num_producto_repetido = $contador6;
+            }
+          }
+          if($existe_producto == 'No') {
+            $nuevo_array[$contador2]['id']= $producto->id;
+            $nuevo_array[$contador2]['id_producto'] = $producto->id_producto;
+            $nuevo_array[$contador2]['cantidad'] = $producto->cant*$armado->cant;
+            $nuevo_array[$contador2]['nombre_producto'] = $producto->produc;
+           
+
+            // Agrega los sustitutos al producto
+            if(isset($producto->sustitutos) == false) {
+              foreach($producto->sustitutos as $sustituto) {
+                $nuevo_array[$contador2]['sustitutos'][$contador5]['id_producto'] = $sustituto->id_producto;
+                $nuevo_array[$contador2]['sustitutos'][$contador5]['cantidad'] = $sustituto->cant;
+                $nuevo_array[$contador2]['sustitutos'][$contador5]['producto'] = $sustituto->produc;
+                $nuevo_array[$contador2]['sustitutos'][$contador5]['producto_id'] = $sustituto->producto_id;
+              }
+            }else {
+              $nuevo_array[$contador2]['sustitutos'] = [];
+            }
+
+
+
+            $contador2 ++;
+          } else {
+            $nuevo_array[$num_producto_repetido]['cantidad'] += $producto->cant*$armado->cant;
+          }
+
+
+
+
+
+        }
+      }
+    }
+
+
+    $productos = $nuevo_array;
+    
+    return view('almacen.pedido.pedido_activo.alm_pedAct_edit', compact('pedido', 'productos'));
+
+
+
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
   public function update(UpdatePedidoActivoRequest $request, $id_pedido) {
     $pedido = $this->pedidoActivoRepo->update($request, $id_pedido);
