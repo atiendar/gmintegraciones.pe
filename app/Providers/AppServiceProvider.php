@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider {
     Validator::extend('alpha_cierre_fiscal', function ($attribute, $value) { // Validación
       $year_actual = date("Y");
       $mes_limite = '12';
-      $dia_limite = '28';
+      $dia_limite = '30';
 
       $pago = \App\Models\Pago::where('cod_fact', $value)->first(['created_at', 'id']);
       if($pago == null) {
