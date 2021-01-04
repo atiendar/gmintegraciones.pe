@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Almacen\PedidoActivo\ArmadoPedidoActivo\SustitutoArmado;
 use App\Http\Controllers\Controller;
 // Request
+use Illuminate\Http\Request;
 use App\Http\Requests\almacen\pedidoActivo\armadoPedidoActivo\sustitutoArmado\UpdateSustitutoArmadoRequest;
 // Models
 use App\Models\PedidoArmadoTieneProducto;
@@ -43,7 +44,140 @@ class SustitutoArmadoController extends Controller {
 
     return view('almacen.pedido.pedido_activo.armado_activo.productos_armado.sustitutos_producto.susPro_create', compact('producto', 'sustitutos', 'sustitutos_list'));
   }
-  public function store(UpdateSustitutoArmadoRequest $request, $id_producto) {
+  public function store(Request $request, $id_producto) {
+    /*
+    // ================= VALIDACION
+    $ids            = $this->serviceCrypt->decrypt($ids);
+  
+    $contador100 = 0;;
+    foreach($ids[0] as $id) {
+      $idss[$contador100] = $id;
+      $contador100 ++; 
+    }
+
+    $productos = \App\Models\PedidoArmadoTieneProducto::where(function($query) use($idss) {
+      $hastaC = count($idss) -1;
+      for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
+        $query->orwhere('id', $idss[$contador2]);
+      }
+    })
+    ->with(['sustitutos' => function($query1) {
+      $query1->sum('cant');
+    }, 'armado:id,cod,cant,pedido_id'])
+    ->get();
+ 
+    // Suma total de los sustitutos de los productos
+    $array = [];
+    $total_sustitutos = 0;
+    $contador2 = 0;
+    foreach($productos as $producto) {
+      $array[$contador2]['id_producto'] = $producto->id;
+      $array[$contador2]['id_producto_original'] = $producto->id_producto;
+      $array[$contador2]['cant_total'] = $producto->cant*$producto->armado->cant;
+
+      if(count($producto->sustitutos)>0) {
+        foreach($producto->sustitutos as $sustitutos) {
+          $total_sustitutos += $sustitutos->cant;
+        }
+      }
+      $contador2++;
+    }
+
+    $max_sustitutos = $ids[1] - $total_sustitutos;
+ 
+    $this->validate($request, [
+      'cantidad'  => 'required|integer|min:1|max:'.$max_sustitutos,
+      'sustituto' => 'required|exists:productos,id',
+    ]);
+
+  // ================= FIN VALIDACION
+    try { DB::beginTransaction();
+      // SUMA AL STOCK LA CANTIDAD ESCRITA EN EL FORMULARIO AL PRODUCTO QUE ESTA ASIGNADO DIRECTAMENTE AL ARMADO
+      $producto_original1         = $this->productoRepo->getproductoFindWithTrashed($this->serviceCrypt->encrypt($producto->id_producto), []);
+      $producto_original1->stock += $request->cantidad;
+      $producto_original1->save();
+
+      // RESTA AL STOCK LA CANTIDAD ESCRITA EN EL FORMULARIO AL NUEVO PRODUCTO QUE SE ESTA TOMANDO COMO SUSTITUTO DEL PRODUCTO QUE ESTA ASIGNADO DIRECTAMENTE AL ARMADO
+      $producto_original2         = $this->productoRepo->getproductoFindWithTrashed($this->serviceCrypt->encrypt($request->sustituto), []);
+      $producto_original2->stock -= $request->cantidad;
+      $producto_original2->save();
+      
+      // HACE LA PARTICIÓN DEL PRODUCTO A LOS DIFERENTES ARMADOS
+      $can_tot_a_sustituir = $request->cantidad;
+      $tot_sus_pro = 0;
+      foreach($productos as $producto) {
+        $tot_sus_pro = 0;
+        //CANTIDAD TOTAL DE SUSTITUTOS DEL PRODUCTO
+        if(count($producto->sustitutos)>0) {
+          foreach($producto->sustitutos as $sustituto) {
+            $tot_sus_pro += $sustituto->cant;
+          }
+        }
+        $cant_max_per = $producto->cant*$producto->armado->cant;
+        // Si la cantidad maxima de productos permitida es mayor a la catidad total de sustitutos
+        if($cant_max_per>$tot_sus_pro) {
+
+
+
+          $sca = $producto->cant*$producto->armado->cant;
+          $sca = $sca -$tot_sus_pro;
+
+
+          $can_tot_a_sustituir1 = $can_tot_a_sustituir;
+          $can_tot_a_sustituir -= $sca;
+          if($can_tot_a_sustituir > 0) {
+            $sustituto = new PedidoArmadoProductoTieneSustituto();
+            $sustituto->id_producto     = $producto_original2->id;
+            $sustituto->cant            = $sca;
+            $sustituto->produc          = $producto_original2->produc;
+            $sustituto->producto_id     = $producto->id;
+            $sustituto->created_at_sus  = Auth::user()->email_registro;
+            $sustituto->save();
+          } else {
+            $sca = $can_tot_a_sustituir1;
+
+            $sustituto = new PedidoArmadoProductoTieneSustituto();
+            $sustituto->id_producto     = $producto_original2->id;
+            $sustituto->cant            = $sca;
+            $sustituto->produc          = $producto_original2->produc;
+            $sustituto->producto_id     = $producto->id;
+            $sustituto->created_at_sus  = Auth::user()->email_registro;
+            $sustituto->save();
+            break;
+          }
+            
+          // AGREGA Y ASIGNA EL SUSTITUTO AL PRODUCTO DEL ARMADO
+         
+        }
+      }
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     try { DB::beginTransaction();
       $id_producto            = $this->serviceCrypt->decrypt($id_producto);
       $producto_armado_pedido = PedidoArmadoTieneProducto::findOrFail($id_producto);

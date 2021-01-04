@@ -44,7 +44,8 @@
 
 
 
-{{--
+{{-- 
+
 
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
@@ -70,7 +71,7 @@
     </div>
   </div>
 </div>
-
+--}}
 
 
 
@@ -267,33 +268,10 @@
 @endsection
 
 {{-- ========================================================================================= --}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {{--
-
-
-
-
+@php
+  $contador1 = 0;
+@endphp
 
 <div class="card {{ config('app.color_card_secundario') }} card-outline">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_secundario') }}">
@@ -307,38 +285,44 @@
         <tr>
           <td>
             <div class="card p-0 m-0">
-              <div class="card-header p-0 m-0" id="h{{ $producto['id'] }}">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#a{{ $producto['id'] }}" aria-expanded="false" aria-controls="a{{ $producto['id'] }}">
+              <div class="card-header p-0 m-0" id="h{{ $producto['id_producto_origin'] }}">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#a{{ $producto['id_producto_origin'] }}" aria-expanded="false" aria-controls="a{{ $producto['id_producto_origin'] }}">
                   <strong>{{ $producto['cantidad'] }} - {{ $producto['nombre_producto'] }}</strong>
                 </button>
               </div>
-              <div id="a{{ $producto['id'] }}" class="collapse" aria-labelledby="h{{ $producto['id'] }}">
+              <div id="a{{ $producto['id_producto_origin'] }}" class="collapse" aria-labelledby="h{{ $producto['id_producto_origin'] }}">
                 <div class="card-body p-1">
-                  {!! Form::open(['route' => ['almacen.pedidoActivo.armado.sistituto.store', Crypt::encrypt($producto['id'])], 'onsubmit' => 'return checarBotonSubmit("btnAlmacenPedidoActivoArmadoSistitutoStore")']) !!}
+                  {!! Form::open(['route' => ['almacen.pedidoActivo.armado.sistituto.store', Crypt::encrypt([$producto['ids'],$producto['cantidad']])], 'onsubmit' => "return checarBotonSubmit('btnAlmacenPedidoActivoArmadoSistitutoStore$contador1')"]) !!}
                     <div class="form-group row p-0 m-0">
                       <div class="col-sm-12">
                         <div class="input-group-append">
                           {!! Form::text('cantidad', null, ['class' => 'form-control input-sm' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'maxlength' => 10, 'placeholder' => __('Cantidad')]) !!}
                           &nbsp&nbsp&nbsp{!! Form::select('sustituto', $producto['list_sustitutos'], [], ['class' => 'form-control select2 input-sm' . ($errors->has('sustituto') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
-                          &nbsp&nbsp&nbsp<button type="submit" id="btnAlmacenPedidoActivoArmadoSistitutoStore" class="btn btn-info rounded" title="{{ __('Cargar') }}"><i class="fas fa-check-circle text-dark"></i></button>
+                          &nbsp&nbsp&nbsp<button type="submit" id="btnAlmacenPedidoActivoArmadoSistitutoStore{{ $contador1 }}" class="btn btn-info rounded" title="{{ __('Cargar') }}"><i class="fas fa-check-circle text-dark"></i></button>
                         </div>
                         <span class="text-danger">{{ $errors->first('cantidad') }}<br></span>
                         <span class="text-danger">{{ $errors->first('sustituto') }}</span>
                       </div>
                     </div>
                   {!! Form::close() !!}
-                  <hr>
-                  {{ __('SUSTITUTOS') }}
-                  @foreach($producto['sustitutos'] as $sustituto)
-                    <div class="input-group text-muted ml-4">
-                      {{ $sustituto['cantidad'] }} - {{ $sustituto['producto'] }}
-                    </div>
-                  @endforeach
+                  @if(sizeof($producto['sustitutos']) == 0)
+                  @else
+                    <hr>
+                    ***** {{ __('SUSTITUTOS') }}
+                    @foreach($producto['sustitutos'] as $sustituto)
+                      <div class="input-group text-muted ml-2">
+                        {{ $sustituto['cantidad'] }} - {{ $sustituto['producto'] }}
+                      </div>
+                    @endforeach
+                  @endif
                 </div>
               </div>
             </div>
           </td>
         </tr>
+        @php
+          $contador1 ++;
+        @endphp
         @endforeach
         </tbody>
       </table>

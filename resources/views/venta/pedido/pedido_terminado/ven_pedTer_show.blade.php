@@ -28,6 +28,17 @@
     </div>
   </div>
 </div>
-@include('venta.pedido.pedido_terminado.armado.arm_index')
+<div class="row">
+  @can('venta.pedidoActivo.edit')
+    <div class="col-md-4">
+      <div class="pad">
+        @include('venta.pedido.pedido_activo.archivo.arc_index')
+      </div>
+    </div>
+  @endcan
+  <div class="col-md-8">
+    @include('venta.pedido.pedido_terminado.armado.arm_index')
+  </div>
+</div>
 @include('venta.pedido.pedido_terminado.pago.pag_index')
 @endsection

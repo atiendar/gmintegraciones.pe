@@ -16,7 +16,7 @@ Route::group(['prefix' => 'pedido-activo'], function() {
   
     Route::group(['prefix' => 'sustituto'], function() {
       Route::match(['GET', 'HEAD'],'agregar/{id_producto}', 'Almacen\PedidoActivo\ArmadoPedidoActivo\SustitutoArmado\SustitutoArmadoController@create')->name('almacen.pedidoActivo.armado.sistituto.create')->middleware('permission:almacen.pedidoActivo.armado.edit');
-      Route::post('crear/{id_producto}', 'Almacen\PedidoActivo\ArmadoPedidoActivo\SustitutoArmado\SustitutoArmadoController@store')->name('almacen.pedidoActivo.armado.sistituto.store')->middleware('permission:almacen.pedidoActivo.armado.edit');
+      Route::post('crear/{ids}', 'Almacen\PedidoActivo\ArmadoPedidoActivo\SustitutoArmado\SustitutoArmadoController@store')->name('almacen.pedidoActivo.armado.sistituto.store')->middleware('permission:almacen.pedidoActivo.armado.edit');
       Route::match(['DELETE'],'eliminar/{id_sustituto}', 'Almacen\PedidoActivo\ArmadoPedidoActivo\SustitutoArmado\SustitutoArmadoController@destroy')->name('almacen.pedidoActivo.armado.sistituto.destroy')->middleware('permission:almacen.pedidoActivo.armado.edit');
     });
   });

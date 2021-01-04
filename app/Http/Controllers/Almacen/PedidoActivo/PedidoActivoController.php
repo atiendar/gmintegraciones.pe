@@ -47,14 +47,7 @@ class PedidoActivoController extends Controller {
     return view('almacen.pedido.pedido_activo.alm_pedAct_edit', compact('pedido', 'unificados', 'armados', 'armados_terminados_almacen'));
 
 
-
-
-
-
-
-
 /*
-
 
     $pedido = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_pedido, ['armados' => function($query1) {
       $query1->with(['productos' => function($query2) {
@@ -62,128 +55,81 @@ class PedidoActivoController extends Controller {
       }])->select(['id', 'nom', 'cant', 'pedido_id']);
     }]);
 
-
-
     $nuevo_array = [];
     $contador2 = 0;
     $contador3 = 0;
     $contador4 = 0;
+    $contador7 = 0;
     foreach($pedido->armados as $armado) {
       foreach($armado->productos as $producto) {
         // Verifica si el nuevo array es null
         if(empty($nuevo_array)) {
-          $nuevo_array[$contador2]['id']              = $producto->id;
-          $nuevo_array[$contador2]['id_producto']     = $producto->id_producto;
-          $nuevo_array[$contador2]['cantidad']        = $producto->cant*$armado->cant;
-          $nuevo_array[$contador2]['nombre_producto'] = $producto->produc;
-          $nuevo_array = $this->agregarSutituto($producto, $nuevo_array, $contador2);
-
-
-          
-          $produc_original                            = $this->productoRepo->getproductoFindById($this->serviceCrypt->encrypt($producto->id_producto), ['sustitutos']);
-
-
-
-      
-          $nuevo_array = $this->sutitutoMenos($produc_original, $nuevo_array, $contador2);
-
-
-
-
-
-          
-          
-
-
-
-
-
-
-
-
-          
+          $nuevo_array[$contador2]['ids'][$contador7]           = $producto->id;
+          $nuevo_array[$contador2]['id_producto_origin']        = $producto->id_producto;
+          $nuevo_array[$contador2]['cantidad']                  = $producto->cant*$armado->cant;
+          $nuevo_array[$contador2]['nombre_producto']           = $producto->produc;
+          $nuevo_array                                          = $this->agregarSutituto($producto, $nuevo_array, $contador2);         
+          $produc_original                                      = $this->productoRepo->getproductoFindById($this->serviceCrypt->encrypt($producto->id_producto), ['sustitutos']);
+          $nuevo_array                                          = $this->sutitutoMenos($produc_original, $nuevo_array, $contador2);
           $contador2 ++;
+          $contador7 ++;
         } else {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           $existe_producto = 'No';
           for($contador6 = 0;$contador6<count($nuevo_array) ;$contador6++) {
-            if($nuevo_array[$contador6]['id_producto'] == $producto->id_producto) {
+            if($nuevo_array[$contador6]['id_producto_origin'] == $producto->id_producto) {
               $existe_producto = 'Si';
               $num_producto_repetido = $contador6;
             }
           }
           if($existe_producto == 'No') {
-            $nuevo_array[$contador2]['id']              = $producto->id;
-            $nuevo_array[$contador2]['id_producto']     = $producto->id_producto;
-            $nuevo_array[$contador2]['cantidad']        = $producto->cant*$armado->cant;
-            $nuevo_array[$contador2]['nombre_producto'] = $producto->produc;
-            $nuevo_array                                = $this->agregarSutituto($producto, $nuevo_array, $contador2);
-            $produc_original                            = $this->productoRepo->getproductoFindById($this->serviceCrypt->encrypt($producto->id_producto), ['sustitutos']);
-            $nuevo_array                                = $this->sutitutoMenos($produc_original, $nuevo_array, $contador2);
-
-           
-
-
-
+            $nuevo_array[$contador2]['ids'][$contador7]           = $producto->id;
+            $nuevo_array[$contador2]['id_producto_origin']        = $producto->id_producto;
+            $nuevo_array[$contador2]['cantidad']                  = $producto->cant*$armado->cant;
+            $nuevo_array[$contador2]['nombre_producto']           = $producto->produc;
+            $nuevo_array                                          = $this->agregarSutituto($producto, $nuevo_array, $contador2);
+            $produc_original                                      = $this->productoRepo->getproductoFindById($this->serviceCrypt->encrypt($producto->id_producto), ['sustitutos']);
+            $nuevo_array                                          = $this->sutitutoMenos($produc_original, $nuevo_array, $contador2);
             $contador2 ++;
+            $contador7 ++;
           } else {
+            // Si el producto ya existe en el array solo suma las cantidades del prosducto y sustituto
+            $nuevo_array[$num_producto_repetido]['ids'][$contador7]      = $producto->id;
             $nuevo_array[$num_producto_repetido]['cantidad'] += $producto->cant*$armado->cant;
+            $contador7 ++;
 
-
-
-            // Agrega los sustitutos al producto
-            $pro = count($producto->sustitutos);
-            if($pro > 0) {
-              $contador5 = 0;
-              foreach($producto->sustitutos as $sustituto) {
-                $nuevo_array[$num_producto_repetido]['sustitutos'][$contador5]['cantidad']    += $sustituto->cant;
-                $contador5 += 1;
+            for($contador8 = 0;$contador8<count($producto->sustitutos) ;$contador8++) {
+              $sustituto = $producto->sustitutos[$contador8];
+              $contador = 0;
+              $existe_sustituto = 'No';
+              for($contador9 = 0;$contador9<count($nuevo_array[$num_producto_repetido]['sustitutos']) ;$contador9++) {
+                if($nuevo_array[$num_producto_repetido]['sustitutos'][$contador9]['id_producto'] == $sustituto->id_producto) {
+                  $existe_sustituto = 'Si';
+                  $num_sustituto_repetido = $contador9;
+                }
+              }
+              if($existe_sustituto == 'No') {
+                if($contador == 0) {
+                  $contador = count($nuevo_array[$num_producto_repetido]['sustitutos']);
+                }
+              
+                $nuevo_array[$num_producto_repetido]['sustitutos'][$contador]['id_producto'] = $sustituto->id_producto;
+                $nuevo_array[$num_producto_repetido]['sustitutos'][$contador]['cantidad']    = $sustituto->cant;
+                $nuevo_array[$num_producto_repetido]['sustitutos'][$contador]['producto']    = $sustituto->produc;
+                $nuevo_array[$num_producto_repetido]['sustitutos'][$contador]['producto_id'] = $sustituto->producto_id;
+              }else {
+                $nuevo_array[$num_producto_repetido]['sustitutos'][$num_sustituto_repetido]['cantidad']  += $sustituto->cant;
               }
             }
-           //lse {
-            //  $nuevo_array[$num_producto_repetido]['sustitutos'] = [];
-           // }
-
           }
         }
-
-
-
-
-
-
-        
       }
     }
 
-
     $productos = $nuevo_array;
-    
- //   dd( $productos);
+  //  dd( $productos);
     return view('almacen.pedido.pedido_activo.alm_pedAct_edit', compact('pedido', 'productos'));
 
-
-
-*/
-
-
-
+    */
   }
   public function agregarSutituto($producto, $nuevo_array, $contador2) {
     $pro = count($producto->sustitutos);
@@ -194,7 +140,7 @@ class PedidoActivoController extends Controller {
         $nuevo_array[$contador2]['sustitutos'][$contador5]['cantidad']    = $sustituto->cant;
         $nuevo_array[$contador2]['sustitutos'][$contador5]['producto']    = $sustituto->produc;
         $nuevo_array[$contador2]['sustitutos'][$contador5]['producto_id'] = $sustituto->producto_id;
-        $contador5 += 1;
+        $contador5 ++;
       }
     }else {
       $nuevo_array[$contador2]['sustitutos'] = [];
