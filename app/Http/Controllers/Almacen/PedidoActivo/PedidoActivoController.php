@@ -39,7 +39,6 @@ class PedidoActivoController extends Controller {
     return view('almacen.pedido.pedido_activo.alm_pedAct_show', compact('pedido', 'unificados', 'archivos', 'armados', 'armados_terminados_almacen'));
   }
   public function edit(Request $request, $id_pedido) { 
-
     $pedido                     = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_pedido, ['unificar']);
     $unificados                 = $pedido->unificar()->paginate(99999999);
     $armados                    = $this->pedidoActivoRepo->getArmadosPedidoPaginate($pedido, $request);
@@ -48,12 +47,13 @@ class PedidoActivoController extends Controller {
 
 
 /*
-
-    $pedido = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_pedido, ['armados' => function($query1) {
+    $pedido = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_pedido, ['unificar', 'armados' => function($query1) {
       $query1->with(['productos' => function($query2) {
         $query2->with('sustitutos');
       }])->select(['id', 'nom', 'cant', 'pedido_id']);
     }]);
+
+    $unificados                 = $pedido->unificar()->paginate(99999999);
 
     $nuevo_array = [];
     $contador2 = 0;
@@ -126,9 +126,7 @@ class PedidoActivoController extends Controller {
     }
 
     $productos = $nuevo_array;
-  //  dd( $productos);
-    return view('almacen.pedido.pedido_activo.alm_pedAct_edit', compact('pedido', 'productos'));
-
+    return view('almacen.pedido.pedido_activo.alm_pedAct_edit', compact('pedido', 'unificados', 'productos'));
     */
   }
   public function agregarSutituto($producto, $nuevo_array, $contador2) {

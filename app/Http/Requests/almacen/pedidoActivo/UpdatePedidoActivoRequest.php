@@ -7,11 +7,9 @@ class UpdatePedidoActivoRequest extends FormRequest {
     return true;
   }
   public function rules() {
-    /*
     return [
-      'persona_que_recibe' => 'required|max:80',
-      'comentario_almacen'      => 'nullable|max:30000|string',
+      'persona_que_recibe'  => 'required|max:80',
+      'comentario_almacen'  => 'nullable|max:30000|string',
     ];
-    */
   }
 }

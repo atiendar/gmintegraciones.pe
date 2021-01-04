@@ -44,7 +44,7 @@ class SustitutoArmadoController extends Controller {
 
     return view('almacen.pedido.pedido_activo.armado_activo.productos_armado.sustitutos_producto.susPro_create', compact('producto', 'sustitutos', 'sustitutos_list'));
   }
-  public function store(Request $request, $id_producto) {
+  public function store(Request $request, $ids) {
     /*
     // ================= VALIDACION
     $ids            = $this->serviceCrypt->decrypt($ids);
@@ -116,12 +116,8 @@ class SustitutoArmadoController extends Controller {
         $cant_max_per = $producto->cant*$producto->armado->cant;
         // Si la cantidad maxima de productos permitida es mayor a la catidad total de sustitutos
         if($cant_max_per>$tot_sus_pro) {
-
-
-
           $sca = $producto->cant*$producto->armado->cant;
           $sca = $sca -$tot_sus_pro;
-
 
           $can_tot_a_sustituir1 = $can_tot_a_sustituir;
           $can_tot_a_sustituir -= $sca;
@@ -145,41 +141,11 @@ class SustitutoArmadoController extends Controller {
             $sustituto->save();
             break;
           }
-            
-          // AGREGA Y ASIGNA EL SUSTITUTO AL PRODUCTO DEL ARMADO
-         
         }
       }
-
-
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     try { DB::beginTransaction();
-      $id_producto            = $this->serviceCrypt->decrypt($id_producto);
+      $id_producto            = $this->serviceCrypt->decrypt($ids);
       $producto_armado_pedido = PedidoArmadoTieneProducto::findOrFail($id_producto);
 
       $this->verificarEstatusArmado($producto_armado_pedido);

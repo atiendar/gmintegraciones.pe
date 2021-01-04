@@ -1,4 +1,4 @@
-
+ 
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
 <title>@section('title', __('Editar pedido activo almacén').' '.$pedido->num_pedido)</title>
@@ -43,10 +43,7 @@
 @endsection
 
 
-
 {{-- 
-
-
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
 <title>@section('title', __('Editar pedido activo almacén').' '.$pedido->num_pedido)</title>
@@ -71,14 +68,34 @@
     </div>
   </div>
 </div>
---}}
 
+<div class="row">
+  @can('almacen.pedidoActivo.edit')
+    <div class="col-md-7">
+      <div class="pad">
+          <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
+            <div class="card-body">
+              <div class="row">
+                <div class="form-group col-sm btn-sm">
+                  <canvas id="pizarra"></canvas>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-sm btn-sm" >
+                  <button type="button" id="limpiar" class="btn btn-info  w-100 p-2"><i class="fas fa-broom"></i> {{ __('Limpiar') }}</button>
+                </div>
+                <div class="form-group col-sm btn-sm">
+                  <button type="button" id="guardar" class="btn btn-success w-100 p-2"><i class="fas fa-save"></i> {{ __('Guardar') }}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  @endcan
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.numeroDePedidoUnificado', ['alto' => 'height: 17.6em;'])
+</div>
 
-
-
-
-{{-- ========================================================================================= --}}
-{{--
 @section('css')
 <style>
   canvas {
@@ -89,14 +106,6 @@
   } 
 </style>
 @endsection
-
-<div class="row">
-  <canvas id="pizarra"></canvas>
-</div>
-<div class="row">
-  <button type="button" id="limpiar" class="btn btn-info btn-sm">Limpiar</button>
-  <button type="button" id="guardar" class="btn btn-success btn-sm">Guardar</button>
-</div>
 
 @section('js1')
 <script>
@@ -267,12 +276,9 @@
 </script>
 @endsection
 
-{{-- ========================================================================================= --}}
-{{--
 @php
   $contador1 = 0;
 @endphp
-
 <div class="card {{ config('app.color_card_secundario') }} card-outline">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_secundario') }}">
     <h5><strong>{{ __('PRODUCTOS') }}</h5>
@@ -329,6 +335,5 @@
     </div>
   </div>
 </div>
-
 @endsection
 --}}
