@@ -15,8 +15,8 @@ class PedidoTerminadoController extends Controller {
     $this->pedidoTerminadoRepo  = $PedidoTerminadoRepositories;
     $this->pedidoActivoRepo = $pedidoActivoRepositories;    
   }
-  public function index(Request $request) {
-    $pedidos = $this->pedidoTerminadoRepo->getPagination($request, ['usuario', 'unificar']);
+  public function index(Request $request, $opc_consulta = null) {
+    $pedidos = $this->pedidoTerminadoRepo->getPagination($request, ['usuario', 'unificar'], $opc_consulta);
     return view('venta.pedido.pedido_terminado.ven_pedTer_index', compact('pedidos'));
   }
   public function show(Request $request, $id_pedido) {

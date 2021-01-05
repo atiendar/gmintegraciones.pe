@@ -40,6 +40,12 @@ class Pedido extends Model{
     } else {
       return $query->where('id', '!"#$%&/()(/&%$');
     }
+  }  
+  public function scopeFiltrosPedido($query, $opc_consulta) {
+    switch($opc_consulta) {
+      case 'comentarioReclamacion':
+        return $query->where('tip', '!=', null);
+    }
   }
   public function scopePendientesPedido($query, $opc_consulta) {
     $fecha = date("Y-m-d");

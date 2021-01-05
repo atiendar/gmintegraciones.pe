@@ -26,8 +26,9 @@ class PedidoTerminadoRepositories implements PedidoTerminadoInterface {
     ->findOrFail($id_pedido);
     return $pedido;
   }
-  public function getPagination($request, $relaciones) {
-    return Pedido::with($relaciones)
+  public function getPagination($request, $relaciones, $opc_consulta) {
+    return Pedido::filtrosPedido($opc_consulta)
+    ->with($relaciones)
     ->where('estat_log', config('app.entregado'))
     ->buscar($request->opcion_buscador, $request->buscador)
     ->orderBy('fech_estat_log', 'DESC')->paginate($request->paginador);
