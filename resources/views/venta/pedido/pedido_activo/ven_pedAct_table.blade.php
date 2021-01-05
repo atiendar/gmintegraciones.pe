@@ -22,7 +22,13 @@
           @endphp
           @if($pedido->urg == 'Si')
             @php
-              $estilos .= 'border:#ff7b5a 2px solid;';
+              $estilos .= 'border:#FFFF0060 2px solid;';
+            @endphp
+          @endif
+
+          @if($pedido->stock == 'Si')
+            @php
+              $estilos .= 'background-color: #ff000060';
             @endphp
           @endif
 

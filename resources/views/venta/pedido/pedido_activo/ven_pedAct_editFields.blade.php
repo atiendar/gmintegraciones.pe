@@ -43,6 +43,16 @@
     </div>
     <span class="text-danger">{{ $errors->first('es_pedido_urgente') }}</span>
   </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="es_pedido_de_stock">{{ __('¿Es pedido de STOCK?') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-question"></i></span>
+      </div>
+      {!! Form::select('es_pedido_de_stock', config('opcionesSelect.select_se_puede_entregar_antes'), $pedido->stock, ['id' => 'es_pedido_de_stock', 'class' => 'form-control select2' . ($errors->has('es_pedido_de_stock') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('es_pedido_de_stock') }}</span>
+  </div>
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">

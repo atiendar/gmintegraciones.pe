@@ -44,6 +44,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
         $pedido->cuant_dia_ant    = null;
       }
       $pedido->urg                = $request->es_pedido_urgente;
+      $pedido->stock              = $request->es_pedido_de_stock;
       $pedido->coment_vent        = $request->comentarios_ventas;
       if($pedido->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
@@ -52,9 +53,9 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
           'venta.pedidoActivo.show', // Nombre de la ruta
           $id_pedido, // Id del registro debe ir encriptado
           $pedido->num_pedido, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Fecha de entrega', '¿Se puede entregar antes?', '¿Cuántos días antes?', '¿Es pedido urgente?', 'Comentarios ventas'), // Nombre de los inputs del formulario
+          array('Fecha de entrega', '¿Se puede entregar antes?', '¿Cuántos días antes?', '¿Es pedido urgente?', '¿Es pedido de STOCK?', 'Comentarios ventas'), // Nombre de los inputs del formulario
           $pedido, // Request
-          array('fech_de_entreg', 'se_pued_entreg_ant', 'cuant_dia_ant', 'urg', 'coment_vent') // Nombre de los campos en la BD
+          array('fech_de_entreg', 'se_pued_entreg_ant', 'cuant_dia_ant', 'urg', 'stock', 'coment_vent') // Nombre de los campos en la BD
         ); 
         $pedido->updated_at_ped  = Auth::user()->email_registro;
       }
