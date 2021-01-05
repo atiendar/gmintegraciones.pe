@@ -49,8 +49,9 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   }
   public function update($request, $id_pedido) {
     try { DB::beginTransaction();
+      $id_pedido = $this->serviceCrypt->encrypt($id_pedido);
       $pedido                 = $this->pedidoActivoAlmacenFindOrFailById($id_pedido, []);
-      $pedido->per_reci_alm = $request->persona_que_recibe;
+      $pedido->per_reci_alm   = $request->persona_que_recibe;
       $pedido->coment_alm     = $request->comentario_almacen;
       if($pedido->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
@@ -65,6 +66,16 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
         );
         $pedido->updated_at_ped = Auth::user()->email_registro;
       }
+      if($request->checkbox_imagen == 'on') {
+        if($request->hasfile('imagen')) {
+          $imagen        = $request->file('imagen');
+          \Storage::disk('s3')->delete($pedido->img_firm);
+          $nombre_archivo = \Storage::disk('s3')->put('pedidos/'.date("Y").'/'.$pedido->num_pedido.'/firma', $imagen, 'public');
+          $pedido->img_firm_rut  = env('PREFIX');
+          $pedido->img_firm      = $nombre_archivo;
+        }
+      }
+
       $pedido->save();
       Pedido::getEstatusPedido($pedido, 'Todos');
       

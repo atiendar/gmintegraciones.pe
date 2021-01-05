@@ -26,7 +26,7 @@ class CreatePedidosTable extends Migration
             $table->integer('arm_carg')->default(0)->unsigned()->comment('Armados cargados');
             $table->decimal('mont_tot_de_ped',20, 2)->unsigned()->comment('Monto total del pedido');
             $table->enum('urg',config('opcionesSelect.es_pedido_urgente'))->default('No')->comment('Urgente');
-
+            $table->enum('stock',config('opcionesSelect.select_si_no'))->default('No')->comment('¿Es pedido de STOCK?');
             $table->enum('foraneo',config('opcionesSelect.select_si_no'))->default('No')->comment('¿Es foráneo?');
             $table->enum('gratis',config('opcionesSelect.select_si_no'))->default('No')->comment('¿Sera gratis?'); 
             $table->date('fech_de_entreg')->nullable()->comment('Fecha de entrega');
@@ -41,6 +41,8 @@ class CreatePedidosTable extends Migration
             $table->string('con_iva',3)->default('on')->nullable()->comment('¿Con o sin IVA? on=Si, off=No');
             $table->string('estat_pag',100)->default(config('app.pendiente'))->comment('Estatus de pago');
             $table->string('per_reci_alm',80)->nullable()->comment('Personas que recibe en almacen');
+            $table->string('img_firm_rut', 200)->nullable()->comment('Ruta de donde se guardo la imagen');
+            $table->string('img_firm', 200)->nullable()->comment('Nombre de la imagen');
             $table->string('estat_alm',100)->default(config('app.pendiente'))->comment('Estatus almacén');
             $table->timestamp('fech_estat_alm')->nullable()->comment('Fecha estatus almacén');
             $table->text('coment_alm')->nullable()->comment('Comentarios Almacen');

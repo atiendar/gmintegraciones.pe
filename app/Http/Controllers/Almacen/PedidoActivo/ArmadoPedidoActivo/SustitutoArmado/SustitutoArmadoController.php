@@ -45,11 +45,10 @@ class SustitutoArmadoController extends Controller {
     return view('almacen.pedido.pedido_activo.armado_activo.productos_armado.sustitutos_producto.susPro_create', compact('producto', 'sustitutos', 'sustitutos_list'));
   }
   public function store(Request $request, $ids) {
-    /*
     // ================= VALIDACION
     $ids            = $this->serviceCrypt->decrypt($ids);
   
-    $contador100 = 0;;
+    $contador100 = 0;
     foreach($ids[0] as $id) {
       $idss[$contador100] = $id;
       $contador100 ++; 
@@ -63,7 +62,7 @@ class SustitutoArmadoController extends Controller {
     })
     ->with(['sustitutos' => function($query1) {
       $query1->sum('cant');
-    }, 'armado:id,cod,cant,pedido_id'])
+    }, 'armado:id,cod,cant,pedido_id,estat'])
     ->get();
  
     // Suma total de los sustitutos de los productos
@@ -92,6 +91,14 @@ class SustitutoArmadoController extends Controller {
 
   // ================= FIN VALIDACION
     try { DB::beginTransaction();
+
+      // CHECA EL ESTATUS DEL ARCÓN RELACIONADO AL PRODUCTO PARA VERIFICAR SI AUN ESTA EL ALMACEN 
+      foreach($productos as $producto) {
+        if($producto->armado->estat != config('app.en_espera_de_compra') AND $producto->armado->estat != config('app.en_revision_de_productos')  ) {
+          return abort(404, 'Algo ocurrió: Regresa a la ventana anterior y recárgala.');
+        }
+      }
+
       // SUMA AL STOCK LA CANTIDAD ESCRITA EN EL FORMULARIO AL PRODUCTO QUE ESTA ASIGNADO DIRECTAMENTE AL ARMADO
       $producto_original1         = $this->productoRepo->getproductoFindWithTrashed($this->serviceCrypt->encrypt($producto->id_producto), []);
       $producto_original1->stock += $request->cantidad;
@@ -143,7 +150,12 @@ class SustitutoArmadoController extends Controller {
           }
         }
       }
-*/
+      DB::commit();
+      toastr()->success('¡Sustituto agregado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+      return back();
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
+    
+/*
     try { DB::beginTransaction();
       $id_producto            = $this->serviceCrypt->decrypt($ids);
       $producto_armado_pedido = PedidoArmadoTieneProducto::findOrFail($id_producto);
@@ -173,8 +185,57 @@ class SustitutoArmadoController extends Controller {
       toastr()->success('¡Sustituto agregado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
       return back();
     } catch(\Exception $e) { DB::rollback(); throw $e; }
+*/
   }
   public function destroy($id_sustituto) {
+    try { DB::beginTransaction();
+      $id_sustituto = $this->serviceCrypt->decrypt($id_sustituto);
+  
+      $sustitutos = PedidoArmadoProductoTieneSustituto::where(function($query) use($id_sustituto) {
+        foreach($id_sustituto as $id_sustitutoo) {
+          $query->orwhere('id', $id_sustitutoo);
+        }
+      })
+      ->with(['producto' => function($query) {
+        $query->with('armado:id,cod,cant,pedido_id,estat');
+      }])
+      ->get();
+
+      
+       // CHECA EL ESTATUS DEL ARCÓN RELACIONADO AL PRODUCTO PARA VERIFICAR SI AUN ESTA EL ALMACEN 
+       foreach($sustitutos as $sustituto) {
+        if($sustituto->producto->armado->estat != config('app.en_espera_de_compra') AND $sustituto->producto->armado->estat != config('app.en_revision_de_productos')  ) {
+          return abort(404, 'Algo ocurrió: Regresa a la ventana anterior y recárgala.');
+        }
+      }
+
+
+      // Suma total de los sustitutos de los productos
+      $total_sustitutos = 0;
+      foreach($sustitutos as $sustituto) {
+        $total_sustitutos += $sustituto->cant;
+      }
+       
+      // SUMA AL STOCK LA CANTIDAD ESCRITA EN EL FORMULARIO AL PRODUCTO QUE ESTA ASIGNADO DIRECTAMENTE AL ARMADO
+      $producto_original1         = $this->productoRepo->getproductoFindWithTrashed($this->serviceCrypt->encrypt($sustitutos[0]->id_producto), []);
+      $producto_original1->stock += $total_sustitutos;
+      $producto_original1->save();
+
+      // RESTA AL STOCK LA CANTIDAD ESCRITA EN EL FORMULARIO AL NUEVO PRODUCTO QUE SE ESTA TOMANDO COMO SUSTITUTO DEL PRODUCTO QUE ESTA ASIGNADO DIRECTAMENTE AL ARMADO
+      $producto_original2         = $this->productoRepo->getproductoFindWithTrashed($this->serviceCrypt->encrypt($sustitutos[0]->producto->id_producto), []);
+      $producto_original2->stock -= $total_sustitutos;
+      $producto_original2->save();
+
+      // Elimina la relación con los sustitutos
+      foreach($sustitutos as $sustituto) {
+        $sustituto->forceDelete();
+      }
+
+      DB::commit();
+      toastr()->success('¡Sustituto eliminado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+      return back();
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
+    /*
     try { DB::beginTransaction();
       $id_sustituto = $this->serviceCrypt->decrypt($id_sustituto);
       $sustituto    = PedidoArmadoProductoTieneSustituto::with('producto')->findOrFail($id_sustituto);
@@ -198,6 +259,7 @@ class SustitutoArmadoController extends Controller {
       toastr()->success('¡Sustituto eliminado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
       return back();
     } catch(\Exception $e) { DB::rollback(); throw $e; }
+*/
   }
   public function verificarEstatusArmado($producto) {
     if($producto->armado->estat != config('app.en_espera_de_compra') AND $producto->armado->estat != config('app.en_revision_de_productos') ) {

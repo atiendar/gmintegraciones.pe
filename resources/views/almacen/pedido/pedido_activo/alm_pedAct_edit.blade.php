@@ -1,4 +1,4 @@
- 
+ {{--
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
 <title>@section('title', __('Editar pedido activo almacén').' '.$pedido->num_pedido)</title>
@@ -41,9 +41,9 @@
 </div>
 @include('almacen.pedido.pedido_activo.armado_activo.alm_pedAct_armAct_index')
 @endsection
+--}}
 
 
-{{-- 
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
 <title>@section('title', __('Editar pedido activo almacén').' '.$pedido->num_pedido)</title>
@@ -77,6 +77,44 @@
             <div class="card-body">
               <div class="row">
                 <div class="form-group col-sm btn-sm">
+                  <label for="persona_que_recibe">{{ __('Persona que recibe') }} *</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
+                    </div>
+                    {!! Form::text('persona_que_recibe', $pedido->per_reci_alm, ['id' => 'persona_que_recibe', 'class' => 'form-control' . ($errors->has('persona_que_recibe') ? ' is-invalid' : ''), 'maxlength' => 80, 'placeholder' => __('Persona que recibe'), 'onChange' => 'getLimpiar();']) !!}
+                  </div>
+                  <span class="text-danger">{{ $errors->first('persona_que_recibe') }}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-sm btn-sm">
+                  <label for="comentario_almacen">{{ __('Comentario almacén') }}</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+                    </div>
+                    {!! Form::textarea('comentario_almacen', $pedido->coment_alm, ['id' => 'comentario_almacen', 'class' => 'form-control' . ($errors->has('comentario_almacen') ? ' is-invalid' : ''), 'maxlength' => 30000, 'placeholder' => __('Comentario almacén'), 'rows' => 4, 'cols' => 4]) !!}
+                  </div>
+                  <span class="text-danger">{{ $errors->first('comentario_almacen') }}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-sm btn-sm">
+                  <label for="checkbox_imagen"></label>
+                  <div class="input-group p-2">
+                    <div class="custom-control custom-switch">
+                      @if($pedido->img_firm == null)
+                        {!! Form::checkbox('checkbox_imagen', 'on', true, ['id' => 'checkbox_imagen', 'class' => 'custom-control-input' . ($errors->has('checkbox_imagen') ? ' is-invalid' : '')]) !!}
+                        <label class="custom-control-label" for="checkbox_imagen">{{ __('Guardar imagen') }}</label>
+                      @else
+                        {!! Form::checkbox('checkbox_imagen', 'off', false, ['id' => 'checkbox_imagen', 'class' => 'custom-control-input' . ($errors->has('checkbox_imagen') ? ' is-invalid' : ''), 'onClick' => 'check()']) !!}
+                        <label class="custom-control-label" for="checkbox_imagen">{{ __('Remplazar imagen') }}</label>
+                        <a href="{{ $pedido->img_firm_rut.$pedido->img_firm }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
+                      @endif
+                    </div>
+                  </div>
+                  <span class="text-danger">{{ $errors->first('checkbox_imagen') }}</span>
                   <canvas id="pizarra"></canvas>
                 </div>
               </div>
@@ -99,7 +137,7 @@
 @section('css')
 <style>
   canvas {
-      width: 600px;
+      width: 700px;
       height: 200px;
       background-color: #fff;
       border: rgb(0, 0, 0) solid 1px;
@@ -125,7 +163,7 @@
   correccionX = posicion.x;
   correccionY = posicion.y;
 
-  miCanvas.width = 600;
+  miCanvas.width = 700;
   miCanvas.height = 200;
 
   //======================================================================
@@ -134,26 +172,48 @@
   /**
    * Funcion que guarda la información
   */
+  function check() {
+    var checkbox_imagen = document.getElementById("checkbox_imagen").value;
+    if(checkbox_imagen == 'on') {
+      document.getElementById("checkbox_imagen").value = 'off';
+    } else {
+      document.getElementById("checkbox_imagen").value = 'on';
+    }
+
+
+console.log(checkbox_imagen)
+  }
   var guardar = document.getElementById("guardar");
   guardar.addEventListener("click",function(){	
     miCanvas.src = miCanvas.toDataURL("image/png");
+
+    document.getElementById('guardar').value = "Espere un momento...";
+    document.getElementById('guardar').disabled = true;
 
     fetch(miCanvas.src)
       .then(res => res.blob())
       .then(blob => {
         const formData = new FormData()
-        formData.append('imagen', blob, 'filename')
+        persona_que_recibe = document.getElementById("persona_que_recibe").value;
+        comentario_almacen = document.getElementById("comentario_almacen").value;
+        checkbox_imagen = document.getElementById("checkbox_imagen").value;
+        
+        console.log(checkbox_imagen)
+        formData.append('imagen', blob, 'filename');
+        formData.append('persona_que_recibe', persona_que_recibe);
+        formData.append('comentario_almacen', comentario_almacen);
+        formData.append('checkbox_imagen', checkbox_imagen);
 
-        axios.post('/prueba', formData, {
+        axios.post('/almacen/pedido-activo/actualizar/'+{{ $pedido->id }}, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         }).then(res => {
           Swal.fire({
             title: 'Éxito',
-            text: '¡Imagen guardada exitosamente!',
+            text: '¡Pedido actualizado exitosamente!',
           }).then((value) => {
-            console.log(res)
+            location.reload()
           })
         }).catch(error => {
           if(error.response.status == 422) {
@@ -179,22 +239,31 @@
     texto();
   }, false);
 
+
+  function getLimpiar(){
+    var ctx = miCanvas.getContext("2d");
+    ctx.clearRect(0, 0, miCanvas.width, miCanvas.height);
+    lineas = [];
+    texto();
+  }
+
+
   /**
    * Funcion que muentra el texto en el canvas
   */
   $(document).ready(texto);
   function texto(){
     let ctx = miCanvas.getContext('2d')
-    f = new Date();
-    fecha = f.getDate()+'/'+f.getMonth()+'/'+f.getFullYear();
-    horafinal = f.getHours(); + ":" + f.getMinutes();
+
+    var hoy = new Date();
+    var fecha = hoy.getDate() + '/' + ( hoy.getMonth() + 1 ) + '/' + hoy.getFullYear();
+    var hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
 
     ctx.fillStyle = "#ffffff";        
     ctx.fillStyle = "#111";
     ctx.font="25px Monospace";
-    ctx.fillText('Nombre:', 5,20);
-    ctx.fillText('Fecha:'+fecha+' '+horafinal, 5,100);
-    ctx.fillText('Firma:', 5,180);
+    ctx.fillText('Fecha:'+fecha +' - '+ hora, 5,20);
+    ctx.fillText('Firma:', 5,50);
   };
 
   /**
@@ -281,6 +350,15 @@
 @endphp
 <div class="card {{ config('app.color_card_secundario') }} card-outline">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_secundario') }}">
+    @if(Request::route()->getName() == 'almacen.pedidoActivo.edit')
+      @can('almacen.pedidoActivo.armado.edit')
+        <div class="float-right">
+          {!! Form::open(['route' => ['almacen.pedidoActivo.marcarTodoCompleto.update', Crypt::encrypt($pedido->id)], 'method' => 'patch', 'id' => 'almacenPedidoActivoMarcarTodoCompletoUpdate']) !!}
+            <button type="submit" id="btnsubmit1" class="btn btn-info btn-sm" onclick="return check('btnsubmit1', 'almacenPedidoActivoMarcarTodoCompletoUpdate', '¡Alerta!', '¿Estás seguro, quieres marcar todos los armados como productos completos?', 'info', 'Continuar', 'Cancelar', 'false');">{{ __('Marcar todo como completo') }}</button>
+          {!! Form::close() !!}
+        </div>
+      @endcan
+    @endcan
     <h5><strong>{{ __('PRODUCTOS') }}</h5>
   </div>
   <div class="card-body">
@@ -317,6 +395,11 @@
                     ***** {{ __('SUSTITUTOS') }}
                     @foreach($producto['sustitutos'] as $sustituto)
                       <div class="input-group text-muted ml-2">
+                        <form method="post" action="{{ route('almacen.pedidoActivo.armado.sistituto.destroy', Crypt::encrypt($sustituto['ids'])) }}" id="almacenPedidoActivoArmadoSistitutoDestroy{{ $sustituto['id_producto'] }}">
+                          @method('DELETE')@csrf
+                          <button type="submit" id="btn{{ $sustituto['id_producto'] }}" class="btn btn-light p-0 m-0 rounded" title="{{ __('Eliminar') }}" onclick="return check('btn{{$sustituto['id_producto'] }}', 'almacenPedidoActivoArmadoSistitutoDestroy{{$sustituto['id_producto']}}', '¡Alerta!', '¿Estás seguro que quieres realizar esta acción?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="far fa-trash-alt"></i></button>
+                          &nbsp
+                        </form>
                         {{ $sustituto['cantidad'] }} - {{ $sustituto['producto'] }}
                       </div>
                     @endforeach
@@ -336,4 +419,3 @@
   </div>
 </div>
 @endsection
---}}
