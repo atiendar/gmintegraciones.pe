@@ -31,7 +31,22 @@
     <span class="text-danger">{{ $errors->first('datos_fiscales') }}</span>
   </div>
 </div>
-<label for="redes_sociales">{{ __('DATOS FISCALES') }}</label>
+
+
+
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group mr-4" role="group" aria-label="First group">
+    <label for="datos_fiscales">{{ __('Datos fiscales') }}</label>
+  </div>
+  <div class="input-group">
+    <div class="custom-control custom-switch">
+      {!! Form::checkbox('checkbox_datos_fiscales', 'on', false, ['id' => 'checkbox_datos_fiscales', 'class' => 'custom-control-input' . ($errors->has('checkbox_datos_fiscales') ? ' is-invalid' : '')]) !!}
+      <label class="custom-control-label" for="checkbox_datos_fiscales">{{ __('Guardar datos fiscales escritos') }}</label>
+    </div>
+  </div>
+</div>
+
+
 <div class="border border-primary rounded p-2">
   @include('rolCliente.datoFiscal.dfi_createFields')
 </div>

@@ -15,6 +15,7 @@ use App\Repositories\servicio\crypt\ServiceCrypt;
 use App\Repositories\pago\PagoRepositories;
 use App\Repositories\sistema\plantilla\PlantillaRepositories;
 use App\Repositories\sistema\sistema\SistemaRepositories;
+use App\Repositories\rolCliente\datoFiscal\DatoFiscalRepositories;
 // Otros
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -24,11 +25,13 @@ class FacturaRepositories implements FacturaInterface {
   protected $pagoRepo;
   protected $plantillaRepo;
   protected $sistemaRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, PagoRepositories $pagoRepositories, PlantillaRepositories $plantillaRepositories, SistemaRepositories $sistemaRepositories) {
-    $this->serviceCrypt             = $serviceCrypt;
-    $this->pagoRepo                 = $pagoRepositories;
-    $this->plantillaRepo            = $plantillaRepositories;
-    $this->sistemaRepo              = $sistemaRepositories;
+  protected $datoFiscalRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, PagoRepositories $pagoRepositories, PlantillaRepositories $plantillaRepositories, SistemaRepositories $sistemaRepositories, DatoFiscalRepositories $datoFiscalRepositories) {
+    $this->serviceCrypt   = $serviceCrypt;
+    $this->pagoRepo       = $pagoRepositories;
+    $this->plantillaRepo  = $plantillaRepositories;
+    $this->sistemaRepo    = $sistemaRepositories;
+    $this->datoFiscalRepo = $datoFiscalRepositories;
   }
   public function getFacturaFindOrFailById($id_factura, $relaciones, $estatus) {
     $id_factura = $this->serviceCrypt->decrypt($id_factura);
@@ -54,6 +57,15 @@ class FacturaRepositories implements FacturaInterface {
       * Cambia el estatus de la factura del pago a Pendiente
       */
       $this->pagoRepo->cambiarEstatusFacturaDelPago($pago, config('app.pendiente'));
+
+      // GUARDA LOS DATOS FISCALES AL PERFIN EL USUARIO SI SE MARCA EL CHECKBOX 
+      if($request->checkbox_datos_fiscales == 'on') {
+        $dato_fiscal                      = new \App\Models\DatoFiscal();
+        $dato_fiscal                      = $this->datoFiscalRepo->storeFields($dato_fiscal, $request);
+        $dato_fiscal->user_id             = $request->cliente;
+        $dato_fiscal->created_at_dat_fisc = $request->cliente; //dsgfsfsdgsdfsdgfdggsfg FALTA CORREGIR ESTE
+        $dato_fiscal->save();
+      }
 
       DB::commit();
       return $factura;

@@ -10,7 +10,8 @@ class StoreFacturaRequest extends FormRequest {
   }
   public function rules() {
     $cliente_id = Auth::user()->id;
-    return [      
+    return [
+      'checkbox_datos_fiscales' => 'in:on,off',      
       'nombre_o_razon_social'   => 'required|max:60',
       'rfc'                     => 'required|min:12|max:20',
       'lada_telefono_fijo'      => 'nullable|max:9999|min:1|numeric|required_with:telefono_fijo',
