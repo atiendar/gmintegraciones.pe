@@ -84,7 +84,7 @@
                     </div>
                     {!! Form::text('persona_que_recibe', $pedido->per_reci_alm, ['id' => 'persona_que_recibe', 'class' => 'form-control' . ($errors->has('persona_que_recibe') ? ' is-invalid' : ''), 'maxlength' => 80, 'placeholder' => __('Persona que recibe'), 'onChange' => 'getLimpiar();']) !!}
                   </div>
-                  <span class="text-danger">{{ $errors->first('persona_que_recibe') }}</span>
+                  <span class="text-danger" id="err_persona_que_recibe"></span>
                 </div>
               </div>
               <div class="row">
@@ -96,7 +96,7 @@
                     </div>
                     {!! Form::textarea('comentario_almacen', $pedido->coment_alm, ['id' => 'comentario_almacen', 'class' => 'form-control' . ($errors->has('comentario_almacen') ? ' is-invalid' : ''), 'maxlength' => 30000, 'placeholder' => __('Comentario almacén'), 'rows' => 4, 'cols' => 4]) !!}
                   </div>
-                  <span class="text-danger">{{ $errors->first('comentario_almacen') }}</span>
+                  <span class="text-danger" id="err_comentario_almacen"></span>
                 </div>
               </div>
               <div class="row">
@@ -116,6 +116,7 @@
                   </div>
                   <span class="text-danger">{{ $errors->first('checkbox_imagen') }}</span>
                   <canvas id="pizarra"></canvas>
+                  <span class="text-danger" id="err_imagen"></span>
                 </div>
               </div>
               <div class="row">
@@ -179,9 +180,6 @@
     } else {
       document.getElementById("checkbox_imagen").value = 'on';
     }
-
-
-console.log(checkbox_imagen)
   }
   var guardar = document.getElementById("guardar");
   guardar.addEventListener("click",function(){	
@@ -198,7 +196,6 @@ console.log(checkbox_imagen)
         comentario_almacen = document.getElementById("comentario_almacen").value;
         checkbox_imagen = document.getElementById("checkbox_imagen").value;
         
-        console.log(checkbox_imagen)
         formData.append('imagen', blob, 'filename');
         formData.append('persona_que_recibe', persona_que_recibe);
         formData.append('comentario_almacen', comentario_almacen);
@@ -217,7 +214,23 @@ console.log(checkbox_imagen)
           })
         }).catch(error => {
           if(error.response.status == 422) {
-            this.errors = error.response.data.errors
+            errors = error.response.data.errors
+            document.getElementById('guardar').disabled = false;
+
+
+            document.getElementById("err_persona_que_recibe").innerHTML = null
+            document.getElementById("err_comentario_almacen").innerHTML = null
+            document.getElementById("err_imagen").innerHTML = null
+
+            if(errors.persona_que_recibe != undefined) {
+              document.getElementById("err_persona_que_recibe").innerHTML = errors.persona_que_recibe[0]
+            }
+            if(errors.comentario_almacen != undefined) {
+              document.getElementById("err_comentario_almacen").innerHTML = errors.comentario_almacen[0]
+            }
+            if(errors.imagen != undefined) {
+              document.getElementById("err_imagen").innerHTML = errors.imagen[0]
+            }
           } else {
             Swal.fire({
               title: 'Algo salio mal',
@@ -350,70 +363,76 @@ console.log(checkbox_imagen)
 @endphp
 <div class="card {{ config('app.color_card_secundario') }} card-outline">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_secundario') }}">
-    @if(Request::route()->getName() == 'almacen.pedidoActivo.edit')
-      @can('almacen.pedidoActivo.armado.edit')
-        <div class="float-right">
-          {!! Form::open(['route' => ['almacen.pedidoActivo.marcarTodoCompleto.update', Crypt::encrypt($pedido->id)], 'method' => 'patch', 'id' => 'almacenPedidoActivoMarcarTodoCompletoUpdate']) !!}
-            <button type="submit" id="btnsubmit1" class="btn btn-info btn-sm" onclick="return check('btnsubmit1', 'almacenPedidoActivoMarcarTodoCompletoUpdate', '¡Alerta!', '¿Estás seguro, quieres marcar todos los armados como productos completos?', 'info', 'Continuar', 'Cancelar', 'false');">{{ __('Marcar todo como completo') }}</button>
-          {!! Form::close() !!}
-        </div>
+    @if(sizeof($productos) > 0)
+      @if(Request::route()->getName() == 'almacen.pedidoActivo.edit')
+        @can('almacen.pedidoActivo.armado.edit')
+          <div class="float-right">
+            {!! Form::open(['route' => ['almacen.pedidoActivo.marcarTodoCompleto.update', Crypt::encrypt($pedido->id)], 'method' => 'patch', 'id' => 'almacenPedidoActivoMarcarTodoCompletoUpdate']) !!}
+              <button type="submit" id="btnsubmit1" class="btn btn-info btn-sm" onclick="return check('btnsubmit1', 'almacenPedidoActivoMarcarTodoCompletoUpdate', '¡Alerta!', '¿Estás seguro, quieres marcar todos los armados como productos completos?', 'info', 'Continuar', 'Cancelar', 'false');">{{ __('Marcar todo como completo') }}</button>
+            {!! Form::close() !!}
+          </div>
+        @endcan
       @endcan
-    @endcan
+    @endif
     <h5><strong>{{ __('PRODUCTOS') }}</h5>
   </div>
   <div class="card-body">
     <div class="card-body table-responsive p-0" id="div-tabla-scrollbar2" style="height: 40em;">
       <table class="table table-head-fixed table-hover table-striped table-sm table-bordered">
-        <tbody>
-        @foreach($productos as $producto)
-        <tr>
-          <td>
-            <div class="card p-0 m-0">
-              <div class="card-header p-0 m-0" id="h{{ $producto['id_producto_origin'] }}">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#a{{ $producto['id_producto_origin'] }}" aria-expanded="false" aria-controls="a{{ $producto['id_producto_origin'] }}">
-                  <strong>{{ $producto['cantidad'] }} - {{ $producto['nombre_producto'] }}</strong>
-                </button>
-              </div>
-              <div id="a{{ $producto['id_producto_origin'] }}" class="collapse" aria-labelledby="h{{ $producto['id_producto_origin'] }}">
-                <div class="card-body p-1">
-                  {!! Form::open(['route' => ['almacen.pedidoActivo.armado.sistituto.store', Crypt::encrypt([$producto['ids'],$producto['cantidad']])], 'onsubmit' => "return checarBotonSubmit('btnAlmacenPedidoActivoArmadoSistitutoStore$contador1')"]) !!}
-                    <div class="form-group row p-0 m-0">
-                      <div class="col-sm-12">
-                        <div class="input-group-append">
-                          {!! Form::text('cantidad', null, ['class' => 'form-control input-sm' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'maxlength' => 10, 'placeholder' => __('Cantidad')]) !!}
-                          &nbsp&nbsp&nbsp{!! Form::select('sustituto', $producto['list_sustitutos'], [], ['class' => 'form-control select2 input-sm' . ($errors->has('sustituto') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
-                          &nbsp&nbsp&nbsp<button type="submit" id="btnAlmacenPedidoActivoArmadoSistitutoStore{{ $contador1 }}" class="btn btn-info rounded" title="{{ __('Cargar') }}"><i class="fas fa-check-circle text-dark"></i></button>
+        @if(sizeof($productos) == 0)
+          @include('layouts.private.busquedaSinResultados')
+        @else
+          <tbody>
+          @foreach($productos as $producto)
+          <tr>
+            <td>
+              <div class="card p-0 m-0">
+                <div class="card-header p-0 m-0" id="h{{ $producto['id_producto_origin'] }}">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#a{{ $producto['id_producto_origin'] }}" aria-expanded="false" aria-controls="a{{ $producto['id_producto_origin'] }}">
+                    <strong>{{ $producto['cantidad'] }} - {{ $producto['nombre_producto'] }}</strong>
+                  </button>
+                </div>
+                <div id="a{{ $producto['id_producto_origin'] }}" class="collapse" aria-labelledby="h{{ $producto['id_producto_origin'] }}">
+                  <div class="card-body p-1">
+                    {!! Form::open(['route' => ['almacen.pedidoActivo.armado.sistituto.store', Crypt::encrypt([$producto['ids'],$producto['cantidad']])], 'onsubmit' => "return checarBotonSubmit('btnAlmacenPedidoActivoArmadoSistitutoStore$contador1')"]) !!}
+                      <div class="form-group row p-0 m-0">
+                        <div class="col-sm-12">
+                          <div class="input-group-append">
+                            {!! Form::text('cantidad', null, ['class' => 'form-control input-sm' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'maxlength' => 10, 'placeholder' => __('Cantidad')]) !!}
+                            &nbsp&nbsp&nbsp{!! Form::select('sustituto', $producto['list_sustitutos'], [], ['class' => 'form-control select2 input-sm' . ($errors->has('sustituto') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+                            &nbsp&nbsp&nbsp<button type="submit" id="btnAlmacenPedidoActivoArmadoSistitutoStore{{ $contador1 }}" class="btn btn-info rounded" title="{{ __('Cargar') }}"><i class="fas fa-check-circle text-dark"></i></button>
+                          </div>
+                          <span class="text-danger">{{ $errors->first('cantidad') }}<br></span>
+                          <span class="text-danger">{{ $errors->first('sustituto') }}</span>
                         </div>
-                        <span class="text-danger">{{ $errors->first('cantidad') }}<br></span>
-                        <span class="text-danger">{{ $errors->first('sustituto') }}</span>
                       </div>
-                    </div>
-                  {!! Form::close() !!}
-                  @if(sizeof($producto['sustitutos']) == 0)
-                  @else
-                    <hr>
-                    ***** {{ __('SUSTITUTOS') }}
-                    @foreach($producto['sustitutos'] as $sustituto)
-                      <div class="input-group text-muted ml-2">
-                        <form method="post" action="{{ route('almacen.pedidoActivo.armado.sistituto.destroy', Crypt::encrypt($sustituto['ids'])) }}" id="almacenPedidoActivoArmadoSistitutoDestroy{{ $sustituto['id_producto'] }}">
-                          @method('DELETE')@csrf
-                          <button type="submit" id="btn{{ $sustituto['id_producto'] }}" class="btn btn-light p-0 m-0 rounded" title="{{ __('Eliminar') }}" onclick="return check('btn{{$sustituto['id_producto'] }}', 'almacenPedidoActivoArmadoSistitutoDestroy{{$sustituto['id_producto']}}', '¡Alerta!', '¿Estás seguro que quieres realizar esta acción?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="far fa-trash-alt"></i></button>
-                          &nbsp
-                        </form>
-                        {{ $sustituto['cantidad'] }} - {{ $sustituto['producto'] }}
-                      </div>
-                    @endforeach
-                  @endif
+                    {!! Form::close() !!}
+                    @if(sizeof($producto['sustitutos']) == 0)
+                    @else
+                      <hr>
+                      ***** {{ __('SUSTITUTOS') }}
+                      @foreach($producto['sustitutos'] as $sustituto)
+                        <div class="input-group text-muted ml-2">
+                          <form method="post" action="{{ route('almacen.pedidoActivo.armado.sistituto.destroy', Crypt::encrypt($sustituto['ids'])) }}" id="almacenPedidoActivoArmadoSistitutoDestroy{{ $sustituto['id_producto'] }}">
+                            @method('DELETE')@csrf
+                            <button type="submit" id="btn{{ $sustituto['id_producto'] }}" class="btn btn-light p-0 m-0 rounded" title="{{ __('Eliminar') }}" onclick="return check('btn{{$sustituto['id_producto'] }}', 'almacenPedidoActivoArmadoSistitutoDestroy{{$sustituto['id_producto']}}', '¡Alerta!', '¿Estás seguro que quieres realizar esta acción?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="far fa-trash-alt"></i></button>
+                            &nbsp
+                          </form>
+                          {{ $sustituto['cantidad'] }} - {{ $sustituto['producto'] }}
+                        </div>
+                      @endforeach
+                    @endif
+                  </div>
                 </div>
               </div>
-            </div>
-          </td>
-        </tr>
-        @php
-          $contador1 ++;
-        @endphp
-        @endforeach
-        </tbody>
+            </td>
+          </tr>
+          @php
+            $contador1 ++;
+          @endphp
+          @endforeach
+          </tbody>
+        @endif
       </table>
     </div>
   </div>
