@@ -1,4 +1,4 @@
-@canany(['proveedor.index', 'proveedor.create', 'proveedor.show', 'proveedor.edit', 'proveedor.destroy', 'proveedor.contacto.index', 'proveedor.contacto.create', 'proveedor.contacto.show', 'proveedor.contacto.edit', 'proveedor.contacto.destroy'])
+@canany(['proveedor.index', 'proveedor.create', 'proveedor.show', 'proveedor.edit', 'proveedor.destroy', 'proveedor.editValidado', 'proveedor.contacto.index', 'proveedor.contacto.create', 'proveedor.contacto.show', 'proveedor.contacto.edit', 'proveedor.contacto.destroy'])
   <li class="nav-item">
     <a href="{{ route('proveedor.index') }}" class="nav-link {{ Request::is('proveedor') ? 'active' : '' }}">
       <i class="fas fa-list nav-icon"></i> {{ __('Lista de proveedores') }}

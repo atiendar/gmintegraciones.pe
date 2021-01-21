@@ -88,7 +88,7 @@
     <span class="text-danger">{{ $errors->first('extension') }}</span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="telefono_movil">{{ __('Teléfono móvil') }} *</label>
+    <label for="telefono_movil">{{ __('Teléfono móvil') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
@@ -98,6 +98,18 @@
     </div>
     <span class="text-danger">{{ $errors->first('lada_telefono_movil') }}</span>
     <span class="text-danger">{{ $errors->first('telefono_movil') }}</span>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
+    <label for="cantidad_o_monto_minimo_de_compra">{{ __('Cantidad o monto mínimo de compra') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+      </div>
+      {!! Form::text('cantidad_o_monto_minimo_de_compra', null, ['class' => 'form-control' . ($errors->has('cantidad_o_monto_minimo_de_compra') ? ' is-invalid' : ''), 'maxlength' => 25, 'placeholder' => __('Cantidad o monto mínimo de compra')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('cantidad_o_monto_minimo_de_compra') }}</span>
   </div>
 </div>
 <div class="row">

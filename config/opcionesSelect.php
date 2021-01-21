@@ -362,8 +362,10 @@ return array(
     'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_fabricante_distribuidor_index'  => [
-    'Fabricante'    => 'Fabricante',
-    'Distribuidor'  => 'Distribuidor',
+    'Fabricante'            => 'Fabricante',
+    'Distribuidor'          => 'Distribuidor',
+    'Super mercado'         => 'Super mercado',
+    'Tienda departamental'  => 'Tienda departamental',
   ],
 /* ===================== PROVEEDOR [ CONTACTO ] ===================== */
   'select_contactos_proveedor_index'  => [

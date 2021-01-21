@@ -2,7 +2,7 @@
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_secundario') }}">
     @can('proveedor.contacto.create')
       @if(Request::route()->getName() == 'proveedor.edit')
-        <a href="{{ route('proveedor.contacto.create', Crypt::encrypt($proveedor->id)) }}" class="btn btn-primary btn-sm float-right">{{ __('Registrar contacto') }}</a>
+        <a href="{{ route('proveedor.contacto.create', Crypt::encrypt($proveedor->id)) }}" class="btn btn-primary btn-sm float-right">{{ __('Registrar contacto o sucursal') }}</a>
       @endif
     @endcan
     <h5>{{ __('Contactos') }}</h5> 

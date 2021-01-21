@@ -12,6 +12,8 @@ interface ProveedorInterface {
 
     public function destroy($id_proveedor);
 
+    public function updateValidado($request, $id_proveedor);
+
     public function getAllProveedoresPlunk();
 
     public function getAllProveedoresPlunkMenos($proveedores);

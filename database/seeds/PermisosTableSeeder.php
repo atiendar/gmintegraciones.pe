@@ -1273,6 +1273,13 @@ Spatie\Permission\Models\Permission::create([
         'name'				    => 'logistica.direccionEntregada.edit',
         'desc'            => "Regresar al estatus En Ruta Logística del módulo Logística 'Direcciones entregadas'",
         'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
-      ]);
+    ]);
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 44,
+      'nom'             => "Editar registro validado 'Proveedores'",
+      'name'				    => "proveedor.editValidado",
+      'desc'            => "Editar campo validado de cualquier registro del módulo 'Proveedores'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
   }
 }

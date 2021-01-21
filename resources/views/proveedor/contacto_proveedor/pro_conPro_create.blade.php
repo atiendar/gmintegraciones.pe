@@ -1,10 +1,10 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Registrar contacto'))</title>
+<title>@section('title', __('Registrar contacto o sucursal'))</title>
 <div class="card {{ config('app.color_card_primario') }} card-outline">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     <h5>
-      <strong>{{ __('Registrar contacto al proveedor') }}:</strong> {{ $proveedor->nom_comerc }}
+      <strong>{{ __('Registrar contacto o sucursal al proveedor') }}:</strong> {{ $proveedor->nom_comerc }}
     </h5>
   </div>
   <div class="card-body">

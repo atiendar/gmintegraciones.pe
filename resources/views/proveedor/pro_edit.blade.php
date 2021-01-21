@@ -19,6 +19,15 @@
     </div>
   </div>
 </div>
+@can('proveedor.editValidado')
+  <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
+    <div class="card-body">
+      {!! Form::open(['route' => ['proveedor.updateValidado', Crypt::encrypt($proveedor->id)], 'method' => 'patch', 'id' => 'proveedorUpdateValidado']) !!}
+        @include('proveedor.pro_editValidadoFields')
+      {!! Form::close() !!}
+    </div>
+  </div>
+@endcan
 @can('proveedor.edit')
   <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
     <div class="card-body">
@@ -28,5 +37,6 @@
     </div>
   </div>
 @endcan
+@include('layouts.private.plugins.priv_plu_select2')
 @include('proveedor.contacto_proveedor.pro_conPro_index')
 @endsection

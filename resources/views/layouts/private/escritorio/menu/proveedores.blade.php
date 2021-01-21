@@ -1,4 +1,4 @@
-@canany(['proveedor.index', 'proveedor.create', 'proveedor.show', 'proveedor.edit', 'proveedor.destroy', 'proveedor.contacto.index', 'proveedor.contacto.create', 'proveedor.contacto.show', 'proveedor.contacto.edit', 'proveedor.contacto.destroy'])
+@canany(['proveedor.index', 'proveedor.create', 'proveedor.show', 'proveedor.edit', 'proveedor.destroy', 'proveedor.editValidado', 'proveedor.contacto.index', 'proveedor.contacto.create', 'proveedor.contacto.show', 'proveedor.contacto.edit', 'proveedor.contacto.destroy'])
   <li class="nav-item has-treeview {{ Request::is('proveedor*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link {{ Request::is('proveedor*') ? 'active' : '' }}">
       <i class="nav-icon fas fa-handshake"></i>
@@ -8,7 +8,7 @@
       </p>
     </a>
     <ul class="nav nav-treeview">
-      @canany(['proveedor.index', 'proveedor.create', 'proveedor.show', 'proveedor.edit', 'proveedor.destroy', 'proveedor.contacto.index', 'proveedor.contacto.create', 'proveedor.contacto.show', 'proveedor.contacto.edit', 'proveedor.contacto.destroy'])
+      @canany(['proveedor.index', 'proveedor.create', 'proveedor.show', 'proveedor.edit', 'proveedor.destroy', 'proveedor.editValidado', 'proveedor.contacto.index', 'proveedor.contacto.create', 'proveedor.contacto.show', 'proveedor.contacto.edit', 'proveedor.contacto.destroy'])
         <li class="nav-item">
           <a href="{{ route('proveedor.index') }}" class="nav-link {{ Request::is('proveedor') ? 'active' : '' }}">
             <i class="nav-icon fas fa-list"></i>

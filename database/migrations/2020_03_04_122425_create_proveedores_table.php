@@ -15,6 +15,8 @@ class CreateProveedoresTable extends Migration
     {
         Schema::create('proveedores', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('prov_valid', 3)->default('No')->comment('¿Proveedor validado?');
+            $table->string('cant_min_comp', 25)->nullable()->comment('Cantidad o monto mínimo de compra');
             $table->string('arch_rut', 200)->nullable()->comment('Ruta de donde se guardo el archivo');
             $table->string('arch_nom', 200)->nullable()->comment('Nombre del archivo');
             $table->string('raz_soc', 60)->unique()->comment('Razón social');
@@ -26,8 +28,8 @@ class CreateProveedoresTable extends Migration
             $table->string('lad_fij', 4)->nullable()->comment('Lada del teléfono fijo');
             $table->string('tel_fij', 15)->nullable()->comment('Teléfono fijo');
             $table->string('ext', 10)->nullable()->comment('Extensión');
-            $table->string('lad_mov', 4)->comment('Lada del teléfono móvil');
-            $table->string('tel_mov', 15)->comment('Teléfono móvil');
+            $table->string('lad_mov', 4)->nullable()->comment('Lada del teléfono móvil');
+            $table->string('tel_mov', 15)->nullable()->comment('Teléfono móvil');
             $table->text('obs')->nullable()->comment('Observaciones');
             $table->string('call', 45)->comment('Calle y número');
             $table->string('no_ext', 8)->comment('Número exterior');

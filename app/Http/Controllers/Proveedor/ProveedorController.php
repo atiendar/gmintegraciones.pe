@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\proveedor\StoreProveedorRequest;
 use App\Http\Requests\proveedor\UpdateProveedorRequest;
+use App\Http\Requests\proveedor\UpdateValidadoProveedorRequest;
 // Repositories
 use App\Repositories\proveedor\ProveedorRepositories;
 
@@ -43,6 +44,11 @@ class ProveedorController extends Controller {
   public function destroy($id_proveedor) {
     $this->proveedorRepo->destroy($id_proveedor);
     toastr()->success('¡Proveedor eliminado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
+  }
+  public function updateValidado(UpdateValidadoProveedorRequest $request, $id_proveedor) {
+    $this->proveedorRepo->updateValidado($request, $id_proveedor);
+    toastr()->success('¡Proveedor actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
 }

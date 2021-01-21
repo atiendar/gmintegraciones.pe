@@ -131,6 +131,17 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
+    <label for="cantidad_o_monto_minimo_de_compra">{{ __('Cantidad o monto mínimo de compra') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+      </div>
+      {!! Form::text('cantidad_o_monto_minimo_de_compra', $proveedor->cant_min_comp, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Cantidad o monto mínimo de compra'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
     <label for="observaciones">{{ __('Observaciones') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
