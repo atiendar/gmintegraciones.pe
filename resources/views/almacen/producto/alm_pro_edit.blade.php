@@ -18,6 +18,15 @@
     </div>
   </div>
 </div>
+@can('almacen.producto.editValidado')
+  <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
+    <div class="card-body">
+      {!! Form::open(['route' => ['almacen.producto.updateValidado', Crypt::encrypt($producto->id)], 'method' => 'patch', 'id' => 'almacenProductoUpdateValidado']) !!}
+        @include('almacen.producto.alm_pro_editValidadoFields')
+      {!! Form::close() !!}
+    </div>
+  </div>
+@endcan
 @include('almacen.producto.stock_producto.alm_pro_stoPro_edit')
 @can('almacen.producto.edit')
   <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">

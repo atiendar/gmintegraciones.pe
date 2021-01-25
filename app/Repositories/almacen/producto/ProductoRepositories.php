@@ -16,6 +16,8 @@ use App\Repositories\cotizacion\CalcularValoresCotizacionRepositories;
 // Otros
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManagerStatic as Image;
+use Storage;
 use DB;
 
 class ProductoRepositories implements ProductoInterface {
@@ -43,7 +45,6 @@ class ProductoRepositories implements ProductoInterface {
     try { DB::beginTransaction();
       $producto                  = new Producto();
       $producto->produc          = $request->nombre_del_producto;
-      $producto->sku             = $request->sku;
       $producto->pro_de_cat      = $request->es_producto_de_catalogo;
       $producto->marc            = $request->marca;
       $producto->tip             = $request->tipo;
@@ -61,7 +62,7 @@ class ProductoRepositories implements ProductoInterface {
         $producto->cost_arm      = $this->calculoRepo->bcdivDosDecimales(0.00);
       }
       $producto->categ           = $request->categoria;
-      $producto->etiq            = $request->etiqueta;
+    //  $producto->etiq            = $request->etiqueta;
       $producto->pes             = $request->peso;
       $producto->cod_barras      = $request->codigo_de_barras;
       $producto->min_stock      = $request->cantidad_minima_de_stock;
@@ -69,17 +70,45 @@ class ProductoRepositories implements ProductoInterface {
       $producto->asignado_prod   = Auth::user()->email_registro;
       $producto->created_at_prod = Auth::user()->email_registro;
       if($request->hasfile('imagen_del_producto')) {
-        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
-        $archivo = ArchivoCargado::dispatch(
-          $request->file('imagen_del_producto'), // Archivo blob
-          'almacen/productos/'.date("Y"), // Ruta en la que guardara el archivo
-          'producto-'.time().'.', // Nombre del archivo
-          null // Ruta y nombre del archivo anterior
-        ); 
-        $producto->img_prod_rut  = $archivo[0]['ruta'];
-        $producto->img_prod_nom  = $archivo[0]['nombre'];
+
+
+
+
+
+        $imagen_blob = request()->file('imagen_del_producto');
+        // Minimiza el tamaño de la imagen
+        $img = Image::make($imagen_blob);
+        $img_nom = $imagen_blob->getClientOriginalName();
+        $img->resize(800, 800, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+        $imagen_blob_min = $img->stream()->detach();
+        $nom = 'almacen/productos/'.date("Y").'/'.time().'min'.$img_nom;
+        Storage::disk('s3')->put($nom, $imagen_blob_min, 'public');
+        $producto->img_prod_rut = env('PREFIX');
+        $producto->img_prod_nom = $nom;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       }
       $producto->save();
+      $producto->sku  = 'PRO-'.$producto->id;
+      $producto->save();
+      $producto->catalogos()->sync($request->etiqueta);
+
       $this->eliminarCacheAllProductosPlunk();
       DB::commit();
       return $producto;
@@ -89,7 +118,6 @@ class ProductoRepositories implements ProductoInterface {
     DB::transaction(function() use($request, $id_producto) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
       $producto                 = $this->productoAsignadoFindOrFailById($id_producto, ['proveedores', 'armados']);
       $producto->produc         = $request->nombre_del_producto;
-      $producto->sku            = $request->sku;
       $producto->pro_de_cat      = $request->es_producto_de_catalogo;
       $producto->marc           = $request->marca;
       if($producto->tip == 'Canasta') {
@@ -105,7 +133,7 @@ class ProductoRepositories implements ProductoInterface {
       $producto->utilid         = $pivot->utilid;
       $producto->prec_clien     = $this->calculoRepo->getUtilidadProducto($pivot->prec_prove, $pivot->utilid, $producto->cost_arm);
       $producto->categ          = $request->categoria;
-      $producto->etiq           = $request->etiqueta;
+    //  $producto->etiq           = $request->etiqueta;
       $producto->pes            = $request->peso;
       $producto->cod_barras     = $request->codigo_de_barras;
       $producto->min_stock      = $request->cantidad_minima_de_stock;
@@ -117,24 +145,29 @@ class ProductoRepositories implements ProductoInterface {
           'almacen.producto.show', // Nombre de la ruta
           $id_producto, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_producto), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Nombre del producto', 'SKU', 'Es producto de catálogo', 'Marca', 'Tamaño ', 'Alto', 'Ancho', 'Largo', 'Costo de armado', 'Nombre del proveedor', 'Precio proveedor', 'Utilidad', 'Precio cliente', 'Categoría', 'Etiqueta', 'Peso', 'Código de barras', 'Cantidad mínima de stock', 'Descripción del producto'), // Nombre de los inputs del formulario
+          array('Nombre del producto', 'Es producto de catálogo', 'Marca', 'Tamaño ', 'Alto', 'Ancho', 'Largo', 'Costo de armado', 'Nombre del proveedor', 'Precio proveedor', 'Utilidad', 'Precio cliente', 'Categoría', 'Peso', 'Código de barras', 'Cantidad mínima de stock', 'Descripción del producto'), // Nombre de los inputs del formulario
           $producto, // Request
-          array('produc', 'sku', 'pro_de_cat', 'marc', 'tam', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'etiq', 'pes', 'cod_barras', 'min_stock', 'desc_del_prod') // Nombre de los campos en la BD
+          array('produc', 'pro_de_cat', 'marc', 'tam', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'pes', 'cod_barras', 'min_stock', 'desc_del_prod') // Nombre de los campos en la BD
         );
         $producto->updated_at_prod = Auth::user()->email_registro;
       }
       if($request->hasfile('imagen_del_producto')) {
-        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
-        $archivo = ArchivoCargado::dispatch(
-          $request->file('imagen_del_producto'), // Archivo blob
-          'almacen/productos/'.date("Y"), // Ruta en la que guardara el archivo
-          'producto-'.time().'.', // Nombre del archivo
-          $producto->img_prod_nom // Ruta y nombre del archivo anterior
-        ); 
-        $producto->img_prod_rut  = $archivo[0]['ruta'];
-        $producto->img_prod_nom  = $archivo[0]['nombre'];
+        $imagen_blob = request()->file('imagen_del_producto');
+        // Minimiza el tamaño de la imagen
+        $img = Image::make($imagen_blob);
+        $img_nom = $imagen_blob->getClientOriginalName();
+        $img->resize(800, 800, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+        $imagen_blob_min = $img->stream()->detach();
+        $nom = 'almacen/productos/'.date("Y").'/'.time().'min'.$img_nom;
+        Storage::disk('s3')->put($nom, $imagen_blob_min, 'public');
+        $producto->img_prod_rut = env('PREFIX');
+        $producto->img_prod_nom = $nom;
       }
       $producto->save();
+
+      $producto->catalogos()->sync($request->etiqueta);
 
       // CALCULA LOS NUEVOS PRECIOS Y VALORES DEL ARMADO DE LA TABLA ARMADOS
       $armados = $producto->armados()->withTrashed()->with('productos')->get();
@@ -148,6 +181,31 @@ class ProductoRepositories implements ProductoInterface {
       $this->eliminarCacheAllProductosPlunk();
       return $producto;
     });
+  }
+  public function updateValidado($request, $id_producto) {
+    try { DB::beginTransaction();
+      $producto = $this->productoAsignadoFindOrFailById($id_producto, []);
+      $producto->prod_valid  = $request->producto_validado;
+
+      if($producto->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Productos', // Módulo
+          'almacen.producto.show', // Nombre de la ruta
+          $id_producto, // Id del registro debe ir encriptado
+          $this->serviceCrypt->decrypt($id_producto), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('¿Producto validado?'), // Nombre de los inputs del formulario
+          $producto, // Request
+          array('prod_valid') // Nombre de los campos en la BD
+        ); 
+        $producto->created_at_prod = Auth::user()->email_registro;
+      }
+      $producto->save();
+      $this->eliminarCacheAllProductosPlunk();
+
+      DB::commit();
+      return $producto;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function aumentarStock($request, $id_producto) {
     $producto = $this->productoAsignadoFindOrFailById($id_producto, []);

@@ -359,6 +359,7 @@ return array(
     'raz_soc'       => 'Razón social',
     'nom_comerc'    => 'Nombre comercial',
     'nom_rep_legal' => 'Nombre del representante legal',
+    'prov_valid'    => 'Validado',
     'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_fabricante_distribuidor_index'  => [
@@ -442,6 +443,7 @@ return array(
     'produc'        => 'Producto',
     'prove'         => 'Proveedor',
     'sku'           => 'SKU',
+    'prod_valid'    => 'Validado',
     'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_producto_de_catalogo' => [
@@ -449,6 +451,7 @@ return array(
     'Producto externo'      => 'Producto externo',
   ],
   'select_utilidad' => [
+    '.0'           => '0%',
     '.1'           => '10%',
     '.2'           => '20%',
     '.3'           => '30%',
@@ -460,6 +463,7 @@ return array(
     '.9'           => '90%',
   ],
   'select_utilidad_sin_seleccione' => [
+    '.0'           => '0%',
     '.01'          => '1%',
     '.02'          => '2%',
     '.03'          => '3%',

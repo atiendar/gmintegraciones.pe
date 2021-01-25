@@ -79,4 +79,7 @@ class CatalogoRepositories implements CatalogoInterface {
   public function getAllInputCatalogosPlunk($input) {
     return Catalogo::where('input', $input)->orderBy('vista', 'ASC')->pluck('vista', 'value');
   }
+  public function getAllIdCatalogosPlunk($input) {
+    return Catalogo::where('input', $input)->orderBy('vista', 'ASC')->pluck('vista', 'id');
+  }
 }

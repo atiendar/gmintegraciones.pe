@@ -1,5 +1,5 @@
 <td width="1rem" title="Editar: {{ $producto->sku }}">
-  @canany(['almacen.producto.edit', 'almacen.producto.disminuirStock', 'almacen.producto.sustituto.create', 'almacen.producto.sustituto.destroy', 'almacen.producto.proveedor.create', 'almacen.producto.proveedor.edit', 'almacen.producto.proveedor.destroy'])
+  @canany(['almacen.producto.edit', 'almacen.producto.editValidado', 'almacen.producto.disminuirStock', 'almacen.producto.sustituto.create', 'almacen.producto.sustituto.destroy', 'almacen.producto.proveedor.create', 'almacen.producto.proveedor.edit', 'almacen.producto.proveedor.destroy'])
     <a href="{{ route('almacen.producto.edit', Crypt::encrypt($producto->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-edit"></i></a>
   @endcanany
 </td>

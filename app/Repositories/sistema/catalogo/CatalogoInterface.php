@@ -13,4 +13,6 @@ interface CatalogoInterface {
   Public function destroy($id_catalogo);
 
   public function getAllInputCatalogosPlunk($input);
+
+  public function getAllIdCatalogosPlunk($input);
 }

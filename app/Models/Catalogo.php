@@ -27,4 +27,7 @@ class Catalogo extends Model {
       return $query->where("$opcion_buscador", 'LIKE', "%$buscador%");
     }
   }
+  public function productos(){
+    return $this->belongsToMany('App\Models\Productos', 'producto_catalogo');
+  }
 }

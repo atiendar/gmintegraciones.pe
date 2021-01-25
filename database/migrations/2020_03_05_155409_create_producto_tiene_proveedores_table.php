@@ -16,7 +16,7 @@ class CreateProductoTieneProveedoresTable extends Migration
         Schema::create('producto_tiene_proveedores', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->decimal('prec_prove', 20,2)->unsigned()->comment('Precio del proveedor');
-            $table->enum('utilid', ['.1','.2','.3','.4','.5','.6','.7','.8','.9'])->comment('Utilidad .1 = 10%
+            $table->enum('utilid', ['.0','.1','.2','.3','.4','.5','.6','.7','.8','.9'])->comment('Utilidad .1 = 10%
             .2 =20%, .3 = 30%, .4= 40%, .5 = 50%, .6 = 60%, .7= 70%, .8 = 80%, .9 = 90%');
             $table->decimal('prec_clien', 20,2)->unsigned()->comment('Precio al cliente');
             $table->unsignedBigInteger('proveedor_id')->comment('Foreign Key proveedores');

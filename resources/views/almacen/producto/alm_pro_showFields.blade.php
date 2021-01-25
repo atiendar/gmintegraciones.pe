@@ -249,7 +249,7 @@
     </div>
   </div>
   <div class="form-group col-sm-6 btn-sm">
-    <label for="etiqueta">{{ __('Etiqueta') }}</label>
+    <label for="etiqueta">{{ __('Etiqueta') }} ({{ __('SubCategorías') }})</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>

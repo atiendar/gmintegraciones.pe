@@ -5,7 +5,6 @@
     @else 
       <thead>
         <tr> 
-          @include('almacen.producto.alm_pro_table.th.id')
           @include('almacen.producto.alm_pro_table.th.sku')
           @include('almacen.producto.alm_pro_table.th.producto')
           @include('almacen.producto.alm_pro_table.th.stock')
@@ -20,8 +19,24 @@
       </thead>
       <tbody> 
         @foreach($productos as $producto)
-          <tr title="{{ $producto->sku }}" class="{{ empty($producto->stock < $producto->min_stock) ? '' : 'bg-warning' }}">
-            @include('almacen.producto.alm_pro_table.td.id')
+          @php
+            $estilos = null;
+            $clase = null; 
+          @endphp
+      
+          @if($producto->stock < $producto->min_stock)
+            @php
+              $clase = 'bg-warning'; 
+            @endphp
+          @endif
+
+          @if($producto->prod_valid == 'No')
+            @php
+              $estilos .= 'background-color: #ff000060';
+            @endphp
+          @endif
+
+          <tr title="{{ $producto->sku }}" class="{{ $clase }}" style="{{ $estilos }}">
             @include('almacen.producto.alm_pro_table.td.sku')
             @include('almacen.producto.alm_pro_table.td.producto', ['id_producto' => Crypt::encrypt($producto->id)])
             @include('almacen.producto.alm_pro_table.td.stock')

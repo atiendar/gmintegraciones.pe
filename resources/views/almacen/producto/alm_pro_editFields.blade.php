@@ -42,14 +42,13 @@
     <span class="text-danger">{{ $errors->first('nombre_del_producto') }}</span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="sku">{{ __('SKU') }} *</label>
+    <label for="sku">{{ __('SKU') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-barcode"></i></span>
       </div>
-      {!! Form::text('sku', $producto->sku, ['class' => 'form-control' . ($errors->has('sku') ? ' is-invalid' : ''), 'maxlength' => 30, 'placeholder' => __('SKU')]) !!}
+      {!! Form::text('sku', $producto->sku, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('SKU'), 'readonly' => 'readonly']) !!}
     </div>
-    <span class="text-danger">{{ $errors->first('sku') }}</span>
   </div>
 </div>
 <div class="row">
@@ -227,7 +226,7 @@
     <span class="text-danger">{{ $errors->first('categoria') }}</span>
   </div>
   <div class="form-group col-sm-6 btn-sm">
-    <label for="etiqueta">{{ __('Etiqueta') }}</label>
+    <label for="etiqueta">{{ __('Etiqueta') }} ({{ __('SubCategorías') }})</label>
     @can('sistema.catalogo.create')
       <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar catálogo') }}</a>
     @endcan
@@ -235,7 +234,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('etiqueta', $etiquetas_list, $producto->etiq, ['class' => 'form-control select2' . ($errors->has('etiqueta') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+      {!! Form::select('etiqueta[]', $etiquetas_list, $producto->catalogos, ['class' => 'form-control select2' . ($errors->has('etiqueta') ? ' is-invalid' : ''), 'multiple']) !!}
     </div>
     <span class="text-danger">{{ $errors->first('etiqueta') }}</span>
   </div>
@@ -266,7 +265,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="codigo_de_barras">{{ __('Código de barras') }} *</label>
+    <label for="codigo_de_barras">{{ __('Código de barras') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fa fa-barcode"></i></i></span>

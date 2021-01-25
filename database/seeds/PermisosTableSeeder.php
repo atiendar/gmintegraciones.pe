@@ -1281,5 +1281,12 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Editar campo validado de cualquier registro del módulo 'Proveedores'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 44,
+      'nom'             => "Editar registro validado Almacén 'Productos'",
+      'name'				    => "almacen.producto.editValidado",
+      'desc'            => "Editar campo validado de cualquier registro del módulo Almacén 'Productos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
   }
 }

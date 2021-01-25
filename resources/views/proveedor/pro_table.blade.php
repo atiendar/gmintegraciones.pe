@@ -14,7 +14,18 @@
       </thead>
       <tbody> 
         @foreach($proveedores as $proveedor)
-          <tr title="{{ $proveedor->nom_comerc  }}">
+          @php
+            $estilos = null;
+            $clase = null; 
+          @endphp
+
+          @if($proveedor->prov_valid == 'No')
+            @php
+              $estilos .= 'background-color: #ff000060';
+            @endphp
+          @endif
+
+          <tr title="{{ $proveedor->nom_comerc }}" class="{{ $clase }}" style="{{ $estilos }}">
             <td width="1rem">{{ $proveedor->id }}</td>
             <td>
               @canany(['proveedor.show', 'proveedor.contacto.show'])

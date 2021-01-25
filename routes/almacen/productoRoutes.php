@@ -1,14 +1,15 @@
 <?php
 /* ===================== [ RUTAS ALMACÉN (PRODUCTO) ] ===================== */
 Route::group(['prefix' => 'producto'], function() {
-  Route::match(['GET', 'HEAD'],'', 'Almacen\Producto\ProductoController@index')->name('almacen.producto.index')->middleware('permission:almacen.producto.index|almacen.producto.create|almacen.producto.show|almacen.producto.edit|almacen.producto.disminuirStock|almacen.producto.destroy|almacen.producto.sustituto.create|almacen.producto.sustituto.destroy|almacen.producto.proveedor.create|almacen.producto.proveedor.edit|almacen.producto.proveedor.destroy');
+  Route::match(['GET', 'HEAD'],'', 'Almacen\Producto\ProductoController@index')->name('almacen.producto.index')->middleware('permission:almacen.producto.index|almacen.producto.create|almacen.producto.show|almacen.producto.edit|almacen.producto.disminuirStock|almacen.producto.destroy|almacen.producto.editValidado|almacen.producto.sustituto.create|almacen.producto.sustituto.destroy|almacen.producto.proveedor.create|almacen.producto.proveedor.edit|almacen.producto.proveedor.destroy');
   Route::match(['GET', 'HEAD'],'crear', 'Almacen\Producto\ProductoController@create')->name('almacen.producto.create')->middleware('permission:almacen.producto.create');
   Route::post('almacenar', 'Almacen\Producto\ProductoController@store')->name('almacen.producto.store')->middleware('permission:almacen.producto.create');
   Route::match(['GET', 'HEAD'],'detalles/{id_producto}', 'Almacen\Producto\ProductoController@show')->name('almacen.producto.show')->middleware('permission:almacen.producto.show');
-  Route::match(['GET', 'HEAD'],'editar/{id_producto}', 'Almacen\Producto\ProductoController@edit')->name('almacen.producto.edit')->middleware('permission:almacen.producto.edit|almacen.producto.disminuirStock|almacen.producto.sustituto.create|almacen.producto.sustituto.destroy|almacen.producto.proveedor.create|almacen.producto.proveedor.edit|almacen.producto.proveedor.destroy');
+  Route::match(['GET', 'HEAD'],'editar/{id_producto}', 'Almacen\Producto\ProductoController@edit')->name('almacen.producto.edit')->middleware('permission:almacen.producto.edit|almacen.producto.editValidado|almacen.producto.disminuirStock|almacen.producto.sustituto.create|almacen.producto.sustituto.destroy|almacen.producto.proveedor.create|almacen.producto.proveedor.edit|almacen.producto.proveedor.destroy');
       
   Route::group(['prefix' => 'actualizar'], function() {
     Route::match(['PUT', 'PATCH'],'{id_producto}', 'Almacen\Producto\ProductoController@update')->name('almacen.producto.update')->middleware('permission:almacen.producto.edit');
+    Route::match(['PUT', 'PATCH'],'validado/{id_producto}', 'Almacen\Producto\ProductoController@updateValidado')->name('almacen.producto.updateValidado')->middleware('permission:almacen.producto.editValidado');
     Route::match(['PUT', 'PATCH'],'aumentar-stock/{id_producto}', 'Almacen\Producto\ProductoController@aumentarStock')->name('almacen.producto.aumentarStock')->middleware('permission:almacen.producto.edit');
     Route::match(['PUT', 'PATCH'],'disminuir-stock/{id_producto}', 'Almacen\Producto\ProductoController@disminuirStock')->name('almacen.producto.disminuirStock')->middleware('permission:almacen.producto.disminuirStock');
   }); 

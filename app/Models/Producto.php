@@ -42,4 +42,7 @@ class Producto extends Model {
   public function productos_pedido(){
     return $this->belongsToMany('App\Models\PedidoArmadoTieneProducto', 'prod_orig_tiene_prod_ped')->withTimestamps();
   }
+  public function catalogos(){
+    return $this->belongsToMany('App\Models\Catalogo', 'producto_catalogo');
+  }
 }

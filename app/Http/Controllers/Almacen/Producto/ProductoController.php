@@ -7,6 +7,7 @@ use App\Http\Requests\almacen\producto\StoreProductoRequest;
 use App\Http\Requests\almacen\producto\UpdateProductoRequest;
 use App\Http\Requests\almacen\producto\UpdateAumentarStockRequest;
 use App\Http\Requests\almacen\producto\UpdateDisminuirStockRequest;
+use App\Http\Requests\almacen\producto\UpdateValidadoProductoRequest;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
@@ -29,7 +30,7 @@ class ProductoController extends Controller {
   }
   public function create() {
     $categorias_list  = $this->catalogoRepo->getAllInputCatalogosPlunk('Productos (Categoría)');
-    $etiquetas_list   = $this->catalogoRepo->getAllInputCatalogosPlunk('Productos (Etiqueta)');
+    $etiquetas_list   = $this->catalogoRepo->getAllIdCatalogosPlunk('Productos (Etiqueta)');
     return view('almacen.producto.alm_pro_create', compact('categorias_list', 'etiquetas_list'));
   }
   public function store(StoreProductoRequest $request) {
@@ -50,7 +51,7 @@ class ProductoController extends Controller {
     return view('almacen.producto.alm_pro_show', compact('producto', 'precios', 'existencia_equivalente', 'sustitutos', 'proveedores'));
   }
   public function edit($id_producto) {
-    $producto               = $this->productoRepo->productoAsignadoFindOrFailById($id_producto, ['precios', 'sustitutos', 'proveedores']);
+    $producto               = $this->productoRepo->productoAsignadoFindOrFailById($id_producto, ['precios', 'sustitutos', 'proveedores', 'catalogos']);
     $precios                = $this->productoRepo->getPreciosProducto($producto, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $sustitutos_list        = $this->productoRepo->getAllSustitutosOrProductosPlunkMenos($producto->sustitutos, 'original');
     $sustitutos             = $this->productoRepo->getSustitutosProducto($producto, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
@@ -60,12 +61,16 @@ class ProductoController extends Controller {
     $existencia_equivalente = $this->productoRepo->getExistenciaEquivalentePorProducto($sustitutos);
     $categorias_list        = $this->catalogoRepo->getAllInputCatalogosPlunk('Productos (Categoría)');
     $categorias_list[$producto->categ] = $producto->categ;
-    $etiquetas_list         = $this->catalogoRepo->getAllInputCatalogosPlunk('Productos (Etiqueta)');
-    $etiquetas_list[$producto->etiq] = $producto->etiq;
+    $etiquetas_list         = $this->catalogoRepo->getAllIdCatalogosPlunk('Productos (Etiqueta)');
     return view('almacen.producto.alm_pro_edit', compact('producto', 'precios', 'existencia_equivalente', 'proveedores', 'proveedores_list', 'sustitutos_list', 'sustitutos', 'categorias_list', 'etiquetas_list'));
   }
   public function update(UpdateProductoRequest $request, $id_producto) {
     $this->productoRepo->update($request, $id_producto);
+    toastr()->success('¡Producto actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
+  }
+  public function updateValidado(UpdateValidadoProductoRequest $request, $id_producto) {
+    $this->productoRepo->updateValidado($request, $id_producto);
     toastr()->success('¡Producto actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
