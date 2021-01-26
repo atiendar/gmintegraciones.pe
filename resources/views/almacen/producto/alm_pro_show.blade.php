@@ -17,6 +17,9 @@
       <small>{{ $producto->id }}</small>
     </div>
   </div>
+</div>
+@include('almacen.producto.imagenes.img_index')
+<div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-body">
     @include('almacen.producto.alm_pro_showFields')
   </div>

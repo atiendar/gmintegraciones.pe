@@ -43,15 +43,17 @@ class ProductoController extends Controller {
     return back();
   }
   public function show($id_producto) {
-    $producto               = $this->productoRepo->productoAsignadoFindOrFailById($id_producto, ['sustitutos', 'proveedores']);
+    $producto               = $this->productoRepo->productoAsignadoFindOrFailById($id_producto, ['sustitutos', 'proveedores', 'imagenes']);
+    $imagenes               = $producto->imagenes()->paginate(99999999);
     $precios                = $this->productoRepo->getPreciosProducto($producto, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $sustitutos             = $this->productoRepo->getSustitutosProducto($producto, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $proveedores            = $this->productoRepo->getProveedoresProducto($producto, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $existencia_equivalente = $this->productoRepo->getExistenciaEquivalentePorProducto($sustitutos);
-    return view('almacen.producto.alm_pro_show', compact('producto', 'precios', 'existencia_equivalente', 'sustitutos', 'proveedores'));
+    return view('almacen.producto.alm_pro_show', compact('producto', 'imagenes', 'precios', 'existencia_equivalente', 'sustitutos', 'proveedores'));
   }
   public function edit($id_producto) {
-    $producto               = $this->productoRepo->productoAsignadoFindOrFailById($id_producto, ['precios', 'sustitutos', 'proveedores', 'catalogos']);
+    $producto               = $this->productoRepo->productoAsignadoFindOrFailById($id_producto, ['precios', 'sustitutos', 'proveedores', 'catalogos', 'imagenes']);
+    $imagenes               = $producto->imagenes()->paginate(99999999);
     $precios                = $this->productoRepo->getPreciosProducto($producto, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $sustitutos_list        = $this->productoRepo->getAllSustitutosOrProductosPlunkMenos($producto->sustitutos, 'original');
     $sustitutos             = $this->productoRepo->getSustitutosProducto($producto, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
@@ -62,7 +64,7 @@ class ProductoController extends Controller {
     $categorias_list        = $this->catalogoRepo->getAllInputCatalogosPlunk('Productos (Categoría)');
     $categorias_list[$producto->categ] = $producto->categ;
     $etiquetas_list         = $this->catalogoRepo->getAllIdCatalogosPlunk('Productos (Etiqueta)');
-    return view('almacen.producto.alm_pro_edit', compact('producto', 'precios', 'existencia_equivalente', 'proveedores', 'proveedores_list', 'sustitutos_list', 'sustitutos', 'categorias_list', 'etiquetas_list'));
+    return view('almacen.producto.alm_pro_edit', compact('producto', 'imagenes', 'precios', 'existencia_equivalente', 'proveedores', 'proveedores_list', 'sustitutos_list', 'sustitutos', 'categorias_list', 'etiquetas_list'));
   }
   public function update(UpdateProductoRequest $request, $id_producto) {
     $this->productoRepo->update($request, $id_producto);

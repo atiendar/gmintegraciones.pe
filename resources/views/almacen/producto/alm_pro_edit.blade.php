@@ -18,6 +18,9 @@
     </div>
   </div>
 </div>
+@can('almacen.producto.edit')
+  @include('almacen.producto.imagenes.img_index')
+@endcan
 @can('almacen.producto.editValidado')
   <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
     <div class="card-body">

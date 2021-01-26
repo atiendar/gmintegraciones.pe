@@ -13,7 +13,7 @@ class Producto extends Model {
   protected $guarded = [];
 
   protected $dates = ['deleted_at'];
-  protected $softCascade = ['precios']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
+  protected $softCascade = ['precios', 'imagenes']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
 
   // Define si vera todos los registros de la tabla o solo los que se le asignaron o los que usuario registro (on = todos los registros null = solo sus registros)
   public function scopeAsignado($query, $opcion_asignado, $usuario) {
@@ -45,4 +45,7 @@ class Producto extends Model {
   public function catalogos(){
     return $this->belongsToMany('App\Models\Catalogo', 'producto_catalogo');
   }
+  public function imagenes(){
+    return $this->hasMany('App\Models\ProductoImagen')->orderBy('id', 'DESC');
+  } 
 }

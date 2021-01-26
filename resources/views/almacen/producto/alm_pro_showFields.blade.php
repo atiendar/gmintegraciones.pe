@@ -49,7 +49,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="nombre_del_producto">{{ __('Nombre del producto') }}</label>
+    <label for="nombre_del_producto">{{ __('Nombre del producto') }} ({{ __('Gramos o Mililitros') }})</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>

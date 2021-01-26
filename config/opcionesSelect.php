@@ -441,6 +441,7 @@ return array(
     'id'            => 'ID',
     'prec_clien'    => 'Precio cliente',
     'produc'        => 'Producto',
+    'pro_de_cat'    => 'Producto de catálogo',
     'prove'         => 'Proveedor',
     'sku'           => 'SKU',
     'prod_valid'    => 'Validado',

@@ -12,6 +12,7 @@ use App\Repositories\papeleraDeReciclaje\tabla\proveedores\ProveedoresRepositori
 use App\Repositories\papeleraDeReciclaje\tabla\armados\ArmadosRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\armados\ArmadoTieneImagenesRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\productos\ProductosRepositories;
+use App\Repositories\papeleraDeReciclaje\tabla\productos\imagen\ImagenRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\pedidos\PedidosRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\cotizaciones\CotizacionesRepositories;
 use App\Repositories\papeleraDeReciclaje\tabla\inventarioEquipos\InventarioEquiposRepositories;
@@ -32,6 +33,7 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
   protected $armadosRepo;
   protected $armadoTieneImagenesRepo;
   protected $productosRepo;
+  protected $imagenRepo;
   protected $pedidosRepo;
   protected $cotizacionesRepo;
   protected $inventarioEquiposRepo;
@@ -45,7 +47,8 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
                               ProveedoresRepositories $proveedoresRepositories, 
                               ArmadosRepositories $armadosRepositories, 
                               ArmadoTieneImagenesRepositories $armadoTieneImagenesRepositories, 
-                              ProductosRepositories $productosRepositories, 
+                              ProductosRepositories $productosRepositories,
+                              ImagenRepositories $imagenRepositories,
                               PedidosRepositories $pedidosRepositories, 
                               CotizacionesRepositories $cotizacionesRepositories,
                               InventarioEquiposRepositories $inventarioEquiposRepositories,
@@ -61,6 +64,7 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
     $this->armadosRepo                    = $armadosRepositories;
     $this->armadoTieneImagenesRepo        = $armadoTieneImagenesRepositories;
     $this->productosRepo                  = $productosRepositories;
+    $this->imagenRepo                     = $imagenRepositories;
     $this->pedidosRepo                    = $pedidosRepositories;
     $this->cotizacionesRepo               = $cotizacionesRepositories;
     $this->inventarioEquiposRepo          = $inventarioEquiposRepositories;
@@ -183,8 +187,17 @@ class PapeleraDeReciclajeRepositories implements PapeleraDeReciclajeInterface {
       $this->armadoTieneImagenesRepo->metodo($metodo, $consulta);
     }
     if($registro->tab == 'productos') {
-      $consulta = \App\Models\Producto::withTrashed()->findOrFail($registro->id_reg);
+      $consulta = \App\Models\Producto::with(['imagenes'=> function ($query) {
+                                          $query->withTrashed();
+                                        }])->withTrashed()->findOrFail($registro->id_reg);
       $this->productosRepo->metodo($metodo, $consulta);
+    }
+    if($registro->tab == 'producto_imagenes') {
+      $consulta = \App\Models\ProductoImagen::with('producto')->withTrashed()->findOrFail($registro->id_reg);
+      if($consulta->producto == null) {
+        $existe_llave_primaria = false;
+      }
+      $this->imagenRepo->metodo($metodo, $consulta);
     }
     if($registro->tab == 'cotizaciones') {
       $consulta = \App\Models\Cotizacion::with(['armados'])->withTrashed()->findOrFail($registro->id_reg);
