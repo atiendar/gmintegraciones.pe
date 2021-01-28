@@ -65,6 +65,28 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
+    <label for="codigo_de_fabricante">{{ __('Código de fabricante') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
+      </div>
+      {!! Form::text('codigo_de_fabricante', $producto->cod_fabricante, ['class' => 'form-control' . ($errors->has('codigo_de_fabricante') ? ' is-invalid' : ''), 'maxlength' => 100, 'placeholder' => __('Código de fabricante')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('codigo_de_fabricante') }}</span>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="tipo_de_iva">{{ __('Tipo de IVA') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
+      </div>
+      {!! Form::select('tipo_de_iva', config('opcionesSelect.select_iva_ieps'), $producto->tip_iva, ['class' => 'form-control select2' . ($errors->has('tipo_de_iva') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('tipo_de_iva') }}</span>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
     <label for="marca">{{ __('Marca') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">

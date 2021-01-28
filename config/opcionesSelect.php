@@ -451,6 +451,10 @@ return array(
     'Producto de catálogo'  => 'Producto de catálogo',
     'Producto externo'      => 'Producto externo',
   ],
+  'select_iva_ieps' => [
+    'IVA'   => 'IVA',
+    'IEPS'  => 'IEPS',
+  ],
   'select_utilidad' => [
     '.0'           => '0%',
     '.1'           => '10%',
