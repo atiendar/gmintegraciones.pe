@@ -8,7 +8,7 @@ class StorePrecioRequest extends FormRequest {
   }
   public function rules() {
     return [
-      'ano'     => 'required|date_format:Y|unique:precios_por_year,year',
+      'ano'     => 'required|date_format:Y',
       'precio'  => 'required|min:0|numeric|alpha_decimal15',
     ];
   }
