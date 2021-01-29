@@ -75,14 +75,34 @@
     <span class="text-danger">{{ $errors->first('codigo_de_fabricante') }}</span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="tipo_de_iva">{{ __('Tipo de IVA') }} *</label>
+    <label for="minimo_de_venta">{{ __('Mínimo de venta') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
+        <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
       </div>
-      {!! Form::select('tipo_de_iva', config('opcionesSelect.select_iva_ieps'), $producto->tip_iva, ['class' => 'form-control select2' . ($errors->has('tipo_de_iva') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+      {!! Form::text('minimo_de_venta', $producto->min_vent, ['id' => 'minimo_de_venta', 'class' => 'form-control' . ($errors->has('minimo_de_venta') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Mínimo de venta'), 'onChange' => "getDecimal('minimo_de_venta');"]) !!}
     </div>
-    <span class="text-danger">{{ $errors->first('tipo_de_iva') }}</span>
+    <span class="text-danger">{{ $errors->first('minimo_de_venta') }}</span>
+  </div>
+  <div class="form-group col-sm-2 btn-sm">
+    <label for="iva"></label>
+    <div class="input-group p-2">
+      <div class="custom-control custom-switch">
+        {!! Form::checkbox('iva', 'on', $producto->tip_iva, ['id' => 'iva', 'class' => 'custom-control-input' . ($errors->has('iva') ? ' is-invalid' : '')]) !!}
+        <label class="custom-control-label" for="iva">{{ __('IVA') }}</label>
+      </div>
+    </div>
+    <span class="text-danger">{{ $errors->first('iva') }}</span>
+  </div>
+  <div class="form-group col-sm-2 btn-sm">
+    <label for="ieps"></label>
+    <div class="input-group p-2">
+      <div class="custom-control custom-switch">
+        {!! Form::checkbox('ieps', 'on', $producto->ieps, ['id' => 'ieps', 'class' => 'custom-control-input' . ($errors->has('ieps') ? ' is-invalid' : '')]) !!}
+        <label class="custom-control-label" for="ieps">{{ __('IEPS') }}</label>
+      </div>
+    </div>
+    <span class="text-danger">{{ $errors->first('ieps') }}</span>
   </div>
 </div>
 <div class="row">
@@ -324,7 +344,7 @@
     <a href="{{ route('almacen.producto.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
   </div>
   <div class="form-group col-sm btn-sm">
-    <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2" onclick="return check('btnsubmit', 'almacenProductoUpdate', '¡Alerta!', '¿Estás seguro quieres actualizar el registro?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-edit text-dark"></i> {{ __('Actualizar') }}</button>
+    <button type="submit" id="btnsubmitEdit" class="btn btn-info w-100 p-2" onclick="return check('btnsubmitEdit', 'almacenProductoUpdate', '¡Alerta!', '¿Estás seguro quieres actualizar el registro?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-edit text-dark"></i> {{ __('Actualizar') }}</button>
   </div>
 </div>
 @include('almacen.producto.alm_pro_calcularUtilidad')
@@ -338,6 +358,15 @@
 @endsection
 @section('js6')
 <script>
+  function getDecimal(id) {
+    campo = document.getElementById(id).value;
+
+    if (isNaN(parseFloat(campo))) {
+      campo = 0;
+    }
+    campo_decimal   = Number.parseFloat(campo).toFixed(2);
+    document.getElementById(id).value = campo_decimal;
+  }
   function calcularPecioCliente() {
     nombre_del_proveedor = document.getElementById("nombre_del_proveedor"),
     nombre_del_proveedor = nombre_del_proveedor.value;

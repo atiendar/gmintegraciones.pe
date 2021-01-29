@@ -69,6 +69,56 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
+    <label for="es_producto_de_catalogo">{{ __('Es producto de catálogo') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
+      </div>
+      {!! Form::text('es_producto_de_catalogo', $producto->pro_de_cat, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Es producto de catálogo'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
+    <label for="codigo_de_fabricante">{{ __('Código de fabricante') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
+      </div>
+      {!! Form::text('codigo_de_fabricante', $producto->cod_fabricante, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Código de fabricante'), 'readonly' => 'readonly']) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('codigo_de_fabricante') }}</span>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="minimo_de_venta">{{ __('Mínimo de venta') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
+      </div>
+      {!! Form::text('minimo_de_venta', $producto->min_vent, ['id' => 'minimo_de_venta', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Mínimo de venta'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+  <div class="form-group col-sm-2 btn-sm">
+    <label for="iva"></label>
+    <div class="input-group p-2">
+      <div class="custom-control custom-switch">
+        {!! Form::checkbox('iva', 'on', $producto->tip_iva, ['id' => 'iva', 'class' => 'custom-control-input disabled', 'disabled' => 'disabled']) !!}
+        <label class="custom-control-label" for="iva">{{ __('IVA') }}</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group col-sm-2 btn-sm">
+    <label for="ieps"></label>
+    <div class="input-group p-2">
+      <div class="custom-control custom-switch">
+        {!! Form::checkbox('ieps', 'on', $producto->ieps, ['id' => 'ieps', 'class' => 'custom-control-input disabled', 'disabled' => 'disabled']) !!}
+        <label class="custom-control-label" for="ieps">{{ __('IEPS') }}</label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
     <label for="marca">{{ __('Marca') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">

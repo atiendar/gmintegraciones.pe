@@ -43,9 +43,6 @@
     <span class="text-danger">{{ $errors->first('es_producto_de_catalogo') }}</span>
   </div>
 </div>
-
-
-
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="codigo_de_fabricante">{{ __('Código de fabricante') }}</label>
@@ -58,18 +55,36 @@
     <span class="text-danger">{{ $errors->first('codigo_de_fabricante') }}</span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="tipo_de_iva">{{ __('Tipo de IVA') }} *</label>
+    <label for="minimo_de_venta">{{ __('Mínimo de venta') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
+        <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
       </div>
-      {!! Form::select('tipo_de_iva', config('opcionesSelect.select_iva_ieps'), null, ['class' => 'form-control select2' . ($errors->has('tipo_de_iva') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+      {!! Form::text('minimo_de_venta', null, ['id' => 'minimo_de_venta', 'class' => 'form-control' . ($errors->has('minimo_de_venta') ? ' is-invalid' : ''), 'maxlength' => 15, 'placeholder' => __('Mínimo de venta'), 'onChange' => "getDecimal('minimo_de_venta');"]) !!}
     </div>
-    <span class="text-danger">{{ $errors->first('tipo_de_iva') }}</span>
+    <span class="text-danger">{{ $errors->first('minimo_de_venta') }}</span>
+  </div>
+  <div class="form-group col-sm-2 btn-sm">
+    <label for="iva"></label>
+    <div class="input-group p-2">
+      <div class="custom-control custom-switch">
+        {!! Form::checkbox('iva', 'on', null, ['id' => 'iva', 'class' => 'custom-control-input' . ($errors->has('iva') ? ' is-invalid' : '')]) !!}
+        <label class="custom-control-label" for="iva">{{ __('IVA') }}</label>
+      </div>
+    </div>
+    <span class="text-danger">{{ $errors->first('iva') }}</span>
+  </div>
+  <div class="form-group col-sm-2 btn-sm">
+    <label for="ieps"></label>
+    <div class="input-group p-2">
+      <div class="custom-control custom-switch">
+        {!! Form::checkbox('ieps', 'on', null, ['id' => 'ieps', 'class' => 'custom-control-input' . ($errors->has('ieps') ? ' is-invalid' : '')]) !!}
+        <label class="custom-control-label" for="ieps">{{ __('IEPS') }}</label>
+      </div>
+    </div>
+    <span class="text-danger">{{ $errors->first('ieps') }}</span>
   </div>
 </div>
-
-
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="marca">{{ __('Marca') }} *</label>
@@ -254,6 +269,15 @@
 <script>
   window.onload = function() { 
     getTipo();
+  }
+  function getDecimal(id) {
+    campo = document.getElementById(id).value;
+
+    if (isNaN(parseFloat(campo))) {
+      campo = 0;
+    }
+    campo_decimal   = Number.parseFloat(campo).toFixed(2);
+    document.getElementById(id).value = campo_decimal;
   }
   function getTipo() {
     // Obtiene los valores de los inputs

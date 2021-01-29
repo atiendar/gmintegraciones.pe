@@ -46,8 +46,10 @@ class ProductoRepositories implements ProductoInterface {
       $producto                  = new Producto();
       $producto->produc          = $request->nombre_del_producto;
       $producto->pro_de_cat      = $request->es_producto_de_catalogo;
-      $producto->cod_fabricante   = $request->codigo_de_fabricante;
-      $producto->tip_iva          = $request->tipo_de_iva;
+      $producto->cod_fabricante  = $request->codigo_de_fabricante;
+      $producto->tip_iva         = $request->iva;
+      $producto->ieps            = $request->ieps;
+      $producto->min_vent        = $request->minimo_de_venta;
       $producto->marc            = $request->marca;
       $producto->tip             = $request->tipo;
       if($producto->tip == 'Canasta') {
@@ -101,7 +103,9 @@ class ProductoRepositories implements ProductoInterface {
       $producto->produc         = $request->nombre_del_producto;
       $producto->pro_de_cat     = $request->es_producto_de_catalogo;
       $producto->cod_fabricante   = $request->codigo_de_fabricante;
-      $producto->tip_iva          = $request->tipo_de_iva;
+      $producto->tip_iva         = $request->iva;
+      $producto->ieps            = $request->ieps;
+      $producto->min_vent        = $request->minimo_de_venta;
       $producto->marc           = $request->marca;
       if($producto->tip == 'Canasta') {
         $producto->tam          = $request->tamano;
@@ -128,9 +132,9 @@ class ProductoRepositories implements ProductoInterface {
           'almacen.producto.show', // Nombre de la ruta
           $id_producto, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_producto), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Nombre del producto', 'Es producto de catálogo', 'Código de fabricante', 'Tipo de IVA', 'Marca', 'Tamaño ', 'Alto', 'Ancho', 'Largo', 'Costo de armado', 'Nombre del proveedor', 'Precio proveedor', 'Utilidad', 'Precio cliente', 'Categoría', 'Peso', 'Código de barras', 'Cantidad mínima de stock', 'Descripción del producto'), // Nombre de los inputs del formulario
+          array('Nombre del producto', 'Es producto de catálogo', 'Código de fabricante', 'Mínimo de venta', 'IVA', 'IEPS', 'Marca', 'Tamaño ', 'Alto', 'Ancho', 'Largo', 'Costo de armado', 'Nombre del proveedor', 'Precio proveedor', 'Utilidad', 'Precio cliente', 'Categoría', 'Peso', 'Código de barras', 'Cantidad mínima de stock', 'Descripción del producto'), // Nombre de los inputs del formulario
           $producto, // Request
-          array('produc', 'pro_de_cat', 'cod_fabricante', 'tip_iva', 'marc', 'tam', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'pes', 'cod_barras', 'min_stock', 'desc_del_prod') // Nombre de los campos en la BD
+          array('produc', 'pro_de_cat', 'cod_fabricante', 'min_vent', 'tip_iva', 'ieps', 'marc', 'tam', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'pes', 'cod_barras', 'min_stock', 'desc_del_prod') // Nombre de los campos en la BD
         );
         $producto->updated_at_prod = Auth::user()->email_registro;
       }

@@ -111,6 +111,16 @@
     </div>
     <span class="text-danger">{{ $errors->first('cantidad_o_monto_minimo_de_compra') }}</span>
   </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="marca">{{ __('Marca') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+      </div>
+      {!! Form::text('marca', null, ['class' => 'form-control' . ($errors->has('marca') ? ' is-invalid' : ''), 'maxlength' => 60, 'placeholder' => __('Marca')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('marca') }}</span>
+  </div>
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">

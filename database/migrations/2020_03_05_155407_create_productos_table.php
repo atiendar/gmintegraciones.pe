@@ -23,7 +23,9 @@ class CreateProductosTable extends Migration
             $table->string('img_prod_nom', 200)->nullable()->comment('Nombre de la imagen');
             $table->string('produc', 70)->unique()->comment('Nombre del producto');
             $table->string('pro_de_cat', 100)->comment('Producto de catálogo');
-            $table->string('tip_iva', 30)->nullable()->comment('Tipo de IVA');
+            $table->string('tip_iva', 5)->nullable()->comment('IVA');
+            $table->string('ieps', 5)->nullable()->comment('IEPS');
+            $table->decimal('min_vent', 20, 2)->nullable()->comment('Mínimo de venta');
             $table->string('cod_fabricante', 100)->nullable()->comment('Código de fabricante');
             $table->string('sku',30)->nullable()->comment('SKU');
             $table->string('marc', 70)->comment('Marca del producto');

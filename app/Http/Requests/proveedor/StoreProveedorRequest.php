@@ -21,6 +21,7 @@ class StoreProveedorRequest extends FormRequest {
       'lada_telefono_movil'             => 'required_without:telefono_fijo|nullable|max:9999|min:1|numeric|required_with:telefono_movil',
       'telefono_movil'                  => 'required_without:telefono_fijo|nullable|max:15|alpha_solo_numeros_guiones|required_with:lada_telefono_movil',
       'cantidad_o_monto_minimo_de_compra' => 'required|max:25',
+      'marca'                           => 'nullable|max:60',
       'observaciones'                   => 'nullable|max:30000|string',
       'calle'                           => 'required|max:45',
       'no_ext'                          => 'required|max:8',

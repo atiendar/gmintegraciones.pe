@@ -99,6 +99,15 @@
       {!! Form::text('correo_secundario', $cliente->email_secund, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Correo secundario'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="ultimo_acceso">{{ __('Último acceso') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+      </div>
+      {!! Form::text('ultimo_acceso', $cliente->login, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Último acceso'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
@@ -162,7 +171,7 @@
     <label for="observaciones">{{ __('Observaciones') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-text-width "></i></span>
+        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
       {!! Form::textarea('observaciones', $cliente->obs, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Observaciones'), 'readonly' => 'readonly']) !!}
     </div>

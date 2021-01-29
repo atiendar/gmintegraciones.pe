@@ -50,6 +50,7 @@ class ProveedorRepositories implements ProveedorInterface {
       $proveedor->lad_mov         = $request->lada_telefono_movil;
       $proveedor->tel_mov         = $request->telefono_movil;
       $proveedor->cant_min_comp   = $request->cantidad_o_monto_minimo_de_compra;
+      $proveedor->marc            = $request->marca;
       $proveedor->obs             = $request->observaciones;
       $proveedor->call            = $request->calle;
       $proveedor->no_ext          = $request->no_ext;
@@ -93,6 +94,7 @@ class ProveedorRepositories implements ProveedorInterface {
       $proveedor->lad_mov         = $request->lada_telefono_movil;
       $proveedor->tel_mov         = $request->telefono_movil;
       $proveedor->cant_min_comp   = $request->cantidad_o_monto_minimo_de_compra;
+      $proveedor->marc            = $request->marca;
       $proveedor->obs             = $request->observaciones;
       $proveedor->call            = $request->calle;
       $proveedor->no_ext          = $request->no_ext;
@@ -110,9 +112,9 @@ class ProveedorRepositories implements ProveedorInterface {
           'proveedor.show', // Nombre de la ruta
           $id_proveedor, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_proveedor), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Razón social', 'Nombre comercial', 'Fabricante / Distribuidor', 'RFC', 'Nombre del representante legal', 'Página web', 'Lada teléfono fijo', 'Teléfono fijo', 'Extensión', 'Lada teléfono móvil', 'Teléfono móvil', 'Cantidad o monto mínimo de compra', 'Observaciones', 'Calle', 'No. Ext.', 'No. Int.', 'Pais', 'Ciudad', 'Colonia', 'Delegación o municipio', 'Código postal', 'Referencias'), // Nombre de los inputs del formulario
+          array('Razón social', 'Nombre comercial', 'Fabricante / Distribuidor', 'RFC', 'Nombre del representante legal', 'Página web', 'Lada teléfono fijo', 'Teléfono fijo', 'Extensión', 'Lada teléfono móvil', 'Teléfono móvil', 'Cantidad o monto mínimo de compra', 'Marca', 'Observaciones', 'Calle', 'No. Ext.', 'No. Int.', 'Pais', 'Ciudad', 'Colonia', 'Delegación o municipio', 'Código postal', 'Referencias'), // Nombre de los inputs del formulario
           $proveedor, // Request
-          array('raz_soc', 'nom_comerc', 'fab_distri', 'rfc', 'nom_rep_legal', 'pag_web', 'lad_fij', 'tel_fij', 'ext', 'lad_mov', 'tel_mov', 'cant_min_comp', 'obs', 'call', 'no_ext', 'no_int', 'pais', 'ciudad', 'col', 'del_o_munic', 'cod_post', 'ref') // Nombre de los campos en la BD
+          array('raz_soc', 'nom_comerc', 'fab_distri', 'rfc', 'nom_rep_legal', 'pag_web', 'lad_fij', 'tel_fij', 'ext', 'lad_mov', 'tel_mov', 'cant_min_comp', 'marc', 'obs', 'call', 'no_ext', 'no_int', 'pais', 'ciudad', 'col', 'del_o_munic', 'cod_post', 'ref') // Nombre de los campos en la BD
         ); 
         $proveedor->updated_at_prov = Auth::user()->email_registro;
       }
