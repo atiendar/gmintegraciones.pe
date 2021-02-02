@@ -20,8 +20,8 @@ Route::group(['prefix' => 'producto'], function() {
   Route::match(['GET', 'HEAD'],'generar-reporte-de-stock', 'Almacen\Producto\ProductoController@generarReporteDeStock')->name('almacen.producto.generarReporteDeStock')->middleware('permission:almacen.producto.index');
 
   Route::group(['prefix' => 'imagen'], function() {
-    Route::post('almacenar/{id_armado}', 'Almacen\Producto\Imagen\ImagenController@store')->name('almacen.producto.imagen.store')->middleware('permission:almacen.edit');
-    Route::match(['DELETE'],'eliminar/{id_imagen}', 'Almacen\Producto\Imagen\ImagenController@destroy')->name('almacen.producto.imagen.destroy')->middleware('permission:almacen.edit');
+    Route::post('almacenar/{id_armado}', 'Almacen\Producto\Imagen\ImagenController@store')->name('almacen.producto.imagen.store')->middleware('permission:almacen.producto.edit');
+    Route::match(['DELETE'],'eliminar/{id_imagen}', 'Almacen\Producto\Imagen\ImagenController@destroy')->name('almacen.producto.imagen.destroy')->middleware('permission:almacen.producto.edit');
   });
 
   Route::group(['prefix' => 'sustituto'], function() {
