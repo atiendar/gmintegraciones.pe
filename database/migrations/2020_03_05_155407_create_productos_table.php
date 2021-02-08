@@ -28,7 +28,7 @@ class CreateProductosTable extends Migration
             $table->decimal('min_vent', 20, 2)->nullable()->comment('Mínimo de venta');
             $table->string('cod_fabricante', 100)->nullable()->comment('Código de fabricante');
             $table->string('sku',30)->nullable()->comment('SKU');
-            $table->string('marc', 70)->comment('Marca del producto');
+            $table->string('marc', 150)->comment('Marca del producto');
             $table->enum('tip', config('opcionesSelect.select_tipo'))->comment('Tipo de producto');
             $table->enum('tam', config('opcionesSelect.select_tamano'))->nullable()->comment('Tamaño');
             $table->decimal('alto', 10, 2)->default(0.00)->unsigned()->comment('Alto de la canasta');

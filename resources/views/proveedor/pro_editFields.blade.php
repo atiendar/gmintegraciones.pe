@@ -102,24 +102,16 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="cantidad_o_monto_minimo_de_compra">{{ __('Cantidad o monto mínimo de compra') }} *</label>
+    <label for="cantidad_o_monto_minimo_de_compra">{{ __('Cantidad o monto mínimo de compra') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
+      {!! Form::select('opcion', config('opcionesSelect.select_opcion_prov'), $proveedor->ops, ['class' => 'form-control' . ($errors->has('opcion') ? ' is-invalid' : ''), 'placeholder' => __('Seleccione. . .')]) !!}
       {!! Form::text('cantidad_o_monto_minimo_de_compra', $proveedor->cant_min_comp, ['class' => 'form-control' . ($errors->has('cantidad_o_monto_minimo_de_compra') ? ' is-invalid' : ''), 'maxlength' => 25, 'placeholder' => __('Cantidad o monto mínimo de compra')]) !!}
     </div>
+    <span class="text-danger">{{ $errors->first('opcion') }}</span>
     <span class="text-danger">{{ $errors->first('cantidad_o_monto_minimo_de_compra') }}</span>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <label for="marca">{{ __('Marca') }}</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
-      </div>
-      {!! Form::text('marca', $proveedor->marc, ['class' => 'form-control' . ($errors->has('marca') ? ' is-invalid' : ''), 'maxlength' => 60, 'placeholder' => __('Marca')]) !!}
-    </div>
-    <span class="text-danger">{{ $errors->first('marca') }}</span>
   </div>
 </div>
 <div class="row">

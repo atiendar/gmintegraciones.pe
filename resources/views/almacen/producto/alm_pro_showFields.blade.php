@@ -69,7 +69,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="es_producto_de_catalogo">{{ __('Es producto de catálogo') }}</label>
+    <label for="es_producto_de_catalogo">{{ __('Es producto de catálogo') }} ({{ __('Arcones') }})</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
@@ -90,7 +90,7 @@
     <span class="text-danger">{{ $errors->first('codigo_de_fabricante') }}</span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="minimo_de_venta">{{ __('Mínimo de venta') }}</label>
+    <label for="minimo_de_venta">{{ __('Mínimo de venta') }} ({{ __('Mínimo de piezas que debe comprar el cliente') }})</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
@@ -98,7 +98,7 @@
       {!! Form::text('minimo_de_venta', $producto->min_vent, ['id' => 'minimo_de_venta', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Mínimo de venta'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
-  <div class="form-group col-sm-2 btn-sm">
+  <div class="form-group col-sm-1 btn-sm">
     <label for="iva"></label>
     <div class="input-group p-2">
       <div class="custom-control custom-switch">

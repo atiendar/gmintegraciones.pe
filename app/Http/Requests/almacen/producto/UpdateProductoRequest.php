@@ -18,7 +18,7 @@ class UpdateProductoRequest extends FormRequest {
       'tipo_de_iva'               => 'nullable|in:on,off',
       'ieps'                      => 'nullable|in:on,off',
       'minimo_de_venta'           => 'nullable|numeric|alpha_decimal15',
-      'marca'                     => 'required|max:70',
+      'marca'                     => 'required|max:150|exists:catalogos,value',
       'tipo'                      => 'required|in:Producto,Canasta',
       'tamano'                    => 'nullable|required_if:tipo,Canasta|in:Chico,Mediano,Grande',
       'alto'                      => 'nullable|required_if:tipo,Canasta|min:0|numeric|alpha_decimal7',

@@ -209,6 +209,7 @@ return array(
     'Armados (Tipo)'                  => 'Armados (Tipo)',
     'Productos (Categoría)'           => 'Productos (Categoría)',
     'Productos (Etiqueta)'            => 'Productos (Etiqueta)',
+    'Productos (Marca)'               => 'Productos (Marca)',
     'Soportes (Agrupación de fallas)' => 'Soportes (Agrupación de fallas)',
   ],
 /* ===================== SISTEMA [ SERIES ] ===================== */
@@ -367,6 +368,12 @@ return array(
     'Distribuidor'          => 'Distribuidor',
     'Super mercado'         => 'Super mercado',
     'Tienda departamental'  => 'Tienda departamental',
+  ],
+  'select_opcion_prov'   => [
+    'Peso mexicano' => 'Peso mexicano',
+    'Cajas'         => 'Cajas',
+    'Piezas'        => 'Piezas',
+    'Litros'        => 'Litros',
   ],
 /* ===================== PROVEEDOR [ CONTACTO ] ===================== */
   'select_contactos_proveedor_index'  => [

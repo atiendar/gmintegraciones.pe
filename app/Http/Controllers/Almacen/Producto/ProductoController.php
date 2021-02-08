@@ -31,7 +31,8 @@ class ProductoController extends Controller {
   public function create() {
     $categorias_list  = $this->catalogoRepo->getAllInputCatalogosPlunk('Productos (Categoría)');
     $etiquetas_list   = $this->catalogoRepo->getAllIdCatalogosPlunk('Productos (Etiqueta)');
-    return view('almacen.producto.alm_pro_create', compact('categorias_list', 'etiquetas_list'));
+    $marca_list       = $this->catalogoRepo->getAllInputCatalogosPlunk('Productos (Marca)');
+    return view('almacen.producto.alm_pro_create', compact('categorias_list', 'etiquetas_list', 'marca_list'));
   }
   public function store(StoreProductoRequest $request) {
     $producto = $this->productoRepo->store($request);
@@ -64,7 +65,10 @@ class ProductoController extends Controller {
     $categorias_list        = $this->catalogoRepo->getAllInputCatalogosPlunk('Productos (Categoría)');
     $categorias_list[$producto->categ] = $producto->categ;
     $etiquetas_list         = $this->catalogoRepo->getAllIdCatalogosPlunk('Productos (Etiqueta)');
-    return view('almacen.producto.alm_pro_edit', compact('producto', 'imagenes', 'precios', 'existencia_equivalente', 'proveedores', 'proveedores_list', 'sustitutos_list', 'sustitutos', 'categorias_list', 'etiquetas_list'));
+    $etiquetas_list[$producto->etiq] = $producto->etiq;
+    $marca_list             = $this->catalogoRepo->getAllInputCatalogosPlunk('Productos (Marca)');
+    $marca_list[$producto->marc] = $producto->marc;
+    return view('almacen.producto.alm_pro_edit', compact('producto', 'imagenes', 'precios', 'existencia_equivalente', 'proveedores', 'proveedores_list', 'sustitutos_list', 'sustitutos', 'categorias_list', 'etiquetas_list', 'marca_list'));
   }
   public function update(UpdateProductoRequest $request, $id_producto) {
     $this->productoRepo->update($request, $id_producto);

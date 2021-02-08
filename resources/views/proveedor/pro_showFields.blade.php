@@ -148,16 +148,8 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
+      {!! Form::select('opcion', config('opcionesSelect.select_opcion_prov'), $proveedor->ops, ['class' => 'form-control disabled', 'placeholder' => __('Seleccione. . .'), 'disabled' => 'disabled']) !!}
       {!! Form::text('cantidad_o_monto_minimo_de_compra', $proveedor->cant_min_comp, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Cantidad o monto mínimo de compra'), 'readonly' => 'readonly']) !!}
-    </div>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <label for="marca">{{ __('Marca') }}</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
-      </div>
-      {!! Form::text('marca', $proveedor->marc, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Marca'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>

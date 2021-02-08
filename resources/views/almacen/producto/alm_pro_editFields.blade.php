@@ -53,7 +53,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="es_producto_de_catalogo">{{ __('Es producto de catálogo') }} *</label>
+    <label for="es_producto_de_catalogo">{{ __('Es producto de catálogo') }} * ({{ __('Arcones') }})</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
@@ -75,7 +75,7 @@
     <span class="text-danger">{{ $errors->first('codigo_de_fabricante') }}</span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="minimo_de_venta">{{ __('Mínimo de venta') }}</label>
+    <label for="minimo_de_venta">{{ __('Mínimo de venta') }} ({{ __('Mínimo de piezas que debe comprar el cliente') }})</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
@@ -84,7 +84,7 @@
     </div>
     <span class="text-danger">{{ $errors->first('minimo_de_venta') }}</span>
   </div>
-  <div class="form-group col-sm-2 btn-sm">
+  <div class="form-group col-sm-1 btn-sm">
     <label for="iva"></label>
     <div class="input-group p-2">
       <div class="custom-control custom-switch">
@@ -108,11 +108,14 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="marca">{{ __('Marca') }} *</label>
+    @can('sistema.catalogo.create')
+      <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar catálogo') }}</a>
+    @endcan
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
       </div>
-      {!! Form::text('marca', $producto->marc, ['class' => 'form-control' . ($errors->has('marca') ? ' is-invalid' : ''), 'maxlength' => 70, 'placeholder' => __('Marca')]) !!}
+      {!! Form::select('marca', $marca_list, $producto->marc, ['class' => 'form-control select2' . ($errors->has('marca') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('marca') }}</span>
   </div>

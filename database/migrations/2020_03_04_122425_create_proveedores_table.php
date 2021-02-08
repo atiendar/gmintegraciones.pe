@@ -16,6 +16,7 @@ class CreateProveedoresTable extends Migration
         Schema::create('proveedores', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('prov_valid', 3)->default('No')->comment('¿Proveedor validado?');
+            $table->string('ops', 25)->nullable()->comment('Opción');
             $table->string('cant_min_comp', 25)->nullable()->comment('Cantidad o monto mínimo de compra');
             $table->string('marc', 60)->nullable()->comment('Marca');
             $table->string('arch_rut', 200)->nullable()->comment('Ruta de donde se guardo el archivo');
