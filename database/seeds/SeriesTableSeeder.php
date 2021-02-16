@@ -18,12 +18,12 @@ class SeriesTableSeeder extends Seeder {
       ]);
       Serie::create([
         'input'             => 'Pedidos (Serie)',
-        'value'             => 'CYA-',
-        'vista'             => 'CYA-',
+        'value'             => 'GM-',
+        'vista'             => 'GM-',
         'asignado_ser'  	  => 'desarrolloweb.ewmx@gmail.com',
         'created_at_ser'    => 'desarrolloweb.ewmx@gmail.com',
       ]);
-      factory(Serie::class, 300)->create(); // min
+    //  factory(Serie::class, 300)->create(); // min
       //factory(Serie::class, 10000)->create(); // max
     }
 }

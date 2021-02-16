@@ -62,6 +62,7 @@
 ])
   <li class="nav-header">{{ __('MÓDULOS') }}</li>
 @endcanany
+{{-- 
 @include('layouts.private.escritorio.menu.proveedores')
 @include('layouts.private.escritorio.menu.armados')
 @include('layouts.private.escritorio.menu.costosDeEnvio')
@@ -75,4 +76,5 @@
 @include('layouts.private.escritorio.menu.facturacion')
 @include('layouts.private.escritorio.menu.tecnologiaDeLaInformacion')
 @include('layouts.private.escritorio.menu.stock')
+--}}
 @include('layouts.private.escritorio.menu.material')

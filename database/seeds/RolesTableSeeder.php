@@ -8,6 +8,7 @@ class RolesTableSeeder extends Seeder {
    * @return void
    */
   public function run() {
+    /*
     $rolEspecialFerro = Spatie\Permission\Models\Role::create([
       'id'              => 0,
       'nom'				      => 'Transportes Ferro',
@@ -17,6 +18,7 @@ class RolesTableSeeder extends Seeder {
       'created_at_rol'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     $rolEspecialFerro->syncPermissions([21]);
+    */
     $rolPruebas = Spatie\Permission\Models\Role::create([
       'nom'				      => 'Pruebas',
       'name'            => 'pruebas',
@@ -155,6 +157,7 @@ class RolesTableSeeder extends Seeder {
 * +++++++++++++++++++++++++++++++++++++++++ MÓDULOS
 * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 */
+/*
     $rolPagos = Spatie\Permission\Models\Role::create([
       'nom'				      => 'Administrador de pagos',
       'name'				    => 'adminDePagos',
@@ -243,5 +246,6 @@ class RolesTableSeeder extends Seeder {
       'created_at_rol'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     $rolInventario->syncPermissions([]);
+    */
   }
 }
