@@ -13,7 +13,7 @@ class UpdateMaterialRequest extends FormRequest {
     return [
       'sku'                       => 'required|max:30|unique:materiales,sku,'.$id_material,
       'descripcion_en_ingles'     => 'required|max:30000|string',
-      'lob'                       => 'required|max:30',
+      'proveedor'                 => 'required|max:30',
       'product_line'              => 'required|max:50',
       'product_line_sub_group'    => 'required|max:50',
       'familia_de_producto'       => 'required|max:60',

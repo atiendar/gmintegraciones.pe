@@ -24,14 +24,14 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="lob">{{ __('Lob') }} *</label>
+    <label for="proveedor">{{ __('Proveedor') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-       {!! Form::text('lob', $material->lob, ['class' => 'form-control' . ($errors->has('lob') ? ' is-invalid' : ''), 'maxlength' => 30, 'placeholder' => __('Lob')]) !!}
+       {!! Form::text('proveedor', $material->lob, ['class' => 'form-control' . ($errors->has('proveedor') ? ' is-invalid' : ''), 'maxlength' => 30, 'placeholder' => __('Proveedor')]) !!}
     </div>
-    <span class="text-danger">{{ $errors->first('lob') }}</span>
+    <span class="text-danger">{{ $errors->first('proveedor') }}</span>
   </div>
   <div class="form-group col-sm btn-sm">
     <label for="product_line">{{ __('Product Line') }} *</label>
