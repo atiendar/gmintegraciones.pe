@@ -6,7 +6,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class MaterialesImport implements ToModel, WithChunkReading, ShouldQueue {
+class MaterialesImport implements ToModel, WithChunkReading {
   use Importable;
   /**
   * @param array $row
