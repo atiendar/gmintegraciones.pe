@@ -6,7 +6,8 @@
       <thead>
         <tr>
           <th>{{ __('SKU') }}</th>
-          <th>{{ __('FAM. PRODUCTO') }}</th>
+          <th>{{ __('DESC EN INGLES') }}</th>
+          <th>{{ __('PROV') }}</th>
           <th>{{ __('LIN. PRODUCTO') }}</th>
           <th>{{ __('PEC. LISTA PAGINA') }}</th>
           <th>{{ __('DESC') }}</th>
@@ -24,7 +25,8 @@
                 {{ $material->sku }}
               @endcan
             </td>
-            <td>{{ $material->fam_de_prod }}</td>
+            <td>{{ $material->des }}</td>
+            <td>{{ $material->lob }}</td>
             <td>{{ $material->lin_de_prod }}</td>
             <td>{{ $material->prec_list_pag }}</td>
             <td>{{ $material->desc }}</td>

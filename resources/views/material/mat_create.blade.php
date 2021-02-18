@@ -10,7 +10,7 @@
   <div class="card-body">
     <label for="por_archivo">{{ __('POR ARCHIVO') }}</label>
     <div class="border border-primary rounded p-2">
-      <a href="{{ env('PREFIX').'material/FormatoImportMaterial.xlsx' }}" class="btn btn-info float-right" download><i class="fas fa-download"></i> {{ __('Descargar formato') }}</a>
+      <a href="{{ env('PREFIX').'material/FormatoImportMaterial1.xlsx' }}" class="btn btn-info float-right" download><i class="fas fa-download"></i> {{ __('Descargar formato') }}</a>
       {!! Form::open(['route' => 'material.importMaterial', 'onsubmit' => 'return checarBotonSubmit("btnsubmitimport")', 'files' => true]) !!}
         @include('material.mat_createFieldsPorArchivo')
       {!! Form::close() !!}
