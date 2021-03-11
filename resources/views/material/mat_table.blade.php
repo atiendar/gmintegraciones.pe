@@ -7,11 +7,11 @@
         <tr>
           <th>{{ __('SKU') }}</th>
           <th>{{ __('DESC EN INGLES') }}</th>
+          <th>{{ __('PRECIO CLIENTE') }}</th>
+          <th>{{ __('DESC') }}</th>
+          <th>{{ __('PEC. LISTA PAGINA') }}</th>
           <th>{{ __('PROV') }}</th>
           <th>{{ __('LIN. PRODUCTO') }}</th>
-          <th>{{ __('PEC. LISTA PAGINA') }}</th>
-          <th>{{ __('DESC') }}</th>
-          <th>{{ __('PRECIO CLIENTE') }}</th>
           <th colspan="2">&nbsp</th>
         </tr>
       </thead>
@@ -26,11 +26,11 @@
               @endcan
             </td>
             <td>{{ $material->des }}</td>
+            <td>{{ $material->prec_pag_al_cli }}</td>
+            <td>{{ $material->desc . "%"}}</td>
+            <td>{{ $material->prec_list_pag }}</td>
             <td>{{ $material->lob }}</td>
             <td>{{ $material->lin_de_prod }}</td>
-            <td>{{ $material->prec_list_pag }}</td>
-            <td>{{ $material->desc }}</td>
-            <td>{{ $material->prec_pag_al_cli }}</td>
             @include('material.mat_tableOpciones') 
           </tr>
           @endforeach
